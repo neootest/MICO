@@ -20,8 +20,6 @@
   ******************************************************************************
   */ 
 
-
-
 #include "mico_app_define.h"
 #include "mico_define.h"
 #include "SppProtocol.h"
