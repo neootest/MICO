@@ -84,7 +84,7 @@ void localConfiglistener_thread(void *inContext)
       if (j > 0) {
         inet_ntoa(ip_address, addr.s_ip );
         config_log("Config Client %s:%d connected, fd: %d", ip_address, addr.s_port, j);
-        err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Config Clients", localConfig_thread, 0x500, &j);  
+        err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Config Clients", localConfig_thread, 0x400, &j);  
       }
     }
    }

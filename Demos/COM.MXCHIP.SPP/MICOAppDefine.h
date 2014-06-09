@@ -34,7 +34,7 @@
 #define MODEL               "EMW3162"
 #define MANUFACTURER        "MXCHIP Inc."
 #define SERIAL_NUMBER       "20140606"
-#define PROTOCOL            "com.mxchip.ha"
+#define PROTOCOL            "com.mxchip.spp"
 #define LOCAL_PORT          8080
 
 /*User provided configurations*/
