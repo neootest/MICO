@@ -325,7 +325,7 @@ OSStatus _connectFTCServer( mico_Context_t * const inContext, int *fd)
   require( json_str, exit );
 
   easylink_log("Send config object=%s\n", json_str);
-  err =  CreateSimpleHTTPMessage_URL( kEasyLinkURLAuth, kMIMEType_JSON, (uint8_t *)json_str, strlen(json_str), &httpResponse, &httpResponseLen );
+  err =  CreateHTTPMessage( "POST", kEasyLinkURLAuth, kMIMEType_JSON, (uint8_t *)json_str, strlen(json_str), &httpResponse, &httpResponseLen );
   require_noerr( err, exit );
   require( httpResponse, exit );
 

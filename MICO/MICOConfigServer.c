@@ -182,10 +182,13 @@ OSStatus _LocalConfigRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico
     json_str = json_object_to_json_string(inContext->micoStatus.easylink_report);
     require( json_str, exit );
     config_log("Send config object=%s", json_str);
-    err =  CreateSimpleHTTPMessage( kMIMEType_JSON, (uint8_t *)json_str, strlen(json_str), &httpResponse, &httpResponseLen );
+    //err =  CreateSimpleHTTPMessage( kMIMEType_JSON, (uint8_t *)json_str, strlen(json_str), &httpResponse, &httpResponseLen );
+    err =  CreateSimpleHTTPMessageNoCopy( kMIMEType_JSON, strlen(json_str), &httpResponse, &httpResponseLen );
     require_noerr( err, exit );
     require( httpResponse, exit );
     err = SocketSend( fd, httpResponse, httpResponseLen );
+    require_noerr( err, exit );
+    err = SocketSend( fd, (uint8_t *)json_str, strlen(json_str) );
     require_noerr( err, exit );
     config_log("Current configuration sent");
     goto exit;

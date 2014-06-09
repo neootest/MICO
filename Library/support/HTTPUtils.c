@@ -485,7 +485,33 @@ exit:
     return err;
 }
 
-OSStatus CreateSimpleHTTPMessage_URL( const char *url, const char *contentType, uint8_t *inData, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize )
+OSStatus CreateSimpleHTTPMessageNoCopy( const char *contentType, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize )
+{
+    OSStatus err = kParamErr;
+
+    require( contentType, exit );
+    require( inDataLen, exit );
+
+    err = kNoMemoryErr;
+    *outMessage = malloc( 200 );
+    require( *outMessage, exit );
+
+    // Create HTTP Response
+    snprintf( (char*)*outMessage, 200, 
+             "%s %s %s%s%s %s%s%s %d%s",
+             "HTTP/1.1", "200", "OK", kCRLFNewLine, 
+             "Content-Type:", contentType, kCRLFNewLine,
+             "Content-Length:", (int)inDataLen, kCRLFLineEnding );
+
+    // outMessageSize will be the length of the HTTP Header plus the data length
+    *outMessageSize = strlen( (char*)*outMessage );
+    err = kNoErr;
+
+exit:
+    return err;
+}
+
+OSStatus CreateHTTPMessage( const char *methold, const char *url, const char *contentType, uint8_t *inData, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize )
 {
     uint8_t *endOfHTTPHeader;  
     OSStatus err = kParamErr;
@@ -500,8 +526,8 @@ OSStatus CreateSimpleHTTPMessage_URL( const char *url, const char *contentType, 
 
     // Create HTTP Response
     sprintf( (char*)*outMessage,
-             "POST %s\? %s %s%s %s%s%s %d%s",
-             url, "HTTP/1.1", kCRLFNewLine, 
+             "%s %s\? %s %s%s %s%s%s %d%s",
+             methold, url, "HTTP/1.1", kCRLFNewLine, 
              "Content-Type:", contentType, kCRLFNewLine,
              "Content-Length:", (int)inDataLen, kCRLFLineEnding );
 

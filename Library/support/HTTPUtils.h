@@ -126,9 +126,11 @@ void HTTPHeaderClear( HTTPHeader_t *inHeader );
 
 int CreateSimpleHTTPOKMessage( uint8_t **outMessage, size_t *outMessageSize );
 
-OSStatus CreateSimpleHTTPMessage( const char *contentType, uint8_t *inData, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize );
+OSStatus CreateSimpleHTTPMessage      ( const char *contentType, uint8_t *inData, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize );
+OSStatus CreateSimpleHTTPMessageNoCopy( const char *contentType, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize );
 
-OSStatus CreateSimpleHTTPMessage_URL( const char *url, const char *contentType, uint8_t *inData, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize );
+
+OSStatus CreateHTTPMessage( const char *methold, const char *url, const char *contentType, uint8_t *inData, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize );
 
 #endif // __HTTPUtils_h__
 
