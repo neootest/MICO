@@ -19,11 +19,11 @@
   ******************************************************************************
   */ 
 
-#include "mico_app_define.h"
-#include "mico_define.h"
+#include "MICOAppDefine.h"
+#include "MICODefine.h"
 #include "SppProtocol.h"
 #include "SocketUtils.h"
-#include "mico_callback.h"
+#include "MICONotificationCenter.h"
 
 #define client_log(M, ...) custom_log("TCP client", M, ##__VA_ARGS__)
 #define client_log_trace() custom_log_trace("TCP client")
@@ -38,11 +38,11 @@ void clientNotify_WifiStatusHandler(int event, mico_Context_t * const inContext)
   client_log_trace();
   (void)inContext;
   switch (event) {
-  case MXCHIP_WIFI_UP:
+  case NOTIFY_STATION_UP:
     _wifiConnected = true;
     mico_rtos_set_semaphore(&_wifiConnected_sem);
     break;
-  case MXCHIP_WIFI_DOWN:
+  case NOTIFY_STATION_DOWN:
     _wifiConnected = false;
     break;
   default:
@@ -69,7 +69,7 @@ void remoteTcpClient_thread(void *inContext)
   mico_rtos_init_semaphore(&_wifiConnected_sem, 1);
   
   /* Regisist notifications */
-  err = mico_add_notification( mico_notify_WIFI_STATUS_CHANGED, (void *)clientNotify_WifiStatusHandler );
+  err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)clientNotify_WifiStatusHandler );
   require_noerr( err, exit ); 
   
   inDataBuffer = malloc(wlanBufferLen);

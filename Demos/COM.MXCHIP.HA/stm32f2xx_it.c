@@ -24,7 +24,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stdio.h"
 #include "stm32f2xx_it.h"
-#include "mico_api.h"
+#include "MICO.h"
 
 extern void vPortSVCHandler(void);
 extern void xPortPendSVHandler(void);

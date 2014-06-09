@@ -19,8 +19,11 @@
   ******************************************************************************
   */ 
 
+#ifndef __SPPPROTOCOL_H
+#define __SPPPROTOCOL_H
+
 #include "Common.h"
-#include "mico_define.h"
+#include "MICODefine.h"
 
 OSStatus sppProtocolInit(mico_Context_t * const inContext);
 int is_network_state(int state);
@@ -30,3 +33,4 @@ OSStatus sppUartCommandProcess(uint8_t *inBuf, int inLen, mico_Context_t * const
 
 void set_network_state(int state, int on);
 
+#endif

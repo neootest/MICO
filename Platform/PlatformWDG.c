@@ -24,7 +24,6 @@
 #include "PlatformWDG.h"
 #include "stm32f2xx.h"
 
-#include "Debug.h"
 
 static __IO uint32_t LsiFreq = 0;
 static __IO uint32_t CaptureNumber = 0, PeriodValue = 0;
@@ -66,11 +65,11 @@ OSStatus PlatformWDGInitialize( uint32_t timeout_ms )
   return err;
 }
 
-void PlatformMFiAuthFinalize( void )
+OSStatus PlatformWDGFinalize( void )
 {
     // PLATFORM_TO_DO
     plat_log_trace();
-    return;
+    return kNoErr;
 }
 
 void PlatformWDGReload( void )

@@ -1,9 +1,13 @@
-#include "mico_app_define.h"
+
+#include "MICO.h"
+#include "MICOAppDefine.h"
+#include "MICONotificationCenter.h"
 #include "HaProtocol.h"
 #include "PlatformUart.h"
 #include "SocketUtils.h"
-#include "platform.h"
-#include "mico_api.h"
+#include "Platform.h"
+#include "PlatformFlash.h"
+
 #include <stdio.h>
 
 #define ha_log(M, ...) custom_log("HA Command", M, ##__VA_ARGS__)
@@ -26,10 +30,10 @@ void haNotify_WifiStatusHandler(int event, mico_Context_t * const inContext)
   ha_log_trace();
   (void)inContext;
   switch (event) {
-  case MXCHIP_WIFI_UP:
+  case NOTIFY_STATION_UP:
     set_network_state(STA_CONNECT, 1);
     break;
-  case MXCHIP_WIFI_DOWN:
+  case NOTIFY_STATION_DOWN:
     set_network_state(STA_CONNECT, 0);
     break;
   default:
@@ -120,7 +124,7 @@ OSStatus haProtocolInit(mico_Context_t * const inContext)
   require_noerr_action( err, exit, ha_log("ERROR: Unable to start the status report thread.") );
 
   /* Regisist notifications */
-  err = mico_add_notification( mico_notify_WIFI_STATUS_CHANGED, (void *)haNotify_WifiStatusHandler );
+  err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)haNotify_WifiStatusHandler );
   require_noerr( err, exit ); 
 exit:
   return err;
@@ -255,7 +259,7 @@ OSStatus _ota_process(uint8_t *inBuf, int inBufLen, int *inSocketFd, mico_Contex
   inContext->flashContentInRam.bootTable.start_address = UPDATE_START_ADDRESS;
   inContext->flashContentInRam.bootTable.type = 'A';
   inContext->flashContentInRam.bootTable.upgrade_type = 'U';
-  mico_UpdateConfiguration(inContext);
+  MICOUpdateConfiguration(inContext);
   cmd_ack.cmd_status = CMD_OK;
   
 CMD_REPLY:
@@ -321,7 +325,7 @@ OSStatus haUartCommandProcess(uint8_t *inBuf, int inLen, mico_Context_t * const 
             mico_rtos_set_semaphore(&inContext->micoStatus.sys_state_change_sem);
             break;
         case 2:
-            mico_RestoreDefault(inContext);
+            MICORestoreDefault(inContext);
             inContext->micoStatus.sys_state = eState_Software_Reset;
             require(inContext->micoStatus.sys_state_change_sem, exit);
             mico_rtos_set_semaphore(&inContext->micoStatus.sys_state_change_sem);

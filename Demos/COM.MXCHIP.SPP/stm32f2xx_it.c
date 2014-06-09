@@ -30,17 +30,7 @@ extern void xPortPendSVHandler(void);
 extern void xPortSysTickHandler(void);
 extern void gpio_irq(void);
 extern void dma_irq(void);
-extern void usart2_rx_dma_irq(void);
-extern void usart2_tx_dma_irq(void);
-extern void usart1_irq(void);
-extern void usart2_irq(void);
 extern void sdio_irq(void);
-extern void usart6_rx_dma_irq(void);
-extern void usart1_rx_dma_irq(void);
-extern void usart6_tx_dma_irq(void);
-extern void usart1_tx_dma_irq(void);
-extern void usart6_irq();
-
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -217,29 +207,6 @@ void SDIO_IRQHandler(void)
 void DMA2_Stream3_IRQHandler(void)
 {
   dma_irq();
-}
-
-/*EMW3161 UART API */
-void DMA1_Stream5_IRQHandler(void)
-{
-  usart2_rx_dma_irq();
-}
-
-
-/*Bluretooth UART API */
-void DMA2_Stream1_IRQHandler(void)
-{ 
-  usart6_rx_dma_irq();
-}
-
-void DMA2_Stream6_IRQHandler(void)
-{
-  usart6_tx_dma_irq();
-}
-
-void USART6_IRQHandler(void)
-{  
-    usart6_irq();
 }
 
 /*EXTI ISR*/

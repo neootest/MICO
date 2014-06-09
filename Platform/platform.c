@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    platform.c 
+  * @file    Platform.c 
   * @author  William Xu
   * @version V1.0.0
   * @date    05-May-2014
@@ -21,8 +21,10 @@
 
 #include "stdio.h"
 #include "stm32f2xx.h"
-#include "platform.h"
-#include "mico_api.h"
+#include "Platform.h"
+#include "PlatformWDG.h"
+#include "MICO.h"
+#include "MICODefine.h"
 
 static void _button_EL_irq_handler( void * arg );
 static void _button_EL_Timeout_handler( void* arg );
@@ -38,6 +40,15 @@ static uint32_t _default_start_time = 0;
 
 void Platform_Init(void)
 {
+  /*STM32 wakeup by watchdog in standby mode, re-enter standby mode in this situation*/
+  PlatformWDGReload();
+  if ( (PWR_GetFlagStatus(PWR_FLAG_SB) != RESET) && RCC_GetFlagStatus(RCC_FLAG_IWDGRST) != RESET)
+  {
+    RCC_ClearFlag();
+    Platform_Enter_STANDBY();
+  }
+  PWR_ClearFlag(PWR_FLAG_SB);
+
   mico_rtos_init_mutex(&printf_mutex);
   Platform_Button_EL_Init();
   Platform_Button_STANDBY_Init();

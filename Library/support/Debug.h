@@ -23,8 +23,7 @@
 #ifndef __Debug_h__
 #define __Debug_h__
 
-#include "Common.h"
-#include "mico_rtos.h"
+#include "MICORtos.h"
 
 extern mico_mutex_t printf_mutex;
 

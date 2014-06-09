@@ -21,7 +21,7 @@
 
 #include <stdlib.h>
 #include "stm32f2xx.h"
-#include "mico_rtos.h"
+#include "MICO.h"
 #include "PlatformUart.h"
 #include "Platform.h"
 #include "RingBufferUtils.h"

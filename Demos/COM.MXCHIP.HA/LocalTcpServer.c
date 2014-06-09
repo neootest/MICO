@@ -1,5 +1,6 @@
-#include "mico_app_define.h"
-#include "mico_define.h"
+#include "MICODefine.h"
+#include "MICOAppDefine.h"
+
 #include "HaProtocol.h"
 #include "SocketUtils.h"
 #include "PlatformUart.h"
@@ -31,8 +32,6 @@ void localTcpServer_thread(void *inContext)
   for(i=0; i < MAX_Local_Client_Num; i++) 
     Context->appStatus.loopBack_PortList[i] = 0;
 
-  
-  
   /*Establish a TCP server fd that accept the tcp clients connections*/ 
   localTcpListener_fd = socket( AF_INET, SOCK_STREAM, IPPROTO_TCP );
   require_action(IsValidSocket( localTcpListener_fd ), exit, err = kNoResourcesErr );

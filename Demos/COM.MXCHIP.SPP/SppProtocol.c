@@ -20,13 +20,13 @@
   ******************************************************************************
   */ 
 
-#include "mico_app_define.h"
+#include "MICOAppDefine.h"
 #include "SppProtocol.h"
 #include "PlatformUart.h"
 #include "SocketUtils.h"
 #include "debug.h"
 #include "platform.h"
-#include "mico_callback.h"
+#include "MICONotificationCenter.h"
 #include <stdio.h>
 
 #define spp_log(M, ...) custom_log("SPP", M, ##__VA_ARGS__)

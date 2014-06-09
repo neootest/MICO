@@ -49,7 +49,7 @@
 #if( AES_UTILS_USE_COMMON_CRYPTO )
     #include <CommonCrypto/CommonCryptor.h>
 #elif( AES_UTILS_USE_GLADMAN_AES )
-    #include "aes.h"
+    #include "External/GladmanAES/aes.h"
 #elif( !TARGET_NO_OPENSSL )
     #include <openssl/aes.h>
 #else

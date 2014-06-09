@@ -20,15 +20,14 @@
 */ 
 
 
-#include "mico_api.h"
+#include "MICO.h"
 #include "HTTPUtils.h"
-#include "platform.h"
+#include "PlatformFlash.h"
 
 #include <errno.h>
 #include <stdarg.h>
 
 #include "StringUtils.h"
-
 
 #define kCRLFNewLine     "\r\n"
 #define kCRLFLineEnding  "\r\n\r\n"
@@ -465,11 +464,11 @@ OSStatus CreateSimpleHTTPMessage( const char *contentType, uint8_t *inData, size
     require( inDataLen, exit );
 
     err = kNoMemoryErr;
-    *outMessage = malloc( 2048 );
+    *outMessage = malloc( inDataLen + 200 );
     require( *outMessage, exit );
 
     // Create HTTP Response
-    sprintf( (char*)*outMessage,
+    snprintf( (char*)*outMessage, 200, 
              "%s %s %s%s%s %s%s%s %d%s",
              "HTTP/1.1", "200", "OK", kCRLFNewLine, 
              "Content-Type:", contentType, kCRLFNewLine,

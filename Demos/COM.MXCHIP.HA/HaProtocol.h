@@ -1,5 +1,5 @@
 #include "Common.h"
-#include "mico_define.h"
+#include "MICODefine.h"
 
 #define UART_FRAM_START     0xAA
 #define UART_FRAM_END       0x55

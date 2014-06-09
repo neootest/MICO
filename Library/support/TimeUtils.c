@@ -22,7 +22,7 @@
 
 #include "TimeUtils.h"
 #include "Debug.h"
-#include "mico_rtos.h"
+#include "MICO.h"
 #include <errno.h>
 
 uint32_t TimeDifference(uint32_t inStart, uint32_t inEnd)

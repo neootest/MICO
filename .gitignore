@@ -1,2 +1,11 @@
 Document/*
-Projects/*
+Build/*
+*.dep
+*.jlink
+*.bat
+*.dni
+*.dbgdt
+*.wsdt
+*.rar
+*.zip
+*.tmp

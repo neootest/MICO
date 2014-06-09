@@ -21,7 +21,7 @@
 
 #include "SocketUtils.h"
 #include "Debug.h"
-#include "mico_api.h"
+#include "MICO.h"
 
 #define socket_utils_log(M, ...) custom_log("HTTPUtils", M, ##__VA_ARGS__)
 #define socket_utils_log_trace() custom_log_trace("HTTPUtils")

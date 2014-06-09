@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    platform.h 
+  * @file    Platform.h 
   * @author  William Xu
   * @version V1.0.0
   * @date    05-May-2014
@@ -26,11 +26,7 @@
 
 #include "Common.h"
 #include "stm32f2xx.h"
-#include "mico_rtos.h"
-#include "PlatformWDG.h"
-#include "PlatformFlash.h"
-
-#include "mico_define.h"
+#include "MICO.h"
                                      
 void Platform_Init(void);          
 
@@ -55,13 +51,13 @@ typedef void (*gpio_irq_handler_t)( void* arg);
 typedef enum _led_index {
   MICO_LED_SYS,
   MICO_LED_RF
-  } led_index;
+} led_index;
 
 typedef enum _led_operation {
   ON,
   OFF,
   TRIGGER
-  } led_operation;
+} led_operation;
 
 /*Leds*/
 void Platform_LED_SYS_Init(void);

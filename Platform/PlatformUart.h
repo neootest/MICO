@@ -26,7 +26,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f2xx.h"
 #include "Common.h"
-#include "mico_define.h"
+#include "MICODefine.h"
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*! @function   PlatformUartInitialize

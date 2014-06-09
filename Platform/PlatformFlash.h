@@ -71,6 +71,10 @@
 #define PARA_END_ADDRESS            (uint32_t)0x08007FFF
 #define PARA_FLASH_SIZE             (PARA_END_ADDRESS - PARA_START_ADDRESS + 1)  
 
+#define BACKUP_PARA_START_ADDRESS   (uint32_t)0x08008000 
+#define BACKUP_PARA_END_ADDRESS     (uint32_t)0x0800BFFF
+#define BACKUP_PARA_FLASH_SIZE      (BACKUP_PARA_END_ADDRESS - BACKUP_PARA_START_ADDRESS + 1)
+
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 //---------------------------------------------------------------------------------------------------------------------------

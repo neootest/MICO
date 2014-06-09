@@ -19,11 +19,11 @@
   ******************************************************************************
   */ 
 
-#include "mico_app_define.h"
-#include "mico_define.h"
+#include "MICOAppDefine.h"
+#include "MICODefine.h"
 #include "SppProtocol.h"
 #include "PlatformUart.h"
-#include "mico_callback.h"
+#include "MICONotificationCenter.h"
 
 #define uart_recv_log(M, ...) custom_log("UART RECV", M, ##__VA_ARGS__)
 #define uart_recv_log_trace() custom_log_trace("UART RECV")
