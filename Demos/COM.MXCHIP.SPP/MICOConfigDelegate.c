@@ -217,6 +217,18 @@ OSStatus ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
   /*Sector 3*/
   sector = json_object_new_array();
   require( sector, exit );
+  err = MICOAddSector(sectors, "WLAN",           sector);
+  require_noerr(err, exit);
+
+    err = MICOAddStringCellToSector(sector, "Wi-Fi",        inContext->flashContentInRam.micoSystemConfig.ssid,     "RW", NULL);
+    require_noerr(err, exit);
+
+    err = MICOAddStringCellToSector(sector, "Password",     inContext->flashContentInRam.micoSystemConfig.user_key, "RW", NULL);
+    require_noerr(err, exit);
+
+  /*Sector 4*/
+  sector = json_object_new_array();
+  require( sector, exit );
   err = MICOAddSector(sectors, "SPP Remote Server",           sector);
   require_noerr(err, exit);
 
@@ -278,6 +290,13 @@ OSStatus ConfigIncommingJsonMessage( const char *input, mico_Context_t * const i
       inContext->flashContentInRam.micoSystemConfig.mcuPowerSaveEnable = json_object_get_boolean(val);
     }else if(!strcmp(key, "Bonjour")){
       inContext->flashContentInRam.micoSystemConfig.bonjourEnable = json_object_get_boolean(val);
+    }else if(!strcmp(key, "Wi-Fi")){
+      strncpy(inContext->flashContentInRam.micoSystemConfig.ssid, json_object_get_string(val), maxSsidLen);
+      inContext->flashContentInRam.micoSystemConfig.channel = 0;
+      memset(inContext->flashContentInRam.micoSystemConfig.bssid, 0x0, 6);
+    }else if(!strcmp(key, "Password")){
+      strncpy(inContext->flashContentInRam.micoSystemConfig.key, json_object_get_string(val), maxKeyLen);
+      inContext->flashContentInRam.micoSystemConfig.keyLength = strlen(inContext->flashContentInRam.micoSystemConfig.key);
     }else if(!strcmp(key, "Connect SPP Server")){
       inContext->flashContentInRam.appConfig.remoteServerEnable = json_object_get_boolean(val);
     }else if(!strcmp(key, "SPP Server")){

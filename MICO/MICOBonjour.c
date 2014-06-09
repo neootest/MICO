@@ -52,7 +52,7 @@ void BonjourNotify_SYSWillPoerOffHandler( mico_Context_t * const inContext)
   }
 }
 
-OSStatus MICOStartBonjourService( mico_Context_t * const inContext )
+OSStatus MICOStartBonjourService( WiFi_Interface interface, mico_Context_t * const inContext )
 {
   char temp_txt[500]; 
   char *temp_txt2;
@@ -81,7 +81,7 @@ OSStatus MICOStartBonjourService( mico_Context_t * const inContext )
   init.instance_name = (char*)__strdup(temp_txt);
 
   init.service_port = inContext->flashContentInRam.appConfig.localServerPort;
-  init.interface = Station;
+  init.interface = interface;
 
   temp_txt2 = __strdup_trans_dot(inContext->micoStatus.mac);
   sprintf(temp_txt, "MAC=%s.", temp_txt2);
@@ -121,7 +121,7 @@ OSStatus MICOStartBonjourService( mico_Context_t * const inContext )
   free(init.txt_record);
 
   err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)BonjourNotify_WifiStatusHandler );
-  require_noerr( err, exit ); 
+  require_noerr( err, exit );
   err = MICOAddNotification( mico_notify_SYS_WILL_POWER_OFF, (void *)BonjourNotify_SYSWillPoerOffHandler );
   require_noerr( err, exit ); 
 

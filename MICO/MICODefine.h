@@ -30,6 +30,10 @@
 #include "external/JSON-C/json.h"
 #include "MICOAppDefine.h"
 
+#define CONFIG_MODE_EASYLINK
+#define CONFIG_MODE_EASYLINK_WITH_SOFTAP
+//#define CONFIG_MODE_WAC
+
 #define BONJOUR_SERVICE         "_easylink._tcp.local."
 #define CONFIG_SERVICE_PORT     8000
 
@@ -217,9 +221,9 @@ typedef struct
 
 #define CONFIG_DATA_SIZE (sizeof(application_config_t)-sizeof(uint32_t))
 
-OSStatus MICOStartBonjourService      ( mico_Context_t * const inContext );
-OSStatus MICOstartConfigServer        ( mico_Context_t * const inContext );
-OSStatus MICOStartApplication         ( mico_Context_t * const inContext );
+OSStatus MICOStartBonjourService        ( WiFi_Interface interface, mico_Context_t * const inContext );
+OSStatus MICOstartConfigServer          ( mico_Context_t * const inContext );
+OSStatus MICOStartApplication           ( mico_Context_t * const inContext );
 
 OSStatus MICORestoreDefault             ( mico_Context_t * const inContext );
 OSStatus MICOReadConfiguration          ( mico_Context_t * const inContext );

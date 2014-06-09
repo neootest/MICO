@@ -233,13 +233,20 @@ int application_start(void)
   require_noerr( err, exit );
   mico_init_timer(&_watchdog_reload_timer,APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000-100, _watchdog_reload_timer_handler, NULL);
   mico_start_timer(&_watchdog_reload_timer);
-
   
   if(context->flashContentInRam.micoSystemConfig.configured != allConfigured){
     mico_log("Empty configuration. Starting configuration mode...");
-    //err = startEasyLink( context );
+
+#ifdef CONFIG_MODE_EASYLINK
+    err = startEasyLink( context );
+    require_noerr( err, exit );
+#endif
+
+#ifdef CONFIG_MODE_WAC
     err = startMfiWac( context );
     require_noerr( err, exit );
+#endif
+    
   }
   else{
     mico_log("Available configuration. Starting Wi-Fi connection...");
@@ -264,7 +271,7 @@ int application_start(void)
 
     /*Bonjour service for searching*/
     if(context->flashContentInRam.micoSystemConfig.bonjourEnable == true){
-      err = MICOStartBonjourService( context );
+      err = MICOStartBonjourService( Station, context );
       require_noerr( err, exit );
     }
 

@@ -5,7 +5,7 @@
 * @version V1.0.0
 * @date    05-May-2014
 * @brief   This header contains function prototypes called by ring buffer 
-  operation
+*          operation
 ******************************************************************************
 * @attention
 *

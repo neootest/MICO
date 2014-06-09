@@ -228,12 +228,12 @@ OSStatus startMfiWac( mico_Context_t * const inContext)
   require_noerr( err, exit );   
 
   str2hex((unsigned char *)para.mac, WAC_Params->macAddress, 6);
-  WAC_Params->isUnconfigured = 1;
-  WAC_Params->supportsAirPlay = 0;
-  WAC_Params->supportsAirPrint = 0;
-  WAC_Params->supports2_4GHzWiFi = 1;
-  WAC_Params->supports5GHzWiFi = 0;
-  WAC_Params->supportsWakeOnWireless = 0;
+  WAC_Params->isUnconfigured          = 1;
+  WAC_Params->supportsAirPlay         = 0;
+  WAC_Params->supportsAirPrint        = 0;
+  WAC_Params->supports2_4GHzWiFi      = 1;
+  WAC_Params->supports5GHzWiFi        = 0;
+  WAC_Params->supportsWakeOnWireless  = 0;
 
   WAC_Params->firmwareRevision =  inContext->flashContentInRam.micoSystemConfig.firmwareRevision;
   WAC_Params->hardwareRevision =  inContext->flashContentInRam.micoSystemConfig.hardwareRevision;
@@ -378,29 +378,6 @@ OSStatus applyNewConfiguration(char* destinationSSID, char *destinationPSK, char
   network_InitTypeDef_adv_st WAC_NetConfig;
 
   require(destinationSSID, exit);
-
-
-
-  // easylink_log_trace();
-  // network_InitTypeDef_adv_st wNetConfig;
-  // memset(&wNetConfig, 0x0, sizeof(network_InitTypeDef_adv_st));
-  
-  // mico_rtos_lock_mutex(&inContext->flashContentInRam_mutex);
-  // strncpy((char*)wNetConfig.ap_info.ssid, inContext->flashContentInRam.micoSystemConfig.ssid, maxSsidLen);
-  // wNetConfig.ap_info.security = SECURITY_TYPE_AUTO;
-  // memcpy(wNetConfig.key, inContext->flashContentInRam.micoSystemConfig.user_key, maxKeyLen);
-  // wNetConfig.key_len = inContext->flashContentInRam.micoSystemConfig.user_keyLength;
-  // wNetConfig.dhcpMode = inContext->flashContentInRam.micoSystemConfig.dhcpEnable;
-  // strncpy((char*)wNetConfig.local_ip_addr, inContext->flashContentInRam.micoSystemConfig.localIp, maxIpLen);
-  // strncpy((char*)wNetConfig.net_mask, inContext->flashContentInRam.micoSystemConfig.netMask, maxIpLen);
-  // strncpy((char*)wNetConfig.gateway_ip_addr, inContext->flashContentInRam.micoSystemConfig.gateWay, maxIpLen);
-  // strncpy((char*)wNetConfig.dnsServer_ip_addr, inContext->flashContentInRam.micoSystemConfig.dnsServer, maxIpLen);
-
-  // wNetConfig.wifi_retry_interval = 100;
-  // mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
-  // StartAdvNetwork(&wNetConfig);
-  // easylink_log("connect to %s.....\r\n", wNetConfig.ap_info.ssid);
-
 
   mico_rtos_lock_mutex(&inContext->flashContentInRam_mutex);
   memset(&WAC_NetConfig, 0, sizeof(network_InitTypeDef_adv_st));

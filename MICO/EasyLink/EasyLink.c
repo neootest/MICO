@@ -47,6 +47,8 @@ static bool _FTCClientConnected = false;
 static uint8_t *httpResponse = NULL;
 static HTTPHeader_t *httpHeader = NULL;
 
+static bool EasylinkFailed = false;
+
 extern OSStatus ConfigIncommingJsonMessage( const char *input, mico_Context_t * const inContext );
 
 extern OSStatus ConfigCreateReportJsonMessage( mico_Context_t * const inContext );
@@ -56,6 +58,10 @@ extern void ConfigWillStart( mico_Context_t * const inContext );
 extern void ConfigWillStop(mico_Context_t * const inContext );
 
 extern OSStatus ConfigELRecvAuthData(char * userInfo, mico_Context_t * const inContext );
+
+extern OSStatus MICOStartBonjourService      ( WiFi_Interface interface, mico_Context_t * const inContext );
+
+extern OSStatus MICOstartConfigServer        ( mico_Context_t * const inContext );
 
 void EasyLinkNotify_WifiStatusHandler(WiFiEvent event, mico_Context_t * const inContext)
 {
@@ -116,7 +122,6 @@ void EasyLinkNotify_EasyLinkCompleteHandler(network_InitTypeDef_st *nwkpara, mic
   easylink_log("EasyLink return @ %d", mico_get_time());
   require_action(inContext, exit, err = kParamErr);
   require_action(nwkpara, exit, err = kTimeoutErr);
-
   
   mico_rtos_lock_mutex(&inContext->flashContentInRam_mutex);
   memcpy(inContext->flashContentInRam.micoSystemConfig.ssid, nwkpara->wifi_ssid, maxSsidLen);
@@ -129,6 +134,10 @@ void EasyLinkNotify_EasyLinkCompleteHandler(network_InitTypeDef_st *nwkpara, mic
 /*EasyLink is not start*/    
 exit:
   easylink_log("ERROR, err: %d", err);
+#if defined (CONFIG_MODE_EASYLINK_WITH_SOFTAP)
+  EasylinkFailed = true;
+  mico_rtos_set_semaphore(&inContext->micoStatus.easylink_sem);
+#else
   ConfigWillStop(inContext);
   /*so roll back to previous settings  (if it has) and reboot*/
   mico_rtos_lock_mutex(&inContext->flashContentInRam_mutex);
@@ -142,6 +151,8 @@ exit:
   wifi_power_down();
   mico_stop_timer(&_Led_EL_timer);
   Platform_LED_SYS_Set_Status(OFF);
+#endif
+
   
   return;
 }
@@ -192,6 +203,7 @@ void EasyLinkNotify_EasyLinkGetExtraDataHandler(int datalen, char* data, mico_Co
 
   require_noerr(ConfigELRecvAuthData(data, inContext), exit);
   
+  EasylinkFailed = false;
   mico_rtos_set_semaphore(&inContext->micoStatus.easylink_sem);
 
   return;
@@ -246,7 +258,7 @@ OSStatus startEasyLink( mico_Context_t * const inContext)
   // Start the EasyLink thread
   ConfigWillStart(inContext);
   mico_rtos_init_semaphore(&inContext->micoStatus.easylink_sem, 1);
-  err = mico_rtos_create_thread(&inContext->micoStatus.easylink_thread_handler, MICO_APPLICATION_PRIORITY, "EASYLINK", easylink_thread, 0x500, (void*)inContext );
+  err = mico_rtos_create_thread(&inContext->micoStatus.easylink_thread_handler, MICO_APPLICATION_PRIORITY, "EASYLINK", easylink_thread, 0x1000, (void*)inContext );
   require_noerr_action( err, exit, easylink_log("ERROR: Unable to start the EasyLink thread.") );
 
 exit:
@@ -273,8 +285,37 @@ void _easylinkConnectWiFi( mico_Context_t * const inContext)
   wNetConfig.wifi_retry_interval = 100;
   mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
   StartAdvNetwork(&wNetConfig);
-  easylink_log("connect to %s.....\r\n", wNetConfig.ap_info.ssid);
+  easylink_log("connect to %s.....", wNetConfig.ap_info.ssid);
 }
+
+void _easylinkStartSoftAp( mico_Context_t * const inContext)
+{
+  easylink_log_trace();
+  network_InitTypeDef_st wNetConfig;
+
+  memset(&wNetConfig, 0, sizeof(network_InitTypeDef_st));
+  wNetConfig.wifi_mode = Soft_AP;
+  snprintf(wNetConfig.wifi_ssid, 32, "MXCHIP_%c%c%c%c%c%c", inContext->micoStatus.mac[9], inContext->micoStatus.mac[10], \
+                                                            inContext->micoStatus.mac[12], inContext->micoStatus.mac[13],
+                                                            inContext->micoStatus.mac[15], inContext->micoStatus.mac[16] );
+  strcpy((char*)wNetConfig.wifi_key, "");
+  strcpy((char*)wNetConfig.local_ip_addr, "10.10.10.1");
+  strcpy((char*)wNetConfig.net_mask, "255.255.255.0");
+  strcpy((char*)wNetConfig.gateway_ip_addr, "10.10.10.1");
+  strcpy((char*)wNetConfig.address_pool_start, "10.10.10.10");
+  strcpy((char*)wNetConfig.address_pool_end, "10.10.10.177");
+  wNetConfig.dhcpMode = DHCP_Server;
+  StartNetwork(&wNetConfig);
+  easylink_log("Establish soft ap: %s.....", wNetConfig.wifi_ssid);
+
+  MICOStartBonjourService  ( Soft_AP , inContext );
+
+  MICOstartConfigServer    ( inContext );
+
+  MICOStartApplication     ( inContext );
+}
+
+
 
 void _easylinkConnectWiFi_fast( mico_Context_t * const inContext)
 {
@@ -298,7 +339,7 @@ void _easylinkConnectWiFi_fast( mico_Context_t * const inContext)
   wNetConfig.wifi_retry_interval = 100;
   mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
   StartAdvNetwork(&wNetConfig);
-  easylink_log("connect to %s.....\r\n", wNetConfig.ap_info.ssid);
+  easylink_log("Connect to %s.....\r\n", wNetConfig.ap_info.ssid);
 }
 
 OSStatus _connectFTCServer( mico_Context_t * const inContext, int *fd)
@@ -382,7 +423,14 @@ void easylink_thread(void *inContext)
     OpenEasylink2_withdata(EasyLink_TimeOut); 
     easylink_log("Start easylink @ %d", mico_get_time());
     mico_rtos_get_semaphore(&Context->micoStatus.easylink_sem, MICO_WAIT_FOREVER);
-    _easylinkConnectWiFi(Context);
+    if(EasylinkFailed == false)
+      _easylinkConnectWiFi(Context);
+    else{
+      _easylinkStartSoftAp(Context);
+      mico_rtos_delete_thread(NULL);
+      return;
+    }
+      
   }else{
     mico_rtos_lock_mutex(&Context->flashContentInRam_mutex);
     Context->flashContentInRam.micoSystemConfig.easyLinkEnable = true;
