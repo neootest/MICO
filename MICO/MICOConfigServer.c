@@ -23,6 +23,7 @@
 #include "MICODefine.h"
 #include "SocketUtils.h"
 #include "Platform.h"
+#include "PlatformFlash.h"  
 #include "HTTPUtils.h"
 
 
@@ -41,7 +42,7 @@ static void localConfig_thread(void *inFd);
 static mico_Context_t *Context;
 static OSStatus _LocalConfigRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context_t * const inContext);
 
-OSStatus MICOstartConfigServer ( mico_Context_t * const inContext )
+OSStatus MICOStartConfigServer ( mico_Context_t * const inContext )
 {
   return mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Config Server", localConfiglistener_thread, 0x500, (void*)inContext );
 }
@@ -191,6 +192,8 @@ OSStatus _LocalConfigRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico
     err = SocketSend( fd, (uint8_t *)json_str, strlen(json_str) );
     require_noerr( err, exit );
     config_log("Current configuration sent");
+    SocketClose(&fd);
+    err = kConnectionErr;
     goto exit;
   }
   else if(HTTPHeaderMatchURL( inHeader, kCONFIGURLWrite ) == kNoErr){
@@ -203,8 +206,27 @@ OSStatus _LocalConfigRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico
       require( httpResponse, exit );
       err = SocketSend( fd, httpResponse, httpResponseLen );
       SocketClose(&fd);
-      sleep(2);  //wait for perform TCP close 
-      PlatformSoftReboot();
+      inContext->micoStatus.sys_state = eState_Software_Reset;
+      require(inContext->micoStatus.sys_state_change_sem, exit);
+      mico_rtos_set_semaphore(&inContext->micoStatus.sys_state_change_sem);
+    }
+    goto exit;
+  }
+  else if(HTTPHeaderMatchURL( inHeader, kCONFIGURLOTA ) == kNoErr){
+    if(inHeader->contentLength > 0){
+      config_log("Receive OTA data!");
+      mico_rtos_lock_mutex(&inContext->flashContentInRam_mutex);
+      memset(&inContext->flashContentInRam.bootTable, 0, sizeof(boot_table_t));
+      inContext->flashContentInRam.bootTable.length = inHeader->contentLength;
+      inContext->flashContentInRam.bootTable.start_address = UPDATE_START_ADDRESS;
+      inContext->flashContentInRam.bootTable.type = 'A';
+      inContext->flashContentInRam.bootTable.upgrade_type = 'U';
+      MICOUpdateConfiguration(inContext);
+      mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
+      SocketClose(&fd);
+      inContext->micoStatus.sys_state = eState_Software_Reset;
+      require(inContext->micoStatus.sys_state_change_sem, exit);
+      mico_rtos_set_semaphore(&inContext->micoStatus.sys_state_change_sem);
     }
     goto exit;
   }

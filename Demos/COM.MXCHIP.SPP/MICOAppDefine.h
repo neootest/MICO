@@ -28,7 +28,7 @@
 
 #define APP_INFO   "mxchipWNet SPP Demo based on MICO OS"
 
-#define FIRMWARE_REVISION   "MICO_SPP_1_0"
+#define FIRMWARE_REVISION   "MICO_SPP_1_1"
 #define HARDWARE_REVISION   "3162"
 #define DEFAULT_NAME        "EMW3162 Module"
 #define MODEL               "EMW3162"
@@ -38,7 +38,7 @@
 #define LOCAL_PORT          8080
 
 /*User provided configurations*/
-#define CONFIGURATION_VERSION               0x0000001 // if changed default configuration, add this num
+#define CONFIGURATION_VERSION               0x0000000 // if changed default configuration, add this num
 #define MAX_Local_Client_Num                8
 #define DEAFULT_REMOTE_SERVER               "192.168.2.254"
 #define DEFAULT_REMOTE_SERVER_PORT          8080

@@ -57,6 +57,8 @@ extern void ConfigWillStart( mico_Context_t * const inContext );
 
 extern void ConfigWillStop(mico_Context_t * const inContext );
 
+extern void ConfigSoftApWillStart(mico_Context_t * const inContext );
+
 extern OSStatus ConfigELRecvAuthData(char * userInfo, mico_Context_t * const inContext );
 
 extern OSStatus MICOStartBonjourService      ( WiFi_Interface interface, mico_Context_t * const inContext );
@@ -290,12 +292,13 @@ void _easylinkConnectWiFi( mico_Context_t * const inContext)
 
 void _easylinkStartSoftAp( mico_Context_t * const inContext)
 {
+  OSStatus err;
   easylink_log_trace();
   network_InitTypeDef_st wNetConfig;
 
   memset(&wNetConfig, 0, sizeof(network_InitTypeDef_st));
   wNetConfig.wifi_mode = Soft_AP;
-  snprintf(wNetConfig.wifi_ssid, 32, "MXCHIP_%c%c%c%c%c%c", inContext->micoStatus.mac[9], inContext->micoStatus.mac[10], \
+  snprintf(wNetConfig.wifi_ssid, 32, "MXCHIP_%c%c%c%c%c%c", inContext->micoStatus.mac[9],  inContext->micoStatus.mac[10], \
                                                             inContext->micoStatus.mac[12], inContext->micoStatus.mac[13],
                                                             inContext->micoStatus.mac[15], inContext->micoStatus.mac[16] );
   strcpy((char*)wNetConfig.wifi_key, "");
@@ -308,11 +311,20 @@ void _easylinkStartSoftAp( mico_Context_t * const inContext)
   StartNetwork(&wNetConfig);
   easylink_log("Establish soft ap: %s.....", wNetConfig.wifi_ssid);
 
-  MICOStartBonjourService  ( Soft_AP , inContext );
+  if(inContext->flashContentInRam.micoSystemConfig.bonjourEnable == true){
+    err = MICOStartBonjourService( Soft_AP , inContext );
+    require_noerr(err, exit);
+  }
+  
+  if(inContext->flashContentInRam.micoSystemConfig.configServerEnable == true){
+    err = MICOStartConfigServer  ( inContext );
+    require_noerr(err, exit);
+  }
 
-  MICOstartConfigServer    ( inContext );
+  ConfigSoftApWillStart( inContext );
 
-  MICOStartApplication     ( inContext );
+exit:
+  return;
 }
 
 
@@ -557,10 +569,10 @@ OSStatus _FTCRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context
         if( strnicmpx( value, valueSize, kMIMEType_JSON ) == 0 ){
           easylink_log("Receive JSON config data!");
           err = ConfigIncommingJsonMessage( inHeader->extraDataPtr, inContext);
-          close(fd);
-          sleep(2);  //wait for perform TCP close 
-          fd = -1;
-          PlatformSoftReboot();
+          SocketClose(&fd);
+          inContext->micoStatus.sys_state = eState_Software_Reset;
+          require(inContext->micoStatus.sys_state_change_sem, exit);
+          mico_rtos_set_semaphore(&inContext->micoStatus.sys_state_change_sem);
         }else if(strnicmpx( value, valueSize, kMIMEType_MXCHIP_OTA ) == 0){
           easylink_log("Receive OTA data!");
           mico_rtos_lock_mutex(&inContext->flashContentInRam_mutex);
@@ -572,10 +584,10 @@ OSStatus _FTCRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context
           inContext->flashContentInRam.micoSystemConfig.easyLinkEnable = false;
           MICOUpdateConfiguration(inContext);
           mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
-          close(fd);
-          sleep(2);  //wait for perform TCP close 
-          fd = -1;
-          PlatformSoftReboot();
+          SocketClose(&fd);
+          inContext->micoStatus.sys_state = eState_Software_Reset;
+          require(inContext->micoStatus.sys_state_change_sem, exit);
+          mico_rtos_set_semaphore(&inContext->micoStatus.sys_state_change_sem);
         }else{
           return kUnsupportedDataErr;
         }

@@ -22,10 +22,14 @@
 
 #include "Common.h"
 #include "debug.h"
-#include "platform.h"
+#include "Platform.h"
+#include "PlatformUart.h"
 #include "EasyLink/EasyLink.h"
 #include "external/JSON-C/json.h"
+#include "MICO.h"
 #include "MICODefine.h"
+#include "MICOAppDefine.h"
+#include "SppProtocol.h"  
 #include "MICOConfigMenu.h"
 #include "StringUtils.h"
 
@@ -46,6 +50,25 @@ void ConfigWillStop( mico_Context_t * const inContext )
   return;
 }
 
+void ConfigSoftApWillStart(mico_Context_t * const inContext )
+{
+  OSStatus err;
+  sppProtocolInit(inContext);
+  PlatformUartInitialize(inContext);
+
+  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "UART Recv", uartRecv_thread, 0x500, (void*)inContext );
+  require_noerr_action( err, exit, config_delegate_log("ERROR: Unable to start the uart recv thread.") );
+
+ if(inContext->flashContentInRam.appConfig.localServerEnable == true){
+   err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Local Server", localTcpServer_thread, 0x200, (void*)inContext );
+   require_noerr_action( err, exit, config_delegate_log("ERROR: Unable to start the local server thread.") );
+ }
+
+exit:
+  return;
+}
+
+
 OSStatus ConfigELRecvAuthData(char * userInfo, mico_Context_t * const inContext )
 {
   config_delegate_log_trace();
@@ -61,26 +84,30 @@ OSStatus ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
   char name[50], *tempString;
   OTA_Versions_t versions;
   char rfVersion[50];
-  char *rfVer = NULL;
+  char *rfVer = NULL, *rfVerTemp = NULL;
 
   wlan_driver_version( rfVersion, 50 );
   rfVer = strstr(rfVersion, "version ");
   config_delegate_log("RF version=%s", rfVersion);
   if(rfVer) rfVer = rfVer + strlen("version ");
+  rfVerTemp = rfVer;
+
+  for(rfVerTemp = rfVer; *rfVerTemp != ' '; rfVerTemp++);
+  *rfVerTemp = 0x0;
 
   if(inContext->flashContentInRam.micoSystemConfig.configured == wLanUnConfigured){
     /*You can upload a specific menu*/
   }
 
   mico_rtos_lock_mutex(&inContext->flashContentInRam_mutex);
-  snprintf(name, 50, "%s(%c%c%c%c%c%c)",inContext->flashContentInRam.micoSystemConfig.model, 
+  snprintf(name, 50, "%s(%c%c%c%c%c%c)",inContext->micoStatus.model, 
                                         inContext->micoStatus.mac[9],  inContext->micoStatus.mac[10], 
                                         inContext->micoStatus.mac[12], inContext->micoStatus.mac[13],
                                         inContext->micoStatus.mac[15], inContext->micoStatus.mac[16]);
 
-  versions.fwVersion = inContext->flashContentInRam.micoSystemConfig.firmwareRevision;
-  versions.hdVersion = inContext->flashContentInRam.micoSystemConfig.hardwareRevision;
-  versions.protocol = inContext->flashContentInRam.micoSystemConfig.protocol;
+  versions.fwVersion = inContext->micoStatus.firmwareRevision;
+  versions.hdVersion = inContext->micoStatus.hardwareRevision;
+  versions.protocol = inContext->micoStatus.protocol;
   versions.rfVersion = NULL;
 
   json_object *sectors, *sector, *subMenuSectors, *subMenuSector, *mainObject;
@@ -124,31 +151,25 @@ OSStatus ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
       err = MICOAddSector(subMenuSectors,  "",    subMenuSector);
       require_noerr(err, exit);
 
-        err = MICOAddStringCellToSector(subMenuSector, "Firmware Rev.",  inContext->flashContentInRam.micoSystemConfig.firmwareRevision, "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "Firmware Rev.",  inContext->micoStatus.firmwareRevision, "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "Hardware Rev.",  inContext->flashContentInRam.micoSystemConfig.hardwareRevision, "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "Hardware Rev.",  inContext->micoStatus.hardwareRevision, "RO", NULL);
         require_noerr(err, exit);
         err = MICOAddStringCellToSector(subMenuSector, "MICO OS Rev.",   system_lib_version(),              "RO", NULL);
         require_noerr(err, exit);
         err = MICOAddStringCellToSector(subMenuSector, "RF Driver Rev.", rfVer,                             "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "Model",          inContext->flashContentInRam.micoSystemConfig.model,            "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "Model",          inContext->micoStatus.model,            "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "Manufacturer",   inContext->flashContentInRam.micoSystemConfig.manufacturer,     "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "Manufacturer",   inContext->micoStatus.manufacturer,     "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "Protocol",       inContext->flashContentInRam.micoSystemConfig.protocol,         "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "Protocol",       inContext->micoStatus.protocol,         "RO", NULL);
         require_noerr(err, exit);
 
       subMenuSector = json_object_new_array();
       err = MICOAddSector(subMenuSectors,  "WLAN",    subMenuSector);
       require_noerr(err, exit);
-
-        err = MICOAddStringCellToSector(subMenuSector, "Wi-Fi",        inContext->flashContentInRam.micoSystemConfig.ssid,     "RO", NULL);
-        require_noerr(err, exit);
-
-        err = MICOAddStringCellToSector(subMenuSector, "Password",     inContext->flashContentInRam.micoSystemConfig.user_key, "RO", NULL);
-        require_noerr(err, exit);
-
+      
         tempString = DataToHexStringWithColons( (uint8_t *)inContext->flashContentInRam.micoSystemConfig.bssid, 6 );
         err = MICOAddStringCellToSector(subMenuSector, "BSSID",        tempString, "RO", NULL);
         require_noerr(err, exit);
@@ -294,9 +315,15 @@ OSStatus ConfigIncommingJsonMessage( const char *input, mico_Context_t * const i
       strncpy(inContext->flashContentInRam.micoSystemConfig.ssid, json_object_get_string(val), maxSsidLen);
       inContext->flashContentInRam.micoSystemConfig.channel = 0;
       memset(inContext->flashContentInRam.micoSystemConfig.bssid, 0x0, 6);
+      inContext->flashContentInRam.micoSystemConfig.security = SECURITY_TYPE_AUTO;
+      memcpy(inContext->flashContentInRam.micoSystemConfig.key, inContext->flashContentInRam.micoSystemConfig.user_key, maxKeyLen);
+      inContext->flashContentInRam.micoSystemConfig.keyLength = inContext->flashContentInRam.micoSystemConfig.user_keyLength;
     }else if(!strcmp(key, "Password")){
+      inContext->flashContentInRam.micoSystemConfig.security = SECURITY_TYPE_AUTO;
       strncpy(inContext->flashContentInRam.micoSystemConfig.key, json_object_get_string(val), maxKeyLen);
+      strncpy(inContext->flashContentInRam.micoSystemConfig.user_key, json_object_get_string(val), maxKeyLen);
       inContext->flashContentInRam.micoSystemConfig.keyLength = strlen(inContext->flashContentInRam.micoSystemConfig.key);
+      inContext->flashContentInRam.micoSystemConfig.user_keyLength = strlen(inContext->flashContentInRam.micoSystemConfig.key);
     }else if(!strcmp(key, "Connect SPP Server")){
       inContext->flashContentInRam.appConfig.remoteServerEnable = json_object_get_boolean(val);
     }else if(!strcmp(key, "SPP Server")){

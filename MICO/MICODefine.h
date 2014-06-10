@@ -91,13 +91,7 @@ typedef struct  _boot_table_t {
 typedef struct _mico_sys_config_t
 {
   /*Device identification*/
-  char            firmwareRevision[16];
-  char            hardwareRevision[16];
   char            name[maxNameLen];
-  char            model[32];
-  char            manufacturer[32];
-  char            SerialNumber[16];
-  char            protocol[32];
 
   /*Wi-Fi configuration*/
   char            ssid[maxSsidLen];
@@ -127,6 +121,7 @@ typedef struct _mico_sys_config_t
 
   /*Services in MICO system*/
   bool            bonjourEnable;
+  bool            configServerEnable;
 
   /*Update seed number when configuration is changed*/
   int32_t         seed;
@@ -142,6 +137,13 @@ typedef struct _flash_configuration_t {
 } flash_content_t;
 
 typedef struct _current_mico_status_t {
+  char            firmwareRevision[16];
+  char            hardwareRevision[16];
+  char            model[32];
+  char            manufacturer[32];
+  char            SerialNumber[16];
+  char            protocol[32];
+
   /*MICO system Running status*/
   SYS_State_t           sys_state;
   uint32_t              sta_state;
@@ -222,7 +224,7 @@ typedef struct
 #define CONFIG_DATA_SIZE (sizeof(application_config_t)-sizeof(uint32_t))
 
 OSStatus MICOStartBonjourService        ( WiFi_Interface interface, mico_Context_t * const inContext );
-OSStatus MICOstartConfigServer          ( mico_Context_t * const inContext );
+OSStatus MICOStartConfigServer          ( mico_Context_t * const inContext );
 OSStatus MICOStartApplication           ( mico_Context_t * const inContext );
 
 OSStatus MICORestoreDefault             ( mico_Context_t * const inContext );

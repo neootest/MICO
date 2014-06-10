@@ -42,16 +42,11 @@ OSStatus MICORestoreDefault(mico_Context_t *inContext)
 
   /*wlan configration is not need to change to a default state, use easylink to do that*/
   sprintf(inContext->flashContentInRam.micoSystemConfig.name, DEFAULT_NAME);
-  sprintf(inContext->flashContentInRam.micoSystemConfig.firmwareRevision, FIRMWARE_REVISION);
-  sprintf(inContext->flashContentInRam.micoSystemConfig.hardwareRevision, HARDWARE_REVISION);
-  sprintf(inContext->flashContentInRam.micoSystemConfig.model, MODEL);
-  sprintf(inContext->flashContentInRam.micoSystemConfig.manufacturer, MANUFACTURER);
-  sprintf(inContext->flashContentInRam.micoSystemConfig.SerialNumber, SERIAL_NUMBER);
-  sprintf(inContext->flashContentInRam.micoSystemConfig.protocol, PROTOCOL);
   inContext->flashContentInRam.micoSystemConfig.configured = unConfigured;
   inContext->flashContentInRam.micoSystemConfig.rfPowerSaveEnable = false;
   inContext->flashContentInRam.micoSystemConfig.mcuPowerSaveEnable = false;
   inContext->flashContentInRam.micoSystemConfig.bonjourEnable = true;
+  inContext->flashContentInRam.micoSystemConfig.configServerEnable = true;
   inContext->flashContentInRam.micoSystemConfig.seed = seedNum;
 
   /*Application's default configuration*/
@@ -86,6 +81,13 @@ OSStatus MICOReadConfiguration(mico_Context_t *inContext)
     require_noerr(err, exit);
     PlatformSoftReboot();
   }
+
+  sprintf(inContext->micoStatus.firmwareRevision, FIRMWARE_REVISION);
+  sprintf(inContext->micoStatus.hardwareRevision, HARDWARE_REVISION);
+  sprintf(inContext->micoStatus.model, MODEL);
+  sprintf(inContext->micoStatus.manufacturer, MANUFACTURER);
+  sprintf(inContext->micoStatus.SerialNumber, SERIAL_NUMBER);
+  sprintf(inContext->micoStatus.protocol, PROTOCOL);
 
   if(inContext->flashContentInRam.micoSystemConfig.dhcpEnable == DHCP_Disable){
     strcpy((char *)inContext->micoStatus.localIp, inContext->flashContentInRam.micoSystemConfig.localIp);

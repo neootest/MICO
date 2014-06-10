@@ -162,7 +162,7 @@ exit:
   return;
 }
 
-void micoMainConnectToAP( mico_Context_t * const inContext)
+void _ConnectToAP( mico_Context_t * const inContext)
 {
   mico_log_trace();
   network_InitTypeDef_adv_st wNetConfig;
@@ -246,7 +246,6 @@ int application_start(void)
     err = startMfiWac( context );
     require_noerr( err, exit );
 #endif
-    
   }
   else{
     mico_log("Available configuration. Starting Wi-Fi connection...");
@@ -276,14 +275,16 @@ int application_start(void)
     }
 
     /*Local configuration server*/
-    err =  MICOstartConfigServer(context);
-    require_noerr_action( err, exit, mico_log("ERROR: Unable to start the local server thread.") );
+    if(context->flashContentInRam.micoSystemConfig.configServerEnable == true){
+      err =  MICOStartConfigServer(context);
+      require_noerr_action( err, exit, mico_log("ERROR: Unable to start the local server thread.") );
+    }
 
     /*Start mico application*/
     err = MICOStartApplication( context );
     require_noerr( err, exit );
     
-    micoMainConnectToAP( context );
+    _ConnectToAP( context );
   }
 
 

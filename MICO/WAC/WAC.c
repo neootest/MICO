@@ -235,12 +235,12 @@ OSStatus startMfiWac( mico_Context_t * const inContext)
   WAC_Params->supports5GHzWiFi        = 0;
   WAC_Params->supportsWakeOnWireless  = 0;
 
-  WAC_Params->firmwareRevision =  inContext->flashContentInRam.micoSystemConfig.firmwareRevision;
-  WAC_Params->hardwareRevision =  inContext->flashContentInRam.micoSystemConfig.hardwareRevision;
-  WAC_Params->serialNumber =      inContext->flashContentInRam.micoSystemConfig.SerialNumber;
+  WAC_Params->firmwareRevision =  inContext->micoStatus.firmwareRevision;
+  WAC_Params->hardwareRevision =  inContext->micoStatus.hardwareRevision;
+  WAC_Params->serialNumber =      inContext->micoStatus.SerialNumber;
   WAC_Params->name =              inContext->flashContentInRam.micoSystemConfig.name;
-  WAC_Params->model =             inContext->flashContentInRam.micoSystemConfig.model;
-  WAC_Params->manufacturer =      inContext->flashContentInRam.micoSystemConfig.manufacturer;
+  WAC_Params->model =             inContext->micoStatus.model;
+  WAC_Params->manufacturer =      inContext->micoStatus.manufacturer;
 
   WAC_Params->numEAProtocols =    1;
   WAC_Params->eaBundleSeedID =    (char *)BundleSeedID;
@@ -327,7 +327,7 @@ OSStatus startMfiWac( mico_Context_t * const inContext)
 
   memset(&WAC_NetConfig, 0, sizeof(struct _network_InitTypeDef_st));
   WAC_NetConfig.wifi_mode = Soft_AP;
-  sprintf(WAC_NetConfig.wifi_ssid, "MXCHIP_%s", &para.mac[6]);
+  sprintf(WAC_NetConfig.wifi_ssid, "%s_%s", inContext->flashContentInRam.micoSystemConfig.name, &para.mac[6]);
   strcpy((char*)WAC_NetConfig.wifi_key, "");
   strcpy((char*)WAC_NetConfig.local_ip_addr, "10.10.10.1");
   strcpy((char*)WAC_NetConfig.net_mask, "255.255.255.0");
