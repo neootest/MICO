@@ -22,11 +22,15 @@
 
 #include "Common.h"
 #include "debug.h"
-#include "platform.h"
+#include "MICODefine.h"
+#include "MICOAppDefine.h"
+#include "MICOConfigMenu.h"
+
+#include "HaProtocol.h"
+#include "Platform.h"
+#include "PlatformUART.h"
 #include "EasyLink/EasyLink.h"
 #include "external/JSON-C/json.h"
-#include "MICODefine.h"
-#include "MICOConfigMenu.h"
 #include "StringUtils.h"
 
 #define config_delegate_log(M, ...) custom_log("Config Delegate", M, ##__VA_ARGS__)
@@ -43,6 +47,24 @@ void ConfigWillStop( mico_Context_t * const inContext )
 {
    config_delegate_log_trace();
   (void)(inContext); 
+  return;
+}
+
+void ConfigSoftApWillStart(mico_Context_t * const inContext )
+{
+  OSStatus err;
+  haProtocolInit(inContext);
+  PlatformUartInitialize(inContext);
+
+  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "UART Recv", uartRecv_thread, 0x500, (void*)inContext );
+  require_noerr_action( err, exit, config_delegate_log("ERROR: Unable to start the uart recv thread.") );
+
+ if(inContext->flashContentInRam.appConfig.localServerEnable == true){
+   err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Local Server", localTcpServer_thread, 0x200, (void*)inContext );
+   require_noerr_action( err, exit, config_delegate_log("ERROR: Unable to start the local server thread.") );
+ }
+
+exit:
   return;
 }
 
@@ -73,14 +95,14 @@ OSStatus ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
   }
 
   mico_rtos_lock_mutex(&inContext->flashContentInRam_mutex);
-  snprintf(name, 50, "%s(%c%c%c%c%c%c)",inContext->flashContentInRam.micoSystemConfig.model, 
+  snprintf(name, 50, "%s(%c%c%c%c%c%c)",MODEL, 
                                         inContext->micoStatus.mac[9],  inContext->micoStatus.mac[10], 
                                         inContext->micoStatus.mac[12], inContext->micoStatus.mac[13],
                                         inContext->micoStatus.mac[15], inContext->micoStatus.mac[16]);
 
-  versions.fwVersion = inContext->flashContentInRam.micoSystemConfig.firmwareRevision;
-  versions.hdVersion = inContext->flashContentInRam.micoSystemConfig.hardwareRevision;
-  versions.protocol = inContext->flashContentInRam.micoSystemConfig.protocol;
+  versions.fwVersion = FIRMWARE_REVISION;
+  versions.hdVersion = HARDWARE_REVISION;
+  versions.protocol  = PROTOCOL;
   versions.rfVersion = NULL;
 
   json_object *sectors, *sector, *subMenuSectors, *subMenuSector, *mainObject;
@@ -124,19 +146,19 @@ OSStatus ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
       err = MICOAddSector(subMenuSectors,  "",    subMenuSector);
       require_noerr(err, exit);
 
-        err = MICOAddStringCellToSector(subMenuSector, "Firmware Rev.",  inContext->flashContentInRam.micoSystemConfig.firmwareRevision, "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "Firmware Rev.",  FIRMWARE_REVISION,     "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "Hardware Rev.",  inContext->flashContentInRam.micoSystemConfig.hardwareRevision, "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "Hardware Rev.",  HARDWARE_REVISION,     "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "MICO OS Rev.",   system_lib_version(),              "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "MICO OS Rev.",   system_lib_version(),  "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "RF Driver Rev.", rfVer,                             "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "RF Driver Rev.", rfVer,                 "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "Model",          inContext->flashContentInRam.micoSystemConfig.model,            "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "Model",          MODEL,                 "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "Manufacturer",   inContext->flashContentInRam.micoSystemConfig.manufacturer,     "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "Manufacturer",   MANUFACTURER,          "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "Protocol",       inContext->flashContentInRam.micoSystemConfig.protocol,         "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "Protocol",       PROTOCOL,              "RO", NULL);
         require_noerr(err, exit);
 
       subMenuSector = json_object_new_array();

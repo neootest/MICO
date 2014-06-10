@@ -28,7 +28,7 @@
 
 #define APP_INFO   "mxchipWNet SPP Demo based on MICO OS"
 
-#define FIRMWARE_REVISION   "MICO_SPP_1_1"
+#define FIRMWARE_REVISION    "MICO_SPP_1_1"
 #define HARDWARE_REVISION   "3162"
 #define DEFAULT_NAME        "EMW3162 Module"
 #define MODEL               "EMW3162"

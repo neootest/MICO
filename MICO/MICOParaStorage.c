@@ -82,13 +82,6 @@ OSStatus MICOReadConfiguration(mico_Context_t *inContext)
     PlatformSoftReboot();
   }
 
-  sprintf(inContext->micoStatus.firmwareRevision, FIRMWARE_REVISION);
-  sprintf(inContext->micoStatus.hardwareRevision, HARDWARE_REVISION);
-  sprintf(inContext->micoStatus.model, MODEL);
-  sprintf(inContext->micoStatus.manufacturer, MANUFACTURER);
-  sprintf(inContext->micoStatus.SerialNumber, SERIAL_NUMBER);
-  sprintf(inContext->micoStatus.protocol, PROTOCOL);
-
   if(inContext->flashContentInRam.micoSystemConfig.dhcpEnable == DHCP_Disable){
     strcpy((char *)inContext->micoStatus.localIp, inContext->flashContentInRam.micoSystemConfig.localIp);
     strcpy((char *)inContext->micoStatus.netMask, inContext->flashContentInRam.micoSystemConfig.netMask);

@@ -137,12 +137,6 @@ typedef struct _flash_configuration_t {
 } flash_content_t;
 
 typedef struct _current_mico_status_t {
-  char            firmwareRevision[16];
-  char            hardwareRevision[16];
-  char            model[32];
-  char            manufacturer[32];
-  char            SerialNumber[16];
-  char            protocol[32];
 
   /*MICO system Running status*/
   SYS_State_t           sys_state;

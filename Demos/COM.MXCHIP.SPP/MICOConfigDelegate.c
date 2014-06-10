@@ -100,14 +100,14 @@ OSStatus ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
   }
 
   mico_rtos_lock_mutex(&inContext->flashContentInRam_mutex);
-  snprintf(name, 50, "%s(%c%c%c%c%c%c)",inContext->micoStatus.model, 
+  snprintf(name, 50, "%s(%c%c%c%c%c%c)",MODEL, 
                                         inContext->micoStatus.mac[9],  inContext->micoStatus.mac[10], 
                                         inContext->micoStatus.mac[12], inContext->micoStatus.mac[13],
                                         inContext->micoStatus.mac[15], inContext->micoStatus.mac[16]);
 
-  versions.fwVersion = inContext->micoStatus.firmwareRevision;
-  versions.hdVersion = inContext->micoStatus.hardwareRevision;
-  versions.protocol = inContext->micoStatus.protocol;
+  versions.fwVersion = FIRMWARE_REVISION;
+  versions.hdVersion = HARDWARE_REVISION;
+  versions.protocol =  PROTOCOL;
   versions.rfVersion = NULL;
 
   json_object *sectors, *sector, *subMenuSectors, *subMenuSector, *mainObject;
@@ -151,19 +151,19 @@ OSStatus ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
       err = MICOAddSector(subMenuSectors,  "",    subMenuSector);
       require_noerr(err, exit);
 
-        err = MICOAddStringCellToSector(subMenuSector, "Firmware Rev.",  inContext->micoStatus.firmwareRevision, "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "Firmware Rev.",  FIRMWARE_REVISION, "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "Hardware Rev.",  inContext->micoStatus.hardwareRevision, "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "Hardware Rev.",  HARDWARE_REVISION, "RO", NULL);
         require_noerr(err, exit);
         err = MICOAddStringCellToSector(subMenuSector, "MICO OS Rev.",   system_lib_version(),              "RO", NULL);
         require_noerr(err, exit);
         err = MICOAddStringCellToSector(subMenuSector, "RF Driver Rev.", rfVer,                             "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "Model",          inContext->micoStatus.model,            "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "Model",          MODEL,            "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "Manufacturer",   inContext->micoStatus.manufacturer,     "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "Manufacturer",   MANUFACTURER,     "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "Protocol",       inContext->micoStatus.protocol,         "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "Protocol",       PROTOCOL,         "RO", NULL);
         require_noerr(err, exit);
 
       subMenuSector = json_object_new_array();

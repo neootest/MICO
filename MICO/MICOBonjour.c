@@ -87,11 +87,11 @@ OSStatus MICOStartBonjourService( WiFi_Interface interface, mico_Context_t * con
   sprintf(temp_txt, "MAC=%s.", temp_txt2);
   free(temp_txt2);
 
-  temp_txt2 = __strdup_trans_dot(inContext->micoStatus.firmwareRevision);
+  temp_txt2 = __strdup_trans_dot(FIRMWARE_REVISION);
   sprintf(temp_txt, "%sFirmware Rev=%s.", temp_txt, temp_txt2);
   free(temp_txt2);
   
-  temp_txt2 = __strdup_trans_dot(inContext->micoStatus.hardwareRevision);
+  temp_txt2 = __strdup_trans_dot(HARDWARE_REVISION);
   sprintf(temp_txt, "%sHardware Rev=%s.", temp_txt, temp_txt2);
   free(temp_txt2);
 
@@ -99,15 +99,15 @@ OSStatus MICOStartBonjourService( WiFi_Interface interface, mico_Context_t * con
   sprintf(temp_txt, "%sMICO OS Rev=%s.", temp_txt, temp_txt2);
   free(temp_txt2);
 
-  temp_txt2 = __strdup_trans_dot(inContext->micoStatus.model);
+  temp_txt2 = __strdup_trans_dot(MODEL);
   sprintf(temp_txt, "%sModel=%s.", temp_txt, temp_txt2);
   free(temp_txt2);
 
-  temp_txt2 = __strdup_trans_dot(inContext->micoStatus.protocol);
+  temp_txt2 = __strdup_trans_dot(PROTOCOL);
   sprintf(temp_txt, "%sProtocol=%s.", temp_txt, temp_txt2);
   free(temp_txt2);
 
-  temp_txt2 = __strdup_trans_dot(inContext->micoStatus.manufacturer);
+  temp_txt2 = __strdup_trans_dot(MANUFACTURER);
   sprintf(temp_txt, "%sManufacturer=%s.", temp_txt, temp_txt2);
   free(temp_txt2);
   

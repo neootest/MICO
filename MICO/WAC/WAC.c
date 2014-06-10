@@ -235,12 +235,12 @@ OSStatus startMfiWac( mico_Context_t * const inContext)
   WAC_Params->supports5GHzWiFi        = 0;
   WAC_Params->supportsWakeOnWireless  = 0;
 
-  WAC_Params->firmwareRevision =  inContext->micoStatus.firmwareRevision;
-  WAC_Params->hardwareRevision =  inContext->micoStatus.hardwareRevision;
-  WAC_Params->serialNumber =      inContext->micoStatus.SerialNumber;
+  WAC_Params->firmwareRevision =  FIRMWARE_REVISION;
+  WAC_Params->hardwareRevision =  HARDWARE_REVISION;
+  WAC_Params->serialNumber =      SERIAL_NUMBER;
   WAC_Params->name =              inContext->flashContentInRam.micoSystemConfig.name;
-  WAC_Params->model =             inContext->micoStatus.model;
-  WAC_Params->manufacturer =      inContext->micoStatus.manufacturer;
+  WAC_Params->model =             MODEL;
+  WAC_Params->manufacturer =      MANUFACTURER;
 
   WAC_Params->numEAProtocols =    1;
   WAC_Params->eaBundleSeedID =    (char *)BundleSeedID;

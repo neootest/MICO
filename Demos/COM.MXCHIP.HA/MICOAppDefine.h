@@ -1,7 +1,6 @@
 #ifndef __MICO_APP_DEFINE_H
 #define __MICO_APP_DEFINE_H
 
-//#include "mico_define.h"
 #include "Common.h"
 #include "Debug.h"
 
