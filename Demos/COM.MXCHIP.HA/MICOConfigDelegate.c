@@ -83,12 +83,16 @@ OSStatus ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
   char name[50], *tempString;
   OTA_Versions_t versions;
   char rfVersion[50];
-  char *rfVer = NULL;
+  char *rfVer = NULL, *rfVerTemp = NULL;
 
   wlan_driver_version( rfVersion, 50 );
   rfVer = strstr(rfVersion, "version ");
   config_delegate_log("RF version=%s", rfVersion);
   if(rfVer) rfVer = rfVer + strlen("version ");
+  rfVerTemp = rfVer;
+
+  for(rfVerTemp = rfVer; *rfVerTemp != ' '; rfVerTemp++);
+  *rfVerTemp = 0x0;
 
   if(inContext->flashContentInRam.micoSystemConfig.configured == wLanUnConfigured){
     /*You can upload a specific menu*/
