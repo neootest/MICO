@@ -41,6 +41,8 @@ void appRestoreDefault_callback(mico_Context_t *inContext)
   inContext->flashContentInRam.appConfig.remoteServerEnable = true;
   sprintf(inContext->flashContentInRam.appConfig.remoteServerDomain, DEAFULT_REMOTE_SERVER);
   inContext->flashContentInRam.appConfig.remoteServerPort = DEFAULT_REMOTE_SERVER_PORT;
+  
+  
 }
 
 OSStatus MICOStartApplication( mico_Context_t * const inContext )
