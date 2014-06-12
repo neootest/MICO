@@ -27,6 +27,7 @@
 #include "Debug.h"
 
 #include "SecurityUtils.h"
+#define AES_UTILS_USE_MICO_AES 1
 
 #if( !defined( AES_UTILS_HAS_GLADMAN_GCM ) )
 //    #if( __has_include( "gcm.h" ) )
@@ -50,6 +51,8 @@
     #include <CommonCrypto/CommonCryptor.h>
 #elif( AES_UTILS_USE_GLADMAN_AES )
     #include "External/GladmanAES/aes.h"
+#elif( AES_UTILS_USE_MICO_AES )
+    #include "MICOAES.h"
 #elif( !TARGET_NO_OPENSSL )
     #include <openssl/aes.h>
 #else
@@ -127,6 +130,8 @@ typedef struct
     CCCryptorRef        cryptor;                //! PRIVATE: Internal CommonCrypto ref.
 #elif( AES_UTILS_USE_GLADMAN_AES )
     aes_encrypt_ctx     ctx;                    //! PRIVATE: Gladman AES context.
+#elif (AES_UTILS_USE_MICO_AES )
+    Aes                 ctx;
 #elif( AES_UTILS_USE_USSL )
     aes_context         ctx;                    //! PRIVATE: uSSL AES context.
 #else
@@ -180,6 +185,9 @@ typedef struct
         
     }   ctx;
     int                     encrypt;
+#elif ( AES_UTILS_USE_MICO_AES )
+    Aes                     ctx;
+    int                     mode;
 #elif( AES_UTILS_USE_USSL )
     aes_context             ctx;                        //! PRIVATE: uSSL AES context.
     int                     encrypt;
@@ -232,6 +240,9 @@ void    AES_CBCFrame_Final( AES_CBCFrame_Context *inContext );
 #elif( AES_UTILS_USE_GLADMAN_AES )
     #define kAES_ECB_Mode_Encrypt       1
     #define kAES_ECB_Mode_Decrypt       0
+#elif( AES_UTILS_USE_MICO_AES )
+    #define kAES_ECB_Mode_Encrypt       AES_ENCRYPTION
+    #define kAES_ECB_Mode_Decrypt       AES_DECRYPTION
 #elif( AES_UTILS_USE_USSL )
     #define kAES_ECB_Mode_Encrypt       AES_ENCRYPT
     #define kAES_ECB_Mode_Decrypt       AES_DECRYPT
@@ -254,6 +265,9 @@ typedef struct
         
     }   ctx;
     uint32_t                encrypt;
+#elif( AES_UTILS_USE_MICO_AES )
+    Aes                     ctx;
+    uint32_t                mode;
 #elif( AES_UTILS_USE_USSL )
     aes_context             ctx;        //! PRIVATE: uSSL AES context.
     uint32_t                mode;

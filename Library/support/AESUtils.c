@@ -59,6 +59,8 @@ OSStatus
 #elif( AES_UTILS_USE_GLADMAN_AES )
     aes_init();
     aes_encrypt_key128( inKey, &inContext->ctx );
+#elif( AES_UTILS_USE_MICO_AES )
+    AesSetKeyDirect(&inContext->ctx, (unsigned char *) inKey, AES_BLOCK_SIZE, inNonce, AES_ENCRYPTION);
 #elif( AES_UTILS_USE_USSL )
     aes_setkey_enc( &inContext->ctx, (unsigned char *) inKey, kAES_CTR_Size * 8 );
 #else
@@ -133,6 +135,8 @@ OSStatus    AES_CTR_Update( AES_CTR_Context *inContext, const void *inSrc, size_
             require_action( i == kAES_CTR_Size, exit, err = kSizeErr );
         #elif( AES_UTILS_USE_GLADMAN_AES )
             aes_ecb_encrypt( inContext->ctr, buf, kAES_CTR_Size, &inContext->ctx );
+        #elif( AES_UTILS_USE_MICO_AES )
+            AesEncryptDirect( inContext->ctx, inContext->ctr, buf );
         #elif( AES_UTILS_USE_USSL )
             aes_crypt_ecb( &inContext->ctx, AES_ENCRYPT, inContext->ctr, buf );
         #else
@@ -159,6 +163,8 @@ OSStatus    AES_CTR_Update( AES_CTR_Context *inContext, const void *inSrc, size_
             require_action( i == kAES_CTR_Size, exit, err = kSizeErr );
         #elif( AES_UTILS_USE_GLADMAN_AES )
             aes_ecb_encrypt( inContext->ctr, buf, kAES_CTR_Size, &inContext->ctx );
+        #elif( AES_UTILS_USE_MICO_AES )
+            AesEncryptDirect( inContext->ctx, inContext->ctr, buf );
         #elif( AES_UTILS_USE_USSL )
             aes_crypt_ecb( &inContext->ctx, AES_ENCRYPT, inContext->ctr, buf );
         #else
@@ -226,6 +232,9 @@ OSStatus
     if( inEncrypt ) aes_encrypt_key128( inKey, &inContext->ctx.encrypt );
     else            aes_decrypt_key128( inKey, &inContext->ctx.decrypt );
     inContext->encrypt = inEncrypt;
+#elif( AES_UTILS_USE_MICO_AES )
+    if( inEncrypt ) AesSetKeyDirect(&inContext->ctx, (unsigned char *) inKey, AES_BLOCK_SIZE, inIV, AES_ENCRYPTION);
+    else            AesSetKeyDirect(&inContext->ctx, (unsigned char *) inKey, AES_BLOCK_SIZE, inIV, AES_DECRYPTION);
 #elif( AES_UTILS_USE_USSL )
     if( inEncrypt ) aes_setkey_enc( &inContext->ctx, (unsigned char *) inKey, kAES_CBCFrame_Size * 8 );
     else            aes_setkey_dec( &inContext->ctx, (unsigned char *) inKey, kAES_CBCFrame_Size * 8 );
@@ -272,6 +281,8 @@ OSStatus    AES_CBCFrame_Update( AES_CBCFrame_Context *inContext, const void *in
             memcpy( iv, inContext->iv, kAES_CBCFrame_Size ); // Use local copy so original IV is not changed.
             if( inContext->encrypt )    aes_cbc_encrypt( src, dst, (int) len, iv, &inContext->ctx.encrypt );
             else                        aes_cbc_decrypt( src, dst, (int) len, iv, &inContext->ctx.decrypt );
+        #elif( AES_UTILS_USE_MICO_AES )
+            AesCbcEncrypt(&inContext->ctx, dst, src, len);
         #elif( AES_UTILS_USE_USSL )
             uint8_t     iv[ kAES_CBCFrame_Size ];
 
@@ -345,6 +356,8 @@ OSStatus
         #elif( AES_UTILS_USE_GLADMAN_AES )
             if( inContext->encrypt )    aes_cbc_encrypt( src1, dst, (int) len, iv, &inContext->ctx.encrypt );
             else                        aes_cbc_decrypt( src1, dst, (int) len, iv, &inContext->ctx.decrypt );
+        #elif( AES_UTILS_USE_MICO_AES )
+            AesCbcEncrypt(&inContext->ctx, dst, src1, len);
         #elif( AES_UTILS_USE_USSL )
             if( inContext->encrypt )    aes_crypt_cbc( &inContext->ctx, AES_ENCRYPT, len, iv, (unsigned char *) src1, dst );
             else                        aes_crypt_cbc( &inContext->ctx, AES_DECRYPT, len, iv, (unsigned char *) src1, dst );
@@ -376,6 +389,8 @@ OSStatus
         #elif( AES_UTILS_USE_GLADMAN_AES )
             if( inContext->encrypt )    aes_cbc_encrypt( buf, dst, (int) i, iv, &inContext->ctx.encrypt );
             else                        aes_cbc_decrypt( buf, dst, (int) i, iv, &inContext->ctx.decrypt );
+        #elif( AES_UTILS_USE_MICO_AES )
+            AesCbcEncrypt(&inContext->ctx, dst, buf, i);
         #elif( AES_UTILS_USE_USSL )
             if( inContext->encrypt )    aes_crypt_cbc( &inContext->ctx, AES_ENCRYPT, i, iv, buf, dst );
             else                        aes_crypt_cbc( &inContext->ctx, AES_DECRYPT, i, iv, buf, dst );
@@ -396,6 +411,8 @@ OSStatus
         #elif( AES_UTILS_USE_GLADMAN_AES )
             if( inContext->encrypt )    aes_cbc_encrypt( src2, dst, (int) len, iv, &inContext->ctx.encrypt );
             else                        aes_cbc_decrypt( src2, dst, (int) len, iv, &inContext->ctx.decrypt );
+        #elif( AES_UTILS_USE_MICO_AES )
+            AesCbcEncrypt(&inContext->ctx, dst, src2, len);
         #elif( AES_UTILS_USE_USSL )
             if( inContext->encrypt )    aes_crypt_cbc( &inContext->ctx, AES_ENCRYPT, len, iv, (unsigned char *) src2, dst );
             else                        aes_crypt_cbc( &inContext->ctx, AES_DECRYPT, len, iv, (unsigned char *) src2, dst );
@@ -434,7 +451,7 @@ void    AES_CBCFrame_Final( AES_CBCFrame_Context *inContext )
 //  AES_cbc_encrypt
 //===========================================================================================================================
 
-#if( !AES_UTILS_USE_COMMON_CRYPTO && !AES_UTILS_USE_GLADMAN_AES && TARGET_NO_OPENSSL )
+#if( !AES_UTILS_USE_COMMON_CRYPTO && !AES_UTILS_USE_GLADMAN_AES && !AES_UTILS_USE_MICO_AES && TARGET_NO_OPENSSL )
 // From OpenSSL
 static
 void AES_cbc_encrypt(const unsigned char *in, unsigned char *out,
@@ -528,6 +545,9 @@ OSStatus    AES_ECB_Init( AES_ECB_Context *inContext, uint32_t inMode, const uin
     if( inMode == kAES_ECB_Mode_Encrypt )   aes_encrypt_key128( inKey, &inContext->ctx.encrypt );
     else                                    aes_decrypt_key128( inKey, &inContext->ctx.decrypt );
     inContext->encrypt = inMode;
+#elif( AES_UTILS_USE_MICO_AES )
+    if( inMode == kAES_ECB_Mode_Encrypt )   AesSetKey( &inContext->ctx, inKey, kAES_ECB_Size, NULL, AES_ENCRYPTION );
+    else                                    AesSetKey( &inContext->ctx, inKey, kAES_ECB_Size, NULL, AES_DECRYPTION );
 #elif( AES_UTILS_USE_USSL )
     if( inMode == kAES_ECB_Mode_Encrypt )   aes_setkey_enc( &inContext->ctx, (unsigned char *) inKey, kAES_ECB_Size * 8 );
     else                                    aes_setkey_dec( &inContext->ctx, (unsigned char *) inKey, kAES_ECB_Size * 8 );
@@ -570,6 +590,8 @@ OSStatus    AES_ECB_Update( AES_ECB_Context *inContext, const void *inSrc, size_
         #elif( AES_UTILS_USE_GLADMAN_AES )
             if( inContext->encrypt )    aes_ecb_encrypt( src, dst, kAES_ECB_Size, &inContext->ctx.encrypt );
             else                        aes_ecb_decrypt( src, dst, kAES_ECB_Size, &inContext->ctx.decrypt );
+        #elif( AES_UTILS_USE_MICO_AES )
+            AesEncryptDirect( inContext->ctx, src, dst );
         #elif( AES_UTILS_USE_USSL )
             aes_crypt_ecb( &inContext->ctx, inContext->mode, (unsigned char *) src, dst );
         #else

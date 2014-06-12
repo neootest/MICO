@@ -176,7 +176,6 @@
           <state>EMW3162</state>
           <state>mxchipWNet_HA</state>
           <state>DEBUG</state>
-          <state>AES_UTILS_USE_GLADMAN_AES</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -2030,7 +2029,7 @@
   <group>
     <name>platform</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Platform\Platform.c</name>
+      <name>$PROJ_DIR$\..\..\..\Platform\platform.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\Platform\PlatformFlash.c</name>
