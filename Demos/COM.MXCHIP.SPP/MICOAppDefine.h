@@ -31,7 +31,7 @@
 #ifdef EMW3162
 #define HARDWARE_REVISION   "3162"
 #define DEFAULT_NAME        "EMW3162 Module"
-#define MODEL               "EMW3163"
+#define MODEL               "EMW3162"
 #endif
 
 #ifdef EMW3161
