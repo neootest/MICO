@@ -281,7 +281,7 @@ OSStatus ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
     json_object_array_add(selectArray, json_object_new_int(38400));
     json_object_array_add(selectArray, json_object_new_int(57600));
     json_object_array_add(selectArray, json_object_new_int(115200));
-    err = MICOAddNumberCellToSector(sector, "Baurdrate", inContext->flashContentInRam.appConfig.USART_BaudRate, "RW", selectArray);
+    err = MICOAddNumberCellToSector(sector, "Baurdrate", 115200, "RW", selectArray);
     require_noerr(err, exit);
 
   inContext->micoStatus.easylink_report = mainObject;

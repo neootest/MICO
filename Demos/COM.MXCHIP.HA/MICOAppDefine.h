@@ -6,14 +6,23 @@
 
 #define APP_INFO   "mxchipWNet HA Demo based on MICO OS"
 
-#define FIRMWARE_REVISION       "MICO_HA_3_0"
-#define HARDWARE_REVISION       "3162"
-#define DEFAULT_NAME            "EMW3162 Module"
-#define MODEL                   "EMW3162"
-#define MANUFACTURER            "MXCHIP Inc."
-#define PROTOCOL                "com.mxchip.ha"
-#define SERIAL_NUMBER           "20140606"
-#define LOCAL_PORT              8080
+#ifdef EMW3162
+#define HARDWARE_REVISION   "3162"
+#define DEFAULT_NAME        "EMW3162 Module"
+#define MODEL               "EMW3162"
+#endif
+
+#ifdef EMW3161
+#define HARDWARE_REVISION   "3161"
+#define DEFAULT_NAME        "EMW3161 Module"
+#define MODEL               "EMW3161"
+#endif
+
+#define FIRMWARE_REVISION   "MICO_SPP_1_1"
+#define MANUFACTURER        "MXCHIP Inc."
+#define SERIAL_NUMBER       "20140606"
+#define PROTOCOL            "com.mxchip.ha"
+#define LOCAL_PORT          8080
 
 /*User provided configurations*/
 #define CONFIGURATION_VERSION         0x0000030 // if changed default configuration, add this num

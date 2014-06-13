@@ -245,9 +245,9 @@ OSStatus _ota_process(uint8_t *inBuf, int inBufLen, int *inSocketFd, mico_Contex
   }
 
 
-  md5_starts( &ctx );
-  md5_update( &ctx, (u8 *)UPDATE_START_ADDRESS, flash_addr - UPDATE_START_ADDRESS);
-  md5_finish( &ctx, md5_ret );
+  InitMd5( &ctx );
+  Md5Update( &ctx, (u8 *)UPDATE_START_ADDRESS, flash_addr - UPDATE_START_ADDRESS);
+  Md5Final( &ctx, md5_ret );
 
   if(memcmp(md5_ret, p_upgrade->md5, 16) != 0) {
     PlatformFlashFinalize();

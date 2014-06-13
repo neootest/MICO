@@ -24,22 +24,29 @@
 
 #include "Common.h"
 
-typedef struct
-{
-    uint32_t total[2];
-    uint32_t state[4];
-    uint8_t  buffer[64];
-    uint8_t  ipad[64];
-    uint8_t  opad[64];
-} md5_context;
+enum {
+    MD5             =  0,      /* hash type unique */
+    MD5_BLOCK_SIZE  = 64,
+    MD5_DIGEST_SIZE = 16,
+    MD5_PAD_SIZE    = 56
+};
 
+
+/* MD5 digest */
+typedef struct Md5 {
+    uint32_t  buffLen;   /* in bytes          */
+    uint32_t  loLen;     /* length in bytes   */
+    uint32_t  hiLen;     /* length in bytes   */
+    uint32_t  digest[MD5_DIGEST_SIZE / sizeof(uint32_t)];
+    uint32_t  buffer[MD5_BLOCK_SIZE  / sizeof(uint32_t)];
+} md5_context;
 
 /**
  * @brief          MD5 context setup
  *
  * @param ctx      context to be initialized
  */
-void md5_starts( md5_context *ctx );
+void InitMd5(md5_context *ctx);
 
 /**
  * @brief          MD5 process buffer
@@ -48,7 +55,7 @@ void md5_starts( md5_context *ctx );
  * @param input    buffer holding the  data
  * @param ilen     length of the input data
  */
-void md5_update( md5_context *ctx, unsigned char *input, int ilen );
+void Md5Update(md5_context *ctx, unsigned char *input, int ilen);
 
 /**
  * @brief          MD5 final digest
@@ -56,7 +63,8 @@ void md5_update( md5_context *ctx, unsigned char *input, int ilen );
  * @param ctx      MD5 context
  * @param output   MD5 checksum result
  */
-void md5_finish( md5_context *ctx, unsigned char output[16] );
+void Md5Final(md5_context *ctx, unsigned char output[16]);
+
 
 
 #endif /* __MICO_ALGORITHM_H_ */

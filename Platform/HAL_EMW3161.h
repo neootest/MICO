@@ -77,13 +77,39 @@
 #define UART_TX_DMA_TCIF         DMA_FLAG_TCIF6
 #define UART_TX_DMA_IRQHandler   DMA1_Stream6_IRQHandler
 
-/* Definition for Button 1 resources **********************************************/
-#define Button1_CLK_INIT      RCC_AHB1PeriphClockCmd
+/* Definition for EASYLINK Button resources **********************************************/
+#define Button_EL_CLK_INIT   RCC_AHB1PeriphClockCmd
 
-#define Button1_PIN           GPIO_Pin_9
-#define Button1_IRQ_PIN       9
-#define Button1_PORT          GPIOH
-#define Button1_CLK           RCC_AHB1Periph_GPIOH
+#define Button_EL_PIN        GPIO_Pin_10
+#define Button_EL_IRQ_PIN    10
+#define Button_EL_PORT       GPIOH
+#define Button_EL_CLK        RCC_AHB1Periph_GPIOH
+#define Button_EL_IRQ        EXTI15_10_IRQn
+#define Button_EL_EXTI_Line  EXTI_Line10
+
+/* Definition for Standby Button resources **********************************************/
+#define Button_STANDBY_CLK_INIT   RCC_AHB1PeriphClockCmd
+
+#define Button_STANDBY_PIN        GPIO_Pin_0
+#define Button_STANDBY_IRQ_PIN    0
+#define Button_STANDBY_PORT       GPIOF
+#define Button_STANDBY_CLK        RCC_AHB1Periph_GPIOF
+#define Button_STANDBY_IRQ        EXTI0_IRQn
+#define Button_STANDBY_EXTI_Line  EXTI_Line0
+
+/* Definition for SYSTEM led resources **********************************************/
+#define LED_SYS_CLK_INIT          RCC_AHB1PeriphClockCmd
+
+#define LED_SYS_PIN               GPIO_Pin_9
+#define LED_SYS_PORT              GPIOI
+#define LED_SYS_CLK               RCC_AHB1Periph_GPIOI
+
+/* Definition for WiFi led resources **********************************************/
+#define LED_RF_CLK_INIT           RCC_AHB1PeriphClockCmd
+
+#define LED_RF_PIN                GPIO_Pin_1
+#define LED_RF_PORT               GPIOF
+#define LED_RF_CLK                RCC_AHB1Periph_GPIOF
 
 /* Definition for Debug UART  resources **********************************************/
 

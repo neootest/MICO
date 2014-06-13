@@ -1328,14 +1328,14 @@
     <toolchain>
       <name>ARM</name>
     </toolchain>
-    <debug>0</debug>
+    <debug>1</debug>
     <settings>
       <name>C-SPY</name>
       <archiveVersion>2</archiveVersion>
       <data>
         <version>25</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>CInput</name>
           <state>1</state>
@@ -1366,7 +1366,7 @@
         </option>
         <option>
           <name>MemFile</name>
-          <state>$TOOLKIT_DIR$\CONFIG\debugger\ST\STM32F205RG.ddf</state>
+          <state>$TOOLKIT_DIR$\CONFIG\debugger\ST\STM32F205ZG.ddf</state>
         </option>
         <option>
           <name>RunToEnable</name>
@@ -1512,7 +1512,7 @@
       <data>
         <version>1</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>OCSimDriverInfo</name>
           <state>1</state>
@@ -1537,7 +1537,7 @@
       <data>
         <version>0</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>CCAngelHeartbeat</name>
           <state>1</state>
@@ -1580,7 +1580,7 @@
       <data>
         <version>1</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -1747,7 +1747,7 @@
       <data>
         <version>0</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -1784,7 +1784,7 @@
       <data>
         <version>1</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>CRomLogFileCheck</name>
           <state>0</state>
@@ -1815,7 +1815,7 @@
       <data>
         <version>2</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -2015,7 +2015,7 @@
       <data>
         <version>15</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>JLinkSpeed</name>
           <state>32</state>
@@ -2071,7 +2071,7 @@
         <option>
           <name>CCUSBDevice</name>
           <version>1</version>
-          <state>1</state>
+          <state>2</state>
         </option>
         <option>
           <name>CCRDICatchReset</name>
@@ -2215,7 +2215,7 @@
       <data>
         <version>2</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -2248,7 +2248,7 @@
       <data>
         <version>3</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>jtag</name>
           <version>0</version>
@@ -2337,7 +2337,7 @@
       <data>
         <version>1</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -2409,7 +2409,7 @@
       <data>
         <version>2</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>CRDIDriverDll</name>
           <state>Browse to your RDI driver</state>
@@ -2466,7 +2466,7 @@
       <data>
         <version>2</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -2504,7 +2504,7 @@
       <data>
         <version>0</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>CThirdPartyDriverDll</name>
           <state>Browse to your third-party driver</state>
@@ -2529,7 +2529,7 @@
       <data>
         <version>2</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -2592,7 +2592,7 @@
       </plugin>
       <plugin>
         <file>$TOOLKIT_DIR$\plugins\rtos\OpenRTOS\OpenRTOSPlugin.ewplugin</file>
-        <loadFlag>1</loadFlag>
+        <loadFlag>0</loadFlag>
       </plugin>
       <plugin>
         <file>$TOOLKIT_DIR$\plugins\rtos\PowerPac\PowerPacRTOS.ewplugin</file>

@@ -948,25 +948,25 @@
     <toolchain>
       <name>ARM</name>
     </toolchain>
-    <debug>0</debug>
+    <debug>1</debug>
     <settings>
       <name>General</name>
       <archiveVersion>3</archiveVersion>
       <data>
         <version>22</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>ExePath</name>
-          <state>EMW3161_Debug\Exe</state>
+          <state>..\..\..\Build\COM.MXCHIP.HA\Output\EMW3162_Debug</state>
         </option>
         <option>
           <name>ObjPath</name>
-          <state>EMW3161_Debug\Obj</state>
+          <state>..\..\..\Build\COM.MXCHIP.HA\EMW3162_Debug\Obj</state>
         </option>
         <option>
           <name>ListPath</name>
-          <state>EMW3161_Debug\List</state>
+          <state>..\..\..\Build\COM.MXCHIP.HA\EMW3162_Debug\List</state>
         </option>
         <option>
           <name>Variant</name>
@@ -1040,7 +1040,7 @@
         </option>
         <option>
           <name>OGChipSelectEditMenu</name>
-          <state>STM32F205RG	ST STM32F205RG</state>
+          <state>STM32F205ZG	ST STM32F205ZG</state>
         </option>
         <option>
           <name>GenLowLevelInterface</name>
@@ -1106,7 +1106,7 @@
       <data>
         <version>29</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>CCOptimizationNoSizeConstraints</name>
           <state>0</state>
@@ -1116,7 +1116,6 @@
           <state>USE_STDPERIPH_DRIVER</state>
           <state>EMW3161</state>
           <state>DEBUG</state>
-          <state>AES_UTILS_USE_GLADMAN_AES</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -1247,12 +1246,11 @@
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$\..\..\..\Library</state>
           <state>$PROJ_DIR$\..\..\..\STM32F2xx_StdPeriph_Driver\inc</state>
-          <state>$PROJ_DIR$\..\..\..\Demos\Demo3_WPS_EasyLink</state>
-          <state>$PROJ_DIR$\..\..\..\HAL</state>
-          <state>$PROJ_DIR$\..\..\..\Library\MFi_WAC</state>
-          <state>$PROJ_DIR$\..\..\..\Library\MFi_WAC\GladmanAES</state>
-          <state>$PROJ_DIR$\..\..\..\Library\MFi_WAC\Curve25519</state>
-          <state>$PROJ_DIR$\..\..\..\Library\MFi_WAC\platform</state>
+          <state>$PROJ_DIR$\..\..\..\Platform</state>
+          <state>$PROJ_DIR$\..\..\..\Library\support</state>
+          <state>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.HA</state>
+          <state>$PROJ_DIR$\..\..\..\MICO</state>
+          <state>$PROJ_DIR$\..\..\..</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1357,7 +1355,7 @@
       <data>
         <version>9</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>AObjPrefix</name>
           <state>1</state>
@@ -1523,7 +1521,7 @@
       <data>
         <version>1</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>OOCOutputFormat</name>
           <version>2</version>
@@ -1535,7 +1533,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>WPS_EasyLink.bin</state>
+          <state>COM.MXCHIP.HA.bin</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -1574,7 +1572,7 @@
       <data>
         <version>16</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>IlinkLibIOConfig</name>
           <state>1</state>
@@ -1589,7 +1587,7 @@
         </option>
         <option>
           <name>IlinkOutputFile</name>
-          <state>WPS_EasyLink.out</state>
+          <state>COM.MXCHIP.HA.out</state>
         </option>
         <option>
           <name>IlinkDebugInfoEnable</name>
@@ -1864,7 +1862,7 @@
       <data>
         <version>0</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
+        <debug>1</debug>
         <option>
           <name>IarchiveInputs</name>
           <state></state>
@@ -1919,6 +1917,10 @@
     </group>
     <group>
       <name>GladmanAES</name>
+      <excluded>
+        <configuration>EMW3162_Debug</configuration>
+        <configuration>EMW3161_Debug</configuration>
+      </excluded>
       <file>
         <name>$PROJ_DIR$\..\..\..\External\GladmanAES\aes_modes.c</name>
       </file>
@@ -1965,9 +1967,6 @@
   </group>
   <group>
     <name>Library</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\Library\besl.ARM_Cortex_M3.release.a</name>
-    </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\Library\MICOConfig.c</name>
     </file>
@@ -2029,7 +2028,7 @@
   <group>
     <name>platform</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Platform\platform.c</name>
+      <name>$PROJ_DIR$\..\..\..\Platform\Platform.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\Platform\PlatformFlash.c</name>

@@ -50,8 +50,6 @@ OSStatus MICORestoreDefault(mico_Context_t *inContext)
   inContext->flashContentInRam.micoSystemConfig.seed = seedNum;
 
   /*Application's default configuration*/
-  inContext->flashContentInRam.appConfig.configDataVer = CONFIGURATION_VERSION;
-  inContext->flashContentInRam.appConfig.localServerPort = LOCAL_PORT;
   appRestoreDefault_callback(inContext);
 
   err = PlatformFlashInitialize();
