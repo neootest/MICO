@@ -62,12 +62,12 @@ struct lh_table* lh_table_new(int size, const char *name,
 	struct lh_table *t;
 
 	t = (struct lh_table*)calloc(1, sizeof(struct lh_table));
-	if(!t) lh_abort("lh_table_new: calloc failed\n");
+	if(!t) lh_abort("lh_table_new: calloc failed 1, size = %d\n", sizeof(struct lh_table));
 	t->count = 0;
 	t->size = size;
 	t->name = name;
 	t->table = (struct lh_entry*)calloc(size, sizeof(struct lh_entry));
-	if(!t->table) lh_abort("lh_table_new: calloc failed\n");
+	if(!t->table) lh_abort("lh_table_new: calloc failed 2, size = %d\n", sizeof(struct lh_table));
 	t->free_fn = free_fn;
 	t->hash_fn = hash_fn;
 	t->equal_fn = equal_fn;
@@ -125,7 +125,8 @@ int lh_table_insert(struct lh_table *t, void *k, const void *v)
 	unsigned long h, n;
 
 	t->inserts++;
-	if(t->count > t->size * 0.66) lh_table_resize(t, t->size * 2);
+	//if(t->count > t->size * 0.66) lh_table_resize(t, t->size * 2); 
+	if(t->count >= t->size) lh_table_resize(t, t->size + 1); 
 
 	h = t->hash_fn(k);
 	n = h % t->size;

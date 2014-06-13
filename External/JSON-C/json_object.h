@@ -16,7 +16,7 @@
 extern "C" {
 #endif
 
-#define JSON_OBJECT_DEF_HASH_ENTRIES 16
+#define JSON_OBJECT_DEF_HASH_ENTRIES 1 //default is 16
 
 #undef FALSE
 #define FALSE ((boolean)0)

@@ -175,15 +175,12 @@ OSStatus _LocalConfigRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico
 
   config_log_trace();
 
-
-  if(HTTPHeaderMatchURL( inHeader, kCONFIGURLRead ) == kNoErr){
+  if(HTTPHeaderMatchURL( inHeader, kCONFIGURLRead ) == kNoErr){    
     err = ConfigCreateReportJsonMessage( inContext );
     require_noerr( err, exit );
-
     json_str = json_object_to_json_string(inContext->micoStatus.easylink_report);
     require_action( json_str, exit, err = kNoMemoryErr );
     config_log("Send config object=%s", json_str);
-    //err =  CreateSimpleHTTPMessage( kMIMEType_JSON, (uint8_t *)json_str, strlen(json_str), &httpResponse, &httpResponseLen );
     err =  CreateSimpleHTTPMessageNoCopy( kMIMEType_JSON, strlen(json_str), &httpResponse, &httpResponseLen );
     require_noerr( err, exit );
     require( httpResponse, exit );
