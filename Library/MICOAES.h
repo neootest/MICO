@@ -43,7 +43,7 @@ int AesSetKey(Aes* aes, const byte* userKey, word32 keylen, const byte* iv,
               int dir);
 int AesSetKeyDirect(Aes* aes, const byte* userKey, word32 keylen,
                         const byte* iv, int dir);
-void AesEncrypt(Aes* aes, const byte* in, byte* out);
+void AesEncryptDirect(Aes* aes, byte* out, const byte* in);
 int AesCbcEncrypt(Aes* aes, byte* out, const byte* in, word32 sz);
 
 

@@ -136,7 +136,7 @@ OSStatus    AES_CTR_Update( AES_CTR_Context *inContext, const void *inSrc, size_
         #elif( AES_UTILS_USE_GLADMAN_AES )
             aes_ecb_encrypt( inContext->ctr, buf, kAES_CTR_Size, &inContext->ctx );
         #elif( AES_UTILS_USE_MICO_AES )
-            AesEncrypt( &inContext->ctx, inContext->ctr, buf );
+            AesEncryptDirect( &inContext->ctx, buf, inContext->ctr );
         #elif( AES_UTILS_USE_USSL )
             aes_crypt_ecb( &inContext->ctx, AES_ENCRYPT, inContext->ctr, buf );
         #else
@@ -164,7 +164,7 @@ OSStatus    AES_CTR_Update( AES_CTR_Context *inContext, const void *inSrc, size_
         #elif( AES_UTILS_USE_GLADMAN_AES )
             aes_ecb_encrypt( inContext->ctr, buf, kAES_CTR_Size, &inContext->ctx );
         #elif( AES_UTILS_USE_MICO_AES )
-            AesEncrypt( &inContext->ctx, inContext->ctr, buf );
+            AesEncryptDirect( &inContext->ctx, buf, inContext->ctr );
         #elif( AES_UTILS_USE_USSL )
             aes_crypt_ecb( &inContext->ctx, AES_ENCRYPT, inContext->ctr, buf );
         #else
@@ -591,7 +591,7 @@ OSStatus    AES_ECB_Update( AES_ECB_Context *inContext, const void *inSrc, size_
             if( inContext->encrypt )    aes_ecb_encrypt( src, dst, kAES_ECB_Size, &inContext->ctx.encrypt );
             else                        aes_ecb_decrypt( src, dst, kAES_ECB_Size, &inContext->ctx.decrypt );
         #elif( AES_UTILS_USE_MICO_AES )
-            AesEncrypt( &inContext->ctx, src, dst );
+            AesEncryptDirect( &inContext->ctx, dst, src );
         #elif( AES_UTILS_USE_USSL )
             aes_crypt_ecb( &inContext->ctx, inContext->mode, (unsigned char *) src, dst );
         #else
