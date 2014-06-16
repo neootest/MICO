@@ -470,7 +470,6 @@ void easylink_thread(void *inContext)
       FD_SET(Context->micoStatus.easylinkClient_fd, &readfds);
 
       err = select(1, &readfds, NULL, NULL, &t);
-      require(err > 0, Reconn);
     
       if(FD_ISSET(Context->micoStatus.easylinkClient_fd, &readfds)){
         err = SocketReadHTTPHeader( Context->micoStatus.easylinkClient_fd, httpHeader );
