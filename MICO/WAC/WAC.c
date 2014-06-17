@@ -38,17 +38,7 @@
 const char *WAC_NAME_default = "MXCHIP Wi-Fi Module";
 const char *WAC_Manufacturer_default = "MXCHIP Inc.";
 
-#ifdef EMW3162
-const char *WAC_Model_default = "EMW3162";
-#define MFi_INSTANCE_NAME                  "MXCHIP_3162_MFi."
-#define MFi_HOST_NAME                      "EMW3162_MFi.local."
-#endif
 
-#ifdef EMW3161
-const char *WAC_Model_default = "EMW3161";
-#define MFi_INSTANCE_NAME                  "MXCHIP_3161_MFi."
-#define MFi_HOST_NAME                      "EMW3161_MFi.local."
-#endif
 
 #define MFi_SERVICE_MFi                    "_mfi-config._tcp.local."
 #define MFi_SERVICE_PORT                   65520

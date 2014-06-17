@@ -18,6 +18,12 @@
 #define MODEL               "EMW3161"
 #endif
 
+#ifdef Open1081
+#define HARDWARE_REVISION   "1081"
+#define DEFAULT_NAME        "Open1081 DevBoard"
+#define MODEL               "Open1081"
+#endif
+
 #define FIRMWARE_REVISION   "MICO_SPP_1_1"
 #define MANUFACTURER        "MXCHIP Inc."
 #define SERIAL_NUMBER       "20140606"

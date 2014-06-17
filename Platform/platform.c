@@ -29,7 +29,6 @@
 static void _button_EL_irq_handler( void * arg );
 static void _button_EL_Timeout_handler( void* arg );
 static mico_timer_t _button_EL_timer;
-static mico_timer_t _button_STANDBY_timer;
 mico_mutex_t printf_mutex;
 void Debug_UART_Init(void);
 
@@ -93,19 +92,10 @@ static void _button_EL_Timeout_handler( void* arg )
   PlatformEasyLinkButtonLongPressedCallback();
 }
 
-static void _button_STANDBY_Timeout_handler( void* arg )
-{
-  (void)(arg);
-  _default_start_time = 0;
-  PlatformStandbyButtonClickedCallback();
-  mico_stop_timer(&_button_STANDBY_timer);
-}
-
-
 static void _button_STANDBY_irq_handler( void* arg )
 {
   (void)(arg);
-  mico_start_timer(&_button_STANDBY_timer);
+  PlatformStandbyButtonClickedCallback();
 }
 
 void Platform_LED_SYS_Init()
@@ -203,7 +193,6 @@ void Platform_Button_STANDBY_Init(void)
   GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_UP;     
   GPIO_Init(Button_STANDBY_PORT, &GPIO_InitStructure);
 
-  mico_init_timer(&_button_STANDBY_timer, 50, _button_STANDBY_Timeout_handler, NULL);
   gpio_irq_enable(Button_STANDBY_PORT, Button_STANDBY_IRQ_PIN, IRQ_TRIGGER_FALLING_EDGE, _button_STANDBY_irq_handler, 0);
   
   NVIC_InitStructure.NVIC_IRQChannel = Button_STANDBY_IRQ;

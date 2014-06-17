@@ -48,6 +48,10 @@ typedef void (*gpio_irq_handler_t)( void* arg);
 #include "HAL_EMW3161.h"
 #endif
 
+#ifdef Open1081
+#include "HAL_Open1081.h"
+#endif
+
 typedef enum _led_index {
   MICO_LED_SYS,
   MICO_LED_RF

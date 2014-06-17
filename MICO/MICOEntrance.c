@@ -306,7 +306,7 @@ int application_start(void)
       case eState_Standby:
         mico_log("Enter standby mode");
         sendNotifySYSWillPowerOff();
-        mico_thread_msleep(100);
+        mico_thread_msleep(200);
         wifi_power_down();
         Platform_Enter_STANDBY();
         break;
