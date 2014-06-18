@@ -156,6 +156,8 @@ static void _wac_timeout_handler( void* arg )
   (void)(arg);
   uap_stop();
   ConfigWillStop( arg );
+  mico_stop_timer(&_wac_timeout_timer);
+  mico_deinit_timer(&_wac_timeout_timer);
 }
 
 void WACNotify_WiFIParaChangedHandler(apinfo_adv_t *ap_info, char *key, int key_len, mico_Context_t * const inContext)
@@ -312,7 +314,7 @@ OSStatus startMFiWAC( mico_Context_t * const inContext, WACPlatformParameters_t 
   }
 
   ConfigWillStart(inContext);
-  mico_init_timer(&_wac_timeout_timer, timeOut*1000, _wac_timeout_handler, NULL);
+  mico_init_timer(&_wac_timeout_timer, timeOut*1000, _wac_timeout_handler, (void*)inContext);
   mico_start_timer(&_wac_timeout_timer);
   memset(&WAC_NetConfig, 0, sizeof(struct _network_InitTypeDef_st));
   WAC_NetConfig.wifi_mode = Soft_AP;
