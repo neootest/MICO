@@ -34,7 +34,7 @@
 #endif
 
 #ifdef CONFIG_MODE_WAC
-#include "WAC/WAC.h"
+#include "WAC/MFi_WAC.h"
 #endif
 
 static mico_Context_t *context;
