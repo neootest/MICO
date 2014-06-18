@@ -41,7 +41,6 @@ static void easylink_thread(void *inContext);
 static mico_mutex_t _mutex;
 
 static OSStatus _FTCRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context_t * const inContext);
-static mico_timer_t _Led_EL_timer;
 static bool _FTCClientConnected = false;
 
 static uint8_t *httpResponse = NULL;
@@ -49,21 +48,14 @@ static HTTPHeader_t *httpHeader = NULL;
 
 static bool EasylinkFailed = false;
 
-extern OSStatus ConfigIncommingJsonMessage( const char *input, mico_Context_t * const inContext );
-
-extern OSStatus ConfigCreateReportJsonMessage( mico_Context_t * const inContext );
-
-extern void ConfigWillStart( mico_Context_t * const inContext );
-
-extern void ConfigWillStop(mico_Context_t * const inContext );
-
-extern void ConfigSoftApWillStart(mico_Context_t * const inContext );
-
-extern OSStatus ConfigELRecvAuthData(char * userInfo, mico_Context_t * const inContext );
-
-extern OSStatus MICOStartBonjourService      ( WiFi_Interface interface, mico_Context_t * const inContext );
-
-extern OSStatus MICOstartConfigServer        ( mico_Context_t * const inContext );
+extern OSStatus ConfigIncommingJsonMessage    ( const char *input, mico_Context_t * const inContext );
+extern OSStatus ConfigCreateReportJsonMessage ( mico_Context_t * const inContext );
+extern void     ConfigWillStart               ( mico_Context_t * const inContext );
+extern void     ConfigWillStop                (mico_Context_t * const inContext );
+extern void     ConfigSoftApWillStart         (mico_Context_t * const inContext );
+extern OSStatus ConfigELRecvAuthData          (char * userInfo, mico_Context_t * const inContext );
+extern OSStatus MICOStartBonjourService       ( WiFi_Interface interface, mico_Context_t * const inContext );
+extern OSStatus MICOstartConfigServer         ( mico_Context_t * const inContext );
 
 void EasyLinkNotify_WifiStatusHandler(WiFiEvent event, mico_Context_t * const inContext)
 {
@@ -121,7 +113,7 @@ void EasyLinkNotify_EasyLinkCompleteHandler(network_InitTypeDef_st *nwkpara, mic
 {
   OSStatus err;
   easylink_log_trace();
-  easylink_log("EasyLink return @ %d", mico_get_time());
+  easylink_log("EasyLink return");
   require_action(inContext, exit, err = kParamErr);
   require_action(nwkpara, exit, err = kTimeoutErr);
   
@@ -151,11 +143,7 @@ exit:
   mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
   /*module should powd down in default setting*/ 
   wifi_power_down();
-  mico_stop_timer(&_Led_EL_timer);
-  Platform_LED_SYS_Set_Status(OFF);
 #endif
-
-  
   return;
 }
 
@@ -221,13 +209,6 @@ void EasyLinkNotify_SYSWillPoerOffHandler(mico_Context_t * const inContext)
   stopEasyLink(inContext);
 }
 
-
-static void _led_EL_Timeout_handler( void* arg )
-{
-  (void)(arg);
-  Platform_LED_SYS_Set_Status(TRIGGER);
-}
-
 OSStatus startEasyLink( mico_Context_t * const inContext)
 {
   easylink_log_trace();
@@ -252,10 +233,6 @@ OSStatus startEasyLink( mico_Context_t * const inContext)
   require_noerr( err, exit );    
   err = MICOAddNotification( mico_notify_SYS_WILL_POWER_OFF, (void *)EasyLinkNotify_SYSWillPoerOffHandler );
   require_noerr( err, exit ); 
-
-  /*Led trigger*/
-  mico_init_timer(&_Led_EL_timer, LED_EL_TRIGGER_INTERVAL, _led_EL_Timeout_handler, NULL);
-  mico_start_timer(&_Led_EL_timer);
 
   // Start the EasyLink thread
   ConfigWillStart(inContext);
@@ -408,7 +385,6 @@ void _cleanEasyLinkResource( mico_Context_t * const inContext )
   mico_rtos_deinit_semaphore(&inContext->micoStatus.easylink_sem);
   inContext->micoStatus.easylink_sem = NULL;
   if(httpHeader) free(httpHeader);
-  mico_stop_timer(&_Led_EL_timer);
 }
 
 OSStatus stopEasyLink( mico_Context_t * const inContext)
@@ -433,7 +409,7 @@ void easylink_thread(void *inContext)
   
   if(Context->flashContentInRam.micoSystemConfig.easyLinkEnable != false){
     OpenEasylink2_withdata(EasyLink_TimeOut); 
-    easylink_log("Start easylink @ %d", mico_get_time());
+    easylink_log("Start easylink @ %d");
     mico_rtos_get_semaphore(&Context->micoStatus.easylink_sem, MICO_WAIT_FOREVER);
     if(EasylinkFailed == false)
       _easylinkConnectWiFi(Context);

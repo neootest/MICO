@@ -34,11 +34,11 @@ extern mico_mutex_t printf_mutex;
 
 #if DEBUG
     #define custom_log(N, M, ...) do {mico_rtos_lock_mutex( &printf_mutex );\
-                                      printf("[%s: %s:%4d] " M "\n", N, SHORT_FILE, __LINE__, ##__VA_ARGS__);\
+                                      printf("[%d][%s: %s:%4d] " M "\n", mico_get_time(), N, SHORT_FILE, __LINE__, ##__VA_ARGS__);\
                                       mico_rtos_unlock_mutex( &printf_mutex );}while(0==1)
                                         
     #define debug_print_assert(A,B,C,D,E,F, ...) do {mico_rtos_lock_mutex( &printf_mutex );\
-                                                     printf("[MICO: %s:%s:%4d] **ASSERT** %s""\n", (D!=NULL) ? D : "", F, E, (C!=NULL) ? C : "", ##__VA_ARGS__);\
+                                                     printf("[%d][MICO:%s:%s:%4d] **ASSERT** %s""\n", mico_get_time(), (D!=NULL) ? D : "", F, E, (C!=NULL) ? C : "", ##__VA_ARGS__);\
                                                      mico_rtos_unlock_mutex( &printf_mutex );}while(0==1)
     #if TRACE
         #define custom_log_trace(N) do {mico_rtos_lock_mutex( &printf_mutex );\

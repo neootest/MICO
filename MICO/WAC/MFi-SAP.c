@@ -5,7 +5,8 @@
 //  Copyright (c) 2014  MXCHIP. All rights reserved.
 
 
-#include "stdio.h"
+#include <stdio.h>
+#include <string.h>
 
 #include "debug.h"
 #include "MICO.h"
@@ -63,7 +64,11 @@ char *destinationPSK  = NULL;
 char *accessoryName   = NULL;
 char *playPassword    = NULL;
 
+extern WACPlatformParameters_t* WAC_Params;
+
 extern OSStatus applyNewConfiguration(char* destinationSSID, char *destinationPSK, char *accessoryName, char *playPassword, mico_Context_t * const inContext);
+OSStatus CreateTLVConfigResponseMessage( uint8_t **outTLVResponse, size_t *outTLVResponseLen);
+
 
 
 static OSStatus _ParseTLVConfigMessage( const void * const inTLVPtr,
@@ -149,9 +154,8 @@ void close_client_connection_Configured(void){
 
 void http_server_thread(void *inContext)
 {
-  int i, j, len, fd_listen = -1, err = kNoErr;
+  int i, len, fd_listen = -1, err = kNoErr;
   struct sockaddr_t addr;
-  int  WaitingForConfigMessage_timeout = 0;
   fd_set readfds;
   struct timeval_t t;
   char ip_address[16];
@@ -188,10 +192,10 @@ void http_server_thread(void *inContext)
     
     /*Check tcp connection requests, allow only one client connection */
     if(FD_ISSET(fd_listen, &readfds)){
-      j = accept(fd_listen, &addr, &len);
-      if (j > 0) {
+      i = accept(fd_listen, &addr, &len);
+      if (i > 0) {
         inet_ntoa(ip_address, addr.s_ip );
-        wac_log("TCP server test: Client %s:%d connected, fd: %d\r\n", ip_address, addr.s_port, j);
+        wac_log("TCP server test: Client %s:%d connected, fd: %d", ip_address, addr.s_port, i);
         if(client_state != eState_WaitingForConfiguredMessage){
             close_client_connection();
             client_state = eState_WaitingForAuthSetupMessage;
@@ -199,7 +203,7 @@ void http_server_thread(void *inContext)
         else{
             close_client_connection_Configured();
         }
-        connected_socket = j;
+        connected_socket = i;
             
       }
     }
@@ -322,15 +326,18 @@ exit:
 
 static OSStatus _HandleState_WaitingForAuthSetupMessage( HTTPHeader_t* inHeader, _WACState_t *inState, mico_Context_t * const inContext )
 {
-    wac_log_trace();
-    OSStatus err = kUnknownErr;
+  wac_log_trace();
+  (void)inContext;
 
-    // Check that the HTTP URL is the auth setup URL
-    err = HTTPHeaderMatchURL( inHeader, kWACURLAuth );
-    require_noerr_action( err, exit, wac_log("ERROR: received different URL. Expecting: %s ", kWACURLAuth); err = kOrderErr );
+  OSStatus err = kUnknownErr;
+  (void)inContext;
 
-    wac_log("%s received", kWACURLAuth);
-    *inState = eState_HandleAuthSetupMessage;
+  // Check that the HTTP URL is the auth setup URL
+  err = HTTPHeaderMatchURL( inHeader, kWACURLAuth );
+  require_noerr_action( err, exit, wac_log("ERROR: received different URL. Expecting: %s ", kWACURLAuth); err = kOrderErr );
+
+  wac_log("%s received", kWACURLAuth);
+  *inState = eState_HandleAuthSetupMessage;
 
 exit:
     return err;
@@ -338,172 +345,178 @@ exit:
 
 static OSStatus _HandleState_HandleAuthSetupMessage( HTTPHeader_t* inHeader, _WACState_t *inState, mico_Context_t * const inContext )
 {
-    wac_log_trace();
-    OSStatus err = kUnknownErr;
-    Boolean mfiSAPComplete;
-    ssize_t sentNum;
+  wac_log_trace();
+  (void)inContext;
 
-    uint8_t *httpResponse = NULL;
-    size_t httpResponseLen = 0;
+  OSStatus err = kUnknownErr;
+  Boolean mfiSAPComplete;
+  ssize_t sentNum;
 
-    uint8_t *mfiSAPResponseDataPtr = NULL;
-    size_t mfiSAPResponseDataLen = 0;
+  uint8_t *httpResponse = NULL;
+  size_t httpResponseLen = 0;
+
+  uint8_t *mfiSAPResponseDataPtr = NULL;
+  size_t mfiSAPResponseDataLen = 0;
 
 
-    // Create MFiSAP
-    err = MFiSAP_Create( &mfiSAPRef, kMFiSAPVersion1 );
-    require_noerr( err, exit );
+  // Create MFiSAP
+  err = MFiSAP_Create( &mfiSAPRef, kMFiSAPVersion1 );
+  require_noerr( err, exit );
 
-    // Do MFiSAP Exchange
-    err = MFiSAP_Exchange( mfiSAPRef,                            // MFiSAPRef
-                           (uint8_t*)inHeader->extraDataPtr,   // data from auth request
-                           inHeader->extraDataLen,             // length of data from auth request
-                           &mfiSAPResponseDataPtr,                          // exchange data that should be sent to client
-                           &mfiSAPResponseDataLen,                          // length of exchange data that should be sent to client
-                           &mfiSAPComplete );                               // Boolean to see if MFiSAP is complete
-    require_noerr_action( err, exit, wac_log("ERROR: MFi-SAP Exchange: %d", err) );
-    require( mfiSAPComplete, exit );
+  // Do MFiSAP Exchange
+  err = MFiSAP_Exchange( mfiSAPRef,                            // MFiSAPRef
+                         (uint8_t*)inHeader->extraDataPtr,   // data from auth request
+                         inHeader->extraDataLen,             // length of data from auth request
+                         &mfiSAPResponseDataPtr,                          // exchange data that should be sent to client
+                         &mfiSAPResponseDataLen,                          // length of exchange data that should be sent to client
+                         &mfiSAPComplete );                               // Boolean to see if MFiSAP is complete
+  require_noerr_action( err, exit, wac_log("ERROR: MFi-SAP Exchange: %d", err) );
+  require( mfiSAPComplete, exit );
 
-    err =  CreateSimpleHTTPMessage( kMIMEType_Binary, mfiSAPResponseDataPtr, mfiSAPResponseDataLen, &httpResponse, &httpResponseLen );
-    require_noerr( err, exit );
-    require( httpResponse, exit );
+  err =  CreateSimpleHTTPMessage( kMIMEType_Binary, mfiSAPResponseDataPtr, mfiSAPResponseDataLen, &httpResponse, &httpResponseLen );
+  require_noerr( err, exit );
+  require( httpResponse, exit );
 
-    sentNum = send( connected_socket, httpResponse, httpResponseLen,0 );
-    require( sentNum==(ssize_t)httpResponseLen, exit );
-    wac_log("Auth response sent, len= %d", sentNum);
+  sentNum = send( connected_socket, httpResponse, httpResponseLen,0 );
+  require( sentNum==(ssize_t)httpResponseLen, exit );
+  wac_log("Auth response sent, len= %d", sentNum);
 
-    *inState = eState_WaitingForConfigMessage;
-    return err;
+  *inState = eState_WaitingForConfigMessage;
+  return err;
 
 
 exit:
-    if ( mfiSAPResponseDataPtr ) free( mfiSAPResponseDataPtr );
-    if ( httpResponse ) free( httpResponse );
-    return err;
+  if ( mfiSAPResponseDataPtr ) free( mfiSAPResponseDataPtr );
+  if ( httpResponse ) free( httpResponse );
+  return err;
 }
 
 static OSStatus _HandleState_WaitingForConfigMessage( HTTPHeader_t* inHeader, _WACState_t *inState, mico_Context_t * const inContext )
 {
-    wac_log_trace();
-    OSStatus err = kNoErr;
+  wac_log_trace();
+  (void)inContext;
 
-    // Check that the HTTP URL is the config URL
-    err = HTTPHeaderMatchURL( inHeader, kWACURLConfig );
-    require_noerr_action( err, exit, wac_log("ERROR: received different URL. Expecting: %s", kWACURLConfig); err = kOrderErr );
+  OSStatus err = kNoErr;
 
-    wac_log("%s received", kWACURLConfig);
+  // Check that the HTTP URL is the config URL
+  err = HTTPHeaderMatchURL( inHeader, kWACURLConfig );
+  require_noerr_action( err, exit, wac_log("ERROR: received different URL. Expecting: %s", kWACURLConfig); err = kOrderErr );
 
-    *inState = eState_HandleConfigMessage;
+  wac_log("%s received", kWACURLConfig);
+
+  *inState = eState_HandleConfigMessage;
 
 exit:
-    return err;
+  return err;
 }
 
 static OSStatus _HandleState_HandleConfigMessage( HTTPHeader_t* inHeader, _WACState_t *inState, mico_Context_t * const inContext )
 {
-    wac_log_trace();
-    OSStatus err = kParamErr;
+  wac_log_trace();
+  (void)inContext;
+  OSStatus err = kParamErr;
 
-    uint8_t *httpResponse = NULL;
-    size_t httpResponseLen = 0;
-
-
-    ssize_t sentNum;
-
-    // Remove the WAC bonjour service
-    // err = RemoveWACBonjourService( inContext );
-    // require_noerr( err, exit );
-    suspend_bonjour_service(ENABLE);
+  uint8_t *httpResponse = NULL;
+  size_t httpResponseLen = 0;
 
 
-    // Decrypt the /config message
-    uint8_t *decryptedConfigData = malloc( inHeader->extraDataLen );
-    require_action( decryptedConfigData, exit, err = kNoMemoryErr );
-    err = MFiSAP_Decrypt( mfiSAPRef,                 // MFiSAPRef
-                          inHeader->extraDataPtr,  // Data to decrypt
-                          inHeader->extraDataLen,  // Length of data to decrpyt
-                          decryptedConfigData );                // Decrypted data destination pointer
-    require_noerr( err, exit );
+  ssize_t sentNum;
 
-    // Parse the /config message, TLV format
-    err = _ParseTLVConfigMessage( decryptedConfigData,                  // Data pointer to parse
-                                  inHeader->extraDataLen,               // Data length
-                                  &destinationSSID,                     // Pointer to SSID c string
-                                  &destinationPSK,                      // Pointer to PSK c string
-                                  &accessoryName,                       // Pointer to name c string
-                                  &playPassword );                      // Pointer to name c string
-    free( decryptedConfigData );
-    require_noerr_action( err, exit, err = kResponseErr );
-    require_action( destinationSSID, exit, err = kResponseErr );
+  // Remove the WAC bonjour service
+  // err = RemoveWACBonjourService( inContext );
+  // require_noerr( err, exit );
+  suspend_bonjour_service(ENABLE);
 
-    wac_log("Received SSID: %s", destinationSSID);
-    if(destinationPSK)
-      wac_log("Received PSK: %s", destinationPSK);
-    wac_log("Received NAME: %s", accessoryName);
-    if(playPassword)
-      wac_log("Received PASSWORD: %s", playPassword);
 
-    //If we have an EA response to send
-    if ( App_Available )
-    {
-        // Create the TLV response
-        uint8_t *eaTLVResponse;
-        size_t  eaTLVResponseLen;
-        err = CreateTLVConfigResponseMessage( &eaTLVResponse, &eaTLVResponseLen );
-        require_noerr( err, exit );
-        require_action( eaTLVResponse, exit, err = kNoMemoryErr );
-        require_action( eaTLVResponseLen, exit, err = kNoMemoryErr );
+  // Decrypt the /config message
+  uint8_t *decryptedConfigData = malloc( inHeader->extraDataLen );
+  require_action( decryptedConfigData, exit, err = kNoMemoryErr );
+  err = MFiSAP_Decrypt( mfiSAPRef,                 // MFiSAPRef
+                        inHeader->extraDataPtr,  // Data to decrypt
+                        inHeader->extraDataLen,  // Length of data to decrpyt
+                        decryptedConfigData );                // Decrypted data destination pointer
+  require_noerr( err, exit );
 
-        // Encrypt the TLV response
-        uint8_t *encryptedConfigData = malloc( eaTLVResponseLen * sizeof( uint8_t ) );
-        require( encryptedConfigData, exit );
+  // Parse the /config message, TLV format
+  err = _ParseTLVConfigMessage( decryptedConfigData,                  // Data pointer to parse
+                                inHeader->extraDataLen,               // Data length
+                                &destinationSSID,                     // Pointer to SSID c string
+                                &destinationPSK,                      // Pointer to PSK c string
+                                &accessoryName,                       // Pointer to name c string
+                                &playPassword );                      // Pointer to name c string
+  free( decryptedConfigData );
+  require_noerr_action( err, exit, err = kResponseErr );
+  require_action( destinationSSID, exit, err = kResponseErr );
 
-        err = MFiSAP_Encrypt( mfiSAPRef,     // MFiSAPRef
-                              eaTLVResponse,            // Data to encrypt
-                              eaTLVResponseLen,         // Length of data to encrypt
-                              encryptedConfigData );    // Encrypted data destination pointer
+  wac_log("Received SSID: %s", destinationSSID);
+  if(destinationPSK)
+    wac_log("Received PSK: %s", destinationPSK);
+  wac_log("Received NAME: %s", accessoryName);
+  if(playPassword)
+    wac_log("Received PASSWORD: %s", playPassword);
 
-        err = CreateSimpleHTTPMessage( kMIMEType_TLV8,      // MIME type of message
-                                       encryptedConfigData, // encrypted data to send
-                                       eaTLVResponseLen,    // length of data to send
-                                       &httpResponse,       // pointer to http response
-                                       &httpResponseLen );  // length of http response
+  //If we have an EA response to send
+  if ( App_Available )
+  {
+      // Create the TLV response
+      uint8_t *eaTLVResponse;
+      size_t  eaTLVResponseLen;
+      err = CreateTLVConfigResponseMessage( &eaTLVResponse, &eaTLVResponseLen );
+      require_noerr( err, exit );
+      require_action( eaTLVResponse, exit, err = kNoMemoryErr );
+      require_action( eaTLVResponseLen, exit, err = kNoMemoryErr );
 
-        free( encryptedConfigData );
-        free( eaTLVResponse );
-        wac_log("Sending EA /config response");
-    }
-    else
-    {
-        err = CreateSimpleHTTPOKMessage( &httpResponse, &httpResponseLen );
-        wac_log("Sending simple (non-EA) /config response");
-    }
-    require_noerr( err, exit );
+      // Encrypt the TLV response
+      uint8_t *encryptedConfigData = malloc( eaTLVResponseLen * sizeof( uint8_t ) );
+      require( encryptedConfigData, exit );
 
-    sentNum = send( connected_socket, httpResponse, httpResponseLen,0 );
-    require( sentNum==(ssize_t)httpResponseLen, exit );
-    wac_log("Config response sent, len= %d", sentNum);
+      err = MFiSAP_Encrypt( mfiSAPRef,     // MFiSAPRef
+                            eaTLVResponse,            // Data to encrypt
+                            eaTLVResponseLen,         // Length of data to encrypt
+                            encryptedConfigData );    // Encrypted data destination pointer
 
-    *inState = eState_WaitingTCPFINMessage;
+      err = CreateSimpleHTTPMessage( kMIMEType_TLV8,      // MIME type of message
+                                     encryptedConfigData, // encrypted data to send
+                                     eaTLVResponseLen,    // length of data to send
+                                     &httpResponse,       // pointer to http response
+                                     &httpResponseLen );  // length of http response
 
-    //close_client_connection_Configured();
-    //close(connected_socket);
+      free( encryptedConfigData );
+      free( eaTLVResponse );
+      wac_log("Sending EA /config response");
+  }
+  else
+  {
+      err = CreateSimpleHTTPOKMessage( &httpResponse, &httpResponseLen );
+      wac_log("Sending simple (non-EA) /config response");
+  }
+  require_noerr( err, exit );
 
-    //require(new_configuration, exit);
-    //mico_rtos_set_semaphore(&new_configuration);
+  sentNum = send( connected_socket, httpResponse, httpResponseLen,0 );
+  require( sentNum==(ssize_t)httpResponseLen, exit );
+  wac_log("Config response sent, len= %d", sentNum);
+
+  *inState = eState_WaitingTCPFINMessage;
+
+  //close_client_connection_Configured();
+  //close(connected_socket);
+
+  //require(new_configuration, exit);
+  //mico_rtos_set_semaphore(&new_configuration);
 
 
 exit:
-    //if ( inContext->httpServer ) free( inContext->httpServer );
-    // malloc'd by CreateSimpleHTTPOKMessage()
-    if ( httpResponse ) free( httpResponse );
+  //if ( inContext->httpServer ) free( inContext->httpServer );
+  // malloc'd by CreateSimpleHTTPOKMessage()
+  if ( httpResponse ) free( httpResponse );
 
-    return err;
+  return err;
 }
 
 static OSStatus _HandleState_WaitingForConfiguredMessage( HTTPHeader_t* inHeader, _WACState_t *inState, mico_Context_t * const inContext )
 {
     wac_log_trace();
+    (void)inContext;
     OSStatus err = kNoErr;
 
     require( inHeader, exit );
@@ -563,5 +576,166 @@ exit:
     return err;
 }
 
+
+OSStatus CreateTLVConfigResponseMessage( uint8_t **outTLVResponse, size_t *outTLVResponseLen)
+{
+    wac_log_trace();
+    OSStatus err = kParamErr;
+    uint8_t *tlvPtr;
+
+    uint8_t *eaProtocolSizes        = NULL;
+    uint8_t nameSize                = 0;
+    uint8_t manufacturerSize        = 0;
+    uint8_t modelSize               = 0;
+    uint8_t firmwareRevisionSize    = 0;
+    uint8_t hardwareRevisionSize    = 0;
+    uint8_t serialNumberSize        = 0;
+    uint8_t eaBundleSeedIDSize      = 0;
+
+    *outTLVResponse = NULL;
+    *outTLVResponseLen = 0;
+
+    require( WAC_Params, exit );
+
+    if ( WAC_Params->name )
+    {
+        nameSize = strnlen( WAC_Params->name, kWACTLV_MaxStringSize );
+        *outTLVResponseLen += nameSize + kWACTLV_TypeLengthSize;
+    }
+
+    if ( WAC_Params->manufacturer )
+    {
+        manufacturerSize = strnlen( WAC_Params->manufacturer, kWACTLV_MaxStringSize );
+        *outTLVResponseLen += manufacturerSize + kWACTLV_TypeLengthSize;
+    }
+
+    if ( WAC_Params->model )
+    {
+        modelSize = strnlen( WAC_Params->model, kWACTLV_MaxStringSize );
+        *outTLVResponseLen += modelSize + kWACTLV_TypeLengthSize;
+    }
+
+    if ( WAC_Params->firmwareRevision )
+    {
+        firmwareRevisionSize = strnlen( WAC_Params->firmwareRevision, kWACTLV_MaxStringSize );
+        *outTLVResponseLen += firmwareRevisionSize + kWACTLV_TypeLengthSize;
+    }
+
+    if ( WAC_Params->hardwareRevision )
+    {
+        hardwareRevisionSize = strnlen( WAC_Params->hardwareRevision, kWACTLV_MaxStringSize );
+        *outTLVResponseLen += hardwareRevisionSize + kWACTLV_TypeLengthSize;
+    }
+
+    if ( WAC_Params->serialNumber )
+    {
+        serialNumberSize = strnlen( WAC_Params->serialNumber, kWACTLV_MaxStringSize );
+        *outTLVResponseLen += serialNumberSize + kWACTLV_TypeLengthSize;
+    }
+
+    if ( WAC_Params->eaBundleSeedID )
+    {
+        eaBundleSeedIDSize = strnlen( WAC_Params->eaBundleSeedID, kWACTLV_MaxStringSize );
+        *outTLVResponseLen += eaBundleSeedIDSize + kWACTLV_TypeLengthSize;
+    }
+
+    eaProtocolSizes = calloc( WAC_Params->numEAProtocols, sizeof( uint32_t ) );
+    require_action( eaProtocolSizes, exit, err = kNoMemoryErr );
+
+    uint8_t protocolIndex;
+    for( protocolIndex = 0; protocolIndex < WAC_Params->numEAProtocols; protocolIndex++ )
+    {
+        eaProtocolSizes[protocolIndex] = strnlen( WAC_Params->eaProtocols[protocolIndex], kWACTLV_MaxStringSize );
+        *outTLVResponseLen += eaProtocolSizes[protocolIndex] + kWACTLV_TypeLengthSize;
+    }
+
+    // Allocate space for the entire TLV
+    *outTLVResponse = calloc( *outTLVResponseLen, sizeof( uint8_t ) );
+    require_action( *outTLVResponse, exit, err = kNoMemoryErr );
+
+    tlvPtr = *outTLVResponse;
+
+    // Accessory Name
+    if ( nameSize )
+    {
+        *tlvPtr++ = kWACTLV_Name;
+        *tlvPtr++ = nameSize;
+        memcpy( tlvPtr, WAC_Params->name, nameSize );
+        tlvPtr += nameSize;
+    }
+
+    // Accessory Manufacturer
+    if ( manufacturerSize )
+    {
+        *tlvPtr++ = kWACTLV_Manufacturer;
+        *tlvPtr++ = manufacturerSize;
+        memcpy( tlvPtr, WAC_Params->manufacturer, manufacturerSize );
+        tlvPtr += manufacturerSize;
+    }
+
+    // Accessory Model
+    if ( modelSize )
+    {
+        *tlvPtr++ = kWACTLV_Model;
+        *tlvPtr++ = modelSize;
+        memcpy( tlvPtr, WAC_Params->model, modelSize );
+        tlvPtr += modelSize;
+    }
+
+    // Serial Number
+    if ( serialNumberSize )
+    {
+        *tlvPtr++ = kWACTLV_SerialNumber;
+        *tlvPtr++ = serialNumberSize;
+        memcpy( tlvPtr, WAC_Params->serialNumber, serialNumberSize );
+        tlvPtr += serialNumberSize;
+    }
+
+    // Firmware Revision
+    if ( firmwareRevisionSize )
+    {
+        *tlvPtr++ = kWACTLV_FirmwareRevision;
+        *tlvPtr++ = firmwareRevisionSize;
+        memcpy( tlvPtr, WAC_Params->firmwareRevision, firmwareRevisionSize );
+        tlvPtr += firmwareRevisionSize;
+    }
+
+    // Hardware Revision
+    if ( hardwareRevisionSize )
+    {
+        *tlvPtr++ = kWACTLV_HardwareRevision;
+        *tlvPtr++ = hardwareRevisionSize;
+        memcpy( tlvPtr, WAC_Params->hardwareRevision, hardwareRevisionSize );
+        tlvPtr += hardwareRevisionSize;
+    }
+
+    // EA Protocols
+    for( protocolIndex = 0; protocolIndex < WAC_Params->numEAProtocols; protocolIndex++ )
+    {
+        *tlvPtr++ = kWACTLV_MFiProtocol;
+        *tlvPtr++ = eaProtocolSizes[protocolIndex];
+        memcpy( tlvPtr, WAC_Params->eaProtocols[protocolIndex], eaProtocolSizes[protocolIndex] );
+        tlvPtr += eaProtocolSizes[protocolIndex];
+    }
+
+    // BundleSeedID
+    if ( eaBundleSeedIDSize )
+    {
+        *tlvPtr++ = kWACTLV_BundleSeedID;
+        *tlvPtr++ = eaBundleSeedIDSize;
+        memcpy( tlvPtr, WAC_Params->eaBundleSeedID, eaBundleSeedIDSize );
+        tlvPtr += eaBundleSeedIDSize;
+    }
+
+    require_action( ( tlvPtr - *outTLVResponseLen ) == *outTLVResponse, exit, err = kSizeErr );
+
+    err = kNoErr;
+
+exit:
+    if( err && *outTLVResponse ) free( *outTLVResponse );
+    if( eaProtocolSizes )        free( eaProtocolSizes );
+
+    return err;
+}
 
 

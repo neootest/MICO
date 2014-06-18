@@ -54,8 +54,7 @@ const uint8_t WAC_BlueTooth_MAC_default[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
 static mico_thread_t mfi_tcp_server_thread_handler;
 
 FunctionalState _suspend_MFi_bonjour = DISABLE;
-static WACPlatformParameters_t* WAC_Params = NULL;
-static bonjour_init_t bonjour_init;
+WACPlatformParameters_t* WAC_Params = NULL;
 
 mico_semaphore_t wac_success = NULL;
 
@@ -66,9 +65,6 @@ mico_semaphore_t wac_success = NULL;
 #define Problem_Detected_Offset            0
 #define Not_Configured_Offset              1
 
-static uint32_t _gBonjourSeedID = 1;
-static bonjour_init_t init;
-static mico_timer_t _Led_EL_timer;
 static void _mfi_bonjour_init(uint8_t app_available, WiFi_Interface interface, mico_Context_t * const inContext);
 
 //static int mDNS_fd = -1;
@@ -129,8 +125,6 @@ const uint8_t oui[3] = {0x00, 0xA0, 0x40};
 const uint8_t sub_type = 0x0;
 uint8_t App_Available = 0;
 
-static int WacTimeOut = 0;
-
 /** Manage the addition and removal of custom IEs
  *
  * @param action       : the action to take (add or remove IE)
@@ -145,13 +139,27 @@ static int WacTimeOut = 0;
  */
 extern OSStatus wiced_wifi_manage_custom_ie( wiced_interface_t interface, wiced_custom_ie_action_t action, /*@unique@*/ uint8_t* oui, uint8_t subtype, void* data, uint16_t length, uint16_t which_packets );
 
-void udp_multicast_thread(void *arg);
-void led_manage_thread(void *arg);
+__weak void ConfigWillStart( mico_Context_t * const inContext )
+{
+  wac_log_trace();
+  (void)(inContext); 
+  return;
+}
 
-static void _led_EL_Timeout_handler( void* arg )
+__weak void ConfigWillStop( mico_Context_t * const inContext )
+{
+   wac_log_trace();
+  (void)(inContext); 
+  return;
+}
+
+static mico_timer_t _wac_timeout_timer;
+
+static void _wac_timeout_handler( void* arg )
 {
   (void)(arg);
-  Platform_LED_SYS_Set_Status(TRIGGER);
+  uap_stop();
+  ConfigWillStop( arg );
 }
 
 void WACNotify_WiFIParaChangedHandler(apinfo_adv_t *ap_info, char *key, int key_len, mico_Context_t * const inContext)
@@ -178,6 +186,15 @@ void WACNotify_WifiStatusHandler(WiFiEvent event, mico_Context_t * const inConte
   case NOTIFY_STATION_UP:
     wac_log("Station Connected");
     break;
+  case NOTIFY_STATION_DOWN:
+    wac_log("Station Disconnected");
+    break;
+  case NOTIFY_AP_UP:
+    wac_log("Soft AP Started");
+    break;
+  case NOTIFY_AP_DOWN:
+    wac_log("Soft AP Closed");
+    break;
   default:
     break;
   }
@@ -193,7 +210,7 @@ void WACNotify_DHCPCompleteHandler(net_para_st *pnet, mico_Context_t * const inC
   suspend_bonjour_service(DISABLE);
 }
 
-OSStatus startMfiWac( mico_Context_t * const inContext)
+OSStatus startMFiWAC( mico_Context_t * const inContext, int timeOut)
 {
   int i, ret=0;
   uint8_t flag1=0, flag2=0;
@@ -315,6 +332,9 @@ OSStatus startMfiWac( mico_Context_t * const inContext)
     }
   }
 
+  ConfigWillStart(inContext);
+  mico_init_timer(&_wac_timeout_timer, timeOut*1000, _wac_timeout_handler, NULL);
+  mico_start_timer(&_wac_timeout_timer);
   memset(&WAC_NetConfig, 0, sizeof(struct _network_InitTypeDef_st));
   WAC_NetConfig.wifi_mode = Soft_AP;
   sprintf(WAC_NetConfig.wifi_ssid, "%s_%s", inContext->flashContentInRam.micoSystemConfig.name, &para.mac[6]);
@@ -339,10 +359,6 @@ OSStatus startMfiWac( mico_Context_t * const inContext)
 
   ret =  PlatformMFiAuthInitialize();
   require_noerr(err, exit);
-
-  /*Led trigger*/
-  mico_init_timer(&_Led_EL_timer, LED_WAC_TRIGGER_INTERVAL, _led_EL_Timeout_handler, NULL);
-  mico_start_timer(&_Led_EL_timer);
 
   App_Available = (WAC_Params->numEAProtocols)? 1:0;
 
@@ -397,171 +413,8 @@ exit:
   return err;  
 }
 
-
-
-OSStatus CreateTLVConfigResponseMessage( uint8_t **outTLVResponse, size_t *outTLVResponseLen)
-{
-    wac_log_trace();
-    OSStatus err = kParamErr;
-
-    uint8_t *eaProtocolSizes        = NULL;
-    uint8_t nameSize                = 0;
-    uint8_t manufacturerSize        = 0;
-    uint8_t modelSize               = 0;
-    uint8_t firmwareRevisionSize    = 0;
-    uint8_t hardwareRevisionSize    = 0;
-    uint8_t serialNumberSize        = 0;
-    uint8_t eaBundleSeedIDSize      = 0;
-
-    *outTLVResponse = NULL;
-    *outTLVResponseLen = 0;
-
-    require( WAC_Params, exit );
-
-    if ( WAC_Params->name )
-    {
-        nameSize = strnlen( WAC_Params->name, kWACTLV_MaxStringSize );
-        *outTLVResponseLen += nameSize + kWACTLV_TypeLengthSize;
-    }
-
-    if ( WAC_Params->manufacturer )
-    {
-        manufacturerSize = strnlen( WAC_Params->manufacturer, kWACTLV_MaxStringSize );
-        *outTLVResponseLen += manufacturerSize + kWACTLV_TypeLengthSize;
-    }
-
-    if ( WAC_Params->model )
-    {
-        modelSize = strnlen( WAC_Params->model, kWACTLV_MaxStringSize );
-        *outTLVResponseLen += modelSize + kWACTLV_TypeLengthSize;
-    }
-
-    if ( WAC_Params->firmwareRevision )
-    {
-        firmwareRevisionSize = strnlen( WAC_Params->firmwareRevision, kWACTLV_MaxStringSize );
-        *outTLVResponseLen += firmwareRevisionSize + kWACTLV_TypeLengthSize;
-    }
-
-    if ( WAC_Params->hardwareRevision )
-    {
-        hardwareRevisionSize = strnlen( WAC_Params->hardwareRevision, kWACTLV_MaxStringSize );
-        *outTLVResponseLen += hardwareRevisionSize + kWACTLV_TypeLengthSize;
-    }
-
-    if ( WAC_Params->serialNumber )
-    {
-        serialNumberSize = strnlen( WAC_Params->serialNumber, kWACTLV_MaxStringSize );
-        *outTLVResponseLen += serialNumberSize + kWACTLV_TypeLengthSize;
-    }
-
-    if ( WAC_Params->eaBundleSeedID )
-    {
-        eaBundleSeedIDSize = strnlen( WAC_Params->eaBundleSeedID, kWACTLV_MaxStringSize );
-        *outTLVResponseLen += eaBundleSeedIDSize + kWACTLV_TypeLengthSize;
-    }
-
-    eaProtocolSizes = calloc( WAC_Params->numEAProtocols, sizeof( uint32_t ) );
-    require_action( eaProtocolSizes, exit, err = kNoMemoryErr );
-
-    uint8_t protocolIndex;
-    for( protocolIndex = 0; protocolIndex < WAC_Params->numEAProtocols; protocolIndex++ )
-    {
-        eaProtocolSizes[protocolIndex] = strnlen( WAC_Params->eaProtocols[protocolIndex], kWACTLV_MaxStringSize );
-        *outTLVResponseLen += eaProtocolSizes[protocolIndex] + kWACTLV_TypeLengthSize;
-    }
-
-    // Allocate space for the entire TLV
-    *outTLVResponse = calloc( *outTLVResponseLen, sizeof( uint8_t ) );
-    require_action( *outTLVResponse, exit, err = kNoMemoryErr );
-
-    uint8_t *tlvPtr = *outTLVResponse;
-
-    // Accessory Name
-    if ( nameSize )
-    {
-        *tlvPtr++ = kWACTLV_Name;
-        *tlvPtr++ = nameSize;
-        memcpy( tlvPtr, WAC_Params->name, nameSize );
-        tlvPtr += nameSize;
-    }
-
-    // Accessory Manufacturer
-    if ( manufacturerSize )
-    {
-        *tlvPtr++ = kWACTLV_Manufacturer;
-        *tlvPtr++ = manufacturerSize;
-        memcpy( tlvPtr, WAC_Params->manufacturer, manufacturerSize );
-        tlvPtr += manufacturerSize;
-    }
-
-    // Accessory Model
-    if ( modelSize )
-    {
-        *tlvPtr++ = kWACTLV_Model;
-        *tlvPtr++ = modelSize;
-        memcpy( tlvPtr, WAC_Params->model, modelSize );
-        tlvPtr += modelSize;
-    }
-
-    // Serial Number
-    if ( serialNumberSize )
-    {
-        *tlvPtr++ = kWACTLV_SerialNumber;
-        *tlvPtr++ = serialNumberSize;
-        memcpy( tlvPtr, WAC_Params->serialNumber, serialNumberSize );
-        tlvPtr += serialNumberSize;
-    }
-
-    // Firmware Revision
-    if ( firmwareRevisionSize )
-    {
-        *tlvPtr++ = kWACTLV_FirmwareRevision;
-        *tlvPtr++ = firmwareRevisionSize;
-        memcpy( tlvPtr, WAC_Params->firmwareRevision, firmwareRevisionSize );
-        tlvPtr += firmwareRevisionSize;
-    }
-
-    // Hardware Revision
-    if ( hardwareRevisionSize )
-    {
-        *tlvPtr++ = kWACTLV_HardwareRevision;
-        *tlvPtr++ = hardwareRevisionSize;
-        memcpy( tlvPtr, WAC_Params->hardwareRevision, hardwareRevisionSize );
-        tlvPtr += hardwareRevisionSize;
-    }
-
-    // EA Protocols
-    for( protocolIndex = 0; protocolIndex < WAC_Params->numEAProtocols; protocolIndex++ )
-    {
-        *tlvPtr++ = kWACTLV_MFiProtocol;
-        *tlvPtr++ = eaProtocolSizes[protocolIndex];
-        memcpy( tlvPtr, WAC_Params->eaProtocols[protocolIndex], eaProtocolSizes[protocolIndex] );
-        tlvPtr += eaProtocolSizes[protocolIndex];
-    }
-
-    // BundleSeedID
-    if ( eaBundleSeedIDSize )
-    {
-        *tlvPtr++ = kWACTLV_BundleSeedID;
-        *tlvPtr++ = eaBundleSeedIDSize;
-        memcpy( tlvPtr, WAC_Params->eaBundleSeedID, eaBundleSeedIDSize );
-        tlvPtr += eaBundleSeedIDSize;
-    }
-
-    require_action( ( tlvPtr - *outTLVResponseLen ) == *outTLVResponse, exit, err = kSizeErr );
-
-    err = kNoErr;
-
-exit:
-    if( err && *outTLVResponse ) free( *outTLVResponse );
-    if( eaProtocolSizes )        free( eaProtocolSizes );
-
-    return err;
-}
-
 static void _mfi_bonjour_init(uint8_t app_available, WiFi_Interface interface, mico_Context_t * const inContext)
 {
-  int len;
   char temp_txt[100];
   bonjour_init_t init;
   char *temp_txt2;
@@ -569,9 +422,8 @@ static void _mfi_bonjour_init(uint8_t app_available, WiFi_Interface interface, m
   memset(&init, 0x0, sizeof(bonjour_init_t));
 
   init.interface = interface;
-
   init.service_name = MFi_SERVICE_MFi;
-  init.host_name = MFi_HOST_NAME;
+  init.host_name = "MXCHIP_MFi.local.";
   init.instance_name = (char*)__strdup(inContext->flashContentInRam.micoSystemConfig.name);
   init.service_port = 65520;
 

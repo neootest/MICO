@@ -19,7 +19,6 @@
   ******************************************************************************
   */ 
 
-
 #ifndef __PLATFORM_H
 #define __PLATFORM_H
 
@@ -38,7 +37,6 @@ typedef enum
 } gpio_irq_trigger_t;
 
 typedef void (*gpio_irq_handler_t)( void* arg);
-
 
 #ifdef EMW3162
 #include "HAL_EMW3162.h"

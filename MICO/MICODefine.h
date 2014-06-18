@@ -30,25 +30,11 @@
 #include "external/JSON-C/json.h"
 #include "MICOAppDefine.h"
     
-#ifdef EMW3162
-#define MFi_INSTANCE_NAME                  "MXCHIP_3162_MFi."
-#define MFi_HOST_NAME                      "EMW3162_MFi.local."
-#endif
-
-#ifdef EMW3161
-#define MFi_INSTANCE_NAME                  "MXCHIP_3161_MFi."
-#define MFi_HOST_NAME                      "EMW3161_MFi.local."
-#endif
-
-#ifdef Open1081
-#define MFi_INSTANCE_NAME                  "Open_1081_MFi."
-#define MFi_HOST_NAME                      "Open_1081_MFi.local."
-#endif    
+ 
     
-
-#define CONFIG_MODE_EASYLINK
-#define CONFIG_MODE_EASYLINK_WITH_SOFTAP
-//#define CONFIG_MODE_WAC
+//#define CONFIG_MODE_EASYLINK
+//#define CONFIG_MODE_EASYLINK_WITH_SOFTAP
+#define CONFIG_MODE_WAC
 
 #define BONJOUR_SERVICE         "_easylink._tcp.local."
 #define CONFIG_SERVICE_PORT     8000

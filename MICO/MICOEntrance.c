@@ -27,8 +27,15 @@
 #include "MICONotificationCenter.h"
 #include "MICOSystemMonitor.h"
 #include "EasyLink/EasyLink.h"
-
 #include "StringUtils.h"
+
+#ifdef CONFIG_MODE_EASYLINK
+#include "EsyLink/EasyLink.h"
+#endif
+
+#ifdef CONFIG_MODE_WAC
+#include "WAC/WAC.h"
+#endif
 
 static mico_Context_t *context;
 static mico_timer_t _watchdog_reload_timer;
@@ -243,7 +250,7 @@ int application_start(void)
 #endif
 
 #ifdef CONFIG_MODE_WAC
-    err = startMfiWac( context );
+    err = startMFiWAC( context, 1200);
     require_noerr( err, exit );
 #endif
   }

@@ -36,16 +36,30 @@
 #define config_delegate_log(M, ...) custom_log("Config Delegate", M, ##__VA_ARGS__)
 #define config_delegate_log_trace() custom_log_trace("Config Delegate")
 
+static mico_timer_t _Led_EL_timer;
+
+static void _led_EL_Timeout_handler( void* arg )
+{
+  (void)(arg);
+  Platform_LED_SYS_Set_Status(TRIGGER);
+}
+
 void ConfigWillStart( mico_Context_t * const inContext )
 {
   config_delegate_log_trace();
   (void)(inContext); 
+    /*Led trigger*/
+  mico_init_timer(&_Led_EL_timer, LED_WAC_TRIGGER_INTERVAL, _led_EL_Timeout_handler, NULL);
+  mico_start_timer(&_Led_EL_timer);
   return;
 }
 
 void ConfigWillStop( mico_Context_t * const inContext )
 {
-   config_delegate_log_trace();
+  config_delegate_log_trace();
+  mico_stop_timer(&_Led_EL_timer);
+  mico_deinit_timer( &_Led_EL_timer );
+  Platform_LED_SYS_Set_Status(OFF);
   (void)(inContext); 
   return;
 }

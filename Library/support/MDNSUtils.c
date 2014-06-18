@@ -153,9 +153,9 @@ void process_dns_questions(int fd, dns_message_iterator_t* iter )
         else {
           int b = 0;
           for ( b = 0; b < available_service_count; ++b ){
+            //printf("UDP multicast test: Recv a SERVICE Detail request: %s.\r\n", name);
             if ( dns_compare_name_to_string( &name, available_services[b].service_name, __FUNCTION__, __LINE__ )){
               // Send the PTR, TXT, SRV and A records
-              _debug_out("UDP multicast test: Recv a SERVICE Detail request.\r\n");
               if(dns_create_message( &response, 512 )){
                 dns_write_header( &response, iter->header->id, 0x8400, 0, 4, 0 );
                 //dns_write_record( &response, MFi_SERVICE_QUERY_NAME, RR_CLASS_IN, RR_TYPE_PTR, 1500, (u8*) available_services[b].service_name );
@@ -164,11 +164,6 @@ void process_dns_questions(int fd, dns_message_iterator_t* iter )
                 dns_write_record( &response, available_services[b].instance_name, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_SRV, 1500, (u8*) &available_services[b]);
                 dns_write_record( &response, available_services[b].hostname, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_A, 1500, (u8*) &myip);
                 mdns_send_message(fd, &response );
-                //sleep(1);
-                //mdns_send_message(fd, &response );
-                //sleep(1);
-                //mdns_send_message(fd, &response );
-                //sleep(1);
                 dns_free_message( &response );
                 question_processed = 1;
               }
