@@ -43,10 +43,6 @@ const char *WAC_Manufacturer_default = "MXCHIP Inc.";
 #define MFi_SERVICE_MFi                    "_mfi-config._tcp.local."
 #define MFi_SERVICE_PORT                   65520
 
-
-const char *BundleSeedID = BUNDLE_SEED_ID;  //AYDR2YFZ4K
-const char *eaProtocols[1] = {EA_PROTOCOL};
-
 const uint8_t WAC_OUI_default[3] = {0x00, 0xB7, 0x43};
 const uint8_t WAC_dWDS_default[2] = {0x00, 0x00};
 const uint8_t WAC_BlueTooth_MAC_default[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
@@ -210,7 +206,7 @@ void WACNotify_DHCPCompleteHandler(net_para_st *pnet, mico_Context_t * const inC
   suspend_bonjour_service(DISABLE);
 }
 
-OSStatus startMFiWAC( mico_Context_t * const inContext, int timeOut)
+OSStatus startMFiWAC( mico_Context_t * const inContext, WACPlatformParameters_t *inWACPara, int timeOut )
 {
   int i, ret=0;
   uint8_t flag1=0, flag2=0;
@@ -234,24 +230,7 @@ OSStatus startMFiWAC( mico_Context_t * const inContext, int timeOut)
   err = MICOAddNotification( mico_notify_DHCP_COMPLETED, (void *)WACNotify_DHCPCompleteHandler );
   require_noerr( err, exit );   
 
-  str2hex((unsigned char *)para.mac, WAC_Params->macAddress, 6);
-  WAC_Params->isUnconfigured          = 1;
-  WAC_Params->supportsAirPlay         = 0;
-  WAC_Params->supportsAirPrint        = 0;
-  WAC_Params->supports2_4GHzWiFi      = 1;
-  WAC_Params->supports5GHzWiFi        = 0;
-  WAC_Params->supportsWakeOnWireless  = 0;
-
-  WAC_Params->firmwareRevision =  FIRMWARE_REVISION;
-  WAC_Params->hardwareRevision =  HARDWARE_REVISION;
-  WAC_Params->serialNumber =      SERIAL_NUMBER;
-  WAC_Params->name =              inContext->flashContentInRam.micoSystemConfig.name;
-  WAC_Params->model =             MODEL;
-  WAC_Params->manufacturer =      MANUFACTURER;
-
-  WAC_Params->numEAProtocols =    1;
-  WAC_Params->eaBundleSeedID =    (char *)BundleSeedID;
-  WAC_Params->eaProtocols =       (char **)eaProtocols;
+  memcpy(WAC_Params, inWACPara, sizeof(WACPlatformParameters_t));
 
   flag1 = WAC_Params->supportsAirPlay<<Support_AirPlay_Offset|
           WAC_Params->isUnconfigured<<Device_unconfigured_Offset|

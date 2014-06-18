@@ -42,6 +42,8 @@ static mico_timer_t _watchdog_reload_timer;
 
 static mico_system_monitor_t mico_monitor;
 
+const char *eaProtocols[1] = {EA_PROTOCOL};
+
 #define mico_log(M, ...) custom_log("MICO", M, ##__VA_ARGS__)
 #define mico_log_trace() custom_log_trace("MICO")
 
@@ -245,13 +247,37 @@ int application_start(void)
     mico_log("Empty configuration. Starting configuration mode...");
 
 #ifdef CONFIG_MODE_EASYLINK
-    err = startEasyLink( context );
-    require_noerr( err, exit );
+  err = startEasyLink( context );
+  require_noerr( err, exit );
 #endif
 
 #ifdef CONFIG_MODE_WAC
-    err = startMFiWAC( context, 1200);
-    require_noerr( err, exit );
+  WACPlatformParameters_t* WAC_Params = NULL;
+  WAC_Params = calloc(1, sizeof(WACPlatformParameters_t));
+  require(WAC_Params, exit);
+
+  str2hex((unsigned char *)para.mac, WAC_Params->macAddress, 6);
+  WAC_Params->isUnconfigured          = 1;
+  WAC_Params->supportsAirPlay         = 0;
+  WAC_Params->supportsAirPrint        = 0;
+  WAC_Params->supports2_4GHzWiFi      = 1;
+  WAC_Params->supports5GHzWiFi        = 0;
+  WAC_Params->supportsWakeOnWireless  = 0;
+
+  WAC_Params->firmwareRevision =  FIRMWARE_REVISION;
+  WAC_Params->hardwareRevision =  HARDWARE_REVISION;
+  WAC_Params->serialNumber =      SERIAL_NUMBER;
+  WAC_Params->name =              context->flashContentInRam.micoSystemConfig.name;
+  WAC_Params->model =             MODEL;
+  WAC_Params->manufacturer =      MANUFACTURER;
+
+  WAC_Params->numEAProtocols =    1;
+  WAC_Params->eaBundleSeedID =    BUNDLE_SEED_ID;
+  WAC_Params->eaProtocols =       (char **)eaProtocols;;
+
+  err = startMFiWAC( context, WAC_Params, 1200);
+  free(WAC_Params);
+  require_noerr( err, exit );
 #endif
   }
   else{
