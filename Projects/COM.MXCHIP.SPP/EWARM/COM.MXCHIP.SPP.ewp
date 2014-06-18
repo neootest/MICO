@@ -943,7 +943,7 @@
     </settings>
   </configuration>
   <configuration>
-    <name>EMW3161_Debug</name>
+    <name>WAC_Debug</name>
     <toolchain>
       <name>ARM</name>
     </toolchain>
@@ -957,15 +957,15 @@
         <debug>1</debug>
         <option>
           <name>ExePath</name>
-          <state>..\..\..\Build\COM.MXCHIP.SPP\Output\EMW3161_Debug</state>
+          <state>..\..\..\Build\WAC\Output\WAC_Debug</state>
         </option>
         <option>
           <name>ObjPath</name>
-          <state>..\..\..\Build\COM.MXCHIP.SPP\EMW3161_Debug\Obj</state>
+          <state>..\..\..\Build\WAC\WAC_Debug\Obj</state>
         </option>
         <option>
           <name>ListPath</name>
-          <state>..\..\..\Build\COM.MXCHIP.SPP\EMW3161_Debug\List</state>
+          <state>..\..\..\Build\WAC\WAC_Debug\List</state>
         </option>
         <option>
           <name>Variant</name>
@@ -996,7 +996,7 @@
         </option>
         <option>
           <name>GOutputBinary</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>FPU</name>
@@ -1019,7 +1019,7 @@
         </option>
         <option>
           <name>RTDescription</name>
-          <state>Use the full configuration of the C/C++ runtime library. Full locale interface, C locale, file descriptor support, multibytes in printf and scanf, and hex floats in strtod.</state>
+          <state>To be used with the full configuration of the C/C++ runtime library. Full locale interface, C locale, file descriptor support, multibytes in printf and scanf, and hex floats in strtod.</state>
         </option>
         <option>
           <name>OGProductVersion</name>
@@ -1112,8 +1112,6 @@
         </option>
         <option>
           <name>CCDefines</name>
-          <state>USE_STDPERIPH_DRIVER</state>
-          <state>EMW3161</state>
           <state>DEBUG</state>
         </option>
         <option>
@@ -1868,11 +1866,11 @@
         </option>
         <option>
           <name>IarchiveOverride</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IarchiveOutput</name>
-          <state>###Unitialized###</state>
+          <state>Y:\Develop\mxchipWNet Pro Demo@EMW316x\Build\WAC\Output\MFi_WAC_CortexM3_debug.a</state>
         </option>
       </data>
     </settings>
@@ -1883,29 +1881,29 @@
     </settings>
   </configuration>
   <configuration>
-    <name>Open1081</name>
+    <name>WAC_Release</name>
     <toolchain>
       <name>ARM</name>
     </toolchain>
-    <debug>1</debug>
+    <debug>0</debug>
     <settings>
       <name>General</name>
       <archiveVersion>3</archiveVersion>
       <data>
         <version>22</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>ExePath</name>
-          <state>..\..\..\Build\COM.MXCHIP.SPP\Output\Open1081</state>
+          <state>..\..\..\Build\WAC\Output\WAC_Debug</state>
         </option>
         <option>
           <name>ObjPath</name>
-          <state>..\..\..\Build\COM.MXCHIP.SPP\Open1081\Obj</state>
+          <state>..\..\..\Build\WAC\WAC_Release\Obj</state>
         </option>
         <option>
           <name>ListPath</name>
-          <state>..\..\..\Build\COM.MXCHIP.SPP\Open1081\List</state>
+          <state>..\..\..\Build\WAC\WAC_Release\List</state>
         </option>
         <option>
           <name>Variant</name>
@@ -1936,7 +1934,7 @@
         </option>
         <option>
           <name>GOutputBinary</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>FPU</name>
@@ -1959,7 +1957,7 @@
         </option>
         <option>
           <name>RTDescription</name>
-          <state>Use the full configuration of the C/C++ runtime library. Full locale interface, C locale, file descriptor support, multibytes in printf and scanf, and hex floats in strtod.</state>
+          <state>To be used with the full configuration of the C/C++ runtime library. Full locale interface, C locale, file descriptor support, multibytes in printf and scanf, and hex floats in strtod.</state>
         </option>
         <option>
           <name>OGProductVersion</name>
@@ -2045,16 +2043,14 @@
       <data>
         <version>29</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>CCOptimizationNoSizeConstraints</name>
           <state>0</state>
         </option>
         <option>
           <name>CCDefines</name>
-          <state>USE_STDPERIPH_DRIVER</state>
-          <state>Open1081</state>
-          <state>DEBUG</state>
+          <state></state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -2294,7 +2290,7 @@
       <data>
         <version>9</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>AObjPrefix</name>
           <state>1</state>
@@ -2460,7 +2456,7 @@
       <data>
         <version>1</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OOCOutputFormat</name>
           <version>2</version>
@@ -2511,7 +2507,7 @@
       <data>
         <version>16</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>IlinkLibIOConfig</name>
           <state>1</state>
@@ -2801,18 +2797,18 @@
       <data>
         <version>0</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>IarchiveInputs</name>
           <state></state>
         </option>
         <option>
           <name>IarchiveOverride</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IarchiveOutput</name>
-          <state>###Unitialized###</state>
+          <state>Y:\Develop\mxchipWNet Pro Demo@EMW316x\Build\WAC\Output\MFi_WAC_CortexM3_release.a</state>
         </option>
       </data>
     </settings>
@@ -2824,6 +2820,10 @@
   </configuration>
   <group>
     <name>Application</name>
+    <excluded>
+      <configuration>WAC_Debug</configuration>
+      <configuration>WAC_Release</configuration>
+    </excluded>
     <file>
       <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP\LocalTcpServer.c</name>
     </file>
@@ -2848,6 +2848,10 @@
   </group>
   <group>
     <name>External</name>
+    <excluded>
+      <configuration>WAC_Debug</configuration>
+      <configuration>WAC_Release</configuration>
+    </excluded>
     <group>
       <name>Curve25519</name>
       <file>
@@ -2858,8 +2862,8 @@
       <name>GladmanAES</name>
       <excluded>
         <configuration>EMW3162_Debug</configuration>
-        <configuration>EMW3161_Debug</configuration>
-        <configuration>Open1081</configuration>
+        <configuration>WAC_Debug</configuration>
+        <configuration>WAC_Release</configuration>
       </excluded>
       <file>
         <name>$PROJ_DIR$\..\..\..\External\GladmanAES\aes_modes.c</name>
@@ -2907,6 +2911,10 @@
   </group>
   <group>
     <name>Library</name>
+    <excluded>
+      <configuration>WAC_Debug</configuration>
+      <configuration>WAC_Release</configuration>
+    </excluded>
     <file>
       <name>$PROJ_DIR$\..\..\..\Library\MICOConfig.c</name>
     </file>
@@ -2914,20 +2922,22 @@
       <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_3161.a</name>
       <excluded>
         <configuration>EMW3162_Debug</configuration>
+        <configuration>WAC_Debug</configuration>
+        <configuration>WAC_Release</configuration>
       </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_3162.a</name>
-      <excluded>
-        <configuration>EMW3161_Debug</configuration>
-        <configuration>Open1081</configuration>
-      </excluded>
     </file>
   </group>
   <group>
     <name>MICO</name>
     <group>
       <name>EasyLink</name>
+      <excluded>
+        <configuration>WAC_Debug</configuration>
+        <configuration>WAC_Release</configuration>
+      </excluded>
       <file>
         <name>$PROJ_DIR$\..\..\..\MICO\EasyLink\EasyLink.c</name>
       </file>
@@ -2946,33 +2956,69 @@
     </group>
     <file>
       <name>$PROJ_DIR$\..\..\..\MICO\MICOBonjour.c</name>
+      <excluded>
+        <configuration>WAC_Debug</configuration>
+        <configuration>WAC_Release</configuration>
+      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\MICO\MICOConfigMenu.c</name>
+      <excluded>
+        <configuration>WAC_Debug</configuration>
+        <configuration>WAC_Release</configuration>
+      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\MICO\MICOConfigServer.c</name>
+      <excluded>
+        <configuration>WAC_Debug</configuration>
+        <configuration>WAC_Release</configuration>
+      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\MICO\MICODefine.h</name>
+      <excluded>
+        <configuration>WAC_Debug</configuration>
+        <configuration>WAC_Release</configuration>
+      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\MICO\MICOEntrance.c</name>
+      <excluded>
+        <configuration>WAC_Debug</configuration>
+        <configuration>WAC_Release</configuration>
+      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\MICO\MICONotificationCenter.c</name>
+      <excluded>
+        <configuration>WAC_Debug</configuration>
+        <configuration>WAC_Release</configuration>
+      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\MICO\MICOParaStorage.c</name>
+      <excluded>
+        <configuration>WAC_Debug</configuration>
+        <configuration>WAC_Release</configuration>
+      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\MICO\MICOSystemMonitor.c</name>
+      <excluded>
+        <configuration>WAC_Debug</configuration>
+        <configuration>WAC_Release</configuration>
+      </excluded>
     </file>
   </group>
   <group>
     <name>Platform</name>
+    <excluded>
+      <configuration>WAC_Debug</configuration>
+      <configuration>WAC_Release</configuration>
+    </excluded>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Platform\Platform.c</name>
+      <name>$PROJ_DIR$\..\..\..\Platform\platform.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\Platform\PlatformFlash.c</name>
@@ -2995,12 +3041,20 @@
   </group>
   <group>
     <name>startup</name>
+    <excluded>
+      <configuration>WAC_Debug</configuration>
+      <configuration>WAC_Release</configuration>
+    </excluded>
     <file>
       <name>$PROJ_DIR$\startup_stm32f2xx.s</name>
     </file>
   </group>
   <group>
     <name>STM32_HAL_LIB</name>
+    <excluded>
+      <configuration>WAC_Debug</configuration>
+      <configuration>WAC_Release</configuration>
+    </excluded>
     <file>
       <name>$PROJ_DIR$\..\..\..\STM32F2xx_StdPeriph_Driver\src\misc.c</name>
     </file>
@@ -3097,6 +3151,10 @@
   </group>
   <group>
     <name>Support</name>
+    <excluded>
+      <configuration>WAC_Debug</configuration>
+      <configuration>WAC_Release</configuration>
+    </excluded>
     <file>
       <name>$PROJ_DIR$\..\..\..\Library\support\AESUtils.c</name>
     </file>

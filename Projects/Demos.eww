@@ -2,9 +2,6 @@
 
 <workspace>
   <project>
-    <path>$WS_DIR$\COM.MXCHIP.HA\EWARM\COM.MXCHIP.HA.ewp</path>
-  </project>
-  <project>
     <path>$WS_DIR$\COM.MXCHIP.SPP\EWARM\COM.MXCHIP.SPP.ewp</path>
   </project>
   <batchBuild/>
