@@ -32,9 +32,9 @@
     
  
     
-//#define CONFIG_MODE_EASYLINK
-//#define CONFIG_MODE_EASYLINK_WITH_SOFTAP
-#define CONFIG_MODE_WAC
+#define CONFIG_MODE_EASYLINK
+#define CONFIG_MODE_EASYLINK_WITH_SOFTAP
+//#define CONFIG_MODE_WAC
 
 #define BONJOUR_SERVICE         "_easylink._tcp.local."
 #define CONFIG_SERVICE_PORT     8000

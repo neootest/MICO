@@ -30,7 +30,7 @@
 #include "StringUtils.h"
 
 #ifdef CONFIG_MODE_EASYLINK
-#include "EsyLink/EasyLink.h"
+#include "EasyLink/EasyLink.h"
 #endif
 
 #ifdef CONFIG_MODE_WAC
