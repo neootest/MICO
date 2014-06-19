@@ -39,3 +39,6 @@ MICO
 	4、Download and run Easylink APP from apple APP store, 
 		https://itunes.apple.com/cn/app/easylink/id820801172?mt=8
 	5. Press "add" button on Easylink APP to add a new device
+
+![github](https://raw.githubusercontent.com/MXCHIP/MICO/master/Picture/Demo1.jpg) ![github](https://raw.githubusercontent.com/MXCHIP/MICO/master/Picture/Demo2.jpg) ![github](https://raw.githubusercontent.com/MXCHIP/MICO/master/Picture/Demo3.jpg) ![github](https://raw.githubusercontent.com/MXCHIP/MICO/master/Picture/Demo4.jpg) ![github](https://raw.githubusercontent.com/MXCHIP/MICO/master/Picture/Demo5.jpg) 
+
