@@ -1,8 +1,10 @@
 MICO
 ====
 
-Mico-controller based Internet Connectivity Operation System
-Feathurs:
+###Mico-controller based Internet Connectivity Operation System
+
+
+###Feathers
 	－Designed for embedded devices
 	－Based on a Real time operation system
 	－Support abundant MCUs (Plan)
@@ -12,7 +14,7 @@ Feathurs:
 	－Application framework for I.O.T product
 	－Rich tools and mobile APP to accelerate development
 
-Contents:
+###Contents:
 	Demos: Demos applications and application framework
 		COM.MXCHIP.SPP: Data transparent transimission between serial and wlan
 		COM.MXCHIP.HA: Data that conform to HA package definition can be delivered between serial and wlan
@@ -28,7 +30,7 @@ Contents:
 	Platform: Hardware operation on different platform
 	Projects: IAR workbench project
 
-How to use:
+###How to use:
 	1. Install IAR workbench for ARM v6.7 or higher
 	2. Select target: EMW3162, EMW3161 or Open1081
 	3. Build and download MICO demo application
