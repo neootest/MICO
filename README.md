@@ -16,8 +16,8 @@ MICO
 
 ###Contents:
 	* Demos: Demos applications and application framework
-			COM.MXCHIP.SPP: Data transparent transimission between serial and wlan
-			COM.MXCHIP.HA: Data that conform to HA package definition can be delivered between serial and wlan
+		COM.MXCHIP.SPP: Data transparent transimission between serial and wlan
+		COM.MXCHIP.HA: Data that conform to HA package definition can be delivered between serial and wlan
 	* External: External library and tools
 		Curve25519: New Diffie-Hellman Speed Records Booktitle Public Key Cryptography
 		GladmanAES: AES algorithm (not used in MICO, MICO has build-in AES algorithm)
