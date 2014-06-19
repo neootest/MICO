@@ -39,6 +39,10 @@ MICO
 	4、Download and run Easylink APP from apple APP store, 
 		https://itunes.apple.com/cn/app/easylink/id820801172?mt=8
 	5. Press "add" button on Easylink APP to add a new device
+	6. Input ssid and password of the wlan that assoiated to iPhone, and start easylink
+	7. Press easylink button on your module (User button 1 on Open1081 dev board)
+	8. A new device appears on iPhone's screen, press this device, change and save these settings
+	9. This new device appears on EasyLink app's main page, you can interact with it now!  
 
 ![github](https://raw.githubusercontent.com/MXCHIP/MICO/master/Picture/Demo1.jpg) ![github](https://raw.githubusercontent.com/MXCHIP/MICO/master/Picture/Demo2.jpg) ![github](https://raw.githubusercontent.com/MXCHIP/MICO/master/Picture/Demo3.jpg) ![github](https://raw.githubusercontent.com/MXCHIP/MICO/master/Picture/Demo4.jpg) ![github](https://raw.githubusercontent.com/MXCHIP/MICO/master/Picture/Demo5.jpg) 
 
