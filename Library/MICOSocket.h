@@ -214,7 +214,7 @@ int accept(int sockfd, struct sockaddr_t *addr, socklen_t *addrlen);
   *             sets, plus 1. In MICO, the mount of file descriptors is fewer, so  
   *             MICO use the MAX number of these file descriptors inside, and this 
   *             parameter is cared.
-  * @param      readfds: A file descriptor setswill be watched to see if characters 
+  * @param      readfds: A file descriptor sets will be watched to see if characters 
   *             become available for reading。
   * @param      writefds: A file descriptor sets will be watched to see if a write 
   *             will not block.
