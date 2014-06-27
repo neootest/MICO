@@ -409,7 +409,7 @@ void easylink_thread(void *inContext)
   
   if(Context->flashContentInRam.micoSystemConfig.easyLinkEnable != false){
     OpenEasylink2_withdata(EasyLink_TimeOut); 
-    easylink_log("Start easylink @ %d");
+    easylink_log("Start easylink");
     mico_rtos_get_semaphore(&Context->micoStatus.easylink_sem, MICO_WAIT_FOREVER);
     if(EasylinkFailed == false)
       _easylinkConnectWiFi(Context);
