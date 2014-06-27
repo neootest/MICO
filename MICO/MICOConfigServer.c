@@ -44,7 +44,7 @@ static OSStatus _LocalConfigRespondInComingMessage(int fd, HTTPHeader_t* inHeade
 
 OSStatus MICOStartConfigServer ( mico_Context_t * const inContext )
 {
-  return mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Config Server", localConfiglistener_thread, 0x500, (void*)inContext );
+  return mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Config Server", localConfiglistener_thread, 0x200, (void*)inContext );
 }
 
 void localConfiglistener_thread(void *inContext)

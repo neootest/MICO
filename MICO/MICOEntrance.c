@@ -30,7 +30,7 @@
 #include "StringUtils.h"
 
 #ifdef CONFIG_MODE_EASYLINK
-#include "EsyLink/EasyLink.h"
+#include "EasyLink/EasyLink.h"
 #endif
 
 #ifdef CONFIG_MODE_WAC
@@ -320,7 +320,8 @@ int application_start(void)
     _ConnectToAP( context );
   }
 
-
+  mico_log("Free memory: %d", mico_memory_info()->free_memory);
+  
   /*System status changed*/
   while(mico_rtos_get_semaphore(&context->micoStatus.sys_state_change_sem, MICO_WAIT_FOREVER)==kNoErr){
     switch(context->micoStatus.sys_state){

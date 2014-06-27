@@ -33,7 +33,6 @@ OSStatus MICOAddSector(json_object* sectorArray, char* const name,  json_object 
   object = json_object_new_object();
   require_action(object, exit, err = kNoMemoryErr);
   json_object_object_add(object, "N", json_object_new_string(name));      
-  json_object_object_add(object, "T", json_object_new_string("sector"));
   json_object_object_add(object, "C", menuArray);
   json_object_array_add(sectorArray, object);
 

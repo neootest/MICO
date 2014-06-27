@@ -44,6 +44,13 @@
 
 #include "MICOAlgorithm.h"
 
+struct _mico_mallinfo_t {
+  int num_of_chunks;  /**< number of free chunks*/
+  int total_memory;  /**< maximum total allocated space*/
+  int allocted_memory; /**< total allocated space*/
+  int free_memory; /**< total free space*/
+};
+
 
 /**
   * @brief  Get RF driver's version.
@@ -73,6 +80,14 @@ char* system_lib_version( void );
   * @retval None
   */
 void mxchipInit( void );
+
+
+/**
+  * @brief  Get memory usage information
+  * @param  None 
+  * @retval Memory usage information, this is a static memory ,no need to free it
+  */
+struct _mico_mallinfo_t* mico_memory_info(void);
 
 #endif /* __MICO_API_H_ */
 

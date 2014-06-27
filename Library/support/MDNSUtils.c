@@ -596,7 +596,7 @@ void mfi_bonjour_remove_record(int fd)
 
 int start_bonjour_service(void)
 {
-  return mico_rtos_create_thread(&mfi_bonjour_thread_handler, MICO_APPLICATION_PRIORITY, "Bonjour", _bonjour_thread, 0x500, NULL );
+  return mico_rtos_create_thread(&mfi_bonjour_thread_handler, MICO_APPLICATION_PRIORITY, "Bonjour", _bonjour_thread, 0x300, NULL );
 }
 
 void suspend_bonjour_service(FunctionalState state)
