@@ -65,7 +65,7 @@ struct lh_table* lh_table_new(int size, const char *name,
 	if(!t) lh_abort("lh_table_new: calloc failed 1, size = %d\n", sizeof(struct lh_table));
 	t->count = 0;
 	t->size = size;
-	t->name = name;
+	//t->name = name;
 	t->table = (struct lh_entry*)calloc(size, sizeof(struct lh_entry));
 	if(!t->table) lh_abort("lh_table_new: calloc failed 2, size = %d\n", sizeof(struct lh_table));
 	t->free_fn = free_fn;
@@ -92,7 +92,7 @@ void lh_table_resize(struct lh_table *t, int new_size)
 	struct lh_table *new_t;
 	struct lh_entry *ent;
 
-	new_t = lh_table_new(new_size, t->name, NULL, t->hash_fn, t->equal_fn);
+	new_t = lh_table_new(new_size, NULL, NULL, t->hash_fn, t->equal_fn);
 	ent = t->head;
 	while(ent) {
 		lh_table_insert(new_t, ent->k, ent->v);
@@ -103,7 +103,7 @@ void lh_table_resize(struct lh_table *t, int new_size)
 	t->size = new_size;
 	t->head = new_t->head;
 	t->tail = new_t->tail;
-	t->resizes++;
+	//t->resizes++;
 	free(new_t);
 }
 
@@ -124,7 +124,7 @@ int lh_table_insert(struct lh_table *t, void *k, const void *v)
 {
 	unsigned long h, n;
 
-	t->inserts++;
+	//t->inserts++;
 	//if(t->count > t->size * 0.66) lh_table_resize(t, t->size * 2); 
 	if(t->count >= t->size) lh_table_resize(t, t->size + 1); 
 
@@ -133,7 +133,7 @@ int lh_table_insert(struct lh_table *t, void *k, const void *v)
 
 	while( 1 ) {
 		if(t->table[n].k == LH_EMPTY || t->table[n].k == LH_FREED) break;
-		t->collisions++;
+		//t->collisions++;
 		if(++n == t->size) n = 0;
 	}
 
@@ -161,7 +161,7 @@ struct lh_entry* lh_table_lookup_entry(struct lh_table *t, const void *k)
 	unsigned long n = h % t->size;
 	int count = 0;
 
-	t->lookups++;
+	//t->lookups++;
 	while( count < t->size ) {
 		if(t->table[n].k == LH_EMPTY) return NULL;
 		if(t->table[n].k != LH_FREED &&
