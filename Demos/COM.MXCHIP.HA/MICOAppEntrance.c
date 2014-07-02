@@ -36,7 +36,7 @@ OSStatus MICOStartApplication( mico_Context_t * const inContext )
   haProtocolInit(inContext);
   PlatformUartInitialize(inContext);
 
-  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "UART Recv", uartRecv_thread, 0x500, (void*)inContext );
+  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "UART Recv", uartRecv_thread, 0x200, (void*)inContext );
   require_noerr_action( err, exit, app_log("ERROR: Unable to start the uart recv thread.") );
 
  if(inContext->flashContentInRam.appConfig.localServerEnable == true){
@@ -45,7 +45,7 @@ OSStatus MICOStartApplication( mico_Context_t * const inContext )
  }
 
  if(inContext->flashContentInRam.appConfig.remoteServerEnable == true){
-   err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Remote Client", remoteTcpClient_thread, 0x500, (void*)inContext );
+   err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Remote Client", remoteTcpClient_thread, 0x300, (void*)inContext );
    require_noerr_action( err, exit, app_log("ERROR: Unable to start the remote client thread.") );
  }
 

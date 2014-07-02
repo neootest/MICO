@@ -60,7 +60,8 @@ void localTcpServer_thread(void *inContext)
         inet_ntoa(ip_address, addr.s_ip );
         server_log("Client %s:%d connected, fd: %d", ip_address, addr.s_port, j);
 
-        err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Local Clients", localTcpClient_thread, 0x500, &j );  
+        if(kNoErr != mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Local Clients", localTcpClient_thread, 0x500, &j) ) 
+          SocketClose(&j);
       }
     }
    }

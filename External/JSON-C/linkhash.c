@@ -67,7 +67,7 @@ struct lh_table* lh_table_new(int size, const char *name,
 	t->size = size;
 	//t->name = name;
 	t->table = (struct lh_entry*)calloc(size, sizeof(struct lh_entry));
-	if(!t->table) lh_abort("lh_table_new: calloc failed 2, size = %d\n", sizeof(struct lh_table));
+	if(!t->table) lh_abort("lh_table_new: calloc failed 2, size = %d\n", sizeof(struct lh_entry));
 	t->free_fn = free_fn;
 	t->hash_fn = hash_fn;
 	t->equal_fn = equal_fn;
