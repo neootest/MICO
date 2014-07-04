@@ -105,7 +105,7 @@ void localConfig_thread(void *inFd)
   HTTPHeader_t *httpHeader = NULL;
 
   config_log_trace();
-  httpHeader = malloc( sizeof( HTTPHeader_t ) );
+  httpHeader = HTTPHeaderCreate();
   require_action( httpHeader, exit, err = kNoMemoryErr );
   HTTPHeaderClear( httpHeader );
 

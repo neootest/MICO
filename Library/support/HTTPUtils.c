@@ -115,19 +115,32 @@ foundHeader:
     inHeader->len = (size_t)( end - buf );
     err = HTTPHeaderParse( inHeader );
     require_noerr( err, exit );
-
-    inHeader->extraDataPtr = end;
     inHeader->extraDataLen = (size_t)( dst - end );
+    if(inHeader->extraDataPtr) {
+        free((uint8_t *)inHeader->extraDataPtr);
+        inHeader->extraDataPtr = 0;
+    }
+
+    if(inHeader->otaDataPtr) {
+        free((uint8_t *)inHeader->otaDataPtr);
+        inHeader->otaDataPtr = 0;
+    }
 
     err = HTTPGetHeaderField( inHeader->buf, inHeader->len, "Content-Type", NULL, NULL, &value, &valueSize, NULL );
-    require_action_quiet(err != kNotFoundErr, exit, err = kNoErr);
-    if( strnicmpx( value, valueSize, kMIMEType_MXCHIP_OTA ) == 0 ){
-          http_utils_log("Receive OTA data!");        
-          err = PlatformFlashInitialize();
-          require_noerr(err, exit);
-          err = PlatformFlashWrite(&flashStorageAddress, (uint32_t *)inHeader->extraDataPtr, inHeader->extraDataLen);
-          require_noerr(err, exit);          
+    
+    if(err == kNoErr && strnicmpx( value, valueSize, kMIMEType_MXCHIP_OTA ) == 0){
+        http_utils_log("Receive OTA data!");        
+        err = PlatformFlashInitialize();
+        require_noerr(err, exit);
+        err = PlatformFlashWrite(&flashStorageAddress, (uint32_t *)end, inHeader->extraDataLen);
+        require_noerr(err, exit);
+    }else{
+        inHeader->extraDataPtr = calloc(inHeader->contentLength, sizeof(uint8_t));
+        require_action(inHeader->extraDataPtr, exit, err = kNoMemoryErr);
+        memcpy((uint8_t *)inHeader->extraDataPtr, end, inHeader->extraDataLen);
+        err = kNoErr;
     }
+
 exit:
     return err;
 }
@@ -156,22 +169,27 @@ OSStatus SocketReadHTTPBody( int inSock, HTTPHeader_t *inHeader )
         err = HTTPGetHeaderField( inHeader->buf, inHeader->len, "Content-Type", NULL, NULL, &value, &valueSize, NULL );
         require_noerr(err, exit);
         if( strnicmpx( value, valueSize, kMIMEType_MXCHIP_OTA ) == 0 ){
-            if((inHeader->contentLength - inHeader->extraDataLen)<1024){
+            inHeader->otaDataPtr = calloc(OTA_Data_Length_per_read, sizeof(uint8_t)); 
+            require_action(inHeader->otaDataPtr, exit, err = kNoMemoryErr);
+            if((inHeader->contentLength - inHeader->extraDataLen)<OTA_Data_Length_per_read){
                 readResult = read( inSock,
-                           (uint8_t*)( inHeader->extraDataPtr ),
+                           (uint8_t*)( inHeader->otaDataPtr ),
                            ( inHeader->contentLength - inHeader->extraDataLen ) );
             }else{
                 readResult = read( inSock,
-                           (uint8_t*)( inHeader->extraDataPtr ),
-                           1024);
+                           (uint8_t*)( inHeader->otaDataPtr ),
+                           OTA_Data_Length_per_read);
             }
 
             if( readResult  > 0 ) inHeader->extraDataLen += readResult;
             else if( readResult == 0 ) { err = kConnectionErr; goto exit; }
             else goto exit;
 
-            err = PlatformFlashWrite(&flashStorageAddress, (uint32_t *)inHeader->extraDataPtr, readResult);
+            err = PlatformFlashWrite(&flashStorageAddress, (uint32_t *)inHeader->otaDataPtr, readResult);
             require_noerr(err, exit);
+
+            free(inHeader->otaDataPtr);
+            inHeader->otaDataPtr = 0;
         }else{
             readResult = read( inSock,
                            (uint8_t*)( inHeader->extraDataPtr + inHeader->extraDataLen ),
@@ -188,6 +206,10 @@ OSStatus SocketReadHTTPBody( int inSock, HTTPHeader_t *inHeader )
     err = kNoErr;
 
 exit:
+    if(inHeader->otaDataPtr) {
+        free(inHeader->otaDataPtr);
+        inHeader->otaDataPtr = 0;
+    }
     return err;
 }
 
@@ -431,10 +453,23 @@ OSStatus HTTPHeaderMatchURL( HTTPHeader_t *inHeader, const char *url )
     return kNotFoundErr;
 }
 
+HTTPHeader_t * HTTPHeaderCreate( void )
+{
+    return calloc(1, sizeof(HTTPHeader_t));
+}
+
 void HTTPHeaderClear( HTTPHeader_t *inHeader )
 {
     inHeader->len = 0;
     inHeader->extraDataLen = 0;
+    if((uint32_t *)inHeader->extraDataPtr) {
+        free((uint32_t *)inHeader->extraDataPtr);
+        inHeader->extraDataPtr = NULL;
+    }
+    if((uint32_t *)inHeader->otaDataPtr) {
+        free((uint32_t *)inHeader->otaDataPtr);
+        inHeader->otaDataPtr = NULL;
+    }
 }
 
 OSStatus CreateSimpleHTTPOKMessage( uint8_t **outMessage, size_t *outMessageSize )

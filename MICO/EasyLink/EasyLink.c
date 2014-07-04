@@ -430,7 +430,7 @@ void easylink_thread(void *inContext)
   err = mico_rtos_get_semaphore(&Context->micoStatus.easylink_sem, ConnectFTC_Timeout);
   require_noerr(err, reboot);
 
-  httpHeader = malloc( sizeof( HTTPHeader_t ) );
+  httpHeader = HTTPHeaderCreate();
   require_action( httpHeader, threadexit, err = kNoMemoryErr );
   HTTPHeaderClear( httpHeader );
   

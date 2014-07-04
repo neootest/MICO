@@ -72,12 +72,15 @@
 #define kMIMEType_TLV8                  "application/x-tlv8" // 8-bit type, 8-bit length, N-byte value.
 #define kMIMEType_MXCHIP_OTA            "application/ota-stream"
 
+#define OTA_Data_Length_per_read        1024
+
 
 typedef struct
 {
-    char                buf[ 2048 ];        //! Buffer holding the start line and all headers.
+    char                buf[ 256 ];        //! Buffer holding the start line and all headers.
     size_t              len;                //! Number of bytes in the header.
-    const char *        extraDataPtr;       //! Ptr within "buf" for any extra data beyond the header.
+    char *              extraDataPtr;       //! Ptr for any extra data beyond the header, it is alloced when http header is received.
+    char *              otaDataPtr;         //! Ptr for any OTA data beyond the header, it is alloced when one OTA package is received.
     size_t              extraDataLen;       //! Length of any extra data beyond the header.
 
     const char *        methodPtr;          //! Request method (e.g. "GET"). "$" for interleaved binary data.
@@ -93,9 +96,10 @@ typedef struct
 
     uint8_t             channelID;          //! Interleaved binary data channel ID. 0 for other message types.
     uint64_t            contentLength;      //! Number of bytes following the header. May be 0.
-    bool             persistent;         //! true=Do not close the connection after this message.
+    bool                persistent;         //! true=Do not close the connection after this message.
 
-    int            firstErr;           //! First error that occurred or kNoErr.
+    int                 firstErr;           //! First error that occurred or kNoErr.
+
 
 } HTTPHeader_t;
 
@@ -122,6 +126,7 @@ int HTTPGetHeaderField( const char *inHeaderPtr,
                              size_t     *outValueLen, 
                              const char **outNext );
 
+HTTPHeader_t * HTTPHeaderCreate( void );
 void HTTPHeaderClear( HTTPHeader_t *inHeader );
 
 int CreateSimpleHTTPOKMessage( uint8_t **outMessage, size_t *outMessageSize );
