@@ -12,9 +12,13 @@
 #ifndef _json_object_h_
 #define _json_object_h_
 
+#include "printbuf.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+
 
 #define JSON_OBJECT_DEF_HASH_ENTRIES 1 //default is 16
 
@@ -36,6 +40,8 @@ struct json_object_iter
 };
 
 /* forward structure definitions */
+
+
 
 typedef int boolean;
 typedef struct printbuf printbuf;
@@ -345,6 +351,8 @@ extern struct json_object* json_object_new_string_len(const char *s, int len);
  * @returns a string
  */
 extern const char* json_object_get_string(struct json_object *obj);
+extern struct printbuf * json_object_to_json_string_ex(struct json_object *jso);
+
 
 /** Get the string length of a json_object
  *

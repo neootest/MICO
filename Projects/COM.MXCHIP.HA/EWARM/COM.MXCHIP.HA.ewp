@@ -304,7 +304,7 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
-          <state>$PROJ_DIR$\..\..\..\Library</state>
+          <state>$PROJ_DIR$\..\..\..\Library\inc</state>
           <state>$PROJ_DIR$\..\..\..\STM32F2xx_StdPeriph_Driver\inc</state>
           <state>$PROJ_DIR$\..\..\..\Platform</state>
           <state>$PROJ_DIR$\..\..\..\Library\support</state>
@@ -1244,7 +1244,7 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
-          <state>$PROJ_DIR$\..\..\..\Library</state>
+          <state>$PROJ_DIR$\..\..\..\Library\inc</state>
           <state>$PROJ_DIR$\..\..\..\STM32F2xx_StdPeriph_Driver\inc</state>
           <state>$PROJ_DIR$\..\..\..\Platform</state>
           <state>$PROJ_DIR$\..\..\..\Library\support</state>
@@ -2184,7 +2184,7 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
-          <state>$PROJ_DIR$\..\..\..\Library</state>
+          <state>$PROJ_DIR$\..\..\..\Library\inc</state>
           <state>$PROJ_DIR$\..\..\..\STM32F2xx_StdPeriph_Driver\inc</state>
           <state>$PROJ_DIR$\..\..\..\Platform</state>
           <state>$PROJ_DIR$\..\..\..\Library\support</state>

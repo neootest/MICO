@@ -35,7 +35,7 @@ struct printbuf* printbuf_new(void)
 
   p = (struct printbuf*)calloc(1, sizeof(struct printbuf));
   if(!p) return NULL;
-  p->size = 32;
+  p->size = 4;
   p->bpos = 0;
   if(!(p->buf = (char*)malloc(p->size))) {
     free(p);

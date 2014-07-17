@@ -76,41 +76,11 @@ struct lh_table {
 	/**
 	 * Size of our hash.
 	 */
-	int size;
+	unsigned char size;
 	/**
 	 * Numbers of entries.
 	 */
-	int count;
-
-	/**
-	 * Number of collisions.
-	 */
-	//int collisions;
-
-	/**
-	 * Number of resizes.
-	 */
-	//int resizes;
-
-	/**
-	 * Number of lookups.
-	 */
-	//int lookups;
-
-	/**
-	 * Number of inserts.
-	 */
-	//int inserts;
-
-	/**
-	 * Number of deletes.
-	 */
-	//int deletes;
-
-	/**
-	 * Name of the hash table.
-	 */
-	//const char *name;
+	unsigned char count;
 
 	/**
 	 * The first entry.

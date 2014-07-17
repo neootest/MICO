@@ -2,7 +2,7 @@
 
 <workspace>
   <project>
-    <path>$WS_DIR$\COM.MXCHIP.SPP.ewp</path>
+    <path>$WS_DIR$\COM.Apple.HomeKit.ewp</path>
   </project>
   <batchBuild/>
 </workspace>

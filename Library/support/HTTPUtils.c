@@ -40,7 +40,6 @@ int SocketReadHTTPHeader( int inSock, HTTPHeader_t *inHeader )
 {
     int        err =0;
     char *          buf;
-    char *          src;
     char *          dst;
     char *          lim;
     char *          end;
@@ -50,7 +49,6 @@ int SocketReadHTTPHeader( int inSock, HTTPHeader_t *inHeader )
     size_t          valueSize;
 
     buf = inHeader->buf;
-    src = buf;
     dst = buf + inHeader->len;
     lim = buf + sizeof( inHeader->buf );
     for( ;; )
@@ -81,7 +79,6 @@ int SocketReadHTTPHeader( int inSock, HTTPHeader_t *inHeader )
             break ;
     }
 
-foundHeader:
     inHeader->len = (size_t)( end - buf );
     err = HTTPHeaderParse( inHeader );
     require_noerr( err, exit );

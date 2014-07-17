@@ -46,6 +46,7 @@
  * from the sample implementation.
  */
 
+#include "stdlib.h"
 #include "curve25519-donna.h"
 
 // TARGET_CPU_X86_64
@@ -561,8 +562,20 @@ static void fmonty(limb *x2, limb *z2,  /* output 2Q */
                    limb *x, limb *z,    /* input Q */
                    limb *xprime, limb *zprime,  /* input Q' */
                    const limb *qmqp /* input Q - Q' */) {
-  limb origx[10], origxprime[10], zzz[19], xx[19], zz[19], xxprime[19],
-        zzprime[19], zzzprime[19], xxxprime[19];
+
+   limb *origx = calloc(10, sizeof(limb));
+   limb *origxprime = calloc(10, sizeof(limb));
+   limb *zzz = calloc(19, sizeof(limb));
+   limb *xx = calloc(19, sizeof(limb));
+   limb *zz = calloc(19, sizeof(limb));
+   limb *xxprime = calloc(19, sizeof(limb));
+   limb *zzprime = calloc(19, sizeof(limb));
+   limb *zzzprime = calloc(19, sizeof(limb));
+   limb *xxxprime = calloc(19, sizeof(limb));
+
+
+  // limb origx[10], origxprime[10], zzz[19], xx[19], zz[19], xxprime[19],
+  //       zzprime[19], zzzprime[19], xxxprime[19];
 
   memcpy(origx, x, 10 * sizeof(limb));
   fsum(x, z);
@@ -603,6 +616,16 @@ static void fmonty(limb *x2, limb *z2,  /* output 2Q */
   fproduct(z2, zz, zzz);
   freduce_degree(z2);
   freduce_coefficients(z2);
+
+  free(origx);
+  free(origxprime);
+  free(zzz);
+  free(xx);
+  free(zz);
+  free(xxprime);
+  free(zzprime);
+  free(zzzprime);
+  free(xxxprime);
 }
 
 /* Conditionally swap two reduced-form limb arrays if 'iswap' is 1, but leave
@@ -635,9 +658,31 @@ swap_conditional(limb a[19], limb b[19], limb iswap) {
  */
 static void
 cmult(limb *resultx, limb *resultz, const u8 *n, const limb *q) {
-  limb a[19] = {0}, b[19] = {1}, c[19] = {1}, d[19] = {0};
+  limb *a = calloc(19, sizeof(limb));
+
+
+  limb *b = calloc(19, sizeof(limb));
+  b[0]=1;
+
+  limb *c = calloc(19, sizeof(limb));
+  c[0]=1;
+
+  limb *d = calloc(19, sizeof(limb));
+
+  limb *e = calloc(19, sizeof(limb));
+
+  limb *f = calloc(19, sizeof(limb));
+  f[0]=1;
+
+  limb *g = calloc(19, sizeof(limb));
+
+  limb *h = calloc(19, sizeof(limb));
+  h[0]=1;
+
+
+ // limb a[19] = {0}, b[19] = {1}, c[19] = {1}, d[19] = {0};
   limb *nqpqx = a, *nqpqz = b, *nqx = c, *nqz = d, *t;
-  limb e[19] = {0}, f[19] = {1}, g[19] = {0}, h[19] = {1};
+ // limb e[19] = {0}, f[19] = {1}, g[19] = {0}, h[19] = {1};
   limb *nqpqx2 = e, *nqpqz2 = f, *nqx2 = g, *nqz2 = h;
 
   unsigned i, j;
@@ -678,6 +723,15 @@ cmult(limb *resultx, limb *resultz, const u8 *n, const limb *q) {
 
   memcpy(resultx, nqx, sizeof(limb) * 10);
   memcpy(resultz, nqz, sizeof(limb) * 10);
+
+  free(a);
+  free(b);
+  free(c);
+  free(d);
+  free(e);
+  free(f);
+  free(g);
+  free(h);
 }
 
 // -----------------------------------------------------------------------------

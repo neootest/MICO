@@ -73,11 +73,6 @@ void ConfigSoftApWillStart(mico_Context_t * const inContext )
   err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "UART Recv", uartRecv_thread, 0x500, (void*)inContext );
   require_noerr_action( err, exit, config_delegate_log("ERROR: Unable to start the uart recv thread.") );
 
- if(inContext->flashContentInRam.appConfig.localServerEnable == true){
-   err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Local Server", localTcpServer_thread, 0x200, (void*)inContext );
-   require_noerr_action( err, exit, config_delegate_log("ERROR: Unable to start the local server thread.") );
- }
-
 exit:
   return;
 }
@@ -102,13 +97,12 @@ OSStatus ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
 
   wlan_driver_version( rfVersion, 50 );
   rfVer = strstr(rfVersion, "version ");
+  config_delegate_log("RF version=%s", rfVersion);
   if(rfVer) rfVer = rfVer + strlen("version ");
   rfVerTemp = rfVer;
 
   for(rfVerTemp = rfVer; *rfVerTemp != ' '; rfVerTemp++);
   *rfVerTemp = 0x0;
-  
-  config_delegate_log("RF version=%s", rfVersion);
 
   if(inContext->flashContentInRam.micoSystemConfig.configured == wLanUnConfigured){
     /*You can upload a specific menu*/

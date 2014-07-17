@@ -188,6 +188,17 @@ const char* json_object_to_json_string(struct json_object *jso)
   return jso->_pb->buf;
 }
 
+struct printbuf * json_object_to_json_string_ex(struct json_object *jso)
+{
+  struct printbuf *_pb;
+  if(!jso) return NULL;
+
+  if(!(_pb = printbuf_new())) return NULL;
+
+  if(jso->_to_json_string(jso, _pb) < 0) return NULL;
+  return _pb;
+}
+
 
 /* json_object_object */
 
@@ -389,7 +400,7 @@ int64_t json_object_get_int64(struct json_object *jso)
 static int json_object_double_to_json_string(struct json_object* jso,
 					     struct printbuf *pb)
 {
-  return sprintbuf(pb, "%lf", jso->o.c_double);
+  return sprintbuf(pb, "%g", jso->o.c_double);
 }
 
 struct json_object* json_object_new_double(double d)

@@ -17,15 +17,15 @@
         <debug>0</debug>
         <option>
           <name>ExePath</name>
-          <state>..\..\..\Build\COM.MXCHIP.SPP\Output\EMW3162_Debug</state>
+          <state>..\..\..\Build\COM.Apple.HomeKit\Output\EMW3162_Debug</state>
         </option>
         <option>
           <name>ObjPath</name>
-          <state>..\..\..\Build\COM.MXCHIP.SPP\EMW3162_Debug\Obj</state>
+          <state>..\..\..\Build\COM.Apple.HomeKit\EMW3162_Debug\Obj</state>
         </option>
         <option>
           <name>ListPath</name>
-          <state>..\..\..\Build\COM.MXCHIP.SPP\EMW3162_Debug\List</state>
+          <state>..\..\..\Build\COM.Apple.HomeKit\EMW3162_Debug\List</state>
         </option>
         <option>
           <name>Variant</name>
@@ -39,20 +39,20 @@
         <option>
           <name>Input variant</name>
           <version>3</version>
-          <state>6</state>
+          <state>1</state>
         </option>
         <option>
           <name>Input description</name>
-          <state>No specifier n, no float nor long long, no scan set, no assignment suppressing.</state>
+          <state>Full formatting.</state>
         </option>
         <option>
           <name>Output variant</name>
           <version>2</version>
-          <state>5</state>
+          <state>3</state>
         </option>
         <option>
           <name>Output description</name>
-          <state>No specifier a, A, no specifier n, no float nor long long.</state>
+          <state>No specifier a, A.</state>
         </option>
         <option>
           <name>GOutputBinary</name>
@@ -303,13 +303,13 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
-          <state>$PROJ_DIR$\..\..\..\Library</state>
+          <state>$PROJ_DIR$\..\..\..\Library\inc</state>
           <state>$PROJ_DIR$\..\..\..\STM32F2xx_StdPeriph_Driver\inc</state>
           <state>$PROJ_DIR$\..\..\..\Platform</state>
           <state>$PROJ_DIR$\..\..\..\Library\support</state>
-          <state>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP</state>
           <state>$PROJ_DIR$\..\..\..\MICO</state>
           <state>$PROJ_DIR$\..\..\..</state>
+          <state>$PROJ_DIR$\..\..\..\Demos\COM.Apple.HomeKit</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -592,7 +592,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>COM.MXCHIP.SPP.bin</state>
+          <state>COM.Apple.HomeKit.bin</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -646,7 +646,7 @@
         </option>
         <option>
           <name>IlinkOutputFile</name>
-          <state>COM.MXCHIP.SPP.out</state>
+          <state>COM.Apple.HomeKit.out</state>
         </option>
         <option>
           <name>IlinkDebugInfoEnable</name>
@@ -957,15 +957,15 @@
         <debug>1</debug>
         <option>
           <name>ExePath</name>
-          <state>..\..\..\Build\COM.MXCHIP.SPP\Output\EMW3161_Debug</state>
+          <state>..\..\..\Build\COM.Apple.HomeKit\Output\EMW3161_Debug</state>
         </option>
         <option>
           <name>ObjPath</name>
-          <state>..\..\..\Build\COM.MXCHIP.SPP\EMW3161_Debug\Obj</state>
+          <state>..\..\..\Build\COM.Apple.HomeKit\EMW3161_Debug\obj</state>
         </option>
         <option>
           <name>ListPath</name>
-          <state>..\..\..\Build\COM.MXCHIP.SPP\EMW3161_Debug\List</state>
+          <state>..\..\..\Build\COM.Apple.HomeKit\EMW3161_Debug\lst</state>
         </option>
         <option>
           <name>Variant</name>
@@ -979,20 +979,20 @@
         <option>
           <name>Input variant</name>
           <version>3</version>
-          <state>6</state>
+          <state>1</state>
         </option>
         <option>
           <name>Input description</name>
-          <state>No specifier n, no float nor long long, no scan set, no assignment suppressing.</state>
+          <state>Full formatting.</state>
         </option>
         <option>
           <name>Output variant</name>
           <version>2</version>
-          <state>5</state>
+          <state>3</state>
         </option>
         <option>
           <name>Output description</name>
-          <state>No specifier a, A, no specifier n, no float nor long long.</state>
+          <state>No specifier a, A.</state>
         </option>
         <option>
           <name>GOutputBinary</name>
@@ -1243,11 +1243,11 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
-          <state>$PROJ_DIR$\..\..\..\Library</state>
+          <state>$PROJ_DIR$\..\..\..\Library\inc</state>
           <state>$PROJ_DIR$\..\..\..\STM32F2xx_StdPeriph_Driver\inc</state>
           <state>$PROJ_DIR$\..\..\..\Platform</state>
           <state>$PROJ_DIR$\..\..\..\Library\support</state>
-          <state>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP</state>
+          <state>$PROJ_DIR$\..\..\..\Demos\COM.Apple.HomeKit</state>
           <state>$PROJ_DIR$\..\..\..\MICO</state>
           <state>$PROJ_DIR$\..\..\..</state>
         </option>
@@ -1532,7 +1532,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>COM.MXCHIP.SPP.bin</state>
+          <state>COM.Apple.HomeKit.bin</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -1586,7 +1586,7 @@
         </option>
         <option>
           <name>IlinkOutputFile</name>
-          <state>COM.MXCHIP.SPP.out</state>
+          <state>COM.Apple.HomeKit.out</state>
         </option>
         <option>
           <name>IlinkDebugInfoEnable</name>
@@ -1897,15 +1897,15 @@
         <debug>1</debug>
         <option>
           <name>ExePath</name>
-          <state>..\..\..\Build\COM.MXCHIP.SPP\Output\Open1081</state>
+          <state>..\..\..\Build\COM.Apple.HomeKit\Output\Open1081</state>
         </option>
         <option>
           <name>ObjPath</name>
-          <state>..\..\..\Build\COM.MXCHIP.SPP\Open1081\Obj</state>
+          <state>..\..\..\Build\COM.Apple.HomeKit\Open1081\obj</state>
         </option>
         <option>
           <name>ListPath</name>
-          <state>..\..\..\Build\COM.MXCHIP.SPP\Open1081\List</state>
+          <state>..\..\..\Build\COM.Apple.HomeKit\Open1081\lst</state>
         </option>
         <option>
           <name>Variant</name>
@@ -1919,20 +1919,20 @@
         <option>
           <name>Input variant</name>
           <version>3</version>
-          <state>6</state>
+          <state>1</state>
         </option>
         <option>
           <name>Input description</name>
-          <state>No specifier n, no float nor long long, no scan set, no assignment suppressing.</state>
+          <state>Full formatting.</state>
         </option>
         <option>
           <name>Output variant</name>
           <version>2</version>
-          <state>5</state>
+          <state>3</state>
         </option>
         <option>
           <name>Output description</name>
-          <state>No specifier a, A, no specifier n, no float nor long long.</state>
+          <state>No specifier a, A.</state>
         </option>
         <option>
           <name>GOutputBinary</name>
@@ -2183,11 +2183,11 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
-          <state>$PROJ_DIR$\..\..\..\Library</state>
+          <state>$PROJ_DIR$\..\..\..\Library\inc</state>
           <state>$PROJ_DIR$\..\..\..\STM32F2xx_StdPeriph_Driver\inc</state>
           <state>$PROJ_DIR$\..\..\..\Platform</state>
           <state>$PROJ_DIR$\..\..\..\Library\support</state>
-          <state>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP</state>
+          <state>$PROJ_DIR$\..\..\..\Demos\COM.Apple.HomeKit</state>
           <state>$PROJ_DIR$\..\..\..\MICO</state>
           <state>$PROJ_DIR$\..\..\..</state>
         </option>
@@ -2472,7 +2472,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>COM.MXCHIP.SPP.bin</state>
+          <state>COM.Apple.HomeKit.bin</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -2526,7 +2526,7 @@
         </option>
         <option>
           <name>IlinkOutputFile</name>
-          <state>COM.MXCHIP.SPP.out</state>
+          <state>COM.Apple.HomeKit.out</state>
         </option>
         <option>
           <name>IlinkDebugInfoEnable</name>
@@ -2825,28 +2825,43 @@
   <group>
     <name>Application</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP\LocalTcpServer.c</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.Apple.HomeKit\HomeKitHTTPUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP\MICOAppEntrance.c</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.Apple.HomeKit\HomeKitPairlist.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP\MICOBonjour.c</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.Apple.HomeKit\HomeKitPairProtocol.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP\MICOConfigDelegate.c</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.Apple.HomeKit\HomekitProfiles.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP\RemoteTcpClient.c</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.Apple.HomeKit\HomeKitServer.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP\SppProtocol.c</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.Apple.HomeKit\HomeKitUserInterface.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP\stm32f2xx_it.c</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.Apple.HomeKit\MICOAppDefine.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP\UartRecv.c</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.Apple.HomeKit\MICOAppEntrance.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.Apple.HomeKit\MICOBonjour.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.Apple.HomeKit\MICOConfigDelegate.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.Apple.HomeKit\SppProtocol.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.Apple.HomeKit\stm32f2xx_it.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.Apple.HomeKit\UartRecv.c</name>
     </file>
   </group>
   <group>
@@ -2855,6 +2870,759 @@
       <name>Curve25519</name>
       <file>
         <name>$PROJ_DIR$\..\..\..\External\Curve25519\curve25519-donna.c</name>
+        <configuration>
+          <name>EMW3162_Debug</name>
+          <settings>
+            <name>ICCARM</name>
+            <data>
+              <version>29</version>
+              <wantNonLocal>0</wantNonLocal>
+              <debug>0</debug>
+              <option>
+                <name>CCOptimizationNoSizeConstraints</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCDefines</name>
+                <state>USE_STDPERIPH_DRIVER</state>
+                <state>EMW3162</state>
+                <state>DEBUG</state>
+              </option>
+              <option>
+                <name>CCPreprocFile</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCPreprocComments</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCPreprocLine</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCListCFile</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCListCMnemonics</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCListCMessages</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCListAssFile</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCListAssSource</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCEnableRemarks</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCDiagSuppress</name>
+                <state></state>
+              </option>
+              <option>
+                <name>CCDiagRemark</name>
+                <state></state>
+              </option>
+              <option>
+                <name>CCDiagWarning</name>
+                <state></state>
+              </option>
+              <option>
+                <name>CCDiagError</name>
+                <state></state>
+              </option>
+              <option>
+                <name>CCObjPrefix</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>CCAllowList</name>
+                <version>1</version>
+                <state>0000000</state>
+              </option>
+              <option>
+                <name>CCDebugInfo</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IEndianMode</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IProcessor</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IExtraOptionsCheck</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>IExtraOptions</name>
+                <state></state>
+              </option>
+              <option>
+                <name>CCLangConformance</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCSignedPlainChar</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>CCRequirePrototypes</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCMultibyteSupport</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCDiagWarnAreErr</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCCompilerRuntimeInfo</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>IFpuProcessor</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>OutputFile</name>
+                <state>$FILE_BNAME$.o</state>
+              </option>
+              <option>
+                <name>CCLibConfigHeader</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>PreInclude</name>
+                <state></state>
+              </option>
+              <option>
+                <name>CompilerMisraOverride</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCIncludePath2</name>
+                <state>$PROJ_DIR$\..\..\..\Library\inc</state>
+                <state>$PROJ_DIR$\..\..\..\STM32F2xx_StdPeriph_Driver\inc</state>
+                <state>$PROJ_DIR$\..\..\..\Platform</state>
+                <state>$PROJ_DIR$\..\..\..\Library\support</state>
+                <state>$PROJ_DIR$\..\..\..\MICO</state>
+                <state>$PROJ_DIR$\..\..\..</state>
+                <state>$PROJ_DIR$\..\..\..\Demos\COM.Apple.HomeKit</state>
+              </option>
+              <option>
+                <name>CCStdIncCheck</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCCodeSection</name>
+                <state>.text</state>
+              </option>
+              <option>
+                <name>IInterwork2</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>IProcessorMode2</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>CCOptLevel</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCOptStrategy</name>
+                <version>0</version>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCOptLevelSlave</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CompilerMisraRules98</name>
+                <version>0</version>
+                <state>1000111110110101101110011100111111101110011011000101110111101101100111111111111100110011111001110111001111111111111111111111111</state>
+              </option>
+              <option>
+                <name>CompilerMisraRules04</name>
+                <version>0</version>
+                <state>111101110010111111111000110111111111111111111111111110010111101111010101111111111111111111111111101111111011111001111011111011111111111111111</state>
+              </option>
+              <option>
+                <name>CCPosIndRopi</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCPosIndRwpi</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCPosIndNoDynInit</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>IccLang</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>IccCDialect</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccAllowVLA</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>IccCppDialect</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccExceptions</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccRTTI</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccStaticDestr</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccCppInlineSemantics</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccCmsis</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccFloatSemantics</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCNoLiteralPool</name>
+                <state>0</state>
+              </option>
+            </data>
+          </settings>
+        </configuration>
+        <configuration>
+          <name>EMW3161_Debug</name>
+          <settings>
+            <name>ICCARM</name>
+            <data>
+              <version>29</version>
+              <wantNonLocal>0</wantNonLocal>
+              <debug>1</debug>
+              <option>
+                <name>CCOptimizationNoSizeConstraints</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCDefines</name>
+                <state>USE_STDPERIPH_DRIVER</state>
+                <state>EMW3161</state>
+                <state>DEBUG</state>
+              </option>
+              <option>
+                <name>CCPreprocFile</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCPreprocComments</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCPreprocLine</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCListCFile</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCListCMnemonics</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCListCMessages</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCListAssFile</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCListAssSource</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCEnableRemarks</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCDiagSuppress</name>
+                <state></state>
+              </option>
+              <option>
+                <name>CCDiagRemark</name>
+                <state></state>
+              </option>
+              <option>
+                <name>CCDiagWarning</name>
+                <state></state>
+              </option>
+              <option>
+                <name>CCDiagError</name>
+                <state></state>
+              </option>
+              <option>
+                <name>CCObjPrefix</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>CCAllowList</name>
+                <version>1</version>
+                <state>0000000</state>
+              </option>
+              <option>
+                <name>CCDebugInfo</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IEndianMode</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IProcessor</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IExtraOptionsCheck</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>IExtraOptions</name>
+                <state></state>
+              </option>
+              <option>
+                <name>CCLangConformance</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCSignedPlainChar</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>CCRequirePrototypes</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCMultibyteSupport</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCDiagWarnAreErr</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCCompilerRuntimeInfo</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>IFpuProcessor</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>OutputFile</name>
+                <state>$FILE_BNAME$.o</state>
+              </option>
+              <option>
+                <name>CCLibConfigHeader</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>PreInclude</name>
+                <state></state>
+              </option>
+              <option>
+                <name>CompilerMisraOverride</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCIncludePath2</name>
+                <state>$PROJ_DIR$\..\..\..\Library</state>
+                <state>$PROJ_DIR$\..\..\..\STM32F2xx_StdPeriph_Driver\inc</state>
+                <state>$PROJ_DIR$\..\..\..\Platform</state>
+                <state>$PROJ_DIR$\..\..\..\Library\support</state>
+                <state>$PROJ_DIR$\..\..\..\Demos\COM.Apple.HomeKit</state>
+                <state>$PROJ_DIR$\..\..\..\MICO</state>
+                <state>$PROJ_DIR$\..\..\..</state>
+              </option>
+              <option>
+                <name>CCStdIncCheck</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCCodeSection</name>
+                <state>.text</state>
+              </option>
+              <option>
+                <name>IInterwork2</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>IProcessorMode2</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>CCOptLevel</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCOptStrategy</name>
+                <version>0</version>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCOptLevelSlave</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CompilerMisraRules98</name>
+                <version>0</version>
+                <state>1000111110110101101110011100111111101110011011000101110111101101100111111111111100110011111001110111001111111111111111111111111</state>
+              </option>
+              <option>
+                <name>CompilerMisraRules04</name>
+                <version>0</version>
+                <state>111101110010111111111000110111111111111111111111111110010111101111010101111111111111111111111111101111111011111001111011111011111111111111111</state>
+              </option>
+              <option>
+                <name>CCPosIndRopi</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCPosIndRwpi</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCPosIndNoDynInit</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>IccLang</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>IccCDialect</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccAllowVLA</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>IccCppDialect</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccExceptions</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccRTTI</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccStaticDestr</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccCppInlineSemantics</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccCmsis</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccFloatSemantics</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCNoLiteralPool</name>
+                <state>0</state>
+              </option>
+            </data>
+          </settings>
+        </configuration>
+        <configuration>
+          <name>Open1081</name>
+          <settings>
+            <name>ICCARM</name>
+            <data>
+              <version>29</version>
+              <wantNonLocal>0</wantNonLocal>
+              <debug>1</debug>
+              <option>
+                <name>CCOptimizationNoSizeConstraints</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCDefines</name>
+                <state>USE_STDPERIPH_DRIVER</state>
+                <state>Open1081</state>
+                <state>DEBUG</state>
+              </option>
+              <option>
+                <name>CCPreprocFile</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCPreprocComments</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCPreprocLine</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCListCFile</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCListCMnemonics</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCListCMessages</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCListAssFile</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCListAssSource</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCEnableRemarks</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCDiagSuppress</name>
+                <state></state>
+              </option>
+              <option>
+                <name>CCDiagRemark</name>
+                <state></state>
+              </option>
+              <option>
+                <name>CCDiagWarning</name>
+                <state></state>
+              </option>
+              <option>
+                <name>CCDiagError</name>
+                <state></state>
+              </option>
+              <option>
+                <name>CCObjPrefix</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>CCAllowList</name>
+                <version>1</version>
+                <state>0000000</state>
+              </option>
+              <option>
+                <name>CCDebugInfo</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IEndianMode</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IProcessor</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IExtraOptionsCheck</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>IExtraOptions</name>
+                <state></state>
+              </option>
+              <option>
+                <name>CCLangConformance</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCSignedPlainChar</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>CCRequirePrototypes</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCMultibyteSupport</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCDiagWarnAreErr</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCCompilerRuntimeInfo</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>IFpuProcessor</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>OutputFile</name>
+                <state>$FILE_BNAME$.o</state>
+              </option>
+              <option>
+                <name>CCLibConfigHeader</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>PreInclude</name>
+                <state></state>
+              </option>
+              <option>
+                <name>CompilerMisraOverride</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCIncludePath2</name>
+                <state>$PROJ_DIR$\..\..\..\Library</state>
+                <state>$PROJ_DIR$\..\..\..\STM32F2xx_StdPeriph_Driver\inc</state>
+                <state>$PROJ_DIR$\..\..\..\Platform</state>
+                <state>$PROJ_DIR$\..\..\..\Library\support</state>
+                <state>$PROJ_DIR$\..\..\..\Demos\COM.Apple.HomeKit</state>
+                <state>$PROJ_DIR$\..\..\..\MICO</state>
+                <state>$PROJ_DIR$\..\..\..</state>
+              </option>
+              <option>
+                <name>CCStdIncCheck</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCCodeSection</name>
+                <state>.text</state>
+              </option>
+              <option>
+                <name>IInterwork2</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>IProcessorMode2</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>CCOptLevel</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCOptStrategy</name>
+                <version>0</version>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCOptLevelSlave</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CompilerMisraRules98</name>
+                <version>0</version>
+                <state>1000111110110101101110011100111111101110011011000101110111101101100111111111111100110011111001110111001111111111111111111111111</state>
+              </option>
+              <option>
+                <name>CompilerMisraRules04</name>
+                <version>0</version>
+                <state>111101110010111111111000110111111111111111111111111110010111101111010101111111111111111111111111101111111011111001111011111011111111111111111</state>
+              </option>
+              <option>
+                <name>CCPosIndRopi</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCPosIndRwpi</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCPosIndNoDynInit</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>IccLang</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>IccCDialect</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccAllowVLA</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>IccCppDialect</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccExceptions</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccRTTI</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccStaticDestr</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccCppInlineSemantics</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccCmsis</name>
+                <state>1</state>
+              </option>
+              <option>
+                <name>IccFloatSemantics</name>
+                <state>0</state>
+              </option>
+              <option>
+                <name>CCNoLiteralPool</name>
+                <state>0</state>
+              </option>
+            </data>
+          </settings>
+        </configuration>
       </file>
     </group>
     <group>
@@ -2878,6 +3646,27 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\External\GladmanAES\gf128mul.c</name>
+      </file>
+    </group>
+    <group>
+      <name>HMAC_HKDF</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\MICO\External\HMAC_HKDF\hkdf.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\MICO\External\HMAC_HKDF\hmac.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\MICO\External\HMAC_HKDF\sha1.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\MICO\External\HMAC_HKDF\sha224-256.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\MICO\External\HMAC_HKDF\sha384-512.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\MICO\External\HMAC_HKDF\usha.c</name>
       </file>
     </group>
     <group>
@@ -2912,6 +3701,12 @@
     <name>Library</name>
     <file>
       <name>$PROJ_DIR$\..\..\..\Library\MICOConfig.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\Library\MICOCrypto_CortexM3.a</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\Library\MICOSRPServer_CortexM3.a</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_3161.a</name>
