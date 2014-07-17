@@ -2835,6 +2835,9 @@
       <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.HA\MICOAppEntrance.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.HA\MICOBonjour.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.HA\MICOConfigDelegate.c</name>
     </file>
     <file>
@@ -2945,9 +2948,6 @@
         </excluded>
       </file>
     </group>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\MICO\MICOBonjour.c</name>
-    </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\MICO\MICOConfigMenu.c</name>
     </file>
