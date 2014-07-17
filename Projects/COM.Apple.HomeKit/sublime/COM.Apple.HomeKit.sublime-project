@@ -9,7 +9,7 @@
 			"path": "../../../Library"
 		},
 		{
-			"path": "../../../Demos/COM.MXCHIP.SPP"
+			"path": "../../../Demos/COM.Apple.HomeKit"
 		},
 		{
 			"path": "../../../External"
@@ -39,9 +39,9 @@
 			"-DMXCHIP",
 			"-DmxchipWNet_HA",
 			"-DEMW3162",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/",
+			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/",
 			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/",
+			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/inc/",
 			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/",
 			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/MICO/",
 			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/Support/",
