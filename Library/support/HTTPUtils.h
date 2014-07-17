@@ -57,9 +57,11 @@
       //     | "406"  ; Section 10.4.7: Not Acceptable
 
 
-#define kStatusAccept       202
-#define kStatusOK           200
-#define kStatusForbidden    403      
+#define kStatusAccept               202
+#define kStatusOK                   200
+#define kStatusBadRequest           400
+#define kStatusForbidden            403  
+#define kStatusInternalServerErr    500      
 
 #define kMIMEType_Binary                "application/octet-stream"
 #define kMIMEType_DMAP                  "application/x-dmap-tagged"
@@ -70,6 +72,7 @@
 #define kMIMEType_TextParameters        "text/parameters"
 #define kMIMEType_TextPlain             "text/plain"
 #define kMIMEType_TLV8                  "application/x-tlv8" // 8-bit type, 8-bit length, N-byte value.
+#define kMIMEType_Pairing_TLV8          "application/pairing+tlv8" // 8-bit type, 8-bit length, N-byte value.
 #define kMIMEType_MXCHIP_OTA            "application/ota-stream"
 
 #define OTA_Data_Length_per_read        1024
@@ -105,6 +108,8 @@ typedef struct
 
 void PrintHTTPHeader( HTTPHeader_t *inHeader );
 
+bool findHeader ( HTTPHeader_t *inHeader,  char **  outHeaderEnd);
+
 int HTTPScanFHeaderValue( const char *inHeaderPtr, size_t inHeaderLen, const char *inName, const char *inFormat, ... );
 
 int SocketReadHTTPHeader( int inSock, HTTPHeader_t *inHeader );
@@ -116,6 +121,8 @@ int HTTPHeaderParse( HTTPHeader_t *ioHeader );
 int HTTPHeaderMatchMethod( HTTPHeader_t *inHeader, const char *method );
 
 int HTTPHeaderMatchURL( HTTPHeader_t *inHeader, const char *url );
+char* HTTPHeaderMatchPartialURL( HTTPHeader_t *inHeader, const char *url );
+
 
 int HTTPGetHeaderField( const char *inHeaderPtr, 
                              size_t     inHeaderLen, 
@@ -133,6 +140,8 @@ int CreateSimpleHTTPOKMessage( uint8_t **outMessage, size_t *outMessageSize );
 
 OSStatus CreateSimpleHTTPMessage      ( const char *contentType, uint8_t *inData, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize );
 OSStatus CreateSimpleHTTPMessageNoCopy( const char *contentType, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize );
+
+OSStatus CreateHTTPRespondMessageNoCopy( int status, const char *contentType, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize );
 
 
 OSStatus CreateHTTPMessage( const char *methold, const char *url, const char *contentType, uint8_t *inData, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize );

@@ -34,7 +34,7 @@
 
 #define http_utils_log(M, ...) custom_log("HTTPUtils", M, ##__VA_ARGS__)
 
-__IO uint32_t flashStorageAddress = UPDATE_START_ADDRESS;
+static __IO uint32_t flashStorageAddress = UPDATE_START_ADDRESS;
 
 int SocketReadHTTPHeader( int inSock, HTTPHeader_t *inHeader )
 {
@@ -76,39 +76,9 @@ int SocketReadHTTPHeader( int inSock, HTTPHeader_t *inHeader )
         }
         dst += len;
         inHeader->len += len;
-
-        // Check for interleaved binary data (4 byte header that begins with $). See RFC 2326 section 10.12.
-        if( ( ( dst - buf ) >= 4 ) && ( buf[ 0 ] == '$' ) )
-        {
-            end = buf + 4;
-            goto foundHeader;
-        }
-
-        // Find an empty line (separates the header and body). The HTTP spec defines it as CRLFCRLF, but some
-        // use LFLF or weird combos like CRLFLF so this handles CRLFCRLF, LFLF, and CRLFLF (but not CRCR).
-        end = dst;
-        for( ;; )
-        {
-            while( ( src < end ) && ( *src != '\n' ) ) ++src;
-            if( src >= end ) break;
-
-            len = (size_t)( end - src );
-            if( ( len >= 3 ) && ( src[ 1 ] == '\r' ) && ( src[ 2 ] == '\n' ) ) // CRLFCRLF or LFCRLF.
-            {
-                end = src + 3;
-                goto foundHeader;
-            }
-            else if( ( len >= 2 ) && ( src[ 1 ] == '\n' ) ) // LFLF or CRLFLF.
-            {
-                end = src + 2;
-                goto foundHeader;
-            }
-            else if( len <= 1 )
-            {
-                break;
-            }
-            ++src;
-        }
+        
+        if(findHeader( inHeader,  &end ))
+            break ;
     }
 
 foundHeader:
@@ -143,6 +113,49 @@ foundHeader:
 
 exit:
     return err;
+}
+
+
+bool findHeader ( HTTPHeader_t *inHeader,  char **  outHeaderEnd)
+{
+    char *dst = inHeader->buf + inHeader->len;
+    char *buf = (char *)inHeader->buf;
+    char *src = (char *)inHeader->buf;
+    size_t          len;
+
+    // Check for interleaved binary data (4 byte header that begins with $). See RFC 2326 section 10.12.
+    if( ( ( dst - buf ) >= 4 ) && ( buf[ 0 ] == '$' ) )
+    {
+        *outHeaderEnd = buf + 4;
+        return true;
+    }
+
+    // Find an empty line (separates the header and body). The HTTP spec defines it as CRLFCRLF, but some
+    // use LFLF or weird combos like CRLFLF so this handles CRLFCRLF, LFLF, and CRLFLF (but not CRCR).
+    *outHeaderEnd = dst;
+    for( ;; )
+    {
+        while( ( src < *outHeaderEnd ) && ( *src != '\n' ) ) ++src;
+        if( src >= *outHeaderEnd ) break;
+
+        len = (size_t)( *outHeaderEnd - src );
+        if( ( len >= 3 ) && ( src[ 1 ] == '\r' ) && ( src[ 2 ] == '\n' ) ) // CRLFCRLF or LFCRLF.
+        {
+            *outHeaderEnd = src + 3;
+            return true;
+        }
+        else if( ( len >= 2 ) && ( src[ 1 ] == '\n' ) ) // LFLF or CRLFLF.
+        {
+            *outHeaderEnd = src + 2;
+            return true;
+        }
+        else if( len <= 1 )
+        {
+            break;
+        }
+        ++src;
+    }
+    return false;
 }
 
 OSStatus SocketReadHTTPBody( int inSock, HTTPHeader_t *inHeader )
@@ -199,8 +212,6 @@ OSStatus SocketReadHTTPBody( int inSock, HTTPHeader_t *inHeader )
             else if( readResult == 0 ) { err = kConnectionErr; goto exit; }
             else goto exit;
         }
-
-        
     }
 
     err = kNoErr;
@@ -453,6 +464,11 @@ OSStatus HTTPHeaderMatchURL( HTTPHeader_t *inHeader, const char *url )
     return kNotFoundErr;
 }
 
+char* HTTPHeaderMatchPartialURL( HTTPHeader_t *inHeader, const char *url )
+{
+    return strnstr_suffix( inHeader->url.pathPtr, inHeader->url.pathLen, url);
+}
+
 HTTPHeader_t * HTTPHeaderCreate( void )
 {
     return calloc(1, sizeof(HTTPHeader_t));
@@ -489,14 +505,18 @@ exit:
     return err;
 }
 
+
+
 OSStatus CreateSimpleHTTPMessage( const char *contentType, uint8_t *inData, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize )
 {
     uint8_t *endOfHTTPHeader;  
     OSStatus err = kParamErr;
+   
 
     require( contentType, exit );
     require( inData, exit );
     require( inDataLen, exit );
+
 
     err = kNoMemoryErr;
     *outMessage = malloc( inDataLen + 200 );
@@ -504,7 +524,7 @@ OSStatus CreateSimpleHTTPMessage( const char *contentType, uint8_t *inData, size
 
     // Create HTTP Response
     snprintf( (char*)*outMessage, 200, 
-             "%s %s %s%s%s %s%s%s %d%s",
+             "%s %d %s%s%s %s%s%s %d%s",
              "HTTP/1.1", "200", "OK", kCRLFNewLine, 
              "Content-Type:", contentType, kCRLFNewLine,
              "Content-Length:", (int)inDataLen, kCRLFLineEnding );
@@ -545,6 +565,49 @@ OSStatus CreateSimpleHTTPMessageNoCopy( const char *contentType, size_t inDataLe
 exit:
     return err;
 }
+
+
+char * getStatusString(int status)
+{
+    if(status == kStatusOK)
+        return "OK";
+    else if(status == kStatusBadRequest)
+        return "Bad Request";
+    else if(status == kStatusForbidden)
+        return "Forbidden";
+    else if(status == kStatusInternalServerErr)
+        return "Internal Server Error";
+    else
+        return "OK";
+}
+
+OSStatus CreateHTTPRespondMessageNoCopy( int status, const char *contentType, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize )
+{
+    OSStatus err = kParamErr;
+     char *statusString = getStatusString(status);
+
+    require( contentType, exit );
+    require( inDataLen, exit );
+
+    err = kNoMemoryErr;
+    *outMessage = malloc( 200 );
+    require( *outMessage, exit );
+
+    // Create HTTP Response
+    snprintf( (char*)*outMessage, 200, 
+             "%s %d %s%s%s %s%s%s %d%s",
+             "HTTP/1.1", status, statusString, kCRLFNewLine, 
+             "Content-Type:", contentType, kCRLFNewLine,
+             "Content-Length:", (int)inDataLen, kCRLFLineEnding );
+
+    // outMessageSize will be the length of the HTTP Header plus the data length
+    *outMessageSize = strlen( (char*)*outMessage );
+    err = kNoErr;
+
+exit:
+    return err;
+}
+
 
 OSStatus CreateHTTPMessage( const char *methold, const char *url, const char *contentType, uint8_t *inData, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize )
 {

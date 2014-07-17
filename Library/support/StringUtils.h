@@ -75,6 +75,8 @@ int strnicmp( const char *inS1, const char *inS2, size_t inMax );
 
 int strnicmpx( const void *inS1, size_t inN, const char *inS2 );
 
+char * strnstr_suffix( const char *inStr, size_t inMaxLen, const char *inSuffix);
+
 int VSNScanF( const void *inString, size_t inSize, const char *inFormat, va_list inArgs );
 
 size_t  memrlen( const void *inSrc, size_t inMaxLen );

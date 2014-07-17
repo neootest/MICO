@@ -744,3 +744,46 @@ int strnicmp_suffix( const void *inStr, size_t inMaxLen, const char *inSuffix )
     return( -1 );
 }
 
+
+//===========================================================================================================================
+//  strnstr_suffix
+//
+//  Like the ANSI C strstr routine, but performs a case-insensitive compare.
+//===========================================================================================================================
+
+char * strnstr_suffix( const char *inStr, size_t inMaxLen, const char *inSuffix)
+{
+    size_t              stringLen;
+    size_t              suffixLen;
+    char *              instr_tmp;
+    char *              inSuffix_tmp;
+    size_t              i;
+    char *              ret;
+
+    suffixLen = strlen( inSuffix );
+    stringLen = strnlen( inStr, inMaxLen );
+    instr_tmp = calloc(stringLen+1, 1);
+    inSuffix_tmp = calloc(suffixLen+1, 1);
+
+    for(i=0; i<stringLen; i++)
+        instr_tmp[i] = tolower(inStr[i]);
+    for(i=0; i<suffixLen; i++)
+        inSuffix_tmp[i] = tolower(inSuffix[i]);
+
+    if( suffixLen <= stringLen ){
+        ret = strstr( instr_tmp, inSuffix_tmp );
+        if(ret != NULL)
+            ret = (char *)(inStr+(ret-instr_tmp));
+    }
+    else
+        ret = NULL;
+
+    free(instr_tmp);
+    free(inSuffix_tmp);
+
+    return ret;
+}
+
+
+
+

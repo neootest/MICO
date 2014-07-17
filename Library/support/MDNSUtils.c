@@ -596,7 +596,7 @@ void mfi_bonjour_remove_record(int fd)
 
 int start_bonjour_service(void)
 {
-  return mico_rtos_create_thread(&mfi_bonjour_thread_handler, MICO_APPLICATION_PRIORITY, "Bonjour", _bonjour_thread, 0x300, NULL );
+  return mico_rtos_create_thread(&mfi_bonjour_thread_handler, MICO_APPLICATION_PRIORITY, "Bonjour", _bonjour_thread, 0x500, NULL );
 }
 
 void suspend_bonjour_service(FunctionalState state)
@@ -644,7 +644,7 @@ void _bonjour_thread(void *arg)
       mfi_bonjour_send(mDNS_fd);
      
         _bonjour_announce_time ++;
-      if(_bonjour_announce_time > 8){
+      if(_bonjour_announce_time > 1){
         _bonjour_announce_time = 0;
         _bonjour_announce = 0;
       }
