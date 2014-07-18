@@ -684,9 +684,6 @@ OSStatus HKPairVerifyEngine( int inFd, HTTPHeader_t* inHeader, pairVerifyInfo_t*
   }
 
 exit:
-  if(err != kNoErr)
-    HKCleanPairVerifyInfo(&inInfo);
-
   return err;
 }
 
@@ -717,8 +714,8 @@ OSStatus _HandleState_WaitingForVerifyStartRequest( HTTPHeader_t* inHeader, pair
       break;
         case kTLVType_User:
         inInfo->pControllerLTPK =  HMFindLTPK(tmp);
-        require_action(inInfo->pControllerLTPK, exit, err = kNotFoundErr);
         free(tmp);
+        require_action(inInfo->pControllerLTPK, exit, err = kNotFoundErr);
         break;
       case kTLVType_PublicKey:
         inInfo->pControllerCurve25519PK = (uint8_t *)tmp;

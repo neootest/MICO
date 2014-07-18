@@ -780,7 +780,7 @@ OSStatus HKhandleIncomeingMessage(int sockfd, HTTPHeader_t *httpHeader, HK_Conte
             require_action( inHkContext->pairVerifyInfo, exit, err = kNoMemoryErr );
           }
           err = HKPairVerifyEngine( sockfd, httpHeader, inHkContext->pairVerifyInfo, inContext );
-          require_noerr( err, exit );
+          require_noerr_action( err, exit, HKCleanPairVerifyInfo(&inHkContext->pairVerifyInfo));
           if(inHkContext->pairVerifyInfo->verifySuccess){
             inHkContext->session->established = true;
             memcpy(inHkContext->session->InputKey,  inHkContext->pairVerifyInfo->C2AKey, 32);
