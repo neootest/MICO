@@ -2941,13 +2941,25 @@
     <group>
       <name>WAC</name>
       <file>
+        <name>$PROJ_DIR$\..\..\..\MICO\WAC\MFi-SAP.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\..\..\MICO\WAC\MFi_WAC_CortexM3_debug.a</name>
+        <excluded>
+          <configuration>EMW3162_Debug</configuration>
+        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\MICO\WAC\MFi_WAC_CortexM3_release.a</name>
         <excluded>
           <configuration>EMW3162_Debug</configuration>
         </excluded>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\MICO\WAC\MFiSAPServer.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\MICO\WAC\WAC.c</name>
       </file>
     </group>
     <file>

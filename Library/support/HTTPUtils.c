@@ -522,7 +522,7 @@ OSStatus CreateSimpleHTTPMessage( const char *contentType, uint8_t *inData, size
     // Create HTTP Response
     snprintf( (char*)*outMessage, 200, 
              "%s %d %s%s%s %s%s%s %d%s",
-             "HTTP/1.1", "200", "OK", kCRLFNewLine, 
+             "HTTP/1.1", 200, "OK", kCRLFNewLine, 
              "Content-Type:", contentType, kCRLFNewLine,
              "Content-Length:", (int)inDataLen, kCRLFLineEnding );
 
