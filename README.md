@@ -11,7 +11,7 @@ MICO
 * Wi-Fi connectivity total solution
 * Build-in protocols for cloud service (Plan)
 * State-of-the-art low power management
-* Application framework for I.O.T product
+* Application framework for I.O.T product, apple homekit compatiable
 * Rich tools and mobile APP to accelerate development
 
 ###Contents:
