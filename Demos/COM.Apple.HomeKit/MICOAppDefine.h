@@ -25,10 +25,9 @@
 #define __MICOAPPDEFINE_H
 
 #include "Common.h"
-#include "MICODefine.h"
 #include "HomeKitProfiles.h"
 
-#define APP_INFO   "mxchipWNet SPP Demo based on MICO OS"
+#define APP_INFO   "Apple HomeKit Demo based on MICO OS"
 
 #ifdef EMW3162
 #define HARDWARE_REVISION   "3162"
