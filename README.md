@@ -18,7 +18,7 @@ MICO
 	* Demos: Demos applications and application framework
 		COM.MXCHIP.SPP: Data transparent transimission between serial and wlan
 		COM.MXCHIP.HA: Data that conform to HA package definition can be delivered between serial and wlan
-		COM.Apple.HomeKit: Compatiable to Apple Homekit protocol beta release 1
+		COM.Apple.HomeKit: Application demo that is ompatiable to Apple Homekit protocol beta release 1
 	* External: External library and tools
 		Curve25519: New Diffie-Hellman Speed Records Booktitle Public Key Cryptography
 		GladmanAES: AES algorithm (not used in MICO, MICO has build-in AES algorithm)
@@ -43,7 +43,8 @@ MICO
 	6. Input ssid and password of the wlan that assoiated to iPhone, and start easylink
 	7. Press easylink button on your module (User button 1 on Open1081 dev board)
 	8. A new device appears on iPhone's screen, press this device, change and save these settings
-	9. This new device appears on EasyLink app's main page, you can interact with it now!  
+	9. This new device appears on EasyLink app's main page, you can interact with it now!
+	10. HomeKit demo cannot display on EasyLink app's main page, but it can play with any app based on HomeKit API on iOS8
 
 ![github](https://raw.githubusercontent.com/MXCHIP/MICO/master/Picture/Demo1.jpg) ![github](https://raw.githubusercontent.com/MXCHIP/MICO/master/Picture/Demo2.jpg) ![github](https://raw.githubusercontent.com/MXCHIP/MICO/master/Picture/Demo3.jpg) ![github](https://raw.githubusercontent.com/MXCHIP/MICO/master/Picture/Demo4.jpg) ![github](https://raw.githubusercontent.com/MXCHIP/MICO/master/Picture/Demo5.jpg) 
 
