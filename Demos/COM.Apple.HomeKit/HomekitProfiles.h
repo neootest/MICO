@@ -10,8 +10,8 @@
 #define MAXServicePerAccessory            10
 #define NumberofAccessories                1
 
-//#define lightbulb
-#define thermostat
+#define lightbulb
+//#define thermostat
 
 // ==== HKtatus ====
 typedef int32_t         HkStatus;

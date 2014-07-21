@@ -140,6 +140,8 @@ typedef struct
 
 void bonjour_service_init(bonjour_init_t init);
 
+void bonjour_update_txt_record(char *txt_record);
+
 int start_bonjour_service(void);
 
 void suspend_bonjour_service(FunctionalState state);

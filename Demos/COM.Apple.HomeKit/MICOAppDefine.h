@@ -180,6 +180,7 @@ typedef struct _current_app_status_t {
   bool              isRemoteConnected;
   /*Homekit*/
   bool              haPairSetupRunning;
+  int               statusNumber;
 
   //mico_semaphore_t  write
   HKServiceStatus   service;

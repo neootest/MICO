@@ -486,7 +486,7 @@ void bonjour_service_init(bonjour_init_t init)
     mico_rtos_init_mutex( &bonjour_mutex );
 
 
-  //mico_rtos_lock_mutex( &bonjour_mutex );
+  mico_rtos_lock_mutex( &bonjour_mutex );
   if(available_services) {
     //suspend_bonjour_service(ENABLE);
     if(available_services->service_name)  free(available_services->service_name);
@@ -516,7 +516,20 @@ void bonjour_service_init(bonjour_init_t init)
   available_services->txt_att = (char*)__strdup(init.txt_record);
 
   available_services->port = init.service_port;
-  //mico_rtos_unlock_mutex( &bonjour_mutex );
+  mico_rtos_unlock_mutex( &bonjour_mutex );
+}
+
+void bonjour_update_txt_record(char *txt_record)
+{
+  
+  mico_rtos_lock_mutex( &bonjour_mutex );
+  if(available_services->txt_att)  free(available_services->txt_att);
+  
+  available_services->txt_att = (char*)__strdup(txt_record);
+
+  _bonjour_announce = 1;
+  mico_rtos_unlock_mutex( &bonjour_mutex );
+
 }
 
 void mfi_mdns_handler(int fd, u8* pkt, int pkt_len)
@@ -641,13 +654,15 @@ void _bonjour_thread(void *arg)
   while(1) {
     /*Send bonjour info when wifi is connected */
     if(_bonjour_announce){
+      mico_rtos_lock_mutex( &bonjour_mutex );
       mfi_bonjour_send(mDNS_fd);
      
-        _bonjour_announce_time ++;
+      _bonjour_announce_time ++;
       if(_bonjour_announce_time > 1){
         _bonjour_announce_time = 0;
         _bonjour_announce = 0;
       }
+      mico_rtos_unlock_mutex( &bonjour_mutex );
     }
 
     /*Check status on erery sockets on bonjour query */
@@ -658,9 +673,9 @@ void _bonjour_thread(void *arg)
     /*Read data from udp and send data back */ 
     if (FD_ISSET(mDNS_fd, &readfds)) {
       con = recvfrom(mDNS_fd, buf, 1500, 0, &addr, &addrLen); 
-        //mico_rtos_lock_mutex( &bonjour_mutex );
-        mfi_mdns_handler(mDNS_fd, (u8 *)buf, con);
-        //mico_rtos_unlock_mutex( &bonjour_mutex );
+      mico_rtos_lock_mutex( &bonjour_mutex );
+      mfi_mdns_handler(mDNS_fd, (u8 *)buf, con);
+      mico_rtos_unlock_mutex( &bonjour_mutex );
     }
   }
 }

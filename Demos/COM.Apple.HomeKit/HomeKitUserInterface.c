@@ -1,6 +1,10 @@
 #include "Common.h"
 #include "MICODefine.h"
 #include "HomeKitProfiles.h"
+#include "StringUtils.h"
+#include "MDNSUtils.h"
+
+extern void HKBonjourUpdateStateNumber( mico_Context_t * const inContext );
 
 
 HkStatus HKReadCharacteristicValue(int accessoryID, int serviceID, int characteristicID, value_union *value, mico_Context_t * const inContext)
@@ -28,7 +32,7 @@ HkStatus HKReadCharacteristicValue(int accessoryID, int serviceID, int character
 
       case 3:
         (*value).floatValue = inContext->appStatus.service.hue;    
-        err = inContext->appStatus.service.brightness_status;
+        err = inContext->appStatus.service.hue_status;
         break;
            
       case 4:
@@ -37,7 +41,7 @@ HkStatus HKReadCharacteristicValue(int accessoryID, int serviceID, int character
         break;
 
       case 5:
-        (*value).stringValue = inContext->appStatus.service.name);
+        (*value).stringValue = inContext->appStatus.service.name;
         err = inContext->appStatus.service.name_status;
         break;
       }
@@ -128,7 +132,7 @@ void HKWriteCharacteristicValue(int accessoryID, int serviceID, int characterist
 
       case 3:
         inContext->appStatus.service.hue_new = value.floatValue; 
-        inContext->appStatus.service.brightness_status = kHKBusyErr;
+        inContext->appStatus.service.hue_status = kHKBusyErr;
         break;
            
       case 4:
@@ -174,8 +178,8 @@ void HKWriteCharacteristicValue(int accessoryID, int serviceID, int characterist
         inContext->appStatus.service.name_status = kNoErr;
         break;
     }
-  }
 #endif
+  }
 
     /*Operate hardware to write all Characteristic in one service in one time, this is useful when 
       one command send to taget device can set multiple Characteristic*/
@@ -195,7 +199,7 @@ void HKWriteCharacteristicValue(int accessoryID, int serviceID, int characterist
     }
 
     if(inContext->appStatus.service.hue_status == kHKBusyErr){
-      inContext->appStatus.service.hue == inContext->appStatus.service.hue_new; 
+      inContext->appStatus.service.hue = inContext->appStatus.service.hue_new; 
       inContext->appStatus.service.hue_status = kNoErr;
     }
 
@@ -239,8 +243,9 @@ void HKWriteCharacteristicValue(int accessoryID, int serviceID, int characterist
       inContext->appStatus.service.cooling_threshold_status = kNoErr;
       
     }
-#endif    
+#endif   
   }
+    HKBonjourUpdateStateNumber( inContext );
   return;
 }
 

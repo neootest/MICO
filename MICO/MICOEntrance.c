@@ -301,12 +301,6 @@ int application_start(void)
       mico_mcu_powersave_config(true);
     }
 
-    /*Bonjour service for searching*/
-    if(context->flashContentInRam.micoSystemConfig.bonjourEnable == true){
-      err = MICOStartBonjourService( Station, context );
-      require_noerr( err, exit );
-    }
-
     /*Local configuration server*/
     if(context->flashContentInRam.micoSystemConfig.configServerEnable == true){
       err =  MICOStartConfigServer(context);

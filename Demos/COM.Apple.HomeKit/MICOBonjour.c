@@ -99,7 +99,7 @@ OSStatus MICOStartBonjourService( WiFi_Interface interface, mico_Context_t * con
   sprintf(temp_txt, "%spv=%s.", temp_txt, temp_txt2);
   free(temp_txt2);
 
-  sprintf(temp_txt, "%ss#=%d.", temp_txt, 0x01);
+  sprintf(temp_txt, "%ss#=%d.", temp_txt, inContext->appStatus.statusNumber);
 
   sprintf(temp_txt, "%ssf=%d.", temp_txt, 0x05);
 
@@ -126,4 +126,38 @@ OSStatus MICOStartBonjourService( WiFi_Interface interface, mico_Context_t * con
 
 exit:
   return err;
+}
+
+void HKBonjourUpdateStateNumber( mico_Context_t * const inContext )
+{
+  char temp_txt[500]; 
+  char *temp_txt2;
+
+  sprintf(temp_txt, "C#=%d.", 0x01);
+
+  sprintf(temp_txt, "%sff=%d.", temp_txt, 0x10);
+
+  temp_txt2 = __strdup_trans_dot(inContext->micoStatus.mac);
+  sprintf(temp_txt, "%sid=%s.", temp_txt, temp_txt2);
+  free(temp_txt2);
+
+  temp_txt2 = __strdup_trans_dot(MODEL);
+  sprintf(temp_txt, "%smd=%s.", temp_txt, temp_txt2);
+  free(temp_txt2);
+
+  temp_txt2 = __strdup_trans_dot(HA_PV);
+  sprintf(temp_txt, "%spv=%s.", temp_txt, temp_txt2);
+  free(temp_txt2);
+
+  sprintf(temp_txt, "%ss#=%d.", temp_txt, ++(inContext->appStatus.statusNumber));
+
+  sprintf(temp_txt, "%ssf=%d.", temp_txt, 0x05);
+
+  temp_txt2 = __strdup_trans_dot(HA_SV);
+  sprintf(temp_txt, "%ssv=%s.", temp_txt, temp_txt2);
+  free(temp_txt2);
+
+  sprintf(temp_txt, "%sSeed=%u.", temp_txt, inContext->flashContentInRam.micoSystemConfig.seed);
+
+  bonjour_update_txt_record(temp_txt) ;
 }
