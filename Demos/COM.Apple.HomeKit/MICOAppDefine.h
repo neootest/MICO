@@ -47,10 +47,10 @@
 #define MODEL               "Open1081"
 #endif
 
-#define FIRMWARE_REVISION   "MICO_SPP_1_1"
+#define FIRMWARE_REVISION   "MICO_HOMEKIT_1"
 #define MANUFACTURER        "MXCHIP Inc."
 #define SERIAL_NUMBER       "20140606"
-#define PROTOCOL            "com.mxchip.spp"
+#define PROTOCOL            "com.apple.homekit"
 #define LOCAL_PORT          8080
 
 /*User provided configurations*/
