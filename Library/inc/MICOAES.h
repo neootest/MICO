@@ -1,5 +1,5 @@
-#ifndef _CYASSL_AES_H_
-#define _CYASSL_AES_H_
+#ifndef _MICOAES_H_
+#define _MICOAES_H_
 
 typedef unsigned char  byte;
 typedef unsigned short word16;
@@ -44,7 +44,42 @@ int AesSetKey(Aes* aes, const byte* userKey, word32 keylen, const byte* iv,
 int AesSetKeyDirect(Aes* aes, const byte* userKey, word32 keylen,
                         const byte* iv, int dir);
 void AesEncryptDirect(Aes* aes, byte* out, const byte* in);
-int AesCbcEncrypt(Aes* aes, byte* out, const byte* in, word32 sz);
+void AesDecryptDirect(Aes* aes, byte* out, const byte* in);
+
+
+int  AesSetIV(Aes* aes, const byte* iv);
+int  AesCbcEncrypt(Aes* aes, byte* out, const byte* in, word32 sz);
+int  AesCbcDecrypt(Aes* aes, byte* out, const byte* in, word32 sz);
+void AesCtrEncrypt(Aes* aes, byte* out, const byte* in, word32 sz);
+
+
+#ifdef HAVE_AESGCM
+void AesGcmSetKey(Aes* aes, const byte* key, word32 len);
+void AesGcmEncrypt(Aes* aes, byte* out, const byte* in, word32 sz,
+                              const byte* iv, word32 ivSz,
+                              byte* authTag, word32 authTagSz,
+                              const byte* authIn, word32 authInSz);
+int  AesGcmDecrypt(Aes* aes, byte* out, const byte* in, word32 sz,
+                              const byte* iv, word32 ivSz,
+                              const byte* authTag, word32 authTagSz,
+                              const byte* authIn, word32 authInSz);
+#endif /* HAVE_AESGCM */
+#ifdef HAVE_AESCCM
+void AesCcmSetKey(Aes* aes, const byte* key, word32 keySz);
+void AesCcmEncrypt(Aes* aes, byte* out, const byte* in, word32 inSz,
+                              const byte* nonce, word32 nonceSz,
+                              byte* authTag, word32 authTagSz,
+                              const byte* authIn, word32 authInSz);
+int  AesCcmDecrypt(Aes* aes, byte* out, const byte* in, word32 inSz,
+                              const byte* nonce, word32 nonceSz,
+                              const byte* authTag, word32 authTagSz,
+                              const byte* authIn, word32 authInSz);
+#endif /* HAVE_AESCCM */
+
+#ifdef HAVE_CAVIUM
+int  AesInitCavium(Aes*, int);
+void AesFreeCavium(Aes*);
+#endif
 
 
 #endif

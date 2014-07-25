@@ -520,30 +520,6 @@
 	"buffers":
 	[
 		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/HomeKitUserInterface.c",
-			"settings":
-			{
-				"buffer_size": 10388,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/MDNSUtils.h",
-			"settings":
-			{
-				"buffer_size": 4022,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/MDNSUtils.c",
-			"settings":
-			{
-				"buffer_size": 21467,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/MICOBonjour.c",
 			"settings":
 			{
@@ -555,7 +531,7 @@
 			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/MICOAppDefine.h",
 			"settings":
 			{
-				"buffer_size": 5814,
+				"buffer_size": 5819,
 				"line_ending": "Windows"
 			}
 		},
@@ -636,6 +612,9 @@
 	},
 	"file_history":
 	[
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/MDNSUtils.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/MDNSUtils.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/HomeKitUserInterface.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/MICOAppDefine.h",
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICODefine.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/HomeKitServer.c",
@@ -658,7 +637,6 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/LocalUdp.c",
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/MICOSocket.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/SppProtocol.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/MDNSUtils.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/HAL_EMW3162.h",
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/STM32F2xx_StdPeriph_Driver/inc/stm32f2xx_usart.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/UartRecv.c",
@@ -761,9 +739,7 @@
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/MICO/mico_define.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/platform.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/URLUtils.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/TLVUtils.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/TimeUtils.h"
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/URLUtils.h"
 	],
 	"find":
 	{
@@ -790,6 +766,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"GPIO_Pin_6",
+			"HKCharacteristicInit",
 			"mfi_bonjour_remove_record",
 			"bonjour_mutex",
 			"start_bonjour_service",
@@ -915,9 +893,7 @@
 			"ADC driver modules",
 			"Initialization and Configuration functions",
 			"MSG_DONTWAIT",
-			"Swap32",
-			"mxEnable",
-			"wLanUnConfigured"
+			"Swap32"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -935,95 +911,10 @@
 	"groups":
 	[
 		{
-			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/HomeKitUserInterface.c",
-					"settings":
-					{
-						"buffer_size": 10388,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								134,
-								160
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/MDNSUtils.h",
-					"settings":
-					{
-						"buffer_size": 4022,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3895,
-								3916
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1622.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/MDNSUtils.c",
-					"settings":
-					{
-						"buffer_size": 21467,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								20138,
-								20138
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 9146.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
 					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/MICOBonjour.c",
 					"settings":
 					{
@@ -1045,25 +936,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 540.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 1,
 					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/MICOAppDefine.h",
 					"settings":
 					{
-						"buffer_size": 5814,
+						"buffer_size": 5819,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5497,
-								5509
+								136,
+								138
 							]
 						],
 						"settings":
@@ -1079,7 +970,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 2,
 					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/MICOAppEntrance.c",
 					"settings":
 					{
@@ -1090,8 +981,8 @@
 						"selection":
 						[
 							[
-								1872,
-								1872
+								2001,
+								2001
 							]
 						],
 						"settings":
@@ -1101,13 +992,13 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 362.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 3,
 					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
 					"settings":
 					{
@@ -1129,7 +1020,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 13.0,
+						"translation.y": 674.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1170,7 +1061,7 @@
 	"menu_visible": true,
 	"output.clang":
 	{
-		"height": 142.0
+		"height": 25.0
 	},
 	"output.exec":
 	{
@@ -1213,6 +1104,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 229.0,
+	"side_bar_width": 286.0,
 	"status_bar_visible": true
 }
