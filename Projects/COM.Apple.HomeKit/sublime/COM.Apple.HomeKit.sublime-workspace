@@ -550,6 +550,38 @@
 				"buffer_size": 11992,
 				"line_ending": "Windows"
 			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/AESUtils.h",
+			"settings":
+			{
+				"buffer_size": 13643,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/inc/MICOAES.h",
+			"settings":
+			{
+				"buffer_size": 2990,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Downloads/iar_mutex.c",
+			"settings":
+			{
+				"buffer_size": 741,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/AESUtils.c",
+			"settings":
+			{
+				"buffer_size": 32465,
+				"line_ending": "Windows"
+			}
 		}
 	],
 	"build_system": "",
@@ -612,6 +644,7 @@
 	},
 	"file_history":
 	[
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/WAC/MFiSAPServer.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/MDNSUtils.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/MDNSUtils.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/HomeKitUserInterface.c",
@@ -645,7 +678,6 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICODefine.h",
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Platform.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOBonjour.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/WAC/MFiSAPServer.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOConfigServer.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/WAC/MFi-SAP.c",
@@ -766,6 +798,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"kAES_CBCFrame_Size",
+			"aesMasterValid",
+			"AES_CTR_Final",
+			"aes",
 			"GPIO_Pin_6",
 			"HKCharacteristicInit",
 			"mfi_bonjour_remove_record",
@@ -889,11 +925,7 @@
 			"*             ",
 			"TIMEVAL_st",
 			"mico_rtos_is_current_thread",
-			"CMSIS MISRA-C:2004 Compliance Exceptions	",
-			"ADC driver modules",
-			"Initialization and Configuration functions",
-			"MSG_DONTWAIT",
-			"Swap32"
+			"CMSIS MISRA-C:2004 Compliance Exceptions	"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -911,6 +943,7 @@
 	"groups":
 	[
 		{
+			"selected": 6,
 			"sheets":
 			[
 				{
@@ -992,7 +1025,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 362.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1020,7 +1053,117 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 674.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/AESUtils.h",
+					"settings":
+					{
+						"buffer_size": 13643,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4470,
+								4470
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1627.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/inc/MICOAES.h",
+					"settings":
+					{
+						"buffer_size": 2990,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2404,
+								2404
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 46.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/Users/William/Downloads/iar_mutex.c",
+					"settings":
+					{
+						"buffer_size": 741,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								739,
+								739
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/AESUtils.c",
+					"settings":
+					{
+						"buffer_size": 32465,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13168,
+								13186
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4545.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1061,7 +1204,7 @@
 	"menu_visible": true,
 	"output.clang":
 	{
-		"height": 25.0
+		"height": 140.0
 	},
 	"output.exec":
 	{

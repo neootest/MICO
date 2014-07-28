@@ -33,6 +33,7 @@
 #include "MICOConfigMenu.h"
 #include "StringUtils.h"
 
+#define SYS_LED_TRIGGER_INTERVAL 500 
 #define config_delegate_log(M, ...) custom_log("Config Delegate", M, ##__VA_ARGS__)
 #define config_delegate_log_trace() custom_log_trace("Config Delegate")
 
@@ -49,7 +50,7 @@ void ConfigWillStart( mico_Context_t * const inContext )
   config_delegate_log_trace();
   (void)(inContext); 
     /*Led trigger*/
-  mico_init_timer(&_Led_EL_timer, LED_WAC_TRIGGER_INTERVAL, _led_EL_Timeout_handler, NULL);
+  mico_init_timer(&_Led_EL_timer, SYS_LED_TRIGGER_INTERVAL, _led_EL_Timeout_handler, NULL);
   mico_start_timer(&_Led_EL_timer);
   return;
 }
@@ -91,7 +92,7 @@ OSStatus ConfigELRecvAuthData(char * userInfo, mico_Context_t * const inContext 
   return kNoErr;
 }
 
-OSStatus ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
+json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
 {
   OSStatus err = kNoErr;
   config_delegate_log_trace();
@@ -99,6 +100,7 @@ OSStatus ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
   OTA_Versions_t versions;
   char rfVersion[50];
   char *rfVer = NULL, *rfVerTemp = NULL;
+  json_object *sectors, *sector, *subMenuSectors, *subMenuSector, *mainObject = NULL;
 
   wlan_driver_version( rfVersion, 50 );
   rfVer = strstr(rfVersion, "version ");
@@ -124,8 +126,6 @@ OSStatus ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
   versions.hdVersion = HARDWARE_REVISION;
   versions.protocol =  PROTOCOL;
   versions.rfVersion = NULL;
-
-  json_object *sectors, *sector, *subMenuSectors, *subMenuSector, *mainObject;
 
   sectors = json_object_new_array();
   require( sectors, exit );
@@ -299,12 +299,14 @@ OSStatus ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
     err = MICOAddNumberCellToSector(sector, "Baurdrate", 115200, "RW", selectArray);
     require_noerr(err, exit);
 
-  inContext->micoStatus.easylink_report = mainObject;
   mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
   
 exit:
-    return err;
-
+  if(err != kNoErr && mainObject){
+    json_object_put(mainObject);
+    mainObject = NULL;
+  }
+  return mainObject;
 }
 
 OSStatus ConfigIncommingJsonMessage( const char *input, mico_Context_t * const inContext )

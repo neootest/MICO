@@ -34,8 +34,8 @@
 #define kCONFIGURLWrite   "/config-write"
 #define kCONFIGURLOTA     "/OTA"
 
-extern OSStatus ConfigIncommingJsonMessage( const char *input, mico_Context_t * const inContext );
-extern OSStatus ConfigCreateReportJsonMessage( mico_Context_t * const inContext );
+extern OSStatus     ConfigIncommingJsonMessage( const char *input, mico_Context_t * const inContext );
+extern json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext );
 
 static void localConfiglistener_thread(void *inContext);
 static void localConfig_thread(void *inFd);
@@ -172,13 +172,14 @@ OSStatus _LocalConfigRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico
   const char *  json_str;
   uint8_t *httpResponse = NULL;
   size_t httpResponseLen = 0;
+  json_object* report = NULL;
 
   config_log_trace();
 
   if(HTTPHeaderMatchURL( inHeader, kCONFIGURLRead ) == kNoErr){    
-    err = ConfigCreateReportJsonMessage( inContext );
-    require_noerr( err, exit );
-    json_str = json_object_to_json_string(inContext->micoStatus.easylink_report);
+    report = ConfigCreateReportJsonMessage( inContext );
+    require( report, exit );
+    json_str = json_object_to_json_string(report);
     require_action( json_str, exit, err = kNoMemoryErr );
     config_log("Send config object=%s", json_str);
     err =  CreateSimpleHTTPMessageNoCopy( kMIMEType_JSON, strlen(json_str), &httpResponse, &httpResponseLen );
@@ -190,7 +191,7 @@ OSStatus _LocalConfigRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico
     require_noerr( err, exit );
     config_log("Current configuration sent");
     SocketClose(&fd);
-    err = kConnectionErr;
+    err = kConnectionErr; //Return an err to close the current thread
     goto exit;
   }
   else if(HTTPHeaderMatchURL( inHeader, kCONFIGURLWrite ) == kNoErr){
@@ -232,10 +233,8 @@ OSStatus _LocalConfigRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico
   };
 
  exit:
-  if(err != kNoErr)
-    config_log("Exit with err = %d", err);
-  if(httpResponse) free(httpResponse);
-  json_object_put(inContext->micoStatus.easylink_report);
+  if(httpResponse)  free(httpResponse);
+  if(report)        json_object_put(report);
 
   return err;
 

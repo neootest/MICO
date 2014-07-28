@@ -2832,6 +2832,9 @@
       <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.HA\LocalTcpServer.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.HA\MICOAppDefine.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.HA\MICOAppEntrance.c</name>
     </file>
     <file>

@@ -52,9 +52,9 @@
 #define SERIAL_NUMBER       "20140606"
 #define PROTOCOL            "com.apple.homekit"
 #define LOCAL_PORT          8080
+#define CONFIGURATION_VERSION    0x00010001 // if changed default configuration, add this num
 
-/*User provided configurations*/
-#define CONFIGURATION_VERSION               0x00010001 // if changed default configuration, add this num
+/*User provided application configurations*/
 #define MAX_Local_Client_Num                8
 #define DEAFULT_REMOTE_SERVER               "192.168.2.254"
 #define DEFAULT_REMOTE_SERVER_PORT          8080

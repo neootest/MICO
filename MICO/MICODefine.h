@@ -38,7 +38,6 @@
 
 #define BUNDLE_SEED_ID          "C6P64J2MZX"  //ISSC Temp
 #define EA_PROTOCOL             "com.issc.datapath"
-#define LED_WAC_TRIGGER_INTERVAL 500 
 
 #define APPLICATION_WATCHDOG_TIMEOUT_SECONDS  5
 
@@ -139,8 +138,6 @@ typedef struct _current_mico_status_t {
 
   /*MICO system Running status*/
   SYS_State_t           sys_state;
-  uint32_t              sta_state;
-  uint32_t              signal;
   char                  localIp[maxIpLen];
   char                  netMask[maxIpLen];
   char                  gateWay[maxIpLen];
@@ -148,10 +145,10 @@ typedef struct _current_mico_status_t {
   char                  mac[18];
   mico_semaphore_t      sys_state_change_sem;
   /*EasyLink Running status*/
-  mico_thread_t         easylink_thread_handler;
-  mico_semaphore_t      easylink_sem;
-  json_object           *easylink_report;
-  int                   easylinkClient_fd;
+  //mico_thread_t         easylink_thread_handler;
+  //mico_semaphore_t      easylink_sem;
+  //json_object           *easylink_report;
+  //int                   easylinkClient_fd;
 } current_mico_status_t;
 
 

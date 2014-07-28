@@ -60,7 +60,7 @@ OSStatus MICOStartApplication( mico_Context_t * const inContext )
 
   inContext->appStatus.statusNumber = 0x01;
 
-  /*Bonjour service for searching*/
+  /*Bonjour for service searching*/
   if(inContext->flashContentInRam.micoSystemConfig.bonjourEnable == true)
     MICOStartBonjourService( Station, inContext );
 

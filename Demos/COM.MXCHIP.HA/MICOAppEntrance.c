@@ -36,6 +36,10 @@ OSStatus MICOStartApplication( mico_Context_t * const inContext )
   haProtocolInit(inContext);
   PlatformUartInitialize(inContext);
 
+  /*Bonjour for service searching*/
+  if(inContext->flashContentInRam.micoSystemConfig.bonjourEnable == true)
+    MICOStartBonjourService( Station, inContext );
+  
   err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "UART Recv", uartRecv_thread, 0x200, (void*)inContext );
   require_noerr_action( err, exit, app_log("ERROR: Unable to start the uart recv thread.") );
 

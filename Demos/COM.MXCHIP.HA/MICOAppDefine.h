@@ -24,7 +24,7 @@
 #define MODEL               "Open1081"
 #endif
 
-#define FIRMWARE_REVISION   "MICO_SPP_1_1"
+#define FIRMWARE_REVISION   "MICO_HA_3_0"
 #define MANUFACTURER        "MXCHIP Inc."
 #define SERIAL_NUMBER       "20140606"
 #define PROTOCOL            "com.mxchip.ha"
@@ -35,6 +35,8 @@
 #define MAX_Local_Client_Num          8
 #define DEAFULT_REMOTE_SERVER         "192.168.2.254"
 #define DEFAULT_REMOTE_SERVER_PORT    8080
+
+#define BONJOUR_SERVICE                     "_easylink._tcp.local"
 
 #define LOCAL_TCP_SERVER_LOOPBACK_PORT     1000
 #define REMOTE_TCP_CLIENT_LOOPBACK_PORT    1002

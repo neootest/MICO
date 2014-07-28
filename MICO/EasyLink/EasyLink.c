@@ -37,8 +37,10 @@
 #define easylink_log(M, ...) custom_log("EasyLink", M, ##__VA_ARGS__)
 #define easylink_log_trace() custom_log_trace("EasyLink")
 
+static mico_semaphore_t      easylink_sem;
+static int                   easylinkClient_fd;
+
 static void easylink_thread(void *inContext);
-static mico_mutex_t _mutex;
 
 static OSStatus _FTCRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context_t * const inContext);
 static bool _FTCClientConnected = false;
@@ -48,14 +50,14 @@ static HTTPHeader_t *httpHeader = NULL;
 
 static bool EasylinkFailed = false;
 
-extern OSStatus ConfigIncommingJsonMessage    ( const char *input, mico_Context_t * const inContext );
-extern OSStatus ConfigCreateReportJsonMessage ( mico_Context_t * const inContext );
-extern void     ConfigWillStart               ( mico_Context_t * const inContext );
-extern void     ConfigWillStop                (mico_Context_t * const inContext );
-extern void     ConfigSoftApWillStart         (mico_Context_t * const inContext );
-extern OSStatus ConfigELRecvAuthData          (char * userInfo, mico_Context_t * const inContext );
-extern OSStatus MICOStartBonjourService       ( WiFi_Interface interface, mico_Context_t * const inContext );
-extern OSStatus MICOstartConfigServer         ( mico_Context_t * const inContext );
+extern OSStatus     ConfigIncommingJsonMessage    ( const char *input, mico_Context_t * const inContext );
+extern json_object* ConfigCreateReportJsonMessage ( mico_Context_t * const inContext );
+extern void         ConfigWillStart               ( mico_Context_t * const inContext );
+extern void         ConfigWillStop                (mico_Context_t * const inContext );
+extern void         ConfigSoftApWillStart         (mico_Context_t * const inContext );
+extern OSStatus     ConfigELRecvAuthData          (char * userInfo, mico_Context_t * const inContext );
+extern OSStatus     MICOStartBonjourService       ( WiFi_Interface interface, mico_Context_t * const inContext );
+extern OSStatus     MICOstartConfigServer         ( mico_Context_t * const inContext );
 
 void EasyLinkNotify_WifiStatusHandler(WiFiEvent event, mico_Context_t * const inContext)
 {
@@ -64,7 +66,7 @@ void EasyLinkNotify_WifiStatusHandler(WiFiEvent event, mico_Context_t * const in
   switch (event) {
   case NOTIFY_STATION_UP:
     easylink_log("Access point connected");
-    mico_rtos_set_semaphore(&inContext->micoStatus.easylink_sem);
+    mico_rtos_set_semaphore(&easylink_sem);
     break;
   case NOTIFY_STATION_DOWN:
     break;
@@ -130,7 +132,7 @@ exit:
   easylink_log("ERROR, err: %d", err);
 #if defined (CONFIG_MODE_EASYLINK_WITH_SOFTAP)
   EasylinkFailed = true;
-  mico_rtos_set_semaphore(&inContext->micoStatus.easylink_sem);
+  mico_rtos_set_semaphore(&easylink_sem);
 #else
   ConfigWillStop(inContext);
   /*so roll back to previous settings  (if it has) and reboot*/
@@ -194,7 +196,7 @@ void EasyLinkNotify_EasyLinkGetExtraDataHandler(int datalen, char* data, mico_Co
   require_noerr(ConfigELRecvAuthData(data, inContext), exit);
   
   EasylinkFailed = false;
-  mico_rtos_set_semaphore(&inContext->micoStatus.easylink_sem);
+  mico_rtos_set_semaphore(&easylink_sem);
 
   return;
 
@@ -212,15 +214,10 @@ void EasyLinkNotify_SYSWillPoerOffHandler(mico_Context_t * const inContext)
 OSStatus startEasyLink( mico_Context_t * const inContext)
 {
   easylink_log_trace();
-
   OSStatus err = kUnknownErr;
-  require_action(inContext->micoStatus.easylink_thread_handler==NULL, exit, err = kParamErr);
-  require_action(inContext->micoStatus.easylink_sem==NULL, exit, err = kParamErr);
-  inContext->micoStatus.easylinkClient_fd = -1;
-  //ps_enable();
-  mico_mcu_powersave_config(true);
-  mico_rtos_init_mutex(&_mutex);
+  easylinkClient_fd = -1;
 
+  mico_mcu_powersave_config(true);
   err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)EasyLinkNotify_WifiStatusHandler );
   require_noerr(err, exit);
   err = MICOAddNotification( mico_notify_WiFI_PARA_CHANGED, (void *)EasyLinkNotify_WiFIParaChangedHandler );
@@ -236,8 +233,8 @@ OSStatus startEasyLink( mico_Context_t * const inContext)
 
   // Start the EasyLink thread
   ConfigWillStart(inContext);
-  mico_rtos_init_semaphore(&inContext->micoStatus.easylink_sem, 1);
-  err = mico_rtos_create_thread(&inContext->micoStatus.easylink_thread_handler, MICO_APPLICATION_PRIORITY, "EASYLINK", easylink_thread, 0x1000, (void*)inContext );
+  mico_rtos_init_semaphore(&easylink_sem, 1);
+  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "EASYLINK", easylink_thread, 0x1000, (void*)inContext );
   require_noerr_action( err, exit, easylink_log("ERROR: Unable to start the EasyLink thread.") );
 
 exit:
@@ -333,11 +330,12 @@ void _easylinkConnectWiFi_fast( mico_Context_t * const inContext)
 
 OSStatus _connectFTCServer( mico_Context_t * const inContext, int *fd)
 {
-  OSStatus err;
-  struct sockaddr_t addr;
-  const char *json_str;
+  OSStatus    err;
+  struct      sockaddr_t addr;
+  json_object *easylink_report = NULL;
+  const char  *json_str;
   
-  size_t httpResponseLen = 0;
+  size_t      httpResponseLen = 0;
 
   *fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
   addr.s_ip = inContext->flashContentInRam.micoSystemConfig.easylinkServerIP; 
@@ -348,10 +346,10 @@ OSStatus _connectFTCServer( mico_Context_t * const inContext, int *fd)
 
   easylink_log("Connect to FTC server success, fd: %d", *fd);
 
-  err = ConfigCreateReportJsonMessage( inContext );
-  require_noerr( err, exit );
+  easylink_report = ConfigCreateReportJsonMessage( inContext );
+  require( easylink_report, exit );
 
-  json_str = json_object_to_json_string(inContext->micoStatus.easylink_report);
+  json_str = json_object_to_json_string(easylink_report);
   require( json_str, exit );
 
   easylink_log("Send config object=%s", json_str);
@@ -359,7 +357,7 @@ OSStatus _connectFTCServer( mico_Context_t * const inContext, int *fd)
   require_noerr( err, exit );
   require( httpResponse, exit );
 
-  json_object_put(inContext->micoStatus.easylink_report);
+  json_object_put(easylink_report);
 
   err = SocketSend( *fd, httpResponse, httpResponseLen );
   free(httpResponse);
@@ -373,8 +371,9 @@ exit:
 
 void _cleanEasyLinkResource( mico_Context_t * const inContext )
 {
-  if(inContext->micoStatus.easylinkClient_fd!=-1)
-    close(inContext->micoStatus.easylinkClient_fd);
+  (void)inContext;
+  if(easylinkClient_fd != -1)
+    SocketClose(&easylinkClient_fd);
 
   /*module should power down under default setting*/ 
   MICORemoveNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)EasyLinkNotify_WifiStatusHandler );
@@ -382,16 +381,16 @@ void _cleanEasyLinkResource( mico_Context_t * const inContext )
   MICORemoveNotification( mico_notify_EASYLINK_COMPLETED, (void *)EasyLinkNotify_EasyLinkCompleteHandler );
   MICORemoveNotification( mico_notify_EASYLINK_GET_EXTRA_DATA, (void *)EasyLinkNotify_EasyLinkGetExtraDataHandler );
 
-  mico_rtos_deinit_semaphore(&inContext->micoStatus.easylink_sem);
-  inContext->micoStatus.easylink_sem = NULL;
+  mico_rtos_deinit_semaphore(&easylink_sem);
+  easylink_sem = NULL;
   if(httpHeader) free(httpHeader);
 }
 
 OSStatus stopEasyLink( mico_Context_t * const inContext)
 {
   (void)inContext;
-  if(_FTCClientConnected == true)
-    close(inContext->micoStatus.easylinkClient_fd);
+  CloseEasylink2();
+  _cleanEasyLinkResource( inContext );
   return kNoErr;
 }
 
@@ -404,13 +403,12 @@ void easylink_thread(void *inContext)
   int reConnCount = 0;
 
   easylink_log_trace();
-  require_action(Context->micoStatus.easylink_sem, threadexit, err = kParamErr);
-
+  require_action(easylink_sem, threadexit, err = kNotPreparedErr);
   
   if(Context->flashContentInRam.micoSystemConfig.easyLinkEnable != false){
     OpenEasylink2_withdata(EasyLink_TimeOut); 
     easylink_log("Start easylink");
-    mico_rtos_get_semaphore(&Context->micoStatus.easylink_sem, MICO_WAIT_FOREVER);
+    mico_rtos_get_semaphore(&easylink_sem, MICO_WAIT_FOREVER);
     if(EasylinkFailed == false)
       _easylinkConnectWiFi(Context);
     else{
@@ -427,7 +425,7 @@ void easylink_thread(void *inContext)
     _easylinkConnectWiFi_fast(Context);
   }
 
-  err = mico_rtos_get_semaphore(&Context->micoStatus.easylink_sem, ConnectFTC_Timeout);
+  err = mico_rtos_get_semaphore(&easylink_sem, ConnectFTC_Timeout);
   require_noerr(err, reboot);
 
   httpHeader = HTTPHeaderCreate();
@@ -438,28 +436,28 @@ void easylink_thread(void *inContext)
   t.tv_usec = 0;
     
   while(1){
-    if(Context->micoStatus.easylinkClient_fd == -1){
-      err = _connectFTCServer(inContext, &Context->micoStatus.easylinkClient_fd);
+    if(easylinkClient_fd == -1){
+      err = _connectFTCServer(inContext, &easylinkClient_fd);
       require_noerr(err, Reconn);
     }else{
       FD_ZERO(&readfds);  
-      FD_SET(Context->micoStatus.easylinkClient_fd, &readfds);
+      FD_SET(easylinkClient_fd, &readfds);
 
       err = select(1, &readfds, NULL, NULL, &t);
     
-      if(FD_ISSET(Context->micoStatus.easylinkClient_fd, &readfds)){
-        err = SocketReadHTTPHeader( Context->micoStatus.easylinkClient_fd, httpHeader );
+      if(FD_ISSET(easylinkClient_fd, &readfds)){
+        err = SocketReadHTTPHeader( easylinkClient_fd, httpHeader );
 
         switch ( err )
         {
           case kNoErr:
             // Read the rest of the HTTP body if necessary
-            err = SocketReadHTTPBody( Context->micoStatus.easylinkClient_fd, httpHeader );
+            err = SocketReadHTTPBody( easylinkClient_fd, httpHeader );
             require_noerr(err, Reconn);
 
             PrintHTTPHeader(httpHeader);
             // Call the HTTPServer owner back with the acquired HTTP header
-            err = _FTCRespondInComingMessage( Context->micoStatus.easylinkClient_fd, httpHeader, Context );
+            err = _FTCRespondInComingMessage( easylinkClient_fd, httpHeader, Context );
             require_noerr( err, Reconn );
             // Reuse HTTPHeader
             HTTPHeaderClear( httpHeader );
@@ -489,8 +487,8 @@ void easylink_thread(void *inContext)
     continue;
 Reconn:
     HTTPHeaderClear( httpHeader );
-    close(Context->micoStatus.easylinkClient_fd);
-    Context->micoStatus.easylinkClient_fd = -1;
+    SocketClose(&easylinkClient_fd);
+    easylinkClient_fd = -1;
     require(reConnCount < 6, threadexit);
     reConnCount++;
     sleep(5);
@@ -512,7 +510,6 @@ threadexit:
 
 
   wifi_power_down();
-  Context->micoStatus.easylink_thread_handler = NULL;
   mico_rtos_delete_thread( NULL );
   return;
 
