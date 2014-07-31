@@ -58,11 +58,11 @@ void ConfigWillStart( mico_Context_t * const inContext )
 
 void ConfigWillStop( mico_Context_t * const inContext )
 {
+  (void)(inContext); 
   config_delegate_log_trace();
   mico_stop_timer(&_Led_EL_timer);
   mico_deinit_timer( &_Led_EL_timer );
   Platform_LED_SYS_Set_Status(OFF);
-  (void)(inContext); 
   return;
 }
 
@@ -80,11 +80,11 @@ exit:
 }
 
 
-OSStatus ConfigELRecvAuthData(char * userInfo, mico_Context_t * const inContext )
+OSStatus ConfigELRecvAuthData(char * anthData, mico_Context_t * const inContext )
 {
   config_delegate_log_trace();
   (void)(inContext);
-  (void)(userInfo);
+  (void)(anthData);
   return kNoErr;
 }
 
@@ -96,7 +96,7 @@ json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
   OTA_Versions_t versions;
   char rfVersion[50];
   char *rfVer = NULL, *rfVerTemp = NULL;
-  json_object *sectors, *sector, *subMenuSectors, *subMenuSector, *mainObject;
+  json_object *sectors, *menus, *subMenuSectors, *subMenus, *deviceInfo;
 
   wlan_driver_version( rfVersion, 50 );
   rfVer = strstr(rfVersion, "version ");
@@ -125,93 +125,93 @@ json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
   sectors = json_object_new_array();
   require( sectors, exit );
 
-  err = MICOAddTopMenu(&mainObject, name, sectors, versions);
+  err = MICOAddTopMenu(&deviceInfo, name, sectors, versions);
   require_noerr(err, exit);
 
   /*Sector 1*/
-  sector = json_object_new_array();
-  require( sector, exit );
-  err = MICOAddSector(sectors, "MICO SYSTEM",    sector);
+  menus = json_object_new_array();
+  require( menus, exit );
+  err = MICOAddSector(sectors, "MICO SYSTEM",    menus);
   require_noerr(err, exit);
 
     /*name cell*/
-    err = MICOAddStringCellToSector(sector, "Device Name",    inContext->flashContentInRam.micoSystemConfig.name,               "RW", NULL);
+    err = MICOAddStringCellToSector(menus, "Device Name",    inContext->flashContentInRam.micoSystemConfig.name,               "RW", NULL);
     require_noerr(err, exit);
 
     //Bonjour switcher cell
-    err = MICOAddSwitchCellToSector(sector, "Bonjour",        inContext->flashContentInRam.micoSystemConfig.bonjourEnable,      "RW");
+    err = MICOAddSwitchCellToSector(menus, "Bonjour",        inContext->flashContentInRam.micoSystemConfig.bonjourEnable,      "RW");
     require_noerr(err, exit);
 
     //RF power save switcher cell
-    err = MICOAddSwitchCellToSector(sector, "RF power save",  inContext->flashContentInRam.micoSystemConfig.rfPowerSaveEnable,  "RW");
+    err = MICOAddSwitchCellToSector(menus, "RF power save",  inContext->flashContentInRam.micoSystemConfig.rfPowerSaveEnable,  "RW");
     require_noerr(err, exit);
 
     //MCU power save switcher cell
-    err = MICOAddSwitchCellToSector(sector, "MCU power save", inContext->flashContentInRam.micoSystemConfig.mcuPowerSaveEnable, "RW");
+    err = MICOAddSwitchCellToSector(menus, "MCU power save", inContext->flashContentInRam.micoSystemConfig.mcuPowerSaveEnable, "RW");
     require_noerr(err, exit);
 
     /*sub menu*/
     subMenuSectors = json_object_new_array();
     require( subMenuSectors, exit );
-    err = MICOAddMenuCellToSector(sector, "Detail", subMenuSectors);
+    err = MICOAddMenuCellToSector(menus, "Detail", subMenuSectors);
     require_noerr(err, exit);
       
-      subMenuSector = json_object_new_array();
-      require( subMenuSector, exit );
-      err = MICOAddSector(subMenuSectors,  "",    subMenuSector);
+      subMenus = json_object_new_array();
+      require( subMenus, exit );
+      err = MICOAddSector(subMenuSectors,  "",    subMenus);
       require_noerr(err, exit);
 
-        err = MICOAddStringCellToSector(subMenuSector, "Firmware Rev.",  FIRMWARE_REVISION, "RO", NULL);
+        err = MICOAddStringCellToSector(subMenus, "Firmware Rev.",  FIRMWARE_REVISION, "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "Hardware Rev.",  HARDWARE_REVISION, "RO", NULL);
+        err = MICOAddStringCellToSector(subMenus, "Hardware Rev.",  HARDWARE_REVISION, "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "MICO OS Rev.",   system_lib_version(),              "RO", NULL);
+        err = MICOAddStringCellToSector(subMenus, "MICO OS Rev.",   system_lib_version(),              "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "RF Driver Rev.", rfVer,                             "RO", NULL);
+        err = MICOAddStringCellToSector(subMenus, "RF Driver Rev.", rfVer,                             "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "Model",          MODEL,            "RO", NULL);
+        err = MICOAddStringCellToSector(subMenus, "Model",          MODEL,            "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "Manufacturer",   MANUFACTURER,     "RO", NULL);
+        err = MICOAddStringCellToSector(subMenus, "Manufacturer",   MANUFACTURER,     "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "Protocol",       PROTOCOL,         "RO", NULL);
+        err = MICOAddStringCellToSector(subMenus, "Protocol",       PROTOCOL,         "RO", NULL);
         require_noerr(err, exit);
 
-      subMenuSector = json_object_new_array();
-      err = MICOAddSector(subMenuSectors,  "WLAN",    subMenuSector);
+      subMenus = json_object_new_array();
+      err = MICOAddSector(subMenuSectors,  "WLAN",    subMenus);
       require_noerr(err, exit);
       
         tempString = DataToHexStringWithColons( (uint8_t *)inContext->flashContentInRam.micoSystemConfig.bssid, 6 );
-        err = MICOAddStringCellToSector(subMenuSector, "BSSID",        tempString, "RO", NULL);
+        err = MICOAddStringCellToSector(subMenus, "BSSID",        tempString, "RO", NULL);
         require_noerr(err, exit);
         free(tempString);
 
-        err = MICOAddNumberCellToSector(subMenuSector, "Channel",      inContext->flashContentInRam.micoSystemConfig.channel, "RO", NULL);
+        err = MICOAddNumberCellToSector(subMenus, "Channel",      inContext->flashContentInRam.micoSystemConfig.channel, "RO", NULL);
         require_noerr(err, exit);
 
         switch(inContext->flashContentInRam.micoSystemConfig.security){
           case SECURITY_TYPE_NONE:
-            err = MICOAddStringCellToSector(subMenuSector, "Security",   "Open system", "RO", NULL); 
+            err = MICOAddStringCellToSector(subMenus, "Security",   "Open system", "RO", NULL); 
             break;
           case SECURITY_TYPE_WEP:
-            err = MICOAddStringCellToSector(subMenuSector, "Security",   "WEP",         "RO", NULL); 
+            err = MICOAddStringCellToSector(subMenus, "Security",   "WEP",         "RO", NULL); 
             break;
           case SECURITY_TYPE_WPA_TKIP:
-            err = MICOAddStringCellToSector(subMenuSector, "Security",   "WPA TKIP",    "RO", NULL); 
+            err = MICOAddStringCellToSector(subMenus, "Security",   "WPA TKIP",    "RO", NULL); 
             break;
           case SECURITY_TYPE_WPA_AES:
-            err = MICOAddStringCellToSector(subMenuSector, "Security",   "WPA AES",     "RO", NULL); 
+            err = MICOAddStringCellToSector(subMenus, "Security",   "WPA AES",     "RO", NULL); 
             break;
           case SECURITY_TYPE_WPA2_TKIP:
-            err = MICOAddStringCellToSector(subMenuSector, "Security",   "WPA2 TKIP",   "RO", NULL); 
+            err = MICOAddStringCellToSector(subMenus, "Security",   "WPA2 TKIP",   "RO", NULL); 
             break;
           case SECURITY_TYPE_WPA2_AES:
-            err = MICOAddStringCellToSector(subMenuSector, "Security",   "WPA2 AES",    "RO", NULL); 
+            err = MICOAddStringCellToSector(subMenus, "Security",   "WPA2 AES",    "RO", NULL); 
             break;
           case SECURITY_TYPE_WPA2_MIXED:
-            err = MICOAddStringCellToSector(subMenuSector, "Security",   "WPA2 MIXED",  "RO", NULL); 
+            err = MICOAddStringCellToSector(subMenus, "Security",   "WPA2 MIXED",  "RO", NULL); 
             break;
           default:
-            err = MICOAddStringCellToSector(subMenuSector, "Security",   "Auto",      "RO", NULL); 
+            err = MICOAddStringCellToSector(subMenus, "Security",   "Auto",      "RO", NULL); 
             break;
         }
         require_noerr(err, exit); 
@@ -220,66 +220,66 @@ json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
           tempString = calloc(maxKeyLen+1, 1);
           require_action(tempString, exit, err=kNoMemoryErr);
           memcpy(tempString, inContext->flashContentInRam.micoSystemConfig.key, maxKeyLen);
-          err = MICOAddStringCellToSector(subMenuSector, "PMK",          tempString, "RO", NULL);
+          err = MICOAddStringCellToSector(subMenus, "PMK",          tempString, "RO", NULL);
           require_noerr(err, exit);
           free(tempString);
         }
         else{
-          err = MICOAddStringCellToSector(subMenuSector, "KEY",          inContext->flashContentInRam.micoSystemConfig.user_key,  "RO", NULL);
+          err = MICOAddStringCellToSector(subMenus, "KEY",          inContext->flashContentInRam.micoSystemConfig.user_key,  "RO", NULL);
           require_noerr(err, exit);
         }
 
         /*DHCP cell*/
-        err = MICOAddSwitchCellToSector(subMenuSector, "DHCP",        inContext->flashContentInRam.micoSystemConfig.dhcpEnable,   "RO");
+        err = MICOAddSwitchCellToSector(subMenus, "DHCP",        inContext->flashContentInRam.micoSystemConfig.dhcpEnable,   "RO");
         require_noerr(err, exit);
         /*Local cell*/
-        err = MICOAddStringCellToSector(subMenuSector, "IP address",  inContext->micoStatus.localIp,   "RO", NULL);
+        err = MICOAddStringCellToSector(subMenus, "IP address",  inContext->micoStatus.localIp,   "RO", NULL);
         require_noerr(err, exit);
         /*Netmask cell*/
-        err = MICOAddStringCellToSector(subMenuSector, "Net Mask",    inContext->micoStatus.netMask,   "RO", NULL);
+        err = MICOAddStringCellToSector(subMenus, "Net Mask",    inContext->micoStatus.netMask,   "RO", NULL);
         require_noerr(err, exit);
         /*Gateway cell*/
-        err = MICOAddStringCellToSector(subMenuSector, "Gateway",     inContext->micoStatus.gateWay,   "RO", NULL);
+        err = MICOAddStringCellToSector(subMenus, "Gateway",     inContext->micoStatus.gateWay,   "RO", NULL);
         require_noerr(err, exit);
         /*DNS server cell*/
-        err = MICOAddStringCellToSector(subMenuSector, "DNS Server",  inContext->micoStatus.dnsServer, "RO", NULL);
+        err = MICOAddStringCellToSector(subMenus, "DNS Server",  inContext->micoStatus.dnsServer, "RO", NULL);
         require_noerr(err, exit);
 
   /*Sector 3*/
-  sector = json_object_new_array();
-  require( sector, exit );
-  err = MICOAddSector(sectors, "WLAN",           sector);
+  menus = json_object_new_array();
+  require( menus, exit );
+  err = MICOAddSector(sectors, "WLAN",           menus);
   require_noerr(err, exit);
 
-    err = MICOAddStringCellToSector(sector, "Wi-Fi",        inContext->flashContentInRam.micoSystemConfig.ssid,     "RW", NULL);
+    err = MICOAddStringCellToSector(menus, "Wi-Fi",        inContext->flashContentInRam.micoSystemConfig.ssid,     "RW", NULL);
     require_noerr(err, exit);
 
-    err = MICOAddStringCellToSector(sector, "Password",     inContext->flashContentInRam.micoSystemConfig.user_key, "RW", NULL);
+    err = MICOAddStringCellToSector(menus, "Password",     inContext->flashContentInRam.micoSystemConfig.user_key, "RW", NULL);
     require_noerr(err, exit);
 
   /*Sector 4*/
-  sector = json_object_new_array();
-  require( sector, exit );
-  err = MICOAddSector(sectors, "SPP Remote Server",           sector);
+  menus = json_object_new_array();
+  require( menus, exit );
+  err = MICOAddSector(sectors, "SPP Remote Server",           menus);
   require_noerr(err, exit);
 
 
     // SPP protocol remote server connection enable
-    err = MICOAddSwitchCellToSector(sector, "Connect SPP Server",   inContext->flashContentInRam.appConfig.remoteServerEnable,   "RW");
+    err = MICOAddSwitchCellToSector(menus, "Connect SPP Server",   inContext->flashContentInRam.appConfig.remoteServerEnable,   "RW");
     require_noerr(err, exit);
 
     //Seerver address cell
-    err = MICOAddStringCellToSector(sector, "SPP Server",           inContext->flashContentInRam.appConfig.remoteServerDomain,   "RW", NULL);
+    err = MICOAddStringCellToSector(menus, "SPP Server",           inContext->flashContentInRam.appConfig.remoteServerDomain,   "RW", NULL);
     require_noerr(err, exit);
 
     //Seerver port cell
-    err = MICOAddNumberCellToSector(sector, "SPP Server Port",      inContext->flashContentInRam.appConfig.remoteServerPort,   "RW", NULL);
+    err = MICOAddNumberCellToSector(menus, "SPP Server Port",      inContext->flashContentInRam.appConfig.remoteServerPort,   "RW", NULL);
     require_noerr(err, exit);
 
   /*Sector 5*/
-  sector = json_object_new_array();
-  require( sector, exit );
-  err = MICOAddSector(sectors, "MCU IOs",            sector);
+  menus = json_object_new_array();
+  require( menus, exit );
+  err = MICOAddSector(sectors, "MCU IOs",            menus);
   require_noerr(err, exit);
 
     /*UART Baurdrate cell*/
@@ -291,17 +291,17 @@ json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
     json_object_array_add(selectArray, json_object_new_int(38400));
     json_object_array_add(selectArray, json_object_new_int(57600));
     json_object_array_add(selectArray, json_object_new_int(115200));
-    err = MICOAddNumberCellToSector(sector, "Baurdrate", 115200, "RW", selectArray);
+    err = MICOAddNumberCellToSector(menus, "Baurdrate", 115200, "RW", selectArray);
     require_noerr(err, exit);
 
   mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
   
 exit:
-  if(err != kNoErr && mainObject){
-    json_object_put(mainObject);
-    mainObject = NULL;
+  if(err != kNoErr && deviceInfo){
+    json_object_put(deviceInfo);
+    deviceInfo = NULL;
   }
-  return mainObject;
+  return deviceInfo;
 
 }
 

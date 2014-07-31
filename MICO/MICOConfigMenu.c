@@ -24,7 +24,7 @@
 #include "external/JSON-C/json.h"
 #include "MICOConfigMenu.h"
 
-OSStatus MICOAddSector(json_object* sectorArray, char* const name,  json_object *menuArray)
+OSStatus MICOAddSector(json_object* sectors, char* const name,  json_object *menus)
 {
   OSStatus err;
   json_object *object;
@@ -33,14 +33,14 @@ OSStatus MICOAddSector(json_object* sectorArray, char* const name,  json_object 
   object = json_object_new_object();
   require_action(object, exit, err = kNoMemoryErr);
   json_object_object_add(object, "N", json_object_new_string(name));      
-  json_object_object_add(object, "C", menuArray);
-  json_object_array_add(sectorArray, object);
+  json_object_object_add(object, "C", menus);
+  json_object_array_add(sectors, object);
 
 exit:
   return err;
 }
 
-OSStatus MICOAddStringCellToSector(json_object* sector, char* const name,  char* const content, char* const privilege, json_object* secectionArray)
+OSStatus MICOAddStringCellToSector(json_object* menus, char* const name,  char* const content, char* const privilege, json_object* secectionArray)
 {
   OSStatus err;
   json_object *object;
@@ -55,14 +55,14 @@ OSStatus MICOAddStringCellToSector(json_object* sector, char* const name,  char*
   if(secectionArray)
     json_object_object_add(object, "S", secectionArray); 
 
-  json_object_array_add(sector, object);
+  json_object_array_add(menus, object);
 
 
 exit:
   return err;
 }
 
-OSStatus MICOAddNumberCellToSector(json_object* sector, char* const name,  int content, char* const privilege, json_object* secectionArray)
+OSStatus MICOAddNumberCellToSector(json_object* menus, char* const name,  int content, char* const privilege, json_object* secectionArray)
 {
   OSStatus err;
   json_object *object;
@@ -78,13 +78,13 @@ OSStatus MICOAddNumberCellToSector(json_object* sector, char* const name,  int c
   if(secectionArray)
     json_object_object_add(object, "S", secectionArray); 
 
-  json_object_array_add(sector, object);
+  json_object_array_add(menus, object);
 
 exit:
   return err;
 }
 
-OSStatus MICOAddSwitchCellToSector(json_object* sector, char* const name,  boolean b, char* const privilege)
+OSStatus MICOAddFloatCellToSector(json_object* menus, char* const name,  float content, char* const privilege, json_object* secectionArray)
 {
   OSStatus err;
   json_object *object;
@@ -93,15 +93,38 @@ OSStatus MICOAddSwitchCellToSector(json_object* sector, char* const name,  boole
   object = json_object_new_object();
   require_action(object, exit, err = kNoMemoryErr);
   json_object_object_add(object, "N", json_object_new_string(name));      
-  json_object_object_add(object, "C", json_object_new_boolean(b));
+
+  json_object_object_add(object, "C", json_object_new_double(content));
   json_object_object_add(object, "P", json_object_new_string(privilege)); 
-  json_object_array_add(sector, object);
+
+  if(secectionArray)
+    json_object_object_add(object, "S", secectionArray); 
+
+  json_object_array_add(menus, object);
+
+exit:
+  return err;  
+}
+
+
+OSStatus MICOAddSwitchCellToSector(json_object* menus, char* const name,  boolean switcher, char* const privilege)
+{
+  OSStatus err;
+  json_object *object;
+  err = kNoErr;
+
+  object = json_object_new_object();
+  require_action(object, exit, err = kNoMemoryErr);
+  json_object_object_add(object, "N", json_object_new_string(name));      
+  json_object_object_add(object, "C", json_object_new_boolean(switcher));
+  json_object_object_add(object, "P", json_object_new_string(privilege)); 
+  json_object_array_add(menus, object);
 
 exit:
   return err;
 }
 
-OSStatus MICOAddMenuCellToSector(json_object* sector, char* const name, json_object* lowerSectorArray)
+OSStatus MICOAddMenuCellToSector(json_object* menus, char* const name, json_object* lowerSectors)
 {
   OSStatus err;
   json_object *object;
@@ -110,14 +133,14 @@ OSStatus MICOAddMenuCellToSector(json_object* sector, char* const name, json_obj
   object = json_object_new_object();
   require_action(object, exit, err = kNoMemoryErr);
   json_object_object_add(object, "N", json_object_new_string(name));
-  json_object_object_add(object, "C", lowerSectorArray);
-  json_object_array_add(sector, object);
+  json_object_object_add(object, "C", lowerSectors);
+  json_object_array_add(menus, object);
 
 exit:
   return err;
 }
 
-OSStatus MICOAddTopMenu(json_object **outTopMenu, char* const inName, json_object* inlowerSectorArray, OTA_Versions_t inVersions)
+OSStatus MICOAddTopMenu(json_object **outTopMenu, char* const inName, json_object* sectors, OTA_Versions_t inVersions)
 {
   OSStatus err;
   json_object *object;
@@ -129,7 +152,7 @@ OSStatus MICOAddTopMenu(json_object **outTopMenu, char* const inName, json_objec
   object = json_object_new_object();
   require_action(object, exit, err = kNoMemoryErr);
   json_object_object_add(object, "N", json_object_new_string(inName));
-  json_object_object_add(object, "C", inlowerSectorArray);
+  json_object_object_add(object, "C", sectors);
 
   json_object_object_add(object, "PO", json_object_new_string(inVersions.protocol));
   json_object_object_add(object, "HD", json_object_new_string(inVersions.hdVersion));

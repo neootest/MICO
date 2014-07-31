@@ -65,7 +65,7 @@
 #define REMOTE_TCP_CLIENT_LOOPBACK_PORT     1002
 #define RECVED_UART_DATA_LOOPBACK_PORT      1003
 
-#define BONJOUR_SERVICE                     "_easylink._tcp.local"
+#define BONJOUR_SERVICE                     "_easylink._tcp.local."
 
 /*Application's configuration stores in flash*/
 typedef struct

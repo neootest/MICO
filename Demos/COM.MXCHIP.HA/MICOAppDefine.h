@@ -36,7 +36,7 @@
 #define DEAFULT_REMOTE_SERVER         "192.168.2.254"
 #define DEFAULT_REMOTE_SERVER_PORT    8080
 
-#define BONJOUR_SERVICE                     "_easylink._tcp.local"
+#define BONJOUR_SERVICE                     "_easylink._tcp.local."
 
 #define LOCAL_TCP_SERVER_LOOPBACK_PORT     1000
 #define REMOTE_TCP_CLIENT_LOOPBACK_PORT    1002

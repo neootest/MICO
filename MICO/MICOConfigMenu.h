@@ -33,16 +33,18 @@ typedef struct {
 } OTA_Versions_t;
 
 
-OSStatus MICOAddSector(json_object* sectorArray, char* const name,  json_object *menuArray);
+OSStatus MICOAddSector(json_object* sectors, char* const name,  json_object *menus);
 
-OSStatus MICOAddStringCellToSector(json_object* sector, char* const name,  char* const content, char* const privilege, json_object* secectionArray);
+OSStatus MICOAddStringCellToSector(json_object* menus, char* const name,  char* const content, char* const privilege, json_object* secectionArray);
 
-OSStatus MICOAddNumberCellToSector(json_object* sector, char* const name,  int content, char* const privilege, json_object* secectionArray);
+OSStatus MICOAddNumberCellToSector(json_object* menus, char* const name,  int content, char* const privilege, json_object* secectionArray);
 
-OSStatus MICOAddSwitchCellToSector(json_object* sector, char* const name,  boolean b, char* const privilege);
+OSStatus MICOAddFloatCellToSector(json_object* menus, char* const name,  float content, char* const privilege, json_object* secectionArray);
 
-OSStatus MICOAddMenuCellToSector(json_object* sector, char* const name, json_object* lowerSectorArray);
+OSStatus MICOAddSwitchCellToSector(json_object* menus, char* const name,  boolean content, char* const privilege);
 
-OSStatus MICOAddTopMenu(json_object **topMenu, char* const name, json_object* lowerSectorArray, OTA_Versions_t versions);
+OSStatus MICOAddMenuCellToSector(json_object* menus, char* const name, json_object* lowerSectors);
+
+OSStatus MICOAddTopMenu(json_object **deviceInfo, char* const name, json_object* sectors, OTA_Versions_t versions);
 
 #endif

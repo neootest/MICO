@@ -57,9 +57,10 @@ void ConfigWillStart( mico_Context_t * const inContext )
 
 void ConfigWillStop( mico_Context_t * const inContext )
 {
+  (void)(inContext); 
   config_delegate_log_trace();
   mico_stop_timer(&_Led_EL_timer);
-  //mico_deinit_timer( &_Led_EL_timer );
+  mico_deinit_timer( &_Led_EL_timer );
   Platform_LED_SYS_Set_Status(OFF);
   return;
 }
@@ -82,11 +83,11 @@ exit:
   return;
 }
 
-OSStatus ConfigELRecvAuthData(char * userInfo, mico_Context_t * const inContext )
+OSStatus ConfigELRecvAuthData(char * anthData, mico_Context_t * const inContext )
 {
   config_delegate_log_trace();
   (void)(inContext);
-  (void)(userInfo);
+  (void)(anthData);
   return kNoErr;
 }
 

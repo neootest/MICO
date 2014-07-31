@@ -42,8 +42,8 @@
 #define APPLICATION_WATCHDOG_TIMEOUT_SECONDS  5
 
 #define RestoreDefault_TimeOut    3000  //Restore default and start easylink after press down EasyLink button for 3 seconds 
-#define EasyLink_TimeOut          20  //20 seconds
-#define ConnectFTC_Timeout        20000  //20 seconds
+#define EasyLink_TimeOut          20000  //20 seconds
+#define EasyLink_ConnectWlan_Timeout        20000  //20 seconds
 
 
 #define maxSsidLen          32
@@ -126,6 +126,7 @@ typedef struct _mico_sys_config_t
 } mico_sys_config_t;
 
 typedef struct _flash_configuration_t {
+
   /*OTA options*/
   boot_table_t             bootTable;
   /*MICO system core configuration*/
@@ -134,8 +135,8 @@ typedef struct _flash_configuration_t {
   application_config_t     appConfig; 
 } flash_content_t;
 
-typedef struct _current_mico_status_t {
-
+typedef struct _current_mico_status_t 
+{
   /*MICO system Running status*/
   SYS_State_t           sys_state;
   char                  localIp[maxIpLen];
@@ -144,11 +145,6 @@ typedef struct _current_mico_status_t {
   char                  dnsServer[maxIpLen];
   char                  mac[18];
   mico_semaphore_t      sys_state_change_sem;
-  /*EasyLink Running status*/
-  //mico_thread_t         easylink_thread_handler;
-  //mico_semaphore_t      easylink_sem;
-  //json_object           *easylink_report;
-  //int                   easylinkClient_fd;
 } current_mico_status_t;
 
 

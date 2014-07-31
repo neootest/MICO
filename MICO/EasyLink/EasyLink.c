@@ -406,7 +406,7 @@ void easylink_thread(void *inContext)
   require_action(easylink_sem, threadexit, err = kNotPreparedErr);
   
   if(Context->flashContentInRam.micoSystemConfig.easyLinkEnable != false){
-    OpenEasylink2_withdata(EasyLink_TimeOut); 
+    OpenEasylink2_withdata(EasyLink_TimeOut/1000); 
     easylink_log("Start easylink");
     mico_rtos_get_semaphore(&easylink_sem, MICO_WAIT_FOREVER);
     if(EasylinkFailed == false)
@@ -425,7 +425,7 @@ void easylink_thread(void *inContext)
     _easylinkConnectWiFi_fast(Context);
   }
 
-  err = mico_rtos_get_semaphore(&easylink_sem, ConnectFTC_Timeout);
+  err = mico_rtos_get_semaphore(&easylink_sem, EasyLink_ConnectWlan_Timeout);
   require_noerr(err, reboot);
 
   httpHeader = HTTPHeaderCreate();
