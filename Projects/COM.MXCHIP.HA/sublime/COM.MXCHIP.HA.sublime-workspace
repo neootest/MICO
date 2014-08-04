@@ -536,10 +536,44 @@
 			}
 		},
 		{
+			"contents": "Searching 142 files for \"localServerPort\"\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.HA/LocalTcpServer.c:\n   37    require_action(IsValidSocket( localTcpListener_fd ), exit, err = kNoResourcesErr );\n   38    addr.s_ip = INADDR_ANY;\n   39:   addr.s_port = Context->flashContentInRam.appConfig.localServerPort;\n   40    err = bind(localTcpListener_fd, &addr, sizeof(addr));\n   41    require_noerr( err, exit );\n   ..\n   44    require_noerr( err, exit );\n   45  \n   46:   server_log(\"Server established at port: %d, fd: %d\", Context->flashContentInRam.appConfig.localServerPort, localTcpListener_fd);\n   47  \n   48    FD_ZERO(&readfds);\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.HA/MICOAppDefine.h:\n   47  {\n   48    uint32_t          configDataVer;\n   49:   uint32_t          localServerPort;\n   50  \n   51    /*local services*/\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.HA/MICOAppEntrance.c:\n   19  {\n   20    inContext->flashContentInRam.appConfig.configDataVer = CONFIGURATION_VERSION;\n   21:   inContext->flashContentInRam.appConfig.localServerPort = LOCAL_PORT;\n   22    inContext->flashContentInRam.appConfig.localServerEnable = true;\n   23    inContext->flashContentInRam.appConfig.USART_BaudRate = 115200;\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.HA/MICOBonjour.c:\n   81    init.instance_name = (char*)__strdup(temp_txt);\n   82  \n   83:   init.service_port = inContext->flashContentInRam.appConfig.localServerPort;\n   84    init.interface = interface;\n   85  \n\n5 matches across 4 files\n",
+			"settings":
+			{
+				"buffer_size": 1600,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
 			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.HA/MICOAppEntrance.c",
 			"settings":
 			{
-				"buffer_size": 2074,
+				"buffer_size": 2238,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.HA/MICOAppDefine.h",
+			"settings":
+			{
+				"buffer_size": 2051,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.HA/UartRecv.c",
+			"settings":
+			{
+				"buffer_size": 1697,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.HA/HaProtocol.c",
+			"settings":
+			{
+				"buffer_size": 10826,
 				"line_ending": "Windows"
 			}
 		}
@@ -600,6 +634,7 @@
 	},
 	"file_history":
 	[
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.HA/User_EasyLink.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Projects/Demo4_COM.MXCHIP.HA/sublime/mxchipWNet_HA.sublime-project",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Projects/Demo2_COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/Demo4_mxchipWNet_HA/UartRecv.c",
@@ -726,8 +761,7 @@
 		"/Users/William/Library/Application Support/Sublime Text 2/Packages/SublimeClang/clang/include/stddef.h",
 		"/Users/William/Develop/mxchipWNet Demo@EMW316x/Demos/Demo3_WPS_EasyLink/menu.c",
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/mxchipWNET.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/Demo2_TCP_IP_Stack/TCP_Client_Test_debug.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/MFi_WAC/mdns.c"
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/Demo2_TCP_IP_Stack/TCP_Client_Test_debug.c"
 	],
 	"find":
 	{
@@ -735,7 +769,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
 			"<open folders>",
@@ -754,6 +788,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"localServerPort",
 			"check_sum",
 			"readfds",
 			";\n",
@@ -880,8 +915,7 @@
 			"_led_EL_Timeout_handler",
 			"IWDG_SetReload",
 			"\"P\"",
-			"mfi_bonjour_send",
-			"_AddTopMenu"
+			"mfi_bonjour_send"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -941,8 +975,8 @@
 						"selection":
 						[
 							[
-								2180,
-								2022
+								1239,
+								1254
 							]
 						],
 						"settings":
@@ -952,25 +986,84 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 302.0,
+						"translation.y": 584.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
+					"settings":
+					{
+						"buffer_size": 1600,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										318,
+										333
+									],
+									[
+										585,
+										600
+									],
+									[
+										827,
+										842
+									],
+									[
+										1115,
+										1130
+									],
+									[
+										1512,
+										1527
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								1139,
+								1139
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
 					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.HA/MICOAppEntrance.c",
 					"settings":
 					{
-						"buffer_size": 2074,
+						"buffer_size": 2238,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1921,
-								1921
+								587,
+								597
 							]
 						],
 						"settings":
@@ -981,6 +1074,90 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.HA/MICOAppDefine.h",
+					"settings":
+					{
+						"buffer_size": 2051,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								758,
+								758
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 11.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.HA/UartRecv.c",
+					"settings":
+					{
+						"buffer_size": 1697,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								607,
+								607
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 397.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.HA/HaProtocol.c",
+					"settings":
+					{
+						"buffer_size": 10826,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								385,
+								385
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2204.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

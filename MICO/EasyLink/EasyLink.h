@@ -27,8 +27,6 @@
 #include "MICODefine.h"
 
 #define FTC_PORT 8000
-#define WiFiConnect_TIMEOUT  200000 //20s
-#define LED_EL_TRIGGER_INTERVAL 500 
 
 OSStatus startEasyLink( mico_Context_t * const inContext);
 

@@ -43,7 +43,6 @@ static int                   easylinkClient_fd;
 static void easylink_thread(void *inContext);
 
 static OSStatus _FTCRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context_t * const inContext);
-static bool _FTCClientConnected = false;
 
 static uint8_t *httpResponse = NULL;
 static HTTPHeader_t *httpHeader = NULL;
@@ -342,7 +341,6 @@ OSStatus _connectFTCServer( mico_Context_t * const inContext, int *fd)
   addr.s_port = FTC_PORT;  
   err = connect(*fd, &addr, sizeof(addr));
   require_noerr(err, exit);
-  _FTCClientConnected = true;
 
   easylink_log("Connect to FTC server success, fd: %d", *fd);
 

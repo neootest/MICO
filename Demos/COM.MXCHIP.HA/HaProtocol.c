@@ -1,5 +1,5 @@
 
-#include "MICO.h"
+#include "MICODefine.h"
 #include "MICOAppDefine.h"
 #include "MICONotificationCenter.h"
 #include "HaProtocol.h"
@@ -282,8 +282,6 @@ OSStatus haUartCommandProcess(uint8_t *inBuf, int inLen, mico_Context_t * const 
   mxchip_cmd_head_t *cmd_header;
   uint16_t cksum;
     struct sockaddr_t addr;
-
-
 
   cmd_header = (mxchip_cmd_head_t *)inBuf;
 
