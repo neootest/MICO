@@ -19,7 +19,6 @@
   ******************************************************************************
   */ 
 
-#include "MICO.h"
 #include "MICODefine.h"
 #include "MICOAppDefine.h"
 

@@ -24,6 +24,15 @@
 
 #include "Common.h"
 
+/** @addtogroup MICO_Core_APIs
+* @{
+*/
+
+/** @defgroup MICO_SOCKET MICO Socket operations
+  * @brief Communicate with other device using TCP or UDP over MICO network
+  * @{
+  */
+
 #define AF_INET       2
 #define SOCK_STREAM   1
 #define SOCK_DGRM     2 
@@ -35,67 +44,66 @@
 #define INADDR_BROADCAST  0xFFFFFFFF
 #define IPADDR_LOOPBACK   0x7F000001
 
+/**
+  * @brief  Socket address structure define
+  */
 struct sockaddr_t {
-  uint16_t        s_type;
-  uint16_t        s_port;
-  uint32_t    	  s_ip;
-  uint16_t        s_spares[6];  /* unused in TCP realm */
+  uint16_t        s_type;       /**<  Ignored in MICO */
+  uint16_t        s_port;       /**<  Port number */
+  uint32_t        s_ip;         /**<  IPv4 address. 32bit */
+  uint16_t        s_spares[6];  /**<  Unused in TCP realm */
 } ;
 
-typedef struct in_addr {
-  uint32_t s_addr;	
-} in_addr_t;
-
+/**
+  * @brief  Time interval define used in @ref select
+  */
 struct timeval_t {
-  unsigned long		tv_sec;		/* seconds */
-  unsigned long		tv_usec;	/* microseconds */
+  unsigned long		tv_sec;		/**< seconds */
+  unsigned long		tv_usec;	/**< microseconds */
 };
 
 typedef int socklen_t;
 
+/**
+  * @brief  Socket option types
+  */
 typedef enum {
-  ///Socket always support this option
-  SO_REUSEADDR            = 0x0002,  
-  ///Socket always support this option   
-  SO_BROADCAST            = 0x0006,		
-  ///Join Multicast group   
-  IP_ADD_MEMBERSHIP       = 0x0003,     
-  ///Leave Multicast group 
-  IP_DROP_MEMBERSHIP      = 0x0004,     
-  ///set socket as block(optval=0)/non-block(optval=1) mode
-  SO_BLOCKMODE            = 0x1000,
-  ///Send timeout in block mode
-  SO_SNDTIMEO             = 0x1005,
-  ///Recv timeout in block mode
-  SO_RCVTIMEO             = 0x1006,
-  ///Get socket error
-  SO_ERROR                = 0x1007, 
-  ///Get socket type
-  SO_TYPE                 = 0x1008, 
-  ///Don't create UDP checksum
-  SO_NO_CHECK             = 0x100a  
+  SO_REUSEADDR            = 0x0002,     /**< MICO socket always support this option. */
+  SO_BROADCAST            = 0x0006,     /**< MICO socket always support this option. */
+  IP_ADD_MEMBERSHIP       = 0x0003,     /**< Join multicast group. */
+  IP_DROP_MEMBERSHIP      = 0x0004,     /**< Leave Multicast group. */
+  SO_BLOCKMODE            = 0x1000,     /**< set socket as block(optval=0)/non-block(optval=1) mode. 
+                                             Default is block mode. */
+  SO_SNDTIMEO             = 0x1005,     /**< Send timeout in block mode. block for ever in dafault mode. */
+  SO_RCVTIMEO             = 0x1006,     /**< Recv timeout in block mode. block 1 second in default mode. */
+  SO_ERROR                = 0x1007,     /**< Get socket error number. */
+  SO_TYPE                 = 0x1008,     /**< Get socket type. */
+  SO_NO_CHECK             = 0x100a      /**< Don't create UDP checksum. */
 } SOCK_OPT_VAL;
 
-#define FD_UART           1
-#define FD_USER_BEGIN     2
-#define FD_SETSIZE        24 // MAX 24 fd
-typedef unsigned long     fd_mask;
+#define FD_SETSIZE        16    /**< MAX fd number is 16 in MICO. */
 
-#define NBBY    8               /* number of bits in a byte */
-#define NFDBITS (sizeof(fd_mask) * NBBY)        /* bits per mask */
+
+#define NBBY              8     /**< number of bits in a byte. */
+#define NFDBITS (sizeof(unsigned long) * NBBY)        /**< bits per mask */
 
 
 #define howmany(x, y)   (((x) + ((y) - 1)) / (y))
 
 typedef struct fd_set {
-  fd_mask   fds_bits[howmany(FD_SETSIZE, NFDBITS)];
+  unsigned long   fds_bits[howmany(FD_SETSIZE, NFDBITS)];
 } fd_set;
 
-#define _fdset_mask(n)    ((fd_mask)1 << ((n) % NFDBITS))
-#define FD_SET(n, p)      ((p)->fds_bits[(n)/NFDBITS] |= _fdset_mask(n))
-#define FD_CLR(n, p)      ((p)->fds_bits[(n)/NFDBITS] &= ~_fdset_mask(n))
-#define FD_ISSET(n, p)    ((p)->fds_bits[(n)/NFDBITS] & _fdset_mask(n))
-#define FD_ZERO(p)        memset(p, 0, sizeof(*(p)))
+#define _fdset_mask(n)    ((unsigned long)1 << ((n) % NFDBITS))
+
+#define FD_SET(n, p)      ((p)->fds_bits[(n)/NFDBITS] |= _fdset_mask(n))  /**< Add a fd to FD set. */
+#define FD_CLR(n, p)      ((p)->fds_bits[(n)/NFDBITS] &= ~_fdset_mask(n)) /**< Remove fd from FD set. */
+#define FD_ISSET(n, p)    ((p)->fds_bits[(n)/NFDBITS] & _fdset_mask(n))   /**< Check if the fd is set in FD set. */
+#define FD_ZERO(p)        memset(p, 0, sizeof(*(p)))                      /**< Clear FD set. */
+
+/** @defgroup MICO_SOCKET_GROUP_1 MICO BSD-like Socket functions
+  * @{
+  */
 
 /**
   * @brief  Create an endpoint for communication
@@ -350,6 +358,14 @@ ssize_t recvfrom(int  sockfd,  void  *buf,  size_t  len,  int  flags,
   * @retval     Returns zero on success.  On error, -1 is returned.
   */
 int close(int fd);
+/**
+  * @}
+  */
+
+
+/** @defgroup MICO_SOCKET_GROUP_2 MICO Socket Tool functions
+  * @{
+  */
 
 /**
   * @brief      converts the Internet host address from IPv4 numbers-and-dots 
@@ -359,6 +375,7 @@ int close(int fd);
   * @retval     Returns zero on success.  On error, -1 is returned.
   */
 uint32_t inet_addr(char *s); 
+
 
 /**
   * @brief      Converts the Internet host address in, given in network byte 
@@ -373,27 +390,67 @@ uint32_t inet_addr(char *s);
 char *inet_ntoa( char *s, uint32_t x );
 
 
-/**
-  * @brief      Get the IP address from a host name. 
+/** @brief      Get the IP address from a host name. 
+  * 
   * @note       Different to stand BSD function type, this function in MICO do
   *             not return a buffer that contain the result, but write the result
   *             to a buffer provided by application. Also this function simplify
   *             the return value compared to the standard BSD version. 
   *             This functon runs under block mode.
-  * @param      addr: This parameter is either a hostname, or an IPv4 address in
+  *
+  * @param      name: This parameter is either a hostname, or an IPv4 address in
   *             standard dot notation.
   * @param      addr: Point to a buffer to store the returned string in IPv4 
   *             dotted-decimal
   * @param      addrLen: This parameter containing the size of the buffer pointed 
   *             to by addr, 16 is recommended.
-  * @retval     ????????.
+  * @retval     kNoerr or kGeneralErr
   */
 int gethostbyname(const char * name, uint8_t * addr, uint8_t addrLen);
 
 
-void set_tcp_keepalive(int num, int seconds);
-void get_tcp_keepalive(int *num, int *seconds);
+/** @brief      Set TCP keep-alive mechanism parameters. 
+ *
+ *  @details    When TCP data is not transimitting for a certain time (defined by seconds), 
+ *              MICO send keep-alive package over the TCP socket, and the remote device  
+ *              should return the keep-alive back to MICO. This is a basic TCP function 
+ *              deployed on every TCP/IP stack and application's interaction is not required. 
+ *              If the remote device doesn't return the keep-alive package, MICO add 1 to an 
+ *              internal counter, and close the current socket connection once this count has 
+ *              reached the maxErrNum (defined in parm: maxErrNum). 
+ *
+ *  @param      inMaxErrNum: The max possible count that the remote device doesn't return the 
+ *              keep-alive package. If remote device returns, the internal count is cleared 
+ *              to 0. 
+ *  @param      inSeconds: The time interval between two keep-alive package
+ *
+ *  @retval     kNoerr or kGeneralErr
+ */
+void set_tcp_keepalive(int inMaxErrNum, int inSeconds);
+
+
+/** @brief      Get TCP keep-alive mechanism parameters. Refer to @ref set_tcp_keepalive
+ *
+ *  @param      outMaxErrNum: Point to the address that store the maxErrNumber.
+ *  @param      outSeconds: Point to the address that store the time interval between two
+ *              keep-alive package.
+ *
+ *  @retval     kNoerr or kGeneralErr
+ */
+void get_tcp_keepalive(int *outMaxErrNum, int *outSeconds);
+
+/**
+  * @}
+  */
 
 
 #endif /*__MICO_SOCKET_H__*/
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
 

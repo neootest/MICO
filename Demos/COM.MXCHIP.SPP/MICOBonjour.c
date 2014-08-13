@@ -19,7 +19,6 @@
   ******************************************************************************
   */ 
 
-#include "MICO.h"
 #include "MICODefine.h"
 #include "MICONotificationCenter.h"
 
@@ -34,7 +33,7 @@ void BonjourNotify_WifiStatusHandler( WiFiEvent event, mico_Context_t * const in
   (void)inContext;
   switch (event) {
   case NOTIFY_STATION_UP:
-    suspend_bonjour_service(DISABLE);
+    suspend_bonjour_service(false);
     break;
   case NOTIFY_STATION_DOWN:
     break;
@@ -48,7 +47,7 @@ void BonjourNotify_SYSWillPoerOffHandler( mico_Context_t * const inContext)
 {
   (void)inContext;
   if(_bonjourStarted == true){
-    suspend_bonjour_service(ENABLE);
+    suspend_bonjour_service(true);
   }
 }
 
@@ -62,7 +61,7 @@ OSStatus MICOStartBonjourService( WiFi_Interface interface, mico_Context_t * con
 
   memset(&init, 0x0, sizeof(bonjour_init_t));
 
-  getNetPara(&para, Station);
+  micoWlanGetIPStatus(&para, Station);
 
   init.service_name = BONJOUR_SERVICE;
 
@@ -95,7 +94,7 @@ OSStatus MICOStartBonjourService( WiFi_Interface interface, mico_Context_t * con
   sprintf(temp_txt, "%sHardware Rev=%s.", temp_txt, temp_txt2);
   free(temp_txt2);
 
-  temp_txt2 = __strdup_trans_dot(system_lib_version());
+  temp_txt2 = __strdup_trans_dot(micoGetVer());
   sprintf(temp_txt, "%sMICO OS Rev=%s.", temp_txt, temp_txt2);
   free(temp_txt2);
 

@@ -24,8 +24,9 @@
 #ifndef __MDNS_H
 #define __MDNS_H
 
-#include "stm32f2xx.h"
+#include "Common.h"
 #include "MICO.h"
+
 /**************************************************************************************************************
  * INCLUDES
  **************************************************************************************************************/
@@ -90,39 +91,39 @@ typedef enum
 
 typedef struct
 {
-  u8* start_of_name;
-  u8* start_of_packet; // Used for compressed names;
+  uint8_t* start_of_name;
+  uint8_t* start_of_packet; // Used for compressed names;
 } dns_name_t;
 
 typedef struct
 {
-  u16 id;
-  u16 flags;
-  u16 question_count;
-  u16 answer_count;
-  u16 name_server_count;
-  u16 additional_record_count;
+  uint16_t id;
+  uint16_t flags;
+  uint16_t question_count;
+  uint16_t answer_count;
+  uint16_t name_server_count;
+  uint16_t additional_record_count;
 } dns_message_header_t;
 
 typedef struct
 {
     dns_message_header_t* header; // Also used as start of packet for compressed names
-    u8* iter;
-    u8* end;
+    uint8_t* iter;
+    uint8_t* end;
 } dns_message_iterator_t;
 
 typedef struct
 {
-  u16 question_type;
-  u16 question_class;
+  uint16_t question_type;
+  uint16_t question_class;
 } dns_question_t;
 
 typedef struct
 {
-  u16 record_type;
-  u16 record_class;
+  uint16_t record_type;
+  uint16_t record_class;
   uint32_t ttl;
-  u16 rd_length;
+  uint16_t rd_length;
   dns_message_iterator_t rdata;
 } dns_record_t;
 
@@ -144,7 +145,7 @@ void bonjour_update_txt_record(char *txt_record);
 
 int start_bonjour_service(void);
 
-void suspend_bonjour_service(FunctionalState state);
+void suspend_bonjour_service(bool state);
 
 void stop_bonjour_service(void);
 

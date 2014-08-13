@@ -35,7 +35,7 @@ MICO
 	1. Install IAR workbench for ARM v6.7 or higher
 	2. Select target: EMW3162, EMW3161 or Open1081
 	3. Build and download MICO demo application
-		Note: MICO demo runs on EMB-380-S2 + EMW3162/EMW3161: http://mxchip.com/tool.php?class_id=23&id=24 
+		Note: MICO demo runs on EMB-380-S2 + EMW3162/EMW3161: http://joinmx.com/tool.php?class_id=23&id=24
 			Open1081: http://item.taobao.com/item.htm?spm=a230r.1.14.32.BVcJ4C&id=38941373196&ns=1#detail
 	4、Download and run Easylink APP from apple APP store, 
 		https://itunes.apple.com/cn/app/easylink/id820801172?mt=8

@@ -34,7 +34,7 @@ void BonjourNotify_WifiStatusHandler( WiFiEvent event, mico_Context_t * const in
   (void)inContext;
   switch (event) {
   case NOTIFY_STATION_UP:
-    suspend_bonjour_service(DISABLE);
+    suspend_bonjour_service(false);
     break;
   case NOTIFY_STATION_DOWN:
     break;
@@ -48,7 +48,7 @@ void BonjourNotify_SYSWillPoerOffHandler( mico_Context_t * const inContext)
 {
   (void)inContext;
   if(_bonjourStarted == true){
-    suspend_bonjour_service(ENABLE);
+    suspend_bonjour_service(true);
   }
 }
 

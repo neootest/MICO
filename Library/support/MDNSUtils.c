@@ -20,11 +20,6 @@
 ******************************************************************************
 */ 
 
-#include "stdio.h"
-#include "ctype.h"
-#include "string.h"
-#include "stdlib.h"
-
 #include "MDNSUtils.h"
 
 static int mDNS_fd = -1;
@@ -35,7 +30,7 @@ typedef struct
   char* instance_name;
   char* service_name;
   char* txt_att;
-  u16	port;
+  uint16_t	port;
   char	instance_name_suffix[4]; // This variable should only be modified by the DNS-SD library
 } dns_sd_service_record_t;
 
@@ -52,7 +47,7 @@ static WiFi_Interface _interface;
 #define MFi_SERVICE_QUERY_NAME             "_services._dns-sd._udp.local."
 
 
-static int _suspend_MFi_bonjour;
+static bool _suspend_MFi_bonjour;
 static int _bonjour_announce_time = 0;
 static int _bonjour_announce = 0;
 
@@ -66,21 +61,21 @@ static int _bonjour_announce = 0;
 //#endif
 
 static dns_sd_service_record_t*   available_services	= NULL;
-static u8	available_service_count;
+static uint8_t	available_service_count;
 
 static int dns_get_next_question( dns_message_iterator_t* iter, dns_question_t* q, dns_name_t* name );
 static int dns_compare_name_to_string( dns_name_t* name, const char* string, const char* fun, const int line );
-static int dns_create_message( dns_message_iterator_t* message, u16 size );
-static void dns_write_header( dns_message_iterator_t* iter, u16 id, u16 flags, u16 question_count, u16 answer_count, u16 authorative_count );
-static void dns_write_record( dns_message_iterator_t* iter, const char* name, u16 record_class, u16 record_type, uint32_t ttl, u8* rdata );
+static int dns_create_message( dns_message_iterator_t* message, uint16_t size );
+static void dns_write_header( dns_message_iterator_t* iter, uint16_t id, uint16_t flags, uint16_t question_count, uint16_t answer_count, uint16_t authorative_count );
+static void dns_write_record( dns_message_iterator_t* iter, const char* name, uint16_t record_class, uint16_t record_type, uint32_t ttl, uint8_t* rdata );
 static void mdns_send_message(int fd, dns_message_iterator_t* message );
 static void dns_free_message( dns_message_iterator_t* message );
 static void mdns_process_query(int fd, dns_name_t* name, dns_question_t* question, dns_message_iterator_t* source );
-static void dns_write_record( dns_message_iterator_t* iter, const char* name, u16 record_class, u16 record_type, uint32_t ttl, u8* rdata );
-static void dns_write_uint16( dns_message_iterator_t* iter, u16 data );
+static void dns_write_record( dns_message_iterator_t* iter, const char* name, uint16_t record_class, uint16_t record_type, uint32_t ttl, uint8_t* rdata );
+static void dns_write_uint16( dns_message_iterator_t* iter, uint16_t data );
 static void dns_write_uint32( dns_message_iterator_t* iter, uint32_t data );
-static void dns_write_bytes( dns_message_iterator_t* iter, u8* data, u16 length );
-static u16 dns_read_uint16( dns_message_iterator_t* iter );
+static void dns_write_bytes( dns_message_iterator_t* iter, uint8_t* data, uint16_t length );
+static uint16_t dns_read_uint16( dns_message_iterator_t* iter );
 static void dns_skip_name( dns_message_iterator_t* iter );
 static void dns_write_name( dns_message_iterator_t* iter, const char* src );
 
@@ -111,12 +106,12 @@ void process_dns_questions(int fd, dns_message_iterator_t* iter )
   dns_name_t name;
   dns_question_t question;
   dns_message_iterator_t response;
-  net_para_st para;
+  IPStatusTypedef para;
   int a = 0;
   int question_processed;
-  u32 myip;
+  uint32_t myip;
   
-  getNetPara(&para, _interface);
+  micoWlanGetIPStatus(&para, _interface);
   myip = htonl(inet_addr(para.ip));
   if(myip == 0) {
     _debug_out("UDP multicast test: IP error.\r\n");
@@ -142,7 +137,7 @@ void process_dns_questions(int fd, dns_message_iterator_t* iter )
           if(dns_create_message( &response, 512 )) {
             dns_write_header(&response, iter->header->id, 0x8400, 0, available_service_count, 0 );          
             for ( b = 0; b < available_service_count; ++b ){
-              dns_write_record( &response, MFi_SERVICE_QUERY_NAME, RR_CLASS_IN, RR_TYPE_PTR, 1500, (u8*) available_services[b].service_name );
+              dns_write_record( &response, MFi_SERVICE_QUERY_NAME, RR_CLASS_IN, RR_TYPE_PTR, 1500, (uint8_t*) available_services[b].service_name );
             }
             mdns_send_message(fd, &response );
             dns_free_message( &response );
@@ -159,10 +154,10 @@ void process_dns_questions(int fd, dns_message_iterator_t* iter )
               if(dns_create_message( &response, 512 )){
                 dns_write_header( &response, iter->header->id, 0x8400, 0, 4, 0 );
                 //dns_write_record( &response, MFi_SERVICE_QUERY_NAME, RR_CLASS_IN, RR_TYPE_PTR, 1500, (u8*) available_services[b].service_name );
-                dns_write_record( &response, available_services[b].service_name, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_PTR, 1500, (u8*) available_services[b].instance_name );
-                dns_write_record( &response, available_services[b].instance_name, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_TXT, 1500, (u8*) available_services[b].txt_att );
-                dns_write_record( &response, available_services[b].instance_name, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_SRV, 1500, (u8*) &available_services[b]);
-                dns_write_record( &response, available_services[b].hostname, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_A, 1500, (u8*) &myip);
+                dns_write_record( &response, available_services[b].service_name, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_PTR, 1500, (uint8_t*) available_services[b].instance_name );
+                dns_write_record( &response, available_services[b].instance_name, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_TXT, 1500, (uint8_t*) available_services[b].txt_att );
+                dns_write_record( &response, available_services[b].instance_name, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_SRV, 1500, (uint8_t*) &available_services[b]);
+                dns_write_record( &response, available_services[b].hostname, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_A, 1500, (uint8_t*) &myip);
                 mdns_send_message(fd, &response );
                 dns_free_message( &response );
                 question_processed = 1;
@@ -187,10 +182,10 @@ static void mdns_process_query(int fd, dns_name_t* name,
                                dns_question_t* question, dns_message_iterator_t* source )
 {
   dns_message_iterator_t response;
-  net_para_st para;
-  u32 myip;
+  IPStatusTypedef para;
+  uint32_t myip;
   
-  getNetPara(&para, _interface);
+  micoWlanGetIPStatus(&para, _interface);
   myip = htonl(inet_addr(para.ip));
   
   memset( &response, 0, sizeof(dns_message_iterator_t) );
@@ -203,7 +198,7 @@ static void mdns_process_query(int fd, dns_name_t* name,
       _debug_out("UDP multicast test: Recv RR_TYPE_A.\r\n");
       if(dns_create_message( &response, 256 )){
         dns_write_header( &response, source->header->id, 0x8400, 0, 1, 0 );
-        dns_write_record( &response, available_services->hostname, RR_CLASS_IN | RR_CACHE_FLUSH, RR_TYPE_A, 300, (u8*)&myip);
+        dns_write_record( &response, available_services->hostname, RR_CLASS_IN | RR_CACHE_FLUSH, RR_TYPE_A, 300, (uint8_t *)&myip);
         mdns_send_message(fd, &response );
         dns_free_message( &response );
         return;
@@ -218,8 +213,8 @@ static void mdns_process_query(int fd, dns_name_t* name,
 static int dns_get_next_question( dns_message_iterator_t* iter, dns_question_t* q, dns_name_t* name )
 {
   // Set the name pointers and then skip it
-  name->start_of_name   = (u8*) iter->iter;
-  name->start_of_packet = (u8*) iter->header;
+  name->start_of_name   = (uint8_t*) iter->iter;
+  name->start_of_packet = (uint8_t*) iter->header;
   dns_skip_name( iter );
   if (iter->iter > iter->end)
     return 0;
@@ -232,10 +227,10 @@ static int dns_get_next_question( dns_message_iterator_t* iter, dns_question_t* 
 
 static int dns_compare_name_to_string( dns_name_t* name, const char* string, const char* fun, int line )
 {
-  u8 section_length;
+  uint8_t section_length;
   int finished = 0;
   int result   = 1;
-  u8* buffer 	  = name->start_of_name;
+  uint8_t* buffer 	  = name->start_of_name;
   _debug_out("UDP multicast test: CMP called by %s@%d.\r\n", fun, line );
   char *temp;
   
@@ -244,7 +239,7 @@ static int dns_compare_name_to_string( dns_name_t* name, const char* string, con
     // Check if the name is compressed. If so, find the uncompressed version
     while ( *buffer & 0xC0 )
     {
-      u16 offset = ( *buffer++ ) << 8;
+      uint16_t offset = ( *buffer++ ) << 8;
       offset += *buffer;
       offset &= 0x3FFF;
       buffer = name->start_of_packet + offset;
@@ -281,7 +276,7 @@ static int dns_compare_name_to_string( dns_name_t* name, const char* string, con
   return result;
 }
 
-static int dns_create_message( dns_message_iterator_t* message, u16 size )
+static int dns_create_message( dns_message_iterator_t* message, uint16_t size )
 {
   message->header = (dns_message_header_t*) malloc( size );
   if ( message->header == NULL )
@@ -289,7 +284,7 @@ static int dns_create_message( dns_message_iterator_t* message, u16 size )
     return 0;
   }
   
-  message->iter = (u8*) message->header + sizeof(dns_message_header_t);
+  message->iter = (uint8_t *) message->header + sizeof(dns_message_header_t);
   return 1;
 }
 
@@ -301,8 +296,8 @@ static void dns_free_message( dns_message_iterator_t* message )
 
 static void dns_write_string( dns_message_iterator_t* iter, const char* src )
 {
-  u8* segment_length_pointer;
-  u8  segment_length;
+  uint8_t* segment_length_pointer;
+  uint8_t  segment_length;
   
   while ( *src != 0 && *src != 0xC0)
   {
@@ -341,7 +336,7 @@ static void dns_write_string( dns_message_iterator_t* iter, const char* src )
 }
 
 
-static void dns_write_header( dns_message_iterator_t* iter, u16 id, u16 flags, u16 question_count, u16 answer_count, u16 authorative_count )
+static void dns_write_header( dns_message_iterator_t* iter, uint16_t id, uint16_t flags, uint16_t question_count, uint16_t answer_count, uint16_t authorative_count )
 {
   memset( iter->header, 0, sizeof(dns_message_header_t) );
   iter->header->id				= htons(id);
@@ -352,10 +347,10 @@ static void dns_write_header( dns_message_iterator_t* iter, u16 id, u16 flags, u
 }
 
 
-static void dns_write_record( dns_message_iterator_t* iter, const char* name, u16 record_class, u16 record_type, uint32_t ttl, u8* rdata )
+static void dns_write_record( dns_message_iterator_t* iter, const char* name, uint16_t record_class, uint16_t record_type, uint32_t ttl, uint8_t* rdata )
 {
-  u8* rd_length;
-  u8* temp_ptr;
+  uint8_t* rd_length;
+  uint8_t* temp_ptr;
   
   /* Write the name, type, class, TTL*/
   dns_write_name	( iter, name );
@@ -401,19 +396,19 @@ static void dns_write_record( dns_message_iterator_t* iter, const char* name, u1
 static void mdns_send_message(int fd, dns_message_iterator_t* message )
 {
   struct sockaddr_t addr;
-  if(_suspend_MFi_bonjour==ENABLE)
+  if(_suspend_MFi_bonjour == true)
     return;
   
   addr.s_ip = inet_addr("224.0.0.251");
   addr.s_port = 5353;
   _debug_out("UDP multicast test: Send a mDNS respond!+++++++++++++++++++++++++++\r\n");
-  sendto(fd, message->header, message->iter - (u8*)message->header, 0, &addr, sizeof(addr));
+  sendto(fd, message->header, message->iter - (uint8_t*)message->header, 0, &addr, sizeof(addr));
   addr.s_ip = inet_addr("255.255.255.255");
   addr.s_port = 5353;
-  sendto(fd, message->header, message->iter - (u8*)message->header, 0, &addr, sizeof(addr));
+  sendto(fd, message->header, message->iter - (uint8_t*)message->header, 0, &addr, sizeof(addr));
 }
 
-static void dns_write_uint16( dns_message_iterator_t* iter, u16 data )
+static void dns_write_uint16( dns_message_iterator_t* iter, uint16_t data )
 {
   // We cannot assume the u8 alignment of iter->iter so we can't just typecast and assign
   iter->iter[0] = data >> 8;
@@ -430,7 +425,7 @@ static void dns_write_uint32( dns_message_iterator_t* iter, uint32_t data )
   iter->iter += 4;
 }
 
-static void dns_write_bytes( dns_message_iterator_t* iter, u8* data, u16 length )
+static void dns_write_bytes( dns_message_iterator_t* iter, uint8_t* data, uint16_t length )
 {
   int a = 0;
   
@@ -441,10 +436,10 @@ static void dns_write_bytes( dns_message_iterator_t* iter, u8* data, u16 length 
   iter->iter += length;
 }
 
-static u16 dns_read_uint16( dns_message_iterator_t* iter )
+static uint16_t dns_read_uint16( dns_message_iterator_t* iter )
 {
-  u16 temp = (u16) ( *iter->iter++ ) << 8;
-  temp += (u16) ( *iter->iter++ );
+  uint16_t temp = (uint16_t) ( *iter->iter++ ) << 8;
+  temp += (uint16_t) ( *iter->iter++ );
   return temp;
 }
 
@@ -478,7 +473,7 @@ static void dns_write_name( dns_message_iterator_t* iter, const char* src )
 void bonjour_service_init(bonjour_init_t init)
 {
   int len;
-  net_para_st para;
+  IPStatusTypedef para;
 
   _interface = init.interface;
 
@@ -496,7 +491,7 @@ void bonjour_service_init(bonjour_init_t init)
     free(available_services);
   }
 
-  getNetPara(&para, _interface);
+  micoWlanGetIPStatus(&para, _interface);
 
   available_service_count = 1;
   available_services = (void *)malloc(sizeof(dns_sd_service_record_t) * 1);
@@ -532,13 +527,13 @@ void bonjour_update_txt_record(char *txt_record)
 
 }
 
-void mfi_mdns_handler(int fd, u8* pkt, int pkt_len)
+void mfi_mdns_handler(int fd, uint8_t* pkt, int pkt_len)
 {
 
   dns_message_iterator_t iter;
   
   iter.header = (dns_message_header_t*) pkt;
-  iter.iter   = (u8*) iter.header + sizeof(dns_message_header_t);
+  iter.iter   = (uint8_t*) iter.header + sizeof(dns_message_header_t);
   iter.end = pkt+pkt_len;
   
   // Check if the message is a response (otherwise its a query)
@@ -554,16 +549,16 @@ void mfi_mdns_handler(int fd, u8* pkt, int pkt_len)
 void mfi_bonjour_send(int fd)
 {
   dns_message_iterator_t response;
-  u32 myip;
-  net_para_st para;
-  getNetPara(&para, _interface);
+  uint32_t myip;
+  IPStatusTypedef para;
+  micoWlanGetIPStatus(&para, _interface);
   myip = htonl(inet_addr(para.ip));
   int b = 0;
     
   if(dns_create_message( &response, 512 )) {
     dns_write_header(&response, 0x0, 0x8400, 0, available_service_count, 0 );          
     for ( b = 0; b < available_service_count; ++b ){
-      dns_write_record( &response, MFi_SERVICE_QUERY_NAME, RR_CLASS_IN, RR_TYPE_PTR, 1500, (u8*) available_services[b].service_name );
+      dns_write_record( &response, MFi_SERVICE_QUERY_NAME, RR_CLASS_IN, RR_TYPE_PTR, 1500, (uint8_t*) available_services[b].service_name );
     }
     mdns_send_message(fd, &response );
     dns_free_message( &response );
@@ -572,10 +567,10 @@ void mfi_bonjour_send(int fd)
   for ( b = 0; b < available_service_count; ++b ){
       if(dns_create_message( &response, 512 )){
         dns_write_header( &response, 0x0, 0x8400, 0, 4, 0 );
-        dns_write_record( &response, available_services[b].service_name, RR_CLASS_IN, RR_TYPE_PTR, 1500, (u8*) available_services[b].instance_name );
-        dns_write_record( &response, available_services[b].instance_name, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_TXT, 1500, (u8*) available_services[b].txt_att );
-        dns_write_record( &response, available_services[b].instance_name, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_SRV, 1500, (u8*) &available_services[b]);
-        dns_write_record( &response, available_services[b].hostname, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_A, 1500, (u8*) &myip);
+        dns_write_record( &response, available_services[b].service_name, RR_CLASS_IN, RR_TYPE_PTR, 1500, (uint8_t*) available_services[b].instance_name );
+        dns_write_record( &response, available_services[b].instance_name, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_TXT, 1500, (uint8_t*) available_services[b].txt_att );
+        dns_write_record( &response, available_services[b].instance_name, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_SRV, 1500, (uint8_t*) &available_services[b]);
+        dns_write_record( &response, available_services[b].hostname, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_A, 1500, (uint8_t*) &myip);
         mdns_send_message(fd, &response );
         dns_free_message( &response );
       }
@@ -586,19 +581,19 @@ void mfi_bonjour_send(int fd)
 void mfi_bonjour_remove_record(int fd)
 {
   dns_message_iterator_t response;
-  u32 myip;
-  net_para_st para;
-  getNetPara(&para, _interface);
+  uint32_t myip;
+  IPStatusTypedef para;
+  micoWlanGetIPStatus(&para, _interface);
   myip = htonl(inet_addr(para.ip));
   int b = 0;
 
   for ( b = 0; b < available_service_count; ++b ){
     if(dns_create_message( &response, 512 )){
       dns_write_header( &response, 0x0, 0x8400, 0, 4, 0 );
-      dns_write_record( &response, available_services[b].service_name, RR_CLASS_IN, RR_TYPE_PTR, 0, (u8*) available_services[b].instance_name );
-      dns_write_record( &response, available_services[b].instance_name, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_TXT, 0, (u8*) available_services[b].txt_att );
-      dns_write_record( &response, available_services[b].instance_name, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_SRV, 0, (u8*) &available_services[b]);
-      dns_write_record( &response, available_services[b].hostname, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_A, 0, (u8*) &myip);
+      dns_write_record( &response, available_services[b].service_name, RR_CLASS_IN, RR_TYPE_PTR, 0, (uint8_t*) available_services[b].instance_name );
+      dns_write_record( &response, available_services[b].instance_name, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_TXT, 0, (uint8_t*) available_services[b].txt_att );
+      dns_write_record( &response, available_services[b].instance_name, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_SRV, 0, (uint8_t*) &available_services[b]);
+      dns_write_record( &response, available_services[b].hostname, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_A, 0, (uint8_t*) &myip);
       mdns_send_message(fd, &response );
       mico_thread_msleep(20);
       mdns_send_message(fd, &response );
@@ -612,10 +607,10 @@ int start_bonjour_service(void)
   return mico_rtos_create_thread(&mfi_bonjour_thread_handler, MICO_APPLICATION_PRIORITY, "Bonjour", _bonjour_thread, 0x500, NULL );
 }
 
-void suspend_bonjour_service(FunctionalState state)
+void suspend_bonjour_service(bool state)
 {
   mico_rtos_lock_mutex( &bonjour_mutex );
-  if(state == ENABLE){
+  if(state == true){
     _bonjour_announce = 0;
     mfi_bonjour_remove_record(mDNS_fd);
   }
@@ -634,7 +629,7 @@ void _bonjour_thread(void *arg)
   struct timeval_t t;
   struct sockaddr_t addr;
   socklen_t addrLen;
-  u32 opt;
+  uint32_t opt;
   (void)arg;
   
   buf = (char*)malloc(1500);
@@ -674,7 +669,7 @@ void _bonjour_thread(void *arg)
     if (FD_ISSET(mDNS_fd, &readfds)) {
       con = recvfrom(mDNS_fd, buf, 1500, 0, &addr, &addrLen); 
       mico_rtos_lock_mutex( &bonjour_mutex );
-      mfi_mdns_handler(mDNS_fd, (u8 *)buf, con);
+      mfi_mdns_handler(mDNS_fd, (uint8_t *)buf, con);
       mico_rtos_unlock_mutex( &bonjour_mutex );
     }
   }

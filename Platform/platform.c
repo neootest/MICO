@@ -71,12 +71,14 @@ __weak void PlatformStandbyButtonClickedCallback(void){
 static void _button_EL_irq_handler( void* arg )
 {
   (void)(arg);
+  int interval = -1;
 
   if (GPIO_ReadInputDataBit(Button_EL_PORT, Button_EL_PIN) == 0) {
     _default_start_time = mico_get_time()+1;
     mico_start_timer(&_button_EL_timer);
   } else {
-    if ( (_default_start_time != 0) && (mico_get_time() - _default_start_time) > 50){
+    interval = mico_get_time() +1 - _default_start_time;
+    if ( (_default_start_time != 0) && interval > 50 && interval < RestoreDefault_TimeOut){
       /* EasyLink button clicked once */
       PlatformEasyLinkButtonClickedCallback();
     }
@@ -244,7 +246,7 @@ void Platform_Debug_UART_Init(void)
 }
 
 void PlatformSoftReboot(void)
-{
+{ 
   NVIC_SystemReset();
 }
 

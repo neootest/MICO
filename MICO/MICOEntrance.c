@@ -20,7 +20,6 @@
   */ 
 
 #include "Platform.h"
-#include "MICO.h"
 #include "MICODefine.h"
 #include "MICOAppDefine.h"
 
@@ -29,9 +28,10 @@
 #include "EasyLink/EasyLink.h"
 #include "StringUtils.h"
 
-#ifdef CONFIG_MODE_EASYLINK
+#if defined (CONFIG_MODE_EASYLINK) || defined (CONFIG_MODE_EASYLINK_WITH_SOFTAP)
 #include "EasyLink/EasyLink.h"
 #endif
+
 
 #ifdef CONFIG_MODE_WAC
 #include "WAC/MFi_WAC.h"
@@ -58,7 +58,7 @@ void micoNotify_ReadAppInfoHandler(char *str, int len, mico_Context_t * const in
 {
   (void)inContext;
   snprintf( str, len, "%s", APP_INFO);
-}   
+}
 
 
 void PlatformEasyLinkButtonClickedCallback(void)
@@ -113,7 +113,7 @@ void micoNotify_WifiStatusHandler(WiFiEvent event, mico_Context_t * const inCont
   return;
 }
 
-void micoNotify_DHCPCompleteHandler(net_para_st *pnet, mico_Context_t * const inContext)
+void micoNotify_DHCPCompleteHandler(IPStatusTypedef *pnet, mico_Context_t * const inContext)
 {
   mico_log_trace();
   require(inContext, exit);
@@ -171,6 +171,22 @@ exit:
   return;
 }
 
+
+void micoNotify_ConnectFailedHandler(OSStatus err, mico_Context_t * const inContext)
+{
+  mico_log_trace();
+  (void)inContext;
+  mico_log("Wlan Connection Err %d", err);
+}
+
+void micoNotify_WlanFatalErrHandler(mico_Context_t * const inContext)
+{
+  mico_log_trace();
+  (void)inContext;
+  mico_log("Wlan Fatal Err!");
+  PlatformSoftReboot();
+}
+
 void _ConnectToAP( mico_Context_t * const inContext)
 {
   mico_log_trace();
@@ -197,7 +213,7 @@ void _ConnectToAP( mico_Context_t * const inContext)
   mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
 
   wNetConfig.wifi_retry_interval = 100;
-  StartAdvNetwork(&wNetConfig);
+  micoWlanStartAdv(&wNetConfig);
 }
 
 static void _watchdog_reload_timer_handler( void* arg )
@@ -209,7 +225,7 @@ static void _watchdog_reload_timer_handler( void* arg )
 int application_start(void)
 {
   OSStatus err = kNoErr;
-  net_para_st para;
+  IPStatusTypedef para;
 
   Platform_Init();
   /*Read current configurations*/
@@ -225,14 +241,20 @@ int application_start(void)
 
   err = MICOAddNotification( mico_notify_READ_APP_INFO, (void *)micoNotify_ReadAppInfoHandler );
   require_noerr( err, exit );  
+
+  err = MICOAddNotification( mico_notify_WIFI_CONNECT_FAILED, (void *)micoNotify_ConnectFailedHandler );
+  require_noerr( err, exit ); 
+
+  err = MICOAddNotification( mico_notify_WIFI_Fatal_ERROR, (void *)micoNotify_WlanFatalErrHandler );
+  require_noerr( err, exit ); 
   
   /*wlan driver and tcpip init*/
-  mxchipInit();
-  getNetPara(&para, Station);
+  micoInit();
+  micoWlanGetIPStatus(&para, Station);
   formatMACAddr(context->micoStatus.mac, (char *)&para.mac);
   
   mico_log_trace(); 
-  mico_log("%s mxchipWNet library version: %s", APP_INFO, system_lib_version());
+  mico_log("%s mxchipWNet library version: %s", APP_INFO, micoGetVer());
 
   /*Start system monotor thread*/
  err = MICOStartSystemMonitor(context);
@@ -246,7 +268,7 @@ int application_start(void)
   if(context->flashContentInRam.micoSystemConfig.configured != allConfigured){
     mico_log("Empty configuration. Starting configuration mode...");
 
-#ifdef CONFIG_MODE_EASYLINK
+#if defined (CONFIG_MODE_EASYLINK) || defined (CONFIG_MODE_EASYLINK_WITH_SOFTAP)
   err = startEasyLink( context );
   require_noerr( err, exit );
 #endif
@@ -294,7 +316,7 @@ int application_start(void)
     require_noerr( err, exit );  
    
     if(context->flashContentInRam.micoSystemConfig.rfPowerSaveEnable == true){
-      ps_enable();
+      micoWlanEnablePowerSave();
     }
 
     if(context->flashContentInRam.micoSystemConfig.mcuPowerSaveEnable == true){
@@ -313,7 +335,7 @@ int application_start(void)
     
     _ConnectToAP( context );
   }
-
+  mico_log("Memory remains %d", micoGetMemoryInfo()->free_memory);
 
   /*System status changed*/
   while(mico_rtos_get_semaphore(&context->micoStatus.sys_state_change_sem, MICO_WAIT_FOREVER)==kNoErr){
@@ -328,13 +350,13 @@ int application_start(void)
       case eState_Wlan_Powerdown:
         sendNotifySYSWillPowerOff();
         mico_thread_msleep(500);
-        wifi_power_down();
+        micoWlanPowerOff();
         break;
       case eState_Standby:
         mico_log("Enter standby mode");
         sendNotifySYSWillPowerOff();
         mico_thread_msleep(200);
-        wifi_power_down();
+        micoWlanPowerOff();
         Platform_Enter_STANDBY();
         break;
       default:

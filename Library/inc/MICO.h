@@ -27,7 +27,6 @@
      - MICO RTOS and Timer APIs       - mico_rtos.h
      - MICO Wi-Fi connectivith APIs   - mico_wlan.h
      - MICO BSD socket APIs           - mico_socket.h
-     - MICO discribute callback APIs  - mico_callback.h
 = */
 
 #ifndef __MICO_H_
@@ -35,59 +34,86 @@
 
 #include "Debug.h"
 #include "Common.h" 
-
 #include "MICORTOS.h"
-
 #include "MICOWlan.h"
-
 #include "MICOSocket.h"
-
 #include "MICOAlgorithm.h"
 
-struct _mico_mallinfo_t {
+#define micoGetRfVer                wlan_driver_version
+#define micoGetVer                  system_lib_version
+#define micoInit                    mxchipInit
+#define micoGetMemoryInfo           mico_memory_info
+
+/** \defgroup MICO_Core_APIs MICO Core APIs
+  This file defines all structures and symbols for MICO core:
+   - MICO Core exported symbols
+   - MICO Core exported functions
+ */
+
+/** @addtogroup MICO_Core_APIs
+  * @{
+  */
+
+/** \defgroup MICO_Init_Info Initialization and Tools
+  @{
+ */
+
+typedef struct  {
   int num_of_chunks;  /**< number of free chunks*/
   int total_memory;  /**< maximum total allocated space*/
   int allocted_memory; /**< total allocated space*/
   int free_memory; /**< total free space*/
-};
-
+} micoMemInfo_t;
 
 /**
   * @brief  Get RF driver's version.
+  *
   * @note   Create a memery buffer to store the version characters.
-  *         THe input buffer should be 40 bytes at least.
-  * @note   This should be executed after mxchipInit().
+  *         THe input buffer length should be 40 bytes at least.
+  * @note   This must be executed after micoInit().
   * @param  inVersion: Buffer address to store the RF driver. 
   * @param  inLength: Buffer size. 
-  * @retval None
+  *
+  * @return None
   */
-void wlan_driver_version( char* inVersion, uint8_t inLength );
-
+void micoGetRfVer( char* outVersion, uint8_t inLength );
 
 /**
   * @brief  Get MICO's version.
+  *
   * @param  None 
-  * @retval The memory address that store the MICO's version characters.
+  *
+  * @return Point to the MICO's version string.
   */
-char* system_lib_version( void );
-
+char* micoGetVer( void );
 
 /**
   * @brief  Initialize the TCPIP stack thread, RF driver thread, and other
             supporting threads needed for wlan connection. Do some necessary
             initialization
-  * @param  None 
-  * @retval None
+  *
+  * @param  None
+  *
+  * @return None
   */
-void mxchipInit( void );
-
+void micoInit( void );
 
 /**
   * @brief  Get memory usage information
+  *
   * @param  None 
-  * @retval Memory usage information, this is a static memory ,no need to free it
+  *
+  * @return Point to structure of memory usage information in heap
   */
-struct _mico_mallinfo_t* mico_memory_info(void);
+micoMemInfo_t* micoGetMemoryInfo( void );
 
-#endif /* __MICO_API_H_ */
+#endif /* __MICO_H_ */
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
 

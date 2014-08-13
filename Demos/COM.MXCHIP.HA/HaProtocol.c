@@ -58,7 +58,7 @@ static void _get_status(mxchip_state_t *cmd, mico_Context_t * const inContext)
   ha_log_trace();
 
   u16 cksum;
-  sta_ap_state_t ap_state;
+  LinkStatusTypeDef ap_state;
 
   cmd->flag = 0x00BB;
   cmd->cmd = 0x8008;
@@ -334,7 +334,7 @@ OSStatus haUartCommandProcess(uint8_t *inBuf, int inLen, mico_Context_t * const 
             mico_rtos_set_semaphore(&inContext->micoStatus.sys_state_change_sem);
             break;
         case 5: 
-            OpenEasylink2(120);
+            micoWlanStartEasyLink(120);
             break;
         default:
             break;

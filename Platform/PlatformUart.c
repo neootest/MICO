@@ -29,7 +29,8 @@
 uint32_t rx_size = 0;
 static  mico_semaphore_t tx_complete, rx_complete; 
 
-static  mico_semaphore_t wakeup; 
+static  mico_semaphore_t wakeup = NULL; 
+static mico_Context_t *context = NULL;
 static mico_thread_t uart_wakeup_thread_handler;
 static void uart_wakeup_thread(void *arg);
 static mico_mutex_t _uart_send_mutex = NULL;
@@ -99,7 +100,8 @@ OSStatus PlatformUartInitialize( mico_Context_t * const inContext )
   if(inContext->flashContentInRam.micoSystemConfig.mcuPowerSaveEnable){
     gpio_irq_enable(USARTx_RX_GPIO_PORT, USARTx_IRQ_PIN, IRQ_TRIGGER_FALLING_EDGE, _Rx_irq_handler, 0);
     mico_rtos_init_semaphore(&wakeup, 1);
-    mico_rtos_create_thread(&uart_wakeup_thread_handler, MICO_APPLICATION_PRIORITY, "UART_WAKEUP", uart_wakeup_thread, 0x500, inContext );
+    context = inContext;
+    mico_rtos_create_thread(&uart_wakeup_thread_handler, MICO_APPLICATION_PRIORITY, "UART_WAKEUP", uart_wakeup_thread, 0x100, inContext );
   }
   
   USART_DeInit(USARTx);
@@ -296,9 +298,13 @@ void USARTx_IRQHandler( void )
     mico_rtos_set_semaphore( &rx_complete );
     rx_size = 0;
   }
-  #ifdef MCULowPowerMode
-    mico_rtos_set_semaphore(&wakeup);
-  #endif  
+
+  if(context&&wakeup){
+    if(context->flashContentInRam.micoSystemConfig.mcuPowerSaveEnable == true)
+      mico_rtos_set_semaphore(&wakeup);
+  }
+  
+
 }
 
 static void uart_wakeup_thread(void *arg)

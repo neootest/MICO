@@ -102,7 +102,7 @@ json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
   char *rfVer = NULL, *rfVerTemp = NULL;
   json_object *sectors, *sector, *subMenuSectors, *subMenuSector, *mainObject = NULL;
 
-  wlan_driver_version( rfVersion, 50 );
+  micoGetRfVer( rfVersion, 50 );
   rfVer = strstr(rfVersion, "version ");
   if(rfVer) rfVer = rfVer + strlen("version ");
   rfVerTemp = rfVer;
@@ -170,15 +170,15 @@ json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
         require_noerr(err, exit);
         err = MICOAddStringCellToSector(subMenuSector, "Hardware Rev.",  HARDWARE_REVISION, "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "MICO OS Rev.",   system_lib_version(),              "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "MICO OS Rev.",   micoGetVer(),      "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "RF Driver Rev.", rfVer,                             "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "RF Driver Rev.", rfVer,             "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "Model",          MODEL,            "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "Model",          MODEL,             "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "Manufacturer",   MANUFACTURER,     "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "Manufacturer",   MANUFACTURER,      "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "Protocol",       PROTOCOL,         "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "Protocol",       PROTOCOL,          "RO", NULL);
         require_noerr(err, exit);
 
       subMenuSector = json_object_new_array();

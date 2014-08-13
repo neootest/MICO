@@ -41,10 +41,10 @@
 			"-DEMW3162",
 			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/",
 			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/",
+			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/inc/",
 			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/",
 			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/MICO/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/Support/",
+			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/",
 			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/STM32F2xx_StdPeriph_Driver/inc/",
 			"-I/Users/william/Develop/Clang_lib/Include/",
 			"-I/Users/william/Develop/Clang_lib/ARMCC/include/"

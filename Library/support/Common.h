@@ -478,13 +478,11 @@ typedef int32_t         OSStatus;
     #define ntoh64( X )     Swap64( X )
 #endif
 
-#if( !defined( __GNUC__ ) )
     #define htons( X )      hton16( X )
     #define ntohs( X )      ntoh16( X )
 
     #define htonl( X )      hton32( X )
     #define ntohl( X )      ntoh32( X )
-#endif
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*! @function   BitArray

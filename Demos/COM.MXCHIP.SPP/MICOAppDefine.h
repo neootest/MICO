@@ -46,14 +46,14 @@
 #define MODEL               "Open1081"
 #endif
 
-#define FIRMWARE_REVISION   "MICO_SPP_1_2"
+#define FIRMWARE_REVISION   "MICO_SPP_1_3"
 #define MANUFACTURER        "MXCHIP Inc."
 #define SERIAL_NUMBER       "20140606"
 #define PROTOCOL            "com.mxchip.spp"
 #define LOCAL_PORT          8080
 
 /*User provided configurations*/
-#define CONFIGURATION_VERSION               0x00000001 // if changed default configuration, add this num
+#define CONFIGURATION_VERSION               0x00000001 // if default configuration is changed, update this number
 #define MAX_Local_Client_Num                8
 #define DEAFULT_REMOTE_SERVER               "192.168.2.254"
 #define DEFAULT_REMOTE_SERVER_PORT          8080
