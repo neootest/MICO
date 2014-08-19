@@ -405,7 +405,7 @@ uint32_t mico_get_time(void);
 
 
 /** 
-  * @brief     Initialises a RTOS timer
+  * @brief     Initialize a RTOS timer
   *
   * @note      Timer does not start running until @ref mico_start_timer is called
   *

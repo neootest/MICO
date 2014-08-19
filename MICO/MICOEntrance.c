@@ -20,6 +20,7 @@
   */ 
 
 #include "Platform.h"
+#include "PlatformRTC.h"
 #include "MICODefine.h"
 #include "MICOAppDefine.h"
 
@@ -226,6 +227,7 @@ int application_start(void)
 {
   OSStatus err = kNoErr;
   IPStatusTypedef para;
+  struct tm currentTime;
 
   Platform_Init();
   /*Read current configurations*/
@@ -250,6 +252,9 @@ int application_start(void)
   
   /*wlan driver and tcpip init*/
   micoInit();
+  PlatformRTCRead( &currentTime );
+  mico_log("Current Time: %s",asctime(&currentTime));
+
   micoWlanGetIPStatus(&para, Station);
   formatMACAddr(context->micoStatus.mac, (char *)&para.mac);
   
@@ -328,6 +333,9 @@ int application_start(void)
       err =  MICOStartConfigServer(context);
       require_noerr_action( err, exit, mico_log("ERROR: Unable to start the local server thread.") );
     }
+
+    err =  MICOStartNTPClient(context);
+    require_noerr_action( err, exit, mico_log("ERROR: Unable to start the NTP client thread.") );
 
     /*Start mico application*/
     err = MICOStartApplication( context );

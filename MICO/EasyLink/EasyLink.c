@@ -216,7 +216,7 @@ OSStatus startEasyLink( mico_Context_t * const inContext)
   OSStatus err = kUnknownErr;
   easylinkClient_fd = -1;
 
-  mico_mcu_powersave_config(true);
+  //mico_mcu_powersave_config(true);
   err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)EasyLinkNotify_WifiStatusHandler );
   require_noerr(err, exit);
   err = MICOAddNotification( mico_notify_WiFI_PARA_CHANGED, (void *)EasyLinkNotify_WiFIParaChangedHandler );

@@ -174,20 +174,22 @@ uint32_t GetLSIFrequency(void)
 void TIM5_IRQHandler(void)
 {
   if (TIM_GetITStatus(TIM5, TIM_IT_CC4) != RESET)
-  {    
-    /* Get the Input Capture value */
-    tmpCC4[CaptureNumber++] = TIM_GetCapture4(TIM5);
-   
+  {  
     /* Clear CC4 Interrupt pending bit */
     TIM_ClearITPendingBit(TIM5, TIM_IT_CC4);
-
-    if (CaptureNumber >= 2)
+    if (CaptureNumber > 2)
+        return;
+   
+    /* Get the Input Capture value */
+    tmpCC4[CaptureNumber++] = TIM_GetCapture4(TIM5);
+ 
+    if (CaptureNumber == 2)
     {
       /* Compute the period length */
       PeriodValue = (uint16_t)(0xFFFF - tmpCC4[0] + tmpCC4[1] + 1);
+      if(_measureLSIComplete_SEM != NULL){
+        mico_rtos_set_semaphore(&_measureLSIComplete_SEM);
+      }
     }
-  }
-  if(_measureLSIComplete_SEM != NULL && CaptureNumber == 2){
-    mico_rtos_set_semaphore(&_measureLSIComplete_SEM);
   }
 }

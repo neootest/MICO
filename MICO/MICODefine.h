@@ -193,6 +193,7 @@ typedef struct
 
 OSStatus MICOStartBonjourService        ( WiFi_Interface interface, mico_Context_t * const inContext );
 OSStatus MICOStartConfigServer          ( mico_Context_t * const inContext );
+OSStatus MICOStartNTPClient             ( mico_Context_t * const inContext );
 OSStatus MICOStartApplication           ( mico_Context_t * const inContext );
 
 OSStatus MICORestoreDefault             ( mico_Context_t * const inContext );

@@ -58,6 +58,9 @@ static int _bonjour_announce = 0;
 //#define  _debug_out debug_out
 //#else
 #define _debug_out(format, ...) do {;}while(0)
+
+#define mdns_utils_log(M, ...) custom_log("mDNS Utils", M, ##__VA_ARGS__)
+#define mdns_utils_log_trace() custom_log_trace("mDNS Utils")
 //#endif
 
 static dns_sd_service_record_t*   available_services	= NULL;
@@ -553,6 +556,7 @@ void mfi_bonjour_send(int fd)
   IPStatusTypedef para;
   micoWlanGetIPStatus(&para, _interface);
   myip = htonl(inet_addr(para.ip));
+  if(myip == 0) return;
   int b = 0;
     
   if(dns_create_message( &response, 512 )) {
@@ -623,7 +627,7 @@ void suspend_bonjour_service(bool state)
 
 void _bonjour_thread(void *arg)
 {
-  char *buf;
+  uint8_t *buf = NULL;
   int con = -1;
   fd_set readfds;
   struct timeval_t t;
@@ -631,18 +635,21 @@ void _bonjour_thread(void *arg)
   socklen_t addrLen;
   uint32_t opt;
   (void)arg;
+  OSStatus err;
   
-  buf = (char*)malloc(1500);
+  buf = malloc(1500);
   
   t.tv_sec = 1;
   t.tv_usec = 0;
   
   mDNS_fd = socket(AF_INET, SOCK_DGRM, IPPROTO_UDP);
+  require_action(IsValidSocket( mDNS_fd ), exit, err = kNoResourcesErr );
   opt = 0xE00000FB; //"224.0.0.251"
   setsockopt(mDNS_fd, SOL_SOCKET, IP_ADD_MEMBERSHIP, &opt, 4);
   addr.s_port = 5353;
   addr.s_ip = INADDR_ANY;
-  bind(mDNS_fd, &addr, sizeof(addr));
+  err = bind(mDNS_fd, &addr, sizeof(addr));
+  require_noerr(err, exit);
 
   _bonjour_announce = 1;
   
@@ -673,6 +680,10 @@ void _bonjour_thread(void *arg)
       mico_rtos_unlock_mutex( &bonjour_mutex );
     }
   }
+exit:
+  mdns_utils_log("Exit: mDNS thread exit with err = %d", err);
+  if(buf) free(buf);
+  mico_rtos_delete_thread(NULL);
 }
 
 
