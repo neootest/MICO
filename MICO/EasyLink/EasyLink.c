@@ -157,9 +157,14 @@ void EasyLinkNotify_EasyLinkGetExtraDataHandler(int datalen, char* data, mico_Co
   easylink_log_trace();
   uint32_t *ipInfo, ipInfoCount;
   require_action(inContext, exit, err = kParamErr);
+  char *debugString;
 
-  for(index = datalen; index>=0; index-- ){
-    if(data[index] == '#')
+  debugString = DataToHexStringWithSpaces( (const uint8_t *)data, datalen );
+  easylink_log("Get user info: %s", debugString);
+  free(debugString);
+
+  for(index = datalen - 1; index>=0; index-- ){
+    if(data[index] == '#' &&( (datalen - index) == 5 || (datalen - index) == 25 ) )
       break;
   }
   require_action(index >= 0, exit, err = kParamErr);

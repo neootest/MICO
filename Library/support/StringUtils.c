@@ -166,7 +166,7 @@ char* DataToHexString( const uint8_t *inBuf, size_t inBufLen )
     buf_ptr = buf_str;
     uint32_t i;
     for (i = 0; i < inBufLen; i++) buf_ptr += sprintf(buf_ptr, "%02X", inBuf[i]);
-    *(buf_ptr + 1) = '\0';
+    *buf_ptr = '\0';
     return buf_str;
 
 error:
@@ -186,7 +186,7 @@ char* DataToHexStringWithSpaces( const uint8_t *inBuf, size_t inBufLen )
     buf_ptr = buf_str;
     uint32_t i;
     for (i = 0; i < inBufLen; i++) buf_ptr += sprintf(buf_ptr, "%02X ", inBuf[i]);
-    *(buf_ptr + 1) = '\0';
+    *buf_ptr = '\0';
     return buf_str;
 
 error:
@@ -212,7 +212,7 @@ char* DataToHexStringWithColons( const uint8_t *inBuf, size_t inBufLen )
         else
             buf_ptr += sprintf(buf_ptr, "%02X:", inBuf[i]);
     }
-    *(buf_ptr + 1) = '\0';
+    *buf_ptr = '\0';
     return buf_str;
 
 error:
