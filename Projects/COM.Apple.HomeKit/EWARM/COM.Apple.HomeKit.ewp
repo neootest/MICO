@@ -4260,6 +4260,9 @@
       <name>$PROJ_DIR$\..\..\..\MICO\MICONotificationCenter.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\..\MICO\MICONTPClient.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\MICO\MICOParaStorage.c</name>
     </file>
     <file>
@@ -4279,6 +4282,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\Platform\PlatformRandomNumber.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\Platform\PlatformRTC.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\Platform\PlatformUart.c</name>

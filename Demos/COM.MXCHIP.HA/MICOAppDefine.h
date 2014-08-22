@@ -24,7 +24,7 @@
 #define MODEL               "Open1081"
 #endif
 
-#define FIRMWARE_REVISION   "MICO_HA_3_0"
+#define FIRMWARE_REVISION   "MICO_HA_3_1"
 #define MANUFACTURER        "MXCHIP Inc."
 #define SERIAL_NUMBER       "20140606"
 #define PROTOCOL            "com.mxchip.ha"

@@ -46,3 +46,4 @@ OSStatus PlatformRTCRead( struct tm *time );
 OSStatus PlatformRTCWrite( struct tm *time );
 
 #endif
+

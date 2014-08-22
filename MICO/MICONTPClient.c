@@ -86,7 +86,7 @@ void NTPClient_thread(void *inContext)
 {
   ntp_log_trace();
   OSStatus err = kUnknownErr;
-  mico_Context_t *Context = inContext;
+  (void)inContext;
   
   int  Ntp_fd = -1;
   fd_set readfds;
@@ -96,8 +96,6 @@ void NTPClient_thread(void *inContext)
   char ipstr[16];
   unsigned int trans_sec, current;
   struct NtpPacket outpacket ,inpacket;
-  socklen_t sockLen;
-  char timeString[40];
   
   /* Regisist notifications */
   err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)ntpNotify_WifiStatusHandler );
