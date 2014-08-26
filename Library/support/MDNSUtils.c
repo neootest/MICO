@@ -157,7 +157,7 @@ void process_dns_questions(int fd, dns_message_iterator_t* iter )
               if(dns_create_message( &response, 512 )){
                 dns_write_header( &response, iter->header->id, 0x8400, 0, 4, 0 );
                 //dns_write_record( &response, MFi_SERVICE_QUERY_NAME, RR_CLASS_IN, RR_TYPE_PTR, 1500, (u8*) available_services[b].service_name );
-                dns_write_record( &response, available_services[b].service_name, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_PTR, 1500, (uint8_t*) available_services[b].instance_name );
+                dns_write_record( &response, available_services[b].service_name, RR_CLASS_IN, RR_TYPE_PTR, 1500, (uint8_t*) available_services[b].instance_name );
                 dns_write_record( &response, available_services[b].instance_name, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_TXT, 1500, (uint8_t*) available_services[b].txt_att );
                 dns_write_record( &response, available_services[b].instance_name, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_SRV, 1500, (uint8_t*) &available_services[b]);
                 dns_write_record( &response, available_services[b].hostname, RR_CACHE_FLUSH|RR_CLASS_IN, RR_TYPE_A, 1500, (uint8_t*) &myip);

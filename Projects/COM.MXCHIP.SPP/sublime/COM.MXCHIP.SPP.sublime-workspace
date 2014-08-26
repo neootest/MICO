@@ -520,35 +520,43 @@
 	"buffers":
 	[
 		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.c",
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/platform.c",
 			"settings":
 			{
-				"buffer_size": 22641,
+				"buffer_size": 8282,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/StringUtils.h",
+			"file": "/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/inc/MICO.h",
 			"settings":
 			{
-				"buffer_size": 3279,
+				"buffer_size": 3179,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOConfigDelegate.c",
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MICOPlatform.h",
 			"settings":
 			{
-				"buffer_size": 15710,
-				"line_ending": "Windows"
+				"buffer_size": 1116,
+				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/StringUtils.c",
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/Platform/MICOPlatformUart.h",
 			"settings":
 			{
-				"buffer_size": 25907,
-				"line_ending": "Windows"
+				"buffer_size": 1087,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "COM.MXCHIP.SPP.sublime-project",
+			"settings":
+			{
+				"buffer_size": 1476,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -612,17 +620,24 @@
 	},
 	"file_history":
 	[
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/StringUtils.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOConfigDelegate.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/StringUtils.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppDefine.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/inc/MICOAES.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/AESUtils.h",
+		"/Users/William/Desktop/void mxchipWNet_HA_init(void)",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICONTPClient.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformRTC.h",
 		"/Users/william/Develop/Clang_lib/ARMCC/include/time.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformRTC.c",
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/STM32F2xx_StdPeriph_Driver/inc/stm32f2xx_rtc.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICODefine.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/Debug.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformWDG.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/STM32F2xx_StdPeriph_Driver/src/stm32f2xx_rtc.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICONotificationCenter.h",
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/inc/MICORtos.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/RemoteTcpClient.c",
@@ -651,7 +666,6 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/STM32F2xx_StdPeriph_Driver/inc/misc.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOConfigMenu.c",
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/external/JSON-C/json_object.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppDefine.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppEntrance.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/STM32F2xx_StdPeriph_Driver/inc/stm32f2xx_gpio.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOBonjour.c",
@@ -661,7 +675,6 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOConfigMenu.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/JSON-C/json_object.c",
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/Support/MDNSUtils.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOConfigDelegate.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/MICO.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/JSON-C/json_object_private.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/JSON-C/linkhash.h",
@@ -733,13 +746,8 @@
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/STM32F2xx_StdPeriph_Driver/inc/stm32f2xx.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/mico_system_monitor.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/StringUtils.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/platform.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/mxchipWNET.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/mico_algorithm.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/mico_utils.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/mxchipWNet_TypeDef.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformFlash.h"
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/mxchipWNET.h"
 	],
 	"find":
 	{
@@ -747,7 +755,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 93.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"<open folders>",
@@ -766,6 +774,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"AES 128-bit ECB API",
+			"AesEncryptDirect",
+			"aes_ecb_encrypt",
+			"AES_ECB_Update",
+			"Update failed",
 			"DataToHexStringWithColons",
 			"DataToHexString",
 			"DataToHexStringWithSpaces",
@@ -888,12 +901,7 @@
 			"name",
 			"lh_kchar_table_new",
 			"lh_kchar_table_new\nlh_kchar_table_new",
-			"lh_table_new",
-			"json_object_new_object",
-			"n",
-			"new",
-			"sppWlanCommandProcess",
-			"clientLoopBackFd"
+			"lh_table_new"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -911,23 +919,23 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.c",
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/platform.c",
 					"settings":
 					{
-						"buffer_size": 22641,
+						"buffer_size": 8282,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6229,
-								6229
+								0,
+								0
 							]
 						],
 						"settings":
@@ -937,25 +945,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2233.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/StringUtils.h",
+					"file": "/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/inc/MICO.h",
 					"settings":
 					{
-						"buffer_size": 3279,
+						"buffer_size": 3179,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2698,
-								2723
+								1387,
+								1253
 							]
 						],
 						"settings":
@@ -965,63 +973,90 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 465.0,
+						"translation.y": 378.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOConfigDelegate.c",
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MICOPlatform.h",
 					"settings":
 					{
-						"buffer_size": 15710,
+						"buffer_size": 1116,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7260,
-								7260
+								1108,
+								1108
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C.tmLanguage",
+							"syntax": "Packages/C++/C++.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2412.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/StringUtils.c",
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/Platform/MICOPlatformUart.h",
 					"settings":
 					{
-						"buffer_size": 25907,
+						"buffer_size": 1087,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6940,
-								6940
+								978,
+								978
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 4,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1185.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "COM.MXCHIP.SPP.sublime-project",
+					"settings":
+					{
+						"buffer_size": 1476,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1129,
+								1129
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 17.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
