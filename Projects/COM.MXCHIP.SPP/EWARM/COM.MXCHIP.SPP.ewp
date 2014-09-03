@@ -2950,6 +2950,12 @@
         </excluded>
       </file>
     </group>
+    <group>
+      <name>WPS</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\MICO\WPS\WPS.c</name>
+      </file>
+    </group>
     <file>
       <name>$PROJ_DIR$\..\..\..\MICO\MICOConfigMenu.c</name>
     </file>

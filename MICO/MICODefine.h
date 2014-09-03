@@ -32,6 +32,8 @@
 
 //#define CONFIG_MODE_EASYLINK
 #define CONFIG_MODE_EASYLINK_WITH_SOFTAP
+//#define CONFIG_MODE_WPS
+//#define CONFIG_MODE_WPS_WITH_SOFTAP
 //#define CONFIG_MODE_WAC
 
 #define CONFIG_SERVICE_PORT     8000
@@ -45,8 +47,11 @@
 #define RestoreDefault_TimeOut          3000  /**< Restore default and start easylink after 
                                                    press down EasyLink button for 3 seconds. */
 #define EasyLink_TimeOut                20000 /**< EasyLink timeout 20 seconds. */
+
 #define EasyLink_ConnectWlan_Timeout    20000 /**< Connect to wlan after configured y easylink.
                                                    Restart easylink after timeout: 20 seconds. */
+
+#define WPS_TimeOut                     60000 /**< WPS timeout 60 seconds. */
 
 #define maxSsidLen          32
 #define maxKeyLen           64

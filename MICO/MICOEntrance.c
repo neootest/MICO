@@ -27,6 +27,8 @@
 #include "MICONotificationCenter.h"
 #include "MICOSystemMonitor.h"
 #include "EasyLink/EasyLink.h"
+#include "WPS/WPS.h"
+#include "WAC/MFi_WAC.h"
 #include "StringUtils.h"
 
 #if defined (CONFIG_MODE_EASYLINK) || defined (CONFIG_MODE_EASYLINK_WITH_SOFTAP)
@@ -34,9 +36,6 @@
 #endif
 
 
-#ifdef CONFIG_MODE_WAC
-#include "WAC/MFi_WAC.h"
-#endif
 
 static mico_Context_t *context;
 static mico_timer_t _watchdog_reload_timer;
@@ -275,6 +274,11 @@ int application_start(void)
 
 #if defined (CONFIG_MODE_EASYLINK) || defined (CONFIG_MODE_EASYLINK_WITH_SOFTAP)
   err = startEasyLink( context );
+  require_noerr( err, exit );
+#endif
+
+#if defined (CONFIG_MODE_WPS) || defined (CONFIG_MODE_WPS_WITH_SOFTAP)
+  err = startWPS( context );
   require_noerr( err, exit );
 #endif
 

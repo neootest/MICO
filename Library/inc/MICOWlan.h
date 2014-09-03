@@ -37,6 +37,8 @@
 #define micoWlanSuspendSoftAP     uap_stop
 #define micoWlanStartEasyLink     OpenEasylink2_withdata
 #define micoWlanStopEasyLink      CloseEasylink2
+#define micoWlanStartWPS          OpenConfigmodeWPS
+#define micoWlanStopWPS           CloseConfigmodeWPS
 #define micoWlanEnablePowerSave   ps_enable
 #define micoWlanDisablePowerSave  ps_disable
 
@@ -380,6 +382,21 @@ OSStatus micoWlanStartEasyLink(int inTimeout);
  *  @retval kNoErr.
  */
 OSStatus micoWlanStopEasyLink(void);
+
+/** @brief  Start WPS configuration procedure
+ *
+ *  @param  inTimeout: If WPS is excuted longer than this parameter in backgound.
+ *          MICO stops WPS and sends a callback where nwkpara is NULL
+ *
+ *  @retval kNoErr.
+ */
+OSStatus micoWlanStartWPS(int inTimeout);
+
+/** @brief  Stop WPS configuration procedure
+ *  
+ *  @retval kNoErr.
+ */
+OSStatus micoWlanStopWPS(void);
 
 /** @brief  Enable IEEE power save mode
  * 

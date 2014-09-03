@@ -226,7 +226,7 @@ OSStatus startEasyLink( mico_Context_t * const inContext)
   require_noerr(err, exit);
   err = MICOAddNotification( mico_notify_WiFI_PARA_CHANGED, (void *)EasyLinkNotify_WiFIParaChangedHandler );
   require_noerr(err, exit);
-  err = MICOAddNotification( mico_notify_EASYLINK_COMPLETED, (void *)EasyLinkNotify_EasyLinkCompleteHandler );
+  err = MICOAddNotification( mico_notify_EASYLINK_WPS_COMPLETED, (void *)EasyLinkNotify_EasyLinkCompleteHandler );
   require_noerr(err, exit);
   err = MICOAddNotification( mico_notify_EASYLINK_GET_EXTRA_DATA, (void *)EasyLinkNotify_EasyLinkGetExtraDataHandler );
   require_noerr(err, exit);
@@ -379,7 +379,7 @@ void _cleanEasyLinkResource( mico_Context_t * const inContext )
   /*module should power down under default setting*/ 
   MICORemoveNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)EasyLinkNotify_WifiStatusHandler );
   MICORemoveNotification( mico_notify_WiFI_PARA_CHANGED, (void *)EasyLinkNotify_WiFIParaChangedHandler );
-  MICORemoveNotification( mico_notify_EASYLINK_COMPLETED, (void *)EasyLinkNotify_EasyLinkCompleteHandler );
+  MICORemoveNotification( mico_notify_EASYLINK_WPS_COMPLETED, (void *)EasyLinkNotify_EasyLinkCompleteHandler );
   MICORemoveNotification( mico_notify_EASYLINK_GET_EXTRA_DATA, (void *)EasyLinkNotify_EasyLinkGetExtraDataHandler );
 
   mico_rtos_deinit_semaphore(&easylink_sem);

@@ -116,7 +116,7 @@ void NetCallback(IPStatusTypedef *pnet)
 
 void RptConfigmodeRslt(network_InitTypeDef_st *nwkpara)
 {
-  _Notify_list_t *temp =  Notify_list[mico_notify_EASYLINK_COMPLETED];
+  _Notify_list_t *temp =  Notify_list[mico_notify_EASYLINK_WPS_COMPLETED];
   if(temp == NULL)
     return;
   else{
