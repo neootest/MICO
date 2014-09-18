@@ -35,8 +35,6 @@
 #include "EasyLink/EasyLink.h"
 #endif
 
-
-
 static mico_Context_t *context;
 static mico_timer_t _watchdog_reload_timer;
 
@@ -57,7 +55,7 @@ User provide callback functions
 void micoNotify_ReadAppInfoHandler(char *str, int len, mico_Context_t * const inContext)
 {
   (void)inContext;
-  snprintf( str, len, "%s", APP_INFO);
+  snprintf( str, len, "%s, build at %s %s", APP_INFO, __TIME__, __DATE__);
 }
 
 
