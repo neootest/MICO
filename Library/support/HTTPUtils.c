@@ -69,8 +69,8 @@ int SocketReadHTTPHeader( int inSock, HTTPHeader_t *inHeader )
             //    err = map_socket_value_errno( inSock, n >= 0, n );
             //}   while( err == EINTR );
             if(      n  > 0 ) len = (size_t) n;
-            else if( n == 0 ) { err = kConnectionErr; goto exit; }
-            else goto exit;
+            else  { err = kConnectionErr; goto exit; }
+            //else goto exit;
         }
         dst += len;
         inHeader->len += len;
@@ -192,8 +192,8 @@ OSStatus SocketReadHTTPBody( int inSock, HTTPHeader_t *inHeader )
             }
 
             if( readResult  > 0 ) inHeader->extraDataLen += readResult;
-            else if( readResult == 0 ) { err = kConnectionErr; goto exit; }
-            else goto exit;
+            else { err = kConnectionErr; goto exit; }
+            //else goto exit;
 
             err = PlatformFlashWrite(&flashStorageAddress, (uint32_t *)inHeader->otaDataPtr, readResult);
             require_noerr(err, exit);

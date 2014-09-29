@@ -30,6 +30,7 @@
 #include "external/JSON-C/json.h"
 #include "MICOAppDefine.h"
 
+//#define CONFIG_MODE_EASYLINK_PLUS
 //#define CONFIG_MODE_EASYLINK
 #define CONFIG_MODE_EASYLINK_WITH_SOFTAP
 //#define CONFIG_MODE_WPS
@@ -46,10 +47,6 @@
 
 #define RestoreDefault_TimeOut          3000  /**< Restore default and start easylink after 
                                                    press down EasyLink button for 3 seconds. */
-#define EasyLink_TimeOut                20000 /**< EasyLink timeout 20 seconds. */
-
-#define EasyLink_ConnectWlan_Timeout    20000 /**< Connect to wlan after configured y easylink.
-                                                   Restart easylink after timeout: 20 seconds. */
 
 #define WPS_TimeOut                     60000 /**< WPS timeout 60 seconds. */
 
@@ -204,11 +201,5 @@ OSStatus MICOStartApplication           ( mico_Context_t * const inContext );
 OSStatus MICORestoreDefault             ( mico_Context_t * const inContext );
 OSStatus MICOReadConfiguration          ( mico_Context_t * const inContext );
 OSStatus MICOUpdateConfiguration        ( mico_Context_t * const inContext );
-
-
-
-
-
-
 
 #endif /* __MICO_DEFINE_H */

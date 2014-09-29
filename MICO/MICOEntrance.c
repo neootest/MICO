@@ -270,7 +270,7 @@ int application_start(void)
   if(context->flashContentInRam.micoSystemConfig.configured != allConfigured){
     mico_log("Empty configuration. Starting configuration mode...");
 
-#if defined (CONFIG_MODE_EASYLINK) || defined (CONFIG_MODE_EASYLINK_WITH_SOFTAP)
+#if defined (CONFIG_MODE_EASYLINK) || defined (CONFIG_MODE_EASYLINK_WITH_SOFTAP) || defined (CONFIG_MODE_EASYLINK_PLUS)
   err = startEasyLink( context );
   require_noerr( err, exit );
 #endif

@@ -1,23 +1,33 @@
 /**
-  ******************************************************************************
-  * @file    MICOWlan.h 
-  * @author  William Xu
-  * @version V1.0.0
-  * @date    05-May-2014
-  * @brief   This file provides all the headers of wlan connectivity functions.
-  ******************************************************************************
-  * @attention
-  *
-  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
-  * TIME. AS A RESULT, MXCHIP Inc. SHALL NOT BE HELD LIABLE FOR ANY
-  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
-  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
-  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
-  *
-  * <h2><center>&copy; COPYRIGHT 2014 MXCHIP Inc.</center></h2>
-  ******************************************************************************
-  */ 
+******************************************************************************
+* @file    MICOWlan.h 
+* @author  William Xu
+* @version V1.0.0
+* @date    16-Sep-2014
+* @brief   This file provides all the headers of wlan connectivity functions.
+******************************************************************************
+*
+*  The MIT License
+*  Copyright (c) 2014 MXCHIP Inc.
+*
+*  Permission is hereby granted, free of charge, to any person obtaining a copy 
+*  of this software and associated documentation files (the "Software"), to deal
+*  in the Software without restriction, including without limitation the rights 
+*  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+*  copies of the Software, and to permit persons to whom the Software is furnished
+*  to do so, subject to the following conditions:
+*
+*  The above copyright notice and this permission notice shall be included in
+*  all copies or substantial portions of the Software.
+*
+*  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+*  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+*  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+*  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+*  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR 
+*  IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+******************************************************************************
+*/ 
 
 #ifndef __MICOWLAN_H__
 #define __MICOWLAN_H__
@@ -37,6 +47,7 @@
 #define micoWlanSuspendSoftAP     uap_stop
 #define micoWlanStartEasyLink     OpenEasylink2_withdata
 #define micoWlanStopEasyLink      CloseEasylink2
+#define micoWlanStartEasyLinkPlus OpenEasylink
 #define micoWlanStartWPS          OpenConfigmodeWPS
 #define micoWlanStopWPS           CloseConfigmodeWPS
 #define micoWlanEnablePowerSave   ps_enable
@@ -240,6 +251,15 @@ typedef struct _linkStatus_t{
   uint8_t  bssid[6];      /**< BSSID of the current connected wlan */
 } LinkStatusTypeDef;
 
+
+typedef struct {
+    char bssid[6];
+    char ssid[33];
+    char key[65];
+    int  user_data_len;
+    char user_data[65];
+} easylink_result_t;
+
 /** @defgroup MICO_WLAN_GROUP_1 MICO Wlan Functions
   * @{
   */
@@ -360,7 +380,28 @@ OSStatus micoWlanSuspendStation(void);
  */
 OSStatus micoWlanSuspendSoftAP(void);
 
-/** @brief  Start EasyLink configuration V2 with user extra data
+/** @brief  Start EasyLink configuration with user extra data
+ * 
+ *  @detail This function can read SSID, password and extra user data sent from
+ *          Easylink APP.  
+ *          MICO sends a callback: mico_notify_EASYLINK_WPS_COMPLETED
+ *          with function:
+ *          void (*function)(network_InitTypeDef_st *nwkpara, mico_Context_t * const inContext);
+ *          that provide SSID and password, nwkpara is NULL if timeout or get an error
+ *          More
+ *          MICO sends a callback: mico_notify_EASYLINK_GET_EXTRA_DATA
+ *          with function:
+ *          void (*function)(int datalen, char*data, mico_Context_t * const inContext);
+ *          that provide a buffer where the data is saved
+ *
+ *  @param  inTimeout: If easylink is excuted longer than this parameter in backgound.
+ *          MICO stops EasyLink and sends a callback where nwkpara is NULL
+ *
+ *  @retval kNoErr.
+ */
+OSStatus micoWlanStartEasyLink(int inTimeout);
+
+/** @brief  Start EasyLink plus configuration with user extra data
  * 
  *  @detail This function has the same function as OpenEasylink2(), but it can 
  *          read more data besides SSID and password, these data is sent from
@@ -375,7 +416,7 @@ OSStatus micoWlanSuspendSoftAP(void);
  *
  *  @retval kNoErr.
  */
-OSStatus micoWlanStartEasyLink(int inTimeout);
+OSStatus micoWlanStartEasyLinkPlus(int inTimeout);
 
 /** @brief  Stop EasyLink configuration procedure
  *  
