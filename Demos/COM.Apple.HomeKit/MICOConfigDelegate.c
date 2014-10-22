@@ -23,9 +23,10 @@
 #include "Common.h"
 #include "debug.h"
 #include "Platform.h"
-#include "PlatformUart.h"
+#include "Platform_common_config.h"
+#include "MicoPlatform.h"
 #include "EasyLink/EasyLink.h"
-#include "external/JSON-C/json.h"
+#include "JSON-C/json.h"
 #include "MICO.h"
 #include "MICODefine.h"
 #include "MICOAppDefine.h"
@@ -39,12 +40,12 @@
 #define config_delegate_log(M, ...) custom_log("Config Delegate", M, ##__VA_ARGS__)
 #define config_delegate_log_trace() custom_log_trace("Config Delegate")
 
-static mico_timer_t _Led_EL_timer = NULL;
+static mico_timer_t _Led_EL_timer;
 
 static void _led_EL_Timeout_handler( void* arg )
 {
   (void)(arg);
-  Platform_LED_SYS_Set_Status(TRIGGER);
+  MicoGpioOutputTrigger ( (mico_gpio_t)MICO_SYS_LED );
 }
 
 void ConfigWillStart( mico_Context_t * const inContext )
@@ -63,20 +64,7 @@ void ConfigWillStop( mico_Context_t * const inContext )
   config_delegate_log_trace();
   mico_stop_timer(&_Led_EL_timer);
   mico_deinit_timer( &_Led_EL_timer );
-  Platform_LED_SYS_Set_Status(OFF);
-  return;
-}
-
-void ConfigSoftApWillStart(mico_Context_t * const inContext )
-{
-  OSStatus err;
-  sppProtocolInit(inContext);
-  PlatformUartInitialize(inContext);
-
-  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "UART Recv", uartRecv_thread, 0x500, (void*)inContext );
-  require_noerr_action( err, exit, config_delegate_log("ERROR: Unable to start the uart recv thread.") );
-
-exit:
+  MicoGpioOutputLow( (mico_gpio_t)MICO_SYS_LED );
   return;
 }
 
@@ -91,6 +79,13 @@ void ConfigEasyLinkIsSuccess( mico_Context_t * const inContext )
   mico_start_timer(&_Led_EL_timer);
   return;
 }
+
+void ConfigSoftApWillStart(mico_Context_t * const inContext )
+{
+  UNUSED_PARAMETER(inContext);
+  return;
+}
+
 
 OSStatus ConfigELRecvAuthData(char * anthData, mico_Context_t * const inContext )
 {

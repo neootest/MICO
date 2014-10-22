@@ -19,12 +19,12 @@
   ******************************************************************************
   */ 
 
-#include "MICODefine.h"
+#include "MicoDefine.h"
+#include "platform.h"
 #include "MICONotificationCenter.h"
 
 #include "MDNSUtils.h"
 #include "StringUtils.h"
-#include "MDNSUtils.h"
 
 static int _bonjourStarted = false;
 
@@ -53,11 +53,14 @@ void BonjourNotify_SYSWillPoerOffHandler( mico_Context_t * const inContext)
 
 OSStatus MICOStartBonjourService( WiFi_Interface interface, mico_Context_t * const inContext )
 {
-  char temp_txt[500]; 
+  char *temp_txt= NULL;
   char *temp_txt2;
   OSStatus err;
   net_para_st para;
   bonjour_init_t init;
+
+  temp_txt = malloc(500);
+  require_action(temp_txt, exit, err = kNoMemoryErr);
 
   memset(&init, 0x0, sizeof(bonjour_init_t));
 
@@ -94,7 +97,7 @@ OSStatus MICOStartBonjourService( WiFi_Interface interface, mico_Context_t * con
   sprintf(temp_txt, "%sHardware Rev=%s.", temp_txt, temp_txt2);
   free(temp_txt2);
 
-  temp_txt2 = __strdup_trans_dot(micoGetVer());
+  temp_txt2 = __strdup_trans_dot(MicoGetVer());
   sprintf(temp_txt, "%sMICO OS Rev=%s.", temp_txt, temp_txt2);
   free(temp_txt2);
 
@@ -128,5 +131,6 @@ OSStatus MICOStartBonjourService( WiFi_Interface interface, mico_Context_t * con
   _bonjourStarted = true;
 
 exit:
+  if(temp_txt) free(temp_txt);
   return err;
 }

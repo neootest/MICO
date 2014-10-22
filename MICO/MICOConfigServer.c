@@ -1,29 +1,39 @@
 /**
-  ******************************************************************************
-  * @file    MICOConfigServer.c 
-  * @author  William Xu
-  * @version V1.0.0
-  * @date    05-May-2014
-  * @brief   Local TCP server for mico device configuration 
-  ******************************************************************************
-  * @attention
-  *
-  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
-  * TIME. AS A RESULT, MXCHIP Inc. SHALL NOT BE HELD LIABLE FOR ANY
-  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
-  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
-  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
-  *
-  * <h2><center>&copy; COPYRIGHT 2014 MXCHIP Inc.</center></h2>
-  ******************************************************************************
-  */ 
+******************************************************************************
+* @file    MICOConfigServer.c 
+* @author  William Xu
+* @version V1.0.0
+* @date    05-May-2014
+* @brief   Local TCP server for mico device configuration 
+******************************************************************************
+*
+*  The MIT License
+*  Copyright (c) 2014 MXCHIP Inc.
+*
+*  Permission is hereby granted, free of charge, to any person obtaining a copy 
+*  of this software and associated documentation files (the "Software"), to deal
+*  in the Software without restriction, including without limitation the rights 
+*  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+*  copies of the Software, and to permit persons to whom the Software is furnished
+*  to do so, subject to the following conditions:
+*
+*  The above copyright notice and this permission notice shall be included in
+*  all copies or substantial portions of the Software.
+*
+*  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+*  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+*  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+*  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+*  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR 
+*  IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+******************************************************************************
+*/
 
 #include "MICO.h"
 #include "MICODefine.h"
 #include "SocketUtils.h"
 #include "Platform.h"
-#include "PlatformFlash.h"  
+#include "Platform_common_config.h"
 #include "HTTPUtils.h"
 
 
@@ -44,7 +54,7 @@ static OSStatus _LocalConfigRespondInComingMessage(int fd, HTTPHeader_t* inHeade
 
 OSStatus MICOStartConfigServer ( mico_Context_t * const inContext )
 {
-  return mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Config Server", localConfiglistener_thread, 0x200, (void*)inContext );
+  return mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Config Server", localConfiglistener_thread, STACK_SIZE_LOCAL_CONFIG_SERVER_THREAD, (void*)inContext );
 }
 
 void localConfiglistener_thread(void *inContext)
@@ -85,7 +95,7 @@ void localConfiglistener_thread(void *inContext)
       if (j > 0) {
         inet_ntoa(ip_address, addr.s_ip );
         config_log("Config Client %s:%d connected, fd: %d", ip_address, addr.s_port, j);
-        err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Config Clients", localConfig_thread, 0x400, &j);  
+        err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Config Clients", localConfig_thread, STACK_SIZE_LOCAL_CONFIG_CLIENT_THREAD, &j);  
       }
     }
    }
@@ -100,6 +110,7 @@ void localConfig_thread(void *inFd)
 {
   OSStatus err;
   int clientFd = *(int *)inFd;
+  int clientFdIsSet;
   fd_set readfds;
   struct timeval_t t;
   HTTPHeader_t *httpHeader = NULL;
@@ -115,22 +126,31 @@ void localConfig_thread(void *inFd)
   while(1){
     FD_ZERO(&readfds);
     FD_SET(clientFd, &readfds);
+    clientFdIsSet = 0;
 
-    err = select(1, &readfds, NULL, NULL, &t);
+    if(httpHeader->len == 0){
+      err = select(1, &readfds, NULL, NULL, &t);
+      clientFdIsSet = FD_ISSET(clientFd, &readfds);
+    }
   
-    if(FD_ISSET(clientFd, &readfds)){
+    if(clientFdIsSet||httpHeader->len){
       err = SocketReadHTTPHeader( clientFd, httpHeader );
 
       switch ( err )
       {
         case kNoErr:
           // Read the rest of the HTTP body if necessary
-          err = SocketReadHTTPBody( clientFd, httpHeader );
-          require_noerr(err, exit);
+          do{
+            err = SocketReadHTTPBody( clientFd, httpHeader );
+            require_noerr(err, exit);
 
-          // Call the HTTPServer owner back with the acquired HTTP header
-          err = _LocalConfigRespondInComingMessage( clientFd, httpHeader, Context );
-          require_noerr( err, exit );
+            // Call the HTTPServer owner back with the acquired HTTP header
+            err = _LocalConfigRespondInComingMessage( clientFd, httpHeader, Context );
+            require_noerr( err, exit ); 
+            if(httpHeader->contentLength == 0)
+              break;
+          } while( httpHeader->chunkedData == true || httpHeader->dataEndedbyClose == true);
+      
           // Reuse HTTPHeader
           HTTPHeaderClear( httpHeader );
         break;
@@ -173,8 +193,19 @@ OSStatus _LocalConfigRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico
   uint8_t *httpResponse = NULL;
   size_t httpResponseLen = 0;
   json_object* report = NULL;
-
   config_log_trace();
+
+#if 1
+  /* This is a demo code for http package has chunked data */
+  char *tempStr;
+  if(inHeader->chunkedData == true){
+    tempStr = calloc(inHeader->contentLength+1, sizeof(uint8_t));
+    memcpy(tempStr, inHeader->extraDataPtr, inHeader->contentLength);
+    config_log("Recv==>%s", tempStr);
+    free(tempStr);
+    return kNoErr;
+  }
+#endif
 
   if(HTTPHeaderMatchURL( inHeader, kCONFIGURLRead ) == kNoErr){    
     report = ConfigCreateReportJsonMessage( inContext );
@@ -210,6 +241,7 @@ OSStatus _LocalConfigRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico
     }
     goto exit;
   }
+#ifdef MICO_FLASH_FOR_UPDATE
   else if(HTTPHeaderMatchURL( inHeader, kCONFIGURLOTA ) == kNoErr){
     if(inHeader->contentLength > 0){
       config_log("Receive OTA data!");
@@ -228,6 +260,7 @@ OSStatus _LocalConfigRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico
     }
     goto exit;
   }
+#endif
   else{
     return kNotFoundErr;
   };

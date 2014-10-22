@@ -28,44 +28,41 @@
 
 #define APP_INFO   "mxchipWNet SPP Demo based on MICO OS"
 
-#ifdef EMW3162
-#define HARDWARE_REVISION   "3162"
-#define DEFAULT_NAME        "EMW3162 Module"
-#define MODEL               "EMW3162"
-#endif
-
-#ifdef EMW3161
-#define HARDWARE_REVISION   "3161"
-#define DEFAULT_NAME        "EMW3161 Module"
-#define MODEL               "EMW3161"
-#endif
-
-#ifdef Open1081
-#define HARDWARE_REVISION   "1081"
-#define DEFAULT_NAME        "Open1081 DevBoard"
-#define MODEL               "Open1081"
-#endif
-
-#define FIRMWARE_REVISION   "MICO_SPP_1_4"
+#define FIRMWARE_REVISION   "MICO_SPP_2_1"
 #define MANUFACTURER        "MXCHIP Inc."
 #define SERIAL_NUMBER       "20140606"
 #define PROTOCOL            "com.mxchip.spp"
-#define LOCAL_PORT          8080
 
 /*User provided configurations*/
 #define CONFIGURATION_VERSION               0x00000001 // if default configuration is changed, update this number
 #define MAX_Local_Client_Num                8
+#define LOCAL_PORT                          8080
 #define DEAFULT_REMOTE_SERVER               "192.168.2.254"
 #define DEFAULT_REMOTE_SERVER_PORT          8080
 #define UART_RECV_TIMEOUT                   500
 #define UART_ONE_PACKAGE_LENGTH             1024
 #define wlanBufferLen                       1024
+#define UART_BUFFER_LENGTH                  2048
+#define UART_FOR_APP                        MICO_UART_1
 
 #define LOCAL_TCP_SERVER_LOOPBACK_PORT      1000
 #define REMOTE_TCP_CLIENT_LOOPBACK_PORT     1002
 #define RECVED_UART_DATA_LOOPBACK_PORT      1003
 
 #define BONJOUR_SERVICE                     "_easylink._tcp.local."
+
+/* Define thread stack size */
+#ifdef DEBUG
+  #define STACK_SIZE_UART_RECV_THREAD           0x2A0
+  #define STACK_SIZE_LOCAL_TCP_SERVER_THREAD    0x300
+  #define STACK_SIZE_LOCAL_TCP_CLIENT_THREAD    0x350
+  #define STACK_SIZE_REMOTE_TCP_CLIENT_THREAD   0x500
+#else
+  #define STACK_SIZE_UART_RECV_THREAD           0x150
+  #define STACK_SIZE_LOCAL_TCP_SERVER_THREAD    0x180
+  #define STACK_SIZE_LOCAL_TCP_CLIENT_THREAD    0x200
+  #define STACK_SIZE_REMOTE_TCP_CLIENT_THREAD   0x260
+#endif
 
 /*Application's configuration stores in flash*/
 typedef struct

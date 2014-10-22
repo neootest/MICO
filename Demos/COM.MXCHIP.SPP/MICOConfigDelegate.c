@@ -22,10 +22,12 @@
 
 #include "Common.h"
 #include "debug.h"
+#include "MicoPlatform.h"
 #include "Platform.h"
-#include "PlatformUart.h"
+#include "Platform_common_config.h"
+
 #include "EasyLink/EasyLink.h"
-#include "external/JSON-C/json.h"
+#include "JSON-C/json.h"
 #include "MICO.h"
 #include "MICODefine.h"
 #include "MICOAppDefine.h"
@@ -35,15 +37,19 @@
 
 #define SYS_LED_TRIGGER_INTERVAL 100 
 #define SYS_LED_TRIGGER_INTERVAL_AFTER_EASYLINK 500 
+  
 #define config_delegate_log(M, ...) custom_log("Config Delegate", M, ##__VA_ARGS__)
 #define config_delegate_log_trace() custom_log_trace("Config Delegate")
+  
+extern volatile ring_buffer_t  rx_buffer;
+extern volatile uint8_t        rx_data[UART_BUFFER_LENGTH];
 
 static mico_timer_t _Led_EL_timer = NULL;
 
 static void _led_EL_Timeout_handler( void* arg )
 {
   (void)(arg);
-  Platform_LED_SYS_Set_Status(TRIGGER);
+  MicoGpioOutputTrigger((mico_gpio_t)MICO_SYS_LED);
 }
 
 void ConfigWillStart( mico_Context_t * const inContext )
@@ -63,7 +69,7 @@ void ConfigWillStop( mico_Context_t * const inContext )
 
   mico_stop_timer(&_Led_EL_timer);
   mico_deinit_timer( &_Led_EL_timer );
-  Platform_LED_SYS_Set_Status(OFF);
+  MicoGpioOutputLow((mico_gpio_t)MICO_SYS_LED);
   return;
 }
 
@@ -82,14 +88,28 @@ void ConfigEasyLinkIsSuccess( mico_Context_t * const inContext )
 void ConfigSoftApWillStart(mico_Context_t * const inContext )
 {
   OSStatus err;
-  sppProtocolInit(inContext);
-  PlatformUartInitialize(inContext);
+  mico_uart_config_t uart_config;
 
-  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "UART Recv", uartRecv_thread, 0x500, (void*)inContext );
+  mico_stop_timer(&_Led_EL_timer);
+  mico_deinit_timer( &_Led_EL_timer );
+  mico_init_timer(&_Led_EL_timer, SYS_LED_TRIGGER_INTERVAL_AFTER_EASYLINK, _led_EL_Timeout_handler, NULL);
+  mico_start_timer(&_Led_EL_timer);
+  
+  sppProtocolInit(inContext);
+  
+   /*UART receive thread*/
+  uart_config.baud_rate    = inContext->flashContentInRam.appConfig.USART_BaudRate;
+  uart_config.data_width   = DATA_WIDTH_8BIT;
+  uart_config.parity       = NO_PARITY;
+  uart_config.stop_bits    = STOP_BITS_1;
+  uart_config.flow_control = FLOW_CONTROL_DISABLED;
+  ring_buffer_init  ( (ring_buffer_t *)&rx_buffer, (uint8_t *)rx_data, UART_BUFFER_LENGTH );
+  MicoUartInitialize( UART_FOR_APP, &uart_config, (ring_buffer_t *)&rx_buffer );
+  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "UART Recv", uartRecv_thread, STACK_SIZE_UART_RECV_THREAD, (void*)inContext );
   require_noerr_action( err, exit, config_delegate_log("ERROR: Unable to start the uart recv thread.") );
 
  if(inContext->flashContentInRam.appConfig.localServerEnable == true){
-   err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Local Server", localTcpServer_thread, 0x200, (void*)inContext );
+   err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Local Server", localTcpServer_thread, STACK_SIZE_LOCAL_TCP_SERVER_THREAD, (void*)inContext );
    require_noerr_action( err, exit, config_delegate_log("ERROR: Unable to start the local server thread.") );
  }
 
@@ -116,7 +136,7 @@ json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
   char *rfVer = NULL, *rfVerTemp = NULL;
   json_object *sectors, *sector, *subMenuSectors, *subMenuSector, *mainObject = NULL;
 
-  micoGetRfVer( rfVersion, 50 );
+  MicoGetRfVer( rfVersion, 50 );
   rfVer = strstr(rfVersion, "version ");
   if(rfVer) rfVer = rfVer + strlen("version ");
   rfVerTemp = rfVer;
@@ -184,7 +204,7 @@ json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
         require_noerr(err, exit);
         err = MICOAddStringCellToSector(subMenuSector, "Hardware Rev.",  HARDWARE_REVISION, "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "MICO OS Rev.",   micoGetVer(),      "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "MICO OS Rev.",   MicoGetVer(),      "RO", NULL);
         require_noerr(err, exit);
         err = MICOAddStringCellToSector(subMenuSector, "RF Driver Rev.", rfVer,             "RO", NULL);
         require_noerr(err, exit);

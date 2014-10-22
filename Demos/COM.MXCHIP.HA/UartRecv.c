@@ -3,13 +3,14 @@
 #include "MICOAppDefine.h"
 
 #include "haProtocol.h"
-#include "PlatformUart.h"
+#include "MicoPlatform.h"
+#include "platform.h"
 #include "MICONotificationCenter.h"
 
 #define uart_recv_log(M, ...) custom_log("UART RECV", M, ##__VA_ARGS__)
 #define uart_recv_log_trace() custom_log_trace("UART RECV")
 
-static int _uart_get_one_packet(u8* buf, int maxlen);
+static int _uart_get_one_packet(uint8_t* buf, int maxlen);
 
 void uartRecv_thread(void *inContext)
 {
@@ -44,23 +45,23 @@ int _uart_get_one_packet(uint8_t* inBuf, int inBufLen)
   
   while(1) {
     p = inBuf;
-    err = PlatformUartRecv(p, 1, MICO_WAIT_FOREVER);
+    err = MicoUartRecv(UART_FOR_APP, p, 1, MICO_WAIT_FOREVER);
     require_noerr(err, exit);
     require(*p == 0xBB, exit);
     
     p++;
-    err = PlatformUartRecv(p, 1, 1000);
+    err = MicoUartRecv(UART_FOR_APP, p, 1, 1000);
     require_noerr(err, exit);
     require(*p == 0x00, exit);
     
     p++;
-    err = PlatformUartRecv(p, 6, 1000);
+    err = MicoUartRecv(UART_FOR_APP, p, 6, 1000);
     require_noerr(err, exit);
     datalen = p[4] + (p[5]<<8);
     require(datalen + 10 <= inBufLen, exit);
     
     p += 6;
-    err = PlatformUartRecv(p, datalen+2, 1000);
+    err = MicoUartRecv(UART_FOR_APP, p, datalen+2, 1000);
     require_noerr(err, exit);
     
     err = check_sum(inBuf, datalen + 10);

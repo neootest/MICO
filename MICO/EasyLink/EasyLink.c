@@ -1,30 +1,40 @@
 /**
-  ******************************************************************************
-  * @file    EasyLink.c 
-  * @author  William Xu
-  * @version V1.0.0
-  * @date    05-May-2014
-  * @brief   This file provide the easylink function and FTC server for quick 
-  *          provisioning and first time configuration.
-  ******************************************************************************
-  * @attention
-  *
-  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
-  * TIME. AS A RESULT, MXCHIP Inc. SHALL NOT BE HELD LIABLE FOR ANY
-  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
-  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
-  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
-  *
-  * <h2><center>&copy; COPYRIGHT 2014 MXCHIP Inc.</center></h2>
-  ******************************************************************************
-  */ 
+******************************************************************************
+* @file    EasyLink.c 
+* @author  William Xu
+* @version V1.0.0
+* @date    05-May-2014
+* @brief   This file provide the easylink function and FTC server for quick 
+*          provisioning and first time configuration.
+******************************************************************************
+*
+*  The MIT License
+*  Copyright (c) 2014 MXCHIP Inc.
+*
+*  Permission is hereby granted, free of charge, to any person obtaining a copy 
+*  of this software and associated documentation files (the "Software"), to deal
+*  in the Software without restriction, including without limitation the rights 
+*  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+*  copies of the Software, and to permit persons to whom the Software is furnished
+*  to do so, subject to the following conditions:
+*
+*  The above copyright notice and this permission notice shall be included in
+*  all copies or substantial portions of the Software.
+*
+*  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+*  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+*  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+*  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+*  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR 
+*  IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+******************************************************************************
+*/
 
 #include "MICO.h"
 #include "MICONotificationCenter.h"
 
-#include "Platform.h"
-#include "PlatformFlash.h"
+#include "MicoPlatform.h"
+#include "platform_common_config.h"
 #include "StringUtils.h"
 #include "HTTPUtils.h"
 #include "SocketUtils.h"
@@ -67,9 +77,17 @@ void EasyLinkNotify_WifiStatusHandler(WiFiEvent event, mico_Context_t * const in
   switch (event) {
   case NOTIFY_STATION_UP:
     easylink_log("Access point connected");
+    MicoRfLed(true);
     mico_rtos_set_semaphore(&easylink_sem);
     break;
   case NOTIFY_STATION_DOWN:
+    MicoRfLed(false);
+    break;
+  case NOTIFY_AP_UP:
+    MicoRfLed(true);
+    break;
+  case NOTIFY_AP_DOWN:
+    MicoRfLed(false);
     break;
   default:
     break;
@@ -122,6 +140,7 @@ void EasyLinkNotify_EasyLinkCompleteHandler(network_InitTypeDef_st *nwkpara, mic
   
   mico_rtos_lock_mutex(&inContext->flashContentInRam_mutex);
   memcpy(inContext->flashContentInRam.micoSystemConfig.ssid, nwkpara->wifi_ssid, maxSsidLen);
+  memset(inContext->flashContentInRam.micoSystemConfig.bssid, 0x0, 6);
   memcpy(inContext->flashContentInRam.micoSystemConfig.user_key, nwkpara->wifi_key, maxKeyLen);
   inContext->flashContentInRam.micoSystemConfig.user_keyLength = strlen(nwkpara->wifi_key);
   mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
@@ -141,7 +160,7 @@ exit:
   if(inContext->flashContentInRam.micoSystemConfig.configured != unConfigured){
     inContext->flashContentInRam.micoSystemConfig.configured = allConfigured;
     MICOUpdateConfiguration(inContext);
-    PlatformSoftReboot();
+    MicoSystemReboot();
   }
   mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
   /*module should powd down in default setting*/ 
@@ -209,7 +228,7 @@ void EasyLinkNotify_EasyLinkGetExtraDataHandler(int datalen, char* data, mico_Co
 exit:
   easylink_log("ERROR, err: %d", err);
   ConfigWillStop(inContext);
-  PlatformSoftReboot();
+  MicoSystemReboot();
 }
 
 void EasyLinkNotify_SYSWillPowerOffHandler(mico_Context_t * const inContext)
@@ -403,9 +422,12 @@ void easylink_thread(void *inContext)
   mico_Context_t *Context = inContext;
   fd_set readfds;
   int reConnCount = 0;
+  int clientFdIsSet;
 
   easylink_log_trace();
   require_action(easylink_sem, threadexit, err = kNotPreparedErr);
+  
+  easylink_log("Start easylink");
   
   if(Context->flashContentInRam.micoSystemConfig.easyLinkEnable != false){
 #ifdef CONFIG_MODE_EASYLINK_PLUS
@@ -413,7 +435,6 @@ void easylink_thread(void *inContext)
 #else
     micoWlanStartEasyLink(EasyLink_TimeOut/1000);
 #endif 
-    easylink_log("Start easylink");
     mico_rtos_get_semaphore(&easylink_sem, MICO_WAIT_FOREVER);
     if(EasylinkFailed == false)
       _easylinkConnectWiFi(Context);
@@ -447,26 +468,32 @@ void easylink_thread(void *inContext)
       FD_ZERO(&readfds);  
       FD_SET(easylinkClient_fd, &readfds);
 
-      err = select(1, &readfds, NULL, NULL, NULL);
-      
-      require(err>=1, threadexit);
-    
-      if(FD_ISSET(easylinkClient_fd, &readfds)){
+      if(httpHeader->len == 0){
+        err = select(1, &readfds, NULL, NULL, NULL);
+        require(err>=1, threadexit);
+        clientFdIsSet = FD_ISSET(easylinkClient_fd, &readfds);
+      }
+  
+      if(clientFdIsSet||httpHeader->len){
         err = SocketReadHTTPHeader( easylinkClient_fd, httpHeader );
 
         switch ( err )
         {
           case kNoErr:
             // Read the rest of the HTTP body if necessary
-            err = SocketReadHTTPBody( easylinkClient_fd, httpHeader );
-            require_noerr(err, Reconn);
+            do{
+              err = SocketReadHTTPBody( easylinkClient_fd, httpHeader );
+              require_noerr(err, Reconn);
 
-            PrintHTTPHeader(httpHeader);
-            // Call the HTTPServer owner back with the acquired HTTP header
-            err = _FTCRespondInComingMessage( easylinkClient_fd, httpHeader, Context );
-            require_noerr( err, Reconn );
-            // Reuse HTTPHeader
-            HTTPHeaderClear( httpHeader );
+              PrintHTTPHeader(httpHeader);
+              // Call the HTTPServer owner back with the acquired HTTP header
+              err = _FTCRespondInComingMessage( easylinkClient_fd, httpHeader, Context );
+              require_noerr( err, Reconn );
+              if(httpHeader->contentLength == 0)
+                break;
+            } while( httpHeader->chunkedData == true || httpHeader->dataEndedbyClose == true);
+              // Reuse HTTPHeader
+              HTTPHeaderClear( httpHeader );
           break;
 
           case EWOULDBLOCK:
@@ -485,7 +512,7 @@ void easylink_thread(void *inContext)
             if(Context->flashContentInRam.micoSystemConfig.configured == wLanUnConfigured ){
               Context->flashContentInRam.micoSystemConfig.configured = allConfigured;
               MICOUpdateConfiguration( Context );
-              PlatformSoftReboot();
+              MicoSystemReboot();
             }else{
               micoWlanPowerOff();
               msleep(20);
@@ -518,7 +545,7 @@ threadexit:
   
 /*SSID or Password is not correct, module cannot connect to wlan, so reboot and enter EasyLink again*/
 reboot:
-  PlatformSoftReboot();
+  MicoSystemReboot();
   return;
 }
 
@@ -547,7 +574,9 @@ OSStatus _FTCRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context
           inContext->micoStatus.sys_state = eState_Software_Reset;
           require(inContext->micoStatus.sys_state_change_sem, exit);
           mico_rtos_set_semaphore(&inContext->micoStatus.sys_state_change_sem);
-        }else if(strnicmpx( value, valueSize, kMIMEType_MXCHIP_OTA ) == 0){
+        }
+#ifdef MICO_FLASH_FOR_UPDATE
+        else if(strnicmpx( value, valueSize, kMIMEType_MXCHIP_OTA ) == 0){
           easylink_log("Receive OTA data!");
           mico_rtos_lock_mutex(&inContext->flashContentInRam_mutex);
           memset(&inContext->flashContentInRam.bootTable, 0, sizeof(boot_table_t));
@@ -562,7 +591,9 @@ OSStatus _FTCRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context
           inContext->micoStatus.sys_state = eState_Software_Reset;
           require(inContext->micoStatus.sys_state_change_sem, exit);
           mico_rtos_set_semaphore(&inContext->micoStatus.sys_state_change_sem);
-        }else{
+        }
+#endif
+        else{
           return kUnsupportedDataErr;
         }
         err = kNoErr;

@@ -26,7 +26,6 @@
 
 #include "SppProtocol.h"
 #include "SocketUtils.h"
-#include "PlatformUart.h"
 
 #define server_log(M, ...) custom_log("TCP SERVER", M, ##__VA_ARGS__)
 #define server_log_trace() custom_log_trace("TCP SERVER")
@@ -80,7 +79,7 @@ void localTcpServer_thread(void *inContext)
       if (j > 0) {
         inet_ntoa(ip_address, addr.s_ip );
         server_log("Client %s:%d connected, fd: %d", ip_address, addr.s_port, j);
-        if(kNoErr != mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Local Clients", localTcpClient_thread, 0x500, &j) ) 
+        if(kNoErr != mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Local Clients", localTcpClient_thread, STACK_SIZE_LOCAL_TCP_CLIENT_THREAD, &j) ) 
           SocketClose(&j);
       }
     }

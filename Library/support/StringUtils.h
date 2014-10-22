@@ -48,6 +48,26 @@ void formatMACAddr(char *destAddr, char *srcAddr);
 */
 unsigned int str2hex(unsigned char *ibuf, unsigned char *obuf, unsigned int olen);
 
+/**
+  * @brief  Convert an Integer to a string
+  * @param  str: The string
+  * @param  intnum: The integer to be converted
+  * @retval None
+  */
+void Int2Str(uint8_t* str, int32_t intnum);
+
+
+/**
+  * @brief  Convert a string to an integer
+  * @param  inputstr: The string to be converted
+  * @param  intnum: The integer value
+  * @retval 1: Correct
+  *         0: Error
+  */
+uint32_t Str2Int(uint8_t *inputstr, int32_t *intnum);
+
+
+
 /*Allocate a memory to store the string*/
 char *__strdup(char *src);
 

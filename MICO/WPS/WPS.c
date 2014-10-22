@@ -1,30 +1,39 @@
 /**
-  ******************************************************************************
-  * @file    EasyLink.c 
-  * @author  William Xu
-  * @version V1.0.0
-  * @date    05-May-2014
-  * @brief   This file provide the easylink function and FTC server for quick 
-  *          provisioning and first time configuration.
-  ******************************************************************************
-  * @attention
-  *
-  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
-  * TIME. AS A RESULT, MXCHIP Inc. SHALL NOT BE HELD LIABLE FOR ANY
-  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
-  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
-  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
-  *
-  * <h2><center>&copy; COPYRIGHT 2014 MXCHIP Inc.</center></h2>
-  ******************************************************************************
-  */ 
+******************************************************************************
+* @file    wps.c 
+* @author  William Xu
+* @version V1.0.0
+* @date    05-May-2014
+* @brief   This file provide functions for start a WPS (Wi-Fi protected set-up) 
+*          function thread.
+******************************************************************************
+*
+*  The MIT License
+*  Copyright (c) 2014 MXCHIP Inc.
+*
+*  Permission is hereby granted, free of charge, to any person obtaining a copy 
+*  of this software and associated documentation files (the "Software"), to deal
+*  in the Software without restriction, including without limitation the rights 
+*  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+*  copies of the Software, and to permit persons to whom the Software is furnished
+*  to do so, subject to the following conditions:
+*
+*  The above copyright notice and this permission notice shall be included in
+*  all copies or substantial portions of the Software.
+*
+*  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+*  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+*  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+*  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+*  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR 
+*  IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+******************************************************************************
+*/
 
 #include "MICO.h"
 #include "MICONotificationCenter.h"
 
-#include "Platform.h"
-#include "PlatformFlash.h"
+#include "MicoPlatform.h"
 #include "StringUtils.h"
 #include "HTTPUtils.h"
 
@@ -63,10 +72,10 @@ void WPSNotify_WPSCompleteHandler(network_InitTypeDef_st *nwkpara, mico_Context_
   mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
   wps_log("Get SSID: %s, Key: %s", inContext->flashContentInRam.micoSystemConfig.ssid, inContext->flashContentInRam.micoSystemConfig.user_key);
   ConfigWillStop(inContext);
-  PlatformSoftReboot();
+  MicoSystemReboot();
   return;
 
-/*EasyLink is not start*/    
+/*WPS timeout*/    
 exit:
   wps_log("ERROR, err: %d", err);
 #if defined (CONFIG_MODE_WPS_WITH_SOFTAP)
@@ -78,7 +87,7 @@ exit:
   if(inContext->flashContentInRam.micoSystemConfig.configured != unConfigured){
     inContext->flashContentInRam.micoSystemConfig.configured = allConfigured;
     MICOUpdateConfiguration(inContext);
-    PlatformSoftReboot();
+    MicoSystemReboot();
   }
   mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
   /*module should powd down in default setting*/ 

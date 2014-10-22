@@ -23,8 +23,9 @@
 #include "HomeKitHTTPUtils.h"
 #include "Debug.h"
 #include "StringUtils.h"
-#include "PlatformFlash.h"
+#include "MicoPlatform.h"
 #include "MICOSocket.h"
+#include "platform_common_config.h"
 #include "SocketUtils.h"
 #include "MICOCrypto/crypto_aead_chacha20poly1305.h"
 
@@ -35,7 +36,7 @@ extern bool verify_otp(void);
 
 #define hkhttp_utils_log(M, ...) custom_log("HKHTTPUtils", M, ##__VA_ARGS__)
 
-static __IO uint32_t flashStorageAddress = UPDATE_START_ADDRESS;
+static volatile uint32_t flashStorageAddress = UPDATE_START_ADDRESS;
 
 security_session_t *HKSNewSecuritySession(void)
 {
@@ -225,9 +226,9 @@ int HKSocketReadHTTPHeader( int inSock, HTTPHeader_t *inHeader, security_session
   
   if(err == kNoErr && strnicmpx( value, valueSize, kMIMEType_MXCHIP_OTA ) == 0){
     hkhttp_utils_log("Receive OTA data!");        
-    err = PlatformFlashInitialize();
+    err = MicoFlashInitialize(MICO_FLASH_FOR_UPDATE);
     require_noerr(err, exit);
-    err = PlatformFlashWrite(&flashStorageAddress, (uint32_t *)end, inHeader->extraDataLen);
+    err = MicoFlashWrite(MICO_FLASH_FOR_UPDATE, &flashStorageAddress, (uint8_t *)end, inHeader->extraDataLen);
     require_noerr(err, exit);
   }else{
     inHeader->extraDataPtr = calloc(inHeader->contentLength, sizeof(uint8_t));
@@ -284,7 +285,7 @@ int HKSocketReadHTTPBody  ( int inSock, HTTPHeader_t *inHeader, security_session
       else if( readResult == 0 ) { err = kConnectionErr; goto exit; }
       else goto exit;
       
-      err = PlatformFlashWrite(&flashStorageAddress, (uint32_t *)inHeader->otaDataPtr, readResult);
+      err = MicoFlashWrite(MICO_FLASH_FOR_UPDATE, &flashStorageAddress, (uint8_t *)inHeader->otaDataPtr, readResult);
       require_noerr(err, exit);
       
       free(inHeader->otaDataPtr);

@@ -2,6 +2,9 @@
 
 <workspace>
   <project>
+    <path>$WS_DIR$\bootloader\EWARM\bootloader.ewp</path>
+  </project>
+  <project>
     <path>$WS_DIR$\COM.Apple.HomeKit\EWARM\COM.Apple.HomeKit.ewp</path>
   </project>
   <project>

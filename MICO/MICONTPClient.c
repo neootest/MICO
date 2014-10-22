@@ -1,31 +1,40 @@
 /**
-  ******************************************************************************
-  * @file    RemoteTcpClient.c 
-  * @author  William Xu
-  * @version V1.0.0
-  * @date    05-May-2014
-  * @brief   Create a TCP client thread, and connect to a remote server.
-  ******************************************************************************
-  * @attention
-  *
-  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
-  * TIME. AS A RESULT, MXCHIP Inc. SHALL NOT BE HELD LIABLE FOR ANY
-  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
-  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
-  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
-  *
-  * <h2><center>&copy; COPYRIGHT 2014 MXCHIP Inc.</center></h2>
-  ******************************************************************************
-  */ 
+******************************************************************************
+* @file    MICONTPClient.c 
+* @author  William Xu
+* @version V1.0.0
+* @date    05-May-2014
+* @brief   Create a NTP client thread, and synchronize RTC with NTP server.
+******************************************************************************
+*
+*  The MIT License
+*  Copyright (c) 2014 MXCHIP Inc.
+*
+*  Permission is hereby granted, free of charge, to any person obtaining a copy 
+*  of this software and associated documentation files (the "Software"), to deal
+*  in the Software without restriction, including without limitation the rights 
+*  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+*  copies of the Software, and to permit persons to whom the Software is furnished
+*  to do so, subject to the following conditions:
+*
+*  The above copyright notice and this permission notice shall be included in
+*  all copies or substantial portions of the Software.
+*
+*  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+*  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+*  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+*  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+*  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR 
+*  IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+******************************************************************************
+*/
 
 #include "MICOAppDefine.h"
 #include "MICODefine.h"
 #include "SocketUtils.h"
 #include "MICONotificationCenter.h"
 #include "time.h"
-#include "PlatformRTC.h"
-//#include "rtc.h"
+#include "MicoPlatform.h"
 
 #define ntp_log(M, ...) custom_log("NTP client", M, ##__VA_ARGS__)
 #define ntp_log_trace() custom_log_trace("NTP client")
@@ -41,7 +50,7 @@
 #define NTP_Root_Delay           0x8000
 #define NTP_Root_Dispersion      0xa00b0000
 
-static bool _wifiConnected = false;
+static volatile bool _wifiConnected = false;
 static mico_semaphore_t  _wifiConnected_sem = NULL;
 
 
@@ -96,6 +105,8 @@ void NTPClient_thread(void *inContext)
   char ipstr[16];
   unsigned int trans_sec, current;
   struct NtpPacket outpacket ,inpacket;
+  struct tm *currentTime;
+  mico_rtc_time_t time;
   
   /* Regisist notifications */
   err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)ntpNotify_WifiStatusHandler );
@@ -110,11 +121,9 @@ void NTPClient_thread(void *inContext)
   outpacket.precision = NTP_Precision;
   outpacket.root_delay = NTP_Root_Delay;
   outpacket.root_dispersion = NTP_Root_Dispersion;
-  
-  if(_wifiConnected == false){
+
+  if(_wifiConnected == false)
     mico_rtos_get_semaphore(&_wifiConnected_sem, MICO_WAIT_FOREVER);
-    mico_thread_msleep(50);
-  }
   
   Ntp_fd = socket(AF_INET, SOCK_DGRM, IPPROTO_UDP);
   require_action(IsValidSocket( Ntp_fd ), exit, err = kNoResourcesErr );
@@ -124,19 +133,19 @@ void NTPClient_thread(void *inContext)
   err = kNoErr;
   require_noerr(err, exit);
 
-  while(1) {
-    err = gethostbyname(NTP_Server, (uint8_t *)ipstr, 16);
-    require_noerr(err, ReConnWithDelay);
-    ntp_log("NTP server address: %s",ipstr);
-    break;
+   while(1) {
+     err = gethostbyname(NTP_Server, (uint8_t *)ipstr, 16);
+     require_noerr(err, ReConnWithDelay);
+     ntp_log("NTP server address: %s",ipstr);
+     break;
 
-  ReConnWithDelay:
-    mico_thread_sleep(5);
-  }
+   ReConnWithDelay:
+     mico_thread_sleep(5);
+   }
 
   addr.s_ip = inet_addr(ipstr);
   addr.s_port = NTP_Port;
-  
+
   t.tv_sec = 5;
   t.tv_usec = 0;
   
@@ -145,7 +154,7 @@ void NTPClient_thread(void *inContext)
 
     FD_ZERO(&readfds);
     FD_SET(Ntp_fd, &readfds);
-    
+
     select(1, &readfds, NULL, NULL, &t);
     
     if(FD_ISSET(Ntp_fd, &readfds))
@@ -156,7 +165,18 @@ void NTPClient_thread(void *inContext)
       trans_sec = ntohl(trans_sec);
       current = trans_sec - UNIX_OFFSET;
       ntp_log("Time Synchronoused, %s",asctime(localtime(&current)));
-      PlatformRTCWrite( localtime(&current) );
+
+      currentTime = localtime(&current);
+      time.sec = currentTime->tm_sec;
+      time.min = currentTime->tm_min ;
+      time.hr = currentTime->tm_hour;
+
+      time.date = currentTime->tm_mday;
+      time.weekday = currentTime->tm_wday;
+      time.month = currentTime->tm_mon + 1;
+      time.year = (currentTime->tm_year + 1900)%100;
+
+      MicoRtcSetTime( &time );
       goto exit;
     }
   }
@@ -172,6 +192,6 @@ exit:
 OSStatus MICOStartNTPClient ( mico_Context_t * const inContext )
 {
   mico_rtos_init_semaphore(&_wifiConnected_sem, 1);
-  return mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "NTP Client", NTPClient_thread, 0x500, (void*)inContext );
+  return mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "NTP Client", NTPClient_thread, STACK_SIZE_NTP_CLIENT_THREAD, (void*)inContext );
 }
 

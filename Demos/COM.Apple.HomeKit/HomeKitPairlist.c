@@ -21,7 +21,8 @@
 
 #include "HomeKitPairlist.h"
 #include "Debug.h"
-#include "PlatformFlash.h"
+#include "MicoPlatform.h"
+#include "platform_common_config.h"
 
 /* Update seed number every time*/
 
@@ -36,13 +37,13 @@ OSStatus HMClearPairList(void)
   pairList = calloc(1, sizeof(pair_list_in_flash_t));
   require_action(pairList, exit, err = kNoMemoryErr);
 
-  err = PlatformFlashInitialize();
+  err = MicoFlashInitialize(MICO_FLASH_FOR_EX_PARA);
   require_noerr(err, exit);
-  err = PlatformFlashErase(exParaStartAddress, exParaEndAddress);
+  err = MicoFlashErase(MICO_FLASH_FOR_EX_PARA, exParaStartAddress, exParaEndAddress);
   require_noerr(err, exit);
-  err = PlatformFlashWrite(&exParaStartAddress, (uint32_t *)pairList, sizeof(pair_list_in_flash_t));
+  err = MicoFlashWrite(MICO_FLASH_FOR_EX_PARA, &exParaStartAddress, (uint8_t *)pairList, sizeof(pair_list_in_flash_t));
   require_noerr(err, exit);
-  err = PlatformFlashFinalize();
+  err = MicoFlashFinalize(MICO_FLASH_FOR_EX_PARA);
   require_noerr(err, exit);
 
 exit:
@@ -57,7 +58,8 @@ OSStatus HMReadPairList(pair_list_in_flash_t *pPairList)
   require(pPairList, exit);
 
   configInFlash = EX_PARA_START_ADDRESS;
-  memcpy(pPairList, (void *)configInFlash, sizeof(pair_list_in_flash_t));
+  err = MicoFlashRead(MICO_FLASH_FOR_EX_PARA, &configInFlash, (uint8_t *)pPairList, sizeof(pair_list_in_flash_t));
+  //memcpy(pPairList, (void *)configInFlash, sizeof(pair_list_in_flash_t));
 
 exit: 
   return err;
@@ -71,29 +73,32 @@ OSStatus HMUpdatePairList(pair_list_in_flash_t *pPairList)
   exParaStartAddress = EX_PARA_START_ADDRESS;
   exParaEndAddress = EX_PARA_END_ADDRESS;
 
-  err = PlatformFlashInitialize();
+  err = MicoFlashInitialize(MICO_FLASH_FOR_EX_PARA);
   require_noerr(err, exit);
-  err = PlatformFlashErase(exParaStartAddress, exParaEndAddress);
+  err = MicoFlashErase(MICO_FLASH_FOR_EX_PARA, exParaStartAddress, exParaEndAddress);
   require_noerr(err, exit);
-  err = PlatformFlashWrite(&exParaStartAddress, (uint32_t *)pPairList, sizeof(pair_list_in_flash_t));
+  err = MicoFlashWrite(MICO_FLASH_FOR_EX_PARA, &exParaStartAddress, (uint8_t *)pPairList, sizeof(pair_list_in_flash_t));
   require_noerr(err, exit);
-  err = PlatformFlashFinalize();
+  err = MicoFlashFinalize(MICO_FLASH_FOR_EX_PARA);
   require_noerr(err, exit);
 
 exit:
   return err;
 }
 
-
+static uint8_t foundControllerLTPK[32];
 uint8_t * HMFindLTPK(char * name)
 {
   int i;
 
-  pair_list_in_flash_t *pairList = (pair_list_in_flash_t *)EX_PARA_START_ADDRESS;
+  //pair_list_in_flash_t *pairList = (pair_list_in_flash_t *)EX_PARA_START_ADDRESS;
+  pair_list_in_flash_t pairList;
+  HMReadPairList(&pairList);
 
   for(i=0; i<MAXPairNumber; i++){
-    if(strncmp(pairList->pairInfo[i].controllerName, name, 64) == 0)
-      return pairList->pairInfo[i].controllerLTPK;
+    if(strncmp(pairList.pairInfo[i].controllerName, name, 64) == 0)
+      memcpy(foundControllerLTPK, pairList.pairInfo[i].controllerLTPK, 32);
+      return foundControllerLTPK;
   }
   return NULL;
 

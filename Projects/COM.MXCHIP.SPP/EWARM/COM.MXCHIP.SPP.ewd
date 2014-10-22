@@ -3,7 +3,7 @@
 <project>
   <fileVersion>2</fileVersion>
   <configuration>
-    <name>EMW3162_Debug</name>
+    <name>EMW3162</name>
     <toolchain>
       <name>ARM</name>
     </toolchain>
@@ -12,7 +12,7 @@
       <name>C-SPY</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>25</version>
+        <version>26</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>0</debug>
         <option>
@@ -89,7 +89,7 @@
         </option>
         <option>
           <name>OCLastSavedByProductVersion</name>
-          <state>6.70.1.5793</state>
+          <state>7.30.1.7765</state>
         </option>
         <option>
           <name>OCDownloadAttachToProgram</name>
@@ -117,7 +117,7 @@
         </option>
         <option>
           <name>FlashLoadersV3</name>
-          <state>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32f205xG.board</state>
+          <state>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32F205xG.board</state>
         </option>
         <option>
           <name>OCImagesSuppressCheck1</name>
@@ -182,6 +182,30 @@
         <option>
           <name>OCAllMTBOptions</name>
           <state>1</state>
+        </option>
+        <option>
+          <name>OCMulticoreNrOfCores</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>OCMulticoreMaster</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>OCMulticorePort</name>
+          <state>53461</state>
+        </option>
+        <option>
+          <name>OCMulticoreWorkspace</name>
+          <state></state>
+        </option>
+        <option>
+          <name>OCMulticoreSlaveProject</name>
+          <state></state>
+        </option>
+        <option>
+          <name>OCMulticoreSlaveConfiguration</name>
+          <state></state>
         </option>
       </data>
     </settings>
@@ -257,7 +281,7 @@
       <name>CMSISDAP_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>1</version>
+        <version>2</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>0</debug>
         <option>
@@ -275,7 +299,7 @@
         <option>
           <name>CMSISDAPResetList</name>
           <version>1</version>
-          <state>10</state>
+          <state>9</state>
         </option>
         <option>
           <name>CMSISDAPHWResetDuration</name>
@@ -418,6 +442,10 @@
           <name>ICpuName</name>
           <state></state>
         </option>
+        <option>
+          <name>OCJetEmuParams</name>
+          <state>1</state>
+        </option>
       </data>
     </settings>
     <settings>
@@ -492,7 +520,7 @@
       <name>IJET_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>2</version>
+        <version>4</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>0</debug>
         <option>
@@ -686,6 +714,14 @@
           <name>ICpuName</name>
           <state></state>
         </option>
+        <option>
+          <name>OCJetEmuParams</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>IjetPreferETB</name>
+          <state>0</state>
+        </option>
       </data>
     </settings>
     <settings>
@@ -750,7 +786,7 @@
         <option>
           <name>CCUSBDevice</name>
           <version>1</version>
-          <state>2</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCRDICatchReset</name>
@@ -794,7 +830,7 @@
         </option>
         <option>
           <name>CCJLinkInterfaceRadio</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>OCJLinkAttachSlave</name>
@@ -1227,8 +1263,8 @@
         </option>
         <option>
           <name>CCXds100InterfaceList</name>
-          <version>1</version>
-          <state>6</state>
+          <version>2</version>
+          <state>7</state>
         </option>
         <option>
           <name>BoardFile</name>
@@ -1272,14 +1308,6 @@
       <plugin>
         <file>$TOOLKIT_DIR$\plugins\rtos\OpenRTOS\OpenRTOSPlugin.ewplugin</file>
         <loadFlag>1</loadFlag>
-      </plugin>
-      <plugin>
-        <file>$TOOLKIT_DIR$\plugins\rtos\PowerPac\PowerPacRTOS.ewplugin</file>
-        <loadFlag>0</loadFlag>
-      </plugin>
-      <plugin>
-        <file>$TOOLKIT_DIR$\plugins\rtos\Quadros\Quadros_EWB6_Plugin.ewplugin</file>
-        <loadFlag>0</loadFlag>
       </plugin>
       <plugin>
         <file>$TOOLKIT_DIR$\plugins\rtos\SafeRTOS\SafeRTOSPlugin.ewplugin</file>
@@ -1324,7 +1352,7 @@
     </debuggerPlugins>
   </configuration>
   <configuration>
-    <name>EMW3161_Debug</name>
+    <name>MICO_EVB_1</name>
     <toolchain>
       <name>ARM</name>
     </toolchain>
@@ -1333,7 +1361,7 @@
       <name>C-SPY</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>25</version>
+        <version>26</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -1410,7 +1438,7 @@
         </option>
         <option>
           <name>OCLastSavedByProductVersion</name>
-          <state>6.70.1.5793</state>
+          <state>7.30.1.7765</state>
         </option>
         <option>
           <name>OCDownloadAttachToProgram</name>
@@ -1438,7 +1466,7 @@
         </option>
         <option>
           <name>FlashLoadersV3</name>
-          <state>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32f205xG.board</state>
+          <state>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32F205xG.board</state>
         </option>
         <option>
           <name>OCImagesSuppressCheck1</name>
@@ -1503,6 +1531,30 @@
         <option>
           <name>OCAllMTBOptions</name>
           <state>1</state>
+        </option>
+        <option>
+          <name>OCMulticoreNrOfCores</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>OCMulticoreMaster</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>OCMulticorePort</name>
+          <state>53461</state>
+        </option>
+        <option>
+          <name>OCMulticoreWorkspace</name>
+          <state></state>
+        </option>
+        <option>
+          <name>OCMulticoreSlaveProject</name>
+          <state></state>
+        </option>
+        <option>
+          <name>OCMulticoreSlaveConfiguration</name>
+          <state></state>
         </option>
       </data>
     </settings>
@@ -1578,7 +1630,7 @@
       <name>CMSISDAP_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>1</version>
+        <version>2</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -1739,6 +1791,10 @@
           <name>ICpuName</name>
           <state></state>
         </option>
+        <option>
+          <name>OCJetEmuParams</name>
+          <state>1</state>
+        </option>
       </data>
     </settings>
     <settings>
@@ -1813,7 +1869,7 @@
       <name>IJET_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>2</version>
+        <version>4</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -2007,6 +2063,14 @@
           <name>ICpuName</name>
           <state></state>
         </option>
+        <option>
+          <name>OCJetEmuParams</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>IjetPreferETB</name>
+          <state>0</state>
+        </option>
       </data>
     </settings>
     <settings>
@@ -2071,7 +2135,7 @@
         <option>
           <name>CCUSBDevice</name>
           <version>1</version>
-          <state>2</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCRDICatchReset</name>
@@ -2115,7 +2179,7 @@
         </option>
         <option>
           <name>CCJLinkInterfaceRadio</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>OCJLinkAttachSlave</name>
@@ -2124,7 +2188,7 @@
         <option>
           <name>CCJLinkResetList</name>
           <version>6</version>
-          <state>10</state>
+          <state>7</state>
         </option>
         <option>
           <name>CCJLinkInterfaceCmdLine</name>
@@ -2548,8 +2612,8 @@
         </option>
         <option>
           <name>CCXds100InterfaceList</name>
-          <version>1</version>
-          <state>6</state>
+          <version>2</version>
+          <state>7</state>
         </option>
         <option>
           <name>BoardFile</name>
@@ -2592,15 +2656,7 @@
       </plugin>
       <plugin>
         <file>$TOOLKIT_DIR$\plugins\rtos\OpenRTOS\OpenRTOSPlugin.ewplugin</file>
-        <loadFlag>0</loadFlag>
-      </plugin>
-      <plugin>
-        <file>$TOOLKIT_DIR$\plugins\rtos\PowerPac\PowerPacRTOS.ewplugin</file>
-        <loadFlag>0</loadFlag>
-      </plugin>
-      <plugin>
-        <file>$TOOLKIT_DIR$\plugins\rtos\Quadros\Quadros_EWB6_Plugin.ewplugin</file>
-        <loadFlag>0</loadFlag>
+        <loadFlag>1</loadFlag>
       </plugin>
       <plugin>
         <file>$TOOLKIT_DIR$\plugins\rtos\SafeRTOS\SafeRTOSPlugin.ewplugin</file>
@@ -2645,18 +2701,18 @@
     </debuggerPlugins>
   </configuration>
   <configuration>
-    <name>Open1081</name>
+    <name>Nucleo_411RE</name>
     <toolchain>
       <name>ARM</name>
     </toolchain>
-    <debug>1</debug>
+    <debug>0</debug>
     <settings>
       <name>C-SPY</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>25</version>
+        <version>26</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>CInput</name>
           <state>1</state>
@@ -2683,11 +2739,11 @@
         </option>
         <option>
           <name>MemOverride</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>MemFile</name>
-          <state>$TOOLKIT_DIR$\CONFIG\debugger\ST\STM32F205ZG.ddf</state>
+          <state>$TOOLKIT_DIR$\CONFIG\debugger\ST\STM32F411RE.ddf</state>
         </option>
         <option>
           <name>RunToEnable</name>
@@ -2727,11 +2783,11 @@
         </option>
         <option>
           <name>OCDynDriverList</name>
-          <state>JLINK_ID</state>
+          <state>STLINK_ID</state>
         </option>
         <option>
           <name>OCLastSavedByProductVersion</name>
-          <state>6.70.1.5793</state>
+          <state>7.30.1.7765</state>
         </option>
         <option>
           <name>OCDownloadAttachToProgram</name>
@@ -2759,7 +2815,7 @@
         </option>
         <option>
           <name>FlashLoadersV3</name>
-          <state>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32f205xG.board</state>
+          <state>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32F411xE.board</state>
         </option>
         <option>
           <name>OCImagesSuppressCheck1</name>
@@ -2825,6 +2881,30 @@
           <name>OCAllMTBOptions</name>
           <state>1</state>
         </option>
+        <option>
+          <name>OCMulticoreNrOfCores</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>OCMulticoreMaster</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>OCMulticorePort</name>
+          <state>53461</state>
+        </option>
+        <option>
+          <name>OCMulticoreWorkspace</name>
+          <state></state>
+        </option>
+        <option>
+          <name>OCMulticoreSlaveProject</name>
+          <state></state>
+        </option>
+        <option>
+          <name>OCMulticoreSlaveConfiguration</name>
+          <state></state>
+        </option>
       </data>
     </settings>
     <settings>
@@ -2833,7 +2913,7 @@
       <data>
         <version>1</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OCSimDriverInfo</name>
           <state>1</state>
@@ -2858,7 +2938,7 @@
       <data>
         <version>0</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>CCAngelHeartbeat</name>
           <state>1</state>
@@ -2899,9 +2979,9 @@
       <name>CMSISDAP_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>1</version>
+        <version>2</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -2917,7 +2997,7 @@
         <option>
           <name>CMSISDAPResetList</name>
           <version>1</version>
-          <state>10</state>
+          <state>9</state>
         </option>
         <option>
           <name>CMSISDAPHWResetDuration</name>
@@ -3054,11 +3134,15 @@
         </option>
         <option>
           <name>CMSISDAPSelectedCPUBehaviour</name>
-          <state>0</state>
+          <state></state>
         </option>
         <option>
           <name>ICpuName</name>
           <state></state>
+        </option>
+        <option>
+          <name>OCJetEmuParams</name>
+          <state>1</state>
         </option>
       </data>
     </settings>
@@ -3068,7 +3152,7 @@
       <data>
         <version>0</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -3105,7 +3189,7 @@
       <data>
         <version>1</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>CRomLogFileCheck</name>
           <state>0</state>
@@ -3134,9 +3218,9 @@
       <name>IJET_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>2</version>
+        <version>4</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -3328,6 +3412,14 @@
           <name>ICpuName</name>
           <state></state>
         </option>
+        <option>
+          <name>OCJetEmuParams</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>IjetPreferETB</name>
+          <state>0</state>
+        </option>
       </data>
     </settings>
     <settings>
@@ -3336,7 +3428,7 @@
       <data>
         <version>15</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>JLinkSpeed</name>
           <state>32</state>
@@ -3392,7 +3484,7 @@
         <option>
           <name>CCUSBDevice</name>
           <version>1</version>
-          <state>2</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCRDICatchReset</name>
@@ -3445,7 +3537,7 @@
         <option>
           <name>CCJLinkResetList</name>
           <version>6</version>
-          <state>10</state>
+          <state>7</state>
         </option>
         <option>
           <name>CCJLinkInterfaceCmdLine</name>
@@ -3536,7 +3628,7 @@
       <data>
         <version>2</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -3569,7 +3661,7 @@
       <data>
         <version>3</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>jtag</name>
           <version>0</version>
@@ -3658,7 +3750,7 @@
       <data>
         <version>1</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -3730,7 +3822,7 @@
       <data>
         <version>2</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>CRDIDriverDll</name>
           <state>Browse to your RDI driver</state>
@@ -3787,14 +3879,14 @@
       <data>
         <version>2</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
         </option>
         <option>
           <name>CCSTLinkInterfaceRadio</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCSTLinkInterfaceCmdLine</name>
@@ -3803,7 +3895,7 @@
         <option>
           <name>CCSTLinkResetList</name>
           <version>1</version>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCCpuClockEdit</name>
@@ -3811,7 +3903,7 @@
         </option>
         <option>
           <name>CCSwoClockAuto</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCSwoClockEdit</name>
@@ -3825,7 +3917,7 @@
       <data>
         <version>0</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>CThirdPartyDriverDll</name>
           <state>Browse to your third-party driver</state>
@@ -3850,7 +3942,7 @@
       <data>
         <version>2</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -3869,8 +3961,8 @@
         </option>
         <option>
           <name>CCXds100InterfaceList</name>
-          <version>1</version>
-          <state>6</state>
+          <version>2</version>
+          <state>7</state>
         </option>
         <option>
           <name>BoardFile</name>
@@ -3913,15 +4005,7 @@
       </plugin>
       <plugin>
         <file>$TOOLKIT_DIR$\plugins\rtos\OpenRTOS\OpenRTOSPlugin.ewplugin</file>
-        <loadFlag>0</loadFlag>
-      </plugin>
-      <plugin>
-        <file>$TOOLKIT_DIR$\plugins\rtos\PowerPac\PowerPacRTOS.ewplugin</file>
-        <loadFlag>0</loadFlag>
-      </plugin>
-      <plugin>
-        <file>$TOOLKIT_DIR$\plugins\rtos\Quadros\Quadros_EWB6_Plugin.ewplugin</file>
-        <loadFlag>0</loadFlag>
+        <loadFlag>1</loadFlag>
       </plugin>
       <plugin>
         <file>$TOOLKIT_DIR$\plugins\rtos\SafeRTOS\SafeRTOSPlugin.ewplugin</file>

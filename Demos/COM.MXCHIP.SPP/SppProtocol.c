@@ -22,10 +22,9 @@
 
 #include "MICOAppDefine.h"
 #include "SppProtocol.h"
-#include "PlatformUart.h"
 #include "SocketUtils.h"
 #include "debug.h"
-#include "platform.h"
+#include "MicoPlatform.h"
 #include "MICONotificationCenter.h"
 #include <stdio.h>
 
@@ -58,7 +57,7 @@ OSStatus sppWlanCommandProcess(unsigned char *inBuf, int *inBufLen, int inSocket
   (void)inContext;
   OSStatus err = kUnknownErr;
 
-  err = PlatformUartSend(inBuf, *inBufLen);
+  err = MicoUartSend(UART_FOR_APP, inBuf, *inBufLen);
 
   *inBufLen = 0;
   return err;

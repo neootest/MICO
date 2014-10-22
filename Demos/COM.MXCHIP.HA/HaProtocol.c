@@ -1,20 +1,18 @@
 
-#include "MICODefine.h"
 #include "MICOAppDefine.h"
-#include "MICONotificationCenter.h"
-#include "HaProtocol.h"
-#include "PlatformUart.h"
+#include "HAProtocol.h"
 #include "SocketUtils.h"
-#include "Platform.h"
-#include "PlatformFlash.h"
-
+#include "debug.h"
+#include "MicoPlatform.h"
+#include "platform_common_config.h"
+#include "MICONotificationCenter.h"
 #include <stdio.h>
 
 #define ha_log(M, ...) custom_log("HA Command", M, ##__VA_ARGS__)
 #define ha_log_trace() custom_log_trace("HA Command")
 
 //static u32 running_state = 0;
-static u32 network_state = 0;
+static uint32_t network_state = 0;
 static mico_mutex_t _mutex;
 
 static int _recved_uart_loopback_fd = -1;
@@ -57,7 +55,7 @@ static void _get_status(mxchip_state_t *cmd, mico_Context_t * const inContext)
 {
   ha_log_trace();
 
-  u16 cksum;
+  uint16_t cksum;
   LinkStatusTypeDef ap_state;
 
   cmd->flag = 0x00BB;
@@ -137,7 +135,7 @@ void _report_status_thread(void *inContext)
   while(1){
     mico_rtos_get_semaphore(&_report_status_sem, MICO_WAIT_FOREVER);
     _get_status(&cmd, inContext);
-    PlatformUartSend((uint8_t *)&cmd, sizeof(mxchip_state_t));
+    MicoUartSend(UART_FOR_APP,(uint8_t *)&cmd, sizeof(mxchip_state_t));
   }
 }
 
@@ -175,7 +173,7 @@ OSStatus haWlanCommandProcess(unsigned char *inBuf, int *inBufLen, int inSocketF
         break;
 
       case CMD_NET2COM:
-        err = PlatformUartSend(inBuf+idx, cmdLen);
+        err = MicoUartSend(UART_FOR_APP, inBuf+idx, cmdLen);
         break;
 
       default:
@@ -218,7 +216,7 @@ OSStatus _ota_process(uint8_t *inBuf, int inBufLen, int *inSocketFd, mico_Contex
   if (inBufLen < head_len){
     goto CMD_REPLY;
   }
-  PlatformFlashInitialize();
+  MicoFlashInitialize( MICO_FLASH_FOR_UPDATE );
   p_upgrade = (ota_upgrate_t*)(p_control_cmd->data);
 
   p_bin = p_upgrade->data;
@@ -227,7 +225,7 @@ OSStatus _ota_process(uint8_t *inBuf, int inBufLen, int *inSocketFd, mico_Contex
   total_len -= bin_len;
 
   if (bin_len>0)
-    PlatformFlashWrite(&flash_addr, (uint32_t *)p_bin, bin_len);
+    MicoFlashWrite(MICO_FLASH_FOR_UPDATE, &flash_addr, p_bin, bin_len);
 
   while (total_len>0) {
     FD_ZERO(&readfds);
@@ -239,18 +237,18 @@ OSStatus _ota_process(uint8_t *inBuf, int inBufLen, int *inSocketFd, mico_Contex
     if (FD_ISSET(*inSocketFd, &readfds)) {
       bin_len = recv(*inSocketFd, (char*)p_bin, 1024, 0);
       require_action(bin_len >= 0, exit, err = kConnectionErr);
-      PlatformFlashWrite(&flash_addr, (uint32_t *)p_bin, bin_len);
+      MicoFlashWrite(MICO_FLASH_FOR_UPDATE, &flash_addr, p_bin, bin_len);
       total_len-=bin_len;
     }
   }
 
 
   InitMd5( &ctx );
-  Md5Update( &ctx, (u8 *)UPDATE_START_ADDRESS, flash_addr - UPDATE_START_ADDRESS);
+  Md5Update( &ctx, (uint8_t *)UPDATE_START_ADDRESS, flash_addr - UPDATE_START_ADDRESS);
   Md5Final( &ctx, md5_ret );
 
   if(memcmp(md5_ret, p_upgrade->md5, 16) != 0) {
-    PlatformFlashFinalize();
+    MicoFlashFinalize(MICO_FLASH_FOR_UPDATE);
     goto CMD_REPLY;
   }
 
@@ -263,7 +261,7 @@ OSStatus _ota_process(uint8_t *inBuf, int inBufLen, int *inSocketFd, mico_Contex
   cmd_ack.cmd_status = CMD_OK;
   
 CMD_REPLY:
-  err =  SocketSend( *inSocketFd, (u8 *)&cmd_ack, sizeof(cmd_ack) + 1 + cmd_ack.datalen );
+  err =  SocketSend( *inSocketFd, (uint8_t *)&cmd_ack, sizeof(cmd_ack) + 1 + cmd_ack.datalen );
   require_noerr(err, exit);
   return kNoErr;
 
@@ -309,7 +307,7 @@ OSStatus haUartCommandProcess(uint8_t *inBuf, int inLen, mico_Context_t * const 
         
     case CMD_GET_STATUS:
         _get_status((mxchip_state_t*)inBuf, inContext);
-        err = PlatformUartSend(inBuf, sizeof(mxchip_state_t));
+        err = MicoUartSend(UART_FOR_APP, inBuf, sizeof(mxchip_state_t));
 
         break;
     case CMD_CONTROL:
@@ -345,7 +343,7 @@ OSStatus haUartCommandProcess(uint8_t *inBuf, int inLen, mico_Context_t * const 
         cksum = _calc_sum(inBuf, 8);
         inBuf[8] = cksum & 0x00ff;
         inBuf[9] = (cksum & 0x0ff00) >> 8;
-        err = PlatformUartSend(inBuf, 10);
+        err = MicoUartSend(UART_FOR_APP, inBuf, 10);
         break;
     default:
         break;
@@ -360,13 +358,13 @@ OSStatus check_sum(void *inData, uint32_t inLen)
   ha_log_trace();
 
   uint16_t *sum;
-  uint8_t *p = (u8 *)inData;
+  uint8_t *p = (uint8_t *)inData;
 
   return kNoErr; 
   // TODO: real cksum
   p += inLen - 2;
 
-  sum = (u16 *)p;
+  sum = (uint16_t *)p;
 
   if (_calc_sum(inData, inLen - 2) != *sum) {  // check sum error    
     return kChecksumErr;
@@ -387,7 +385,7 @@ uint16_t _calc_sum(void *inData, uint32_t inLen)
   }
   if (inLen)
   {
-    cksum += *(u8 *)p;
+    cksum += *(uint8_t *)p;
   }
   cksum = (cksum >> 16) + (cksum & 0xffff);
   cksum += (cksum >>16);

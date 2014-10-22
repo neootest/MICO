@@ -75,12 +75,14 @@
 #define kMIMEType_Pairing_TLV8          "application/pairing+tlv8" // 8-bit type, 8-bit length, N-byte value.
 #define kMIMEType_MXCHIP_OTA            "application/ota-stream"
 
+#define kTransferrEncodingType_CHUNKED  "chunked"
+
 #define OTA_Data_Length_per_read        1024
 
 
 typedef struct
 {
-    char                buf[ 256 ];        //! Buffer holding the start line and all headers.
+    char                buf[ 512 ];        //! Buffer holding the start line and all headers.
     size_t              len;                //! Number of bytes in the header.
     char *              extraDataPtr;       //! Ptr for any extra data beyond the header, it is alloced when http header is received.
     char *              otaDataPtr;         //! Ptr for any OTA data beyond the header, it is alloced when one OTA package is received.
@@ -103,6 +105,11 @@ typedef struct
 
     int                 firstErr;           //! First error that occurred or kNoErr.
 
+    bool                dataEndedbyClose;
+    bool                chunkedData;        //! true=Application should read the next chunked data.
+    char *              chunkedDataBufferPtr;     //! Ptr for any extra data beyond the header, it is alloced when http header is received.
+    size_t              chunkedDataBufferLen; //! Total buffer length that stores the chunkedData, private use only
+
 
 } HTTPHeader_t;
 
@@ -111,6 +118,10 @@ void PrintHTTPHeader( HTTPHeader_t *inHeader );
 bool findHeader ( HTTPHeader_t *inHeader,  char **  outHeaderEnd);
 
 int HTTPScanFHeaderValue( const char *inHeaderPtr, size_t inHeaderLen, const char *inName, const char *inFormat, ... );
+
+int findCRLF( const char *inDataPtr , size_t inDataLen, char **  nextDataPtr );
+
+int findChunkedDataLength( const char *inChunkPtr , size_t inChunkLen, char **  chunkedDataPtr, const char *inFormat, ... );
 
 int SocketReadHTTPHeader( int inSock, HTTPHeader_t *inHeader );
 
@@ -121,6 +132,7 @@ int HTTPHeaderParse( HTTPHeader_t *ioHeader );
 int HTTPHeaderMatchMethod( HTTPHeader_t *inHeader, const char *method );
 
 int HTTPHeaderMatchURL( HTTPHeader_t *inHeader, const char *url );
+
 char* HTTPHeaderMatchPartialURL( HTTPHeader_t *inHeader, const char *url );
 
 

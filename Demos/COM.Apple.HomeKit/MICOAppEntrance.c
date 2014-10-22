@@ -27,8 +27,8 @@
 #include "StringUtils.h"
 #include "SppProtocol.h"
 
-#include "Platform.h"
-#include "PlatformUART.h"
+#include "platform.h"
+#include "MicoPlatform.h"
 
 #define app_log(M, ...) custom_log("APP", M, ##__VA_ARGS__)
 #define app_log_trace() custom_log_trace("APP")
@@ -55,17 +55,13 @@ OSStatus MICOStartApplication( mico_Context_t * const inContext )
   OSStatus err = kNoErr;
   require_action(inContext, exit, err = kParamErr);
 
-  sppProtocolInit(inContext);
-  PlatformUartInitialize(inContext);
+  //sppProtocolInit(inContext);
 
   inContext->appStatus.statusNumber = 0x01;
 
   /*Bonjour for service searching*/
   if(inContext->flashContentInRam.micoSystemConfig.bonjourEnable == true)
     MICOStartBonjourService( Station, inContext );
-
-  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "UART Recv", uartRecv_thread, 0x500, (void*)inContext );
-  require_noerr_action( err, exit, app_log("ERROR: Unable to start the uart recv thread.") );
 
   err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "HomeKit Server", homeKitListener_thread, 0x500, (void*)inContext );
   require_noerr_action( err, exit, app_log("ERROR: Unable to start the Homekit thread.") );

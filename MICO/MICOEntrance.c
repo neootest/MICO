@@ -1,26 +1,38 @@
 /**
-  ******************************************************************************
-  * @file    MICOEntrance.c 
-  * @author  William Xu
-  * @version V1.0.0
-  * @date    05-May-2014
-  * @brief   MICO system main entrance.
-  ******************************************************************************
-  * @attention
-  *
-  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
-  * TIME. AS A RESULT, MXCHIP Inc. SHALL NOT BE HELD LIABLE FOR ANY
-  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
-  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
-  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
-  *
-  * <h2><center>&copy; COPYRIGHT 2014 MXCHIP Inc.</center></h2>
-  ******************************************************************************
-  */ 
+******************************************************************************
+* @file    MICOEntrance.c 
+* @author  William Xu
+* @version V1.0.0
+* @date    05-May-2014
+* @brief   MICO system main entrance.
+******************************************************************************
+*
+*  The MIT License
+*  Copyright (c) 2014 MXCHIP Inc.
+*
+*  Permission is hereby granted, free of charge, to any person obtaining a copy 
+*  of this software and associated documentation files (the "Software"), to deal
+*  in the Software without restriction, including without limitation the rights 
+*  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+*  copies of the Software, and to permit persons to whom the Software is furnished
+*  to do so, subject to the following conditions:
+*
+*  The above copyright notice and this permission notice shall be included in
+*  all copies or substantial portions of the Software.
+*
+*  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+*  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+*  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+*  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+*  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR 
+*  IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+******************************************************************************
+*/
 
-#include "Platform.h"
-#include "PlatformRTC.h"
+#include "time.h"
+#include "MicoPlatform.h"
+#include "platform.h"
+#include "platform_common_config.h"
 #include "MICODefine.h"
 #include "MICOAppDefine.h"
 
@@ -57,6 +69,7 @@ void micoNotify_ReadAppInfoHandler(char *str, int len, mico_Context_t * const in
   (void)inContext;
   snprintf( str, len, "%s, build at %s %s", APP_INFO, __TIME__, __DATE__);
 }
+
 
 
 void PlatformEasyLinkButtonClickedCallback(void)
@@ -101,9 +114,11 @@ void micoNotify_WifiStatusHandler(WiFiEvent event, mico_Context_t * const inCont
   switch (event) {
   case NOTIFY_STATION_UP:
     mico_log("Station up");
+    MicoRfLed(true);
     break;
   case NOTIFY_STATION_DOWN:
     mico_log("Station down");
+    MicoRfLed(false);
     break;
   default:
     break;
@@ -182,7 +197,15 @@ void micoNotify_WlanFatalErrHandler(mico_Context_t * const inContext)
   mico_log_trace();
   (void)inContext;
   mico_log("Wlan Fatal Err!");
-  PlatformSoftReboot();
+  MicoSystemReboot();
+}
+
+void micoNotify_StackOverflowErrHandler(char *taskname, mico_Context_t * const inContext)
+{
+  mico_log_trace();
+  (void)inContext;
+  mico_log("Thread %s overflow, system rebooting", taskname);
+  MicoSystemReboot(); 
 }
 
 void _ConnectToAP( mico_Context_t * const inContext)
@@ -220,13 +243,31 @@ static void _watchdog_reload_timer_handler( void* arg )
   MICOUpdateSystemMonitor(&mico_monitor, APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000-100);
 }
 
+static void mico_mfg_test(void)
+{
+  int ret;
+  extern int mfg_test(char *);
+  
+  ret = mfg_test("MXCHIP_CAGE");
+  if (ret == 0)
+    printf("MFG test success\r\n");
+  else {
+    if (ret & 1) 
+      printf("SCAN FAIL\r\n");
+    if (ret & 2)
+      printf("Connect AP FAIL\r\n");
+  }
+  
+  mico_thread_sleep(MICO_NEVER_TIMEOUT);
+}
+
 int application_start(void)
 {
   OSStatus err = kNoErr;
   IPStatusTypedef para;
   struct tm currentTime;
-
-  Platform_Init();
+  mico_rtc_time_t time;
+ 
   /*Read current configurations*/
   context = ( mico_Context_t *)malloc(sizeof(mico_Context_t) );
   require_action( context, exit, err = kNoMemoryErr );
@@ -246,26 +287,43 @@ int application_start(void)
 
   err = MICOAddNotification( mico_notify_WIFI_Fatal_ERROR, (void *)micoNotify_WlanFatalErrHandler );
   require_noerr( err, exit ); 
-  
+
+  err = MICOAddNotification( mico_notify_Stack_Overflow_ERROR, (void *)micoNotify_StackOverflowErrHandler );
+  require_noerr( err, exit ); 
+
   /*wlan driver and tcpip init*/
-  micoInit();
-  PlatformRTCRead( &currentTime );
+  MicoInit();
+  MicoSysLed(true);
+
+  /* Enter test mode, call a build-in test function amd output on STDIO */
+  if(MicoShouldEnterMFGMode()==true)
+    mico_mfg_test();
+
+  /*Read current time from RTC.*/
+  MicoRtcGetTime(&time);
+  currentTime.tm_sec = time.sec;
+  currentTime.tm_min = time.min;
+  currentTime.tm_hour = time.hr;
+  currentTime.tm_mday = time.date;
+  currentTime.tm_wday = time.weekday;
+  currentTime.tm_mon = time.month - 1;
+  currentTime.tm_year = time.year + 100;
   mico_log("Current Time: %s",asctime(&currentTime));
 
   micoWlanGetIPStatus(&para, Station);
   formatMACAddr(context->micoStatus.mac, (char *)&para.mac);
   
   mico_log_trace(); 
-  mico_log("%s mxchipWNet library version: %s", APP_INFO, micoGetVer());
+  mico_log("%s mxchipWNet library version: %s", APP_INFO, MicoGetVer());
 
   /*Start system monotor thread*/
- err = MICOStartSystemMonitor(context);
- require_noerr_action( err, exit, mico_log("ERROR: Unable to start the system monitor.") );
- 
- err = MICORegisterSystemMonitor(&mico_monitor, APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000);
- require_noerr( err, exit );
- mico_init_timer(&_watchdog_reload_timer,APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000-100, _watchdog_reload_timer_handler, NULL);
- mico_start_timer(&_watchdog_reload_timer);
+  err = MICOStartSystemMonitor(context);
+  require_noerr_action( err, exit, mico_log("ERROR: Unable to start the system monitor.") );
+
+  err = MICORegisterSystemMonitor(&mico_monitor, APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000);
+  require_noerr( err, exit );
+  mico_init_timer(&_watchdog_reload_timer,APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000 - 100, _watchdog_reload_timer_handler, NULL);
+  mico_start_timer(&_watchdog_reload_timer);
   
   if(context->flashContentInRam.micoSystemConfig.configured != allConfigured){
     mico_log("Empty configuration. Starting configuration mode...");
@@ -327,7 +385,7 @@ int application_start(void)
     }
 
     if(context->flashContentInRam.micoSystemConfig.mcuPowerSaveEnable == true){
-      mico_mcu_powersave_config(true);
+      MicoMcuPowerSaveConfig(true);
     }
 
     /*Local configuration server*/
@@ -342,11 +400,15 @@ int application_start(void)
     /*Start mico application*/
     err = MICOStartApplication( context );
     require_noerr( err, exit );
-    
+
     _ConnectToAP( context );
   }
-  mico_log("Memory remains %d", micoGetMemoryInfo()->free_memory);
 
+  int free_memory;
+  free_memory = MicoGetMemoryInfo()->free_memory;
+  REFERENCE_DEBUG_ONLY_VARIABLE(free_memory);
+  mico_log("Free memory %d bytes", free_memory) ; 
+  
   /*System status changed*/
   while(mico_rtos_get_semaphore(&context->micoStatus.sys_state_change_sem, MICO_WAIT_FOREVER)==kNoErr){
     switch(context->micoStatus.sys_state){
@@ -355,7 +417,7 @@ int application_start(void)
       case eState_Software_Reset:
         sendNotifySYSWillPowerOff();
         mico_thread_msleep(500);
-        PlatformSoftReboot();
+        MicoSystemReboot();
         break;
       case eState_Wlan_Powerdown:
         sendNotifySYSWillPowerOff();
@@ -367,7 +429,7 @@ int application_start(void)
         sendNotifySYSWillPowerOff();
         mico_thread_msleep(200);
         micoWlanPowerOff();
-        Platform_Enter_STANDBY();
+        MicoSystemStandBy(MICO_WAIT_FOREVER);
         break;
       default:
         break;

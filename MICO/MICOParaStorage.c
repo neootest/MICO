@@ -1,28 +1,39 @@
 /**
-  ******************************************************************************
-  * @file    MICOPARASTORAGE.c 
-  * @author  William Xu
-  * @version V1.0.0
-  * @date    05-May-2014
-  * @brief   This file provide operations on nonvolatile memory.
-  ******************************************************************************
-  * @attention
-  *
-  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
-  * TIME. AS A RESULT, MXCHIP Inc. SHALL NOT BE HELD LIABLE FOR ANY
-  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
-  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
-  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
-  *
-  * <h2><center>&copy; COPYRIGHT 2014 MXCHIP Inc.</center></h2>
-  ******************************************************************************
-  */ 
+******************************************************************************
+* @file    MICOPARASTORAGE.c 
+* @author  William Xu
+* @version V1.0.0
+* @date    05-May-2014
+* @brief   This file provide functions to read and write MICO settings on 
+*          nonvolatile memory.
+******************************************************************************
+*
+*  The MIT License
+*  Copyright (c) 2014 MXCHIP Inc.
+*
+*  Permission is hereby granted, free of charge, to any person obtaining a copy 
+*  of this software and associated documentation files (the "Software"), to deal
+*  in the Software without restriction, including without limitation the rights 
+*  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+*  copies of the Software, and to permit persons to whom the Software is furnished
+*  to do so, subject to the following conditions:
+*
+*  The above copyright notice and this permission notice shall be included in
+*  all copies or substantial portions of the Software.
+*
+*  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+*  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+*  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+*  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+*  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR 
+*  IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+******************************************************************************
+*/
 
 #include "MICODefine.h"
 #include "MICO.h"
-#include "PlatformFlash.h"
-#include "Platform.h"
+#include "platform_common_config.h"
+#include "MicoPlatform.h"
 
 /* Update seed number every time*/
 static int32_t seedNum = 0;
@@ -52,13 +63,13 @@ OSStatus MICORestoreDefault(mico_Context_t *inContext)
   /*Application's default configuration*/
   appRestoreDefault_callback(inContext);
 
-  err = PlatformFlashInitialize();
+  err = MicoFlashInitialize(MICO_FLASH_FOR_PARA);
   require_noerr(err, exit);
-  err = PlatformFlashErase(paraStartAddress, paraEndAddress);
+  err = MicoFlashErase(MICO_FLASH_FOR_PARA, paraStartAddress, paraEndAddress);
   require_noerr(err, exit);
-  err = PlatformFlashWrite(&paraStartAddress, (void *)inContext, sizeof(flash_content_t));
+  err = MicoFlashWrite(MICO_FLASH_FOR_PARA, &paraStartAddress, (void *)inContext, sizeof(flash_content_t));
   require_noerr(err, exit);
-  err = PlatformFlashFinalize();
+  err = MicoFlashFinalize(MICO_FLASH_FOR_PARA);
   require_noerr(err, exit);
 
 exit:
@@ -70,14 +81,14 @@ OSStatus MICOReadConfiguration(mico_Context_t *inContext)
   uint32_t configInFlash;
   OSStatus err = kNoErr;
   configInFlash = PARA_START_ADDRESS;
-  memcpy(&inContext->flashContentInRam, (void *)configInFlash, sizeof(flash_content_t));
+  err = MicoFlashRead(MICO_FLASH_FOR_PARA, &configInFlash, (uint8_t *)&inContext->flashContentInRam, sizeof(flash_content_t));
   seedNum = inContext->flashContentInRam.micoSystemConfig.seed;
   if(seedNum == -1) seedNum = 0;
 
   if(inContext->flashContentInRam.appConfig.configDataVer != CONFIGURATION_VERSION){
     err = MICORestoreDefault(inContext);
     require_noerr(err, exit);
-    PlatformSoftReboot();
+    MicoSystemReboot();
   }
 
   if(inContext->flashContentInRam.micoSystemConfig.dhcpEnable == DHCP_Disable){
@@ -100,13 +111,13 @@ OSStatus MICOUpdateConfiguration(mico_Context_t *inContext)
   paraEndAddress = PARA_END_ADDRESS;
 
   inContext->flashContentInRam.micoSystemConfig.seed = ++seedNum;
-  err = PlatformFlashInitialize();
+  err = MicoFlashInitialize(MICO_FLASH_FOR_PARA);
   require_noerr(err, exit);
-  err = PlatformFlashErase(paraStartAddress, paraEndAddress);
+  err = MicoFlashErase(MICO_FLASH_FOR_PARA, paraStartAddress, paraEndAddress);
   require_noerr(err, exit);
-  err = PlatformFlashWrite(&paraStartAddress, (u32 *)&inContext->flashContentInRam, sizeof(flash_content_t));
+  err = MicoFlashWrite(MICO_FLASH_FOR_PARA, &paraStartAddress, (uint8_t *)&inContext->flashContentInRam, sizeof(flash_content_t));
   require_noerr(err, exit);
-  err = PlatformFlashFinalize();
+  err = MicoFlashFinalize(MICO_FLASH_FOR_PARA);
   require_noerr(err, exit);
 
 exit:

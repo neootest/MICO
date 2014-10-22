@@ -23,8 +23,8 @@
 #include "Debug.h"
 #include "MICO.h"
 
-#define socket_utils_log(M, ...) custom_log("HTTPUtils", M, ##__VA_ARGS__)
-#define socket_utils_log_trace() custom_log_trace("HTTPUtils")
+#define socket_utils_log(M, ...) custom_log("SocketUtils", M, ##__VA_ARGS__)
+#define socket_utils_log_trace() custom_log_trace("SocketUtils")
 
 OSStatus SocketSend( int fd, const uint8_t *inBuf, size_t inBufLen )
 {

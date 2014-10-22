@@ -4,7 +4,7 @@
 #include "Common.h"
 #include "HTTPUtils.h"
 
-#include "external/JSON-C/json.h"
+#include "JSON-C/json.h"
 
 #define MAXCharacteristicPerService       20
 #define MAXServicePerAccessory            10

@@ -579,5 +579,21 @@ typedef int32_t         OSStatus;
       
 typedef __PTRDIFF_TYPE__        ptrdiff_t;
 
+/* Suppress unused parameter warning */
+#ifndef UNUSED_PARAMETER
+#define UNUSED_PARAMETER(x) ( (void)(x) )
+#endif
+
+/* Suppress unused variable warning */
+#ifndef UNUSED_VARIABLE
+#define UNUSED_VARIABLE(x) ( (void)(x) )
+#endif
+
+/* Suppress unused variable warning occurring due to an assert which is disabled in release mode */
+#ifndef REFERENCE_DEBUG_ONLY_VARIABLE
+#define REFERENCE_DEBUG_ONLY_VARIABLE(x) ( (void)(x) )
+#endif
+
+
 #endif // __Common_h__
 

@@ -26,6 +26,21 @@
 #define ring_buffer_utils_log(M, ...) custom_log("RingBufferUtils", M, ##__VA_ARGS__)
 #define ring_buffer_utils_log_trace() custom_log_trace("RingBufferUtils")
 
+OSStatus ring_buffer_init( ring_buffer_t* ring_buffer, uint8_t* buffer, uint32_t size )
+{
+    ring_buffer->buffer     = (uint8_t*)buffer;
+    ring_buffer->size       = size;
+    ring_buffer->head       = 0;
+    ring_buffer->tail       = 0;
+    return kNoErr;
+}
+
+OSStatus ring_buffer_deinit( ring_buffer_t* ring_buffer )
+{
+    UNUSED_PARAMETER(ring_buffer);
+    return kNoErr;
+}
+
 uint32_t ring_buffer_free_space( ring_buffer_t* ring_buffer )
 {
   uint32_t tail_to_end = ring_buffer->size - ring_buffer->tail;

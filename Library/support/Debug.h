@@ -23,9 +23,10 @@
 #ifndef __Debug_h__
 #define __Debug_h__
 
-#include "MICORtos.h"
-
-extern mico_mutex_t printf_mutex;
+#include "MicoRTOS.h"
+#include "MicoDefaults.h"
+#include "platform.h"
+#include "platform_assert.h"
 
 // ==== LOGGING ====
 #define SHORT_FILE strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__
@@ -33,20 +34,41 @@ extern mico_mutex_t printf_mutex;
 #define YesOrNo(x) (x ? "YES" : "NO")
 
 #if DEBUG
-    #define custom_log(N, M, ...) do {mico_rtos_lock_mutex( &printf_mutex );\
-                                      printf("[%d][%s: %s:%4d] " M "\n", mico_get_time(), N, SHORT_FILE, __LINE__, ##__VA_ARGS__);\
-                                      mico_rtos_unlock_mutex( &printf_mutex );}while(0==1)
+#ifndef MICO_DISABLE_STDIO
+#ifndef NO_MICO_RTOS
+   extern mico_mutex_t stdio_tx_mutex;
+
+    #define custom_log(N, M, ...) do {mico_rtos_lock_mutex( &stdio_tx_mutex );\
+                                      printf("[%d][%s: %s:%4d] " M "\r\n", mico_get_time(), N, SHORT_FILE, __LINE__, ##__VA_ARGS__);\
+                                      mico_rtos_unlock_mutex( &stdio_tx_mutex );}while(0==1)
                                         
-    #define debug_print_assert(A,B,C,D,E,F, ...) do {mico_rtos_lock_mutex( &printf_mutex );\
-                                                     printf("[%d][MICO:%s:%s:%4d] **ASSERT** %s""\n", mico_get_time(), (D!=NULL) ? D : "", F, E, (C!=NULL) ? C : "", ##__VA_ARGS__);\
-                                                     mico_rtos_unlock_mutex( &printf_mutex );}while(0==1)
+    #define debug_print_assert(A,B,C,D,E,F, ...) do {mico_rtos_lock_mutex( &stdio_tx_mutex );\
+                                                     printf("[%d][MICO:%s:%s:%4d] **ASSERT** %s""\r\n", mico_get_time(), (D!=NULL) ? D : "", F, E, (C!=NULL) ? C : "", ##__VA_ARGS__);\
+                                                     mico_rtos_unlock_mutex( &stdio_tx_mutex );}while(0==1)
     #if TRACE
-        #define custom_log_trace(N) do {mico_rtos_lock_mutex( &printf_mutex );\
-                                        printf("[%s: [TRACE] %s] %s()\n", N, SHORT_FILE, __PRETTY_FUNCTION__);\
-                                        mico_rtos_unlock_mutex( &printf_mutex );}while(0==1)
+        #define custom_log_trace(N) do {mico_rtos_lock_mutex( &stdio_tx_mutex );\
+                                        printf("[%s: [TRACE] %s] %s()\r\n", N, SHORT_FILE, __PRETTY_FUNCTION__);\
+                                        mico_rtos_unlock_mutex( &stdio_tx_mutex );}while(0==1)
     #else  // !TRACE
         #define custom_log_trace(N)
-    #endif // TRACE
+    #endif // TRACE  
+#else // NO_MICO_RTOS  
+    #define custom_log(N, M, ...) do {printf("[%s: %s:%4d] " M "\r\n",  N, SHORT_FILE, __LINE__, ##__VA_ARGS__);}while(0==1)
+                                        
+    #define debug_print_assert(A,B,C,D,E,F, ...) do {printf("[MICO:%s:%s:%4d] **ASSERT** %s""\r\n", (D!=NULL) ? D : "", F, E, (C!=NULL) ? C : "", ##__VA_ARGS__);}while(0==1)
+    #if TRACE
+        #define custom_log_trace(N) do {printf("[%s: [TRACE] %s] %s()\r\n", N, SHORT_FILE, __PRETTY_FUNCTION__);}while(0==1)
+    #else  // !TRACE
+        #define custom_log_trace(N)
+    #endif // TRACE  
+#endif                                         
+#else
+    #define custom_log(N, M, ...)
+
+    #define custom_log_trace(N)
+
+    #define debug_print_assert(A,B,C,D,E,F, ...)                                           
+#endif   //MICO_DISABLE_STDIO                                      
 #else // DEBUG = 0
     // IF !DEBUG, make the logs NO-OP
     #define custom_log(N, M, ...)
@@ -118,6 +140,34 @@ extern mico_mutex_t printf_mutex;
         #define check( X )
     #endif
 #endif
+              
+//---------------------------------------------------------------------------------------------------------------------------
+/*! @defined    check_string
+    @abstract   Check that an expression is true (non-zero) with an explanation.
+    @discussion
+    
+    If expression evalulates to false, this prints debugging information (actual expression string, file, line number, 
+    function name, etc.) using the default debugging output method.
+    
+    Code inside check() statements is not compiled into production builds.
+*/
+
+#if( !defined( check_string ) )
+    #if( DEBUG )
+        #define check_string( X, STR )                                                                                  \
+            do                                                                                              \
+            {                                                                                               \
+                if( unlikely( !(X) ) )                                                                      \
+                {                                                                                           \
+                    debug_print_assert( 0, #X, STR, __FILE__, __LINE__, __PRETTY_FUNCTION__ );              \
+                    MICO_ASSERTION_FAIL_ACTION();                                                           \
+                }                                                                                           \
+                                                                                                            \
+            }   while( 1==0 )
+    #else
+        #define check_string( X, STR )
+    #endif
+#endif              
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*! @defined    require

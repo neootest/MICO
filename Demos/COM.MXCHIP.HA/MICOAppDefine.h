@@ -6,25 +6,7 @@
 
 #define APP_INFO   "mxchipWNet HA Demo based on MICO OS"
 
-#ifdef EMW3162
-#define HARDWARE_REVISION   "3162"
-#define DEFAULT_NAME        "EMW3162 Module"
-#define MODEL               "EMW3162"
-#endif
-
-#ifdef EMW3161
-#define HARDWARE_REVISION   "3161"
-#define DEFAULT_NAME        "EMW3161 Module"
-#define MODEL               "EMW3161"
-#endif
-
-#ifdef Open1081
-#define HARDWARE_REVISION   "1081"
-#define DEFAULT_NAME        "Open1081 DevBoard"
-#define MODEL               "Open1081"
-#endif
-
-#define FIRMWARE_REVISION   "MICO_HA_3_1"
+#define FIRMWARE_REVISION   "MICO_HA_4_0"
 #define MANUFACTURER        "MXCHIP Inc."
 #define SERIAL_NUMBER       "20140606"
 #define PROTOCOL            "com.mxchip.ha"
@@ -35,6 +17,8 @@
 #define MAX_Local_Client_Num          8
 #define DEAFULT_REMOTE_SERVER         "192.168.2.254"
 #define DEFAULT_REMOTE_SERVER_PORT    8080
+#define UART_BUFFER_LENGTH            2048
+#define UART_FOR_APP                  MICO_UART_1
 
 #define BONJOUR_SERVICE                     "_easylink._tcp.local."
 
