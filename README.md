@@ -1,4 +1,4 @@
-Important note: To use the latest MICO project, you should update IAR workbench for ARM to version 7.30
+Important note: To use the latest MICO project in "master", you should update IAR workbench for ARM to version 7.30, old MICO project v1.xx has move to branch "MICO-1.xx" for further maintainence, https://github.com/MXCHIP/MICO/tree/MICO-1.xx
 
 MICO
 ====
