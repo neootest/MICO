@@ -1,3 +1,5 @@
+Important note: To use the latest MICO project, you should update IAR workbench for ARM to version 7.30
+
 MICO
 ====
 
