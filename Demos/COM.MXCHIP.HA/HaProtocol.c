@@ -167,11 +167,11 @@ OSStatus haWlanCommandProcess(unsigned char *inBuf, int *inBufLen, int inSocketF
       case CMD_WRITE_CONFIG:
       case CMD_SCAN:
         break;
-
+#ifdef MICO_FLASH_FOR_UPDATE
       case CMD_OTA:
         err = _ota_process(inBuf+idx, cmdLen, &inSocketFd, inContext);
         break;
-
+#endif
       case CMD_NET2COM:
         err = MicoUartSend(UART_FOR_APP, inBuf+idx, cmdLen);
         break;
@@ -192,7 +192,7 @@ exit:
   return err;
 }
 
-
+#ifdef MICO_FLASH_FOR_UPDATE
 OSStatus _ota_process(uint8_t *inBuf, int inBufLen, int *inSocketFd, mico_Context_t * const inContext)
 {
   OSStatus err = kNoErr;
@@ -271,6 +271,7 @@ exit:
   mico_rtos_set_semaphore(&inContext->micoStatus.sys_state_change_sem);
   return err;
 }
+#endif
 
 OSStatus haUartCommandProcess(uint8_t *inBuf, int inLen, mico_Context_t * const inContext)
 {

@@ -59,7 +59,7 @@ OSStatus MICOStartApplication( mico_Context_t * const inContext )
   require_noerr_action( err, exit, app_log("ERROR: Unable to start the uart recv thread.") );
 
  if(inContext->flashContentInRam.appConfig.localServerEnable == true){
-   err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Local Server", localTcpServer_thread, 0x200, (void*)inContext );
+   err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Local Server", localTcpServer_thread, 0x350, (void*)inContext );
    require_noerr_action( err, exit, app_log("ERROR: Unable to start the local server thread.") );
  }
 
