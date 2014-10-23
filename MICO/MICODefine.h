@@ -39,12 +39,12 @@
 #include "JSON-C/json.h"
 #include "MICOAppDefine.h"
 
-#define CONFIG_MODE_EASYLINK_PLUS
+//#define CONFIG_MODE_EASYLINK_PLUS
 //#define CONFIG_MODE_EASYLINK
 //#define CONFIG_MODE_EASYLINK_WITH_SOFTAP
 //#define CONFIG_MODE_WPS
 //#define CONFIG_MODE_WPS_WITH_SOFTAP
-//#define CONFIG_MODE_WAC
+#define CONFIG_MODE_WAC
 
 /* Define MICO service thread stack size */
 #ifdef DEBUG

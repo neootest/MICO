@@ -39,7 +39,7 @@ extern "C"
 
 
  /* Application thread stack size */
-#define MICO_DEFAULT_APPLICATION_STACK_SIZE         (1300)
+#define MICO_DEFAULT_APPLICATION_STACK_SIZE         (1500)
 
 
 
