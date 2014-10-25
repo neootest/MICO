@@ -89,6 +89,10 @@ OSStatus MicoAdcInitialize( mico_adc_t adc, uint32_t sample_cycle )
     uint8_t a;
 
     MicoMcuPowerSaveConfig(false);
+    
+    /* Ensure the ADC and GPIOA are enabled */
+    RCC_AHB1PeriphClockCmd( adc_mapping[adc].pin->peripheral_clock, ENABLE);
+    RCC_APB2PeriphClockCmd( adc_mapping[adc].adc_peripheral_clock, ENABLE );
 
     /* Initialize the associated GPIO */
     gpio_init_structure.GPIO_Pin   = (uint16_t) ( 1 << adc_mapping[adc].pin->number );
@@ -98,18 +102,15 @@ OSStatus MicoAdcInitialize( mico_adc_t adc, uint32_t sample_cycle )
     gpio_init_structure.GPIO_OType = GPIO_OType_OD;
     GPIO_Init( adc_mapping[adc].pin->bank, &gpio_init_structure );
 
-    /* Ensure the ADC and GPIOA are enabled */
-    RCC_AHB1PeriphClockCmd( adc_mapping[adc].pin->peripheral_clock, ENABLE);
-    RCC_APB2PeriphClockCmd( adc_mapping[adc].adc_peripheral_clock, ENABLE );
-
     /* Initialize the ADC */
     ADC_StructInit( &adc_init_structure );
-    adc_init_structure.ADC_Resolution         = ADC_Resolution_12b;
-    adc_init_structure.ADC_ScanConvMode       = DISABLE;
-    adc_init_structure.ADC_ContinuousConvMode = DISABLE;
-    adc_init_structure.ADC_ExternalTrigConv   = ADC_ExternalTrigConvEdge_None;
-    adc_init_structure.ADC_DataAlign          = ADC_DataAlign_Right;
-    adc_init_structure.ADC_NbrOfConversion    = 1;
+    adc_init_structure.ADC_Resolution             = ADC_Resolution_12b;
+    adc_init_structure.ADC_ScanConvMode           = DISABLE;
+    adc_init_structure.ADC_ContinuousConvMode     = ENABLE;
+    adc_init_structure.ADC_ExternalTrigConvEdge   = ADC_ExternalTrigConvEdge_None;
+    adc_init_structure.ADC_ExternalTrigConv       = ADC_ExternalTrigConv_T1_CC1;
+    adc_init_structure.ADC_DataAlign              = ADC_DataAlign_Right;
+    adc_init_structure.ADC_NbrOfConversion        = 1;
     ADC_Init( adc_mapping[adc].adc, &adc_init_structure );
 
     ADC_CommonStructInit(&adc_common_init_structure);
