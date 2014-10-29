@@ -44,3 +44,6 @@ const uint32_t  mico_tick_rate_hz = MICO_DEFAULT_TICK_RATE_HZ;
 #else 
 const uint32_t  mico_tick_rate_hz = 1000; // Drfault OS tick is 1000Hz
 #endif
+
+const uint32_t  mico_timer_queue_len = 5;
+
