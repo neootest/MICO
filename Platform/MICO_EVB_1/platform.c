@@ -233,10 +233,10 @@ const platform_uart_mapping_t uart_mapping[] =
  {
   [MICO_I2C_1] =
   {
-    .i2c = I2C1,
+    .i2c = I2C2,
     .pin_scl                 = &gpio_mapping[MICO_GPIO_16],
     .pin_sda                 = &gpio_mapping[MICO_GPIO_17],
-    .peripheral_clock_reg    = RCC_APB1Periph_I2C1,
+    .peripheral_clock_reg    = RCC_APB1Periph_I2C2,
     .tx_dma                  = DMA1,
     .tx_dma_peripheral_clock = RCC_AHB1Periph_DMA1,
     .tx_dma_stream           = DMA1_Stream7,
@@ -245,7 +245,7 @@ const platform_uart_mapping_t uart_mapping[] =
     .rx_dma_stream_id        = 5,
     .tx_dma_channel          = DMA_Channel_1,
     .rx_dma_channel          = DMA_Channel_1,
-    .gpio_af                 = GPIO_AF_I2C1
+    .gpio_af                 = GPIO_AF_I2C2
   },
 };
 
