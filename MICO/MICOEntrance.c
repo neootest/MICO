@@ -294,6 +294,7 @@ int application_start(void)
   /*wlan driver and tcpip init*/
   MicoInit();
   MicoSysLed(true);
+  mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
 
   /* Enter test mode, call a build-in test function amd output on STDIO */
   if(MicoShouldEnterMFGMode()==true)
@@ -404,10 +405,7 @@ int application_start(void)
     _ConnectToAP( context );
   }
 
-  int free_memory;
-  free_memory = MicoGetMemoryInfo()->free_memory;
-  REFERENCE_DEBUG_ONLY_VARIABLE(free_memory);
-  mico_log("Free memory %d bytes", free_memory) ; 
+  mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
   
   /*System status changed*/
   while(mico_rtos_get_semaphore(&context->micoStatus.sys_state_change_sem, MICO_WAIT_FOREVER)==kNoErr){
