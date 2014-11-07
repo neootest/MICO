@@ -352,6 +352,9 @@
         <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverI2c.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverMFiAuth.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverPwm.h</name>
       </file>
       <file>
@@ -842,6 +845,9 @@
             <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\spi_flash.c</name>
           </file>
         </group>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\MicoDriverMFiAuth.a</name>
+        </file>
       </group>
       <group>
         <name>IAR</name>

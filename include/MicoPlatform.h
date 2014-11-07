@@ -49,6 +49,7 @@
 #include "MicoDrivers/MICODriverAdc.h"
 #include "MicoDrivers/MICODriverRng.h"
 #include "MicoDrivers/MICODriverFlash.h"
+#include "MicoDrivers/MICODriverMFiAuth.h"
 
 #ifdef __cplusplus
 extern "C" {
