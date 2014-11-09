@@ -19,12 +19,15 @@
   ******************************************************************************
   */ 
 #include "Common.h"
+#include "Platform.h"
 
-#define MAXPairNumber       50
+#define MaxControllerNameLen  64
+#define MAXPairNumber         (EX_PARA_FLASH_SIZE-64)/(MaxControllerNameLen+32+4)
 /*Pair Info flash content*/
 typedef struct _pair_t {
-  char             controllerName[64];
+  char             controllerName[MaxControllerNameLen];
   uint8_t          controllerLTPK[32];
+  int              permission;
 } _pair_t;
 
 typedef struct _pair_list_in_flash_t {
@@ -35,6 +38,9 @@ typedef struct _pair_list_in_flash_t {
 OSStatus HMClearPairList(void);
 OSStatus HMReadPairList(pair_list_in_flash_t *pPairList);
 OSStatus HMUpdatePairList(pair_list_in_flash_t *pPairList);
+OSStatus HKInsertPairInfo(char controllerIdentifier[64], uint8_t controllerLTPK[32], bool admin);
 uint8_t * HMFindLTPK(char * name);
+bool HMFindAdmin(char * name);
+OSStatus HMRemoveLTPK(char * name);
 
 

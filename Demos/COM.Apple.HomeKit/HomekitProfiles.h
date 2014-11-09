@@ -16,23 +16,17 @@
 // ==== HKtatus ====
 typedef int32_t         HkStatus;
 
-#define kHKURLErr                     -70401   //! .
-#define kHKParamErr                   -70402   //! .
-#define kHKBusyErr                    -70403   //! .
-#define kHKWriteToROErr               -70404   //! .
-#define kHKReadFromWOErr              -70405   //! .
-#define kHKResourceErr                -70407   //! .
-#define kHKTimeOutErr                 -70408   //! .
-#define kHKCommunicateErr             -70409   //! .
-#define kHKProgressingErr             -70410   //! .
-#define kHKMalformedErr               -70411   //! .
-#define kHKPrivilegeErr               -70412   //! .
-#define kHKInterpretErr               -70413   //! .
-#define kHKMethodErr                  -70413   //! .
-
-
-
-#define kGenericErrorEnd            -6779   //! Last generic error code (inclusive)
+#define kHKNoErr                           0   //! This specifies a success for the request.
+#define kHKPrivilegeErr               -70401   //! Request denied due to insufficient privileges.
+#define kHKCommunicateErr             -70402   //! Unable to communicate with requested service.
+#define kHKBusyErr                    -70403   //! Resource is busy, try again.
+#define kHKWriteToROErr               -70404   //! Cannot write to read only characteristic.
+#define kHKReadFromWOErr              -70405   //! Cannot read from a write only characteristic.
+#define kHKNotifyUnsupportErr         -70406   //! Notification is not supported for characteristic.
+#define kHKResourceErr                -70407   //! Out of resource to process request.
+#define kHKTimeOutErr                 -70408   //! Operation timed out.
+#define kHKNotExistErr                -70409   //! Resource does not exist.
+#define kHKInvalidErr                 -70410   //! Accessory received an invalid value in a write request.
 
 typedef enum _valueType{
   ValueType_bool,
@@ -40,8 +34,10 @@ typedef enum _valueType{
   ValueType_float,
   ValueType_string,
   ValueType_date,
+  ValueType_tlv8,
+  ValueType_data,
   ValueType_array,
-  ValueType_object,
+  ValueType_dict,
   ValueType_null,
 } valueType;
 
@@ -65,6 +61,7 @@ struct _hapCharacteristic_t {
 
   bool   secureRead;
   bool   secureWrite;
+  bool   hasEvents;
 
   bool   hasMinimumValue;
   union {
@@ -84,18 +81,22 @@ struct _hapCharacteristic_t {
     float       floatValue;
   }      minimumStep;
 
-  bool   hasPrecision;
-  float  precision;
   bool   hasMaxLength;
   int    maxLength;
+
+  bool   hasMaxDataLength;
+  int    maxDataLength;
+
   char   *description;
+
   char   *format;
+  
   char   *unit;
 };
 
 struct _hapService_t {
   char    *type;
-  struct  _hapCharacteristic_t                characteristic[MAXCharacteristicPerService];
+  struct  _hapCharacteristic_t characteristic[MAXCharacteristicPerService];
 };
 
 struct _hapAccessory_t {

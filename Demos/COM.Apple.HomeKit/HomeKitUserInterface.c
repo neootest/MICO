@@ -7,15 +7,75 @@
 extern void HKBonjourUpdateStateNumber( mico_Context_t * const inContext );
 
 
+HkStatus HKExcuteUnpairedIdentityRoutine( mico_Context_t * const inContext )
+{
+  /* Device identity routine */
+}
+
+HkStatus HKReadCharacteristicStatus(int accessoryID, int serviceID, int characteristicID, mico_Context_t * const inContext)
+{
+  UNUSED_PARAMETER(accessoryID);
+  if(serviceID == 1){
+#ifdef lightbulb
+    switch(characteristicID){
+      case 1:
+        return inContext->appStatus.service.on_status;
+        break;
+      case 2:
+        return inContext->appStatus.service.brightness_status;
+        break;
+      case 3:
+        return inContext->appStatus.service.hue_status;
+        break;
+      case 4:
+        return inContext->appStatus.service.saturation_status;
+        break;
+      default:
+        return kHKNoErr;
+        break;       
+    }
+#endif
+  }
+  return kHKNoErr;
+}
+
+
+
 HkStatus HKReadCharacteristicValue(int accessoryID, int serviceID, int characteristicID, value_union *value, mico_Context_t * const inContext)
 {
   (void)accessoryID;
   HkStatus err; 
 
   if(serviceID == 1){
-    if(characteristicID == 1)
-      (*value).stringValue = inContext->flashContentInRam.micoSystemConfig.name;
-      err = kNoErr;
+    switch(characteristicID){
+      case 1:
+        (*value).stringValue = inContext->flashContentInRam.micoSystemConfig.name;
+        err = kNoErr;
+        break;
+    }
+      // case 2:
+      //   (*value).intValue = inContext->appStatus.service.brightness;  
+      //   *event = inContext->appStatus.service.brightness_event;  
+      //   err = inContext->appStatus.service.brightness_status;
+      //   break;
+
+      // case 3:
+      //   (*value).floatValue = inContext->appStatus.service.hue; 
+      //   *event = inContext->appStatus.service.hue_event;
+      //   err = inContext->appStatus.service.hue_status;
+      //   break;
+           
+      // case 4:
+      //   (*value).floatValue = inContext->appStatus.service.saturation;    
+      //   *event = inContext->appStatus.service.saturation_event;
+      //   err = inContext->appStatus.service.saturation_status;
+      //   break;
+
+      // case 5:
+      //   (*value).stringValue = inContext->appStatus.service.name;
+      //   err = inContext->appStatus.service.name_status;
+      //   break;
+      // }
   }
   else if(serviceID == 2){
 #ifdef lightbulb
@@ -26,12 +86,12 @@ HkStatus HKReadCharacteristicValue(int accessoryID, int serviceID, int character
         break;
       
       case 2:
-        (*value).intValue = inContext->appStatus.service.brightness;    
+        (*value).intValue = inContext->appStatus.service.brightness;  
         err = inContext->appStatus.service.brightness_status;
         break;
 
       case 3:
-        (*value).floatValue = inContext->appStatus.service.hue;    
+        (*value).floatValue = inContext->appStatus.service.hue; 
         err = inContext->appStatus.service.hue_status;
         break;
            
@@ -249,11 +309,12 @@ void HKWriteCharacteristicValue(int accessoryID, int serviceID, int characterist
   return;
 }
 
+
 void HKCharacteristicInit(mico_Context_t * const inContext)
 {
 #ifdef lightbulb
   inContext->appStatus.service.on                               = true;
-  inContext->appStatus.service.brightness                       = 80;
+  inContext->appStatus.service.brightness                       = 100;
   inContext->appStatus.service.hue                              = 180;
   inContext->appStatus.service.saturation                       = 80;
   strncpy(inContext->appStatus.service.name,                    "Wiliam's lightbulb", 64);

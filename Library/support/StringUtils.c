@@ -899,5 +899,25 @@ char * strnstr_suffix( const char *inStr, size_t inMaxLen, const char *inSuffix)
 }
 
 
+void *memmem(void *start, unsigned int s_len, void *find, unsigned int f_len)
+{
+    char                *p, *q;
+    unsigned int        len;
+
+    p = start, q = find;
+    len = 0;
+    while((p - (char *)start + f_len) <= s_len){
+        while(*p++ == *q++){
+            len++;
+            if(len == f_len)
+                return(p - f_len);
+        };
+        q = find;
+        len = 0;
+    };
+
+    return(NULL);
+}
+
 
 

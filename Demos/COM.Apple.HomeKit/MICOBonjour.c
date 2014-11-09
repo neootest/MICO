@@ -85,7 +85,10 @@ OSStatus MICOStartBonjourService( WiFi_Interface interface, mico_Context_t * con
 
   sprintf(temp_txt, "C#=%d.", 0x01);
 
-  sprintf(temp_txt, "%sff=%d.", temp_txt, 0x10);
+  if(inContext->appStatus.useMFiAuth == true)
+    sprintf(temp_txt, "%sff=%d.", temp_txt, 0x01);
+  else
+    sprintf(temp_txt, "%sff=%d.", temp_txt, 0x00);
 
   temp_txt2 = __strdup_trans_dot(inContext->micoStatus.mac);
   sprintf(temp_txt, "%sid=%s.", temp_txt, temp_txt2);
@@ -135,7 +138,10 @@ void HKBonjourUpdateStateNumber( mico_Context_t * const inContext )
 
   sprintf(temp_txt, "C#=%d.", 0x01);
 
-  sprintf(temp_txt, "%sff=%d.", temp_txt, 0x10);
+  if(inContext->appStatus.useMFiAuth == true)
+    sprintf(temp_txt, "%sff=%d.", temp_txt, 0x01);
+  else
+    sprintf(temp_txt, "%sff=%d.", temp_txt, 0x00);
 
   temp_txt2 = __strdup_trans_dot(inContext->micoStatus.mac);
   sprintf(temp_txt, "%sid=%s.", temp_txt, temp_txt2);

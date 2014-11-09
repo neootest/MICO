@@ -30,7 +30,6 @@
 #include "MICO.h"
 #include "MICODefine.h"
 #include "MICOAppDefine.h"
-#include "SppProtocol.h"  
 #include "MICOConfigMenu.h"
 #include "StringUtils.h"
 

@@ -2,65 +2,70 @@
 #include "Common.h"
 #include "MICODefine.h"
 
-
-
 const struct _hapAccessory_t hapObjects[NumberofAccessories] = 
 {
-  { 
+  {
     .services = {
-      [0] = {
-        .type = "public.hap.service.accessory-information",
-        .characteristic = {
+      [0] = { //public.hap.service.accessory-information
+        .type = "3E",
+        .characteristic = { //public.hap.characteristic.name
           [0] = {
-            .type = "public.hap.characteristic.name",
+            .type = "23",
             .valueType = ValueType_string,
             .secureRead = true,
+            .hasEvents = false,
           },
-          [1] = {
-            .type = "public.hap.characteristic.manufacturer",
+          [1] = { //public.hap.characteristic.manufacturer
+            .type = "20",
             .valueType = ValueType_string,
             .hasStaticValue = true,
             .value.stringValue = MANUFACTURER,
             .secureRead = true,
+            .hasEvents = false,
           },
-          [2] = {
-            .type = "public.hap.characteristic.serial-number",
+          [2] = { //public.hap.characteristic.serial-number
+            .type = "30",
             .valueType = ValueType_string,
             .hasStaticValue = true,
             .value.stringValue = SERIAL_NUMBER,
             .secureRead = true,
+            .hasEvents = false,
           },	
-          [3] = {
-            .type = "public.hap.characteristic.model",
+          [3] = { //public.hap.characteristic.model
+            .type = "21",
             .valueType = ValueType_string,
             .hasStaticValue = true,
             .value.stringValue = MODEL,
             .secureRead = true,
+            .hasEvents = false,
           },
-          [4] = {
-            .type = "public.hap.characteristic.identify",
+          [4] = { //public.hap.characteristic.identify 
+            .type = "14",
             .valueType = ValueType_null,
             .hasStaticValue = true,
             .value = NULL,
             .secureWrite = true,
+            .hasEvents = false,
           }	
         }
       },
 #ifdef lightbulb
-    [1] = {
-        .type = "public.hap.service.lightbulb",
+    [1] = { //public.hap.service.lightbulb
+        .type = "43",
         .characteristic = {
-          [0] = {
-            .type = "public.hap.characteristic.on",
+          [0] = { //public.hap.characteristic.on
+            .type = "25",
             .valueType = ValueType_bool,
             .secureRead = true,
             .secureWrite = true,
+            .hasEvents = true,
           },
-          [1] = {
-            .type = "public.hap.characteristic.brightness",
+          [1] = { //public.hap.characteristic.brightness
+            .type = "8",
             .valueType = ValueType_int,
             .secureRead = true,
             .secureWrite = true,
+            .hasEvents = true,
             .hasMinimumValue = true,
             .minimumValue = 0,
             .hasMaximumValue = true,
@@ -69,11 +74,12 @@ const struct _hapAccessory_t hapObjects[NumberofAccessories] =
             .minimumStep = 1,
             .unit = "percentage",
           },
-          [2] = {
-            .type = "public.hap.characteristic.hue",
+          [2] = { //public.hap.characteristic.hue
+            .type = "13",
             .valueType = ValueType_float,
             .secureRead = true,
             .secureWrite = true,
+            .hasEvents = true,
             .hasMinimumValue = true,
             .minimumValue.floatValue = 0,
             .hasMaximumValue = true,
@@ -82,11 +88,12 @@ const struct _hapAccessory_t hapObjects[NumberofAccessories] =
             .minimumStep.floatValue = 1,
             .unit = "arcdegrees",
           }, 
-          [3] = {
-            .type = "public.hap.characteristic.saturation",
+          [3] = { //public.hap.characteristic.saturation
+            .type = "2F",
             .valueType = ValueType_float,
             .secureRead = true,
             .secureWrite = true,
+            .hasEvents = true,
             .hasMinimumValue = true,
             .minimumValue.floatValue = 0,
             .hasMaximumValue = true,
@@ -95,11 +102,11 @@ const struct _hapAccessory_t hapObjects[NumberofAccessories] =
             .minimumStep.floatValue = 1,
             .unit = "percentage",
           }, 
-          [4] = {
-            .type = "public.hap.characteristic.name",
+          [4] = { //public.hap.characteristic.name
+            .type = "23",
             .valueType = ValueType_string,
             .secureRead = true,
-            .secureWrite = true,
+            .hasEvents = false,
           }
         }
       },

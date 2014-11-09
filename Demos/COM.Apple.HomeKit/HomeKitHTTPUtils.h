@@ -30,6 +30,7 @@
 
 typedef struct _security_session_t {
   bool          established;
+  char          controllerIdentifier[64];
   uint8_t       OutputKey[32];
   uint8_t       InputKey[32];
   uint64_t      recvedDataLen;
@@ -47,6 +48,12 @@ int HKSecureRead(security_session_t *session, int sockfd, void *buf, size_t len)
 int HKSocketReadHTTPHeader( int inSock, HTTPHeader_t *inHeader, security_session_t *session );
 
 int HKSocketReadHTTPBody  ( int inSock, HTTPHeader_t *inHeader, security_session_t *session );
+
+OSStatus HKSendResponseMessage(int sockfd, int status, uint8_t *payload, int payloadLen, security_session_t *session );
+
+OSStatus HKSendNotifyMessage( int sockfd, uint8_t *payload, int payloadLen, security_session_t *session );
+
+
 
 #endif // __HOMEKITHTTPUtils_h__
 

@@ -42,6 +42,7 @@ typedef enum
 {
     SRP_NG_1024,
     SRP_NG_2048,
+    SRP_NG_3072,
     SRP_NG_4096,
     SRP_NG_8192,
     SRP_NG_CUSTOM
@@ -100,7 +101,9 @@ void srp_create_salted_verification_key( SRP_HashAlgorithm alg,
 
 srp_server_t* srp_server_setup( SRP_HashAlgorithm alg, 
                                 SRP_NGType ng_type, const char * username,
-                                const unsigned char * password, int len_password,
+                                const unsigned char * password, int len_password, 
+                                const unsigned char * verifier, int len_verifier,
+                                const unsigned char * salt, int len_salt, 
                                 const char * n_hex, const char * g_hex );
 
 OSStatus srp_server_generate_session_key( srp_server_t* server, const unsigned char * bytes_A, int len_A );

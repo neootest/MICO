@@ -156,15 +156,12 @@ typedef struct _HKServiceStatus_t {
 
 /*Running status*/
 typedef struct _current_app_status_t {
-  /*Local clients port list*/
-  uint32_t          loopBack_PortList[MAX_Local_Client_Num];
-  /*Remote TCP client connecte*/
-  bool              isRemoteConnected;
-  /*Homekit*/
+  /* Homekit basic, should not add, delete or change order under any circumstances */
   bool              haPairSetupRunning;
   int               statusNumber;
+  bool              useMFiAuth;
 
-  //mico_semaphore_t  write
+  /* Homekit application */
   HKServiceStatus   service;
 
 

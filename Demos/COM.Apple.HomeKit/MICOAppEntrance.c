@@ -25,7 +25,6 @@
 #include "HomeKitPairList.h"
 
 #include "StringUtils.h"
-#include "SppProtocol.h"
 
 #include "platform.h"
 #include "MicoPlatform.h"
@@ -58,6 +57,11 @@ OSStatus MICOStartApplication( mico_Context_t * const inContext )
   //sppProtocolInit(inContext);
 
   inContext->appStatus.statusNumber = 0x01;
+  if( MicoMFiAuthInitialize() == kNoErr )
+    inContext->appStatus.useMFiAuth = true;
+  else
+    inContext->appStatus.useMFiAuth = false;
+
 
   /*Bonjour for service searching*/
   if(inContext->flashContentInRam.micoSystemConfig.bonjourEnable == true)

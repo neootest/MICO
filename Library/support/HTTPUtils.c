@@ -229,8 +229,6 @@ OSStatus SocketReadHTTPBody( int inSock, HTTPHeader_t *inHeader )
 
       err = kNoErr;
       goto exit;
-
-
     }
     else{
       /* Extend chunked data buffer */
@@ -790,15 +788,24 @@ exit:
   return err;
 }
 
-
 char * getStatusString(int status)
 {
   if(status == kStatusOK)
     return "OK";
+  else if(status == kStatusNoConetnt)
+    return "No Content";
+  else if(status == kStatusPartialContent)
+    return "Multi0Status";
   else if(status == kStatusBadRequest)
     return "Bad Request";
-  else if(status == kStatusForbidden)
+  else if(status == kStatusNotFound)
+    return "Not Found";
+  else if(status == kStatusMethodNotAllowed)
+    return "Not Allowed";
+  else if(status == kStatusForbidden) 
     return "Forbidden";
+  else if(status == kStatusAuthenticationErr)
+    return "Authentication Error";
   else if(status == kStatusInternalServerErr)
     return "Internal Server Error";
   else
@@ -809,20 +816,22 @@ OSStatus CreateHTTPRespondMessageNoCopy( int status, const char *contentType, si
 {
   OSStatus err = kParamErr;
   char *statusString = getStatusString(status);
-  
-  require( contentType, exit );
-  require( inDataLen, exit );
-  
+    
   err = kNoMemoryErr;
   *outMessage = malloc( 200 );
   require( *outMessage, exit );
   
   // Create HTTP Response
-  snprintf( (char*)*outMessage, 200, 
-           "%s %d %s%s%s %s%s%s %d%s",
-           "HTTP/1.1", status, statusString, kCRLFNewLine, 
-           "Content-Type:", contentType, kCRLFNewLine,
-           "Content-Length:", (int)inDataLen, kCRLFLineEnding );
+  if(inDataLen)
+    snprintf( (char*)*outMessage, 200, 
+            "%s %d %s%s%s %s%s%s %d%s",
+            "HTTP/1.1", status, statusString, kCRLFNewLine, 
+            "Content-Type:", contentType, kCRLFNewLine,
+            "Content-Length:", (int)inDataLen, kCRLFLineEnding );
+  else
+    snprintf( (char*)*outMessage, 200, 
+        "%s %d %s%s",
+        "HTTP/1.1", status, statusString, kCRLFLineEnding);
   
   // outMessageSize will be the length of the HTTP Header plus the data length
   *outMessageSize = strlen( (char*)*outMessage );
@@ -837,21 +846,22 @@ OSStatus CreateHTTPMessage( const char *methold, const char *url, const char *co
 {
   uint8_t *endOfHTTPHeader;  
   OSStatus err = kParamErr;
-  
-  require( contentType, exit );
-  require( inData, exit );
-  require( inDataLen, exit );
-  
+    
   err = kNoMemoryErr;
   *outMessage = malloc( inDataLen + 500 );
   require( *outMessage, exit );
   
   // Create HTTP Response
-  sprintf( (char*)*outMessage,
-          "%s %s\? %s %s%s %s%s%s %d%s",
-          methold, url, "HTTP/1.1", kCRLFNewLine, 
-          "Content-Type:", contentType, kCRLFNewLine,
-          "Content-Length:", (int)inDataLen, kCRLFLineEnding );
+  if(inDataLen)
+    sprintf( (char*)*outMessage,
+            "%s %s\? %s %s%s %s%s%s %d%s",
+            methold, url, "HTTP/1.1", kCRLFNewLine, 
+            "Content-Type:", contentType, kCRLFNewLine,
+            "Content-Length:", (int)inDataLen, kCRLFLineEnding );
+  else
+    sprintf( (char*)*outMessage,
+            "%s %s\? %s %s",
+            methold, url, "HTTP/1.1", kCRLFLineEnding );
   
   // outMessageSize will be the length of the HTTP Header plus the data length
   *outMessageSize = strlen( (char*)*outMessage ) + inDataLen;

@@ -101,6 +101,7 @@ int VSNScanF( const void *inString, size_t inSize, const char *inFormat, va_list
 
 size_t  memrlen( const void *inSrc, size_t inMaxLen );
 
+void *memmem(void *start, unsigned int s_len, void *find, unsigned int f_len);
 
 
 

@@ -41,6 +41,7 @@
       //     | "204"  ; Section 10.2.5: No Content
       //     | "205"  ; Section 10.2.6: Reset Content
       //     | "206"  ; Section 10.2.7: Partial Content
+      //     | "207"  ; ???           : Multi-Status
       //     | "300"  ; Section 10.3.1: Multiple Choices
       //     | "301"  ; Section 10.3.2: Moved Permanently
       //     | "302"  ; Section 10.3.3: Found
@@ -59,8 +60,13 @@
 
 #define kStatusAccept               202
 #define kStatusOK                   200
+#define kStatusNoConetnt            204
+#define kStatusPartialContent       207
 #define kStatusBadRequest           400
+#define kStatusNotFound             404
+#define kStatusMethodNotAllowed     405
 #define kStatusForbidden            403  
+#define kStatusAuthenticationErr    470  
 #define kStatusInternalServerErr    500      
 
 #define kMIMEType_Binary                "application/octet-stream"

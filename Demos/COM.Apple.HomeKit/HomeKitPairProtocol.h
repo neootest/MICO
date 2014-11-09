@@ -5,6 +5,8 @@
 #include "HTTPUtils.h"
 #include "MICODefine.h"
 #include "MICOSRPServer.h"
+#include "HomeKitHTTPUtils.h"
+
 
 
 /*Pair setup info*/
@@ -25,6 +27,7 @@ typedef struct _pairVerifyInfo_t {
   bool                      verifySuccess;
   int                       haPairVerifyState;
   uint8_t                   *pControllerLTPK;
+  char                      *pControllerIdentifier;
   uint8_t                   *pControllerCurve25519PK;
   uint8_t                   *pAccessoryCurve25519PK;
   uint8_t                   *pAccessoryCurve25519SK;
@@ -34,7 +37,9 @@ typedef struct _pairVerifyInfo_t {
   uint8_t                   *C2AKey;
 } pairVerifyInfo_t;
 
-void HKSetPassword (char * password);
+void HKSetPassword (const uint8_t * password, const size_t passwordLen);
+
+void HKSetVerifier (const uint8_t * verifier, const size_t verifierLen, const uint8_t * salt, const size_t saltLen );
 
 void HKCleanPairSetupInfo(pairInfo_t **info, mico_Context_t * const inContext);
 
@@ -45,6 +50,9 @@ void HKCleanPairVerifyInfo(pairVerifyInfo_t **verifyInfo);
 OSStatus HKPairSetupEngine( int inFd, HTTPHeader_t* inHeader, pairInfo_t** inInfo, mico_Context_t * const inContext );
 
 OSStatus HKPairVerifyEngine( int inFd, HTTPHeader_t* inHeader, pairVerifyInfo_t* inInfo, mico_Context_t * const inContext );
+
+OSStatus HKPairAddRemoveEngine( int inFd, HTTPHeader_t* inHeader, security_session_t *session );
+
 
 #endif
 
