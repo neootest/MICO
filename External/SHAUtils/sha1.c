@@ -228,6 +228,17 @@ int SHA1Result(SHA1Context *context,
   return shaSuccess;
 }
 
+unsigned char * SHA1Direct(const uint8_t *message_array, unsigned length,
+                uint8_t Message_Digest[SHA1HashSize])
+{
+  SHA1Context context;
+  
+  SHA1Reset(&context);
+  SHA1Input(&context, message_array, length);
+  SHA1Result(&context, Message_Digest);
+  return (Message_Digest);
+}
+
 /*
  * SHA1ProcessMessageBlock
  *

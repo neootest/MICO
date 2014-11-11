@@ -173,18 +173,18 @@ typedef int32_t         OSStatus;
 
 // ==== SHA DEFINES ====
 #define SHA_DIGEST_LENGTH                   20
-#define SHA_CTX                             SHA_CTX_compat
-#define SHA1_Init( CTX )                    SHA1_Init_compat( (CTX) )
-#define SHA1_Update( CTX, PTR, LEN )        SHA1_Update_compat( (CTX), (PTR), (LEN) )
-#define SHA1_Final( DIGEST, CTX )           SHA1_Final_compat( (DIGEST), (CTX) )
-#define SHA1( PTR, LEN, DIGEST )            SHA1_compat( (PTR), (LEN), DIGEST )
+#define SHA_CTX                             SHA1Context
+#define SHA1_Init( CTX )                    SHA1Reset( (CTX) )
+#define SHA1_Update( CTX, PTR, LEN )        SHA1Input( (CTX), (PTR), (LEN) )
+#define SHA1_Final( DIGEST, CTX )           SHA1Result( (CTX), (DIGEST) )
+#define SHA1( PTR, LEN, DIGEST )            SHA1Direct( (PTR), (LEN), (DIGEST) )
 
 #define SHA512_DIGEST_LENGTH                64
-#define SHA512_CTX                          SHA512_CTX_compat
-#define SHA512_Init( CTX )                  SHA512_Init_compat( (CTX) )
-#define SHA512_Update( CTX, PTR, LEN )      SHA512_Update_compat( (CTX), (PTR), (LEN) )
-#define SHA512_Final( DIGEST, CTX )         SHA512_Final_compat( (DIGEST), (CTX) )
-#define SHA512( PTR, LEN, DIGEST )          SHA512_compat( (PTR), (LEN), DIGEST )
+#define SHA512_CTX                          SHA512Context
+#define SHA512_Init( CTX )                  SHA512Reset( (CTX) )
+#define SHA512_Update( CTX, PTR, LEN )      SHA512Input( (CTX), (PTR), (LEN) )
+#define SHA512_Final( DIGEST, CTX )         SHA512Result( (CTX), (DIGEST) )
+#define SHA512( PTR, LEN, DIGEST )          SHA512Direct( (PTR), (LEN), (DIGEST) )
 
 #define SHA3_DIGEST_LENGTH                  64
 #define SHA3_CTX                            SHA3_CTX_compat

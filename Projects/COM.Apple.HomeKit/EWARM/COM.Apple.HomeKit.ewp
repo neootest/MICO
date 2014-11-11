@@ -2497,24 +2497,24 @@
       </file>
     </group>
     <group>
-      <name>HMAC_HKDF</name>
+      <name>SHAUtils</name>
       <file>
-        <name>$PROJ_DIR$\..\..\..\External\HMAC_HKDF\hkdf.c</name>
+        <name>$PROJ_DIR$\..\..\..\External\SHAUtils\hkdf.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\External\HMAC_HKDF\hmac.c</name>
+        <name>$PROJ_DIR$\..\..\..\External\SHAUtils\hmac.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\External\HMAC_HKDF\sha1.c</name>
+        <name>$PROJ_DIR$\..\..\..\External\SHAUtils\sha1.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\External\HMAC_HKDF\sha224-256.c</name>
+        <name>$PROJ_DIR$\..\..\..\External\SHAUtils\sha224-256.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\External\HMAC_HKDF\sha384-512.c</name>
+        <name>$PROJ_DIR$\..\..\..\External\SHAUtils\sha384-512.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\External\HMAC_HKDF\usha.c</name>
+        <name>$PROJ_DIR$\..\..\..\External\SHAUtils\usha.c</name>
       </file>
     </group>
     <group>
@@ -2883,9 +2883,6 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\Library\support\SecurityUtils.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\Library\support\SHAUtils.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\Library\support\SocketUtils.c</name>

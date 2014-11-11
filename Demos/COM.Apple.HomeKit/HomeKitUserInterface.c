@@ -15,7 +15,7 @@ HkStatus HKExcuteUnpairedIdentityRoutine( mico_Context_t * const inContext )
 HkStatus HKReadCharacteristicStatus(int accessoryID, int serviceID, int characteristicID, mico_Context_t * const inContext)
 {
   UNUSED_PARAMETER(accessoryID);
-  if(serviceID == 1){
+  if(serviceID == 2){
 #ifdef lightbulb
     switch(characteristicID){
       case 1:
@@ -176,6 +176,8 @@ void HKWriteCharacteristicValue(int accessoryID, int serviceID, int characterist
   if(serviceID == 1){
     if(characteristicID == 1)
       strncpy(inContext->flashContentInRam.micoSystemConfig.name, value.stringValue, 64);
+    else if(characteristicID == 5)
+      HKExcuteUnpairedIdentityRoutine( inContext );
   }
   else if(serviceID == 2){
 #ifdef lightbulb

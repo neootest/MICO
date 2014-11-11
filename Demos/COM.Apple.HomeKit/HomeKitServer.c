@@ -832,7 +832,7 @@ void _HKCreateWriteEVPerCharacteristic(struct _hapAccessory_t inHapObject[], HK_
 }
 
 
-HkStatus _HKCreateWriteResponsePerCharacteristic(struct _hapAccessory_t inHapObject[], HK_Char_ID_t id, json_object *inHapReadRespondJson, bool checkEventOnly, mico_Context_t * const inContext)
+HkStatus _HKCreateWriteResponsePerCharacteristic(struct _hapAccessory_t inHapObject[], HK_Char_ID_t id, json_object *inHapReadRespondJson, bool check_value, bool check_event, mico_Context_t * const inContext)
 {
   HkStatus hkErr = kNoErr;
   value_union value;
@@ -849,16 +849,21 @@ HkStatus _HKCreateWriteResponsePerCharacteristic(struct _hapAccessory_t inHapObj
   if(id.serviceID == 0 || id.characteristicID == 0)
     return kHKNotExistErr;
 
-  if(checkEventOnly == false){
+  if(check_value){
     if(pCharacteristic.secureWrite == false){
       hkErr = kHKWriteToROErr;
     }else{
       hkErr = HKReadCharacteristicStatus(id.aid, id.serviceID, id.characteristicID, inContext);    
     }    
   }
-
-  if(!pCharacteristic.hasEvents)
+  
+  if(check_event){
+    if(!pCharacteristic.hasEvents && hkErr == kHKNoErr){
       hkErr = kHKNotifyUnsupportErr;
+    }
+  }
+
+
 
   json_object_object_add( characteristic, "status", json_object_new_int(hkErr)); 
 
@@ -874,7 +879,8 @@ OSStatus HKhandleIncomeingMessage(int sockfd, HTTPHeader_t *httpHeader, HK_Notif
   size_t arrayLen;
   err = HKSocketReadHTTPHeader( sockfd, httpHeader, inHkContext->session );
   int accessoryID, serviceID, characteristicID;
-  json_object *characteristics, *characteristic, *outCharacteristics, *outCharacteristic, *value_obj, *event_obj;
+  json_object *characteristics, *characteristic, *outCharacteristics, *outCharacteristic, *event_obj;
+  json_object *value_obj = NULL;
   json_object *inhapJsonObject = NULL, *outhapJsonObject = NULL;
   value_union value;
   bool event, isFound;
@@ -1067,7 +1073,7 @@ OSStatus HKhandleIncomeingMessage(int sockfd, HTTPHeader_t *httpHeader, HK_Notif
             value_obj = json_object_object_get(characteristic, "value");
             event_obj = json_object_object_get(characteristic, "ev");
 
-            if(_HKCreateWriteResponsePerCharacteristic(hapObjects, id, outCharacteristics, !value_obj&&event_obj, inContext)!=kHKNoErr)
+            if(_HKCreateWriteResponsePerCharacteristic(hapObjects, id, outCharacteristics, value_obj, event_obj, inContext)!=kHKNoErr)
               status = kStatusPartialContent;               
           }
 

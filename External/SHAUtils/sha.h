@@ -197,7 +197,7 @@ typedef struct SHA512Context SHA384Context;
  *  hashing operations.
  */
 typedef struct USHAContext {
-    int whichSha;               /* which SHA is being used */
+    SHAversion whichSha;               /* which SHA is being used */
     union {
       SHA1Context sha1Context;
       SHA224Context sha224Context; SHA256Context sha256Context;
@@ -211,7 +211,7 @@ typedef struct USHAContext {
  *  keyed-hashing operation.
  */
 typedef struct HMACContext {
-    int whichSha;               /* which SHA is being used */
+    SHAversion whichSha;        /* which SHA is being used */
     int hashSize;               /* hash size of SHA being used */
     int blockSize;              /* block size of SHA being used */
     USHAContext shaContext;     /* SHA context */
@@ -227,7 +227,7 @@ typedef struct HMACContext {
  *  extract-and-expand Key Derivation Functions.
  */
 typedef struct HKDFContext {
-    int whichSha;               /* which SHA is being used */
+    SHAversion whichSha;         /* which SHA is being used */
     HMACContext hmacContext;
     int hashSize;               /* hash size of SHA being used */
     unsigned char prk[USHAMaxHashSize];
@@ -248,6 +248,8 @@ extern int SHA1FinalBits(SHA1Context *, uint8_t bits,
                          unsigned int bit_count);
 extern int SHA1Result(SHA1Context *,
                       uint8_t Message_Digest[SHA1HashSize]);
+unsigned char * SHA1Direct(const uint8_t *message_array, unsigned length,
+                           uint8_t Message_Digest[SHA1HashSize]);
 
 /* SHA-224 */
 extern int SHA224Reset(SHA224Context *);
@@ -284,6 +286,8 @@ extern int SHA512FinalBits(SHA512Context *, uint8_t bits,
                            unsigned int bit_count);
 extern int SHA512Result(SHA512Context *,
                         uint8_t Message_Digest[SHA512HashSize]);
+unsigned char * SHA512Direct(const uint8_t *message_array, unsigned length,
+                             uint8_t Message_Digest[SHA512HashSize]);
 
 /* Unified SHA functions, chosen by whichSha */
 extern int USHAReset(USHAContext *context, SHAversion whichSha);

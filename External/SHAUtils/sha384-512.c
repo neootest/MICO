@@ -567,6 +567,17 @@ int SHA512Result(SHA512Context *context,
   return SHA384_512ResultN(context, Message_Digest, SHA512HashSize);
 }
 
+unsigned char * SHA512Direct(const uint8_t *message_array, unsigned length,
+                uint8_t Message_Digest[SHA512HashSize])
+{
+  SHA512Context context;
+  
+  SHA512Reset(&context);
+  SHA512Input(&context, message_array, length);
+  SHA512Result(&context, Message_Digest);
+  return (Message_Digest);
+}
+
 /*
  * SHA384_512Reset
  *
