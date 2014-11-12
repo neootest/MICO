@@ -38,6 +38,7 @@
 			"-DUSE_STDPERIPH_DRIVER",
 			"-DDEBUG",
 			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/",
+			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/External/",
 			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/",
 			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/include/",
 			"-I/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/",

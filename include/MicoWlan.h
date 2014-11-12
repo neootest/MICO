@@ -454,6 +454,14 @@ void micoWlanEnablePowerSave(void);
 void micoWlanDisablePowerSave(void); 
 
 /**
+ * @brief  Enable debug info output on stdio
+ *
+ * @param  enable: Enable or disable this function
+ *
+ */
+void wifimgr_debug_enable(bool enable);
+
+/**
   * @}
   */
 

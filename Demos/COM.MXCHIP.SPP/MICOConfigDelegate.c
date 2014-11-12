@@ -268,32 +268,31 @@ json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
           require_noerr(err, exit);
         }
 
-        /*DHCP cell*/
-        err = MICOAddSwitchCellToSector(subMenuSector, "DHCP",        inContext->flashContentInRam.micoSystemConfig.dhcpEnable,   "RO");
-        require_noerr(err, exit);
-        /*Local cell*/
-        err = MICOAddStringCellToSector(subMenuSector, "IP address",  inContext->micoStatus.localIp,   "RO", NULL);
-        require_noerr(err, exit);
-        /*Netmask cell*/
-        err = MICOAddStringCellToSector(subMenuSector, "Net Mask",    inContext->micoStatus.netMask,   "RO", NULL);
-        require_noerr(err, exit);
-        /*Gateway cell*/
-        err = MICOAddStringCellToSector(subMenuSector, "Gateway",     inContext->micoStatus.gateWay,   "RO", NULL);
-        require_noerr(err, exit);
-        /*DNS server cell*/
-        err = MICOAddStringCellToSector(subMenuSector, "DNS Server",  inContext->micoStatus.dnsServer, "RO", NULL);
-        require_noerr(err, exit);
-
   /*Sector 3*/
   sector = json_object_new_array();
   require( sector, exit );
   err = MICOAddSector(sectors, "WLAN",           sector);
   require_noerr(err, exit);
-
+    /*SSID cell*/
     err = MICOAddStringCellToSector(sector, "Wi-Fi",        inContext->flashContentInRam.micoSystemConfig.ssid,     "RW", NULL);
     require_noerr(err, exit);
-
+    /*PASSWORD cell*/
     err = MICOAddStringCellToSector(sector, "Password",     inContext->flashContentInRam.micoSystemConfig.user_key, "RW", NULL);
+    require_noerr(err, exit);
+    /*DHCP cell*/
+    err = MICOAddSwitchCellToSector(sector, "DHCP",        inContext->flashContentInRam.micoSystemConfig.dhcpEnable,   "RW");
+    require_noerr(err, exit);
+    /*Local cell*/
+    err = MICOAddStringCellToSector(sector, "IP address",  inContext->micoStatus.localIp,   "RW", NULL);
+    require_noerr(err, exit);
+    /*Netmask cell*/
+    err = MICOAddStringCellToSector(sector, "Net Mask",    inContext->micoStatus.netMask,   "RW", NULL);
+    require_noerr(err, exit);
+    /*Gateway cell*/
+    err = MICOAddStringCellToSector(sector, "Gateway",     inContext->micoStatus.gateWay,   "RW", NULL);
+    require_noerr(err, exit);
+    /*DNS server cell*/
+    err = MICOAddStringCellToSector(sector, "DNS Server",  inContext->micoStatus.dnsServer, "RW", NULL);
     require_noerr(err, exit);
 
   /*Sector 4*/
@@ -375,6 +374,16 @@ OSStatus ConfigIncommingJsonMessage( const char *input, mico_Context_t * const i
       strncpy(inContext->flashContentInRam.micoSystemConfig.user_key, json_object_get_string(val), maxKeyLen);
       inContext->flashContentInRam.micoSystemConfig.keyLength = strlen(inContext->flashContentInRam.micoSystemConfig.key);
       inContext->flashContentInRam.micoSystemConfig.user_keyLength = strlen(inContext->flashContentInRam.micoSystemConfig.key);
+    }else if(!strcmp(key, "DHCP")){
+      inContext->flashContentInRam.micoSystemConfig.dhcpEnable   = json_object_get_boolean(val);
+    }else if(!strcmp(key, "IP address")){
+      strncpy(inContext->flashContentInRam.micoSystemConfig.localIp, json_object_get_string(val), maxIpLen);
+    }else if(!strcmp(key, "Net Mask")){
+      strncpy(inContext->flashContentInRam.micoSystemConfig.netMask, json_object_get_string(val), maxIpLen);
+    }else if(!strcmp(key, "Gateway")){
+      strncpy(inContext->flashContentInRam.micoSystemConfig.gateWay, json_object_get_string(val), maxIpLen);
+    }else if(!strcmp(key, "DNS Server")){
+      strncpy(inContext->flashContentInRam.micoSystemConfig.dnsServer, json_object_get_string(val), maxIpLen);
     }else if(!strcmp(key, "Connect SPP Server")){
       inContext->flashContentInRam.appConfig.remoteServerEnable = json_object_get_boolean(val);
     }else if(!strcmp(key, "SPP Server")){
