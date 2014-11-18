@@ -298,7 +298,7 @@ OSStatus MICORemoveNotification( mico_notify_types_t notify_type, void *function
     require_action(temp->next!=NULL, exit, err = kNotFoundErr);
     temp2 = temp;
     temp = temp->next;
-  }while(temp->next!=NULL);
+  }while(temp != NULL);
 
 exit:
   return err;
