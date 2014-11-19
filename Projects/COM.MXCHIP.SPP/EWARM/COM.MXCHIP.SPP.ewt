@@ -254,6 +254,90 @@
       </data>
     </settings>
   </configuration>
+  <configuration>
+    <name>EMW3165</name>
+    <toolchain>
+      <name>ARM</name>
+    </toolchain>
+    <debug>0</debug>
+    <settings>
+      <name>RuntimeChecking</name>
+      <archiveVersion>0</archiveVersion>
+      <data>
+        <version>2</version>
+        <wantNonLocal>1</wantNonLocal>
+        <debug>0</debug>
+        <option>
+          <name>GenRtcDebugHeap</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcEnableBoundsChecking</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcCheckPtrsNonInstrMem</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>GenRtcTrackPointerBounds</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>GenRtcCheckAccesses</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>GenRtcGenerateEntries</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcNrTrackedPointers</name>
+          <state>1000</state>
+        </option>
+        <option>
+          <name>GenRtcIntOverflow</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcIncUnsigned</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcIntConversion</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcInclExplicit</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcIntShiftOverflow</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcInclUnsignedShiftOverflow</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcUnhandledCase</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcDivByZero</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcEnable</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcCheckPtrsNonInstrFunc</name>
+          <state>1</state>
+        </option>
+      </data>
+    </settings>
+  </configuration>
   <group>
     <name>Application</name>
     <file>
@@ -291,6 +375,36 @@
       <file>
         <name>$PROJ_DIR$\..\..\..\External\Curve25519\curve25519-donna.c</name>
       </file>
+    </group>
+    <group>
+      <name>FatFs</name>
+      <group>
+        <name>Core</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\External\FatFs\src\diskio.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\External\FatFs\src\ff.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\External\FatFs\src\ff_gen_drv.c</name>
+        </file>
+      </group>
+      <group>
+        <name>Drivers</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\External\FatFs\src\drivers\usbh_diskio.c</name>
+        </file>
+      </group>
+      <group>
+        <name>Options</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\External\FatFs\src\option\syscall.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\External\FatFs\src\option\unicode.c</name>
+        </file>
+      </group>
     </group>
     <group>
       <name>GladmanAES</name>
@@ -410,6 +524,9 @@
       <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_cm3_spi.a</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_cm4f_sdio.a</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_cm4f_spi.a</name>
     </file>
   </group>
@@ -495,6 +612,18 @@
           </group>
           <group>
             <name>STM32F2xx_Drv</name>
+            <group>
+              <name>STM32F2xx_HAL_Driver</name>
+              <file>
+                <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal.c</name>
+              </file>
+              <file>
+                <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_hcd.c</name>
+              </file>
+              <file>
+                <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_usb.c</name>
+              </file>
+            </group>
             <group>
               <name>STM32F2xx_StdPeriph_Driver</name>
               <file>
@@ -646,6 +775,9 @@
           <file>
             <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M3\STM32F2xx\stm32f2xx_platform.c</name>
           </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M3\STM32F2xx\usbh_conf.c</name>
+          </file>
         </group>
         <file>
           <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M3\crt0_IAR.c</name>
@@ -662,6 +794,9 @@
             <name>EMW1062_Driver</name>
             <group>
               <name>SDIO</name>
+              <file>
+                <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M4\STM32F4xx\EMW1062_Driver\SDIO\wlan_bus.c</name>
+              </file>
             </group>
             <group>
               <name>SPI</name>
@@ -845,6 +980,39 @@
             <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\spi_flash.c</name>
           </file>
         </group>
+        <group>
+          <name>STM32_USBH_Library</name>
+          <group>
+            <name>Class</name>
+            <group>
+              <name>MSC</name>
+              <file>
+                <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc.c</name>
+              </file>
+              <file>
+                <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc_bot.c</name>
+              </file>
+              <file>
+                <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc_scsi.c</name>
+              </file>
+            </group>
+          </group>
+          <group>
+            <name>Core</name>
+            <file>
+              <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\STM32_USB_Host_Library\Core\Src\usbh_core.c</name>
+            </file>
+            <file>
+              <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\STM32_USB_Host_Library\Core\Src\usbh_ctlreq.c</name>
+            </file>
+            <file>
+              <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\STM32_USB_Host_Library\Core\Src\usbh_ioreq.c</name>
+            </file>
+            <file>
+              <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\STM32_USB_Host_Library\Core\Src\usbh_pipes.c</name>
+            </file>
+          </group>
+        </group>
         <file>
           <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\MicoDriverMFiAuth.a</name>
         </file>
@@ -866,6 +1034,18 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\Platform\EMW3162\platform_common_config.h</name>
+      </file>
+    </group>
+    <group>
+      <name>EMW3165</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\Platform\EMW3165\platform.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\Platform\EMW3165\platform.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\Platform\EMW3165\platform_common_config.h</name>
       </file>
     </group>
     <group>
