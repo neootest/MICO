@@ -4,12 +4,28 @@
 		"selected_items":
 		[
 			[
-				"FD",
-				"FD_CLR	macro"
+				"uint",
+				"uint32_t	typedef"
 			],
 			[
-				"uint",
-				"uint8_t	typedef"
+				"d",
+				"dns	char [16]"
+			],
+			[
+				"m",
+				"mask	char [16]"
+			],
+			[
+				"n",
+				"netMask	char [16]"
+			],
+			[
+				"ip",
+				"localIp	char [16]"
+			],
+			[
+				"FD",
+				"FD_CLR	macro"
 			],
 			[
 				"extraa",
@@ -58,10 +74,6 @@
 			[
 				"ma",
 				"manufacturer	char [32]"
-			],
-			[
-				"n",
-				"name	char [32]"
 			],
 			[
 				"uin",
@@ -122,10 +134,6 @@
 			[
 				"memc",
 				"memcmp(const void *, const void *, size_t)	int"
-			],
-			[
-				"m",
-				"mcuPowerSaveEnable	bool"
 			],
 			[
 				"mico",
@@ -244,16 +252,8 @@
 				"localIp	char [16]"
 			],
 			[
-				"ip",
-				"local_ip_addr	char [16]"
-			],
-			[
 				"int",
 				"int32_t	typedef"
-			],
-			[
-				"d",
-				"dhcpEnable	bool"
 			],
 			[
 				"inet",
@@ -523,8 +523,82 @@
 			"file": "COM.MXCHIP.SPP.sublime-project",
 			"settings":
 			{
-				"buffer_size": 1667,
+				"buffer_size": 1736,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 334 files for \"appRestoreDefault_callback\"\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppEntrance.c:\n   35  \n   36  /* MICO system callback: Restore default configuration provided by application */\n   37: void appRestoreDefault_callback(mico_Context_t *inContext)\n   38  {\n   39    inContext->flashContentInRam.appConfig.configDataVer = CONFIGURATION_VERSION;\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOParaStorage.c:\n   39  static int32_t seedNum = 0;\n   40  \n   41: __weak void appRestoreDefault_callback(mico_Context_t *inContext)\n   42  {\n   43  \n   ..\n   62  \n   63    /*Application's default configuration*/\n   64:   appRestoreDefault_callback(inContext);\n   65  \n   66    err = MicoFlashInitialize(MICO_FLASH_FOR_PARA);\n\n3 matches across 2 files\n",
+			"settings":
+			{
+				"buffer_size": 815,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOParaStorage.c",
+			"settings":
+			{
+				"buffer_size": 4952,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICODefine.h",
+			"settings":
+			{
+				"buffer_size": 6631,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.c",
+			"settings":
+			{
+				"buffer_size": 24480,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOConfigDelegate.c",
+			"settings":
+			{
+				"buffer_size": 17694,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
+			"settings":
+			{
+				"buffer_size": 15126,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoWlan.h",
+			"settings":
+			{
+				"buffer_size": 20610,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform_common_config.h",
+			"settings":
+			{
+				"buffer_size": 8795,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/MICOConfig.c",
+			"settings":
+			{
+				"buffer_size": 1991,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -742,6 +816,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"appRestoreDefault_callback",
 			"chunckheaderLen",
 			"nextPackagePtr",
 			"findCRLF",
@@ -868,8 +943,7 @@
 			"applyNewConfiguration",
 			"apply",
 			"easylink_thread",
-			"http_server_thread",
-			"applyNewConfiguration"
+			"http_server_thread"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -887,7 +961,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 9,
 			"sheets":
 			[
 				{
@@ -895,15 +969,15 @@
 					"file": "COM.MXCHIP.SPP.sublime-project",
 					"settings":
 					{
-						"buffer_size": 1667,
+						"buffer_size": 1736,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1552,
-								607
+								814,
+								822
 							]
 						],
 						"settings":
@@ -911,8 +985,281 @@
 							"syntax": "Packages/JavaScript/JSON.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
+						"translation.x": 1.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"settings":
+					{
+						"buffer_size": 815,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										254,
+										280
+									],
+									[
+										542,
+										568
+									],
+									[
+										685,
+										711
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								704,
+								704
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOParaStorage.c",
+					"settings":
+					{
+						"buffer_size": 4952,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2113,
+								2113
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 489.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICODefine.h",
+					"settings":
+					{
+						"buffer_size": 6631,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2748,
+								2748
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2020.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.c",
+					"settings":
+					{
+						"buffer_size": 24480,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2340,
+								2340
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 578.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOConfigDelegate.c",
+					"settings":
+					{
+						"buffer_size": 17694,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								16341,
+								16443
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
+					"settings":
+					{
+						"buffer_size": 15126,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoWlan.h",
+					"settings":
+					{
+						"buffer_size": 20610,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								20490,
+								20490
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform_common_config.h",
+					"settings":
+					{
+						"buffer_size": 8795,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4860,
+								4860
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2053.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/MICOConfig.c",
+					"settings":
+					{
+						"buffer_size": 1991,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1945,
+								1945
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 74.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

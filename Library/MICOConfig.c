@@ -48,4 +48,4 @@ const uint32_t  mico_tick_rate_hz = 1000; // Drfault OS tick is 1000Hz
 const uint32_t  mico_timer_queue_len = 5;
 
 
-const bool mico_nmode_enable = true;
+const uint32_t mico_nmode_enable = true;
