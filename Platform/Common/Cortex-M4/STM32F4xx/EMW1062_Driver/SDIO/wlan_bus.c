@@ -34,7 +34,7 @@
 #include "string.h" /* For memcpy */
 #include "gpio_irq.h"
 #include "platform_common_config.h"
-#include "stm32f2xx_platform.h"
+#include "stm32f4xx_platform.h"
 #include "PlatformLogging.h"
 
 /* Powersave functionality */
@@ -249,7 +249,7 @@ void dma_irq( void )
     result = mico_rtos_set_semaphore( &sdio_transfer_finished_semaphore );
 
     /* check result if in debug mode */
-    check_string(result == kNoErr, "failed to set dma semaphore" );
+    //check_string(result == kNoErr, "failed to set dma semaphore" );
 
     /*@-noeffect@*/
     (void) result; /* ignore result if in release mode */
