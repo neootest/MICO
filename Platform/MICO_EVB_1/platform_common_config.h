@@ -61,6 +61,9 @@
  * Uncomment to enable MCU real time clock */
 #define MICO_ENABLE_MCU_RTC
 
+/************************************************************************
+ * Uncomment to able USB_FS API functions */
+//#define USE_USB_FS
 
 #define HSE_SOURCE              RCC_HSE_ON               /* Use external crystal                 */
 #define AHB_CLOCK_DIVIDER       RCC_SYSCLK_Div1          /* AHB clock = System clock             */
