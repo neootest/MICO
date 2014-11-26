@@ -329,17 +329,15 @@ int application_start(void)
   if(context->flashContentInRam.micoSystemConfig.configured != allConfigured){
     mico_log("Empty configuration. Starting configuration mode...");
 
-#if defined (CONFIG_MODE_EASYLINK) || defined (CONFIG_MODE_EASYLINK_WITH_SOFTAP) || defined (CONFIG_MODE_EASYLINK_PLUS)
+#if (MICO_CONFIG_MODE == CONFIG_MODE_EASYLINK) || (MICO_CONFIG_MODE == CONFIG_MODE_EASYLINK_WITH_SOFTAP) || (MICO_CONFIG_MODE == CONFIG_MODE_EASYLINK_PLUS)
   err = startEasyLink( context );
   require_noerr( err, exit );
-#endif
 
-#if defined (CONFIG_MODE_WPS) || defined (CONFIG_MODE_WPS_WITH_SOFTAP)
+#elif (MICO_CONFIG_MODE == CONFIG_MODE_WPS) || MICO_CONFIG_MODE == defined (CONFIG_MODE_WPS_WITH_SOFTAP)
   err = startWPS( context );
   require_noerr( err, exit );
-#endif
 
-#ifdef CONFIG_MODE_WAC
+#elif ( MICO_CONFIG_MODE == CONFIG_MODE_WAC)
   WACPlatformParameters_t* WAC_Params = NULL;
   WAC_Params = calloc(1, sizeof(WACPlatformParameters_t));
   require(WAC_Params, exit);
@@ -366,6 +364,8 @@ int application_start(void)
   err = startMFiWAC( context, WAC_Params, 1200);
   free(WAC_Params);
   require_noerr( err, exit );
+#else
+  #error "Wi-Fi configuration mode is not defined"ù
 #endif
   }
   else{

@@ -33,6 +33,9 @@
 #define SERIAL_NUMBER       "20140606"
 #define PROTOCOL            "com.mxchip.spp"
 
+/* Wi-Fi configuration mode */
+#define MICO_CONFIG_MODE CONFIG_MODE_EASYLINK_PLUS
+
 /*User provided configurations*/
 #define CONFIGURATION_VERSION               0x00000001 // if default configuration is changed, update this number
 #define MAX_Local_Client_Num                8

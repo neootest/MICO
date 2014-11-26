@@ -78,7 +78,7 @@ void WPSNotify_WPSCompleteHandler(network_InitTypeDef_st *nwkpara, mico_Context_
 /*WPS timeout*/    
 exit:
   wps_log("ERROR, err: %d", err);
-#if defined (CONFIG_MODE_WPS_WITH_SOFTAP)
+#if ( MICO_CONFIG_MODE == CONFIG_MODE_WPS_WITH_SOFTAP)
   mico_rtos_set_semaphore(&wps_sem);
 #else
   ConfigWillStop(inContext);

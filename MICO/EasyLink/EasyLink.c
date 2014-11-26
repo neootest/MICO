@@ -157,7 +157,7 @@ void EasyLinkNotify_EasyLinkCompleteHandler(network_InitTypeDef_st *nwkpara, mic
 /*EasyLink timeout or error*/    
 exit:
   easylink_log("ERROR, err: %d", err);
-#if defined (CONFIG_MODE_EASYLINK_WITH_SOFTAP)
+#if ( MICO_CONFIG_MODE == CONFIG_MODE_EASYLINK_WITH_SOFTAP)
   EasylinkFailed = true;
   mico_rtos_set_semaphore(&easylink_sem);
 #else
@@ -437,7 +437,7 @@ void easylink_thread(void *inContext)
   easylink_log("Start easylink");
   
   if(Context->flashContentInRam.micoSystemConfig.easyLinkEnable != false){
-#ifdef CONFIG_MODE_EASYLINK_PLUS
+#if ( MICO_CONFIG_MODE == CONFIG_MODE_EASYLINK_PLUS)
     micoWlanStartEasyLinkPlus(EasyLink_TimeOut/1000);
 #else
     micoWlanStartEasyLink(EasyLink_TimeOut/1000);

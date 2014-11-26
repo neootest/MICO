@@ -12,6 +12,9 @@
 #define PROTOCOL            "com.mxchip.ha"
 #define LOCAL_PORT          8080
 
+/* Wi-Fi configuration mode */
+#define MICO_CONFIG_MODE CONFIG_MODE_EASYLINK_PLUS
+
 /*User provided configurations*/
 #define CONFIGURATION_VERSION         0x0000030 // if changed default configuration, add this num
 #define MAX_Local_Client_Num          8
