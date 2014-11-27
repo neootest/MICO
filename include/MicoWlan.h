@@ -52,6 +52,8 @@
 #define micoWlanStopWPS           CloseConfigmodeWPS
 #define micoWlanEnablePowerSave   ps_enable
 #define micoWlanDisablePowerSave  ps_disable
+#define micoWlanStartAirkiss      OpenAirkiss
+#define micoWlanStopAirkiss       CloseAirkiss
 
 #define WiFi_Interface  wlanInterfaceTypedef
 #define net_para_st     IPStatusTypedef

@@ -34,7 +34,7 @@
 #include "string.h" /* For memcpy */
 #include "gpio_irq.h"
 #include "platform_common_config.h"
-#include "stm32f2xx_platform.h"
+#include "stm32f4xx_platform.h"
 #include "PlatformLogging.h"
 
 /* Powersave functionality */

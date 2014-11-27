@@ -46,6 +46,7 @@
 #define CONFIG_MODE_WPS                         5
 #define CONFIG_MODE_WPS_WITH_SOFTAP             6
 #define CONFIG_MODE_WAC                         7
+#define CONFIG_MODE_AIRKISS                     8
 
 /* Define MICO service thread stack size */
 #ifdef DEBUG

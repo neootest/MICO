@@ -332,11 +332,12 @@ int application_start(void)
 #if (MICO_CONFIG_MODE == CONFIG_MODE_EASYLINK) || (MICO_CONFIG_MODE == CONFIG_MODE_EASYLINK_WITH_SOFTAP) || (MICO_CONFIG_MODE == CONFIG_MODE_EASYLINK_PLUS)
   err = startEasyLink( context );
   require_noerr( err, exit );
-
+#elif (MICO_CONFIG_MODE == CONFIG_MODE_AIRKISS)
+  err = startAirkiss( context );
+  require_noerr( err, exit );
 #elif (MICO_CONFIG_MODE == CONFIG_MODE_WPS) || MICO_CONFIG_MODE == defined (CONFIG_MODE_WPS_WITH_SOFTAP)
   err = startWPS( context );
   require_noerr( err, exit );
-
 #elif ( MICO_CONFIG_MODE == CONFIG_MODE_WAC)
   WACPlatformParameters_t* WAC_Params = NULL;
   WAC_Params = calloc(1, sizeof(WACPlatformParameters_t));
@@ -365,7 +366,7 @@ int application_start(void)
   free(WAC_Params);
   require_noerr( err, exit );
 #else
-  #error "Wi-Fi configuration mode is not defined"ù
+  #error "Wi-Fi configuration mode is not defined"?
 #endif
   }
   else{
