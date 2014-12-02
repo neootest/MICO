@@ -2893,7 +2893,7 @@
         </option>
         <option>
           <name>ListPath</name>
-          <state>..\..\..\Build\COM.MXCHIP.SPP\EMW3165\list</state>
+          <state>..\..\..\Build\COM.MXCHIP.SPP\EMW3165\List</state>
         </option>
         <option>
           <name>Variant</name>
@@ -2929,7 +2929,7 @@
         <option>
           <name>FPU</name>
           <version>2</version>
-          <state>0</state>
+          <state>5</state>
         </option>
         <option>
           <name>OGCoreOrChip</name>
@@ -3592,7 +3592,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$PROJ_DIR$\..\..\..\Platform\EMW3165\micoLinkerForIAR.icf</state>
+          <state>$PROJ_DIR$\..\..\..\Platform\Nucleo_411RE\micoLinkerForIAR.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -4354,20 +4354,20 @@
             <name>EMW1062_Driver</name>
             <group>
               <name>SDIO</name>
-              <excluded>
-                <configuration>Nucleo_411RE</configuration>
-              </excluded>
               <file>
                 <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M4\STM32F4xx\EMW1062_Driver\SDIO\wlan_bus.c</name>
+                <excluded>
+                  <configuration>Nucleo_411RE</configuration>
+                </excluded>
               </file>
             </group>
             <group>
               <name>SPI</name>
-              <excluded>
-                <configuration>EMW3165</configuration>
-              </excluded>
               <file>
                 <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M4\STM32F4xx\EMW1062_Driver\SPI\wwd_bus.c</name>
+                <excluded>
+                  <configuration>EMW3165</configuration>
+                </excluded>
               </file>
             </group>
             <file>
@@ -4541,11 +4541,27 @@
           <name>spi_flash</name>
           <excluded>
             <configuration>EMW3162</configuration>
-            <configuration>Nucleo_411RE</configuration>
-            <configuration>EMW3165</configuration>
           </excluded>
           <file>
+            <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\EMW3165.c</name>
+            <excluded>
+              <configuration>MICO_EVB_1</configuration>
+              <configuration>Nucleo_411RE</configuration>
+            </excluded>
+          </file>
+          <file>
             <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\MICO_EVB_1.c</name>
+            <excluded>
+              <configuration>Nucleo_411RE</configuration>
+              <configuration>EMW3165</configuration>
+            </excluded>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\Nucleo_411RE.c</name>
+            <excluded>
+              <configuration>MICO_EVB_1</configuration>
+              <configuration>EMW3165</configuration>
+            </excluded>
           </file>
           <file>
             <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\spi_flash.c</name>
