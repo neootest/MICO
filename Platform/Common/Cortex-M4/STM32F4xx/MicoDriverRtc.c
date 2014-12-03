@@ -120,13 +120,18 @@ void platform_rtc_init(void)
 {
   RTC_InitTypeDef RTC_InitStruct;
   
-  RTC_DeInit( );
-  
   RTC_InitStruct.RTC_HourFormat = RTC_HourFormat_24;
   
   /* RTC ticks every second */
   RTC_InitStruct.RTC_AsynchPrediv = 0x7F;
   RTC_InitStruct.RTC_SynchPrediv = 0xFF;
+  
+  /* Enable the PWR clock */
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
+  
+  /* RTC clock source configuration ------------------------------------------*/
+  /* Allow access to BKP Domain */
+  PWR_BackupAccessCmd(ENABLE);
   
   RTC_Init( &RTC_InitStruct );
   /* Enable the LSE OSC */
@@ -166,8 +171,6 @@ void RTC_Wakeup_init(void)
   NVIC_InitTypeDef NVIC_InitStructure;
   EXTI_InitTypeDef EXTI_InitStructure;
   RTC_InitTypeDef RTC_InitStruct;
-  
-  RTC_DeInit( );
   
   RTC_InitStruct.RTC_HourFormat = RTC_HourFormat_24;
   

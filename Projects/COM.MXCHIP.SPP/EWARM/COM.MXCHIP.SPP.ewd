@@ -2179,7 +2179,7 @@
         </option>
         <option>
           <name>CCJLinkInterfaceRadio</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>OCJLinkAttachSlave</name>
@@ -2537,7 +2537,7 @@
         </option>
         <option>
           <name>CCSTLinkInterfaceRadio</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCSTLinkInterfaceCmdLine</name>
@@ -2546,7 +2546,7 @@
         <option>
           <name>CCSTLinkResetList</name>
           <version>1</version>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCCpuClockEdit</name>
@@ -4132,7 +4132,7 @@
         </option>
         <option>
           <name>OCDynDriverList</name>
-          <state>STLINK_ID</state>
+          <state>JLINK_ID</state>
         </option>
         <option>
           <name>OCLastSavedByProductVersion</name>
@@ -4886,7 +4886,7 @@
         <option>
           <name>CCJLinkResetList</name>
           <version>6</version>
-          <state>7</state>
+          <state>10</state>
         </option>
         <option>
           <name>CCJLinkInterfaceCmdLine</name>
@@ -5244,7 +5244,7 @@
         <option>
           <name>CCSTLinkResetList</name>
           <version>1</version>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CCCpuClockEdit</name>

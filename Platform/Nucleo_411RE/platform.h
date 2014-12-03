@@ -283,6 +283,11 @@ typedef enum
   MICO_FLASH_MAX,
 } mico_flash_t;
 
+#define USE_MICO_SPI_FLASH
+//#define SFLASH_SUPPORT_MACRONIX_PART 
+//#define SFLASH_SUPPORT_SST_PARTS
+#define SFLASH_SUPPORT_WINBOND_PARTS
+
 #define STM32_UART_1 MICO_UART_1  /*Not used here, define to avoid warning*/
 #define STM32_UART_2 MICO_UART_1
 #define STM32_UART_6 MICO_UART_2

@@ -4510,11 +4510,27 @@
           <name>spi_flash</name>
           <excluded>
             <configuration>EMW3162</configuration>
-            <configuration>Nucleo_411RE</configuration>
-            <configuration>EMW3165</configuration>
           </excluded>
           <file>
+            <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\EMW3165.c</name>
+            <excluded>
+              <configuration>MICO_EVB_1</configuration>
+              <configuration>Nucleo_411RE</configuration>
+            </excluded>
+          </file>
+          <file>
             <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\MICO_EVB_1.c</name>
+            <excluded>
+              <configuration>Nucleo_411RE</configuration>
+              <configuration>EMW3165</configuration>
+            </excluded>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\Nucleo_411RE.c</name>
+            <excluded>
+              <configuration>MICO_EVB_1</configuration>
+              <configuration>EMW3165</configuration>
+            </excluded>
           </file>
           <file>
             <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\spi_flash.c</name>

@@ -959,7 +959,13 @@
         <group>
           <name>spi_flash</name>
           <file>
+            <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\EMW3165.c</name>
+          </file>
+          <file>
             <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\MICO_EVB_1.c</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\Nucleo_411RE.c</name>
           </file>
           <file>
             <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\spi_flash.c</name>
