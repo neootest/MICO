@@ -638,6 +638,32 @@ void USART1_IRQHandler( void )
 #endif
 }
 
+void USART2_IRQHandler( void )
+{
+  // Clear all interrupts. It's safe to do so because only RXNE interrupt is enabled
+  USART2->SR = (uint16_t) (USART2->SR | 0xffff);
+  
+  // Update tail
+  uart_interfaces[ STM32_UART_2 ].rx_buffer->tail = uart_interfaces[ STM32_UART_2 ].rx_buffer->size - uart_mapping[ STM32_UART_2 ].rx_dma_stream->NDTR;
+  
+  // Notify thread if sufficient data are available
+  if ( ( uart_interfaces[ STM32_UART_2 ].rx_size > 0 ) &&
+      ( ring_buffer_used_space( uart_interfaces[ STM32_UART_2 ].rx_buffer ) >= uart_interfaces[STM32_UART_2].rx_size ) )
+  {
+#ifndef NO_MICO_RTOS
+    mico_rtos_set_semaphore( &uart_interfaces[ STM32_UART_2 ].rx_complete );
+#else
+    uart_interfaces[ STM32_UART_2 ].rx_complete = true;
+#endif
+    uart_interfaces[ STM32_UART_2 ].rx_size = 0;
+  }
+  
+#ifndef NO_MICO_RTOS
+  if(uart_interfaces[ STM32_UART_2 ].sem_wakeup)
+    mico_rtos_set_semaphore(&uart_interfaces[ STM32_UART_2 ].sem_wakeup);
+#endif
+}
+
 void USART6_IRQHandler( void )
 {
   // Clear all interrupts. It's safe to do so because only RXNE interrupt is enabled
@@ -697,6 +723,39 @@ void DMA2_Stream7_IRQHandler( void )
 #endif
 }
 
+//usart2_tx_dma_irq
+void DMA1_Stream6_IRQHandler( void )
+{
+  bool tx_complete = false;
+  
+  if ( ( DMA1->HISR & DMA_HISR_TCIF6 ) != 0 )
+  {
+    /* Clear interrupt */
+    DMA1->HIFCR |= DMA_HISR_TCIF6;
+    uart_interfaces[ STM32_UART_2 ].tx_dma_result = kNoErr;
+    tx_complete = true;
+  }
+  
+  /* TX DMA error */
+  if ( ( DMA1->HISR & ( DMA_HISR_TEIF6 | DMA_HISR_DMEIF6 | DMA_HISR_FEIF6 ) ) != 0 )
+  {
+    /* Clear interrupt */
+    DMA1->HIFCR |= ( DMA_HISR_TEIF6 | DMA_HISR_DMEIF6 | DMA_HISR_FEIF6 );
+    
+    if ( tx_complete == false )
+    {
+      uart_interfaces[ STM32_UART_2 ].tx_dma_result = kGeneralErr;
+    }
+  }
+  
+#ifndef NO_MICO_RTOS
+  /* Set semaphore regardless of result to prevent waiting thread from locking up */
+  mico_rtos_set_semaphore( &uart_interfaces[ STM32_UART_2 ].tx_complete);
+#else
+  uart_interfaces[ STM32_UART_2 ].tx_complete = true;
+#endif
+}
+
 //usart6_tx_dma_irq
 void DMA2_Stream6_IRQHandler( void )
 {
@@ -750,6 +809,29 @@ void DMA2_Stream2_IRQHandler( void )
   mico_rtos_set_semaphore( &uart_interfaces[ STM32_UART_1 ].rx_complete );
 #else
   uart_interfaces[ STM32_UART_1 ].rx_complete = true;
+#endif
+}
+
+//usart2_rx_dma_irq
+void DMA1_Stream5_IRQHandler( void )
+{
+  if ( ( DMA1->HISR & DMA_HISR_TCIF5 ) != 0 )
+  {
+    DMA1->LIFCR |= DMA_HISR_TCIF5;
+    uart_interfaces[ STM32_UART_2 ].rx_dma_result = kNoErr;
+  }
+  
+  /* RX DMA error */
+  if ( ( DMA1->HISR & ( DMA_HISR_TEIF5 | DMA_HISR_DMEIF5 | DMA_HISR_FEIF5 ) ) != 0 )
+  {
+    /* Clear interrupt */
+    DMA1->LIFCR |= ( DMA_HISR_TEIF5 | DMA_HISR_DMEIF5 | DMA_HISR_FEIF5 );
+    uart_interfaces[ STM32_UART_2 ].rx_dma_result = kGeneralErr;
+  }
+#ifndef NO_MICO_RTOS
+  mico_rtos_set_semaphore( &uart_interfaces[ STM32_UART_2 ].rx_complete );
+#else
+  uart_interfaces[ STM32_UART_2 ].rx_complete = true;
 #endif
 }
 

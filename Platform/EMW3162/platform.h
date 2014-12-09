@@ -282,6 +282,7 @@ typedef enum
 } mico_flash_t;
 
 #define STM32_UART_1 MICO_UART_1
+#define STM32_UART_2 NULL
 #define STM32_UART_6 MICO_UART_2
 
 /* Components connected to external I/Os*/

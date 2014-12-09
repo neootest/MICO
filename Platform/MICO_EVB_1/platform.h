@@ -283,6 +283,7 @@ typedef enum
 } mico_uart_t;
 
 #define STM32_UART_1 MICO_UART_1
+#define STM32_UART_2 NULL
 #define STM32_UART_6 MICO_UART_2
 
 typedef enum
