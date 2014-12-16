@@ -4,8 +4,8 @@
 * @author  William Xu
 * @version V1.0.0
 * @date    05-May-2014
-* @brief   This file provide header file for the easylink function and FTC server 
-*            for quick provisioning and first time configuration.
+* @brief   This file provide header file for the easylink soft AP function and 
+*          FTC server for quick provisioning and first time configuration.
 ******************************************************************************
 *
 *  The MIT License
@@ -30,24 +30,20 @@
 ******************************************************************************
 */
 
-#ifndef __EASYLINK_H
-#define __EASYLINK_H
+#ifndef __EASYLINKSOFTAP_H
+#define __EASYLINKSOFTAP_H
 
 #include "MICODefine.h"
 
 #define FTC_PORT 8000
 
-#define EasyLink_TimeOut                30000 /**< EasyLink timeout 60 seconds. */
 
 #define EasyLink_ConnectWlan_Timeout    20000 /**< Connect to wlan after configured by easylink.
                                                    Restart easylink after timeout: 20 seconds. */
 
-#define EasyLink_Plus
+OSStatus startEasyLinkSoftAP( mico_Context_t * const inContext);
 
-OSStatus startEasyLink( mico_Context_t * const inContext);
-
-OSStatus stopEasyLink( mico_Context_t * const inContext);
-
+OSStatus stopEasyLinkSoftAP( mico_Context_t * const inContext);
 
 
 #endif

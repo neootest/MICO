@@ -13,10 +13,10 @@
 #define LOCAL_PORT          8080
 
 /* Wi-Fi configuration mode */
-#define MICO_CONFIG_MODE CONFIG_MODE_EASYLINK_PLUS
+#define MICO_CONFIG_MODE CONFIG_MODE_EASYLINK_WITH_SOFTAP
 
 /*User provided configurations*/
-#define CONFIGURATION_VERSION         0x0000030 // if changed default configuration, add this num
+#define CONFIGURATION_VERSION         0x0000031 // if changed default configuration, add this num
 #define MAX_Local_Client_Num          8
 #define DEAFULT_REMOTE_SERVER         "192.168.2.254"
 #define DEFAULT_REMOTE_SERVER_PORT    8080

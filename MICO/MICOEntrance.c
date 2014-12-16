@@ -39,6 +39,7 @@
 #include "MICONotificationCenter.h"
 #include "MICOSystemMonitor.h"
 #include "EasyLink/EasyLink.h"
+#include "SoftAP/EasyLinkSoftAP.h"
 #include "WPS/WPS.h"
 #include "WAC/MFi_WAC.h"
 #include "StringUtils.h"
@@ -118,6 +119,14 @@ void micoNotify_WifiStatusHandler(WiFiEvent event, mico_Context_t * const inCont
     break;
   case NOTIFY_STATION_DOWN:
     mico_log("Station down");
+    MicoRfLed(false);
+    break;
+  case NOTIFY_AP_UP:
+    mico_log("uAP established");
+    MicoRfLed(true);
+    break;
+  case NOTIFY_AP_DOWN:
+    mico_log("uAP deleted");
     MicoRfLed(false);
     break;
   default:
@@ -318,19 +327,26 @@ int application_start(void)
   mico_log("%s mxchipWNet library version: %s", APP_INFO, MicoGetVer());
 
   /*Start system monotor thread*/
-  err = MICOStartSystemMonitor(context);
-  require_noerr_action( err, exit, mico_log("ERROR: Unable to start the system monitor.") );
+  // err = MICOStartSystemMonitor(context);
+  // require_noerr_action( err, exit, mico_log("ERROR: Unable to start the system monitor.") );
 
-  err = MICORegisterSystemMonitor(&mico_monitor, APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000);
-  require_noerr( err, exit );
-  mico_init_timer(&_watchdog_reload_timer,APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000 - 100, _watchdog_reload_timer_handler, NULL);
-  mico_start_timer(&_watchdog_reload_timer);
+  // err = MICORegisterSystemMonitor(&mico_monitor, APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000);
+  // require_noerr( err, exit );
+  // mico_init_timer(&_watchdog_reload_timer,APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000 - 100, _watchdog_reload_timer_handler, NULL);
+  // mico_start_timer(&_watchdog_reload_timer);
+
+  /* Regisist notifications */
+  err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)micoNotify_WifiStatusHandler );
+  require_noerr( err, exit ); 
   
   if(context->flashContentInRam.micoSystemConfig.configured != allConfigured){
     mico_log("Empty configuration. Starting configuration mode...");
 
-#if (MICO_CONFIG_MODE == CONFIG_MODE_EASYLINK) || (MICO_CONFIG_MODE == CONFIG_MODE_EASYLINK_WITH_SOFTAP) || (MICO_CONFIG_MODE == CONFIG_MODE_EASYLINK_PLUS)
+#if (MICO_CONFIG_MODE == CONFIG_MODE_EASYLINK) || (MICO_CONFIG_MODE == CONFIG_MODE_EASYLINK_WITH_SOFTAP)
   err = startEasyLink( context );
+  require_noerr( err, exit );
+#elif (MICO_CONFIG_MODE == CONFIG_MODE_SOFT_AP)
+  err = startEasyLinkSoftAP( context );
   require_noerr( err, exit );
 #elif (MICO_CONFIG_MODE == CONFIG_MODE_AIRKISS)
   err = startAirkiss( context );
@@ -360,7 +376,7 @@ int application_start(void)
 
   WAC_Params->numEAProtocols =    1;
   WAC_Params->eaBundleSeedID =    BUNDLE_SEED_ID;
-  WAC_Params->eaProtocols =       (char **)eaProtocols;;
+  WAC_Params->eaProtocols =       (char **)eaProtocols;
 
   err = startMFiWAC( context, WAC_Params, 1200);
   free(WAC_Params);
@@ -371,10 +387,6 @@ int application_start(void)
   }
   else{
     mico_log("Available configuration. Starting Wi-Fi connection...");
-    
-    /* Regisist notifications */
-    err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)micoNotify_WifiStatusHandler );
-    require_noerr( err, exit ); 
     
     err = MICOAddNotification( mico_notify_WiFI_PARA_CHANGED, (void *)micoNotify_WiFIParaChangedHandler );
     require_noerr( err, exit ); 

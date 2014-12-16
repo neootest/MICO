@@ -39,14 +39,17 @@
 #include "JSON-C/json.h"
 #include "MICOAppDefine.h"
 
-#define CONFIG_MODE_EASYLINK_PLUS               1  
-#define CONFIG_MODE_EASYLINK_SOFT_AP            2  
-#define CONFIG_MODE_EASYLINK                    3
+#define CONFIG_MODE_EASYLINK                    2
+#define CONFIG_MODE_SOFT_AP                     3
 #define CONFIG_MODE_EASYLINK_WITH_SOFTAP        4
 #define CONFIG_MODE_WPS                         5
 #define CONFIG_MODE_WPS_WITH_SOFTAP             6
 #define CONFIG_MODE_WAC                         7
 #define CONFIG_MODE_AIRKISS                     8
+
+#define EASYLINK_BYPASS_NO                      0
+#define EASYLINK_BYPASS                         1
+#define EASYLINK_SOFT_AP_BYPASS                 2
 
 /* Define MICO service thread stack size */
 #ifdef DEBUG
@@ -134,7 +137,7 @@ typedef struct _mico_sys_config_t
 
   /*EasyLink configuration*/
   Config_State_t  configured;
-  bool            easyLinkEnable;
+  uint8_t        easyLinkByPass;
   uint32_t        easylinkServerIP;
 
   /*Services in MICO system*/

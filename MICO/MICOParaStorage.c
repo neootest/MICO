@@ -54,6 +54,7 @@ OSStatus MICORestoreDefault(mico_Context_t *inContext)
   /*wlan configration is not need to change to a default state, use easylink to do that*/
   sprintf(inContext->flashContentInRam.micoSystemConfig.name, DEFAULT_NAME);
   inContext->flashContentInRam.micoSystemConfig.configured = unConfigured;
+  inContext->flashContentInRam.micoSystemConfig.easyLinkByPass = EASYLINK_BYPASS_NO;
   inContext->flashContentInRam.micoSystemConfig.rfPowerSaveEnable = false;
   inContext->flashContentInRam.micoSystemConfig.mcuPowerSaveEnable = false;
   inContext->flashContentInRam.micoSystemConfig.bonjourEnable = true;

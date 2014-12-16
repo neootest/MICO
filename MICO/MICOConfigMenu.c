@@ -161,6 +161,7 @@ OSStatus MICOAddTopMenu(json_object **outTopMenu, char* const inName, json_objec
 
   object = json_object_new_object();
   require_action(object, exit, err = kNoMemoryErr);
+  json_object_object_add(object, "T", json_object_new_string("Current Configuration"));
   json_object_object_add(object, "N", json_object_new_string(inName));
   json_object_object_add(object, "C", sectors);
 

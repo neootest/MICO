@@ -4994,6 +4994,9 @@
       <file>
         <name>$PROJ_DIR$\..\..\..\MICO\EasyLink\EasyLink.c</name>
       </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\MICO\SoftAP\EasyLinkSoftAP.c</name>
+      </file>
     </group>
     <group>
       <name>WAC</name>

@@ -34,10 +34,10 @@
 #define SERIAL_NUMBER       "20140606"
 #define PROTOCOL            "com.apple.homekit"
 #define LOCAL_PORT          8080
-#define CONFIGURATION_VERSION    0x00010001 // if changed default configuration, add this num
+#define CONFIGURATION_VERSION    0x00010002 // if changed default configuration, add this num
 
 /* Wi-Fi configuration mode */
-#define MICO_CONFIG_MODE CONFIG_MODE_EASYLINK_PLUS
+#define MICO_CONFIG_MODE CONFIG_MODE_WAC
 
 /*User provided application configurations*/
 #define MAX_Local_Client_Num                8

@@ -60,7 +60,7 @@ typedef enum{
   mico_notify_WIFI_SCAN_ADV_COMPLETED,      //void (*function)(ScanResult_adv *pApList, mico_Context_t * const inContext);
   mico_notify_WIFI_Fatal_ERROR,             //void (*function)(mico_Context_t * const inContext);
   mico_notify_Stack_Overflow_ERROR,         //void (*function)(char *taskname, mico_Context_t * const inContext);
-  
+ 
   /* User defined notifications */_
 
 } mico_notify_types_t;
@@ -70,6 +70,10 @@ OSStatus MICOInitNotificationCenter   ( void * const inContext );
 OSStatus MICOAddNotification          ( mico_notify_types_t notify_type, void *functionAddress );
 
 OSStatus MICORemoveNotification       ( mico_notify_types_t notify_type, void *functionAddress );
+
+void sendNotifySYSWillPowerOff(void);
+
+
 
 
 #endif

@@ -38,6 +38,7 @@
 #include "HTTPUtils.h"
 
 #include "WPS.h"
+#include "SoftAp/EasyLinkSoftAP.h"
 
 #define wps_log(M, ...) custom_log("WPS", M, ##__VA_ARGS__)
 #define wps_log_trace() custom_log_trace("WPS")
@@ -124,36 +125,7 @@ exit:
 
 void _wpsStartSoftAp( mico_Context_t * const inContext)
 {
-  OSStatus err;
-  wps_log_trace();
-  network_InitTypeDef_st wNetConfig;
-
-  memset(&wNetConfig, 0, sizeof(network_InitTypeDef_st));
-  wNetConfig.wifi_mode = Soft_AP;
-  snprintf(wNetConfig.wifi_ssid, 32, "MXCHIP_%c%c%c%c%c%c", inContext->micoStatus.mac[9],  inContext->micoStatus.mac[10], \
-                                                            inContext->micoStatus.mac[12], inContext->micoStatus.mac[13],
-                                                            inContext->micoStatus.mac[15], inContext->micoStatus.mac[16] );
-  strcpy((char*)wNetConfig.wifi_key, "");
-  strcpy((char*)wNetConfig.local_ip_addr, "10.10.10.1");
-  strcpy((char*)wNetConfig.net_mask, "255.255.255.0");
-  strcpy((char*)wNetConfig.gateway_ip_addr, "10.10.10.1");
-  wNetConfig.dhcpMode = DHCP_Server;
-  micoWlanStart(&wNetConfig);
-  wps_log("Establish soft ap: %s.....", wNetConfig.wifi_ssid);
-
-  if(inContext->flashContentInRam.micoSystemConfig.bonjourEnable == true){
-    err = MICOStartBonjourService( Soft_AP , inContext );
-    require_noerr(err, exit);
-  }
-  
-  if(inContext->flashContentInRam.micoSystemConfig.configServerEnable == true){
-    err = MICOStartConfigServer  ( inContext );
-    require_noerr(err, exit);
-  }
-  ConfigSoftApWillStart( inContext );
-
-exit:
-  return;
+  startEasyLinkSoftAP( inContext);
 }
 
 

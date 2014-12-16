@@ -94,24 +94,6 @@ void ConfigSoftApWillStart(mico_Context_t * const inContext )
   mico_deinit_timer( &_Led_EL_timer );
   mico_init_timer(&_Led_EL_timer, SYS_LED_TRIGGER_INTERVAL_AFTER_EASYLINK, _led_EL_Timeout_handler, NULL);
   mico_start_timer(&_Led_EL_timer);
-  
-  sppProtocolInit(inContext);
-  
-   /*UART receive thread*/
-  uart_config.baud_rate    = inContext->flashContentInRam.appConfig.USART_BaudRate;
-  uart_config.data_width   = DATA_WIDTH_8BIT;
-  uart_config.parity       = NO_PARITY;
-  uart_config.stop_bits    = STOP_BITS_1;
-  uart_config.flow_control = FLOW_CONTROL_DISABLED;
-  ring_buffer_init  ( (ring_buffer_t *)&rx_buffer, (uint8_t *)rx_data, UART_BUFFER_LENGTH );
-  MicoUartInitialize( UART_FOR_APP, &uart_config, (ring_buffer_t *)&rx_buffer );
-  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "UART Recv", uartRecv_thread, STACK_SIZE_UART_RECV_THREAD, (void*)inContext );
-  require_noerr_action( err, exit, config_delegate_log("ERROR: Unable to start the uart recv thread.") );
-
- if(inContext->flashContentInRam.appConfig.localServerEnable == true){
-   err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Local Server", localTcpServer_thread, STACK_SIZE_LOCAL_TCP_SERVER_THREAD, (void*)inContext );
-   require_noerr_action( err, exit, config_delegate_log("ERROR: Unable to start the local server thread.") );
- }
 
 exit:
   return;
@@ -396,9 +378,6 @@ OSStatus ConfigIncommingJsonMessage( const char *input, mico_Context_t * const i
   }
   json_object_put(new_obj);
   mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
-
-  inContext->flashContentInRam.micoSystemConfig.configured = allConfigured;
-  MICOUpdateConfiguration(inContext);
 
 exit:
   return err; 

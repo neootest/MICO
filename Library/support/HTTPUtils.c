@@ -84,8 +84,11 @@ int SocketReadHTTPHeader( int inSock, HTTPHeader_t *inHeader )
 
   if(err == kNoErr && strnicmpx( value, valueSize, kMIMEType_MXCHIP_OTA ) == 0){
 #ifdef MICO_FLASH_FOR_UPDATE  
-    http_utils_log("Receive OTA data!");        
+    http_utils_log("Receive OTA data!");    
+    flashStorageAddress = UPDATE_START_ADDRESS;
     err = MicoFlashInitialize( MICO_FLASH_FOR_UPDATE );
+    require_noerr(err, exit);
+    err = MicoFlashErase(MICO_FLASH_FOR_UPDATE, UPDATE_START_ADDRESS, UPDATE_END_ADDRESS);
     require_noerr(err, exit);
     err = MicoFlashWrite(MICO_FLASH_FOR_UPDATE, &flashStorageAddress, (uint8_t *)end, inHeader->extraDataLen);
     require_noerr(err, exit);
@@ -181,6 +184,9 @@ OSStatus SocketReadHTTPBody( int inSock, HTTPHeader_t *inHeader )
   size_t          valueSize;
   size_t    lastChunkLen, chunckheaderLen; 
   char *nextPackagePtr;
+  struct timeval_t t;
+  t.tv_sec = 5;
+  t.tv_usec = 0;
 #ifdef MICO_FLASH_FOR_UPDATE
   bool writeToFlash = false;
 #endif
@@ -204,7 +210,7 @@ OSStatus SocketReadHTTPBody( int inSock, HTTPHeader_t *inHeader )
       require_action(inHeader->extraDataLen < inHeader->chunkedDataBufferLen, exit, err=kMalformedErr );
 
       selectResult = select( inSock + 1, &readSet, NULL, NULL, NULL );
-      require( selectResult >= 1, exit ); 
+      require_action( selectResult >= 1, exit, err = kNotReadableErr );
 
       readResult = read( inSock, inHeader->extraDataPtr, (size_t)( inHeader->chunkedDataBufferLen - inHeader->extraDataLen ) );
 
@@ -217,7 +223,7 @@ OSStatus SocketReadHTTPBody( int inSock, HTTPHeader_t *inHeader )
     if(inHeader->contentLength == 0){ //This is the last chunk
       while( findCRLF( inHeader->extraDataPtr, inHeader->extraDataLen - chunckheaderLen, &nextPackagePtr ) == false){ //find CRLF
         selectResult = select( inSock + 1, &readSet, NULL, NULL, NULL );
-        require( selectResult >= 1, exit ); 
+        require_action( selectResult >= 1, exit, err = kNotReadableErr );
 
         readResult = read( inSock,
                           (uint8_t *)( inHeader->extraDataPtr + inHeader->extraDataLen - chunckheaderLen ),
@@ -241,7 +247,7 @@ OSStatus SocketReadHTTPBody( int inSock, HTTPHeader_t *inHeader )
       /* Read chunked data */
       while ( inHeader->extraDataLen < inHeader->contentLength + chunckheaderLen + 2 ){
         selectResult = select( inSock + 1, &readSet, NULL, NULL, NULL );
-        require( selectResult >= 1, exit ); 
+        require_action( selectResult >= 1, exit, err = kNotReadableErr );
 
         readResult = read( inSock,
                           (uint8_t *)( inHeader->extraDataPtr + inHeader->extraDataLen - chunckheaderLen),
@@ -266,7 +272,7 @@ OSStatus SocketReadHTTPBody( int inSock, HTTPHeader_t *inHeader )
       inHeader->contentLength = inHeader->extraDataLen;
     }else{
       selectResult = select( inSock + 1, &readSet, NULL, NULL, NULL );
-      require( selectResult >= 1, exit ); 
+      require_action( selectResult >= 1, exit, err = kNotReadableErr );
       
       readResult = read( inSock,
                         (uint8_t*)( inHeader->extraDataPtr ),
@@ -282,9 +288,8 @@ OSStatus SocketReadHTTPBody( int inSock, HTTPHeader_t *inHeader )
      return when all data has received*/
   while ( inHeader->extraDataLen < inHeader->contentLength )
   {
-    selectResult = select( inSock + 1, &readSet, NULL, NULL, NULL );
-    require( selectResult >= 1, exit );
-    
+    selectResult = select( inSock + 1, &readSet, NULL, NULL, &t );
+    require_action( selectResult >= 1, exit, err = kNotReadableErr );
     
     err = HTTPGetHeaderField( inHeader->buf, inHeader->len, "Content-Type", NULL, NULL, &value, &valueSize, NULL );
     require_noerr(err, exit);
@@ -302,10 +307,9 @@ OSStatus SocketReadHTTPBody( int inSock, HTTPHeader_t *inHeader )
                           (uint8_t*)( inHeader->otaDataPtr ),
                           OTA_Data_Length_per_read);
       }
-      
       if( readResult  > 0 ) inHeader->extraDataLen += readResult;
       else { err = kConnectionErr; goto exit; }
-      
+
       err = MicoFlashWrite(MICO_FLASH_FOR_UPDATE, &flashStorageAddress, (uint8_t *)inHeader->otaDataPtr, readResult);
       require_noerr(err, exit);
       
@@ -335,6 +339,7 @@ exit:
 #ifdef MICO_FLASH_FOR_UPDATE
   if(writeToFlash == true) MicoFlashFinalize(MICO_FLASH_FOR_UPDATE);
 #endif
+
   return err;
 }
 
