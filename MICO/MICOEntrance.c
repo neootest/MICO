@@ -337,9 +337,6 @@ int application_start(void)
   mico_log_trace(); 
   mico_log("%s mxchipWNet library version: %s", APP_INFO, MicoGetVer());
 
-  wifimgr_debug_enable(true);
-
-
   /*Start system monotor thread*/
   err = MICOStartSystemMonitor(context);
   require_noerr_action( err, exit, mico_log("ERROR: Unable to start the system monitor.") );
