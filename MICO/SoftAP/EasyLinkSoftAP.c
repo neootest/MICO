@@ -251,7 +251,6 @@ OSStatus startEasyLinkSoftAP( mico_Context_t * const inContext)
     err = _initBonjourForEasyLink( Soft_AP , inContext );
     require_noerr(err, exit);
   }else{
-    inContext->flashContentInRam.micoSystemConfig.easyLinkByPass = EASYLINK_BYPASS_NO;
     err = _initBonjourForEasyLink( Station , inContext );
     _easylinkConnectWiFi_fast(inContext);
     require_noerr(err, exit);
@@ -298,6 +297,7 @@ OSStatus ConfigIncommingJsonMessageUAP( const char *input, mico_Context_t * cons
   OSStatus err = kNoErr;
   json_object *new_obj;
   easylink_uap_log_trace();
+  inContext->flashContentInRam.micoSystemConfig.easyLinkByPass = EASYLINK_BYPASS_NO;
 
   new_obj = json_tokener_parse(input);
   require_action(new_obj, exit, err = kUnknownErr);

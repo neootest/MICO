@@ -233,8 +233,8 @@ OSStatus _LocalConfigRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico
       err = SocketSend( fd, httpResponse, httpResponseLen );
       SocketClose(&fd);
       inContext->micoStatus.sys_state = eState_Software_Reset;
-      require(inContext->micoStatus.sys_state_change_sem, exit);
-      mico_rtos_set_semaphore(&inContext->micoStatus.sys_state_change_sem);
+      if(inContext->micoStatus.sys_state_change_sem != NULL );
+        mico_rtos_set_semaphore(&inContext->micoStatus.sys_state_change_sem);
       mico_thread_sleep(MICO_WAIT_FOREVER);
     }
     goto exit;
@@ -277,8 +277,8 @@ else if(HTTPHeaderMatchURL( inHeader, kCONFIGURLWriteByUAP ) == kNoErr){
       mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
       SocketClose(&fd);
       inContext->micoStatus.sys_state = eState_Software_Reset;
-      require(inContext->micoStatus.sys_state_change_sem, exit);
-      mico_rtos_set_semaphore(&inContext->micoStatus.sys_state_change_sem);
+      if(inContext->micoStatus.sys_state_change_sem != NULL );
+        mico_rtos_set_semaphore(&inContext->micoStatus.sys_state_change_sem);
       mico_thread_sleep(MICO_WAIT_FOREVER);
     }
     goto exit;

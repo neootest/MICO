@@ -76,10 +76,21 @@ void micoNotify_ReadAppInfoHandler(char *str, int len, mico_Context_t * const in
 void PlatformEasyLinkButtonClickedCallback(void)
 {
   mico_log_trace();
+  bool needsUpdate = false;
+  
+  if(context->flashContentInRam.micoSystemConfig.easyLinkByPass != EASYLINK_BYPASS_NO){
+    context->flashContentInRam.micoSystemConfig.easyLinkByPass = EASYLINK_BYPASS_NO;
+    needsUpdate = true;
+  }
+
   if(context->flashContentInRam.micoSystemConfig.configured == allConfigured){
     context->flashContentInRam.micoSystemConfig.configured = wLanUnConfigured;
-    MICOUpdateConfiguration(context);
+    needsUpdate = true;
   }
+  
+  if(needsUpdate == true)
+    MICOUpdateConfiguration(context);
+  
   context->micoStatus.sys_state = eState_Software_Reset;
   require(context->micoStatus.sys_state_change_sem, exit);
   mico_rtos_set_semaphore(&context->micoStatus.sys_state_change_sem);
@@ -326,14 +337,17 @@ int application_start(void)
   mico_log_trace(); 
   mico_log("%s mxchipWNet library version: %s", APP_INFO, MicoGetVer());
 
-  /*Start system monotor thread*/
-  // err = MICOStartSystemMonitor(context);
-  // require_noerr_action( err, exit, mico_log("ERROR: Unable to start the system monitor.") );
+  wifimgr_debug_enable(true);
 
-  // err = MICORegisterSystemMonitor(&mico_monitor, APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000);
-  // require_noerr( err, exit );
-  // mico_init_timer(&_watchdog_reload_timer,APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000 - 100, _watchdog_reload_timer_handler, NULL);
-  // mico_start_timer(&_watchdog_reload_timer);
+
+  /*Start system monotor thread*/
+  err = MICOStartSystemMonitor(context);
+  require_noerr_action( err, exit, mico_log("ERROR: Unable to start the system monitor.") );
+
+  err = MICORegisterSystemMonitor(&mico_monitor, APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000);
+  require_noerr( err, exit );
+  mico_init_timer(&_watchdog_reload_timer,APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000 - 100, _watchdog_reload_timer_handler, NULL);
+  mico_start_timer(&_watchdog_reload_timer);
 
   /* Regisist notifications */
   err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)micoNotify_WifiStatusHandler );
