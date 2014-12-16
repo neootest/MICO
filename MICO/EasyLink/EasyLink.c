@@ -43,7 +43,7 @@
 #include "SoftAp/EasyLinkSoftAP.h"
   
 // EasyLink HTTP messages
-#define kEasyLinkURLAuth          "/config-read"
+#define kEasyLinkURLAuth          "/auth-setup"
 
 #define easylink_log(M, ...) custom_log("EasyLink", M, ##__VA_ARGS__)
 #define easylink_log_trace() custom_log_trace("EasyLink")
