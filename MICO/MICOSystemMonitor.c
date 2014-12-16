@@ -60,7 +60,7 @@ OSStatus MICOStartSystemMonitor (mico_Context_t * const inContext)
 void mico_system_monitor_thread_main( void* arg )
 {
   (void)arg;
-  require_noerr(MicoWdgInitialize(  DEFAULT_SYSTEM_MONITOR_PERIOD + 1000 ), exit);
+  require_noerr(MicoWdgInitialize(  DEFAULT_SYSTEM_MONITOR_PERIOD + 10000 ), exit);
   
   memset(system_monitors, 0, sizeof(system_monitors));
   
