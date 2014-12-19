@@ -96,6 +96,14 @@ exit:
   return;
 }
 
+OSStatus ConfigELRecvAuthData(char * anthData, mico_Context_t * const inContext )
+{
+  config_delegate_log_trace();
+  (void)(inContext);
+  (void)(anthData);
+  return kNoErr;
+}
+
 
 json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
 {
