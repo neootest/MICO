@@ -43,7 +43,11 @@
 #elif defined ( __IAR_SYSTEMS_ICC__ )
 #define MICO_ASSERTION_FAIL_ACTION() __asm("bkpt 0")
 #endif
-
+#ifdef __GNUC__
+#define WICED_ASSERTION_FAIL_ACTION() __asm__("bkpt") //for old library
+#elif defined ( __IAR_SYSTEMS_ICC__ )
+#define WICED_ASSERTION_FAIL_ACTION() __asm("bkpt 0")
+#endif
 /******************************************************
  *                   Enumerations
  ******************************************************/

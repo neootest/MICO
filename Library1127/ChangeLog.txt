@@ -1,0 +1,88 @@
+版本号：31620002.016
+日期：2014-09-18
+1. 替换了EasyLink 1.0的算法，采用新的广播方式进行配置，效率更高。回调函数修改如下：
+typedef struct _configure_result_ {
+    char bssid[6];
+    char ssid[33];
+    char key[65];
+    int  user_data_len;
+    char user_data[65];
+}configure_result_t;
+void report_configure_result(configure_result_t*result)；
+result=NULL:表示配置失败。
+否则result是配置信息。
+2. 修正了mico_start_timer、mico_stop_timer、mico_reload_timer不能在中断服务程序中执行的问题。
+3. wiced_platform_init修改为mico_platform_init。
+
+版本号：31620002.015
+日期：2014-08-26
+1. 实现了的WPS的支持。
+2. 修正了mico_rtos_push_to_queue不能在中断服务程序中执行的问题。
+3. UDP发送多播或者广播数据的时候，会依次遍历每个wifi接口，尝试向Station和uAP接口都发送数据。
+
+版本号：31620002.014
+日期：2014-08-20
+1. 修正了在MCU低功耗模式下时间计算不准确的问题。
+2. 修正了双模式下，Station联网成功以后，SoftAP下面有新的客户端连接上来，就无法访问外网的问题。
+3. 修正了TCP Socket在non-blocking模式下发送数据的行为，之前是在这种模式下如果发送的数据包大于缓冲区的长度就直接返回失败，现在是发送当前缓冲区中能发送的字节数。
+
+版本号：31620002.013
+日期：2014-08-05
+1. 新增API用于设置和读取hostname。char *gethostname( char *name, int len )，char *sethostname( char *name )
+2. 修正了从一个路由器切换到另外一个路由器可能出现ARP缓存影响工作的问题，现在netif down的时候清除所有ARP缓存。
+3. 修正了在联网过程中无法扫描可能出错的问题。
+4. 修改了Healmonitor的工作机制，由之前的ping替换为现在的arping，原因是可能存在某些网关不允许ping。
+5. SoftAP模式下对所有的DNS请求都回复为模块的IP地址。
+6. 修正了EasyLink可能会配置错误的问题。
+7. 修正了TCP setsockopt无法配置TCP Keepalive时间间隔的问题。
+8. StartAdvNetwork可以不配置SSID只配置BSSID，通过BSSID进行联网。
+
+
+版本号：31620002.012
+日期：2014-06-27
+1. 新增API用于返回当前memory的使用情况。
+struct mxchip_mallinfo {
+  int num_of_chunks;  /* number of free chunks */
+  int total_memory;  /* maximum total allocated space */
+  int allocted_memory; /* total allocated space */
+  int free_memory; /* total free space */
+};
+struct mxchip_mallinfo* mico_memory_info(void);
+
+
+版本号：31620002.011
+日期：2014-06-10
+1. 新增API用于设置和读取RTC时间。
+typedef struct
+{
+    u8 sec;
+    u8 min;
+    u8 hr;
+    u8 weekday;/* 1-sunday... 7-saturday */
+    u8 date;
+    u8 month;
+    u8 year;
+}rtc_time_t;
+
+int mico_get_rtc_time(rtc_time_t* time);
+int mico_set_rtc_time(rtc_time_t* time);
+2. RTC在重启之后不会重新计时。
+
+版本号：31620002.010
+日期：2014-06-05
+1. 修正了AP的SSID为32个字节的时候，模块无法连接的问题。
+2. 新增一个socket option来设置TCP Server允许的最大连接数，当最大连接数到达这个最大值以后，新的连接请求到达，就会关闭一个最老的不活动的Client来接收新的连接请求。默认是5个。设置方式如下：
+  TCP_NODELAY = 0x01,    /* don't delay send to coalesce packets */
+  TCP_KEEPALIVE = 0x02,    /* send KEEPALIVE probes when idle for pcb->keep_idle milliseconds */
+  TCP_KEEPIDLE = 0x03,    /* set pcb->keep_idle  - Same as TCP_KEEPALIVE, but use seconds for get/setsockopt */
+  TCP_KEEPINTVL = 0x04,    /* set pcb->keep_intvl - Use seconds for get/setsockopt */
+  TCP_KEEPCNT = 0x05,    /* set pcb->keep_cnt   - Use number of probes sent for get/setsockopt */
+  TCP_CONN_NUM = 0x06,    /* get the connection num for a TCP server, can't set */
+  TCP_MAX_CONN_NUM = 0x07,/* get/set the connection num for a TCP server*/
+#define IPPROTO_TCP 6
+
+int opt;
+opt = 2;
+setsockopt(fd_listen, IPPROTO_TCP, TCP_MAX_CONN_NUM, &opt, sizeof(opt));
+
+

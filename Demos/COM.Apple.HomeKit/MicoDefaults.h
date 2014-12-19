@@ -39,7 +39,11 @@ extern "C"
 
 
  /* Application thread stack size */
+#ifdef FRDM_K64F
+#define MICO_DEFAULT_APPLICATION_STACK_SIZE         (6000)
+#else
 #define MICO_DEFAULT_APPLICATION_STACK_SIZE         (1500)
+#endif 
 
 /* MICO RTOS tick rate in Hz */
 #define MICO_DEFAULT_TICK_RATE_HZ                   (1000) 

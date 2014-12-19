@@ -252,6 +252,9 @@ void HKWriteCharacteristicValue(int accessoryID, int serviceID, int characterist
 
     if(inContext->appStatus.service.on_status == kHKBusyErr){
       inContext->appStatus.service.on = inContext->appStatus.service.on_new;
+	  #ifdef FRDM_K64F
+      MicoSysLed(inContext->appStatus.service.on_new);
+	  #endif 
       inContext->appStatus.service.on_status = kNoErr;      
     }
 
