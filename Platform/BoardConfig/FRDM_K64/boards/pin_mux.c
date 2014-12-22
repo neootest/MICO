@@ -155,6 +155,8 @@ void configure_gpio_pins(uint32_t instance)
       PORT_HAL_SetMuxMode(PORTC_BASE,12u,kPortMuxAsGpio);
       /* Affects PORTC_PCR13 register */
       PORT_HAL_SetMuxMode(PORTC_BASE,13u,kPortMuxAsGpio);
+      /* Affects PORTC_PCR16 register */
+      PORT_HAL_SetMuxMode(PORTC_BASE,16u,kPortMuxAsGpio);
       break;
     case HW_PORTE:                      /* HW_PORTE */
       /* Affects PORTE_PCR6 register */
@@ -290,9 +292,11 @@ void configure_uart_pins(uint32_t instance)
       break;
     case HW_UART1:                      /* UART1 */
       /* Affects PORTE_PCR0 register */
-      PORT_HAL_SetMuxMode(PORTE_BASE,0u,kPortMuxAlt3);
+      //PORT_HAL_SetMuxMode(PORTE_BASE,0u,kPortMuxAlt3);
+	  PORT_HAL_SetMuxMode(PORTC_BASE,3u,kPortMuxAlt3);
       /* Affects PORTE_PCR1 register */
-      PORT_HAL_SetMuxMode(PORTE_BASE,1u,kPortMuxAlt3);
+      //PORT_HAL_SetMuxMode(PORTE_BASE,1u,kPortMuxAlt3);
+	  PORT_HAL_SetMuxMode(PORTC_BASE,4u,kPortMuxAlt3);
       break;
     case HW_UART4:                      /* UART4 */
       /* Affects PORTC_PCR14 register */

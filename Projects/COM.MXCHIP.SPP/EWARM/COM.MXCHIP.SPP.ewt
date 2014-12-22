@@ -805,9 +805,6 @@
     <file>
       <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_cm4f_spi.a</name>
     </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\Library1127\mxchipWNet_cm4f_spi.a</name>
-    </file>
   </group>
   <group>
     <name>MICO</name>
@@ -919,6 +916,9 @@
         <name>LPCXpresso54102</name>
         <file>
           <name>$PROJ_DIR$\..\..\..\Platform\BoardConfig\LPCXpresso54102\iar_startup_lpc540xx.s</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\Library1127\mxchipWNet_cm4f_spi.a</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\Platform\BoardConfig\LPCXpresso54102\pinmapping.c</name>

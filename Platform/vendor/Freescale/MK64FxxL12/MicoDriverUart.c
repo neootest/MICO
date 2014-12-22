@@ -331,7 +331,7 @@ static OSStatus platform_uart_receive_bytes( mico_uart_t uart, void* data, uint3
   /* Reset DMA transmission result. The result is assigned in interrupt handler */
   //  uart_interfaces[uart].rx_dma_result = kGeneralErr;
    //  if(UART_DRV_EdmaReceiveData(BOARD_DEBUG_UART_INSTANCE, data, size)==kStatus_UART_Success){
-   if(UART_DRV_EdmaReceiveDataBlocking(BOARD_APP_UART_INSTANCE, data,size, timeout)==kStatus_UART_Success){
+   if(UART_DRV_EdmaReceiveDataBlocking(BOARD_APP_UART_INSTANCE, data,1, timeout)==kStatus_UART_Success){
          platform_log("uart receive success.");
 #if ADD_OS_CODE
         #ifndef NO_MICO_RTOS
