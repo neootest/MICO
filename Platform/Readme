@@ -1,0 +1,78 @@
+## Readme in Platform/
+# Platform path and files descriptions,and porting guide.
+#
+# Ver. 001 Created by JerryYu Dec-22nd, 2014.
+##
+# If you are a vendor developer, you may need to focus vendor and BoardConfig.
+# As a user who want to use vendor's MCU to make a new board, he almost only need to focus BoardConfig, and vendor if necessary.
+Path description.
+     BoardConfig/:  Your board configurations, such as, peripherals select, #macro control, etc. maintained by customer.
+     Common/:   Architecture’s configurations, Drivers,etc. maintained by MXCHIP.COM 
+     include/:  Platform head files needed be implemented by vendor or customer. maintained by MXCHIP.COM
+     vendor/:   MCU/SOCs' drivers from vendor, such as ST, NXP, Freescale, TI, Marvell etc. maintained by vendor.
+
+Details.
+BoardConfig/    --Must have platform.h platform_common_config.h and a (implement).c (platform.c recommended). 
+                --startup_xxx.s if wanted.
+                --(Link file).icf for IAR. 
+    Configurations.
+        i.   config SPI for Wlan(wifi module, such as EMW1062)
+        ii.  define 32KHz clock to Wifi module sleep,if it's needed.
+        iii. config memory map(Flash)
+        iv.  define peripherals device that the system and users will use. such as: gpio, uart, spi, i2c, adc, pwm, flash,etc.
+        v.   other configs. eg. use sub-device which deined in iv. 
+    Implement interfaces.
+        1. implement part of "MicoPlatform.h" declared functions(interfaces).
+             MicoSysLed(bool), //A LED for system status
+             MicoRfled(bool), // A LED for Wlan status
+             bool MicoShouldEnterMFGMode(), //If or not enter MFG mode, can controlled by buttons. 
+             bool MicoShouldEnterBootLoader() //If or not enter BootLoader, can controlled by buttons. 
+        2. implement functions called by wlan_platform.c 
+             host_platform_reset_wifi(bool) //Wlan Reset GPIO control
+             host_platform_power_wifi(bool) //Wlan Power GPIO control
+        3. implement some button handler if needed.
+             _button_EL_irq_handler
+             _button_EL_Timeout_handler
+             _button_STANDBY_irq_handler
+        4. implement Platform initialize interfaces.
+             init_platform() //initialize your board after power up. extern declared in crt0.h. Usaually, initialize LEDs,Buttons or others which you wanted. 
+             init_platform_bootloader() // 
+             mico_platform_init()
+        5. implement spi_flash_platform_interface.h methods or functions(interfaces) if needed.
+             extern int sflash_platform_init          ( int peripheral_id, void** platform_peripheral_out );
+             extern int sflash_platform_send_recv_byte( void* platform_peripheral, unsigned char MOSI_val, void* MISO_addr );
+             extern int sflash_platform_chip_select   ( void* platform_peripheral );
+             extern int sflash_platform_chip_deselect ( void* platform_peripheral );
+        6. set mapping struct if defined in vendor. eg. platform_pin_mapping_t. 
+        
+     -- More details pls see the Readme in BoardConfig path.
+
+vendor/     --Must implement WIFI module drivers, MicoDrivers and MicoPlatformInternal.h's functions.
+            --vendor chip drivers.
+    Configurations.
+    Implement interfaces.
+        1. implement Wifi module(eg.EMW1062)'s bus interfaces(SPI or SDIO) and wlan_platform.c methods.
+        2. implement "MicoPlatformInternal.h"(or "crt0.h") and part of "MicoPlatform.h" declared functions(about system interfaces).
+             init_clocks()
+             init_memory()
+             init_architecture()
+             startApplication()
+             MicoSystemReboot()
+             MicoSystemStandBy()
+             MicoMcuPowerSaveConfig() 
+        3. implement MicoDriver___.h, these are API for applications.
+        4. implement hardfault.c, if needed.
+
+include/    --MicoPlatformInternal.h which need to be implemented, and PlatformLogging.h which for debugging.
+
+Common/     --Architecture(eg,Cortex-M3, Cortex-M4) head files. And Drivers maintained by MXCHIP.
+        1. Architecture head files.
+             Cortex-M3 or Cortex-M4, crt0.h, platform_assert.h
+        2. Drivers.
+             spi_flash
+             others.
+        3. for IAR.
+            
+
+
+
