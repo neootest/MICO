@@ -48,6 +48,10 @@
 #include "EasyLink/EasyLink.h"
 #endif
 
+#if defined (CONFIG_MODE_AIRKISS)
+#include "Airkiss/Airkiss.h"
+#endif
+
 static mico_Context_t *context;
 static mico_timer_t _watchdog_reload_timer;
 
