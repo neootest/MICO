@@ -1,4 +1,4 @@
-/***
+/****
  *filename: platform.h
  * the board's Peripherals define and configurations, such as gpio, button, LED, spi, uart, pwm,
  *adc,i2c,rtc, etc., not include config the WIFI module.
@@ -8,8 +8,8 @@
  * */ 
 
 #include "platform_common_config.h"
-#include "platform_wifi_config.h"
-#include "board.h" //TBD! Jer
+#include "platform_wifi_config.h"   //option if config wifi in here or platform_common_config.h
+#include "board.h"                  //can also use implemented configurations. Like this "board.h"
 
 #pragma once
 
@@ -18,9 +18,9 @@ extern "C"
 {
 #endif
 
-#define HARDWARE_REVISION   "1062_1"
-#define DEFAULT_NAME        "NXP EVB"
-#define MODEL               "NXP_EVB_1"
+#define HARDWARE_REVISION   "1062_1"            //Which Wifi Module? default: 1062_x. 
+#define DEFAULT_NAME        "EXAMPLE EVB"       //Named your board/platform.
+#define MODEL               "EXAMPLE_EVB_01"    //Named your board model.
 
 #ifdef __GNUC__
 #define WEAK __attribute__ ((weak))
@@ -28,29 +28,38 @@ extern "C"
 #define WEAK __weak
 #endif /* ifdef __GNUC__ */
 
-#define BOARD_LPCXPRESSO_54102
-    
+#define BOARD_EXAMPLE_01                        //Want special? define it to a special application.
+   
+/***
+ * Define some port what want to do
+ * */ 
 typedef enum
 {
-  MICO_GPIO_UNUSED = -1,
-  MICO_GPIO_WLAN_POWERSAVE_CLOCK = 0,
-  WL_GPIO0,
-  WL_GPIO1,
-  WL_REG_RESERVED,
-  WL_RESET,
-  MICO_SYS_LED,
-  MICO_RF_LED,
-  BOOT_SEL,
-  MFG_SEL,
-  EasyLink_BUTTON,
-  MICO_COMMON_GPIO_MAX,
-} mico_common_gpio_t;
+  MICO_GPIO_UNUSED = -1,                //Reserved to confirm which port unused.
+  MICO_GPIO_WLAN_POWERSAVE_CLOCK = 0,   //If wifi module need external clock to sleep mode.
+  WL_GPIO0,                             //Define a GPIO to wifi module
+ // WL_GPIO1,                           //Commemt it if don't need it.Like this Line
+  WL_REG_RESERVED,                      //Wifi module regulator
+  WL_RESET,                             //Wifi Reset port 
+  MICO_SYS_LED,                         //A LED for system status.
+  MICO_RF_LED,                          //RF LED for Wifi
+  BOOT_SEL,                             //A switch or button for boot the platform
+  MFG_SEL,                              //A switch or button for MFG mode,a test mode
+  EasyLink_BUTTON,                      //EasyLink button
+  MICO_COMMON_GPIO_MAX,                 //How many port or Gpio defined.
+} mico_common_gpio_t;                   //Named the type define.
 
 /**********************
- * typedef peripherals 
- * must be defined, MICO Driver need them. 
+ * Typedef peripherals 
+ * Must be defined,if want use MICO Driver to develp applications.
+ * Can implement mapping(s), which mentioned in following,in platform.c (recommend to named platform.c)
+ * Maybe not all of peripherals wanted,can control it by #macroes HAVE_XXX
  **********************/
 #ifdef HAVE_GPIO
+/**
+ * Define all of the GPIOs will be used besides "mico_common_gpio_t".
+ * May need to implement a good gpio mapping[] type/struct used in "MicoDriverGpio.c"
+ * */
 typedef enum
 {
     MICO_GPIO_1 = MICO_COMMON_GPIO_MAX,
@@ -88,6 +97,10 @@ typedef enum
 #endif 
 
 #ifdef HAVE_SPI
+/**
+ * Define all of the SPIs will be used .
+ * May need to implement a good SPI mapping[] type/struct used in "MicoDriverSpi.c"
+ * */
 typedef enum
 {
     MICO_SPI_1,
@@ -96,6 +109,10 @@ typedef enum
 #endif 
 
 #ifdef HAVE_I2C
+/**
+ * Define all of the I2Cs will be used .
+ * May need to implement a good I2C mapping[] type/struct used in "MicoDriverI2c.c"
+ * */
 typedef enum
 {
     MICO_I2C_1,
@@ -104,6 +121,10 @@ typedef enum
 #endif 
 
 #ifdef HAVE_PWM
+/**
+ * Define all of the PWMs will be used .
+ * May need to implement a good PWM mapping[] type/struct used in "MicoDriverPwm.c"
+ * */
 typedef enum
 {
     MICO_PWM_1 = MICO_COMMON_PWM_MAX,
@@ -114,6 +135,10 @@ typedef enum
 #endif 
 
 #ifdef HAVE_ADC
+/**
+ * Define all of the ADCs will be used .
+ * May need to implement a good ADC mapping[] type/struct used in "MicoDriverAdc.c"
+ * */
 typedef enum
 {
     MICO_ADC_1,
@@ -124,51 +149,39 @@ typedef enum
 #endif 
 
 #ifdef HAVE_UART
+/**
+ * Define all of the UARTs will be used .
+ * May need to implement a good uart mapping[] type/struct used in "MicoDriverUart.c"
+ * */
 typedef enum
 {
     MICO_UART_1,
     MICO_UART_2,
     MICO_UART_MAX, /* Denotes the total number of UART port aliases. Not a valid UART alias */
 } mico_uart_t;
+
+/* The number of UART interfaces this hardware platform has */
+#define NUMBER_OF_UART_INTERFACES   2               //How many UARTs will use.
+#define STDIO_UART                  MICO_UART_1     //Which UART used as STDIO.
 #endif 
 
 #ifdef HAVE_FLASH
+/**
+ * Define all of the FLASHs will be used .
+ * May need to implement a good flash mapping[] type/struct used in "MicoDriverFlash.c"
+ * */
 typedef enum
 {
   MICO_SPI_FLASH,
   MICO_INTERNAL_FLASH,
 } mico_flash_t;
-#endif 
 
-/******************************************************
- *                      Macros
- ******************************************************/
-/**====button status=====*/
-#define GPIO_STATUS_PORT        1
-#define GPIO_STATUS_PIN         2
-#define GPIO_STATUS_INDEX	PININTSELECT4	/* PININT index used for GPIO mapping */
-/**====button boot =====*/
-#define GPIO_BOOT_PORT          1
-#define GPIO_BOOT_PIN           4
-#define GPIO_BOOT_INDEX	        PININTSELECT5	/* PININT index used for GPIO mapping */
-/**====button standby  =====*/
-#define GPIO_STANBY_PORT        1
-#define GPIO_STANBY_PIN         8
-#define GPIO_STANBY_INDEX	PININTSELECT6	/* PININT index used for GPIO mapping */
-/**====button easylink=====*/
-#define GPIO_EASYLINK_PORT      0
-#define GPIO_EASYLINK_PIN       18
-#define GPIO_EASYLINK_INDEX	PININTSELECT7	/* PININT index used for GPIO mapping */
-#define USE_MICO_SPI_FLASH
-
+#define USE_MICO_SPI_FLASH              //Use Mico driver of spi_flash. In Common/Drivers/spi_flash/
 //#define SFLASH_SUPPORT_MACRONIX_PART 
 //#define SFLASH_SUPPORT_SST_PARTS
 #define SFLASH_SUPPORT_WINBOND_PARTS
+#endif 
 
-/* The number of UART interfaces this hardware platform has */
-#define NUMBER_OF_UART_INTERFACES  MICO_UART_MAX //2
-
-#define STDIO_UART       MICO_UART_1
 
 /**============== Memory map================== */
 #define INTERNAL_FLASH_START_ADDRESS    (uint32_t)0x08000000
