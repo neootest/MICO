@@ -33,7 +33,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-//#include "fsl_os_abstraction.h"
+#include "fsl_os_abstraction.h"
 #include "fsl_uart_hal.h"
 
 /*!
@@ -67,8 +67,12 @@ typedef struct UartState {
     volatile bool isRxBusy;        /*!< True if there is an active receive. */
     volatile bool isTxBlocking;    /*!< True if transmit is blocking transaction. */
     volatile bool isRxBlocking;    /*!< True if receive is blocking transaction. */
-    void *  txIrqSync;         /*!< Used to wait for ISR to complete its TX business. */
-    void * rxIrqSync;         /*!< Used to wait for ISR to complete its RX business. */
+    /***********************************************************************************************/
+    //void *  txIrqSync;         /*!< Used to wait for ISR to complete its TX business. */
+    //void * rxIrqSync;         /*!< Used to wait for ISR to complete its RX business. */
+    /*************************************************************************************************/
+    semaphore_t txIrqSync;
+    semaphore_t rxIrqSync;
     uart_rx_callback_t rxCallback; /*!< Callback to invoke after receiving byte.*/
     void * rxCallbackParam;        /*!< Receive callback parameter pointer.*/
 } uart_state_t;

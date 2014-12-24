@@ -7304,10 +7304,19 @@
           <name>$PROJ_DIR$\..\..\..\Platform\BoardConfig\FRDM_K64\irq_handler\fsl_edma_irq.c</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\Platform\BoardConfig\FRDM_K64\hal\fsl_uart_common.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\Platform\BoardConfig\FRDM_K64\hal\fsl_uart_driver.c</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\Platform\BoardConfig\FRDM_K64\hal\fsl_uart_edma_driver.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\Platform\BoardConfig\FRDM_K64\hal\fsl_uart_hal.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\Platform\BoardConfig\FRDM_K64\hal\fsl_uart_irq.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\Platform\BoardConfig\FRDM_K64\boards\gpio_pins.c</name>

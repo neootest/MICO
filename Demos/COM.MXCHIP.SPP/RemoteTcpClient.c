@@ -130,7 +130,7 @@ void remoteTcpClient_thread(void *inContext)
         sppWlanCommandProcess(inDataBuffer, &len, remoteTcpClient_fd, Context);
 
       }
-      
+
     Continue:    
       continue;
       
