@@ -34,11 +34,8 @@
 #define PROTOCOL            "com.mxchip.spp"
 
 /* Wi-Fi configuration mode */
-#if defined(FRDM_K64F)||defined(LPCXPRESSO54102)
-#define MICO_CONFIG_MODE CONFIG_MODE_EASYLINK //Jer test freescale
-#else
 #define MICO_CONFIG_MODE CONFIG_MODE_EASYLINK_WITH_SOFTAP
-#endif
+
 /*User provided configurations*/
 #define CONFIGURATION_VERSION               0x00000002 // if default configuration is changed, update this number
 #define MAX_Local_Client_Num                8

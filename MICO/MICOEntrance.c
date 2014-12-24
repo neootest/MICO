@@ -288,6 +288,8 @@ int application_start(void)
   struct tm currentTime;
   mico_rtc_time_t time;
   char wifi_ver[64];
+  mico_log_trace(); 
+
   /*Read current configurations*/
   context = ( mico_Context_t *)malloc(sizeof(mico_Context_t) );
   require_action( context, exit, err = kNoMemoryErr );
@@ -333,10 +335,10 @@ int application_start(void)
 
   micoWlanGetIPStatus(&para, Station);
   formatMACAddr(context->micoStatus.mac, (char *)&para.mac);
-  wlan_driver_version(wifi_ver, sizeof(wifi_ver));
-  mico_log_trace(); 
-  mico_log("%s ver: %s, mac %s", APP_INFO, MicoGetVer(), context->micoStatus.mac);
-  mico_log("wifi version %s", wifi_ver);
+  MicoGetRfVer(wifi_ver, sizeof(wifi_ver));
+  mico_log("%s mxchipWNet library version: %s", APP_INFO, MicoGetVer());
+  mico_log("Wi-Fi driver version %s, mac %s", wifi_ver, context->micoStatus.mac);
+
   /*Start system monotor thread*/
   err = MICOStartSystemMonitor(context);
   require_noerr_action( err, exit, mico_log("ERROR: Unable to start the system monitor.") );
@@ -349,9 +351,7 @@ int application_start(void)
   /* Regisist notifications */
   err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)micoNotify_WifiStatusHandler );
   require_noerr( err, exit ); 
-#ifdef BOARD_LPCXPRESSO_54102
-  wifimgr_debug_enable(true);
-#endif
+
   if(context->flashContentInRam.micoSystemConfig.configured != allConfigured){
     mico_log("Empty configuration. Starting configuration mode...");
 

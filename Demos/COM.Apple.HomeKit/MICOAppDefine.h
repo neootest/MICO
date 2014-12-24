@@ -37,11 +37,8 @@
 #define CONFIGURATION_VERSION    0x00010002 // if changed default configuration, add this num
 
 /* Wi-Fi configuration mode */
-#if defined(FRDM_K64F)||defined(LPCXPRESSO54102)
-#define MICO_CONFIG_MODE CONFIG_MODE_EASYLINK //CONFIG_MODE_WAC
-#else
 #define MICO_CONFIG_MODE CONFIG_MODE_WAC
-#endif
+
 /*User provided application configurations*/
 #define MAX_Local_Client_Num                8
 #define DEAFULT_REMOTE_SERVER               "192.168.2.254"
