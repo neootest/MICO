@@ -35,10 +35,10 @@
 
 #include "MICODefine.h"
 
-#define Airkiss_TimeOut                20000 /**< EasyLink timeout 10 seconds. */
+#define Airkiss_TimeOut                60000 /**< EasyLink timeout 60 seconds. */
 
-#define Airkiss_ConnectWlan_Timeout    20000 /**< Connect to wlan after configured by easylink.
-                                                   Restart easylink after timeout: 20 seconds. */
+#define Airkiss_ConnectWlan_Timeout    30000 /**< Connect to wlan after configured by easylink.
+                                                   Restart easylink after timeout: 30 seconds. */
 
 OSStatus startAirkiss( mico_Context_t * const inContext);
 

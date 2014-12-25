@@ -31,18 +31,17 @@
 #include "MICO.h"
 #include "MICODefine.h"
 #include "MICOAppDefine.h"
-#include "SppProtocol.h"  
 #include "MICOConfigMenu.h"
 #include "StringUtils.h"
+
+#include "MicoVirtualDevice.h"
 
 #define SYS_LED_TRIGGER_INTERVAL 100 
 #define SYS_LED_TRIGGER_INTERVAL_AFTER_EASYLINK 500 
   
 #define config_delegate_log(M, ...) custom_log("Config Delegate", M, ##__VA_ARGS__)
 #define config_delegate_log_trace() custom_log_trace("Config Delegate")
-  
-extern volatile ring_buffer_t  rx_buffer;
-extern volatile uint8_t        rx_data[UART_BUFFER_LENGTH];
+
 
 static mico_timer_t _Led_EL_timer = NULL;
 
@@ -85,19 +84,47 @@ void ConfigAirkissIsSuccess( mico_Context_t * const inContext )
   return;
 }
 
-void ConfigSoftApWillStart(mico_Context_t * const inContext )
+void ConfigEasyLinkIsSuccess( mico_Context_t * const inContext )
 {
-  OSStatus err;
   (void)(inContext); 
-
-  mico_uart_config_t uart_config;
+  config_delegate_log_trace();
 
   mico_stop_timer(&_Led_EL_timer);
   mico_deinit_timer( &_Led_EL_timer );
   mico_init_timer(&_Led_EL_timer, SYS_LED_TRIGGER_INTERVAL_AFTER_EASYLINK, _led_EL_Timeout_handler, NULL);
   mico_start_timer(&_Led_EL_timer);
+  return;
+}
 
-exit:
+void ConfigSoftApWillStart(mico_Context_t * const inContext )
+{
+  //OSStatus err;
+  //mico_uart_config_t uart_config;
+
+  mico_stop_timer(&_Led_EL_timer);
+  mico_deinit_timer( &_Led_EL_timer );
+  mico_init_timer(&_Led_EL_timer, SYS_LED_TRIGGER_INTERVAL_AFTER_EASYLINK, _led_EL_Timeout_handler, NULL);
+  mico_start_timer(&_Led_EL_timer);
+  
+//  sppProtocolInit(inContext);
+//  
+//   /*UART receive thread*/
+//  uart_config.baud_rate    = inContext->flashContentInRam.appConfig.USART_BaudRate;
+//  uart_config.data_width   = DATA_WIDTH_8BIT;
+//  uart_config.parity       = NO_PARITY;
+//  uart_config.stop_bits    = STOP_BITS_1;
+//  uart_config.flow_control = FLOW_CONTROL_DISABLED;
+//  ring_buffer_init  ( (ring_buffer_t *)&rx_buffer, (uint8_t *)rx_data, UART_BUFFER_LENGTH );
+//  MicoUartInitialize( UART_FOR_APP, &uart_config, (ring_buffer_t *)&rx_buffer );
+//  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "UART Recv", uartRecv_thread, STACK_SIZE_UART_RECV_THREAD, (void*)inContext );
+//  require_noerr_action( err, exit, config_delegate_log("ERROR: Unable to start the uart recv thread.") );
+//
+// if(inContext->flashContentInRam.appConfig.localServerEnable == true){
+//   err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Local Server", localTcpServer_thread, STACK_SIZE_LOCAL_TCP_SERVER_THREAD, (void*)inContext );
+//   require_noerr_action( err, exit, config_delegate_log("ERROR: Unable to start the local server thread.") );
+// }
+
+//exit:
   return;
 }
 
@@ -279,23 +306,6 @@ json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
     require_noerr(err, exit);
 
   /*Sector 4*/
-  sector = json_object_new_array();
-  require( sector, exit );
-  err = MICOAddSector(sectors, "SPP Remote Server",           sector);
-  require_noerr(err, exit);
-
-
-    // SPP protocol remote server connection enable
-    err = MICOAddSwitchCellToSector(sector, "Connect SPP Server",   inContext->flashContentInRam.appConfig.remoteServerEnable,   "RW");
-    require_noerr(err, exit);
-
-    //Seerver address cell
-    err = MICOAddStringCellToSector(sector, "SPP Server",           inContext->flashContentInRam.appConfig.remoteServerDomain,   "RW", NULL);
-    require_noerr(err, exit);
-
-    //Seerver port cell
-    err = MICOAddNumberCellToSector(sector, "SPP Server Port",      inContext->flashContentInRam.appConfig.remoteServerPort,   "RW", NULL);
-    require_noerr(err, exit);
 
   /*Sector 5*/
   sector = json_object_new_array();
@@ -312,9 +322,55 @@ json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
     json_object_array_add(selectArray, json_object_new_int(38400));
     json_object_array_add(selectArray, json_object_new_int(57600));
     json_object_array_add(selectArray, json_object_new_int(115200));
-    err = MICOAddNumberCellToSector(sector, "Baurdrate", 115200, "RW", selectArray);
+    //err = MICOAddNumberCellToSector(sector, "Baurdrate", 115200, "RW", selectArray);
+    err = MICOAddNumberCellToSector(sector, "Baurdrate", 
+              inContext->flashContentInRam.appConfig.virtualDevConfig.USART_BaudRate, 
+              "RW", selectArray);
     require_noerr(err, exit);
-
+    
+  /*Sector 6: cloud settings*/
+  sector = json_object_new_array();
+  require( sector, exit );
+  err = MICOAddSector(sectors, "Cloud info", sector);
+  require_noerr(err, exit);
+  
+  // device activate status
+  err = MICOAddSwitchCellToSector(sector, "activated", 
+                                  inContext->flashContentInRam.appConfig.virtualDevConfig.isActivated, 
+                                  "RO");
+  require_noerr(err, exit);
+  // cloud connect status
+  err = MICOAddSwitchCellToSector(sector, "connected", 
+                                  inContext->appStatus.virtualDevStatus.isCloudConnected, 
+                                  "RO");
+  require_noerr(err, exit);
+  // rom version cell
+  err = MICOAddStringCellToSector(sector, "rom version", 
+                                  inContext->flashContentInRam.appConfig.virtualDevConfig.romVersion,
+                                  "RO", NULL);
+  require_noerr(err, exit);
+  // device_id cell, is RO in fact, we set RW is convenient for read full string.
+  err = MICOAddStringCellToSector(sector, "device_id", 
+                                  inContext->flashContentInRam.appConfig.virtualDevConfig.deviceId,
+                                  "RW", NULL);
+  /*sub menu - cloud setting */
+/*  subMenuSectors = json_object_new_array();
+  require( subMenuSectors, exit );
+  err = MICOAddMenuCellToSector(sector, "Cloud settings", subMenuSectors);
+  require_noerr(err, exit);
+  
+  subMenuSector = json_object_new_array();
+  require( subMenuSector, exit );
+  err = MICOAddSector(subMenuSectors, "Authentication", subMenuSector);
+  require_noerr(err, exit);
+  
+  err = MICOAddStringCellToSector(subMenuSector, "login_id",  
+                                  inContext->flashContentInRam.appConfig.virtualDevConfig.loginId,
+                                  "RW", NULL);
+  err = MICOAddStringCellToSector(subMenuSector, "devPasswd",  
+                                  inContext->flashContentInRam.appConfig.virtualDevConfig.devPasswd,
+                                  "RW", NULL);
+*/
   mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
   
 exit:
@@ -366,15 +422,14 @@ OSStatus ConfigIncommingJsonMessage( const char *input, mico_Context_t * const i
     }else if(!strcmp(key, "Gateway")){
       strncpy(inContext->flashContentInRam.micoSystemConfig.gateWay, json_object_get_string(val), maxIpLen);
     }else if(!strcmp(key, "DNS Server")){
-      strncpy(inContext->flashContentInRam.micoSystemConfig.dnsServer, json_object_get_string(val), maxIpLen);
-    }else if(!strcmp(key, "Connect SPP Server")){
-      inContext->flashContentInRam.appConfig.remoteServerEnable = json_object_get_boolean(val);
-    }else if(!strcmp(key, "SPP Server")){
-      strncpy(inContext->flashContentInRam.appConfig.remoteServerDomain, json_object_get_string(val), 64);
-    }else if(!strcmp(key, "SPP Server Port")){
-      inContext->flashContentInRam.appConfig.remoteServerPort = json_object_get_int(val);
+      strncpy(inContext->flashContentInRam.micoSystemConfig.dnsServer, json_object_get_string(val), maxIpLen);   
     }else if(!strcmp(key, "Baurdrate")){
-      inContext->flashContentInRam.appConfig.USART_BaudRate = json_object_get_int(val);
+      inContext->flashContentInRam.appConfig.virtualDevConfig.USART_BaudRate = json_object_get_int(val);
+    }/*else if(!strcmp(key, "login_id")){
+      strncpy(inContext->flashContentInRam.appConfig.virtualDevConfig.loginId, json_object_get_string(val), MAX_SIZE_LOGIN_ID); 
+    } else if(!strcmp(key, "devPasswd")){
+      strncpy(inContext->flashContentInRam.appConfig.virtualDevConfig.devPasswd, json_object_get_string(val), MAX_SIZE_DEV_PASSWD); 
+    }*/else{
     }
   }
   json_object_put(new_obj);
