@@ -104,8 +104,8 @@ void remoteTcpClient_thread(void *inContext)
       require_noerr_quiet(err, ReConnWithDelay);
       
       Context->appStatus.isRemoteConnected = true;
-      client_log("Remote server connected at port: %d, fd: %d",  Context->flashContentInRam.appConfig.remoteServerPort,
-                 remoteTcpClient_fd);
+   //   client_log("Remote server connected at port: %d, fd: %d",  Context->flashContentInRam.appConfig.remoteServerPort,
+   //              remoteTcpClient_fd);
     }else{
       FD_ZERO(&readfds);
       FD_SET(remoteTcpClient_fd, &readfds);
@@ -123,7 +123,7 @@ void remoteTcpClient_thread(void *inContext)
       if (FD_ISSET(remoteTcpClient_fd, &readfds)) {
         len = recv(remoteTcpClient_fd, inDataBuffer, wlanBufferLen, 0);
         if(len <= 0) {
-          client_log("Remote client closed, fd: %d", remoteTcpClient_fd);
+         // client_log("Remote client closed, fd: %d", remoteTcpClient_fd);
           Context->appStatus.isRemoteConnected = false;
           goto ReConnWithDelay;
         }

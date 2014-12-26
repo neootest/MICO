@@ -7207,7 +7207,6 @@
         <configuration>MICO_EVB_1</configuration>
         <configuration>EMW3165</configuration>
         <configuration>EMW3161</configuration>
-        <configuration>LPCXpresso54102</configuration>
       </excluded>
     </file>
   </group>
@@ -7358,6 +7357,15 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\Library1127\mxchipWNet_cm4f_spi.a</name>
+          <excluded>
+            <configuration>LPCXpresso54102</configuration>
+          </excluded>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\Platform\BoardConfig\LPCXpresso54102\mxchipWNet_cm4f_spi.a</name>
+          <excluded>
+            <configuration>LPCXpresso54102</configuration>
+          </excluded>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\Platform\BoardConfig\LPCXpresso54102\pinmapping.c</name>

@@ -230,6 +230,7 @@ uart_rx_callback_t UART_DRV_InstallRxCallback(uint32_t instance,
  * This is not a public API as it is called from other driver functions.
  *
  *END**************************************************************************/
+#if 0 //test Jer
 static void UART_DRV_CompleteSendData(uint32_t instance)
 {
     assert(instance < HW_UART_INSTANCE_COUNT);
@@ -249,7 +250,7 @@ static void UART_DRV_CompleteSendData(uint32_t instance)
     /* Update the information of the module driver state */
     uartState->isTxBusy = false; 
 }
-
+#endif
 /*FUNCTION**********************************************************************
  *
  * Function Name : UART_DRV_StartSendData
@@ -323,6 +324,7 @@ static uart_status_t UART_DRV_StartSendData(uint32_t instance,
  * This is not a public API as it is called from other driver functions.
  *
  *END**************************************************************************/
+#if 0 //test Jer
 static void UART_DRV_CompleteReceiveData(uint32_t instance)
 {
     assert(instance < HW_UART_INSTANCE_COUNT);
@@ -342,7 +344,7 @@ static void UART_DRV_CompleteReceiveData(uint32_t instance)
     /* Update the information of the module driver state */
     uartState->isRxBusy = false;
 }
-
+#endif
 /*FUNCTION**********************************************************************
  *
  * Function Name : UART_DRV_StartReceiveData
@@ -697,7 +699,7 @@ void UART_DRV_IRQHandler(uint32_t instance)
 #endif
                 /* Get data and put in receive buffer */
                 UART_HAL_Getchar(baseAddr, uartState->rxBuff);
-
+printf("rx irq\n");
                 /* Invoke callback if have one. */
                 if (uartState->rxCallback != NULL)
                 {
@@ -753,6 +755,7 @@ void UART_DRV_IRQHandler(uint32_t instance)
                 {
                     /* Transmit data and update tx size/buff. */
                     UART_HAL_Putchar(baseAddr, *(uartState->txBuff));
+printf("tx irq\n");
                     ++uartState->txBuff; 
                     --uartState->txSize;
 
