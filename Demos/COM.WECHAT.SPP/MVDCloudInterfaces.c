@@ -40,15 +40,16 @@ static easycloud_service_context_t easyCloudContext;
  ******************************************************************************/
 
 //cloud message recived handler
-void cloudMsgArrivedHandler(void* context, const char* topic,
+void cloudMsgArrivedHandler(void* context, 
+                            const char* topic, const unsigned int topicLen,
                             unsigned char *msg, unsigned int msgLen)
 {
   mico_Context_t *inContext = (mico_Context_t*)context;
   
   //note: get data just for length=len is valid, because Msg is just a buf pionter.
-  cloud_if_log("Cloud[%s] => MVD: [%d]=%.*s", topic, msgLen, msgLen, msg);
+  cloud_if_log("Cloud[%.*s] => MVD: [%d]=%.*s", topicLen, topic, msgLen, msgLen, msg);
   
-  MVDCloudMsgProcess(inContext, topic, msg, msgLen);
+  MVDCloudMsgProcess(inContext, topic, topicLen, msg, msgLen);
 }
 
 //cloud service status changed handler

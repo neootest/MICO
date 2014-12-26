@@ -175,7 +175,7 @@ exit:
 
 // Cloud => MCU
 OSStatus MVDCloudMsgProcess(mico_Context_t* context, 
-                            const char* topic,
+                            const char* topic, const unsigned int topicLen,
                             unsigned char *inBuf, unsigned int inBufLen)
 {
   mvd_log_trace();
@@ -186,7 +186,7 @@ OSStatus MVDCloudMsgProcess(mico_Context_t* context,
   require_noerr_action( err, exit, mvd_log("ERROR: send to MCU error! err=%d", err) );
   
   // add response to cloud(echo), replace topic 'device_id/in/xxx' to 'device_id/out/xxx'
-  responseTopic = str_replace(responseTopic, topic, "/in", "/out");
+  responseTopic = str_replace(responseTopic, topic, topicLen, "/in", "/out");
   err = MVDCloudInterfaceSendto(responseTopic, inBuf, inBufLen);
   if(NULL != responseTopic){
     free(responseTopic);

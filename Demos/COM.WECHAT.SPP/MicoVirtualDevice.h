@@ -43,7 +43,7 @@ OSStatus MVDDeviceMsgProcess(mico_Context_t* const context,
                              unsigned char *inBuf, unsigned int inBufLen);
 //Cloud service interfaces
 OSStatus MVDCloudMsgProcess(mico_Context_t* const context, 
-                            const char* topic,
+                            const char* topic, const unsigned int topicLen,
                             unsigned char *inBuf, unsigned int inBufLen);
 
 /* device control */
