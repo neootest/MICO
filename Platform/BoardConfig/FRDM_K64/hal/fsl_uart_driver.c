@@ -324,7 +324,7 @@ static uart_status_t UART_DRV_StartSendData(uint32_t instance,
  * This is not a public API as it is called from other driver functions.
  *
  *END**************************************************************************/
-#if 0 //test Jer
+#if 0 //test Jer 
 static void UART_DRV_CompleteReceiveData(uint32_t instance)
 {
     assert(instance < HW_UART_INSTANCE_COUNT);
@@ -539,7 +539,7 @@ uart_status_t UART_DRV_AbortSendingData(uint32_t instance)
 
     return kStatus_UART_Success;
 }
-
+#if 0
 /*FUNCTION**********************************************************************
  *
  * Function Name : UART_DRV_ReceiveDataBlocking
@@ -570,18 +570,19 @@ uart_status_t UART_DRV_ReceiveDataBlocking(uint32_t instance, uint8_t * rxBuff,
     do
     {
         syncStatus = OSA_SemaWait(&uartState->rxIrqSync, timeout);
+    printf("semawait. ");
     }while(syncStatus == kStatus_OSA_Idle);
 
     if (syncStatus != kStatus_OSA_Success)
-    {
+    {printf("recvBlocking timeout.\n");
         /* Abort the transfer so it doesn't continue unexpectedly.*/
         UART_DRV_AbortReceivingData(instance);
         error = kStatus_UART_Timeout;
     }
-
+    printf("recv return. ");
     return error;
 }
-
+#endif
 /*FUNCTION**********************************************************************
  *
  * Function Name : UART_DRV_ReceiveData
@@ -699,7 +700,7 @@ void UART_DRV_IRQHandler(uint32_t instance)
 #endif
                 /* Get data and put in receive buffer */
                 UART_HAL_Getchar(baseAddr, uartState->rxBuff);
-printf("rx irq\n");
+
                 /* Invoke callback if have one. */
                 if (uartState->rxCallback != NULL)
                 {
@@ -714,7 +715,7 @@ printf("rx irq\n");
 
                 ++uartState->rxBuff;  /* Increment the rxBuff pointer */
                 --uartState->rxSize;  /* Decrement the byte count  */
-
+                ++uartState->pRxSize; 
                 /* Check to see if this was the last byte received */
                 if ((uartState->rxSize == 0) || rxCallbackEnd)
                 {
@@ -755,7 +756,6 @@ printf("rx irq\n");
                 {
                     /* Transmit data and update tx size/buff. */
                     UART_HAL_Putchar(baseAddr, *(uartState->txBuff));
-printf("tx irq\n");
                     ++uartState->txBuff; 
                     --uartState->txSize;
 

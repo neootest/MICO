@@ -75,6 +75,7 @@ typedef struct UartState {
     semaphore_t rxIrqSync;
     uart_rx_callback_t rxCallback; /*!< Callback to invoke after receiving byte.*/
     void * rxCallbackParam;        /*!< Receive callback parameter pointer.*/
+    uint32_t pRxSize;
 } uart_state_t;
 
 /*!
