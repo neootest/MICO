@@ -527,10 +527,10 @@
       <name>$PROJ_DIR$\..\..\..\Library\MICOConfig.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Library\MicoEasyCloudService_20141226_v0.2.4_debug.a</name>
+      <name>$PROJ_DIR$\..\..\..\Library\MicoEasyCloudService_20141230_v0.2.5_debug.a</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Library\MicoEasyCloudService_20141226_v0.2.4_release.a</name>
+      <name>$PROJ_DIR$\..\..\..\Library\MicoEasyCloudService_20141230_v0.2.5_release.a</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_cm3_sdio.a</name>

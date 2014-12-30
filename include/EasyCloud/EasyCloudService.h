@@ -33,7 +33,7 @@
 OSStatus EasyCloudServiceInit(easycloud_service_context_t* const context);
 OSStatus EasyCloudServiceStart(easycloud_service_context_t* const context);  //start thread
 
-EasycCloudServiceState EasyCloudServiceState(easycloud_service_context_t* const context);
+easycloud_service_state_t EasyCloudServiceState(easycloud_service_context_t* const context);
 
 OSStatus EasyCloudActivate(easycloud_service_context_t* const context);
 OSStatus EasyCloudAuthorize(easycloud_service_context_t* const context);

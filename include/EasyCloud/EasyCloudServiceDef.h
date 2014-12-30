@@ -75,11 +75,11 @@ typedef enum {
   EASYCLOUD_STARTED = 2,      //service start up
   EASYCLOUD_CONNECTED = 3,    //service work ok
   EASYCLOUD_DISCONNECTED = 4  //service diconnected from server
-} EasycCloudServiceState;
+} easycloud_service_state_t;
 
 typedef struct _easycloud_service_status_t {
   //service running status
-  EasycCloudServiceState  state;
+  easycloud_service_state_t  state;
   //device status info
   bool                    isActivated;
   char                    deviceId[MAX_SIZE_DEVICE_ID];

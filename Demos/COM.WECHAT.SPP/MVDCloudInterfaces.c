@@ -142,7 +142,7 @@ OSStatus MVDCloudInterfaceDevActivate(mico_Context_t* const inContext,
 {
   cloud_if_log_trace();
   OSStatus err = kUnknownErr;
-  EasycCloudServiceState cloudServiceState = EASYCLOUD_STOPPED;
+  easycloud_service_state_t cloudServiceState = EASYCLOUD_STOPPED;
   
   cloud_if_log("Device activate...");
    
@@ -219,7 +219,7 @@ OSStatus MVDCloudInterfaceDevAuthorize(mico_Context_t* const inContext,
 {
   cloud_if_log_trace();
   OSStatus err = kUnknownErr;
-  EasycCloudServiceState cloudServiceState = EASYCLOUD_STOPPED;
+  easycloud_service_state_t cloudServiceState = EASYCLOUD_STOPPED;
   
   cloud_if_log("Device authorize...");
 
