@@ -506,7 +506,7 @@
       <name>$PROJ_DIR$\..\..\..\include\MicoAlgorithm.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\include\MICOPlatform.h</name>
+      <name>$PROJ_DIR$\..\..\..\include\MicoPlatform.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\include\MICORTOS.h</name>
@@ -550,13 +550,10 @@
     <group>
       <name>AIRKISS</name>
       <file>
+        <name>$PROJ_DIR$\..\..\..\MICO\Airkiss\Airkiss.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\..\..\MICO\Airkiss\Airkiss.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\MICO\Airkiss\Airkiss_CM3_20141223_Debug.a</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\MICO\Airkiss\Airkiss_CM3_20141223_Release.a</name>
       </file>
     </group>
     <file>
