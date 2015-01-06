@@ -20,7 +20,6 @@ MICO
 	* Demos: Demos applications and application framework
 		COM.MXCHIP.SPP: Data transparent transimission between serial and wlan
 		COM.MXCHIP.HA: Data that conform to HA package definition can be delivered between serial and wlan
-		COM.Apple.HomeKit: Application demo that is compatiable to Apple Homekit protocol release 1, all HomeKit feathures are supported, include MFi authencation
 	* External: External library and tools
 		Curve25519: New Diffie-Hellman Speed Records Booktitle Public Key Cryptography
 		GladmanAES: AES algorithm (not used in MICO, MICO has build-in AES algorithm)
@@ -29,7 +28,8 @@ MICO
 		Support: Open source tools and functions
 	* MICO: MICO's main entrance and basic services
 		EasyLink: MXCHIP one-click Wi-Fi provisioning
-		WAC: Apple MFi wireless accessory configuration library
+		EasyLink Soft AP: MXCHIP one-click Wi-Fi provisioning using Soft AP mode
+        WPS: Wi-Fi protected setup
 	* Platform: Hardware operation on different platform
 	* Projects: IAR workbench project
 
