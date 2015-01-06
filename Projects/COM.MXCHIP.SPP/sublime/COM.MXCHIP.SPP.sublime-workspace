@@ -523,7 +523,7 @@
 			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
 			"settings":
 			{
-				"buffer_size": 16063,
+				"buffer_size": 16134,
 				"line_ending": "Unix"
 			}
 		},
@@ -960,15 +960,15 @@
 					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
 					"settings":
 					{
-						"buffer_size": 16063,
+						"buffer_size": 16134,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								11907,
-								11907
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1090,7 +1090,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 349.0,
+						"translation.y": 1049.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
