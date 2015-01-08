@@ -590,8 +590,8 @@ uint8_t SPI_Int_Init(void)
   /* Configure channel interrupt as edge sensitive and falling edge interrupt */
   Chip_PININT_ClearIntStatus(LPC_PININT, PININTCH(GPIO_SPIINT_INDEX));
   Chip_PININT_SetPinModeEdge(LPC_PININT, PININTCH(GPIO_SPIINT_INDEX));
-  Chip_PININT_EnableIntLow(LPC_PININT, PININTCH(GPIO_SPIINT_INDEX));
-//  Chip_PININT_EnableIntHigh(LPC_PININT, PININTCH(GPIO_SPIINT_INDEX));
+ // Chip_PININT_EnableIntLow(LPC_PININT, PININTCH(GPIO_SPIINT_INDEX));
+  Chip_PININT_EnableIntHigh(LPC_PININT, PININTCH(GPIO_SPIINT_INDEX));
   
 //  NVIC_SetPriority(PININT0_IRQn, 1);
   /* Enable interrupt in the NVIC */

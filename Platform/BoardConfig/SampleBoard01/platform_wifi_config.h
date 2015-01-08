@@ -22,8 +22,8 @@
 // #define GPIO_GPOPWD_PORT	0  
 // #define GPIO_GPOPWD_PIN		3 
 /**=====wifi reset port========**/
-#define GPIO_GPOPWD_PORT	0  //named PWD temp,need to named RST
-#define GPIO_GPOPWD_PIN		3 
+#define GPIO_GPORST_PORT	0
+#define GPIO_GPORST_PIN		3 
 /**====wifi spi port======*/
 #define WIFI_SPI_PORTNUM1   1
 #define ATH_SPI_DMA         1 //DMA mode for SPI_wifi
