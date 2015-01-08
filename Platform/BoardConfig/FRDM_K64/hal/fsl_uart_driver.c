@@ -230,6 +230,7 @@ uart_rx_callback_t UART_DRV_InstallRxCallback(uint32_t instance,
  * This is not a public API as it is called from other driver functions.
  *
  *END**************************************************************************/
+#if 0 //test Jer
 static void UART_DRV_CompleteSendData(uint32_t instance)
 {
     assert(instance < HW_UART_INSTANCE_COUNT);
@@ -249,7 +250,7 @@ static void UART_DRV_CompleteSendData(uint32_t instance)
     /* Update the information of the module driver state */
     uartState->isTxBusy = false; 
 }
-
+#endif
 /*FUNCTION**********************************************************************
  *
  * Function Name : UART_DRV_StartSendData
@@ -323,6 +324,7 @@ static uart_status_t UART_DRV_StartSendData(uint32_t instance,
  * This is not a public API as it is called from other driver functions.
  *
  *END**************************************************************************/
+#if 0 //test Jer 
 static void UART_DRV_CompleteReceiveData(uint32_t instance)
 {
     assert(instance < HW_UART_INSTANCE_COUNT);
@@ -342,7 +344,7 @@ static void UART_DRV_CompleteReceiveData(uint32_t instance)
     /* Update the information of the module driver state */
     uartState->isRxBusy = false;
 }
-
+#endif
 /*FUNCTION**********************************************************************
  *
  * Function Name : UART_DRV_StartReceiveData
@@ -537,7 +539,7 @@ uart_status_t UART_DRV_AbortSendingData(uint32_t instance)
 
     return kStatus_UART_Success;
 }
-
+#if 0
 /*FUNCTION**********************************************************************
  *
  * Function Name : UART_DRV_ReceiveDataBlocking
@@ -579,7 +581,7 @@ uart_status_t UART_DRV_ReceiveDataBlocking(uint32_t instance, uint8_t * rxBuff,
 
     return error;
 }
-
+#endif
 /*FUNCTION**********************************************************************
  *
  * Function Name : UART_DRV_ReceiveData
@@ -712,7 +714,7 @@ void UART_DRV_IRQHandler(uint32_t instance)
 
                 ++uartState->rxBuff;  /* Increment the rxBuff pointer */
                 --uartState->rxSize;  /* Decrement the byte count  */
-
+                ++uartState->pRxSize; 
                 /* Check to see if this was the last byte received */
                 if ((uartState->rxSize == 0) || rxCallbackEnd)
                 {

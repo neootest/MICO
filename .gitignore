@@ -10,3 +10,5 @@ Build/*
 *.zip
 *.tmp
 si/*
+
+*.wspos
