@@ -181,15 +181,37 @@ OSStatus MVDCloudMsgProcess(mico_Context_t* context,
   mvd_log_trace();
   OSStatus err = kUnknownErr;
   char* responseTopic = NULL;
+  unsigned char* responseMsg = NULL;
+  unsigned char* ptr = NULL;
+  int responseMsgLen = strlen(context->micoStatus.mac) + 2 + inBufLen + 1;
   
   err = MVDDevInterfaceSend(inBuf, inBufLen); // transfer raw data
   require_noerr_action( err, exit, mvd_log("ERROR: send to MCU error! err=%d", err) );
   
   // add response to cloud(echo), replace topic 'device_id/in/xxx' to 'device_id/out/xxx'
   responseTopic = str_replace(responseTopic, topic, topicLen, "/in", "/out");
-  err = MVDCloudInterfaceSendto(responseTopic, inBuf, inBufLen);
+  responseMsg = (unsigned char*)malloc(responseMsgLen);
+  if(NULL == responseMsg){
+    err = kNoMemoryErr;
+    goto exit;
+  }
+  ptr = responseMsg;
+  memcpy(ptr, "[", 1);
+  ptr += 1;
+  memcpy(ptr, (const void*)&(context->micoStatus.mac), strlen(context->micoStatus.mac));
+  ptr += strlen(context->micoStatus.mac);
+  memcpy(ptr, "]", 1);
+  ptr += 1;
+  memcpy(ptr, inBuf, inBufLen);
+  ptr += inBufLen;
+  memcpy(ptr, '\0', 1);
+  err = MVDCloudInterfaceSendto(responseTopic, responseMsg, responseMsgLen);
   if(NULL != responseTopic){
     free(responseTopic);
+  }
+  if(NULL != responseMsg){
+      ptr = NULL;
+      free(responseMsg);
   }
   
   return kNoErr;
