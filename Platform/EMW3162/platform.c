@@ -48,7 +48,7 @@
 #elif defined ( __IAR_SYSTEMS_ICC__ )
 #define WEAK __weak
 #endif /* ifdef __GNUC__ */
-
+#define WEAK __weak
 /******************************************************
 *                    Constants
 ******************************************************/
@@ -252,14 +252,14 @@ static void _button_EL_irq_handler( void* arg )
   
   if ( MicoGpioInputGet( (mico_gpio_t)EasyLink_BUTTON ) == 0 ) {
     _default_start_time = mico_get_time()+1;
-    mico_start_timer(&_button_EL_timer);
+  //  mico_start_timer(&_button_EL_timer);
   } else {
     interval = mico_get_time() + 1 - _default_start_time;
     if ( (_default_start_time != 0) && interval > 50 && interval < RestoreDefault_TimeOut){
       /* EasyLink button clicked once */
       PlatformEasyLinkButtonClickedCallback();
     }
-    mico_stop_timer(&_button_EL_timer);
+  //  mico_stop_timer(&_button_EL_timer);
     _default_start_time = 0;
   }
 }
@@ -310,7 +310,7 @@ void init_platform( void )
   
   //  Initialise EasyLink buttons
   MicoGpioInitialize( (mico_gpio_t)EasyLink_BUTTON, INPUT_PULL_UP );
-  mico_init_timer(&_button_EL_timer, RestoreDefault_TimeOut, _button_EL_Timeout_handler, NULL);
+  //mico_init_timer(&_button_EL_timer, RestoreDefault_TimeOut, _button_EL_Timeout_handler, NULL);
   MicoGpioEnableIRQ( (mico_gpio_t)EasyLink_BUTTON, IRQ_TRIGGER_BOTH_EDGES, _button_EL_irq_handler, NULL );
   
   //  Initialise Standby/wakeup switcher

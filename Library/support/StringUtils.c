@@ -849,7 +849,7 @@ int strnicmp_suffix( const void *inStr, size_t inMaxLen, const char *inSuffix )
     size_t              suffixLen;
 
     stringPtr = (const char *) inStr;
-    stringLen = strnlen( stringPtr, inMaxLen );
+   // stringLen = strnlen( stringPtr, inMaxLen );
     suffixLen = strlen( inSuffix );
     if( suffixLen <= stringLen )
     {
@@ -875,7 +875,7 @@ char * strnstr_suffix( const char *inStr, size_t inMaxLen, const char *inSuffix)
     char *              ret;
 
     suffixLen = strlen( inSuffix );
-    stringLen = strnlen( inStr, inMaxLen );
+ //   stringLen = strnlen( inStr, inMaxLen );
     instr_tmp = calloc(stringLen+1, 1);
     inSuffix_tmp = calloc(suffixLen+1, 1);
 

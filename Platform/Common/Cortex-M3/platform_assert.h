@@ -43,6 +43,7 @@
 #elif defined ( __IAR_SYSTEMS_ICC__ )
 #define MICO_ASSERTION_FAIL_ACTION() __asm("bkpt 0")
 #endif
+#define MICO_ASSERTION_FAIL_ACTION() __asm("bkpt 0")
 
 /******************************************************
  *                   Enumerations

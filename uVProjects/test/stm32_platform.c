@@ -9,7 +9,9 @@
 #include "stm32_platform.h"
 #include "platform_common_config.h"
 
-void init_clocks(){
+#define WEAK __weak
+
+WEAK void init_clocks(){
 
   /* Configure Clocks */
   

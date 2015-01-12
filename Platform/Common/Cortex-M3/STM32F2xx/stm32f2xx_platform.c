@@ -51,7 +51,7 @@
 #elif defined ( __IAR_SYSTEMS_ICC__ )
 #define WEAK __weak
 #endif /* ifdef __GNUC__ */
-
+#define WEAK __weak
 /******************************************************
 *                      Macros
 ******************************************************/
@@ -133,8 +133,8 @@ static unsigned long rtc_timeout_start_time           = 0;
 static inline void __jump_to( uint32_t addr )
 {
   __asm( "MOV R1, #0x00000001" );
-  __asm( "ORR R0, R0, R1" );  /* Last bit of jump address indicates whether destination is Thumb or ARM code */
-  __asm( "BLX R0" );
+//  __asm( "ORR R0, R0, R1" );  /* Last bit of jump address indicates whether destination is Thumb or ARM code */
+//  __asm( "BLX R0" );
 }
 
 #elif defined ( __GNUC__ )
@@ -144,7 +144,9 @@ __attribute__( ( always_inline ) ) static __INLINE void __jump_to( uint32_t addr
   addr |= 0x00000001;  /* Last bit of jump address indicates whether destination is Thumb or ARM code */
   __ASM volatile ("BX %0" : : "r" (addr) );
 }
-
+#else
+static inline void __jump_to( uint32_t addr ){
+}
 #endif
 
 /*Boot to mico application form APPLICATION_START_ADDRESS defined in platform_common_config.h */
@@ -158,7 +160,7 @@ void startApplication(void)
     uint32_t* stack_ptr;
     uint32_t* start_ptr;
     
-    __asm( "MOV LR,        #0xFFFFFFFF" );
+//    __asm( "MOV LR,        #0xFFFFFFFF" );
     __asm( "MOV R1,        #0x01000000" );
     __asm( "MSR APSR_nzcvq,     R1" );
     __asm( "MOV R1,        #0x00000000" );
@@ -561,6 +563,9 @@ void mico_thread_msleep_no_os(uint32_t milliseconds)
 {
   int tick_delay_start = mico_get_time_no_os();
   while(mico_get_time_no_os() < tick_delay_start+milliseconds);  
+}
+uint32_t mico_get_time(void){
+    mico_get_time_no_os();
 }
 #endif
 
