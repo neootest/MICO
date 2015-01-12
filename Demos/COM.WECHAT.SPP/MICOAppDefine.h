@@ -30,7 +30,7 @@
 
 #define APP_INFO   "mxchipWNet Wechat Demo based on MICO OS"
 
-#define FIRMWARE_REVISION   "MICO_WECHAT_1"
+#define FIRMWARE_REVISION   "MICO_WECHAT_1_0"
 #define MANUFACTURER        "MXCHIP Inc."
 #define SERIAL_NUMBER       "20141223"
 #define PROTOCOL            "com.wechat.spp"
