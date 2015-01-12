@@ -92,18 +92,18 @@ const platform_pin_mapping_t gpio_mapping[] =
   [WL_GPIO1]                          = {GPIOA,  0,  RCC_AHB1Periph_GPIOA},
 //  [WL_REG]                            = {GPIOB,  1,  RCC_AHB1Periph_GPIOB},
   [WL_RESET]                          = {GPIOB,  14,  RCC_AHB1Periph_GPIOB},
-//  [MICO_SYS_LED]                      = {GPIOB,  0,  RCC_AHB1Periph_GPIOB}, 
-//  [MICO_RF_LED]                       = {GPIOB,  1,  RCC_AHB1Periph_GPIOB}, //MICO_GPIO_16
-  [BOOT_SEL]                          = {GPIOB,  2,  RCC_AHB1Periph_GPIOB}, 
-//  [MFG_SEL]                           = {GPIOB,  9,  RCC_AHB1Periph_GPIOB}, //MICO_GPIO_30
-  [Standby_SEL]                       = {GPIOB,  10,  RCC_AHB1Periph_GPIOB}, 
-//  [EasyLink_BUTTON]                   = {GPIOB,  9,  RCC_AHB1Periph_GPIOC}, 
+  [MICO_SYS_LED]                      = {GPIOB,  10,  RCC_AHB1Periph_GPIOB}, 
+  [MICO_RF_LED]                       = {GPIOA,  4,  RCC_AHB1Periph_GPIOA}, //MICO_GPIO_16
+  [BOOT_SEL]                          = {GPIOB,  1,  RCC_AHB1Periph_GPIOB}, 
+  [MFG_SEL]                           = {GPIOB,  0,  RCC_AHB1Periph_GPIOB}, //MICO_GPIO_30
+//  [Standby_SEL]                       = {GPIOB,  10,  RCC_AHB1Periph_GPIOB}, 
+  [EasyLink_BUTTON]                   = {GPIOA,  1,  RCC_AHB1Periph_GPIOA}, 
   [STDIO_UART_RX]                     = {GPIOA,  3,  RCC_AHB1Periph_GPIOA},  
   [STDIO_UART_TX]                     = {GPIOA,  2,  RCC_AHB1Periph_GPIOA}, 
 
   /* GPIOs for external use */
   [MICO_GPIO_0]  = {GPIOA,  3,  RCC_AHB1Periph_GPIOA},
-  [MICO_GPIO_1]  = {GPIOA,  2,  RCC_AHB1Periph_GPIOA},
+  [MICO_GPIO_1]  = {GPIOA,  2,  RCC_AHB1Periph_GPIOB},
 //   [MICO_GPIO_2]  = {GPIOB,  7,  RCC_AHB1Periph_GPIOB},
 //   [MICO_GPIO_4]  = {GPIOC,  7,  RCC_AHB1Periph_GPIOC},
 //   [MICO_GPIO_5]  = {GPIOA,  4,  RCC_AHB1Periph_GPIOA},

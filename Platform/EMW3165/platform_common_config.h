@@ -120,10 +120,6 @@ typedef enum
 } mico_common_gpio_t;
 
 #define MICO_GPIO_WLAN_POWERSAVE_CLOCK MICO_GPIO_UNUSED
-#define MICO_SYS_LED MICO_GPIO_UNUSED
-#define MICO_RF_LED MICO_GPIO_UNUSED
-#define WL_REG MICO_GPIO_UNUSED
-#define MFG_SEL MICO_GPIO_UNUSED
 #define WL_REG MICO_GPIO_UNUSED
 
 /* How the wlan's powersave clock is connected */

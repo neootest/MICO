@@ -183,14 +183,16 @@ OSStatus MVDCloudMsgProcess(mico_Context_t* context,
   char* responseTopic = NULL;
   unsigned char* responseMsg = NULL;
   unsigned char* ptr = NULL;
-  int responseMsgLen = strlen(context->micoStatus.mac) + 2 + inBufLen + 1;
+  int responseMsgLen = 0;
   
   err = MVDDevInterfaceSend(inBuf, inBufLen); // transfer raw data
   require_noerr_action( err, exit, mvd_log("ERROR: send to MCU error! err=%d", err) );
   
   // add response to cloud(echo), replace topic 'device_id/in/xxx' to 'device_id/out/xxx'
   responseTopic = str_replace(responseTopic, topic, topicLen, "/in", "/out");
-  responseMsg = (unsigned char*)malloc(responseMsgLen);
+  responseMsgLen = strlen(context->micoStatus.mac) + 2 + inBufLen;
+  responseMsg = (unsigned char*)malloc(responseMsgLen + 1);
+  memset(responseMsg, 0x00, responseMsgLen);
   if(NULL == responseMsg){
     err = kNoMemoryErr;
     goto exit;

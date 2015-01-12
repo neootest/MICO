@@ -49,7 +49,7 @@ extern "C"
 #define HARDWARE_REVISION   "3165"
 #define DEFAULT_NAME        "EMW3165 Module"
 #define MODEL               "EMW3165"
-
+#define Bootloader_VISION   "V 0.1"
    
 /******************************************************
  *                   Enumerations
@@ -288,9 +288,9 @@ typedef enum
 //#define SFLASH_SUPPORT_SST_PARTS
 //#define SFLASH_SUPPORT_WINBOND_PARTS
 
-#define STM32_UART_1 MICO_UART_1  /*Not used here, define to avoid warning*/
+#define STM32_UART_1 NULL  /*Not used here, define to avoid warning*/
 #define STM32_UART_2 MICO_UART_1
-#define STM32_UART_6 MICO_UART_2
+#define STM32_UART_6 NULL
 
 /* Components connected to external I/Os*/
 

@@ -3184,6 +3184,7 @@
           <state>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M4</state>
           <state>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M4\STM32F4xx\STM32F4xx_Drv</state>
           <state>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash</state>
+          <state>$PROJ_DIR$\..\..\..\include\EasyCloud</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -4031,6 +4032,7 @@
       <name>$PROJ_DIR$\..\..\..\Library\MicoEasyCloudService_20141230_v0.2.5_release.a</name>
       <excluded>
         <configuration>EMW3162</configuration>
+        <configuration>EMW3165</configuration>
       </excluded>
     </file>
     <file>
