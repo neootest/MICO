@@ -11,3 +11,8 @@ Build/*
 *.tmp
 si/*
 Projects/settings/Demos.wspos
+uvProjects/output/
+
+uVProjects/JLinkLog.txt
+
+uVProjects/3162_uv.uvgui*
