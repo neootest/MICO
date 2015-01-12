@@ -28,7 +28,9 @@
 ******************************************************************************
 */ 
 #include <stdlib.h>
+#ifndef BOOTLOADER
 #include <yfuns.h>
+#endif
 #include "platform_common_config.h"
 #include "MicoPlatform.h"
 

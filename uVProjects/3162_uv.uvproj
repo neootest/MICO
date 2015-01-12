@@ -411,29 +411,9 @@
               <FilePath>.\startup_stm32f2xx.s</FilePath>
             </File>
             <File>
-              <FileName>BootloaderEntrance.c</FileName>
+              <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bootloader\BootloaderEntrance.c</FilePath>
-            </File>
-            <File>
-              <FileName>Getline.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Bootloader\Getline.c</FilePath>
-            </File>
-            <File>
-              <FileName>menu.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Bootloader\menu.c</FilePath>
-            </File>
-            <File>
-              <FileName>Update_for_OTA.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Bootloader\Update_for_OTA.c</FilePath>
-            </File>
-            <File>
-              <FileName>ymodem.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Bootloader\ymodem.c</FilePath>
+              <FilePath>.\test\main.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -344,7 +344,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>4</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>0</OneElfS>
@@ -356,13 +356,13 @@
             <wLevel>0</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
-            <uC99>0</uC99>
+            <uC99>1</uC99>
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER DEBUG</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\inc;..\Platform\Common\Cortex-M3\STM32F2xx;.\test;..\Platform\EMW3162;..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv</IncludePath>
+              <IncludePath>..\Bootloader;..\Platform\EMW3162;..\Library\support;..\include;..\Platform\include;..\Platform\Common\Cortex-M3;..\Platform\Common\Cortex-M3\STM32F2xx;..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv;..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -411,14 +411,29 @@
               <FilePath>.\startup_stm32f2xx.s</FilePath>
             </File>
             <File>
-              <FileName>main.c</FileName>
+              <FileName>BootloaderEntrance.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\test\main.c</FilePath>
+              <FilePath>..\Bootloader\BootloaderEntrance.c</FilePath>
             </File>
             <File>
-              <FileName>stm32_platform.c</FileName>
+              <FileName>Getline.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\test\stm32_platform.c</FilePath>
+              <FilePath>..\Bootloader\Getline.c</FilePath>
+            </File>
+            <File>
+              <FileName>menu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bootloader\menu.c</FilePath>
+            </File>
+            <File>
+              <FileName>Update_for_OTA.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bootloader\Update_for_OTA.c</FilePath>
+            </File>
+            <File>
+              <FileName>ymodem.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bootloader\ymodem.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -589,6 +604,91 @@
               <FileName>system_stm32f2xx.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\system_stm32f2xx.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f2xx_platform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Platform\Common\Cortex-M3\STM32F2xx\stm32f2xx_platform.c</FilePath>
+            </File>
+            <File>
+              <FileName>MicoDriverUart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverUart.c</FilePath>
+            </File>
+            <File>
+              <FileName>MicoDriverFlash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverFlash.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpio_irq.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Platform\Common\Cortex-M3\STM32F2xx\gpio_irq.c</FilePath>
+            </File>
+            <File>
+              <FileName>MicoDriverAdc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverAdc.c</FilePath>
+            </File>
+            <File>
+              <FileName>MicoDriverGpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverGpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>MicoDriverI2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverI2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>MicoDriverPwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverPwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>MicoDriverRng.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverRng.c</FilePath>
+            </File>
+            <File>
+              <FileName>MicoDriverRtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverRtc.c</FilePath>
+            </File>
+            <File>
+              <FileName>MicoDriverSpi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverSpi.c</FilePath>
+            </File>
+            <File>
+              <FileName>rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Platform\Common\Cortex-M3\STM32F2xx\rtc.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>support</GroupName>
+          <Files>
+            <File>
+              <FileName>RingBufferUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\support\RingBufferUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>StringUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\support\StringUtils.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Board_3162</GroupName>
+          <Files>
+            <File>
+              <FileName>platform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Platform\EMW3162\platform.c</FilePath>
             </File>
           </Files>
         </Group>
