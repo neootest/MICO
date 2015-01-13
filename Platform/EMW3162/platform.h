@@ -110,7 +110,7 @@ EMW3162 on EMB-380-S platform pin definitions ...
 |               |    |      | GPIO        |              |                |
 |               |    |      | CAN2_RX     |              |                |
 |               |    |      | SPI1_MOSI   |              |                |
-|               |    |      | SPI3_MOSI   |              | MICO_SPI_1_MISO|
+|               |    |      | SPI3_MOSI   |              | MICO_SPI_1_MOSI|
 |               |    |      | TIM3_CH2    |              |                |
 |---------------+----+------+-------------+--------------+----------------|
 | MICO_GPIO_10  | 10 | B  8 | GPIO        |              |                |
