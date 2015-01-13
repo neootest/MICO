@@ -192,4 +192,6 @@ OSStatus MICORestoreDefault             ( mico_Context_t * const inContext );
 OSStatus MICOReadConfiguration          ( mico_Context_t * const inContext );
 OSStatus MICOUpdateConfiguration        ( mico_Context_t * const inContext );
 
+void mico_mfg_test(void);
+
 #endif /* __MICO_DEFINE_H */

@@ -7267,6 +7267,9 @@
       <name>$PROJ_DIR$\..\..\..\MICO\MICOEntrance.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\..\MICO\MICOMfgtest.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\MICO\MICONotificationCenter.c</name>
     </file>
     <file>

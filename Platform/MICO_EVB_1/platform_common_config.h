@@ -163,6 +163,7 @@ typedef enum
 #define NUMBER_OF_UART_INTERFACES  2
 
 #define STDIO_UART       MICO_UART_1
+#define MFG_TEST         MICO_UART_1
 
 /* Memory map */
 #define INTERNAL_FLASH_START_ADDRESS    (uint32_t)0x08000000
