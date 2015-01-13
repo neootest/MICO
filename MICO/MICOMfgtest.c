@@ -4,6 +4,7 @@
 #include "platform_common_config.h"
 #include "MICODefine.h"
 #include "MICOAppDefine.h"
+#include "MICONotificationCenter.h"
 
 /* MFG test demo BEGIN */
 extern int mfg_connect(char *ssid);
@@ -16,12 +17,12 @@ static char cmd_str[64];
 
 void mf_printf(char *str)
 {
-    MicoUartSend( UART_FOR_APP, str, strlen(str));
+    MicoUartSend( MFG_TEST, str, strlen(str));
 }
 
 static void mf_putc(char ch)
 {
-    MicoUartSend( UART_FOR_APP, &ch, 1);
+    MicoUartSend( MFG_TEST, &ch, 1);
 }
 
 static int get_line()
@@ -39,7 +40,7 @@ static int get_line()
 
 	memset(cmd_str, 0, sizeof(cmd_str));
 	while(1) {
-		if( MicoUartRecv( UART_FOR_APP, p, 1, 100) != kNoErr)
+		if( MicoUartRecv( MFG_TEST, p, 1, 100) != kNoErr)
 			continue;
 		
 		mf_putc(*p);
@@ -112,7 +113,6 @@ static char * ssid_get(void)
 
 void mico_mfg_test(void)
 {
-    int ret;
     char str[64];
     char mac[6];
     char *ssid;
