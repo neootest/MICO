@@ -96,7 +96,7 @@ void localTcpServer_thread(void *inContext);
 void remoteTcpClient_thread(void *inContext);
 void uartRecv_thread(void *inContext);
 
-
+void mico_mfg_test(void);
 
 #endif
 

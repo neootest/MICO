@@ -1,5 +1,18 @@
+版本号：31620002.019
+日期：2014-12-29
+1. 修正了FreeRTOS的BUG，可能出现锁无法工作，信号量无法等待预设的超时时间。
+2. Easylink Plus支持小MTU包格式，定位包的长度可以减少0x500.
+
+版本号：31620002.018
+日期：2014-12-23
+1. 优化了EasyLink Plus，Airkiss的成功率。
+2. 优化了连接AP容易失败的问题，join_fail的错误值更准确。
+3. 产测程序自动扫描。
+4. Healmonitor会检测Bus Credit，如果太长时间无法发送数据，会产生wifi_reboot_event.
+5. Socket的select支持event类型。
+
 版本号：31620002.017
-日期：2014-11-26
+日期：2014-10-30
 1. 优化了库的内存开销：去掉了IO Work Thread，减少了work thread的Stack Size，减少了tcpip thread的stack size。
 2. 优化了Easylink Plus的发包模式，增加了发送序号帧，具有更好的配置成功率。
 3. 新增API：StartNetworkWithbssid用于连接需要做BSSID过滤的AP。其他联网API都不会检查AP的BSSID。
@@ -9,26 +22,16 @@
 7. 用户程序新增全局变量：int mico_timer_queue_len = 5;用户可以自定义Timer队列的长度。
 
 版本号：31620002.016
-日期：2014-09-18
-1. 替换了EasyLink 1.0的算法，采用新的广播方式进行配置，效率更高。回调函数修改如下：
-typedef struct _configure_result_ {
-    char bssid[6];
-    char ssid[33];
-    char key[65];
-    int  user_data_len;
-    char user_data[65];
-}configure_result_t;
-void report_configure_result(configure_result_t*result)；
-result=NULL:表示配置失败。
-否则result是配置信息。
-2. 修正了mico_start_timer、mico_stop_timer、mico_reload_timer不能在中断服务程序中执行的问题。
-3. wiced_platform_init修改为mico_platform_init。
+日期：2014-09-30
+1. Easylink 1.0 is replaced with easylink plus.
+2. 连接AP会检查BSSID的设置。
+3. 支持Ethernet Interface。
+4. MICO OS Timer可以在中断处理函数中执行。
 
 版本号：31620002.015
 日期：2014-08-26
 1. 实现了的WPS的支持。
 2. 修正了mico_rtos_push_to_queue不能在中断服务程序中执行的问题。
-3. UDP发送多播或者广播数据的时候，会依次遍历每个wifi接口，尝试向Station和uAP接口都发送数据。
 
 版本号：31620002.014
 日期：2014-08-20
