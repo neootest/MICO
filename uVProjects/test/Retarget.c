@@ -45,6 +45,10 @@ int fgetc(FILE *f) {
  // else 
   //    return 0;
  // return (sendchar(getkey()));
+     while (USART_GetFlagStatus(USART1, USART_FLAG_RXNE) == RESET)
+             {}
+
+    return (int)USART_ReceiveData(USART1);
 }
 
 
@@ -55,6 +59,10 @@ int ferror(FILE *f) {
 
 
 void _ttywrch(int ch) {
+    USART_SendData(USART1, (uint8_t) ch);
+        /* Loop until the end of transmission */
+    while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET)
+    {}
  // sendchar (ch);
 }
 
@@ -62,3 +70,7 @@ void _ttywrch(int ch) {
 void _sys_exit(int return_code) {
   while (1);    /* endless loop */
 }
+/*
+void HardFault_Handler (){
+   printf("HardFault.\n");
+}        */ 

@@ -221,7 +221,7 @@
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>0</useUlib>
+            <useUlib>1</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <RoSelD>3</RoSelD>
@@ -360,7 +360,7 @@
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>USE_STDPERIPH_DRIVER DEBUG</Define>
+              <Define>USE_STDPERIPH_DRIVER DEBUG BOOTLOADER</Define>
               <Undefine></Undefine>
               <IncludePath>..\Bootloader;..\Platform\EMW3162;..\Library\support;..\include;..\Platform\include;..\Platform\Common\Cortex-M3;..\Platform\Common\Cortex-M3\STM32F2xx;..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv;..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\inc</IncludePath>
             </VariousControls>
@@ -411,9 +411,34 @@
               <FilePath>.\startup_stm32f2xx.s</FilePath>
             </File>
             <File>
-              <FileName>main.c</FileName>
+              <FileName>BootloaderEntrance.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\test\main.c</FilePath>
+              <FilePath>..\Bootloader\BootloaderEntrance.c</FilePath>
+            </File>
+            <File>
+              <FileName>Getline.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bootloader\Getline.c</FilePath>
+            </File>
+            <File>
+              <FileName>menu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bootloader\menu.c</FilePath>
+            </File>
+            <File>
+              <FileName>Update_for_OTA.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bootloader\Update_for_OTA.c</FilePath>
+            </File>
+            <File>
+              <FileName>ymodem.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bootloader\ymodem.c</FilePath>
+            </File>
+            <File>
+              <FileName>Retarget.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\test\Retarget.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -669,6 +694,16 @@
               <FileName>platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Platform\EMW3162\platform.c</FilePath>
+            </File>
+            <File>
+              <FileName>crt0_IAR.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Platform\Common\Cortex-M3\crt0_IAR.c</FilePath>
+            </File>
+            <File>
+              <FileName>hardfault.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Platform\Common\Cortex-M3\hardfault.c</FilePath>
             </File>
           </Files>
         </Group>
