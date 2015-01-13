@@ -153,7 +153,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>JL2CM3</Key>
-          <Name>-U304427288 -O143 -S5 -A0 -C0 -JU1 -JI127.0.0.1 -JP0 -RST0 -N00("ARM CoreSight JTAG-DP") -D00(4BA00477) -L00(4) -N01("Unknown JTAG device") -D01(06411041) -L01(5) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -TB1 -TFE0 -FO7 -FD20000000 -FC800 -FN1 -FF0STM32F2xx_1024 -FS08000000 -FL0100000</Name>
+          <Name>-U304427288 -O143 -S5 -A0 -C0 -JU1 -JI127.0.0.1 -JP0 -RST0 -N00("ARM CoreSight JTAG-DP") -D00(4BA00477) -L00(4) -N01("Unknown JTAG device") -D01(06411041) -L01(5) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -TB1 -TFE0 -FO3 -FD20000000 -FC800 -FN1 -FF0STM32F2xx_1024 -FS08000000 -FL0100000</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -238,7 +238,7 @@
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>175</TopLine>
-      <CurrentLine>179</CurrentLine>
+      <CurrentLine>181</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\startup_stm32f2xx.s</PathWithFileName>
       <FilenameWithoutPath>startup_stm32f2xx.s</FilenameWithoutPath>
@@ -251,10 +251,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>55</ColumnNumber>
+      <ColumnNumber>42</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>16</CurrentLine>
+      <TopLine>58</TopLine>
+      <CurrentLine>65</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\Bootloader\BootloaderEntrance.c</PathWithFileName>
       <FilenameWithoutPath>BootloaderEntrance.c</FilenameWithoutPath>
@@ -285,7 +285,7 @@
       <Focus>0</Focus>
       <ColumnNumber>7</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>35</TopLine>
+      <TopLine>158</TopLine>
       <CurrentLine>167</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\Bootloader\menu.c</PathWithFileName>
@@ -301,7 +301,7 @@
       <Focus>0</Focus>
       <ColumnNumber>22</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>150</TopLine>
+      <TopLine>151</TopLine>
       <CurrentLine>154</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\Bootloader\Update_for_OTA.c</PathWithFileName>
@@ -329,12 +329,12 @@
       <GroupNumber>1</GroupNumber>
       <FileNumber>7</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>5</ColumnNumber>
+      <ColumnNumber>26</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>20</CurrentLine>
+      <TopLine>21</TopLine>
+      <CurrentLine>32</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\test\Retarget.c</PathWithFileName>
       <FilenameWithoutPath>Retarget.c</FilenameWithoutPath>
@@ -357,7 +357,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>177</TopLine>
+      <TopLine>178</TopLine>
       <CurrentLine>187</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\misc.c</PathWithFileName>
@@ -875,10 +875,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>13</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>267</TopLine>
-      <CurrentLine>274</CurrentLine>
+      <TopLine>529</TopLine>
+      <CurrentLine>559</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\Platform\Common\Cortex-M3\STM32F2xx\stm32f2xx_platform.c</PathWithFileName>
       <FilenameWithoutPath>stm32f2xx_platform.c</FilenameWithoutPath>
@@ -891,10 +891,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>31</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>491</TopLine>
-      <CurrentLine>493</CurrentLine>
+      <TopLine>483</TopLine>
+      <CurrentLine>490</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverUart.c</PathWithFileName>
       <FilenameWithoutPath>MicoDriverUart.c</FilenameWithoutPath>

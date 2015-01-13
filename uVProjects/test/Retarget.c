@@ -14,7 +14,7 @@
 #include "platform_common_config.h"
 #include "MicoPlatform.h"
 #include "stm32f2xx.h"
-
+//if comment semihosting , printf will not work. and must fputc but not putc
 #pragma import(__use_no_semihosting_swi)
 
 #if 0
@@ -27,18 +27,27 @@ struct __FILE { int handle; /* Add whatever you need here */ };
 FILE __stdout;
 FILE __stdin;
 
-
+#if 0
+int putc(int ch, FILE *f) {
+  MicoUartSend( STDIO_UART, &ch, 1 );
+  return ch;
+}
+#else
 int fputc(int ch, FILE *f) {
- // MicoUartSend( STDIO_UART, &ch, 1 );
- // return ch;
+#if 1
+  MicoUartSend( STDIO_UART, &ch, 1 );
+  return ch;
   //return (sendchar(ch));
+#else
   USART_SendData(USART1, (uint8_t) ch);
         /* Loop until the end of transmission */
     while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET)
     {}
     return ch;
+#endif
 }
-
+#endif
+#if 0
 int fgetc(FILE *f) {
  // if (MicoUartRecv( STDIO_UART, c, 1, timeout )!=kNoErr)
   //    return -1;
@@ -50,7 +59,7 @@ int fgetc(FILE *f) {
 
     return (int)USART_ReceiveData(USART1);
 }
-
+#endif
 
 int ferror(FILE *f) {
   /* Your implementation of ferror */
@@ -59,10 +68,6 @@ int ferror(FILE *f) {
 
 
 void _ttywrch(int ch) {
-    USART_SendData(USART1, (uint8_t) ch);
-        /* Loop until the end of transmission */
-    while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET)
-    {}
  // sendchar (ch);
 }
 
