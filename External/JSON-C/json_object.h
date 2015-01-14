@@ -31,6 +31,7 @@ extern "C" {
 extern const char *json_number_chars;
 extern const char *json_hex_chars;
 
+extern char* strdup(const char* str);
 /* CAW: added for ANSI C iteration correctness */
 struct json_object_iter
 {

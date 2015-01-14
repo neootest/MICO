@@ -26,7 +26,7 @@
 #include "json_util.h"
 
 #if !HAVE_STRNDUP
-  char* strndup(const char* str, size_t n);
+char* strndup(const char* str, size_t n);
 #endif /* !HAVE_STRNDUP */
 
 /* #define REFCOUNT_DEBUG 1 */
@@ -68,6 +68,12 @@ static void json_object_fini(void) {
 }
 #endif /* REFCOUNT_DEBUG */
 
+char* strdup(const char* str){
+    char* ptr;
+    ptr = malloc(strlen(str)+1);
+    strcpy(ptr,str);
+    return ptr;
+}
 
 /* string escaping */
 

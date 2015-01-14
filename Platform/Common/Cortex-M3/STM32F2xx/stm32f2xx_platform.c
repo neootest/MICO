@@ -133,8 +133,8 @@ static unsigned long rtc_timeout_start_time           = 0;
 static inline void __jump_to( uint32_t addr )
 {
   __asm( "MOV R1, #0x00000001" );
-//  __asm( "ORR R0, R0, R1" );  /* Last bit of jump address indicates whether destination is Thumb or ARM code */
-//  __asm( "BLX R0" );
+  __asm( "ORR R0, R0, R1" );  /* Last bit of jump address indicates whether destination is Thumb or ARM code */
+  __asm( "BLX R0" );
 }
 
 #elif defined ( __GNUC__ )
@@ -145,7 +145,21 @@ __attribute__( ( always_inline ) ) static __INLINE void __jump_to( uint32_t addr
   __ASM volatile ("BX %0" : : "r" (addr) );
 }
 #else
-static inline void __jump_to( uint32_t addr ){
+__asm static inline void __jump_to( uint32_t addr ){
+    MOV R1, #0x00000001
+    ORR R0, R0, R1	
+    BLX R0
+}
+
+__asm static inline void __test_load(void){
+    MOV LR,        #0xFFFFFFFF
+    MOV R1,        #0x01000000
+    MSR APSR_nzcvq,     R1
+    MOV R1,        #0x00000000
+//    MSR PRIMASK,   R1
+//    MSR FAULTMASK, R1
+//    MSR BASEPRI,   R1
+//    MSR CONTROL,   R1
 }
 #endif
 
@@ -160,7 +174,8 @@ void startApplication(void)
     uint32_t* stack_ptr;
     uint32_t* start_ptr;
     
-//    __asm( "MOV LR,        #0xFFFFFFFF" );
+	#if defined ( __ICCARM__ ) || defined (__GNUC__)
+    __asm( "MOV LR,        #0xFFFFFFFF" );
     __asm( "MOV R1,        #0x01000000" );
     __asm( "MSR APSR_nzcvq,     R1" );
     __asm( "MOV R1,        #0x00000000" );
@@ -168,13 +183,19 @@ void startApplication(void)
     __asm( "MSR FAULTMASK, R1" );
     __asm( "MSR BASEPRI,   R1" );
     __asm( "MSR CONTROL,   R1" );
+	#else
+	//	__test_load();
+    __asm( "MOV R1,        #0x01000000" );
+    __asm( "MSR APSR_nzcvq,     R1" );
+	#endif
   
    SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk; 
-    
+    printf("text_addr = %x, value= 0x%x \n",text_addr, *(volatile uint32_t*)text_addr);
     stack_ptr = (uint32_t*) text_addr;  /* Initial stack pointer is first 4 bytes of vector table */
     start_ptr = ( stack_ptr + 1 );  /* Reset vector is second 4 bytes of vector table */
     
     __set_MSP( *stack_ptr );
+    printf("stack_pt v=0x%x, start_prt v= 0x%x",*stack_ptr, *start_ptr);
     __jump_to( *start_ptr );
   }  
 }

@@ -46,7 +46,7 @@ extern OSStatus update(void);
 const char menu[] =
 "\r\n"
 "MICO Bootloader for %s, HARDWARE_REVISION: %s\r\n"
-"+ command -------------------------+ function ------------+\r\n"
+"+ command --------j-----------------+ function ------------+\r\n"
 "| 0:BOOTUPDATE    <-r>             | Update bootloader    |\r\n"
 "| 1:FWUPDATE      <-r>             | Update application   |\r\n"
 "| 2:DRIVERUPDATE  <-r>             | Update RF driver     |\r\n"

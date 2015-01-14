@@ -10,10 +10,6 @@ Build/*
 *.zip
 *.tmp
 si/*
-Projects/settings/Demos.wspos
-uvProjects/output/
-uvprojects/*_uvopt.bak
-uvprojects/*_uvproj.bak
-uVProjects/JLinkLog.txt
-*.map
-uVProjects/3162_uv.uvgui*
+uVProjects/
+
+
