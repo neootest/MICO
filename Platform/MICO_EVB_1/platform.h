@@ -50,8 +50,8 @@ extern "C"
  ******************************************************/
   
 #define HARDWARE_REVISION   "1062_1"
-#define DEFAULT_NAME        "CC3200 EVB"
-#define MODEL               "CC3200_EVB_1"
+#define DEFAULT_NAME        "EMW1062 EVB"
+#define MODEL               "EMW1062_EVB_1"
    
 /******************************************************
  *                   Enumerations
