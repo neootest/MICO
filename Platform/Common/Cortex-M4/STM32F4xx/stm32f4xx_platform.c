@@ -153,6 +153,8 @@ void startApplication(void)
 {
   uint32_t text_addr = APPLICATION_START_ADDRESS;
   
+  if(((*(volatile uint32_t*)text_addr) & 0x2FFE0000 ) != 0x20000000)
+    text_addr += 0x200;
   /* Test if user code is programmed starting from address "ApplicationAddress" */
   if (((*(volatile uint32_t*)text_addr) & 0x2FFE0000 ) == 0x20000000)
   { 
