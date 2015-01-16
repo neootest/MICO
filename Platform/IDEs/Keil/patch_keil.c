@@ -16,7 +16,7 @@
 #include "MicoPlatform.h"
 #include "stm32f2xx.h"
 #include "patch_keil.h"
-
+#if 0
 #if defined(DEBUG)
 #if defined(DEBUG_SEMIHOSTING)
 #define ITM_Port8(n)    (*((volatile unsigned char *) (0xE0000000 + 4 * n)))
@@ -39,7 +39,7 @@ void _ttywrch(int ch)
 
 #endif /* defined(DEBUG_SEMIHOSTING) */
 #endif /* defined(DEBUG_ENABLE) */
-
+#if 0
 struct __FILE {
 	int handle;
 };
@@ -52,7 +52,7 @@ void *_sys_open(const char *name, int openmode)
 {
 	return 0;
 }
-
+#endif
 int fputc(int c, FILE *f)
 {
 #if defined(DEBUG)
@@ -93,7 +93,7 @@ label:
 	__WFI();
 	goto label;	/* endless loop */
 }
-
+#endif 
 
 // logging.o
 char* __iar_Strstr(char* str1, char* str2){

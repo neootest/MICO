@@ -14,11 +14,6 @@
 #define mico_log(M, ...) custom_log("MICO", M, ##__VA_ARGS__)
 
 
-OSStatus startEasyLink( mico_Context_t * const inContext){
-  OSStatus err = kNoErr;
-
-    return err; 
-}
 
 //int application_start(void){
 OSStatus MICOStartApplication( mico_Context_t * const inContext ){

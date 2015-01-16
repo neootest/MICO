@@ -15,17 +15,17 @@
 #include "MicoPlatform.h"
 #include "stm32f2xx.h"
 //if comment semihosting , printf will not work. and must fputc but not putc
-#pragma import(__use_no_semihosting_swi)
+//#pragma import(__use_no_semihosting_swi)
 
 #if 0
 extern int  sendchar(int ch);  /* in Serial.c */
 extern int  getkey(void);      /* in Serial.c */
 extern long timeval;           /* in Time.c   */
-#endif
 
 struct __FILE { int handle; /* Add whatever you need here */ };
 FILE __stdout;
 FILE __stdin;
+#endif
 
 #if 0
 int putc(int ch, FILE *f) {
@@ -34,15 +34,14 @@ int putc(int ch, FILE *f) {
 }
 #else
 int fputc(int ch, FILE *f) {
-#if 1
+#if 0
   MicoUartSend( STDIO_UART, &ch, 1 );
   return ch;
   //return (sendchar(ch));
 #else
-  USART_SendData(USART1, (uint8_t) ch);
         /* Loop until the end of transmission */
-    while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET)
-    {}
+    while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
+  USART_SendData(USART1, (uint8_t) ch);
     return ch;
 #endif
 }

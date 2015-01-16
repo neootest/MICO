@@ -425,7 +425,7 @@
             </File>
             <File>
               <FileName>Retarget.c</FileName>
-              <FileType>5</FileType>
+              <FileType>1</FileType>
               <FilePath>..\..\..\Platform\IDEs\Keil\Retarget.c</FilePath>
             </File>
             <File>
@@ -542,6 +542,13 @@
         </Group>
         <Group>
           <GroupName>Mico</GroupName>
+          <Files>
+            <File>
+              <FileName>MICOEntranceT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\MICO\MICOEntranceT.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>Library</GroupName>
@@ -560,6 +567,63 @@
         </Group>
         <Group>
           <GroupName>support</GroupName>
+          <Files>
+            <File>
+              <FileName>AESUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\AESUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>HTTPUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\HTTPUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>MDNSUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\MDNSUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>RingBufferUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\RingBufferUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>SecurityUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\SecurityUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>SHAUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\SHAUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>SocketUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\SocketUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>StringUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\StringUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>TimeUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\TimeUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>TLVUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\TLVUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>URLUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\URLUtils.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>platform_vendor</GroupName>
@@ -744,24 +808,8 @@
         <Group>
           <GroupName>External</GroupName>
         </Group>
-        <Group>
-          <GroupName>::CMSIS</GroupName>
-        </Group>
       </Groups>
     </Target>
   </Targets>
-
-  <RTE>
-    <apis/>
-    <components>
-      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="3.40.0" condition="CMSIS Core">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="4.2.0"/>
-        <targetInfos>
-          <targetInfo name="Sample01"/>
-        </targetInfos>
-      </component>
-    </components>
-    <files/>
-  </RTE>
 
 </Project>

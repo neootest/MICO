@@ -439,6 +439,9 @@
         <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M3\STM32F2xx\rtc.c</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\startup_stm32f2xx_IAR.s</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M3\STM32F2xx\stm32f2xx_platform.c</name>
       </file>
       <file>

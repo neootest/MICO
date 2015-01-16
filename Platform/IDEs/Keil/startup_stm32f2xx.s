@@ -73,12 +73,12 @@ __Vectors       DCD     __initial_sp               ; Top of Stack
                 DCD     0                          ; Reserved
                 DCD     0                          ; Reserved
 
-        		DCD     vPortSVCHandler	           ; FreeRTOS SVC handler				               
+        DCD     SVC_Handler               ; SVCall Handler
 
         		DCD     DebugMon_Handler          ; Debug Monitor Handler
         		DCD     0                         ; Reserved
 
-        		DCD     xPortPendSVHandler        ; FreeRTOS PendSV  Handler				
+        DCD     PendSV_Handler            ; PendSV Handler
 	
                 DCD     SysTick_Handler            ; SysTick Handler
 
@@ -174,9 +174,9 @@ __Vectors_Size  EQU  __Vectors_End - __Vectors
 Reset_Handler    PROC
                  EXPORT  Reset_Handler
         IMPORT  __main
-                 LDR     R1, =0x0800C000
-                 LDR     R0, [R1]
-                 MSR     MSP, R0
+ ;                LDR     R1, =0x0800C000
+ ;                LDR     R0, [R1]
+  ;               MSR     MSP, R0
 		 LDR     R0, =__main
                  BX      R0
                  ENDP

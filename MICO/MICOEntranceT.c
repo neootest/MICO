@@ -48,6 +48,8 @@
 // #include "EasyLink/EasyLink.h"
 #endif
 
+#define mico_log(M, ...) custom_log("MICO", M, ##__VA_ARGS__)
+#if 0
 static mico_Context_t *context;
 static mico_timer_t _watchdog_reload_timer;
 
@@ -280,7 +282,6 @@ static void mico_mfg_test(void)
   
   mico_thread_sleep(MICO_NEVER_TIMEOUT);
 }
-
 int application_start(void)
 {
   OSStatus err = kNoErr;
@@ -466,5 +467,14 @@ exit:
   mico_rtos_delete_thread(NULL);
   return kNoErr;
 }
+#else
+int application_start(void){
+  MicoInit();
+  MicoSysLed(true);
+  printf("xx");
+  mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
+  return 0;
+}
 
+#endif
 
