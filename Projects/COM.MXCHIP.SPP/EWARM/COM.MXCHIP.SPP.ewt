@@ -593,31 +593,7 @@
   <group>
     <name>Application</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP\LocalTcpServer.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP\MICOAppDefine.h</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP\MICOAppEntrance.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP\MICOBonjour.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP\MICOConfigDelegate.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP\MicoDefaults.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP\RemoteTcpClient.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP\SppProtocol.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.MXCHIP.SPP\UartRecv.c</name>
     </file>
   </group>
   <group>

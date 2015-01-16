@@ -45,9 +45,9 @@
 #define kCONFIGURLWriteByUAP    "/config-write-uap"  /* Don't reboot but connect to AP immediately */
 #define kCONFIGURLOTA           "/OTA"
 
-extern OSStatus     ConfigIncommingJsonMessage( const char *input, mico_Context_t * const inContext );
+//extern OSStatus     ConfigIncommingJsonMessage( const char *input, mico_Context_t * const inContext );
 extern OSStatus     ConfigIncommingJsonMessageUAP( const char *input, mico_Context_t * const inContext );
-extern json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext );
+//extern json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext );
 
 static void localConfiglistener_thread(void *inContext);
 static void localConfig_thread(void *inFd);
@@ -204,8 +204,8 @@ OSStatus _LocalConfigRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico
   config_log_trace();
 
   if(HTTPHeaderMatchURL( inHeader, kCONFIGURLRead ) == kNoErr){    
-    report = ConfigCreateReportJsonMessage( inContext );
-    require( report, exit );
+ //   report = ConfigCreateReportJsonMessage( inContext );
+ //   require( report, exit );
     json_str = json_object_to_json_string(report);
     require_action( json_str, exit, err = kNoMemoryErr );
     config_log("Send config object=%s", json_str);
@@ -222,8 +222,8 @@ OSStatus _LocalConfigRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico
   else if(HTTPHeaderMatchURL( inHeader, kCONFIGURLWrite ) == kNoErr){
     if(inHeader->contentLength > 0){
       config_log("Recv new configuration, apply and reset");
-      err = ConfigIncommingJsonMessage( inHeader->extraDataPtr, inContext);
-      require_noerr( err, exit );
+   //   err = ConfigIncommingJsonMessage( inHeader->extraDataPtr, inContext);
+   //   require_noerr( err, exit );
       inContext->flashContentInRam.micoSystemConfig.configured = allConfigured;
       MICOUpdateConfiguration(inContext);
 
