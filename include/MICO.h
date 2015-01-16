@@ -50,9 +50,6 @@
 #include "MicoSocket.h"
 #include "MicoAlgorithm.h"
 #include "MicoPlatform.h"
-#ifndef BOOTLOADER
-//#include "patch_keil.h"
-#endif
 
 #define MicoGetRfVer                wlan_driver_version
 #define MicoGetVer                  system_lib_version

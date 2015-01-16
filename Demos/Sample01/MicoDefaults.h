@@ -1,9 +1,10 @@
 /**
 ******************************************************************************
-* @file    stdio_IAR.h 
+* @file    MicoDefault.h 
 * @author  William Xu
 * @version V1.0.0
-* @date    05-May-2014
+* @date    16-Sep-2014
+* @brief   This file provides the default configuration for MICO.
 ******************************************************************************
 *
 *  The MIT License
@@ -27,30 +28,23 @@
 *  IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ******************************************************************************
 */ 
-#include <stdlib.h>
-#include <yfuns.h>
-#include "platform_common_config.h"
-#include "MicoPlatform.h"
 
+#ifndef __MICODEFAULTS_H__
+#define __MICODEFAULTS_H__
 
-#ifdef BOOTLOADER
-int putchar(int ch)
+#ifdef __cplusplus
+extern "C"
 {
-  MicoUartSend( STDIO_UART, &ch, 1 );
-  return ch;
-}
-#else
-size_t __write( int handle, const unsigned char * buffer, size_t size )
-{
-  UNUSED_PARAMETER(handle);
-  
-  if ( buffer == 0 )
-  {
-    return 0;
-  }
-  
-  MicoUartSend( STDIO_UART, (const char*)buffer, size );
-  
-  return size;
-}
 #endif
+
+
+ /* Application thread stack size */
+#define MICO_DEFAULT_APPLICATION_STACK_SIZE         (1500)
+
+
+
+#ifdef __cplusplus
+} /*extern "C" */
+#endif
+
+#endif //__MICODEFAULTS_H__
