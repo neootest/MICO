@@ -236,6 +236,9 @@
       <name>$PROJ_DIR$\..\..\..\Library\MICOConfig.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\..\Library\mxchipWNET_3162.a</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_cm3_sdio.a</name>
     </file>
   </group>

@@ -25,7 +25,7 @@ OSStatus MICOStartApplication( mico_Context_t * const inContext ){
 
 //  MicoInit();
 //  MicoSysLed(true);
-  mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
+ // mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
     
     return err; 
  }

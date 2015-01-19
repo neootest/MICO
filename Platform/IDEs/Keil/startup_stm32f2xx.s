@@ -51,12 +51,11 @@ __heap_limit
 
                 PRESERVE8
                 THUMB
-					
-        EXTERN xPortPendSVHandler
-        EXTERN vPortSVCHandler
+
 
 ; Vector Table Mapped to Address 0 at Reset
                 AREA    RESET, DATA, READONLY
+					EXTERN  SystemInit
                 EXPORT  __Vectors
                 EXPORT  __Vectors_End
                 EXPORT  __Vectors_Size
@@ -72,14 +71,10 @@ __Vectors       DCD     __initial_sp               ; Top of Stack
                 DCD     0                          ; Reserved
                 DCD     0                          ; Reserved
                 DCD     0                          ; Reserved
-
-        DCD     SVC_Handler               ; SVCall Handler
-
-        		DCD     DebugMon_Handler          ; Debug Monitor Handler
-        		DCD     0                         ; Reserved
-
-        DCD     PendSV_Handler            ; PendSV Handler
-	
+                DCD     SVC_Handler                ; SVCall Handler
+                DCD     DebugMon_Handler           ; Debug Monitor Handler
+                DCD     0                          ; Reserved
+                DCD     PendSV_Handler             ; PendSV Handler
                 DCD     SysTick_Handler            ; SysTick Handler
 
                 ; External Interrupts
@@ -214,7 +209,9 @@ UsageFault_Handler\
                 ENDP
 SVC_Handler     PROC
                 EXPORT  SVC_Handler                [WEAK]
-                B       .
+				IMPORT vPortSVCHandler
+                B vPortSVCHandler
+;                B       .
                 ENDP
 DebugMon_Handler\
                 PROC
@@ -223,11 +220,15 @@ DebugMon_Handler\
                 ENDP
 PendSV_Handler  PROC
                 EXPORT  PendSV_Handler             [WEAK]
-                B       .
+				IMPORT xPortPendSVHandler
+                B xPortPendSVHandler
+;                B       .
                 ENDP
 SysTick_Handler PROC
                 EXPORT  SysTick_Handler            [WEAK]
-                B       .
+                IMPORT xPortSysTickHandler
+                B xPortSysTickHandler
+;                B       .
                 ENDP
 
 Default_Handler PROC

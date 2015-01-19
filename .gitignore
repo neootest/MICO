@@ -10,7 +10,8 @@ Build/*
 *.zip
 *.tmp
 si/*
-
+Objects/
+Listings/
 Projects/uvProjecs/Sample01/JLinkLog.txt
 
 Projects/uvProjecs/Sample01/JLinkSettings.ini

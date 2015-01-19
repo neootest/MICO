@@ -16,29 +16,10 @@
 #include "MicoPlatform.h"
 #include "stm32f2xx.h"
 #include "patch_keil.h"
-#if 0
-#if defined(DEBUG)
-#if defined(DEBUG_SEMIHOSTING)
-#define ITM_Port8(n)    (*((volatile unsigned char *) (0xE0000000 + 4 * n)))
-#define ITM_Port16(n)   (*((volatile unsigned short *) (0xE0000000 + 4 * n)))
-#define ITM_Port32(n)   (*((volatile unsigned long *) (0xE0000000 + 4 * n)))
 
-#define DEMCR           (*((volatile unsigned long *) (0xE000EDFC)))
-#define TRCENA          0x01000000
-
-/* Write to SWO */
-void _ttywrch(int ch)
-{
-	if (DEMCR & TRCENA) {
-		while (ITM_Port32(0) == 0) {}
-		ITM_Port8(0) = ch;
-	}
-}
-
-#else
-
-#endif /* defined(DEBUG_SEMIHOSTING) */
-#endif /* defined(DEBUG_ENABLE) */
+extern void vPortSVCHandler(void);
+extern void xPortPendSVHandler(void);
+extern void xPortSysTickHandler(void);
 #if 0
 struct __FILE {
 	int handle;
@@ -53,12 +34,18 @@ void *_sys_open(const char *name, int openmode)
 	return 0;
 }
 #endif
+#if 1
+int fputc(int ch, FILE *f)
+{
+    while (RESET == USART_GetFlagStatus(USART1, USART_FLAG_TXE));
+
+    USART_SendData(USART1, ch);
+    return ch;
+}
+#else
 int fputc(int c, FILE *f)
 {
-#if defined(DEBUG)
-#if defined(DEBUG_SEMIHOSTING)
-	_ttywrch(c);
-#else
+
   //MicoUartSend( STDIO_UART, &c, 1 );
   
   USART_SendData(USART1, (uint8_t) c);
@@ -66,9 +53,7 @@ int fputc(int c, FILE *f)
     while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET)
     {}
   return c;
-#endif
-#endif
-	return 0;
+
 }
 
 int fgetc(FILE *f)

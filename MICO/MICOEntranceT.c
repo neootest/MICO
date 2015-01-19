@@ -469,9 +469,10 @@ exit:
 }
 #else
 int application_start(void){
+//	printf("APP\n");
   MicoInit();
   MicoSysLed(true);
-  printf("xx");
+//  printf("xx");
   mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
   return 0;
 }

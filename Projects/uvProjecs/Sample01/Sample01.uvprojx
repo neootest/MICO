@@ -224,7 +224,7 @@
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>0</useUlib>
+            <useUlib>1</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <RoSelD>3</RoSelD>
@@ -363,9 +363,9 @@
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>USE_STDPERIPH_DRIVER DEBUG</Define>
+              <Define>USE_STDPERIPH_DRIVER DEBUG EMW3162</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\include;..\..\..\Platform\include;..\..\..\MICO;..\..\..\Platform\EMW3162;..\..\..\Platform\IDEs\Keil;..\..\..\Demos\Sample01;..\..\..\library\support;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\inc;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\CMSIS;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Inc;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv;..\..\..\Platform\Common\Cortex-M3\STM32F2xx;..\..\..\Platform\Common\Cortex-M3;..\..\..\External</IncludePath>
+              <IncludePath>..\..\..\include;..\..\..\MICO;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\inc;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\CMSIS;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv;..\..\..\Platform\Common\Cortex-M3\STM32F2xx;..\..\..\Platform\EMW3162;..\..\..\Demos\Sample01;..\..\..\Library\support;..\..\..\Platform\include;..\..\..\Platform\Common\Cortex-M3\;..\..\..\External</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -419,6 +419,11 @@
           <GroupName>startup</GroupName>
           <Files>
             <File>
+              <FileName>startup_stm32f2xx.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\..\Platform\IDEs\Keil\startup_stm32f2xx.s</FilePath>
+            </File>
+            <File>
               <FileName>patch_keil.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\Platform\IDEs\Keil\patch_keil.c</FilePath>
@@ -427,11 +432,49 @@
               <FileName>Retarget.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\Platform\IDEs\Keil\Retarget.c</FilePath>
-            </File>
-            <File>
-              <FileName>startup_stm32f2xx.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\..\..\Platform\IDEs\Keil\startup_stm32f2xx.s</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
           </Files>
         </Group>
@@ -442,16 +485,6 @@
               <FileName>platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\Platform\EMW3162\platform.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>platform_mico</GroupName>
-          <Files>
-            <File>
-              <FileName>hardfault.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\hardfault.c</FilePath>
             </File>
             <File>
               <FileName>gpio_irq.c</FileName>
@@ -522,21 +555,150 @@
               <FileName>usbh_conf.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\usbh_conf.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>1</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
-              <FileName>wlan_bus.c</FileName>
+              <FileName>crt0_IAR.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\SDIO\wlan_bus.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\crt0_IAR.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
-              <FileName>read_wifi_firmware.c</FileName>
+              <FileName>hardfault.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\read_wifi_firmware.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\hardfault.c</FilePath>
             </File>
             <File>
-              <FileName>wlan_platform.c</FileName>
+              <FileName>stdio_IAR.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\wlan_platform.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\IAR\stdio_IAR.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
           </Files>
         </Group>
@@ -563,76 +725,170 @@
               <FileType>4</FileType>
               <FilePath>..\..\..\Library\mxchipWNet_cm3_sdio.a</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>support</GroupName>
-          <Files>
             <File>
-              <FileName>AESUtils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\AESUtils.c</FilePath>
-            </File>
-            <File>
-              <FileName>HTTPUtils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\HTTPUtils.c</FilePath>
-            </File>
-            <File>
-              <FileName>MDNSUtils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\MDNSUtils.c</FilePath>
-            </File>
-            <File>
-              <FileName>RingBufferUtils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\RingBufferUtils.c</FilePath>
-            </File>
-            <File>
-              <FileName>SecurityUtils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\SecurityUtils.c</FilePath>
-            </File>
-            <File>
-              <FileName>SHAUtils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\SHAUtils.c</FilePath>
-            </File>
-            <File>
-              <FileName>SocketUtils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\SocketUtils.c</FilePath>
-            </File>
-            <File>
-              <FileName>StringUtils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\StringUtils.c</FilePath>
-            </File>
-            <File>
-              <FileName>TimeUtils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\TimeUtils.c</FilePath>
-            </File>
-            <File>
-              <FileName>TLVUtils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\TLVUtils.c</FilePath>
-            </File>
-            <File>
-              <FileName>URLUtils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\URLUtils.c</FilePath>
+              <FileName>mxchipWNET_3162.a</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\Library\mxchipWNET_3162.a</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds/>
+              </FileOption>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>platform_vendor</GroupName>
+          <GroupName>External</GroupName>
+          <GroupOption>
+            <CommonProperty>
+              <UseCPPCompiler>0</UseCPPCompiler>
+              <RVCTCodeConst>0</RVCTCodeConst>
+              <RVCTZI>0</RVCTZI>
+              <RVCTOtherData>0</RVCTOtherData>
+              <ModuleSelection>0</ModuleSelection>
+              <IncludeInBuild>0</IncludeInBuild>
+              <AlwaysBuild>2</AlwaysBuild>
+              <GenerateAssemblyFile>2</GenerateAssemblyFile>
+              <AssembleAssemblyFile>2</AssembleAssemblyFile>
+              <PublicsOnly>2</PublicsOnly>
+              <StopOnExitCode>11</StopOnExitCode>
+              <CustomArgument></CustomArgument>
+              <IncludeLibraryModules></IncludeLibraryModules>
+              <ComprImg>1</ComprImg>
+            </CommonProperty>
+            <GroupArmAds>
+              <Cads>
+                <interw>2</interw>
+                <Optim>0</Optim>
+                <oTime>2</oTime>
+                <SplitLS>2</SplitLS>
+                <OneElfS>2</OneElfS>
+                <Strict>2</Strict>
+                <EnumInt>2</EnumInt>
+                <PlainCh>2</PlainCh>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <wLevel>2</wLevel>
+                <uThumb>2</uThumb>
+                <uSurpInc>2</uSurpInc>
+                <uC99>2</uC99>
+                <useXO>2</useXO>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Cads>
+              <Aads>
+                <interw>2</interw>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <thumb>2</thumb>
+                <SplitLS>2</SplitLS>
+                <SwStkChk>2</SwStkChk>
+                <NoWarn>2</NoWarn>
+                <uSurpInc>2</uSurpInc>
+                <useXO>2</useXO>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Aads>
+            </GroupArmAds>
+          </GroupOption>
           <Files>
             <File>
-              <FileName>system_stm32f2xx.c</FileName>
+              <FileName>curve25519-donna.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\system_stm32f2xx.c</FilePath>
+              <FilePath>..\..\..\External\Curve25519\curve25519-donna.c</FilePath>
             </File>
+            <File>
+              <FileName>arraylist.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\External\JSON-C\arraylist.c</FilePath>
+            </File>
+            <File>
+              <FileName>debug.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\External\JSON-C\debug.c</FilePath>
+            </File>
+            <File>
+              <FileName>json_object.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\External\JSON-C\json_object.c</FilePath>
+            </File>
+            <File>
+              <FileName>json_tokener.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\External\JSON-C\json_tokener.c</FilePath>
+            </File>
+            <File>
+              <FileName>json_util.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\External\JSON-C\json_util.c</FilePath>
+            </File>
+            <File>
+              <FileName>linkhash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\External\JSON-C\linkhash.c</FilePath>
+            </File>
+            <File>
+              <FileName>printbuf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\External\JSON-C\printbuf.c</FilePath>
+            </File>
+            <File>
+              <FileName>hkdf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\External\SHAUtils\hkdf.c</FilePath>
+            </File>
+            <File>
+              <FileName>hmac.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\External\SHAUtils\hmac.c</FilePath>
+            </File>
+            <File>
+              <FileName>sha1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\External\SHAUtils\sha1.c</FilePath>
+            </File>
+            <File>
+              <FileName>sha224-256.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\External\SHAUtils\sha224-256.c</FilePath>
+            </File>
+            <File>
+              <FileName>sha384-512.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\External\SHAUtils\sha384-512.c</FilePath>
+            </File>
+            <File>
+              <FileName>usha.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\External\SHAUtils\usha.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>platform_drivers</GroupName>
+          <Files>
             <File>
               <FileName>misc.c</FileName>
               <FileType>1</FileType>
@@ -789,24 +1045,91 @@
               <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_wwdg.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal.c</FileName>
+              <FileName>system_stm32f2xx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_hcd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_hcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_ll_usb.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_usb.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\system_stm32f2xx.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>External</GroupName>
+          <GroupName>support</GroupName>
+          <Files>
+            <File>
+              <FileName>AESUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\AESUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>HTTPUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\HTTPUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>MDNSUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\MDNSUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>RingBufferUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\RingBufferUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>SecurityUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\SecurityUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>SHAUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\SHAUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>SocketUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\SocketUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>StringUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\StringUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>TimeUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\TimeUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>TLVUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\TLVUtils.c</FilePath>
+            </File>
+            <File>
+              <FileName>URLUtils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Library\support\URLUtils.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>EMW1062_driver</GroupName>
+          <Files>
+            <File>
+              <FileName>read_wifi_firmware.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\read_wifi_firmware.c</FilePath>
+            </File>
+            <File>
+              <FileName>wlan_platform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\wlan_platform.c</FilePath>
+            </File>
+            <File>
+              <FileName>wlan_bus.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\SDIO\wlan_bus.c</FilePath>
+            </File>
+          </Files>
         </Group>
       </Groups>
     </Target>

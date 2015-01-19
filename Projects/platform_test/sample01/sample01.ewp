@@ -1967,6 +1967,12 @@
       <name>$PROJ_DIR$\..\..\..\Library\MICOConfig.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\..\Library\mxchipWNET_3162.a</name>
+      <excluded>
+        <configuration>Debug</configuration>
+      </excluded>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_cm3_sdio.a</name>
     </file>
   </group>
@@ -2036,6 +2042,9 @@
       <name>vendor</name>
       <group>
         <name>stm32f2xx_hal</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
         <file>
           <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal.c</name>
         </file>
@@ -2150,6 +2159,9 @@
       </group>
       <file>
         <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M3\crt0_IAR.c</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M3\STM32F2xx\gpio_irq.c</name>
