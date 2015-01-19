@@ -60,9 +60,9 @@ extern OSStatus     ConfigIncommingJsonMessage    ( const char *input, mico_Cont
 extern json_object* ConfigCreateReportJsonMessage ( mico_Context_t * const inContext );
 extern void         ConfigWillStart               ( mico_Context_t * const inContext );
 extern void         ConfigWillStop                ( mico_Context_t * const inContext );
-//extern void         ConfigEasyLinkIsSuccess       ( mico_Context_t * const inContext );
-//extern void         ConfigSoftApWillStart         ( mico_Context_t * const inContext );
-//extern OSStatus     ConfigELRecvAuthData          ( char * userInfo, mico_Context_t * const inContext );
+extern void         ConfigEasyLinkIsSuccess       ( mico_Context_t * const inContext );
+extern void         ConfigSoftApWillStart         ( mico_Context_t * const inContext );
+extern OSStatus     ConfigELRecvAuthData          ( char * userInfo, mico_Context_t * const inContext );
 extern OSStatus     MICOStartBonjourService       ( WiFi_Interface interface, mico_Context_t * const inContext );
 extern OSStatus     MICOstartConfigServer         ( mico_Context_t * const inContext );
 
@@ -262,7 +262,7 @@ OSStatus startEasyLinkSoftAP( mico_Context_t * const inContext)
   err = MICOStartConfigServer  ( inContext );
   require_noerr(err, exit);
 
-  //ConfigSoftApWillStart( inContext );
+  ConfigSoftApWillStart( inContext );
 
 exit:
   return err;

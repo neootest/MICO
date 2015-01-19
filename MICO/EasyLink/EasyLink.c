@@ -61,13 +61,13 @@ static HTTPHeader_t *httpHeader = NULL;
 
 static bool EasylinkFailed = false;
 
-//extern OSStatus     ConfigIncommingJsonMessage    ( const char *input, mico_Context_t * const inContext );
-//extern json_object* ConfigCreateReportJsonMessage ( mico_Context_t * const inContext );
+extern OSStatus     ConfigIncommingJsonMessage    ( const char *input, mico_Context_t * const inContext );
+extern json_object* ConfigCreateReportJsonMessage ( mico_Context_t * const inContext );
 extern void         ConfigWillStart               ( mico_Context_t * const inContext );
 extern void         ConfigWillStop                ( mico_Context_t * const inContext );
-//extern void         ConfigEasyLinkIsSuccess       ( mico_Context_t * const inContext );
+extern void         ConfigEasyLinkIsSuccess       ( mico_Context_t * const inContext );
 extern void         ConfigSoftApWillStart         ( mico_Context_t * const inContext );
-//extern OSStatus     ConfigELRecvAuthData          ( char * userInfo, mico_Context_t * const inContext );
+extern OSStatus     ConfigELRecvAuthData          ( char * userInfo, mico_Context_t * const inContext );
 extern OSStatus     MICOStartBonjourService       ( WiFi_Interface interface, mico_Context_t * const inContext );
 extern OSStatus     MICOstartConfigServer         ( mico_Context_t * const inContext );
 
@@ -215,11 +215,11 @@ void EasyLinkNotify_EasyLinkGetExtraDataHandler(int datalen, char* data, mico_Co
   }
   mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
 
-//  require_noerr(ConfigELRecvAuthData(data, inContext), exit);
+  require_noerr(ConfigELRecvAuthData(data, inContext), exit);
   
   EasylinkFailed = false;
   mico_rtos_set_semaphore(&easylink_sem);
-//  ConfigEasyLinkIsSuccess(inContext);
+  ConfigEasyLinkIsSuccess(inContext);
   return;
 
 exit:
@@ -334,8 +334,8 @@ OSStatus _connectFTCServer( mico_Context_t * const inContext, int *fd)
 
   easylink_log("Connect to FTC server success, fd: %d", *fd);
 
-//  easylink_report = ConfigCreateReportJsonMessage( inContext );
-//  require( easylink_report, exit );
+  easylink_report = ConfigCreateReportJsonMessage( inContext );
+  require( easylink_report, exit );
 
   json_str = json_object_to_json_string(easylink_report);
   require( json_str, exit );
@@ -540,7 +540,7 @@ OSStatus _FTCRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context
         require_noerr(err, exit);
         if( strnicmpx( value, valueSize, kMIMEType_JSON ) == 0 ){
           easylink_log("Receive JSON config data!");
-          //err = ConfigIncommingJsonMessage( inHeader->extraDataPtr, inContext);
+          err = ConfigIncommingJsonMessage( inHeader->extraDataPtr, inContext);
           inContext->flashContentInRam.micoSystemConfig.configured = allConfigured;
           err = MICOUpdateConfiguration(inContext);
           SocketClose(&fd);
