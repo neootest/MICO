@@ -58,6 +58,7 @@ __heap_limit
                 EXPORT  __Vectors
                 EXPORT  __Vectors_End
                 EXPORT  __Vectors_Size
+;                IMPORT  RTC_WKUP_irq
 
 __Vectors       DCD     __initial_sp               ; Top of Stack
                 DCD     Reset_Handler              ; Reset Handler
@@ -80,7 +81,7 @@ __Vectors       DCD     __initial_sp               ; Top of Stack
                 DCD     WWDG_IRQHandler                   ; Window WatchDog                                        
                 DCD     PVD_IRQHandler                    ; PVD through EXTI Line detection                        
                 DCD     TAMP_STAMP_IRQHandler             ; Tamper and TimeStamps through the EXTI line            
-                DCD     RTC_WKUP_IRQHandler               ; RTC Wakeup through the EXTI line                       
+                DCD     RTC_WKUP_IRQHandler              ; RTC_WKUP_irq                      ; RTC Wakeup through the EXTI line                       
                 DCD     FLASH_IRQHandler                  ; FLASH                                           
                 DCD     RCC_IRQHandler                    ; RCC                                             
                 DCD     EXTI0_IRQHandler                  ; EXTI Line0                                             

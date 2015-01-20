@@ -224,7 +224,7 @@
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>0</useUlib>
+            <useUlib>1</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <RoSelD>3</RoSelD>
@@ -310,7 +310,7 @@
               <OCR_RVCT4>
                 <Type>1</Type>
                 <StartAddress>0x800c000</StartAddress>
-                <Size>0x100000</Size>
+                <Size>0xf4000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -618,7 +618,7 @@
                   <RVCTOtherData>0</RVCTOtherData>
                   <ModuleSelection>0</ModuleSelection>
                   <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>0</AlwaysBuild>
+                  <AlwaysBuild>1</AlwaysBuild>
                   <GenerateAssemblyFile>2</GenerateAssemblyFile>
                   <AssembleAssemblyFile>2</AssembleAssemblyFile>
                   <PublicsOnly>2</PublicsOnly>

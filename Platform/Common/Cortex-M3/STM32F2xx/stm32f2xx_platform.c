@@ -144,7 +144,7 @@ __attribute__( ( always_inline ) ) static __INLINE void __jump_to( uint32_t addr
   addr |= 0x00000001;  /* Last bit of jump address indicates whether destination is Thumb or ARM code */
   __ASM volatile ("BX %0" : : "r" (addr) );
 }
-#else
+#elif defined ( __CC_ARM )
 __asm static inline void __jump_to( uint32_t addr ){
     MOV R1, #0x00000001
     ORR R0, R0, R1	
@@ -183,19 +183,17 @@ void startApplication(void)
     __asm( "MSR FAULTMASK, R1" );
     __asm( "MSR BASEPRI,   R1" );
     __asm( "MSR CONTROL,   R1" );
-	#else
+	#elif defined ( __CC_ARM )
 	//	__test_load();
     __asm( "MOV R1,        #0x01000000" );
     __asm( "MSR APSR_nzcvq,     R1" );
 	#endif
   
    SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk; 
-    printf("text_addr = %x, value= 0x%x \n",text_addr, *(volatile uint32_t*)text_addr);
     stack_ptr = (uint32_t*) text_addr;  /* Initial stack pointer is first 4 bytes of vector table */
     start_ptr = ( stack_ptr + 1 );  /* Reset vector is second 4 bytes of vector table */
     
     __set_MSP( *stack_ptr );
-    printf("stack_pt v=0x%x, start_prt v= 0x%x",*stack_ptr, *start_ptr);
     __jump_to( *start_ptr );
   }  
 }

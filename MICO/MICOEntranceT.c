@@ -54,7 +54,7 @@
 // #define TEST_EASYLINK       
 // #define TEST_APP            
 #define TEST_PLATFORM      
-// #define TEST_WLAN
+#define TEST_WLAN
 // #define TEST_TIMER
 // #define TEST_TOAP
 // #define TEST_CONFIGSERVER
@@ -533,18 +533,38 @@ exit:
 int application_start(void)
 {
   OSStatus err = kNoErr;
-  #if defined(__CC_ARM)
+#if !defined ( TEST ) || defined ( TEST_WLAN )
+  IPStatusTypedef para;
+  char wifi_ver[64];
+#endif
+  //struct tm currentTime;
+  //mico_rtc_time_t time;
+#if defined(__CC_ARM)
 	mico_log("Build by Keil");
-	#elif defined (__IAR_SYSTEMS_ICC__)
+#elif defined (__IAR_SYSTEMS_ICC__)
 	mico_log("Build by IAR");
-	#endif
-  #if !defined ( TEST ) || defined ( TEST_PLATFORM )
+#endif
+#if !defined ( TEST ) || defined ( TEST_PLATFORM )
   /*wlan driver and tcpip init*/
   MicoInit();
   MicoSysLed(true);
   mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
 
 #endif 
+#if !defined ( TEST ) || defined ( TEST_WLAN )
+  micoWlanGetIPStatus(&para, Station);
+  #if !defined ( TEST ) || defined ( TEST_CONTEXT )
+  formatMACAddr(context->micoStatus.mac, (char *)&para.mac);
+  #endif 
+  wlan_driver_version(wifi_ver, sizeof(wifi_ver));
+  mico_log_trace(); 
+  #if !defined ( TEST ) || defined ( TEST_CONTEXT )
+  mico_log("%s ver: %s, mac %s", APP_INFO, MicoGetVer(), context->micoStatus.mac);
+  #else
+  mico_log("%s ver: %s, ", APP_INFO, MicoGetVer() );
+  #endif 
+  mico_log("wifi version %s", wifi_ver);
+#endif
   return kNoErr;
 }
 #endif 

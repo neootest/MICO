@@ -12,16 +12,16 @@
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
         <TargetCommonOption>
-          <Device>STM32F205ZGTx</Device>
+          <Device>STM32F205RGTx</Device>
           <Vendor>STMicroelectronics</Vendor>
           <PackID>Keil.STM32F2xx_DFP.2.0.0</PackID>
           <PackURL>http://www.keil.com/pack</PackURL>
           <Cpu>IROM(0x08000000,0x100000) IRAM(0x20000000,0x20000) CPUTYPE("Cortex-M3") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
-          <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0STM32F2xx_1024 -FS08000000 -FL0100000 -FP0($$Device:STM32F205ZGTx$CMSIS\Flash\STM32F2xx_1024.FLM))</FlashDriverDll>
+          <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0STM32F2xx_1024 -FS08000000 -FL0100000 -FP0($$Device:STM32F205RGTx$CMSIS\Flash\STM32F2xx_1024.FLM))</FlashDriverDll>
           <DeviceId>0</DeviceId>
-          <RegisterFile>$$Device:STM32F205ZGTx$Drivers\CMSIS\Device\ST\STM32F2xx\Include\stm32f2xx.h</RegisterFile>
+          <RegisterFile>$$Device:STM32F205RGTx$Drivers\CMSIS\Device\ST\STM32F2xx\Include\stm32f2xx.h</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
           <Asm></Asm>
@@ -31,7 +31,7 @@
           <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
-          <SFDFile>$$Device:STM32F205ZGTx$CMSIS\SVD\STM32F20x.svd</SFDFile>
+          <SFDFile>$$Device:STM32F205RGTx$CMSIS\SVD\STM32F20x.svd</SFDFile>
           <bCustSvd>0</bCustSvd>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
@@ -175,7 +175,7 @@
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3>"" ()</Flash3>
+          <Flash3></Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -310,7 +310,7 @@
               <OCR_RVCT4>
                 <Type>1</Type>
                 <StartAddress>0x800c000</StartAddress>
-                <Size>0x100000</Size>
+                <Size>0xf4000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>

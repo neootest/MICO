@@ -291,7 +291,7 @@ bool watchdog_check_last_reset( void )
 
 OSStatus mico_platform_init( void )
 {
- // platform_log( "Platform initialised" );
+  platform_log( "Platform initialised" );
   
   if ( true == watchdog_check_last_reset() )
   {

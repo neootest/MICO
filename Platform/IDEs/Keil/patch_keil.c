@@ -89,7 +89,12 @@ label:
 	goto label;	/* endless loop */
 }
 #endif 
-
+void exit(int return_code)
+{
+label:
+	__WFI();
+	goto label;	/* endless loop */
+}
 // logging.o
 char* __iar_Strstr(char* str1, char* str2){
     return strstr(str1, str2);
