@@ -38,24 +38,35 @@
 
 #include "MICONotificationCenter.h"
 #include "MICOSystemMonitor.h"
-//#include "EasyLink/EasyLink.h"
-//#include "SoftAP/EasyLinkSoftAP.h"
-//#include "WPS/WPS.h"
-//#include "WAC/MFi_WAC.h"
+#include "EasyLink/EasyLink.h"
+#include "SoftAP/EasyLinkSoftAP.h"
+#include "WPS/WPS.h"
+#include "WAC/MFi_WAC.h"
 #include "StringUtils.h"
 
 #if defined (CONFIG_MODE_EASYLINK) || defined (CONFIG_MODE_EASYLINK_WITH_SOFTAP)
-// #include "EasyLink/EasyLink.h"
+#include "EasyLink/EasyLink.h"
 #endif
-
-#define mico_log(M, ...) custom_log("MICO", M, ##__VA_ARGS__)
-#if 0
+#define TEST
+#ifdef TEST
+// #define TEST_NOTIFICATION   
+// #define TEST_EASYLINK       
+// #define TEST_APP            
+#define TEST_PLATFORM      
+#define TEST_WLAN
+// #define TEST_TIMER
+// #define TEST_TOAP
+// #define TEST_CONFIGSERVER
+// #define TEST_NTP
+// #define TEST_SYSMONITOR
+// #define TEST_SYSSTATUS
+#endif 
 static mico_Context_t *context;
 static mico_timer_t _watchdog_reload_timer;
 
 static mico_system_monitor_t mico_monitor;
 
-//const char *eaProtocols[1] = {EA_PROTOCOL};
+const char *eaProtocols[1] = {EA_PROTOCOL};
 
 #define mico_log(M, ...) custom_log("MICO", M, ##__VA_ARGS__)
 #define mico_log_trace() custom_log_trace("MICO")
@@ -282,6 +293,7 @@ static void mico_mfg_test(void)
   
   mico_thread_sleep(MICO_NEVER_TIMEOUT);
 }
+
 int application_start(void)
 {
   OSStatus err = kNoErr;
@@ -297,7 +309,7 @@ int application_start(void)
   mico_rtos_init_semaphore(&context->micoStatus.sys_state_change_sem, 1); 
 
   MICOReadConfiguration( context );
-
+#if !defined ( TEST ) || defined (TEST_NOTIFICATION)
   err = MICOInitNotificationCenter  ( context );
 
   err = MICOAddNotification( mico_notify_READ_APP_INFO, (void *)micoNotify_ReadAppInfoHandler );
@@ -311,7 +323,8 @@ int application_start(void)
 
   err = MICOAddNotification( mico_notify_Stack_Overflow_ERROR, (void *)micoNotify_StackOverflowErrHandler );
   require_noerr( err, exit ); 
-
+#endif 
+#if !defined ( TEST ) || defined ( TEST_PLATFORM )
   /*wlan driver and tcpip init*/
   MicoInit();
   MicoSysLed(true);
@@ -331,31 +344,40 @@ int application_start(void)
   currentTime.tm_mon = time.month - 1;
   currentTime.tm_year = time.year + 100;
   mico_log("Current Time: %s",asctime(&currentTime));
-
+#endif 
+#if !defined ( TEST ) || defined ( TEST_WLAN )
   micoWlanGetIPStatus(&para, Station);
   formatMACAddr(context->micoStatus.mac, (char *)&para.mac);
   wlan_driver_version(wifi_ver, sizeof(wifi_ver));
   mico_log_trace(); 
   mico_log("%s ver: %s, mac %s", APP_INFO, MicoGetVer(), context->micoStatus.mac);
   mico_log("wifi version %s", wifi_ver);
+#endif
+#if !defined ( TEST ) || defined ( TEST_SYSMONITOR )
   /*Start system monotor thread*/
   err = MICOStartSystemMonitor(context);
   require_noerr_action( err, exit, mico_log("ERROR: Unable to start the system monitor.") );
 
   err = MICORegisterSystemMonitor(&mico_monitor, APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000);
   require_noerr( err, exit );
+#endif 
+#if !defined ( TEST ) || defined ( TEST_TIMER )
   mico_init_timer(&_watchdog_reload_timer,APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000 - 100, _watchdog_reload_timer_handler, NULL);
   mico_start_timer(&_watchdog_reload_timer);
 
+#endif 
+#if !defined ( TEST ) || defined ( TEST_NOTIFICATION )
   /* Regisist notifications */
   err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)micoNotify_WifiStatusHandler );
   require_noerr( err, exit ); 
+#endif 
 #ifdef BOARD_LPCXPRESSO_54102
   wifimgr_debug_enable(true);
 #endif
   if(context->flashContentInRam.micoSystemConfig.configured != allConfigured){
     mico_log("Empty configuration. Starting configuration mode...");
 
+#if !defined ( TEST ) || defined ( TEST_EASYLINK )
 #if (MICO_CONFIG_MODE == CONFIG_MODE_EASYLINK) || (MICO_CONFIG_MODE == CONFIG_MODE_EASYLINK_WITH_SOFTAP)
   err = startEasyLink( context );
   require_noerr( err, exit );
@@ -396,18 +418,20 @@ int application_start(void)
   free(WAC_Params);
   require_noerr( err, exit );
 #else
- // #error "Wi-Fi configuration mode is not defined"?
+  #error "Wi-Fi configuration mode is not defined"?
 #endif
+#endif 
   }
   else{
     mico_log("Available configuration. Starting Wi-Fi connection...");
     
+#if !defined ( TEST ) || defined ( TEST_NOTIFICATION )
     err = MICOAddNotification( mico_notify_WiFI_PARA_CHANGED, (void *)micoNotify_WiFIParaChangedHandler );
     require_noerr( err, exit ); 
 
     err = MICOAddNotification( mico_notify_DHCP_COMPLETED, (void *)micoNotify_DHCPCompleteHandler );
     require_noerr( err, exit );  
-   
+#endif   
     if(context->flashContentInRam.micoSystemConfig.rfPowerSaveEnable == true){
       micoWlanEnablePowerSave();
     }
@@ -416,24 +440,32 @@ int application_start(void)
       MicoMcuPowerSaveConfig(true);
     }
 
+#if !defined ( TEST ) || defined ( TEST_CONFIGSERVER )
     /*Local configuration server*/
-//    if(context->flashContentInRam.micoSystemConfig.configServerEnable == true){
-//      err =  MICOStartConfigServer(context);
-//      require_noerr_action( err, exit, mico_log("ERROR: Unable to start the local server thread.") );
-//}
-
+    if(context->flashContentInRam.micoSystemConfig.configServerEnable == true){
+      err =  MICOStartConfigServer(context);
+      require_noerr_action( err, exit, mico_log("ERROR: Unable to start the local server thread.") );
+    }
+#endif 
+#if !defined ( TEST ) || defined ( TEST_NTP )
     err =  MICOStartNTPClient(context);
     require_noerr_action( err, exit, mico_log("ERROR: Unable to start the NTP client thread.") );
 
+#endif 
+#if !defined ( TEST ) || defined ( TEST_APP )
     /*Start mico application*/
     err = MICOStartApplication( context );
     require_noerr( err, exit );
 
+#endif 
+#if !defined ( TEST ) || defined ( TEST_TOAP )
     _ConnectToAP( context );
+#endif 
   }
 
   mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
   
+#if !defined ( TEST ) || defined ( TEST_SYSSTATUS )
   /*System status changed*/
   while(mico_rtos_get_semaphore(&context->micoStatus.sys_state_change_sem, MICO_WAIT_FOREVER)==kNoErr){
     switch(context->micoStatus.sys_state){
@@ -461,21 +493,12 @@ int application_start(void)
     }
   }
     
+#endif 
   require_noerr_action( err, exit, mico_log("Closing main thread with err num: %d.", err) );
 
 exit:
   mico_rtos_delete_thread(NULL);
   return kNoErr;
 }
-#else
-int application_start(void){
-//	printf("APP\n");
-  MicoInit();
-  MicoSysLed(true);
-//  printf("xx");
-  mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
-  return 0;
-}
 
-#endif
 
