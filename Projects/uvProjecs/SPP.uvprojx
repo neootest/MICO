@@ -309,7 +309,7 @@
               </OCR_RVCT3>
               <OCR_RVCT4>
                 <Type>1</Type>
-                <StartAddress>0x8000000</StartAddress>
+                <StartAddress>0x800c000</StartAddress>
                 <Size>0x100000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER DEBUG</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\include;..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\inc;..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\CMSIS;..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv;..\..\Platform\Common\Cortex-M3\STM32F2xx;..\..\Platform\Common\Cortex-M3;..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Inc;..\..\Demos\Sample01;..\..\MICO;..\..\Platform\EMW3162;..\..\External;..\..\Library\support;..\..\Platform\include</IncludePath>
+              <IncludePath>..\..\include;..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\inc;..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\CMSIS;..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv;..\..\Platform\Common\Cortex-M3\STM32F2xx;..\..\Platform\Common\Cortex-M3;..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Inc;..\..\Demos\COM.MXCHIP.SPP;..\..\MICO;..\..\Platform\EMW3162;..\..\External;..\..\Library\support;..\..\Platform\include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -414,7 +414,7 @@
               <RVCTZI>0</RVCTZI>
               <RVCTOtherData>0</RVCTOtherData>
               <ModuleSelection>0</ModuleSelection>
-              <IncludeInBuild>0</IncludeInBuild>
+              <IncludeInBuild>1</IncludeInBuild>
               <AlwaysBuild>2</AlwaysBuild>
               <GenerateAssemblyFile>2</GenerateAssemblyFile>
               <AssembleAssemblyFile>2</AssembleAssemblyFile>
@@ -529,7 +529,7 @@
                   <RVCTZI>0</RVCTZI>
                   <RVCTOtherData>0</RVCTOtherData>
                   <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
+                  <IncludeInBuild>1</IncludeInBuild>
                   <AlwaysBuild>2</AlwaysBuild>
                   <GenerateAssemblyFile>2</GenerateAssemblyFile>
                   <AssembleAssemblyFile>2</AssembleAssemblyFile>
@@ -577,11 +577,6 @@
               <FilePath>..\..\MICO\MICONTPClient.c</FilePath>
             </File>
             <File>
-              <FileName>MICOParaStorage.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\MICO\MICOParaStorage.c</FilePath>
-            </File>
-            <File>
               <FileName>MICOSystemMonitor.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\MICO\MICOSystemMonitor.c</FilePath>
@@ -602,6 +597,11 @@
               <FilePath>..\..\MICO\WAC\MFi_WAC_CM3_Debug.a</FilePath>
             </File>
             <File>
+              <FileName>MICOParaStorage.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\MICO\MICOParaStorage.c</FilePath>
+            </File>
+            <File>
               <FileName>WPS.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\MICO\WPS\WPS.c</FilePath>
@@ -617,8 +617,8 @@
                   <RVCTZI>0</RVCTZI>
                   <RVCTOtherData>0</RVCTOtherData>
                   <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>1</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>0</AlwaysBuild>
                   <GenerateAssemblyFile>2</GenerateAssemblyFile>
                   <AssembleAssemblyFile>2</AssembleAssemblyFile>
                   <PublicsOnly>2</PublicsOnly>

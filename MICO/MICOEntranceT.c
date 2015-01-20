@@ -315,7 +315,7 @@ static void mico_mfg_test(void)
   
   mico_thread_sleep(MICO_NEVER_TIMEOUT);
 }
-
+#if 0
 int application_start(void)
 {
   OSStatus err = kNoErr;
@@ -529,5 +529,23 @@ exit:
   mico_rtos_delete_thread(NULL);
   return kNoErr;
 }
+#else 
+int application_start(void)
+{
+  OSStatus err = kNoErr;
+  #if defined(__CC_ARM)
+	mico_log("Build by Keil");
+	#elif defined (__IAR_SYSTEMS_ICC__)
+	mico_log("Build by IAR");
+	#endif
+  #if !defined ( TEST ) || defined ( TEST_PLATFORM )
+  /*wlan driver and tcpip init*/
+  MicoInit();
+  MicoSysLed(true);
+  mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
 
+#endif 
+  return kNoErr;
+}
+#endif 
 
