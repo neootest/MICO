@@ -53,6 +53,7 @@
 
 /*Application's configuration stores in flash*/
 typedef struct{
+  uint32_t          configDataVer;
     uint32_t sample_led;
 } application_config_t;
 

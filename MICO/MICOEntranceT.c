@@ -29,31 +29,32 @@
 ******************************************************************************
 */
 
+#define TEST
+
+
 #include "time.h"
 #include "MicoPlatform.h"
 #include "platform.h"
 #include "platform_common_config.h"
 #include "MICODefine.h"
 #include "MICOAppDefine.h"
-
+#if 0
 #include "MICONotificationCenter.h"
 #include "MICOSystemMonitor.h"
 #include "EasyLink/EasyLink.h"
 #include "SoftAP/EasyLinkSoftAP.h"
 #include "WPS/WPS.h"
 #include "WAC/MFi_WAC.h"
+#endif 
 #include "StringUtils.h"
 
-#if defined (CONFIG_MODE_EASYLINK) || defined (CONFIG_MODE_EASYLINK_WITH_SOFTAP)
-#include "EasyLink/EasyLink.h"
-#endif
-#define TEST
 #ifdef TEST
+// #define TEST_CONTEXT
 // #define TEST_NOTIFICATION   
 // #define TEST_EASYLINK       
 // #define TEST_APP            
 #define TEST_PLATFORM      
-#define TEST_WLAN
+// #define TEST_WLAN
 // #define TEST_TIMER
 // #define TEST_TOAP
 // #define TEST_CONFIGSERVER
@@ -61,12 +62,24 @@
 // #define TEST_SYSMONITOR
 // #define TEST_SYSSTATUS
 #endif 
+
+#if defined (CONFIG_MODE_EASYLINK) || defined (CONFIG_MODE_EASYLINK_WITH_SOFTAP)
+// #include "EasyLink/EasyLink.h"
+#endif
+#if defined ( TEST_CONTEXT )
 static mico_Context_t *context;
+#endif 
+#if defined ( TEST_TIMER)
 static mico_timer_t _watchdog_reload_timer;
 
+#endif
+#if defined ( TEST_SYSMONITOR )
 static mico_system_monitor_t mico_monitor;
 
+#endif
+#if defined ( TEST_EA )
 const char *eaProtocols[1] = {EA_PROTOCOL};
+#endif
 
 #define mico_log(M, ...) custom_log("MICO", M, ##__VA_ARGS__)
 #define mico_log_trace() custom_log_trace("MICO")
@@ -91,6 +104,7 @@ void PlatformEasyLinkButtonClickedCallback(void)
   mico_log_trace();
   bool needsUpdate = false;
   
+#if !defined ( TEST ) || defined ( TEST_CONTEXT )
   if(context->flashContentInRam.micoSystemConfig.easyLinkByPass != EASYLINK_BYPASS_NO){
     context->flashContentInRam.micoSystemConfig.easyLinkByPass = EASYLINK_BYPASS_NO;
     needsUpdate = true;
@@ -107,6 +121,7 @@ void PlatformEasyLinkButtonClickedCallback(void)
   context->micoStatus.sys_state = eState_Software_Reset;
   require(context->micoStatus.sys_state_change_sem, exit);
   mico_rtos_set_semaphore(&context->micoStatus.sys_state_change_sem);
+#endif 
 exit: 
   return;
 }
@@ -114,10 +129,12 @@ exit:
 void PlatformEasyLinkButtonLongPressedCallback(void)
 {
   mico_log_trace();
+#if !defined ( TEST ) || defined (TEST_CONTEXT)
   MICORestoreDefault(context);
   context->micoStatus.sys_state = eState_Software_Reset;
   require(context->micoStatus.sys_state_change_sem, exit);
   mico_rtos_set_semaphore(&context->micoStatus.sys_state_change_sem);
+#endif 
 exit: 
   return;
 }
@@ -125,13 +142,15 @@ exit:
  void PlatformStandbyButtonClickedCallback(void)
  {
     mico_log_trace();
+#if !defined ( TEST ) || defined (TEST_CONTEXT)
     context->micoStatus.sys_state = eState_Standby;
     require(context->micoStatus.sys_state_change_sem, exit);
     mico_rtos_set_semaphore(&context->micoStatus.sys_state_change_sem);
+#endif 
 exit: 
     return;
  }
-
+#if !defined ( TEST ) || defined ( TEST_NOTIFICATION )
 void micoNotify_WifiStatusHandler(WiFiEvent event, mico_Context_t * const inContext)
 {
   mico_log_trace();
@@ -158,7 +177,7 @@ void micoNotify_WifiStatusHandler(WiFiEvent event, mico_Context_t * const inCont
   }
   return;
 }
-
+#endif 
 void micoNotify_DHCPCompleteHandler(IPStatusTypedef *pnet, mico_Context_t * const inContext)
 {
   mico_log_trace();
@@ -177,6 +196,7 @@ void micoNotify_WiFIParaChangedHandler(apinfo_adv_t *ap_info, char *key, int key
 {
   mico_log_trace();
   bool _needsUpdate = false;
+#if !defined ( TEST ) || defined (TEST_CONTEXT)
   require(inContext, exit);
   mico_rtos_lock_mutex(&inContext->flashContentInRam_mutex);
   if(strncmp(inContext->flashContentInRam.micoSystemConfig.ssid, ap_info->ssid, maxSsidLen)!=0){
@@ -212,7 +232,7 @@ void micoNotify_WiFIParaChangedHandler(apinfo_adv_t *ap_info, char *key, int key
   if(_needsUpdate== true)  
     MICOUpdateConfiguration(inContext);
   mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
-  
+#endif  
 exit:
   return;
 }
@@ -273,7 +293,9 @@ void _ConnectToAP( mico_Context_t * const inContext)
 static void _watchdog_reload_timer_handler( void* arg )
 {
   (void)(arg);
+#if !defined ( TEST ) || defined (TEST_SYSMONITOR)
   MICOUpdateSystemMonitor(&mico_monitor, APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000-100);
+#endif 
 }
 
 static void mico_mfg_test(void)
@@ -301,14 +323,16 @@ int application_start(void)
   struct tm currentTime;
   mico_rtc_time_t time;
   char wifi_ver[64];
+#if !defined ( TEST ) || defined (TEST_CONTEXT)
   /*Read current configurations*/
   context = ( mico_Context_t *)malloc(sizeof(mico_Context_t) );
   require_action( context, exit, err = kNoMemoryErr );
   memset(context, 0x0, sizeof(mico_Context_t));
   mico_rtos_init_mutex(&context->flashContentInRam_mutex);
   mico_rtos_init_semaphore(&context->micoStatus.sys_state_change_sem, 1); 
-
+d
   MICOReadConfiguration( context );
+#endif
 #if !defined ( TEST ) || defined (TEST_NOTIFICATION)
   err = MICOInitNotificationCenter  ( context );
 
@@ -330,6 +354,7 @@ int application_start(void)
   MicoSysLed(true);
   mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
 
+#endif 
   /* Enter test mode, call a build-in test function amd output on STDIO */
   if(MicoShouldEnterMFGMode()==true)
     mico_mfg_test();
@@ -344,7 +369,6 @@ int application_start(void)
   currentTime.tm_mon = time.month - 1;
   currentTime.tm_year = time.year + 100;
   mico_log("Current Time: %s",asctime(&currentTime));
-#endif 
 #if !defined ( TEST ) || defined ( TEST_WLAN )
   micoWlanGetIPStatus(&para, Station);
   formatMACAddr(context->micoStatus.mac, (char *)&para.mac);
@@ -374,9 +398,10 @@ int application_start(void)
 #ifdef BOARD_LPCXPRESSO_54102
   wifimgr_debug_enable(true);
 #endif
+#if !defined ( TEST ) || defined (TEST_CONTEXT)
   if(context->flashContentInRam.micoSystemConfig.configured != allConfigured){
     mico_log("Empty configuration. Starting configuration mode...");
-
+#endif 
 #if !defined ( TEST ) || defined ( TEST_EASYLINK )
 #if (MICO_CONFIG_MODE == CONFIG_MODE_EASYLINK) || (MICO_CONFIG_MODE == CONFIG_MODE_EASYLINK_WITH_SOFTAP)
   err = startEasyLink( context );
@@ -421,8 +446,10 @@ int application_start(void)
   #error "Wi-Fi configuration mode is not defined"?
 #endif
 #endif 
+#if !defined ( TEST ) || defined (TEST_CONTEXT)
   }
   else{
+#endif
     mico_log("Available configuration. Starting Wi-Fi connection...");
     
 #if !defined ( TEST ) || defined ( TEST_NOTIFICATION )
@@ -432,6 +459,7 @@ int application_start(void)
     err = MICOAddNotification( mico_notify_DHCP_COMPLETED, (void *)micoNotify_DHCPCompleteHandler );
     require_noerr( err, exit );  
 #endif   
+#if !defined ( TEST ) || defined (TEST_CONTEXT)
     if(context->flashContentInRam.micoSystemConfig.rfPowerSaveEnable == true){
       micoWlanEnablePowerSave();
     }
@@ -439,7 +467,7 @@ int application_start(void)
     if(context->flashContentInRam.micoSystemConfig.mcuPowerSaveEnable == true){
       MicoMcuPowerSaveConfig(true);
     }
-
+#endif
 #if !defined ( TEST ) || defined ( TEST_CONFIGSERVER )
     /*Local configuration server*/
     if(context->flashContentInRam.micoSystemConfig.configServerEnable == true){
@@ -461,8 +489,9 @@ int application_start(void)
 #if !defined ( TEST ) || defined ( TEST_TOAP )
     _ConnectToAP( context );
 #endif 
+#if !defined ( TEST ) || defined (TEST_CONTEXT)
   }
-
+#endif
   mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
   
 #if !defined ( TEST ) || defined ( TEST_SYSSTATUS )
