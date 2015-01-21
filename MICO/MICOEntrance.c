@@ -281,6 +281,7 @@ static void mico_mfg_test(void)
   mico_thread_sleep(MICO_NEVER_TIMEOUT);
 }
 
+extern uint8_t EASYLINK_GPIO_Get(void); // Magicoe
 int application_start(void)
 {
   OSStatus err = kNoErr;
@@ -315,7 +316,16 @@ int application_start(void)
   MicoInit();
   MicoSysLed(true);
   mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
-
+  
+#ifdef BOARD_LPCXPRESSO_54102
+  if (EASYLINK_GPIO_Get()== 0) {
+     printf("Easylink push\r\n");
+    PlatformEasyLinkButtonLongPressedCallback();
+  }
+  else {
+    printf("Easylink Not push\r\n");
+  }  
+#endif
   /* Enter test mode, call a build-in test function amd output on STDIO */
   if(MicoShouldEnterMFGMode()==true)
     mico_mfg_test();
@@ -350,7 +360,7 @@ int application_start(void)
   err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)micoNotify_WifiStatusHandler );
   require_noerr( err, exit ); 
 #ifdef BOARD_LPCXPRESSO_54102
-  wifimgr_debug_enable(true);
+   wifimgr_debug_enable(true);
 #endif
   if(context->flashContentInRam.micoSystemConfig.configured != allConfigured){
     mico_log("Empty configuration. Starting configuration mode...");
