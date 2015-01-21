@@ -43,6 +43,9 @@ OSStatus MVDCloudInterfaceInit(mico_Context_t* const inContext);
 OSStatus MVDCloudInterfaceSend(unsigned char *inBuf, unsigned int inBufLen);
 OSStatus MVDCloudInterfaceSendto(const char* topic, 
                                  unsigned char *inBuf, unsigned int inBufLen);
+// send to sub-level, topic "device_id/out/<level>"
+OSStatus MVDCloudInterfaceSendtoChannel(const char* channel, 
+                                      unsigned char *inBuf, unsigned int inBufLen);
 
 // cloud specifical interfaces
 OSStatus MVDCloudInterfaceDevActivate(mico_Context_t* const inContext,

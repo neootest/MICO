@@ -64,7 +64,7 @@
 #define DEFAULT_MQTT_PORT               1883
 #define DEFAULT_MQTT_PORT_SSL           8883
 // in seconds, here set 60s
-#define DEFAULT_MQTT_CLLIENT_KEEPALIVE_INTERVAL    60
+#define DEFAULT_MQTT_CLLIENT_KEEPALIVE_INTERVAL    15
 
  /*******************************************************************************
  * STRUCTURES

@@ -116,7 +116,7 @@ OSStatus MVDCloudInterfaceSend(unsigned char *inBuf, unsigned int inBufLen)
 
   cloud_if_log("MVD => Cloud[publish]:[%d]=%.*s", inBufLen, inBufLen, inBuf);
   err = EasyCloudPublish(&easyCloudContext, inBuf, inBufLen);
-  require_noerr_action( err, exit, cloud_if_log("ERROR: EasyCloud upload failed! err=%d", err) );
+  require_noerr_action( err, exit, cloud_if_log("ERROR: MVDCloudInterfaceSend failed! err=%d", err) );
   return kNoErr;
   
 exit:
@@ -130,7 +130,21 @@ OSStatus MVDCloudInterfaceSendto(const char* topic, unsigned char *inBuf, unsign
 
   cloud_if_log("MVD => Cloud[%s]:[%d]=%.*s", topic, inBufLen, inBufLen, inBuf);
   err = EasyCloudPublishto(&easyCloudContext, topic, inBuf, inBufLen);
-  require_noerr_action( err, exit, cloud_if_log("ERROR: EasyCloud upload failed! err=%d", err) );
+  require_noerr_action( err, exit, cloud_if_log("ERROR: MVDCloudInterfaceSendto failed! err=%d", err) );
+  return kNoErr;
+  
+exit:
+  return err;
+}
+
+OSStatus MVDCloudInterfaceSendtoChannel(const char* channel, unsigned char *inBuf, unsigned int inBufLen)
+{
+  cloud_if_log_trace();
+  OSStatus err = kUnknownErr;
+
+  cloud_if_log("MVD => Cloud[%s]:[%d]=%.*s", channel, inBufLen, inBufLen, inBuf);
+  err = EasyCloudPublishtoChannel(&easyCloudContext, channel, inBuf, inBufLen);
+  require_noerr_action( err, exit, cloud_if_log("ERROR: MVDCloudInterfaceSendtoChannel failed! err=%d", err) );
   return kNoErr;
   
 exit:

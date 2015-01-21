@@ -29,22 +29,29 @@
 
 
 /*******************************************************************************
- * INTERFACES
+ * USER INTERFACES
  ******************************************************************************/
 
 /* init */
 OSStatus MVDInit(mico_Context_t* const context);
 void MVDRestoreDefault(mico_Context_t* const context);
 
-/* message exchage protocol */
+/* get MVD state */
 
-//device interfaces
-OSStatus MVDDeviceMsgProcess(mico_Context_t* const context, 
-                             unsigned char *inBuf, unsigned int inBufLen);
-//Cloud service interfaces
-OSStatus MVDCloudMsgProcess(mico_Context_t* const context, 
-                            const char* topic, const unsigned int topicLen,
-                            unsigned char *inBuf, unsigned int inBufLen);
+// dev activate state
+bool MVDIsActivated(mico_Context_t* const context);
+// cloud connect state
+bool MVDCloudIsConnect(mico_Context_t* const context);
+
+/* MVD message send interface */
+
+// MVD => MCU
+OSStatus MVDSendMsg2Device(mico_Context_t* const context, 
+                           unsigned char *inBuf, unsigned int inBufLen);
+// MVD => Cloud
+OSStatus MVDSendMsg2Cloud(mico_Context_t* const context, const char* topic,
+                       unsigned char *inBuf, unsigned int inBufLen);
+
 
 /* device control */
 
@@ -60,5 +67,21 @@ OSStatus MVDAuthorize(mico_Context_t* const context,
 //reset device info on cloud
 OSStatus MVDResetCloudDevInfo(mico_Context_t* const context,
                               MVDResetRequestData_t devResetData);
+
+
+/*******************************************************************************
+* INTERNAL FUNCTIONS
+*******************************************************************************/
+
+/* message exchage protocol */
+
+// MCU => Cloud, called by MVDDeviceInterface (when msg recv)
+OSStatus MVDDeviceMsgProcess(mico_Context_t* const context, 
+                             unsigned char *inBuf, unsigned int inBufLen);
+
+// Cloud => MCU, called by MVDCloudInterface (when msg recv)
+OSStatus MVDCloudMsgProcess(mico_Context_t* const context, 
+                            const char* topic, const unsigned int topicLen,
+                            unsigned char *inBuf, unsigned int inBufLen);
 
 #endif
