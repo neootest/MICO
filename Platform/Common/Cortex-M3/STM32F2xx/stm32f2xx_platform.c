@@ -51,7 +51,7 @@
 #elif defined ( __IAR_SYSTEMS_ICC__ )
 #define WEAK __weak
 #endif /* ifdef __GNUC__ */
-
+#define WEAK __weak
 /******************************************************
 *                      Macros
 ******************************************************/
@@ -144,7 +144,23 @@ __attribute__( ( always_inline ) ) static __INLINE void __jump_to( uint32_t addr
   addr |= 0x00000001;  /* Last bit of jump address indicates whether destination is Thumb or ARM code */
   __ASM volatile ("BX %0" : : "r" (addr) );
 }
+#elif defined ( __CC_ARM )
+__asm static inline void __jump_to( uint32_t addr ){
+    MOV R1, #0x00000001
+    ORR R0, R0, R1	
+    BLX R0
+}
 
+__asm static inline void __test_load(void){
+    MOV LR,        #0xFFFFFFFF
+    MOV R1,        #0x01000000
+    MSR APSR_nzcvq,     R1
+    MOV R1,        #0x00000000
+//    MSR PRIMASK,   R1
+//    MSR FAULTMASK, R1
+//    MSR BASEPRI,   R1
+//    MSR CONTROL,   R1
+}
 #endif
 
 /*Boot to mico application form APPLICATION_START_ADDRESS defined in platform_common_config.h */
@@ -158,6 +174,7 @@ void startApplication(void)
     uint32_t* stack_ptr;
     uint32_t* start_ptr;
     
+	#if defined ( __ICCARM__ ) || defined (__GNUC__)
     __asm( "MOV LR,        #0xFFFFFFFF" );
     __asm( "MOV R1,        #0x01000000" );
     __asm( "MSR APSR_nzcvq,     R1" );
@@ -166,9 +183,13 @@ void startApplication(void)
     __asm( "MSR FAULTMASK, R1" );
     __asm( "MSR BASEPRI,   R1" );
     __asm( "MSR CONTROL,   R1" );
+	#elif defined ( __CC_ARM )
+	//	__test_load();
+    __asm( "MOV R1,        #0x01000000" );
+    __asm( "MSR APSR_nzcvq,     R1" );
+	#endif
   
    SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk; 
-    
     stack_ptr = (uint32_t*) text_addr;  /* Initial stack pointer is first 4 bytes of vector table */
     start_ptr = ( stack_ptr + 1 );  /* Reset vector is second 4 bytes of vector table */
     
@@ -561,6 +582,9 @@ void mico_thread_msleep_no_os(uint32_t milliseconds)
 {
   int tick_delay_start = mico_get_time_no_os();
   while(mico_get_time_no_os() < tick_delay_start+milliseconds);  
+}
+uint32_t mico_get_time(void){
+    mico_get_time_no_os();
 }
 #endif
 

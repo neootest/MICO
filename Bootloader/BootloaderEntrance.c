@@ -35,6 +35,7 @@
 #include "platform.h"
 #include "platformInternal.h"
 #include "platform_common_config.h"
+//#include "stm32f2xx.h"
 
 #define boot_log(M, ...) custom_log("BOOT", M, ##__VA_ARGS__)
 #define boot_log_trace() custom_log_trace("BOOT")
@@ -45,7 +46,7 @@ extern OSStatus update(void);
 const char menu[] =
 "\r\n"
 "MICO Bootloader for %s, HARDWARE_REVISION: %s\r\n"
-"+ command -------------------------+ function ------------+\r\n"
+"+ command --------j-----------------+ function ------------+\r\n"
 "| 0:BOOTUPDATE    <-r>             | Update bootloader    |\r\n"
 "| 1:FWUPDATE      <-r>             | Update application   |\r\n"
 "| 2:DRIVERUPDATE  <-r>             | Update RF driver     |\r\n"
@@ -69,9 +70,9 @@ int main(void)
   init_memory();
   init_architecture();
   init_platform_bootloader();
-  
+
 #ifdef MICO_FLASH_FOR_UPDATE
-  update();
+   update();
 #endif
   
   /* BOOT_SEL = 1 => Normal start*/
@@ -87,4 +88,5 @@ int main(void)
     Main_Menu ();
   }
 }
+
 

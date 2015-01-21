@@ -49,6 +49,7 @@
 #define UART_ONE_PACKAGE_LENGTH             1024
 #define wlanBufferLen                       1024
 #define UART_BUFFER_LENGTH                  2048
+
 #if defined(FRDM_K64F)
 #define UART_FOR_APP                        MICO_UART_2
 #elif defined(LPCXPRESSO54102)
