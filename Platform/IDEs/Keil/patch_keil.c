@@ -6,10 +6,10 @@
  * Ver: 0.1
  * */
 
-#include <string.h>
 
 #if defined(__CC_ARM)
 
+#include <string.h>
 #include <stdio.h>
 #include <rt_misc.h>
 #include "platform_common_config.h"
@@ -30,71 +30,22 @@ size_t strnlen(const char *s, size_t count)
                 return sc - s;    
 } 
 
-#if 0
-struct __FILE {
-	int handle;
-};
-
-FILE __stdout;
-FILE __stdin;
-FILE __stderr;
-
-void *_sys_open(const char *name, int openmode)
-{
-	return 0;
-}
-#endif
+int fputc(int ch, FILE *f) {
 #if 1
-int fputc(int ch, FILE *f)
-{
-    while (RESET == USART_GetFlagStatus(USART1, USART_FLAG_TXE));
-
-    USART_SendData(USART1, ch);
+    while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
+    USART_SendData(USART1, (uint8_t) ch);
     return ch;
+#else 
+  MicoUartSend( STDIO_UART, &ch, 1 );
+  return ch;
+#endif 
 }
-#else
-int fputc(int c, FILE *f)
+#ifdef __MICROLIB
+void exit(int x)
 {
-
-  //MicoUartSend( STDIO_UART, &c, 1 );
-  
-  USART_SendData(USART1, (uint8_t) c);
-        /* Loop until the end of transmission */
-    while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET)
-    {}
-  return c;
-
-}
-
-int fgetc(FILE *f)
-{
-#if defined(DEBUG) && !defined(DEBUG_SEMIHOSTING)
-//    int* c;
-//  if (MicoUartRecv( STDIO_UART, c, 1, 0)!=kNoErr)
-	return 1;
-#else
-	return 0;
-#endif
-}
-
-int ferror(FILE *f)
-{
-	return EOF;
-}
-
-void _sys_exit(int return_code)
-{
-label:
-	__WFI();
-	goto label;	/* endless loop */
+    x = x;
 }
 #endif 
-void exit(int return_code)
-{
-label:
-	__WFI();
-	goto label;	/* endless loop */
-}
 // logging.o
 char* __iar_Strstr(char* str1, char* str2){
     return strstr(str1, str2);

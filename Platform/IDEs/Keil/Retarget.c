@@ -14,10 +14,12 @@
 #include "platform_common_config.h"
 #include "MicoPlatform.h"
 #include "stm32f2xx.h"
-//if comment semihosting , printf will not work. and must fputc but not putc
-//#pragma import(__use_no_semihosting_swi)
 
-#if 0
+#ifndef __MICROLIB
+//if comment semihosting , printf will not work. and must fputc but not putc
+#pragma import(__use_no_semihosting_swi)
+
+
 extern int  sendchar(int ch);  /* in Serial.c */
 extern int  getkey(void);      /* in Serial.c */
 extern long timeval;           /* in Time.c   */
@@ -34,7 +36,7 @@ int putc(int ch, FILE *f) {
 }
 #else
 int fputc(int ch, FILE *f) {
-#if 0
+#if 1
   MicoUartSend( STDIO_UART, &ch, 1 );
   return ch;
   //return (sendchar(ch));
