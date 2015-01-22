@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER DEBUG</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\include;..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\inc;..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\CMSIS;..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv;..\..\Platform\Common\Cortex-M3\STM32F2xx;..\..\Platform\Common\Cortex-M3;..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Inc;..\..\Demos\COM.MXCHIP.SPP;..\..\MICO;..\..\Platform\EMW3162;..\..\External;..\..\Library\support;..\..\Platform\include</IncludePath>
+              <IncludePath>..\..\..\include;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\inc;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\CMSIS;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv;..\..\..\Platform\Common\Cortex-M3\STM32F2xx;..\..\..\Platform\Common\Cortex-M3;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Inc;..\..\..\Demos\COM.MXCHIP.SPP;..\..\..\MICO;..\..\..\Platform\EMW3162;..\..\..\External;..\..\..\Library\support;..\..\..\Platform\include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -471,37 +471,37 @@
             <File>
               <FileName>LocalTcpServer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Demos\COM.MXCHIP.SPP\LocalTcpServer.c</FilePath>
+              <FilePath>..\..\..\Demos\COM.MXCHIP.SPP\LocalTcpServer.c</FilePath>
             </File>
             <File>
               <FileName>MICOAppEntrance.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Demos\COM.MXCHIP.SPP\MICOAppEntrance.c</FilePath>
+              <FilePath>..\..\..\Demos\COM.MXCHIP.SPP\MICOAppEntrance.c</FilePath>
             </File>
             <File>
               <FileName>MICOBonjour.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Demos\COM.MXCHIP.SPP\MICOBonjour.c</FilePath>
+              <FilePath>..\..\..\Demos\COM.MXCHIP.SPP\MICOBonjour.c</FilePath>
             </File>
             <File>
               <FileName>MICOConfigDelegate.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Demos\COM.MXCHIP.SPP\MICOConfigDelegate.c</FilePath>
+              <FilePath>..\..\..\Demos\COM.MXCHIP.SPP\MICOConfigDelegate.c</FilePath>
             </File>
             <File>
               <FileName>RemoteTcpClient.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Demos\COM.MXCHIP.SPP\RemoteTcpClient.c</FilePath>
+              <FilePath>..\..\..\Demos\COM.MXCHIP.SPP\RemoteTcpClient.c</FilePath>
             </File>
             <File>
               <FileName>SppProtocol.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Demos\COM.MXCHIP.SPP\SppProtocol.c</FilePath>
+              <FilePath>..\..\..\Demos\COM.MXCHIP.SPP\SppProtocol.c</FilePath>
             </File>
             <File>
               <FileName>UartRecv.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Demos\COM.MXCHIP.SPP\UartRecv.c</FilePath>
+              <FilePath>..\..\..\Demos\COM.MXCHIP.SPP\UartRecv.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -511,17 +511,17 @@
             <File>
               <FileName>MICOConfigMenu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\MICO\MICOConfigMenu.c</FilePath>
+              <FilePath>..\..\..\MICO\MICOConfigMenu.c</FilePath>
             </File>
             <File>
               <FileName>MICOConfigServer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\MICO\MICOConfigServer.c</FilePath>
+              <FilePath>..\..\..\MICO\MICOConfigServer.c</FilePath>
             </File>
             <File>
               <FileName>MICOEntrance.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\MICO\MICOEntrance.c</FilePath>
+              <FilePath>..\..\..\MICO\MICOEntrance.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -569,90 +569,37 @@
             <File>
               <FileName>MICONotificationCenter.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\MICO\MICONotificationCenter.c</FilePath>
+              <FilePath>..\..\..\MICO\MICONotificationCenter.c</FilePath>
             </File>
             <File>
               <FileName>MICONTPClient.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\MICO\MICONTPClient.c</FilePath>
+              <FilePath>..\..\..\MICO\MICONTPClient.c</FilePath>
             </File>
             <File>
               <FileName>MICOSystemMonitor.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\MICO\MICOSystemMonitor.c</FilePath>
+              <FilePath>..\..\..\MICO\MICOSystemMonitor.c</FilePath>
             </File>
             <File>
               <FileName>EasyLink.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\MICO\EasyLink\EasyLink.c</FilePath>
+              <FilePath>..\..\..\MICO\EasyLink\EasyLink.c</FilePath>
             </File>
             <File>
               <FileName>EasyLinkSoftAP.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\MICO\SoftAP\EasyLinkSoftAP.c</FilePath>
-            </File>
-            <File>
-              <FileName>MFi_WAC_CM3_Debug.a</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\MICO\WAC\MFi_WAC_CM3_Debug.a</FilePath>
+              <FilePath>..\..\..\MICO\SoftAP\EasyLinkSoftAP.c</FilePath>
             </File>
             <File>
               <FileName>MICOParaStorage.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\MICO\MICOParaStorage.c</FilePath>
+              <FilePath>..\..\..\MICO\MICOParaStorage.c</FilePath>
             </File>
             <File>
               <FileName>WPS.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\MICO\WPS\WPS.c</FilePath>
-            </File>
-            <File>
-              <FileName>MICOEntranceT.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\MICO\MICOEntranceT.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>1</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>2</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
+              <FilePath>..\..\..\MICO\WPS\WPS.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -662,17 +609,17 @@
             <File>
               <FileName>MICOConfig.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Library\MICOConfig.c</FilePath>
+              <FilePath>..\..\..\Library\MICOConfig.c</FilePath>
             </File>
             <File>
               <FileName>mxchipWNet_cm3_sdio.a</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\Library\mxchipWNet_cm3_sdio.a</FilePath>
+              <FilePath>..\..\..\Library\mxchipWNet_cm3_sdio.a</FilePath>
             </File>
             <File>
               <FileName>mxchipWNet_cm3_spi.a</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\Library\mxchipWNet_cm3_spi.a</FilePath>
+              <FilePath>..\..\..\Library\mxchipWNet_cm3_spi.a</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -701,57 +648,57 @@
             <File>
               <FileName>AESUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Library\support\AESUtils.c</FilePath>
+              <FilePath>..\..\..\Library\support\AESUtils.c</FilePath>
             </File>
             <File>
               <FileName>HTTPUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Library\support\HTTPUtils.c</FilePath>
+              <FilePath>..\..\..\Library\support\HTTPUtils.c</FilePath>
             </File>
             <File>
               <FileName>MDNSUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Library\support\MDNSUtils.c</FilePath>
+              <FilePath>..\..\..\Library\support\MDNSUtils.c</FilePath>
             </File>
             <File>
               <FileName>RingBufferUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Library\support\RingBufferUtils.c</FilePath>
+              <FilePath>..\..\..\Library\support\RingBufferUtils.c</FilePath>
             </File>
             <File>
               <FileName>SecurityUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Library\support\SecurityUtils.c</FilePath>
+              <FilePath>..\..\..\Library\support\SecurityUtils.c</FilePath>
             </File>
             <File>
               <FileName>SHAUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Library\support\SHAUtils.c</FilePath>
+              <FilePath>..\..\..\Library\support\SHAUtils.c</FilePath>
             </File>
             <File>
               <FileName>SocketUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Library\support\SocketUtils.c</FilePath>
+              <FilePath>..\..\..\Library\support\SocketUtils.c</FilePath>
             </File>
             <File>
               <FileName>StringUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Library\support\StringUtils.c</FilePath>
+              <FilePath>..\..\..\Library\support\StringUtils.c</FilePath>
             </File>
             <File>
               <FileName>TimeUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Library\support\TimeUtils.c</FilePath>
+              <FilePath>..\..\..\Library\support\TimeUtils.c</FilePath>
             </File>
             <File>
               <FileName>TLVUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Library\support\TLVUtils.c</FilePath>
+              <FilePath>..\..\..\Library\support\TLVUtils.c</FilePath>
             </File>
             <File>
               <FileName>URLUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Library\support\URLUtils.c</FilePath>
+              <FilePath>..\..\..\Library\support\URLUtils.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -761,37 +708,37 @@
             <File>
               <FileName>arraylist.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\External\JSON-C\arraylist.c</FilePath>
+              <FilePath>..\..\..\External\JSON-C\arraylist.c</FilePath>
             </File>
             <File>
               <FileName>debug.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\External\JSON-C\debug.c</FilePath>
+              <FilePath>..\..\..\External\JSON-C\debug.c</FilePath>
             </File>
             <File>
               <FileName>json_object.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\External\JSON-C\json_object.c</FilePath>
+              <FilePath>..\..\..\External\JSON-C\json_object.c</FilePath>
             </File>
             <File>
               <FileName>json_tokener.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\External\JSON-C\json_tokener.c</FilePath>
+              <FilePath>..\..\..\External\JSON-C\json_tokener.c</FilePath>
             </File>
             <File>
               <FileName>json_util.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\External\JSON-C\json_util.c</FilePath>
+              <FilePath>..\..\..\External\JSON-C\json_util.c</FilePath>
             </File>
             <File>
               <FileName>linkhash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\External\JSON-C\linkhash.c</FilePath>
+              <FilePath>..\..\..\External\JSON-C\linkhash.c</FilePath>
             </File>
             <File>
               <FileName>printbuf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\External\JSON-C\printbuf.c</FilePath>
+              <FilePath>..\..\..\External\JSON-C\printbuf.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -801,252 +748,252 @@
             <File>
               <FileName>hardfault.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\hardfault.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\hardfault.c</FilePath>
             </File>
             <File>
               <FileName>system_stm32f2xx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\system_stm32f2xx.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\system_stm32f2xx.c</FilePath>
             </File>
             <File>
               <FileName>misc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\misc.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\misc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_adc.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_adc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_can.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_can.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_can.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_crc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_crc.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_crc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_cryp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_cryp_aes.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_aes.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_aes.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_cryp_des.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_des.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_des.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_cryp_tdes.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_tdes.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_tdes.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_dac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dac.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dac.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_dbgmcu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dbgmcu.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dbgmcu.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_dcmi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dcmi.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dcmi.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_dma.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dma.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dma.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_exti.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_exti.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_exti.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_flash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_flash.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_flash.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_fsmc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_fsmc.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_fsmc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_gpio.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_gpio.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_hash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_hash_md5.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash_md5.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash_md5.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_hash_sha1.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash_sha1.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash_sha1.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_i2c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_i2c.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_i2c.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_iwdg.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_iwdg.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_iwdg.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_pwr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_pwr.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_pwr.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_rcc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rcc.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rcc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_rng.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rng.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rng.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_rtc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rtc.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rtc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_sdio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_sdio.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_sdio.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_spi.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_spi.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_syscfg.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_syscfg.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_syscfg.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_tim.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_tim.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_tim.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_usart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_usart.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_usart.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_wwdg.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_wwdg.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_wwdg.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_hal.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_hal_hcd.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_hcd.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_hcd.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_ll_usb.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_usb.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_usb.c</FilePath>
             </File>
             <File>
               <FileName>gpio_irq.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\gpio_irq.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\gpio_irq.c</FilePath>
             </File>
             <File>
               <FileName>MicoDriverAdc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverAdc.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverAdc.c</FilePath>
             </File>
             <File>
               <FileName>MicoDriverFlash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverFlash.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverFlash.c</FilePath>
             </File>
             <File>
               <FileName>MicoDriverGpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverGpio.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverGpio.c</FilePath>
             </File>
             <File>
               <FileName>MicoDriverI2c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverI2c.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverI2c.c</FilePath>
             </File>
             <File>
               <FileName>MicoDriverPwm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverPwm.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverPwm.c</FilePath>
             </File>
             <File>
               <FileName>MicoDriverRng.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverRng.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverRng.c</FilePath>
             </File>
             <File>
               <FileName>MicoDriverRtc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverRtc.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverRtc.c</FilePath>
             </File>
             <File>
               <FileName>MicoDriverSpi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverSpi.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverSpi.c</FilePath>
             </File>
             <File>
               <FileName>MicoDriverUart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverUart.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverUart.c</FilePath>
             </File>
             <File>
               <FileName>MicoDriverWdg.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverWdg.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverWdg.c</FilePath>
             </File>
             <File>
               <FileName>rtc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\rtc.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\rtc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\stm32f2xx_platform.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\stm32f2xx_platform.c</FilePath>
             </File>
             <File>
               <FileName>usbh_conf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\usbh_conf.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\usbh_conf.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1056,17 +1003,17 @@
             <File>
               <FileName>read_wifi_firmware.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\read_wifi_firmware.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\read_wifi_firmware.c</FilePath>
             </File>
             <File>
               <FileName>wlan_platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\wlan_platform.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\wlan_platform.c</FilePath>
             </File>
             <File>
               <FileName>wlan_bus.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\SDIO\wlan_bus.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\SDIO\wlan_bus.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1076,17 +1023,17 @@
             <File>
               <FileName>hardfault.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\Common\Cortex-M3\hardfault.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\hardfault.c</FilePath>
             </File>
             <File>
               <FileName>platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\EMW3162\platform.c</FilePath>
+              <FilePath>..\..\..\Platform\EMW3162\platform.c</FilePath>
             </File>
             <File>
               <FileName>patch_keil.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Platform\IDEs\Keil\patch_keil.c</FilePath>
+              <FilePath>..\..\..\Platform\IDEs\Keil\patch_keil.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1096,7 +1043,7 @@
             <File>
               <FileName>curve25519-donna.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\External\Curve25519\curve25519-donna.c</FilePath>
+              <FilePath>..\..\..\External\Curve25519\curve25519-donna.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1106,32 +1053,32 @@
             <File>
               <FileName>hkdf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\External\SHAUtils\hkdf.c</FilePath>
+              <FilePath>..\..\..\External\SHAUtils\hkdf.c</FilePath>
             </File>
             <File>
               <FileName>hmac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\External\SHAUtils\hmac.c</FilePath>
+              <FilePath>..\..\..\External\SHAUtils\hmac.c</FilePath>
             </File>
             <File>
               <FileName>sha1.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\External\SHAUtils\sha1.c</FilePath>
+              <FilePath>..\..\..\External\SHAUtils\sha1.c</FilePath>
             </File>
             <File>
               <FileName>sha224-256.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\External\SHAUtils\sha224-256.c</FilePath>
+              <FilePath>..\..\..\External\SHAUtils\sha224-256.c</FilePath>
             </File>
             <File>
               <FileName>sha384-512.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\External\SHAUtils\sha384-512.c</FilePath>
+              <FilePath>..\..\..\External\SHAUtils\sha384-512.c</FilePath>
             </File>
             <File>
               <FileName>usha.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\External\SHAUtils\usha.c</FilePath>
+              <FilePath>..\..\..\External\SHAUtils\usha.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1141,7 +1088,7 @@
             <File>
               <FileName>startup_stm32f2xx.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\..\Platform\IDEs\Keil\startup_stm32f2xx.s</FilePath>
+              <FilePath>..\..\..\Platform\IDEs\Keil\startup_stm32f2xx.s</FilePath>
             </File>
           </Files>
         </Group>

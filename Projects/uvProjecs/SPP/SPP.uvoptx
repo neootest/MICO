@@ -206,7 +206,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Demos\COM.MXCHIP.SPP\LocalTcpServer.c</PathWithFileName>
+      <PathWithFileName>..\..\..\Demos\COM.MXCHIP.SPP\LocalTcpServer.c</PathWithFileName>
       <FilenameWithoutPath>LocalTcpServer.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -219,7 +219,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Demos\COM.MXCHIP.SPP\MICOAppEntrance.c</PathWithFileName>
+      <PathWithFileName>..\..\..\Demos\COM.MXCHIP.SPP\MICOAppEntrance.c</PathWithFileName>
       <FilenameWithoutPath>MICOAppEntrance.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -232,7 +232,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Demos\COM.MXCHIP.SPP\MICOBonjour.c</PathWithFileName>
+      <PathWithFileName>..\..\..\Demos\COM.MXCHIP.SPP\MICOBonjour.c</PathWithFileName>
       <FilenameWithoutPath>MICOBonjour.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -245,7 +245,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Demos\COM.MXCHIP.SPP\MICOConfigDelegate.c</PathWithFileName>
+      <PathWithFileName>..\..\..\Demos\COM.MXCHIP.SPP\MICOConfigDelegate.c</PathWithFileName>
       <FilenameWithoutPath>MICOConfigDelegate.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -258,7 +258,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Demos\COM.MXCHIP.SPP\RemoteTcpClient.c</PathWithFileName>
+      <PathWithFileName>..\..\..\Demos\COM.MXCHIP.SPP\RemoteTcpClient.c</PathWithFileName>
       <FilenameWithoutPath>RemoteTcpClient.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -271,7 +271,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Demos\COM.MXCHIP.SPP\SppProtocol.c</PathWithFileName>
+      <PathWithFileName>..\..\..\Demos\COM.MXCHIP.SPP\SppProtocol.c</PathWithFileName>
       <FilenameWithoutPath>SppProtocol.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -284,7 +284,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Demos\COM.MXCHIP.SPP\UartRecv.c</PathWithFileName>
+      <PathWithFileName>..\..\..\Demos\COM.MXCHIP.SPP\UartRecv.c</PathWithFileName>
       <FilenameWithoutPath>UartRecv.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -293,7 +293,7 @@
 
   <Group>
     <GroupName>MICO</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -305,7 +305,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\MICO\MICOConfigMenu.c</PathWithFileName>
+      <PathWithFileName>..\..\..\MICO\MICOConfigMenu.c</PathWithFileName>
       <FilenameWithoutPath>MICOConfigMenu.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -318,7 +318,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\MICO\MICOConfigServer.c</PathWithFileName>
+      <PathWithFileName>..\..\..\MICO\MICOConfigServer.c</PathWithFileName>
       <FilenameWithoutPath>MICOConfigServer.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -331,7 +331,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\MICO\MICOEntrance.c</PathWithFileName>
+      <PathWithFileName>..\..\..\MICO\MICOEntrance.c</PathWithFileName>
       <FilenameWithoutPath>MICOEntrance.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -344,7 +344,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\MICO\MICONotificationCenter.c</PathWithFileName>
+      <PathWithFileName>..\..\..\MICO\MICONotificationCenter.c</PathWithFileName>
       <FilenameWithoutPath>MICONotificationCenter.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -357,7 +357,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\MICO\MICONTPClient.c</PathWithFileName>
+      <PathWithFileName>..\..\..\MICO\MICONTPClient.c</PathWithFileName>
       <FilenameWithoutPath>MICONTPClient.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -370,7 +370,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\MICO\MICOSystemMonitor.c</PathWithFileName>
+      <PathWithFileName>..\..\..\MICO\MICOSystemMonitor.c</PathWithFileName>
       <FilenameWithoutPath>MICOSystemMonitor.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -383,7 +383,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\MICO\EasyLink\EasyLink.c</PathWithFileName>
+      <PathWithFileName>..\..\..\MICO\EasyLink\EasyLink.c</PathWithFileName>
       <FilenameWithoutPath>EasyLink.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -396,7 +396,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\MICO\SoftAP\EasyLinkSoftAP.c</PathWithFileName>
+      <PathWithFileName>..\..\..\MICO\SoftAP\EasyLinkSoftAP.c</PathWithFileName>
       <FilenameWithoutPath>EasyLinkSoftAP.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -404,13 +404,13 @@
     <File>
       <GroupNumber>2</GroupNumber>
       <FileNumber>16</FileNumber>
-      <FileType>4</FileType>
+      <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\MICO\WAC\MFi_WAC_CM3_Debug.a</PathWithFileName>
-      <FilenameWithoutPath>MFi_WAC_CM3_Debug.a</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\MICO\MICOParaStorage.c</PathWithFileName>
+      <FilenameWithoutPath>MICOParaStorage.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -422,34 +422,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\MICO\MICOParaStorage.c</PathWithFileName>
-      <FilenameWithoutPath>MICOParaStorage.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>2</GroupNumber>
-      <FileNumber>18</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\MICO\WPS\WPS.c</PathWithFileName>
+      <PathWithFileName>..\..\..\MICO\WPS\WPS.c</PathWithFileName>
       <FilenameWithoutPath>WPS.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>2</GroupNumber>
-      <FileNumber>19</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\MICO\MICOEntranceT.c</PathWithFileName>
-      <FilenameWithoutPath>MICOEntranceT.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -463,39 +437,39 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>20</FileNumber>
+      <FileNumber>18</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\MICOConfig.c</PathWithFileName>
+      <PathWithFileName>..\..\..\Library\MICOConfig.c</PathWithFileName>
       <FilenameWithoutPath>MICOConfig.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>21</FileNumber>
+      <FileNumber>19</FileNumber>
       <FileType>4</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\mxchipWNet_cm3_sdio.a</PathWithFileName>
+      <PathWithFileName>..\..\..\Library\mxchipWNet_cm3_sdio.a</PathWithFileName>
       <FilenameWithoutPath>mxchipWNet_cm3_sdio.a</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>22</FileNumber>
+      <FileNumber>20</FileNumber>
       <FileType>4</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\mxchipWNet_cm3_spi.a</PathWithFileName>
+      <PathWithFileName>..\..\..\Library\mxchipWNet_cm3_spi.a</PathWithFileName>
       <FilenameWithoutPath>mxchipWNet_cm3_spi.a</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -510,14 +484,40 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>4</GroupNumber>
+      <FileNumber>21</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\Library\support\AESUtils.c</PathWithFileName>
+      <FilenameWithoutPath>AESUtils.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>4</GroupNumber>
+      <FileNumber>22</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\Library\support\HTTPUtils.c</PathWithFileName>
+      <FilenameWithoutPath>HTTPUtils.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>4</GroupNumber>
       <FileNumber>23</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\support\AESUtils.c</PathWithFileName>
-      <FilenameWithoutPath>AESUtils.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Library\support\MDNSUtils.c</PathWithFileName>
+      <FilenameWithoutPath>MDNSUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -529,8 +529,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\support\HTTPUtils.c</PathWithFileName>
-      <FilenameWithoutPath>HTTPUtils.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Library\support\RingBufferUtils.c</PathWithFileName>
+      <FilenameWithoutPath>RingBufferUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -542,8 +542,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\support\MDNSUtils.c</PathWithFileName>
-      <FilenameWithoutPath>MDNSUtils.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Library\support\SecurityUtils.c</PathWithFileName>
+      <FilenameWithoutPath>SecurityUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -555,8 +555,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\support\RingBufferUtils.c</PathWithFileName>
-      <FilenameWithoutPath>RingBufferUtils.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Library\support\SHAUtils.c</PathWithFileName>
+      <FilenameWithoutPath>SHAUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -568,8 +568,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\support\SecurityUtils.c</PathWithFileName>
-      <FilenameWithoutPath>SecurityUtils.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Library\support\SocketUtils.c</PathWithFileName>
+      <FilenameWithoutPath>SocketUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -581,8 +581,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\support\SHAUtils.c</PathWithFileName>
-      <FilenameWithoutPath>SHAUtils.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Library\support\StringUtils.c</PathWithFileName>
+      <FilenameWithoutPath>StringUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -594,8 +594,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\support\SocketUtils.c</PathWithFileName>
-      <FilenameWithoutPath>SocketUtils.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Library\support\TimeUtils.c</PathWithFileName>
+      <FilenameWithoutPath>TimeUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -607,8 +607,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\support\StringUtils.c</PathWithFileName>
-      <FilenameWithoutPath>StringUtils.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Library\support\TLVUtils.c</PathWithFileName>
+      <FilenameWithoutPath>TLVUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -620,33 +620,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\support\TimeUtils.c</PathWithFileName>
-      <FilenameWithoutPath>TimeUtils.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>4</GroupNumber>
-      <FileNumber>32</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\support\TLVUtils.c</PathWithFileName>
-      <FilenameWithoutPath>TLVUtils.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>4</GroupNumber>
-      <FileNumber>33</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\support\URLUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\Library\support\URLUtils.c</PathWithFileName>
       <FilenameWithoutPath>URLUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -661,14 +635,40 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>5</GroupNumber>
+      <FileNumber>32</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\External\JSON-C\arraylist.c</PathWithFileName>
+      <FilenameWithoutPath>arraylist.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>5</GroupNumber>
+      <FileNumber>33</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\External\JSON-C\debug.c</PathWithFileName>
+      <FilenameWithoutPath>debug.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>5</GroupNumber>
       <FileNumber>34</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\External\JSON-C\arraylist.c</PathWithFileName>
-      <FilenameWithoutPath>arraylist.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\External\JSON-C\json_object.c</PathWithFileName>
+      <FilenameWithoutPath>json_object.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -680,8 +680,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\External\JSON-C\debug.c</PathWithFileName>
-      <FilenameWithoutPath>debug.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\External\JSON-C\json_tokener.c</PathWithFileName>
+      <FilenameWithoutPath>json_tokener.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -693,8 +693,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\External\JSON-C\json_object.c</PathWithFileName>
-      <FilenameWithoutPath>json_object.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\External\JSON-C\json_util.c</PathWithFileName>
+      <FilenameWithoutPath>json_util.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -706,8 +706,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\External\JSON-C\json_tokener.c</PathWithFileName>
-      <FilenameWithoutPath>json_tokener.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\External\JSON-C\linkhash.c</PathWithFileName>
+      <FilenameWithoutPath>linkhash.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -719,33 +719,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\External\JSON-C\json_util.c</PathWithFileName>
-      <FilenameWithoutPath>json_util.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>39</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\External\JSON-C\linkhash.c</PathWithFileName>
-      <FilenameWithoutPath>linkhash.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>40</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\External\JSON-C\printbuf.c</PathWithFileName>
+      <PathWithFileName>..\..\..\External\JSON-C\printbuf.c</PathWithFileName>
       <FilenameWithoutPath>printbuf.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -760,14 +734,40 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>6</GroupNumber>
+      <FileNumber>39</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\hardfault.c</PathWithFileName>
+      <FilenameWithoutPath>hardfault.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>6</GroupNumber>
+      <FileNumber>40</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\system_stm32f2xx.c</PathWithFileName>
+      <FilenameWithoutPath>system_stm32f2xx.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>6</GroupNumber>
       <FileNumber>41</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\hardfault.c</PathWithFileName>
-      <FilenameWithoutPath>hardfault.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\misc.c</PathWithFileName>
+      <FilenameWithoutPath>misc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -779,8 +779,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\system_stm32f2xx.c</PathWithFileName>
-      <FilenameWithoutPath>system_stm32f2xx.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_adc.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_adc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -792,8 +792,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\misc.c</PathWithFileName>
-      <FilenameWithoutPath>misc.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_can.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_can.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -805,8 +805,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_adc.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_adc.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_crc.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_crc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -818,8 +818,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_can.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_can.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_cryp.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -831,8 +831,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_crc.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_crc.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_aes.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_cryp_aes.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -844,8 +844,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_cryp.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_des.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_cryp_des.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -857,8 +857,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_aes.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_cryp_aes.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_tdes.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_cryp_tdes.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -870,8 +870,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_des.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_cryp_des.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dac.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_dac.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -883,8 +883,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_tdes.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_cryp_tdes.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dbgmcu.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_dbgmcu.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -896,8 +896,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dac.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_dac.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dcmi.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_dcmi.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -909,8 +909,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dbgmcu.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_dbgmcu.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dma.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_dma.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -922,8 +922,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dcmi.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_dcmi.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_exti.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_exti.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -935,8 +935,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dma.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_dma.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_flash.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_flash.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -948,8 +948,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_exti.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_exti.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_fsmc.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_fsmc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -961,8 +961,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_flash.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_flash.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_gpio.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_gpio.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -974,8 +974,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_fsmc.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_fsmc.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_hash.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -987,8 +987,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_gpio.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_gpio.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash_md5.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_hash_md5.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1000,8 +1000,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_hash.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash_sha1.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_hash_sha1.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1013,8 +1013,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash_md5.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_hash_md5.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_i2c.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_i2c.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1026,8 +1026,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash_sha1.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_hash_sha1.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_iwdg.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_iwdg.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1039,8 +1039,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_i2c.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_i2c.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_pwr.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_pwr.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1052,8 +1052,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_iwdg.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_iwdg.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rcc.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_rcc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1065,8 +1065,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_pwr.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_pwr.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rng.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_rng.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1078,8 +1078,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rcc.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_rcc.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rtc.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_rtc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1091,8 +1091,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rng.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_rng.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_sdio.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_sdio.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1104,8 +1104,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rtc.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_rtc.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_spi.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_spi.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1117,8 +1117,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_sdio.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_sdio.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_syscfg.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_syscfg.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1130,8 +1130,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_spi.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_spi.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_tim.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_tim.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1143,8 +1143,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_syscfg.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_syscfg.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_usart.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_usart.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1156,8 +1156,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_tim.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_tim.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_wwdg.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_wwdg.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1169,8 +1169,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_usart.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_usart.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_hal.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1182,8 +1182,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_wwdg.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_wwdg.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_hcd.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_hal_hcd.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1195,8 +1195,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_hal.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_usb.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_ll_usb.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1208,8 +1208,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_hcd.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_hal_hcd.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\gpio_irq.c</PathWithFileName>
+      <FilenameWithoutPath>gpio_irq.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1221,8 +1221,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_usb.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_ll_usb.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverAdc.c</PathWithFileName>
+      <FilenameWithoutPath>MicoDriverAdc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1234,8 +1234,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\gpio_irq.c</PathWithFileName>
-      <FilenameWithoutPath>gpio_irq.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverFlash.c</PathWithFileName>
+      <FilenameWithoutPath>MicoDriverFlash.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1247,8 +1247,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverAdc.c</PathWithFileName>
-      <FilenameWithoutPath>MicoDriverAdc.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverGpio.c</PathWithFileName>
+      <FilenameWithoutPath>MicoDriverGpio.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1260,8 +1260,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverFlash.c</PathWithFileName>
-      <FilenameWithoutPath>MicoDriverFlash.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverI2c.c</PathWithFileName>
+      <FilenameWithoutPath>MicoDriverI2c.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1273,8 +1273,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverGpio.c</PathWithFileName>
-      <FilenameWithoutPath>MicoDriverGpio.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverPwm.c</PathWithFileName>
+      <FilenameWithoutPath>MicoDriverPwm.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1286,8 +1286,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverI2c.c</PathWithFileName>
-      <FilenameWithoutPath>MicoDriverI2c.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverRng.c</PathWithFileName>
+      <FilenameWithoutPath>MicoDriverRng.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1299,8 +1299,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverPwm.c</PathWithFileName>
-      <FilenameWithoutPath>MicoDriverPwm.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverRtc.c</PathWithFileName>
+      <FilenameWithoutPath>MicoDriverRtc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1312,8 +1312,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverRng.c</PathWithFileName>
-      <FilenameWithoutPath>MicoDriverRng.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverSpi.c</PathWithFileName>
+      <FilenameWithoutPath>MicoDriverSpi.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1325,8 +1325,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverRtc.c</PathWithFileName>
-      <FilenameWithoutPath>MicoDriverRtc.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverUart.c</PathWithFileName>
+      <FilenameWithoutPath>MicoDriverUart.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1338,8 +1338,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverSpi.c</PathWithFileName>
-      <FilenameWithoutPath>MicoDriverSpi.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverWdg.c</PathWithFileName>
+      <FilenameWithoutPath>MicoDriverWdg.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1351,8 +1351,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverUart.c</PathWithFileName>
-      <FilenameWithoutPath>MicoDriverUart.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\rtc.c</PathWithFileName>
+      <FilenameWithoutPath>rtc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1364,8 +1364,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverWdg.c</PathWithFileName>
-      <FilenameWithoutPath>MicoDriverWdg.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\stm32f2xx_platform.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f2xx_platform.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1377,33 +1377,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\rtc.c</PathWithFileName>
-      <FilenameWithoutPath>rtc.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>89</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\stm32f2xx_platform.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f2xx_platform.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>90</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\usbh_conf.c</PathWithFileName>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\usbh_conf.c</PathWithFileName>
       <FilenameWithoutPath>usbh_conf.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1418,39 +1392,39 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>91</FileNumber>
+      <FileNumber>89</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\read_wifi_firmware.c</PathWithFileName>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\read_wifi_firmware.c</PathWithFileName>
       <FilenameWithoutPath>read_wifi_firmware.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>92</FileNumber>
+      <FileNumber>90</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\wlan_platform.c</PathWithFileName>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\wlan_platform.c</PathWithFileName>
       <FilenameWithoutPath>wlan_platform.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>93</FileNumber>
+      <FileNumber>91</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\SDIO\wlan_bus.c</PathWithFileName>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\SDIO\wlan_bus.c</PathWithFileName>
       <FilenameWithoutPath>wlan_bus.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1459,10 +1433,36 @@
 
   <Group>
     <GroupName>platform_board</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
+    <File>
+      <GroupNumber>8</GroupNumber>
+      <FileNumber>92</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\Platform\Common\Cortex-M3\hardfault.c</PathWithFileName>
+      <FilenameWithoutPath>hardfault.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>8</GroupNumber>
+      <FileNumber>93</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\Platform\EMW3162\platform.c</PathWithFileName>
+      <FilenameWithoutPath>platform.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
     <File>
       <GroupNumber>8</GroupNumber>
       <FileNumber>94</FileNumber>
@@ -1471,33 +1471,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\Common\Cortex-M3\hardfault.c</PathWithFileName>
-      <FilenameWithoutPath>hardfault.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>8</GroupNumber>
-      <FileNumber>95</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\EMW3162\platform.c</PathWithFileName>
-      <FilenameWithoutPath>platform.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>8</GroupNumber>
-      <FileNumber>96</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\IDEs\Keil\patch_keil.c</PathWithFileName>
+      <PathWithFileName>..\..\..\Platform\IDEs\Keil\patch_keil.c</PathWithFileName>
       <FilenameWithoutPath>patch_keil.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1512,13 +1486,13 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>9</GroupNumber>
-      <FileNumber>97</FileNumber>
+      <FileNumber>95</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\External\Curve25519\curve25519-donna.c</PathWithFileName>
+      <PathWithFileName>..\..\..\External\Curve25519\curve25519-donna.c</PathWithFileName>
       <FilenameWithoutPath>curve25519-donna.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1533,14 +1507,40 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>10</GroupNumber>
+      <FileNumber>96</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\External\SHAUtils\hkdf.c</PathWithFileName>
+      <FilenameWithoutPath>hkdf.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>97</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\External\SHAUtils\hmac.c</PathWithFileName>
+      <FilenameWithoutPath>hmac.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>10</GroupNumber>
       <FileNumber>98</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\External\SHAUtils\hkdf.c</PathWithFileName>
-      <FilenameWithoutPath>hkdf.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\External\SHAUtils\sha1.c</PathWithFileName>
+      <FilenameWithoutPath>sha1.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1552,8 +1552,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\External\SHAUtils\hmac.c</PathWithFileName>
-      <FilenameWithoutPath>hmac.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\External\SHAUtils\sha224-256.c</PathWithFileName>
+      <FilenameWithoutPath>sha224-256.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1565,8 +1565,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\External\SHAUtils\sha1.c</PathWithFileName>
-      <FilenameWithoutPath>sha1.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\External\SHAUtils\sha384-512.c</PathWithFileName>
+      <FilenameWithoutPath>sha384-512.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1578,33 +1578,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\External\SHAUtils\sha224-256.c</PathWithFileName>
-      <FilenameWithoutPath>sha224-256.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>10</GroupNumber>
-      <FileNumber>102</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\External\SHAUtils\sha384-512.c</PathWithFileName>
-      <FilenameWithoutPath>sha384-512.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>10</GroupNumber>
-      <FileNumber>103</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\External\SHAUtils\usha.c</PathWithFileName>
+      <PathWithFileName>..\..\..\External\SHAUtils\usha.c</PathWithFileName>
       <FilenameWithoutPath>usha.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1613,19 +1587,19 @@
 
   <Group>
     <GroupName>startup</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>11</GroupNumber>
-      <FileNumber>104</FileNumber>
+      <FileNumber>102</FileNumber>
       <FileType>2</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Platform\IDEs\Keil\startup_stm32f2xx.s</PathWithFileName>
+      <PathWithFileName>..\..\..\Platform\IDEs\Keil\startup_stm32f2xx.s</PathWithFileName>
       <FilenameWithoutPath>startup_stm32f2xx.s</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>

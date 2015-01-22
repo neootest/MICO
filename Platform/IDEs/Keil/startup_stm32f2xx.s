@@ -1,9 +1,9 @@
-;******************** (C) COPYRIGHT 2011 STMicroelectronics ********************
-;* File Name          : startup_stm32f2xx.s
+;******************** (C) COPYRIGHT 2014 STMicroelectronics ********************
+;* File Name          : startup_stm32f205xx.s
 ;* Author             : MCD Application Team
-;* Version            : V1.0.2
-;* Date               : 06-June-2011
-;* Description        : STM32F2xx devices vector table for MDK-ARM toolchain. 
+;* Version            : V2.0.1
+;* Date               : 25-March-2014
+;* Description        : STM32F205xx devices vector table for MDK-ARM toolchain. 
 ;*                      This module performs:
 ;*                      - Set the initial SP
 ;*                      - Set the initial PC == Reset_Handler
@@ -14,12 +14,29 @@
 ;*                      priority is Privileged, and the Stack is set to Main.
 ;* <<< Use Configuration Wizard in Context Menu >>>   
 ;*******************************************************************************
-; THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-; WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
-; AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
-; INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
-; CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
-; INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+; 
+;* Redistribution and use in source and binary forms, with or without modification,
+;* are permitted provided that the following conditions are met:
+;*   1. Redistributions of source code must retain the above copyright notice,
+;*      this list of conditions and the following disclaimer.
+;*   2. Redistributions in binary form must reproduce the above copyright notice,
+;*      this list of conditions and the following disclaimer in the documentation
+;*      and/or other materials provided with the distribution.
+;*   3. Neither the name of STMicroelectronics nor the names of its contributors
+;*      may be used to endorse or promote products derived from this software
+;*      without specific prior written permission.
+;*
+;* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+;* DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+;* FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+;* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+;* SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+;* CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+;* OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+;* OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+; 
 ;*******************************************************************************
 
 ; Amount of memory (in bytes) allocated for Stack
@@ -27,11 +44,8 @@
 ; <h> Stack Configuration
 ;   <o> Stack Size (in Bytes) <0x0-0xFFFFFFFF:8>
 ; </h>
- 
- 
- GBLL   FreeRTOS
 
-Stack_Size      EQU     0x200
+Stack_Size      EQU     0x00000200
 
                 AREA    STACK, NOINIT, READWRITE, ALIGN=3
 Stack_Mem       SPACE   Stack_Size
@@ -58,7 +72,6 @@ __heap_limit
                 EXPORT  __Vectors
                 EXPORT  __Vectors_End
                 EXPORT  __Vectors_Size
-;                IMPORT  RTC_WKUP_irq
 
 __Vectors       DCD     __initial_sp               ; Top of Stack
                 DCD     Reset_Handler              ; Reset Handler
@@ -81,7 +94,7 @@ __Vectors       DCD     __initial_sp               ; Top of Stack
                 DCD     WWDG_IRQHandler                   ; Window WatchDog                                        
                 DCD     PVD_IRQHandler                    ; PVD through EXTI Line detection                        
                 DCD     TAMP_STAMP_IRQHandler             ; Tamper and TimeStamps through the EXTI line            
-                DCD     RTC_WKUP_IRQHandler              ; RTC_WKUP_irq                      ; RTC Wakeup through the EXTI line                       
+                DCD     RTC_WKUP_IRQHandler               ; RTC Wakeup through the EXTI line                       
                 DCD     FLASH_IRQHandler                  ; FLASH                                           
                 DCD     RCC_IRQHandler                    ; RCC                                             
                 DCD     EXTI0_IRQHandler                  ; EXTI Line0                                             
@@ -126,7 +139,7 @@ __Vectors       DCD     __initial_sp               ; Top of Stack
                 DCD     TIM8_TRG_COM_TIM14_IRQHandler     ; TIM8 Trigger and Commutation and TIM14
                 DCD     TIM8_CC_IRQHandler                ; TIM8 Capture Compare                                   
                 DCD     DMA1_Stream7_IRQHandler           ; DMA1 Stream7                                           
-                DCD     FSMC_IRQHandler                   ; FSMC                                            
+                DCD     FMC_IRQHandler                    ; FMC                                             
                 DCD     SDIO_IRQHandler                   ; SDIO                                            
                 DCD     TIM5_IRQHandler                   ; TIM5                                            
                 DCD     SPI3_IRQHandler                   ; SPI3                                            
@@ -138,9 +151,9 @@ __Vectors       DCD     __initial_sp               ; Top of Stack
                 DCD     DMA2_Stream1_IRQHandler           ; DMA2 Stream 1                                   
                 DCD     DMA2_Stream2_IRQHandler           ; DMA2 Stream 2                                   
                 DCD     DMA2_Stream3_IRQHandler           ; DMA2 Stream 3                                   
-                DCD     DMA2_Stream4_IRQHandler           ; DMA2 Stream 4                                   
-                DCD     ETH_IRQHandler                    ; Ethernet                                        
-                DCD     ETH_WKUP_IRQHandler               ; Ethernet Wakeup through EXTI line                      
+                DCD     DMA2_Stream4_IRQHandler           ; DMA2 Stream 4
+                DCD     0                                 ; Reserved  
+                DCD     0                                 ; Reserved  
                 DCD     CAN2_TX_IRQHandler                ; CAN2 TX                                                
                 DCD     CAN2_RX0_IRQHandler               ; CAN2 RX0                                               
                 DCD     CAN2_RX1_IRQHandler               ; CAN2 RX1                                               
@@ -156,9 +169,12 @@ __Vectors       DCD     __initial_sp               ; Top of Stack
                 DCD     OTG_HS_EP1_IN_IRQHandler          ; USB OTG HS End Point 1 In                       
                 DCD     OTG_HS_WKUP_IRQHandler            ; USB OTG HS Wakeup through EXTI                         
                 DCD     OTG_HS_IRQHandler                 ; USB OTG HS                                      
-                DCD     DCMI_IRQHandler                   ; DCMI                                            
-                DCD     CRYP_IRQHandler                   ; CRYP crypto                                     
-                DCD     HASH_RNG_IRQHandler               ; Hash and Rng 
+                DCD     0                                 ; Reserved  
+                DCD     0                                 ; Reserved				                              
+                DCD     HASH_RNG_IRQHandler               ; Hash and Rng
+                DCD     FPU_IRQHandler                    ; FPU
+                
+                                         
 __Vectors_End
 
 __Vectors_Size  EQU  __Vectors_End - __Vectors
@@ -167,7 +183,7 @@ __Vectors_Size  EQU  __Vectors_End - __Vectors
 
 ; Reset handler
 Reset_Handler    PROC
-                 EXPORT  Reset_Handler
+                 EXPORT  Reset_Handler             [WEAK]
         IMPORT  __main
  ;                LDR     R1, =0x0800C000
  ;                LDR     R0, [R1]
@@ -281,7 +297,7 @@ Default_Handler PROC
                 EXPORT  TIM8_TRG_COM_TIM14_IRQHandler     [WEAK] 
                 EXPORT  TIM8_CC_IRQHandler                [WEAK]                                   
                 EXPORT  DMA1_Stream7_IRQHandler           [WEAK]                                          
-                EXPORT  FSMC_IRQHandler                   [WEAK]                                             
+                EXPORT  FMC_IRQHandler                    [WEAK]                                             
                 EXPORT  SDIO_IRQHandler                   [WEAK]                                             
                 EXPORT  TIM5_IRQHandler                   [WEAK]                                             
                 EXPORT  SPI3_IRQHandler                   [WEAK]                                             
@@ -293,9 +309,7 @@ Default_Handler PROC
                 EXPORT  DMA2_Stream1_IRQHandler           [WEAK]                                   
                 EXPORT  DMA2_Stream2_IRQHandler           [WEAK]                                    
                 EXPORT  DMA2_Stream3_IRQHandler           [WEAK]                                    
-                EXPORT  DMA2_Stream4_IRQHandler           [WEAK]                                 
-                EXPORT  ETH_IRQHandler                    [WEAK]                                         
-                EXPORT  ETH_WKUP_IRQHandler               [WEAK]                     
+                EXPORT  DMA2_Stream4_IRQHandler           [WEAK]                                                      
                 EXPORT  CAN2_TX_IRQHandler                [WEAK]                                               
                 EXPORT  CAN2_RX0_IRQHandler               [WEAK]                                               
                 EXPORT  CAN2_RX1_IRQHandler               [WEAK]                                               
@@ -310,11 +324,10 @@ Default_Handler PROC
                 EXPORT  OTG_HS_EP1_OUT_IRQHandler         [WEAK]                      
                 EXPORT  OTG_HS_EP1_IN_IRQHandler          [WEAK]                      
                 EXPORT  OTG_HS_WKUP_IRQHandler            [WEAK]                        
-                EXPORT  OTG_HS_IRQHandler                 [WEAK]                                      
-                EXPORT  DCMI_IRQHandler                   [WEAK]                                             
-                EXPORT  CRYP_IRQHandler                   [WEAK]                                     
+                EXPORT  OTG_HS_IRQHandler                 [WEAK]                                                                                                                      
                 EXPORT  HASH_RNG_IRQHandler               [WEAK]
-
+                EXPORT  FPU_IRQHandler                    [WEAK]
+                
 WWDG_IRQHandler                                                       
 PVD_IRQHandler                                      
 TAMP_STAMP_IRQHandler                  
@@ -363,7 +376,7 @@ TIM8_UP_TIM13_IRQHandler
 TIM8_TRG_COM_TIM14_IRQHandler  
 TIM8_CC_IRQHandler                                               
 DMA1_Stream7_IRQHandler                                                 
-FSMC_IRQHandler                                                            
+FMC_IRQHandler                                                            
 SDIO_IRQHandler                                                            
 TIM5_IRQHandler                                                            
 SPI3_IRQHandler                                                            
@@ -375,9 +388,7 @@ DMA2_Stream0_IRQHandler
 DMA2_Stream1_IRQHandler                                          
 DMA2_Stream2_IRQHandler                                           
 DMA2_Stream3_IRQHandler                                           
-DMA2_Stream4_IRQHandler                                        
-ETH_IRQHandler                                                         
-ETH_WKUP_IRQHandler                                
+DMA2_Stream4_IRQHandler                                                                        
 CAN2_TX_IRQHandler                                                           
 CAN2_RX0_IRQHandler                                                          
 CAN2_RX1_IRQHandler                                                          
@@ -392,11 +403,10 @@ I2C3_ER_IRQHandler
 OTG_HS_EP1_OUT_IRQHandler                           
 OTG_HS_EP1_IN_IRQHandler                            
 OTG_HS_WKUP_IRQHandler                                
-OTG_HS_IRQHandler                                                   
-DCMI_IRQHandler                                                            
-CRYP_IRQHandler                                                    
-HASH_RNG_IRQHandler                                               
-
+OTG_HS_IRQHandler                                                                                                                                                             
+HASH_RNG_IRQHandler
+FPU_IRQHandler  
+           
                 B       .
 
                 ENDP
@@ -431,4 +441,4 @@ __user_initial_stackheap
 
                  END
 
-;******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE*****
+;************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE*****
