@@ -47,6 +47,10 @@
 #define WEAK __attribute__ ((weak))
 #elif defined ( __IAR_SYSTEMS_ICC__ )
 #define WEAK __weak
+#elif defined ( __CC_ARM ) //KEIL
+    #if !defined ( WEAK )
+    #define WEAK __weak
+    #endif
 #endif /* ifdef __GNUC__ */
 
 /******************************************************
@@ -291,6 +295,13 @@ bool watchdog_check_last_reset( void )
 
 OSStatus mico_platform_init( void )
 {
+#ifdef DEBUG
+#if defined(__CC_ARM)
+	platform_log("Build by Keil");
+#elif defined (__IAR_SYSTEMS_ICC__)
+	platform_log("Build by IAR");
+#endif
+#endif
   platform_log( "Platform initialised" );
   
   if ( true == watchdog_check_last_reset() )

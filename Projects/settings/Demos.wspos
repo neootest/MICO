@@ -1,11 +1,3 @@
-[MainWindow]
-<<<<<<< Updated upstream
-WindowPlacement=_ -87 -158 1209 578 3
-=======
-<<<<<<< HEAD
-WindowPlacement=_ 96 1 1344 859 1
-=======
-WindowPlacement=_ 530 81 1882 943 3
->>>>>>> FETCH_HEAD
->>>>>>> Stashed changes
 
+[MainWindow]
+WindowPlacement=_ 92 -3 1349 863 1

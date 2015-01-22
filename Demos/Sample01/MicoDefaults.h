@@ -1,9 +1,10 @@
 /**
 ******************************************************************************
-* @file    platform_assert.h 
+* @file    MicoDefault.h 
 * @author  William Xu
 * @version V1.0.0
-* @date    05-May-2014
+* @date    16-Sep-2014
+* @brief   This file provides the default configuration for MICO.
 ******************************************************************************
 *
 *  The MIT License
@@ -28,39 +29,22 @@
 ******************************************************************************
 */ 
 
-#pragma once
+#ifndef __MICODEFAULTS_H__
+#define __MICODEFAULTS_H__
 
-/******************************************************
- *                      Macros
- ******************************************************/
-
-/******************************************************
- *                    Constants
- ******************************************************/
-
-#ifdef __GNUC__
-#define MICO_ASSERTION_FAIL_ACTION() __asm__("bkpt")
-#elif defined ( __IAR_SYSTEMS_ICC__ )
-#define MICO_ASSERTION_FAIL_ACTION() __asm("bkpt 0")
-#elif defined ( __CC_ARM )
-#define MICO_ASSERTION_FAIL_ACTION() __asm("bkpt 0")
+#ifdef __cplusplus
+extern "C"
+{
 #endif
-/******************************************************
- *                   Enumerations
- ******************************************************/
 
-/******************************************************
- *                 Type Definitions
- ******************************************************/
 
-/******************************************************
- *                    Structures
- ******************************************************/
+ /* Application thread stack size */
+#define MICO_DEFAULT_APPLICATION_STACK_SIZE         (1500)
 
-/******************************************************
- *                 Global Variables
- ******************************************************/
 
-/******************************************************
- *               Function Declarations
- ******************************************************/
+
+#ifdef __cplusplus
+} /*extern "C" */
+#endif
+
+#endif //__MICODEFAULTS_H__

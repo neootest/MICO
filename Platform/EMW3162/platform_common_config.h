@@ -28,7 +28,8 @@
 *  IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ******************************************************************************
 */ 
-
+#ifndef __PLATFORM_COMMON_CONFIG_H__
+#define __PLATFORM_COMMON_CONFIG_H__
 #pragma once
 
 /******************************************************
@@ -200,3 +201,5 @@ Note: the 1st sector 0x08000000-0x08003FFF is reserved for the IAP code */
 /******************************************************
 *               Function Declarations
 ******************************************************/
+#endif
+

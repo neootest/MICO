@@ -69,9 +69,9 @@ int main(void)
   init_memory();
   init_architecture();
   init_platform_bootloader();
-  
+
 #ifdef MICO_FLASH_FOR_UPDATE
-  update();
+   update();
 #endif
   
   /* BOOT_SEL = 1 => Normal start*/
@@ -87,4 +87,5 @@ int main(void)
     Main_Menu ();
   }
 }
+
 
