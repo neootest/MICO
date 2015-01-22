@@ -52,7 +52,7 @@
 
 #if defined(FRDM_K64F)
 #define UART_FOR_APP                        MICO_UART_2
-#elif defined(LPCXPRESSO54102)
+#else
 #define UART_FOR_APP                        MICO_UART_1
 #endif
 

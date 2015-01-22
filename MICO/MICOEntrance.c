@@ -312,11 +312,6 @@ int application_start(void)
   err = MICOAddNotification( mico_notify_Stack_Overflow_ERROR, (void *)micoNotify_StackOverflowErrHandler );
   require_noerr( err, exit ); 
 
-#if defined(__CC_ARM)
-	mico_log("Build by Keil");
-#elif defined (__IAR_SYSTEMS_ICC__)
-	mico_log("Build by IAR");
-#endif
   /*wlan driver and tcpip init*/
   MicoInit();
   MicoSysLed(true);

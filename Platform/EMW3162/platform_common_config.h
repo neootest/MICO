@@ -144,6 +144,7 @@ typedef enum
 #define NUMBER_OF_UART_INTERFACES  2
 
 #define STDIO_UART       MICO_UART_1
+#define MFG_TEST         MICO_UART_1
 
 /* Define the address from where user application will be loaded.
 Note: the 1st sector 0x08000000-0x08003FFF is reserved for the IAP code */

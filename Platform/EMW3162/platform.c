@@ -47,8 +47,12 @@
 #define WEAK __attribute__ ((weak))
 #elif defined ( __IAR_SYSTEMS_ICC__ )
 #define WEAK __weak
+#elif defined ( __CC_ARM ) //KEIL
+    #if !defined ( WEAK )
+    #define WEAK __weak
+    #endif
 #endif /* ifdef __GNUC__ */
-#define WEAK __weak
+
 /******************************************************
 *                    Constants
 ******************************************************/
@@ -155,9 +159,9 @@ const platform_spi_mapping_t spi_mapping[] =
     .gpio_af               = GPIO_AF_SPI1,
     .peripheral_clock_reg  = RCC_APB2Periph_SPI1,
     .peripheral_clock_func = RCC_APB2PeriphClockCmd,
-    .pin_mosi              = &gpio_mapping[MICO_GPIO_8],
-    .pin_miso              = &gpio_mapping[MICO_GPIO_7],
-    .pin_clock             = &gpio_mapping[MICO_GPIO_6],
+    .pin_mosi              = &gpio_mapping[MICO_GPIO_9],
+    .pin_miso              = &gpio_mapping[MICO_GPIO_8],
+    .pin_clock             = &gpio_mapping[MICO_GPIO_7],
     .tx_dma_stream         = DMA2_Stream5,
     .rx_dma_stream         = DMA2_Stream0,
     .tx_dma_channel        = DMA_Channel_3,
@@ -252,14 +256,14 @@ static void _button_EL_irq_handler( void* arg )
   
   if ( MicoGpioInputGet( (mico_gpio_t)EasyLink_BUTTON ) == 0 ) {
     _default_start_time = mico_get_time()+1;
-  //  mico_start_timer(&_button_EL_timer);
+    mico_start_timer(&_button_EL_timer);
   } else {
     interval = mico_get_time() + 1 - _default_start_time;
     if ( (_default_start_time != 0) && interval > 50 && interval < RestoreDefault_TimeOut){
       /* EasyLink button clicked once */
       PlatformEasyLinkButtonClickedCallback();
     }
-  //  mico_stop_timer(&_button_EL_timer);
+    mico_stop_timer(&_button_EL_timer);
     _default_start_time = 0;
   }
 }
@@ -291,6 +295,13 @@ bool watchdog_check_last_reset( void )
 
 OSStatus mico_platform_init( void )
 {
+#ifdef DEBUG
+#if defined(__CC_ARM)
+	platform_log("Build by Keil");
+#elif defined (__IAR_SYSTEMS_ICC__)
+	platform_log("Build by IAR");
+#endif
+#endif
   platform_log( "Platform initialised" );
   
   if ( true == watchdog_check_last_reset() )
@@ -310,7 +321,7 @@ void init_platform( void )
   
   //  Initialise EasyLink buttons
   MicoGpioInitialize( (mico_gpio_t)EasyLink_BUTTON, INPUT_PULL_UP );
-  //mico_init_timer(&_button_EL_timer, RestoreDefault_TimeOut, _button_EL_Timeout_handler, NULL);
+  mico_init_timer(&_button_EL_timer, RestoreDefault_TimeOut, _button_EL_Timeout_handler, NULL);
   MicoGpioEnableIRQ( (mico_gpio_t)EasyLink_BUTTON, IRQ_TRIGGER_BOTH_EDGES, _button_EL_irq_handler, NULL );
   
   //  Initialise Standby/wakeup switcher

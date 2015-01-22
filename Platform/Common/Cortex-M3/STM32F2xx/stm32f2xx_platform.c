@@ -50,8 +50,11 @@
 #define WEAK __attribute__ ((weak))
 #elif defined ( __IAR_SYSTEMS_ICC__ )
 #define WEAK __weak
+#elif defined ( __CC_ARM ) //KEIL
+    #if !defined ( WEAK )
+    #define WEAK __weak
+    #endif
 #endif /* ifdef __GNUC__ */
-#define WEAK __weak
 /******************************************************
 *                      Macros
 ******************************************************/
@@ -583,8 +586,10 @@ void mico_thread_msleep_no_os(uint32_t milliseconds)
   int tick_delay_start = mico_get_time_no_os();
   while(mico_get_time_no_os() < tick_delay_start+milliseconds);  
 }
+#if defined ( __CC_ARM )
 uint32_t mico_get_time(void){
     mico_get_time_no_os();
 }
+#endif
 #endif
 
