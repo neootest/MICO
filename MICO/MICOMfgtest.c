@@ -154,28 +154,6 @@ void mico_mfg_test(void)
     char str[64];
     char mac[6];
     char *ssid;
-  
-    sprintf(str, "Library Version  222: %s\r\n", system_lib_version());
-	mf_printf(str);
-    mf_printf("APP Version: ");
-    memset(str, 0, sizeof(str));
-    system_version(str, sizeof(str));
-    mf_printf(str);
-    mf_printf("\r\n");
-    memset(str, 0, sizeof(str));
-    wlan_driver_version(str, sizeof(str));
-    mf_printf("Driver: ");
-    mf_printf(str);
-    mf_printf("\r\n");
-	wlan_get_mac_address(mac);
-	sprintf(str, "MAC: %02X-%02X-%02X-%02X-%02X-%02X\r\n",
-			mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
-	mf_printf(str);
-
-    mfg_scan();
-
-    ssid = ssid_get();
-    mfg_connect(ssid);
     
     mico_thread_sleep(MICO_NEVER_TIMEOUT);
 }

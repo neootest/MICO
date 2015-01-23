@@ -81,10 +81,10 @@ OSStatus MICOStartApplication( mico_Context_t * const inContext )
  }
 
   /*Remote TCP client thread*/
- if(inContext->flashContentInRam.appConfig.remoteServerEnable == true){
-   err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Remote Client", remoteTcpClient_thread, STACK_SIZE_REMOTE_TCP_CLIENT_THREAD, (void*)inContext );
-   require_noerr_action( err, exit, app_log("ERROR: Unable to start the remote client thread.") );
- }
+ // if(inContext->flashContentInRam.appConfig.remoteServerEnable == true){
+ //   err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "Remote Client", remoteTcpClient_thread, STACK_SIZE_REMOTE_TCP_CLIENT_THREAD, (void*)inContext );
+ //   require_noerr_action( err, exit, app_log("ERROR: Unable to start the remote client thread.") );
+ // }
 
 exit:
   return err;

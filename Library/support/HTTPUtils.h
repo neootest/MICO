@@ -86,7 +86,7 @@
 #define OTA_Data_Length_per_read        1024
 
 
-typedef struct
+typedef struct _HTTPHeader_t
 {
     char                buf[ 512 ];        //! Buffer holding the start line and all headers.
     size_t              len;                //! Number of bytes in the header.
@@ -116,8 +116,18 @@ typedef struct
     char *              chunkedDataBufferPtr;     //! Ptr for any extra data beyond the header, it is alloced when http header is received.
     size_t              chunkedDataBufferLen; //! Total buffer length that stores the chunkedData, private use only
 
+    void *              userContext;
+    bool                isCallbackSupported;
+    OSStatus            (*onReceivedDataCallback) ( struct _HTTPHeader_t * , uint32_t, uint8_t *, size_t, void * ); 
+    void                (*onClearCallback) ( struct _HTTPHeader_t * httpHeader, void * userContext );
+
+
 
 } HTTPHeader_t;
+
+typedef OSStatus (*onReceivedDataCallback) ( struct _HTTPHeader_t * httpHeader, uint32_t pos, uint8_t * data, size_t len, void * userContext );
+
+typedef void (*onClearCallback) ( struct _HTTPHeader_t * httpHeader, void * userContext );
 
 void PrintHTTPHeader( HTTPHeader_t *inHeader );
 
@@ -152,6 +162,9 @@ int HTTPGetHeaderField( const char *inHeaderPtr,
                              const char **outNext );
 
 HTTPHeader_t * HTTPHeaderCreate( void );
+
+HTTPHeader_t * HTTPHeaderCreateWithCallback( onReceivedDataCallback , onClearCallback , void * context );
+
 void HTTPHeaderClear( HTTPHeader_t *inHeader );
 
 int CreateSimpleHTTPOKMessage( uint8_t **outMessage, size_t *outMessageSize );

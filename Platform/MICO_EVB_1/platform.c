@@ -88,7 +88,7 @@ const platform_pin_mapping_t gpio_mapping[] =
   /* Common GPIOs for internal use */
   [MICO_GPIO_WLAN_POWERSAVE_CLOCK]    = {WL_32K_OUT_BANK, WL_32K_OUT_PIN, WL_32K_OUT_BANK_CLK},
   [WL_GPIO0]                          = {GPIOB,  5,  RCC_AHB1Periph_GPIOB},
-  [WL_GPIO1]                          = {GPIOA,  2,  RCC_AHB1Periph_GPIOB},
+  [WL_GPIO1]                          = {GPIOA,  2,  RCC_AHB1Periph_GPIOA},
   [WL_RESET]                          = {GPIOA,  3,  RCC_AHB1Periph_GPIOA},
   [MICO_SYS_LED]                      = {GPIOB,  7,  RCC_AHB1Periph_GPIOB}, 
   [MICO_RF_LED]                       = {GPIOB,  6,  RCC_AHB1Periph_GPIOB},

@@ -301,6 +301,8 @@ int application_start(void)
 
   /*wlan driver and tcpip init*/
   MicoInit();
+  wifimgr_debug_enable(true);
+
   MicoSysLed(true);
   mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
 
