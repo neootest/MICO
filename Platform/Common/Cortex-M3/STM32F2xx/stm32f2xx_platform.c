@@ -162,7 +162,7 @@ void startApplication(void)
   { 
     uint32_t* stack_ptr;
     uint32_t* start_ptr;
-    
+    #if defined ( __ICCARM__)
     __asm( "MOV LR,        #0xFFFFFFFF" );
     __asm( "MOV R1,        #0x01000000" );
     __asm( "MSR APSR_nzcvq,     R1" );
@@ -179,6 +179,7 @@ void startApplication(void)
     
     __set_MSP( *stack_ptr );
     __jump_to( *start_ptr );
+		#endif
   }  
 }
 
