@@ -201,6 +201,6 @@ OSStatus MICORestoreMFG                 ( mico_Context_t * const inContext );
 #endif
 
 
-void mico_mfg_test(void);
+void mico_mfg_test( mico_Context_t * const inContext );
 
 #endif /* __MICO_DEFINE_H */

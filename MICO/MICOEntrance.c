@@ -301,26 +301,8 @@ int application_start(void)
 
   /*wlan driver and tcpip init*/
   MicoInit();
-  wifimgr_debug_enable(true);
-
   MicoSysLed(true);
   mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
-
-  /* Enter test mode, call a build-in test function amd output on STDIO */
-  if(MicoShouldEnterMFGMode()==true)
-    mico_mfg_test();
-
-  /*Read current time from RTC.*/
-  MicoRtcGetTime(&time);
-  currentTime.tm_sec = time.sec;
-  currentTime.tm_min = time.min;
-  currentTime.tm_hour = time.hr;
-  currentTime.tm_mday = time.date;
-  currentTime.tm_wday = time.weekday;
-  currentTime.tm_mon = time.month - 1;
-  currentTime.tm_year = time.year + 100;
-  mico_log("Current Time: %s",asctime(&currentTime));
-
   micoWlanGetIPStatus(&para, Station);
   formatMACAddr(context->micoStatus.mac, (char *)&para.mac);
   MicoGetRfVer(wifi_ver, sizeof(wifi_ver));
@@ -336,6 +318,23 @@ int application_start(void)
   mico_init_timer(&_watchdog_reload_timer,APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000 - 100, _watchdog_reload_timer_handler, NULL);
   mico_start_timer(&_watchdog_reload_timer);
 
+  /* Enter test mode, call a build-in test function amd output on STDIO */
+  if(MicoShouldEnterMFGMode()==true){
+    mico_log( "Enter MFG mode by MFG button" );
+    mico_mfg_test(context);
+  }
+  
+  /*Read current time from RTC.*/
+  MicoRtcGetTime(&time);
+  currentTime.tm_sec = time.sec;
+  currentTime.tm_min = time.min;
+  currentTime.tm_hour = time.hr;
+  currentTime.tm_mday = time.date;
+  currentTime.tm_wday = time.weekday;
+  currentTime.tm_mon = time.month - 1;
+  currentTime.tm_year = time.year + 100;
+  mico_log("Current Time: %s",asctime(&currentTime));
+  
   /* Regisist notifications */
   err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)micoNotify_WifiStatusHandler );
   require_noerr( err, exit ); 
@@ -389,7 +388,8 @@ int application_start(void)
   }
 #ifdef MFG_MODE_AUTO
   else if( context->flashContentInRam.micoSystemConfig.configured == mfgConfigured ){
-    mico_mfg_test();
+    mico_log( "Enter MFG mode automatically" );
+    mico_mfg_test(context);
   }
 #endif
 

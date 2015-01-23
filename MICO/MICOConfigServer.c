@@ -258,7 +258,6 @@ static OSStatus onReceivedData(struct _HTTPHeader_t * inHeader, uint32_t inPos, 
     return kUnsupportedErr;
   }
 
-exit:
   if(err!=kNoErr)  config_log("onReceivedData");
   return err;
 
