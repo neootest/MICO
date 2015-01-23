@@ -601,6 +601,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\MICO\WPS\WPS.c</FilePath>
             </File>
+            <File>
+              <FileName>MICOMfgtest.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\MICO\MICOMfgtest.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
