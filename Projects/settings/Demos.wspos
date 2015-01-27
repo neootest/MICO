@@ -1,6 +1,10 @@
 [MainWindow]
 <<<<<<< Updated upstream
+<<<<<<< HEAD
 WindowPlacement=_ 212 74 1469 940 3
+=======
+WindowPlacement=_ 113 113 1254 616 3
+>>>>>>> origin/CLI
 =======
 <<<<<<< HEAD
 WindowPlacement=_ 96 1 1344 859 1

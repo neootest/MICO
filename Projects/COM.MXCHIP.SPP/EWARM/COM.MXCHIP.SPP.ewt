@@ -833,6 +833,9 @@
       </file>
     </group>
     <file>
+      <name>$PROJ_DIR$\..\..\..\MICO\MICOCli.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\MICO\MICOConfigMenu.c</name>
     </file>
     <file>

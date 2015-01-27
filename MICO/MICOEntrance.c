@@ -38,6 +38,7 @@
 
 #include "MICONotificationCenter.h"
 #include "MICOSystemMonitor.h"
+#include "MicoCli.h"
 #include "EasyLink/EasyLink.h"
 #include "SoftAP/EasyLinkSoftAP.h"
 #include "WPS/WPS.h"
@@ -301,6 +302,9 @@ int application_start(void)
 
   /*wlan driver and tcpip init*/
   MicoInit();
+#ifdef MICO_CLI_ENABLE  
+  MicoCliInit();
+#endif
   MicoSysLed(true);
   mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
   micoWlanGetIPStatus(&para, Station);
@@ -462,5 +466,3 @@ exit:
   mico_rtos_delete_thread(NULL);
   return kNoErr;
 }
-
-

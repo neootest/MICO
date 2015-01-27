@@ -46,7 +46,6 @@
 #define UART_ONE_PACKAGE_LENGTH             1024
 #define wlanBufferLen                       1024
 #define UART_BUFFER_LENGTH                  2048
-#define UART_FOR_APP                        MICO_UART_1
 
 #define LOCAL_TCP_SERVER_LOOPBACK_PORT      1000
 #define REMOTE_TCP_CLIENT_LOOPBACK_PORT     1002
