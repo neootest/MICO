@@ -11,45 +11,92 @@
 
 #include <string.h>
 #include <stdio.h>
-#include <rt_misc.h>
-#include "platform_common_config.h"
 #include "MicoPlatform.h"
-#include "stm32f2xx.h"
-#include "patch_keil.h"
+#include "Common.h"
+#include "MicoRTOS.h"
 
-extern void vPortSVCHandler(void);
-extern void xPortPendSVHandler(void);
-extern void xPortSysTickHandler(void);
+#include <rt_misc.h>
 
-size_t strnlen(const char *s, size_t count)    
-{    
-        const char *sc;    
-            
-            for (sc = s; count-- && *sc != '\0'; ++sc)    
-                        /* nothing */;    
-                return sc - s;    
-} 
+#pragma import(__use_no_semihosting_swi)
+
+struct __FILE { int handle; /* Add whatever you need here */ };
+FILE __stdout;
+FILE __stdin;
+FILE __stderr;
+
+
+int fgetc(FILE *f) {
+  return 0x30;
+}
+
+
+int ferror(FILE *f) {
+  /* Your implementation of ferror */
+  return EOF;
+}
+
+
+void _ttywrch(int ch) {
+  return;
+}
+
+
+void _sys_exit(int return_code) {
+label:  goto label;  /* endless loop */
+}
 
 int fputc(int ch, FILE *f) {
-#if 1
-    while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
-    USART_SendData(USART1, (uint8_t) ch);
-    return ch;
-#else 
   MicoUartSend( STDIO_UART, &ch, 1 );
   return ch;
-#endif 
 }
-#ifdef __MICROLIB
-void exit(int x)
+
+
+char *_sys_command_string(char * cmd, int len) 
 {
-    x = x;
+    cmd = cmd;
+    len = len;
+    return 0;
 }
-#endif 
+
+USED int _mutex_initialize(void* mutex)
+{
+  return 1;
+}
+
+USED void _mutex_acquire(void* mutex)
+{
+  mico_rtos_suspend_all_thread();
+}
+
+USED void _mutex_release(void* mutex)
+{
+  mico_rtos_resume_all_thread();
+}
+
+USED void _mutex_free(void* mutex)
+{
+}
+
 // logging.o
-char* __iar_Strstr(char* str1, char* str2){
-    return strstr(str1, str2);
-}
+char* __iar_Strstr(char* s1, char* s2)
+{  
+    int n;  
+    if (*s2)  
+    {  
+        while (*s1)  
+        {  
+            for (n=0; *(s1 + n) == *(s2 + n); n++)  
+            {  
+                if (!*(s2 + n + 1))  
+                    return (char *)s1;  
+            }  
+            s1++;  
+        }  
+        return NULL;  
+    }  
+    else  
+        return (char *)s1;  
+}  
 //mxchipWNET.o
 int is_nfc_up(void){
     return 0;
@@ -74,8 +121,6 @@ int __data_GetMemChunk(void)
 {
 	return 0;
 }
-
-int __iar_Stderr;
 
 int wiced_platform_get_rtc_time (){
     return 1;

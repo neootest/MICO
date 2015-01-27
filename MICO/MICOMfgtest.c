@@ -240,9 +240,7 @@ void mico_mfg_test(mico_Context_t *inContext)
   }
   
 exit:
-  if(buf) free(buf);
-  mico_thread_sleep(MICO_NEVER_TIMEOUT);
-  
+  if(buf) free(buf);  
 }
 #endif
 

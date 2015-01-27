@@ -46,15 +46,6 @@
 #include "../../GCC/stdio_newlib.h"
 #endif /* ifdef __GNUC__ */
 
-#ifdef __GNUC__
-#define WEAK __attribute__ ((weak))
-#elif defined ( __IAR_SYSTEMS_ICC__ )
-#define WEAK __weak
-#elif defined ( __CC_ARM ) //KEIL
-    #if !defined ( WEAK )
-    #define WEAK __weak
-    #endif
-#endif /* ifdef __GNUC__ */
 /******************************************************
 *                      Macros
 ******************************************************/
@@ -160,9 +151,9 @@ void startApplication(void)
   /* Test if user code is programmed starting from address "ApplicationAddress" */
   if (((*(volatile uint32_t*)text_addr) & 0x2FFE0000 ) == 0x20000000)
   { 
+    #if defined ( __ICCARM__)
     uint32_t* stack_ptr;
     uint32_t* start_ptr;
-    #if defined ( __ICCARM__)
     __asm( "MOV LR,        #0xFFFFFFFF" );
     __asm( "MOV R1,        #0x01000000" );
     __asm( "MSR APSR_nzcvq,     R1" );
@@ -227,6 +218,9 @@ WEAK void init_memory( void )
 {
   
 }
+
+  
+
 
 void init_architecture( void )
 {
@@ -568,10 +562,6 @@ void mico_thread_msleep_no_os(uint32_t milliseconds)
   int tick_delay_start = mico_get_time_no_os();
   while(mico_get_time_no_os() < tick_delay_start+milliseconds);  
 }
-#if defined ( __CC_ARM )
-uint32_t mico_get_time(void){
-    mico_get_time_no_os();
-}
-#endif
+
 #endif
 

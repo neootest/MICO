@@ -192,14 +192,12 @@ void localConfig_thread(void *inFd)
         case kNoSpaceErr:
           config_log("ERROR: Cannot fit HTTPHeader.");
           goto exit;
-        break;
-
+        
         case kConnectionErr:
           // NOTE: kConnectionErr from SocketReadHTTPHeader means it's closed
           config_log("ERROR: Connection closed.");
           goto exit;
-           //goto Reconn;
-        break;
+
         default:
           config_log("ERROR: HTTP Header parse internal error: %d", err);
           goto exit;

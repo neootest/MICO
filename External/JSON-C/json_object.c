@@ -25,6 +25,8 @@
 #include "json_object_private.h"
 #include "json_util.h"
 
+#include "StringUtils.h"
+
 #if !HAVE_STRNDUP
   char* strndup(const char* str, size_t n);
 #endif /* !HAVE_STRNDUP */
@@ -67,14 +69,7 @@ static void json_object_fini(void) {
   lh_table_free(json_object_table);
 }
 #endif /* REFCOUNT_DEBUG */
-#if defined(__CC_ARM)
-char* strdup(const char* str){
-    char* ptr;
-    ptr = malloc(strlen(str)+1);
-    strcpy(ptr,str);
-    return ptr;
-}
-#endif
+
 
 /* string escaping */
 

@@ -520,34 +520,20 @@
 	"buffers":
 	[
 		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICODefine.h",
+			"contents": "Searching 901 files for \"size_t\"\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoSocket.h:\n  270    *             -1 is returned,\n  271    */\n  272: ssize_t send(int sockfd, const void *buf, size_t len, int flags);\n  273  \n  274  /**\n  ...\n  277    * @note       Refer send() for details.\n  278    */\n  279: int write(int sockfd, void *buf, size_t len); \n  280  \n  281  \n  ...\n  297    *             -1 is returned,\n  298    */\n  299: ssize_t sendto(int  sockfd, const void *buf,  size_t len,  int flags, \n  300                const struct sockaddr_t  *dest_addr, socklen_t addrlen);\n  301  \n  ...\n  320    *             receive from a stream socket was 0.\n  321    */\n  322: ssize_t recv(int sockfd, void *buf, size_t len, int flags);\n  323  \n  324  /**\n  ...\n  327    * @note       Refer recv() for details.\n  328    */\n  329: int read(int sockfd, void *buf, size_t len);\n  330  \n  331  \n  ...\n  358    *             receive from a stream socket was 0.\n  359    */\n  360: ssize_t recvfrom(int  sockfd,  void  *buf,  size_t  len,  int  flags, \n  361                struct  sockaddr_t  *src_addr,  socklen_t *addrlen);\n  362   \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/EasyCloud/EasyCloudUtils.h:\n   38  OSStatus CreateHTTPMessageEx( const char *methold, const char * host, \n   39                               const char *url, const char *contentType, \n   40:                              uint8_t *inData, size_t inDataLen, \n   41:                              uint8_t **outMessage, size_t *outMessageSize );\n   42  OSStatus CreateSimpleHTTPFailedMessage( uint8_t **outMessage, \n   43:                                        size_t *outMessageSize );\n   44  int SocketReadHTTPHeaderEx( int inSock, HTTPHeader_t *inHeader );\n   45  OSStatus SocketReadHTTPBodyEx( int inSock, HTTPHeader_t *inHeader );\n   ..\n   47  // ============================= STRING UTILS ==============================\n   48  \n   49: char* DataToHexStringLowercase( const uint8_t *inBuf, size_t inBufLen );\n   50  // string replace, dst string must be freed by user\n   51  char* str_replace(char *dst, const char *src, const unsigned int srcLen, char *old_str, char *new_str);\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MICOCrypto/crypto_aead_chacha20poly1305.h:\n   14  #define crypto_aead_chacha20poly1305_KEYBYTES 32U\n   15  SODIUM_EXPORT\n   16: size_t crypto_aead_chacha20poly1305_keybytes(void);\n   17  \n   18  #define crypto_aead_chacha20poly1305_NSECBYTES 0U\n   19  SODIUM_EXPORT\n   20: size_t crypto_aead_chacha20poly1305_nsecbytes(void);\n   21  \n   22  #define crypto_aead_chacha20poly1305_NPUBBYTES 8U\n   23  SODIUM_EXPORT\n   24: size_t crypto_aead_chacha20poly1305_npubbytes(void);\n   25  \n   26  #define crypto_aead_chacha20poly1305_ABYTES 16U\n   27  SODIUM_EXPORT\n   28: size_t crypto_aead_chacha20poly1305_abytes(void);\n   29  \n   30  SODIUM_EXPORT\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MICOCrypto/crypto_sign.h:\n   23  #define crypto_sign_BYTES crypto_sign_ed25519_BYTES\n   24  SODIUM_EXPORT\n   25: size_t  crypto_sign_bytes(void);\n   26  \n   27  #define crypto_sign_SEEDBYTES crypto_sign_ed25519_SEEDBYTES\n   28  SODIUM_EXPORT\n   29: size_t  crypto_sign_seedbytes(void);\n   30  \n   31  #define crypto_sign_PUBLICKEYBYTES crypto_sign_ed25519_PUBLICKEYBYTES\n   32  SODIUM_EXPORT\n   33: size_t  crypto_sign_publickeybytes(void);\n   34  \n   35  #define crypto_sign_SECRETKEYBYTES crypto_sign_ed25519_SECRETKEYBYTES\n   36  SODIUM_EXPORT\n   37: size_t  crypto_sign_secretkeybytes(void);\n   38  \n   39  #define crypto_sign_PRIMITIVE \"ed25519\"\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MICOCrypto/crypto_sign_ed25519.h:\n   14  #define crypto_sign_ed25519_BYTES 64U\n   15  SODIUM_EXPORT\n   16: size_t crypto_sign_ed25519_bytes(void);\n   17  \n   18  #define crypto_sign_ed25519_SEEDBYTES 32U\n   19  SODIUM_EXPORT\n   20: size_t crypto_sign_ed25519_seedbytes(void);\n   21  \n   22  #define crypto_sign_ed25519_PUBLICKEYBYTES 32U\n   23  SODIUM_EXPORT\n   24: size_t crypto_sign_ed25519_publickeybytes(void);\n   25  \n   26  #define crypto_sign_ed25519_SECRETKEYBYTES (32U + 32U)\n   27  SODIUM_EXPORT\n   28: size_t crypto_sign_ed25519_secretkeybytes(void);\n   29  \n   30  SODIUM_EXPORT\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MICOCrypto/crypto_stream_chacha20.h:\n   23  #define crypto_stream_chacha20_KEYBYTES 32U\n   24  SODIUM_EXPORT\n   25: size_t crypto_stream_chacha20_keybytes(void);\n   26  \n   27  #define crypto_stream_chacha20_NONCEBYTES 8U\n   28  SODIUM_EXPORT\n   29: size_t crypto_stream_chacha20_noncebytes(void);\n   30  \n   31  SODIUM_EXPORT\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverMFiAuth.h:\n   63  */\n   64  OSStatus MicoMFiAuthCreateSignature( const  void      *inDigestPtr,\n   65:                                             size_t     inDigestLen,\n   66                                              uint8_t  **outSignaturePtr,\n   67:                                             size_t    *outSignatureLen );\n   68  \n   69  //---------------------------------------------------------------------------------------------------------------------------\n   ..\n   75      @param      outCertificateLen   Number of bytes in the DER-encoded certificate.\n   76  */\n   77: OSStatus MicoMFiAuthCopyCertificate( uint8_t **outCertificatePtr, size_t *outCertificateLen );\n   78  \n   79  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/boards/frdmk64f120m.peb:\n  978        </ItemState>\n  979        <ItemState>\n  980:         <ItemSymbol>FlexNVMSize_Txt</ItemSymbol>\n  981          <Value />\n  982          <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/device/MK64F12/MK64F12.h:\n 5410  #define ENET_RMON_T_CRC_ALIGN_TXPKTS(x)          (((uint32_t)(((uint32_t)(x))<<ENET_RMON_T_CRC_ALIGN_TXPKTS_SHIFT))&ENET_RMON_T_CRC_ALIGN_TXPKTS_MASK)\n 5411  /* RMON_T_UNDERSIZE Bit Fields */\n 5412: #define ENET_RMON_T_UNDERSIZE_TXPKTS_MASK        0xFFFFu\n 5413: #define ENET_RMON_T_UNDERSIZE_TXPKTS_SHIFT       0\n 5414: #define ENET_RMON_T_UNDERSIZE_TXPKTS(x)          (((uint32_t)(((uint32_t)(x))<<ENET_RMON_T_UNDERSIZE_TXPKTS_SHIFT))&ENET_RMON_T_UNDERSIZE_TXPKTS_MASK)\n 5415  /* RMON_T_OVERSIZE Bit Fields */\n 5416: #define ENET_RMON_T_OVERSIZE_TXPKTS_MASK         0xFFFFu\n 5417: #define ENET_RMON_T_OVERSIZE_TXPKTS_SHIFT        0\n 5418: #define ENET_RMON_T_OVERSIZE_TXPKTS(x)           (((uint32_t)(((uint32_t)(x))<<ENET_RMON_T_OVERSIZE_TXPKTS_SHIFT))&ENET_RMON_T_OVERSIZE_TXPKTS_MASK)\n 5419  /* RMON_T_FRAG Bit Fields */\n 5420  #define ENET_RMON_T_FRAG_TXPKTS_MASK             0xFFFFu\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/device/MK64F12/MK64F12_enet.h:\n 4324          uint32_t RESERVED0 : 16;       /*!< [31:16]  */\n 4325      } B;\n 4326: } hw_enet_rmon_t_undersize_t;\n 4327  \n 4328  /*!\n ....\n 4332  #define HW_ENET_RMON_T_UNDERSIZE_ADDR(x) ((x) + 0x214U)\n 4333  \n 4334: #define HW_ENET_RMON_T_UNDERSIZE(x) (*(__I hw_enet_rmon_t_undersize_t *) HW_ENET_RMON_T_UNDERSIZE_ADDR(x))\n 4335  #define HW_ENET_RMON_T_UNDERSIZE_RD(x) (HW_ENET_RMON_T_UNDERSIZE(x).U)\n 4336  /*@}*/\n ....\n 4344   */\n 4345  /*@{*/\n 4346: #define BP_ENET_RMON_T_UNDERSIZE_TXPKTS (0U) /*!< Bit position for ENET_RMON_T_UNDERSIZE_TXPKTS. */\n 4347: #define BM_ENET_RMON_T_UNDERSIZE_TXPKTS (0x0000FFFFU) /*!< Bit mask for ENET_RMON_T_UNDERSIZE_TXPKTS. */\n 4348: #define BS_ENET_RMON_T_UNDERSIZE_TXPKTS (16U) /*!< Bit field size in bits for ENET_RMON_T_UNDERSIZE_TXPKTS. */\n 4349  \n 4350: /*! @brief Read current value of the ENET_RMON_T_UNDERSIZE_TXPKTS field. */\n 4351: #define BR_ENET_RMON_T_UNDERSIZE_TXPKTS(x) (HW_ENET_RMON_T_UNDERSIZE(x).B.TXPKTS)\n 4352  /*@}*/\n 4353  \n ....\n 4369          uint32_t RESERVED0 : 16;       /*!< [31:16]  */\n 4370      } B;\n 4371: } hw_enet_rmon_t_oversize_t;\n 4372  \n 4373  /*!\n ....\n 4377  #define HW_ENET_RMON_T_OVERSIZE_ADDR(x) ((x) + 0x218U)\n 4378  \n 4379: #define HW_ENET_RMON_T_OVERSIZE(x) (*(__I hw_enet_rmon_t_oversize_t *) HW_ENET_RMON_T_OVERSIZE_ADDR(x))\n 4380  #define HW_ENET_RMON_T_OVERSIZE_RD(x) (HW_ENET_RMON_T_OVERSIZE(x).U)\n 4381  /*@}*/\n ....\n 4389   */\n 4390  /*@{*/\n 4391: #define BP_ENET_RMON_T_OVERSIZE_TXPKTS (0U) /*!< Bit position for ENET_RMON_T_OVERSIZE_TXPKTS. */\n 4392: #define BM_ENET_RMON_T_OVERSIZE_TXPKTS (0x0000FFFFU) /*!< Bit mask for ENET_RMON_T_OVERSIZE_TXPKTS. */\n 4393: #define BS_ENET_RMON_T_OVERSIZE_TXPKTS (16U) /*!< Bit field size in bits for ENET_RMON_T_OVERSIZE_TXPKTS. */\n 4394  \n 4395: /*! @brief Read current value of the ENET_RMON_T_OVERSIZE_TXPKTS field. */\n 4396: #define BR_ENET_RMON_T_OVERSIZE_TXPKTS(x) (HW_ENET_RMON_T_OVERSIZE(x).B.TXPKTS)\n 4397  /*@}*/\n 4398  \n ....\n 5545          uint32_t RESERVED0 : 16;       /*!< [31:16]  */\n 5546      } B;\n 5547: } hw_enet_rmon_r_undersize_t;\n 5548  \n 5549  /*!\n ....\n 5553  #define HW_ENET_RMON_R_UNDERSIZE_ADDR(x) ((x) + 0x294U)\n 5554  \n 5555: #define HW_ENET_RMON_R_UNDERSIZE(x) (*(__I hw_enet_rmon_r_undersize_t *) HW_ENET_RMON_R_UNDERSIZE_ADDR(x))\n 5556  #define HW_ENET_RMON_R_UNDERSIZE_RD(x) (HW_ENET_RMON_R_UNDERSIZE(x).U)\n 5557  /*@}*/\n ....\n 5590          uint32_t RESERVED0 : 16;       /*!< [31:16]  */\n 5591      } B;\n 5592: } hw_enet_rmon_r_oversize_t;\n 5593  \n 5594  /*!\n ....\n 5598  #define HW_ENET_RMON_R_OVERSIZE_ADDR(x) ((x) + 0x298U)\n 5599  \n 5600: #define HW_ENET_RMON_R_OVERSIZE(x) (*(__I hw_enet_rmon_r_oversize_t *) HW_ENET_RMON_R_OVERSIZE_ADDR(x))\n 5601  #define HW_ENET_RMON_R_OVERSIZE_RD(x) (HW_ENET_RMON_R_OVERSIZE(x).U)\n 5602  /*@}*/\n ....\n 7421      __I hw_enet_rmon_t_mc_pkt_t RMON_T_MC_PKT; /*!< [0x20C] Tx Multicast Packets Statistic Register */\n 7422      __I hw_enet_rmon_t_crc_align_t RMON_T_CRC_ALIGN; /*!< [0x210] Tx Packets with CRC/Align Error Statistic Register */\n 7423:     __I hw_enet_rmon_t_undersize_t RMON_T_UNDERSIZE; /*!< [0x214] Tx Packets Less Than Bytes and Good CRC Statistic Register */\n 7424:     __I hw_enet_rmon_t_oversize_t RMON_T_OVERSIZE; /*!< [0x218] Tx Packets GT MAX_FL bytes and Good CRC Statistic Register */\n 7425      __I hw_enet_rmon_t_frag_t RMON_T_FRAG; /*!< [0x21C] Tx Packets Less Than 64 Bytes and Bad CRC Statistic Register */\n 7426      __I hw_enet_rmon_t_jab_t RMON_T_JAB;   /*!< [0x220] Tx Packets Greater Than MAX_FL bytes and Bad CRC Statistic Register */\n ....\n 7451      __I hw_enet_rmon_r_mc_pkt_t RMON_R_MC_PKT; /*!< [0x28C] Rx Multicast Packets Statistic Register */\n 7452      __I hw_enet_rmon_r_crc_align_t RMON_R_CRC_ALIGN; /*!< [0x290] Rx Packets with CRC/Align Error Statistic Register */\n 7453:     __I hw_enet_rmon_r_undersize_t RMON_R_UNDERSIZE; /*!< [0x294] Rx Packets with Less Than 64 Bytes and Good CRC Statistic Register */\n 7454:     __I hw_enet_rmon_r_oversize_t RMON_R_OVERSIZE; /*!< [0x298] Rx Packets Greater Than MAX_FL and Good CRC Statistic Register */\n 7455      __I hw_enet_rmon_r_frag_t RMON_R_FRAG; /*!< [0x29C] Rx Packets Less Than 64 Bytes and Bad CRC Statistic Register */\n 7456      __I hw_enet_rmon_r_jab_t RMON_R_JAB;   /*!< [0x2A0] Rx Packets Greater Than MAX_FL Bytes and Bad CRC Statistic Register */\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/hal/fsl_dspi_master_driver.h:\n   76      const uint8_t * restrict sendBuffer;  /*!< The buffer from which transmitted bytes are taken.*/\n   77      uint8_t * restrict receiveBuffer;     /*!< The buffer into which received bytes are placed.*/\n   78:     volatile size_t remainingSendByteCount;         /*!< Number of bytes remaining to send.*/\n   79:     volatile size_t remainingReceiveByteCount;      /*!< Number of bytes remaining to receive.*/\n   80      void * irqSync;                 /*!< Used to wait for ISR to complete its business.*/\n   81      bool useDma; /*!< User option to invoke usage of DMA */\n   ..\n  351                                                    const uint8_t * sendBuffer,\n  352                                                    uint8_t * receiveBuffer,\n  353:                                                   size_t transferByteCount,\n  354                                                    uint32_t timeout);\n  355  /*@}*/\n  ...\n  386                                            const uint8_t * sendBuffer,\n  387                                            uint8_t * receiveBuffer,\n  388:                                           size_t transferByteCount);\n  389  \n  390  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/hal/fsl_edma_driver.c:\n  444      uint8_t i;\n  445      edma_software_tcd_t *stcdAddr = (edma_software_tcd_t *)STCD_ADDR(stcd);\n  446:     edma_transfer_size_t transfersize;\n  447      edma_transfer_config_t config;\n  448  \n  ...\n  540      assert(stcd);\n  541      uint8_t i;\n  542:     edma_transfer_size_t transfersize;\n  543      edma_software_tcd_t *stcdAddr = (edma_software_tcd_t *)STCD_ADDR(stcd);\n  544      edma_transfer_config_t config;\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/hal/fsl_edma_hal.c:\n  182                  uint32_t baseAddr, uint32_t channel,\n  183                  edma_modulo_t srcModulo, edma_modulo_t destModulo,\n  184:                 edma_transfer_size_t srcTransferSize, edma_transfer_size_t destTransferSize)\n  185  {\n  186      assert(channel < FSL_FEATURE_EDMA_MODULE_CHANNEL);\n  ...\n  419                  edma_software_tcd_t *stcd,\n  420                  edma_modulo_t srcModulo, edma_modulo_t destModulo,\n  421:                 edma_transfer_size_t srcTransferSize, edma_transfer_size_t destTransferSize)\n  422  {\n  423      assert(stcd);\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/hal/fsl_edma_hal.h:\n  142      kEDMATransferSize_16Bytes = 0x4U,\n  143      kEDMATransferSize_32Bytes = 0x5U\n  144: } edma_transfer_size_t;\n  145  \n  146  /*!\n  ...\n  166      uint32_t srcAddr;               /*!< Memory address pointing to the source data. */\n  167      uint32_t destAddr;              /*!< Memory address pointing to the destination data. */\n  168:     edma_transfer_size_t srcTransferSize;   /*!< Source data transfer size. */\n  169:     edma_transfer_size_t destTransferSize;  /*!< Destination data transfer size. */\n  170      int16_t srcOffset;         /*!< Sign-extended offset applied to the current source address to\n  171                                      form the next-state value as each source read/write is\n  ...\n  724                  uint32_t baseAddr, uint32_t channel,\n  725                  edma_modulo_t srcModulo, edma_modulo_t destModulo,\n  726:                 edma_transfer_size_t srcTransferSize, edma_transfer_size_t destTransferSize);\n  727  \n  728  /*!\n  ...\n 1131                  edma_software_tcd_t *stcd,\n 1132                  edma_modulo_t srcModulo, edma_modulo_t destModulo,\n 1133:                 edma_transfer_size_t srcTransferSize, edma_transfer_size_t destTransferSize);\n 1134  \n 1135  /*!\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/hal/fsl_os_abstraction.h:\n  708   * @return Pointer to the reserved memory. NULL if memory could not be allocated.\n  709   */\n  710: void * OSA_MemAlloc(size_t size);\n  711  \n  712  /*!\n  ...\n  717   * @return Pointer to the reserved memory. NULL if memory could not be allocated.\n  718   */\n  719: void * OSA_MemAllocZero(size_t size);\n  720  \n  721  /*!\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/hal/fsl_os_abstraction_free_rtos.c:\n  635   *\n  636   *END**************************************************************************/\n  637: void *OSA_MemAlloc(size_t size)\n  638  {\n  639      return pvPortMalloc(size);\n  ...\n  648   *\n  649   *END**************************************************************************/\n  650: void * OSA_MemAllocZero(size_t size)\n  651  {\n  652      void *ptr = pvPortMalloc(size);\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/hal/fsl_uart_driver.h:\n   62      const uint8_t * txBuff;        /*!< The buffer of data being sent.*/\n   63      uint8_t * rxBuff;              /*!< The buffer of received data. */\n   64:     volatile size_t txSize;        /*!< The remaining number of bytes to be transmitted. */\n   65:     volatile size_t rxSize;        /*!< The remaining number of bytes to be received. */\n   66      volatile bool isTxBusy;        /*!< True if there is an active transmit. */\n   67      volatile bool isRxBusy;        /*!< True if there is an active receive. */\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/osa-d/fsl_os_abstraction.h:\n  727   * @return Pointer to the reserved memory. NULL if memory could not be allocated.\n  728   */\n  729: void * OSA_MemAlloc(size_t size);\n  730  \n  731  /*!\n  ...\n  736   * @return Pointer to the reserved memory. NULL if memory could not be allocated.\n  737   */\n  738: void * OSA_MemAllocZero(size_t size);\n  739  \n  740  /*!\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/osa-d/fsl_os_abstraction_mqx.h:\n  187  \n  188  /*! @brief Allocates the block aligned at a specific boundary */\n  189: void *OSA_MemoryAllocateAlign(size_t size, size_t align);\n  190  \n  191  /*@}*/\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/utilities/fsl_debug_console.c:\n  258  \n  259  #pragma weak __write\n  260: size_t __write(int handle, const unsigned char * buffer, size_t size)\n  261  {\n  262      if (buffer == 0)\n  ...\n  286  \n  287  #pragma weak __read\n  288: size_t __read(int handle, unsigned char * buffer, size_t size)\n  289  {\n  290      /* This function only reads from \"standard in\", for all other file*/\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/utilities/mem_tools.c:\n   36   * Function Definitions\n   37   ******************************************************************************/\n   38: void *mem_align(size_t ptrSize, uint32_t alignment)\n   39  {\n   40      char gap;   /* Variable to store difference between memory locations. */\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/utilities/mem_tools.h:\n   50  /*\n   51      @brief  Function  to peform aligned data memory allocation. Useful when memalign is not available.\n   52:     @param  ptrSize   size_t variable to pass size of memory to be allocated\n   53      @param  alignment uint32_t variable to pass byte size to align data with\n   54      @return pointer to aligned & allocated memory\n   55   */\n   56: void *mem_align(size_t ptrSize, uint32_t alignment);\n   57  \n   58  /*\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/LPCXpresso54102/retarget.h:\n  164     the following line to ensure that we are called with \"buffer\" as 0\n  165     (i.e. flush) when the application terminates. */\n  166: size_t __write(int handle, const unsigned char *buffer, size_t size)\n  167  {\n  168  #if defined(DEBUG_ENABLE)\n  169: 	size_t nChars = 0;\n  170  \n  171  	if (buffer == 0) {\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/LPCXpresso54102/NXP/lpc_board/board_common/retarget.h:\n  164     the following line to ensure that we are called with \"buffer\" as 0\n  165     (i.e. flush) when the application terminates. */\n  166: size_t __write(int handle, const unsigned char *buffer, size_t size)\n  167  {\n  168  #if defined(DEBUG_ENABLE)\n  169: 	size_t nChars = 0;\n  170  \n  171  	if (buffer == 0) {\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverRng.c:\n   92          while(RNG_GetFlagStatus(RNG_FLAG_DRDY)!=SET);\n   93          tempRDM = RNG_GetRandomNumber();\n   94:         memcpy(pByte, &tempRDM, (size_t)remainByteCount);\n   95      }\n   96      \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/EMW1062_Driver/SDIO/wlan_bus.c:\n  122      SDIO_1024B_BLOCK = 1024,\n  123      SDIO_2048B_BLOCK = 2048\n  124: } sdio_block_size_t;\n  125  \n  126  typedef enum\n  ...\n  160   ******************************************************/\n  161  \n  162: static uint32_t          sdio_get_blocksize_dctrl   ( sdio_block_size_t block_size );\n  163: static sdio_block_size_t find_optimal_block_size    ( uint32_t data_size );\n  164: static void              sdio_prepare_data_transfer ( bus_transfer_direction_t direction, sdio_block_size_t block_size, /*@unique@*/ uint8_t* data, uint16_t data_size ) /*@modifies dma_data_source, user_data, user_data_size, dma_transfer_size@*/;\n  165  \n  166  void dma_irq ( void );\n  167: OSStatus host_platform_sdio_transfer( bus_transfer_direction_t direction, sdio_command_t command, sdio_transfer_mode_t mode, sdio_block_size_t block_size, uint32_t argument, /*@null@*/ uint32_t* data, uint16_t data_size, sdio_response_needed_t response_expected, /*@out@*/ /*@null@*/ uint32_t* response );\n  168  extern void wiced_platform_notify_irq( void );\n  169  \n  ...\n  454  }\n  455  \n  456: OSStatus host_platform_sdio_transfer( bus_transfer_direction_t direction, sdio_command_t command, sdio_transfer_mode_t mode, sdio_block_size_t block_size, uint32_t argument, /*@null@*/ uint32_t* data, uint16_t data_size, sdio_response_needed_t response_expected, /*@out@*/ /*@null@*/ uint32_t* response )\n  457  {\n  458      uint32_t loop_count = 0;\n  ...\n  541          if ( direction == BUS_READ )\n  542          {\n  543:             memcpy( user_data, dma_data_source, (size_t) user_data_size );\n  544          }\n  545      }\n  ...\n  577  \n  578  \n  579: static void sdio_prepare_data_transfer( bus_transfer_direction_t direction, sdio_block_size_t block_size, /*@unique@*/ uint8_t* data, uint16_t data_size ) /*@modifies dma_data_source, user_data, user_data_size, dma_transfer_size@*/\n  580  {\n  581      /* Setup a single transfer using the temp buffer */\n  ...\n  630  }\n  631  \n  632: static sdio_block_size_t find_optimal_block_size( uint32_t data_size )\n  633  {\n  634      if ( data_size > (uint32_t) 256 )\n  ...\n  652  }\n  653  \n  654: static uint32_t sdio_get_blocksize_dctrl(sdio_block_size_t block_size)\n  655  {\n  656      switch (block_size)\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M4/STM32F4xx/MicoDriverRng.c:\n   92          while(RNG_GetFlagStatus(RNG_FLAG_DRDY)!=SET);\n   93          tempRDM = RNG_GetRandomNumber();\n   94:         memcpy(pByte, &tempRDM, (size_t)remainByteCount);\n   95      }\n   96      \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M4/STM32F4xx/EMW1062_Driver/SDIO/wlan_bus.c:\n  129      SDIO_1024B_BLOCK = 1024,\n  130      SDIO_2048B_BLOCK = 2048\n  131: } sdio_block_size_t;\n  132  \n  133  typedef enum\n  ...\n  167   ******************************************************/\n  168  \n  169: static uint32_t          sdio_get_blocksize_dctrl   ( sdio_block_size_t block_size );\n  170: static sdio_block_size_t find_optimal_block_size    ( uint32_t data_size );\n  171: static void              sdio_prepare_data_transfer ( bus_transfer_direction_t direction, sdio_block_size_t block_size, /*@unique@*/ uint8_t* data, uint16_t data_size ) /*@modifies dma_data_source, user_data, user_data_size, dma_transfer_size@*/;\n  172  \n  173  void dma_irq ( void );\n  174: OSStatus host_platform_sdio_transfer( bus_transfer_direction_t direction, sdio_command_t command, sdio_transfer_mode_t mode, sdio_block_size_t block_size, uint32_t argument, /*@null@*/ uint32_t* data, uint16_t data_size, sdio_response_needed_t response_expected, /*@out@*/ /*@null@*/ uint32_t* response );\n  175  extern void wiced_platform_notify_irq( void );\n  176  \n  ...\n  462  }\n  463  \n  464: OSStatus host_platform_sdio_transfer( bus_transfer_direction_t direction, sdio_command_t command, sdio_transfer_mode_t mode, sdio_block_size_t block_size, uint32_t argument, /*@null@*/ uint32_t* data, uint16_t data_size, sdio_response_needed_t response_expected, /*@out@*/ /*@null@*/ uint32_t* response )\n  465  {\n  466      uint32_t loop_count = 0;\n  ...\n  549          if ( direction == BUS_READ )\n  550          {\n  551:             memcpy( user_data, dma_data_source, (size_t) user_data_size );\n  552          }\n  553      }\n  ...\n  585  \n  586  \n  587: static void sdio_prepare_data_transfer( bus_transfer_direction_t direction, sdio_block_size_t block_size, /*@unique@*/ uint8_t* data, uint16_t data_size ) /*@modifies dma_data_source, user_data, user_data_size, dma_transfer_size@*/\n  588  {\n  589      /* Setup a single transfer using the temp buffer */\n  ...\n  638  }\n  639  \n  640: static sdio_block_size_t find_optimal_block_size( uint32_t data_size )\n  641  {\n  642      if ( data_size > (uint32_t) 256 )\n  ...\n  660  }\n  661  \n  662: static uint32_t sdio_get_blocksize_dctrl(sdio_block_size_t block_size)\n  663  {\n  664      switch (block_size)\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/IAR/stdio_IAR.c:\n   41  }\n   42  #else\n   43: size_t __write( int handle, const unsigned char * buffer, size_t size )\n   44  {\n   45    UNUSED_PARAMETER(handle);\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/IDEs/Keil/patch_keil.c:\n   22  extern void xPortSysTickHandler(void);\n   23  \n   24: size_t strnlen(const char *s, size_t count)    \n   25  {    \n   26          const char *sc;    \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/vendor/Freescale/MK64FxxL12/EMW1062_Driver/SDIO/wlan_bus.c:\n  129      SDIO_1024B_BLOCK = 1024,\n  130      SDIO_2048B_BLOCK = 2048\n  131: } sdio_block_size_t;\n  132  \n  133  typedef enum\n  ...\n  167   ******************************************************/\n  168  \n  169: static uint32_t          sdio_get_blocksize_dctrl   ( sdio_block_size_t block_size );\n  170: static sdio_block_size_t find_optimal_block_size    ( uint32_t data_size );\n  171: static void              sdio_prepare_data_transfer ( bus_transfer_direction_t direction, sdio_block_size_t block_size, /*@unique@*/ uint8_t* data, uint16_t data_size ) /*@modifies dma_data_source, user_data, user_data_size, dma_transfer_size@*/;\n  172  \n  173  void dma_irq ( void );\n  174: OSStatus host_platform_sdio_transfer( bus_transfer_direction_t direction, sdio_command_t command, sdio_transfer_mode_t mode, sdio_block_size_t block_size, uint32_t argument, /*@null@*/ uint32_t* data, uint16_t data_size, sdio_response_needed_t response_expected, /*@out@*/ /*@null@*/ uint32_t* response );\n  175  extern void wiced_platform_notify_irq( void );\n  176  \n  ...\n  462  }\n  463  \n  464: OSStatus host_platform_sdio_transfer( bus_transfer_direction_t direction, sdio_command_t command, sdio_transfer_mode_t mode, sdio_block_size_t block_size, uint32_t argument, /*@null@*/ uint32_t* data, uint16_t data_size, sdio_response_needed_t response_expected, /*@out@*/ /*@null@*/ uint32_t* response )\n  465  {\n  466      uint32_t loop_count = 0;\n  ...\n  549          if ( direction == BUS_READ )\n  550          {\n  551:             memcpy( user_data, dma_data_source, (size_t) user_data_size );\n  552          }\n  553      }\n  ...\n  585  \n  586  \n  587: static void sdio_prepare_data_transfer( bus_transfer_direction_t direction, sdio_block_size_t block_size, /*@unique@*/ uint8_t* data, uint16_t data_size ) /*@modifies dma_data_source, user_data, user_data_size, dma_transfer_size@*/\n  588  {\n  589      /* Setup a single transfer using the temp buffer */\n  ...\n  638  }\n  639  \n  640: static sdio_block_size_t find_optimal_block_size( uint32_t data_size )\n  641  {\n  642      if ( data_size > (uint32_t) 256 )\n  ...\n  660  }\n  661  \n  662: static uint32_t sdio_get_blocksize_dctrl(sdio_block_size_t block_size)\n  663  {\n  664      switch (block_size)\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/vendor/Freescale/MK64FxxL12/EMW1062_Driver/SPI/wwd_bus.c:\n   98   *             Function definitions\n   99   ******************************************************/\n  100: void *mem_align(size_t ptrSize, uint32_t alignment)\n  101  {\n  102      char gap;   /* Variable to store difference between memory locations. */\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/vendor/nxp/LPC54xx/EMW1062_Driver/SDIO/wlan_bus.c:\n  129      SDIO_1024B_BLOCK = 1024,\n  130      SDIO_2048B_BLOCK = 2048\n  131: } sdio_block_size_t;\n  132  \n  133  typedef enum\n  ...\n  167   ******************************************************/\n  168  \n  169: static uint32_t          sdio_get_blocksize_dctrl   ( sdio_block_size_t block_size );\n  170: static sdio_block_size_t find_optimal_block_size    ( uint32_t data_size );\n  171: static void              sdio_prepare_data_transfer ( bus_transfer_direction_t direction, sdio_block_size_t block_size, /*@unique@*/ uint8_t* data, uint16_t data_size ) /*@modifies dma_data_source, user_data, user_data_size, dma_transfer_size@*/;\n  172  \n  173  void dma_irq ( void );\n  174: OSStatus host_platform_sdio_transfer( bus_transfer_direction_t direction, sdio_command_t command, sdio_transfer_mode_t mode, sdio_block_size_t block_size, uint32_t argument, /*@null@*/ uint32_t* data, uint16_t data_size, sdio_response_needed_t response_expected, /*@out@*/ /*@null@*/ uint32_t* response );\n  175  extern void wiced_platform_notify_irq( void );\n  176  \n  ...\n  462  }\n  463  \n  464: OSStatus host_platform_sdio_transfer( bus_transfer_direction_t direction, sdio_command_t command, sdio_transfer_mode_t mode, sdio_block_size_t block_size, uint32_t argument, /*@null@*/ uint32_t* data, uint16_t data_size, sdio_response_needed_t response_expected, /*@out@*/ /*@null@*/ uint32_t* response )\n  465  {\n  466      uint32_t loop_count = 0;\n  ...\n  549          if ( direction == BUS_READ )\n  550          {\n  551:             memcpy( user_data, dma_data_source, (size_t) user_data_size );\n  552          }\n  553      }\n  ...\n  585  \n  586  \n  587: static void sdio_prepare_data_transfer( bus_transfer_direction_t direction, sdio_block_size_t block_size, /*@unique@*/ uint8_t* data, uint16_t data_size ) /*@modifies dma_data_source, user_data, user_data_size, dma_transfer_size@*/\n  588  {\n  589      /* Setup a single transfer using the temp buffer */\n  ...\n  638  }\n  639  \n  640: static sdio_block_size_t find_optimal_block_size( uint32_t data_size )\n  641  {\n  642      if ( data_size > (uint32_t) 256 )\n  ...\n  660  }\n  661  \n  662: static uint32_t sdio_get_blocksize_dctrl(sdio_block_size_t block_size)\n  663  {\n  664      switch (block_size)\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/AESUtils.c:\n   96  //===========================================================================================================================\n   97  \n   98: OSStatus    AES_CTR_Update( AES_CTR_Context *inContext, const void *inSrc, size_t inLen, void *inDst )\n   99  {\n  100      OSStatus            err;\n  ...\n  102      uint8_t *           dst;\n  103      uint8_t *           buf;\n  104:     size_t              used;\n  105:     size_t              i;\n  106      \n  107      // inSrc and inDst may be the same, but otherwise, the buffers must not overlap.\n  ...\n  253  //===========================================================================================================================\n  254  \n  255: OSStatus    AES_CBCFrame_Update( AES_CBCFrame_Context *inContext, const void *inSrc, size_t inSrcLen, void *inDst )\n  256  {\n  257      OSStatus            err;\n  ...\n  259      const uint8_t *     end;\n  260      uint8_t *           dst;\n  261:     size_t              len;\n  262      \n  263      src = (const uint8_t *) inSrc;\n  ...\n  267      // Process whole blocks.\n  268      \n  269:     len = inSrcLen & ~( (size_t)( kAES_CBCFrame_Size - 1 ) );\n  270      if( len > 0 )\n  271      {\n  ...\n  319          AES_CBCFrame_Context *  inContext, \n  320          const void *            inSrc1, \n  321:         size_t                  inLen1, \n  322          const void *            inSrc2, \n  323:         size_t                  inLen2, \n  324          void *                  inDst )\n  325  {\n  ...\n  330      uint8_t *           dst  = (uint8_t *) inDst;\n  331      OSStatus            err;\n  332:     size_t              len;\n  333:     size_t              i;\n  334  #if( !AES_UTILS_USE_COMMON_CRYPTO )\n  335      uint8_t             iv[ kAES_CBCFrame_Size ];\n  ...\n  348      // Process all whole blocks from buffer 1.\n  349      \n  350:     len = inLen1 & ~( (size_t)( kAES_CBCFrame_Size - 1 ) );\n  351      if( len > 0 )\n  352      {\n  ...\n  403      // Process any remaining whole blocks in buffer 2.\n  404      \n  405:     len = ( (size_t)( end2 - src2 ) ) & ~( (size_t)( kAES_CBCFrame_Size - 1 ) );\n  406      if( len > 0 )\n  407      {\n  ...\n  564  //===========================================================================================================================\n  565  \n  566: OSStatus    AES_ECB_Update( AES_ECB_Context *inContext, const void *inSrc, size_t inLen, void *inDst )\n  567  {\n  568      OSStatus            err;\n  569      const uint8_t *     src;\n  570      uint8_t *           dst;\n  571:     size_t              n;\n  572      \n  573      // inSrc and inDst may be the same, but otherwise, the buffers must not overlap.\n  ...\n  583      {\n  584          #if( AES_UTILS_USE_COMMON_CRYPTO )\n  585:             size_t      len;\n  586              \n  587              err = CCCryptorUpdate( inContext->cryptor, src, kAES_ECB_Size, dst, kAES_ECB_Size, &len );\n  ...\n  722  {\n  723      OSStatus        err;\n  724:     size_t          len;\n  725      \n  726      len = kAES_CGM_Size;\n  ...\n  753  {\n  754      OSStatus        err;\n  755:     size_t          len;\n  756      uint8_t         authTag[ kAES_CGM_Size ];\n  757      \n  ...\n  784  //===========================================================================================================================\n  785  \n  786: OSStatus    AES_GCM_AddAAD( AES_GCM_Context *inContext, const void *inPtr, size_t inLen )\n  787  {\n  788      OSStatus        err;\n  ...\n  807  \n  808  #if( AES_UTILS_HAS_COMMON_CRYPTO_GCM )\n  809: OSStatus    AES_GCM_Encrypt( AES_GCM_Context *inContext, const void *inSrc, size_t inLen, void *inDst )\n  810  {\n  811      OSStatus        err;\n  ...\n  818  }\n  819  #elif( AES_UTILS_HAS_GLADMAN_GCM )\n  820: OSStatus    AES_GCM_Encrypt( AES_GCM_Context *inContext, const void *inSrc, size_t inLen, void *inDst )\n  821  {\n  822      OSStatus        err;\n  ...\n  835  \n  836  #if( AES_UTILS_HAS_COMMON_CRYPTO_GCM )\n  837: OSStatus    AES_GCM_Decrypt( AES_GCM_Context *inContext, const void *inSrc, size_t inLen, void *inDst )\n  838  {\n  839      OSStatus        err;\n  ...\n  846  }\n  847  #elif( AES_UTILS_HAS_GLADMAN_GCM )\n  848: OSStatus    AES_GCM_Decrypt( AES_GCM_Context *inContext, const void *inSrc, size_t inLen, void *inDst )\n  849  {\n  850      OSStatus        err;\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/AESUtils.h:\n  140      uint8_t             ctr[ kAES_CTR_Size ];   //! PRIVATE: Big endian counter.\n  141      uint8_t             buf[ kAES_CTR_Size ];   //! PRIVATE: Keystream buffer.\n  142:     size_t              used;                   //! PRIVATE: Number of bytes of the keystream buffer that we've used.\n  143      \n  144      Boolean             legacy;                 //! true=do legacy, chunked encrypting/decrypting.\n  ...\n  151          const uint8_t       inKey[ kAES_CTR_Size ], \n  152          const uint8_t       inNonce[ kAES_CTR_Size ] );\n  153: OSStatus    AES_CTR_Update( AES_CTR_Context *inContext, const void *inSrc, size_t inSrcLen, void *inDst );\n  154  void        AES_CTR_Final( AES_CTR_Context *inContext );\n  155  \n  ...\n  206          const uint8_t           inIV[ kAES_CBCFrame_Size ], \n  207          Boolean                 inEncrypt );\n  208: OSStatus    AES_CBCFrame_Update( AES_CBCFrame_Context *inContext, const void *inSrc, size_t inSrcLen, void *inDst );\n  209  OSStatus\n  210      AES_CBCFrame_Update2( \n  211          AES_CBCFrame_Context *  inContext, \n  212          const void *            inSrc1, \n  213:         size_t                  inLen1, \n  214          const void *            inSrc2, \n  215:         size_t                  inLen2, \n  216          void *                  inDst );\n  217  void    AES_CBCFrame_Final( AES_CBCFrame_Context *inContext );\n  ...\n  280  \n  281  OSStatus    AES_ECB_Init( AES_ECB_Context *inContext, uint32_t inMode, const uint8_t inKey[ kAES_ECB_Size ] );\n  282: OSStatus    AES_ECB_Update( AES_ECB_Context *inContext, const void *inSrc, size_t inLen, void *inDst );\n  283  void        AES_ECB_Final( AES_ECB_Context *inContext );\n  284  \n  ...\n  344  OSStatus    AES_GCM_VerifyMessage( AES_GCM_Context *inContext, const uint8_t inAuthTag[ kAES_CGM_Size ] );\n  345  \n  346: OSStatus    AES_GCM_AddAAD( AES_GCM_Context *inContext, const void *inPtr, size_t inLen );\n  347: OSStatus    AES_GCM_Encrypt( AES_GCM_Context *inContext, const void *inSrc, size_t inLen, void *inDst );\n  348: OSStatus    AES_GCM_Decrypt( AES_GCM_Context *inContext, const void *inSrc, size_t inLen, void *inDst );\n  349  \n  350  #endif // AES_UTILS_HAS_GCM\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/Common.h:\n   41  #endif\n   42  \n   43: #ifndef ssize_t\n   44: #define ssize_t int\n   45  #endif\n   46  \n   47: #ifndef size_t\n   48: #define size_t  unsigned int\n   49  #endif\n   50  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/HTTPUtils.c:\n   37  #define READ_LENGTH 1500\n   38  \n   39: OSStatus onReceivedDataCallbackDefault(struct _HTTPHeader_t * httpHeader, uint32_t pos, uint8_t * data, size_t len, void * userContext )\n   40  {\n   41    UNUSED_PARAMETER(httpHeader);\n   ..\n   54    char *          lim;\n   55    char *          end;\n   56:   size_t          len;\n   57:   ssize_t         n;\n   58    \n   59    buf = inHeader->buf;\n   ..\n   64      if(findHeader( inHeader,  &end ))\n   65        break ;\n   66:     n = read( inSock, dst, (size_t)( lim - dst ) );\n   67:     if(      n  > 0 ) len = (size_t) n;\n   68      else  { err = kConnectionErr; goto exit; }\n   69      dst += len;\n   ..\n   71    }\n   72    \n   73:   inHeader->len = (size_t)( end - buf );\n   74    err = HTTPHeaderParse( inHeader );\n   75    require_noerr( err, exit );\n   76:   inHeader->extraDataLen = (size_t)( dst - end );\n   77    if(inHeader->extraDataPtr) {\n   78      free((uint8_t *)inHeader->extraDataPtr);\n   ..\n   93  \n   94    if (inHeader->contentLength != 0){ //Content length >0, create a memory buffer (Content length) and store extra data\n   95:     size_t copyDataLen = (inHeader->contentLength >= inHeader->extraDataLen)? inHeader->extraDataLen : inHeader->contentLength;\n   96      if((inHeader->onReceivedDataCallback)(inHeader, 0, (uint8_t *)end, copyDataLen, inHeader->userContext)==kNoErr){\n   97        inHeader->isCallbackSupported = true;\n   ..\n  128    char *buf = (char *)inHeader->buf;\n  129    char *src = (char *)inHeader->buf;\n  130:   size_t          len;\n  131    \n  132    // Check for interleaved binary data (4 byte header that begins with $). See RFC 2326 section 10.12.\n  ...\n  145      if( src >= *outHeaderEnd ) break;\n  146      \n  147:     len = (size_t)( *outHeaderEnd - src );\n  148      if( ( len >= 3 ) && ( src[ 1 ] == '\\r' ) && ( src[ 2 ] == '\\n' ) ) // CRLFCRLF or LFCRLF.\n  149      {\n  ...\n  168  {\n  169    OSStatus err = kParamErr;\n  170:   ssize_t readResult;\n  171    int selectResult;\n  172    fd_set readSet;\n  173:   size_t    lastChunkLen, chunckheaderLen; \n  174    char *nextPackagePtr;\n  175    struct timeval_t t;\n  176:   size_t          readLength;\n  177    uint32_t pos = 0;\n  178    t.tv_sec = 5;\n  ...\n  195          require_action( selectResult >= 1, exit, err = kNotReadableErr );\n  196  \n  197:         readResult = read( inSock, inHeader->chunkedDataBufferPtr + inHeader->extraDataLen, (size_t)( inHeader->chunkedDataBufferLen - inHeader->extraDataLen ) );\n  198  \n  199          if( readResult  > 0 ) inHeader->extraDataLen += readResult;\n  ...\n  379    char                c;\n  380    const char *        value;\n  381:   size_t              valueSize;\n  382    int                 x;\n  383    \n  ...\n  437    {\n  438      ioHeader->methodPtr = src;\n  439:     ioHeader->methodLen = (size_t)( ptr - src );\n  440      ++ptr;\n  441      \n  ...\n  443      ioHeader->urlPtr = ptr;\n  444      while( ( ptr < end ) && ( *ptr != ' ' ) ) ++ptr;\n  445:     ioHeader->urlLen = (size_t)( ptr - ioHeader->urlPtr );\n  446      require_action( ptr < end, exit, err = kMalformedErr );\n  447      ++ptr;\n  ...\n  453      ioHeader->protocolPtr = ptr;\n  454      while( ( ptr < end ) && ( ( c = *ptr ) != '\\r' ) && ( c != '\\n' ) ) ++ptr;\n  455:     ioHeader->protocolLen = (size_t)( ptr - ioHeader->protocolPtr );\n  456      require_action( ptr < end, exit, err = kMalformedErr );\n  457      ++ptr;\n  ...\n  462      ioHeader->protocolPtr = src;\n  463      for( ++ptr; ( ptr < end ) && ( *ptr != ' ' ); ++ptr ) {}\n  464:     ioHeader->protocolLen = (size_t)( ptr - ioHeader->protocolPtr );\n  465      require_action( ptr < end, exit, err = kMalformedErr );\n  466      ++ptr;\n  ...\n  475      ioHeader->reasonPhrasePtr = ptr;\n  476      while( ( ptr < end ) && ( ( c = *ptr ) != '\\r' ) && ( c != '\\n' ) ) ++ptr;\n  477:     ioHeader->reasonPhraseLen = (size_t)( ptr - ioHeader->reasonPhrasePtr );\n  478      require_action( ptr < end, exit, err = kMalformedErr );\n  479      ++ptr;\n  ...\n  501  }\n  502  \n  503: int findCRLF( const char *inDataPtr , size_t inDataLen, char **  nextDataPtr ) //find CRLF\n  504  {\n  505    char *dst = (char *)inDataPtr + inDataLen;\n  506    char *src = (char *)inDataPtr;\n  507:   size_t          len;\n  508    \n  509    // Find an empty line (separates the length and data).\n  ...\n  513      if( src >= dst ) break;\n  514      \n  515:     len = (size_t)( dst - src );\n  516  \n  517      if( ( len >= 2 ) && ( src[ 1 ] == '\\n' ) ) // CRLF\n  ...\n  529  }\n  530  \n  531: int findChunkedDataLength( const char *inChunkPtr , size_t inChunkLen, char **  chunkedDataPtr, const char *inFormat, ... )\n  532  {\n  533    char *dst = (char *)inChunkPtr + inChunkLen;\n  534    char *src = (char *)inChunkPtr;\n  535:   size_t          len;\n  536    va_list         args;\n  537    \n  ...\n  543      if( src >= *chunkedDataPtr ) break;\n  544      \n  545:     len = (size_t)( *chunkedDataPtr - src );\n  546  \n  547      if( ( len >= 2 ) && ( src[ 1 ] == '\\n' ) ) // CRLF\n  ...\n  571  \n  572  OSStatus HTTPGetHeaderField( const char *inHeaderPtr, \n  573:                             size_t     inHeaderLen, \n  574                              const char *inName, \n  575                              const char **outNamePtr, \n  576:                             size_t     *outNameLen, \n  577                              const char **outValuePtr, \n  578:                             size_t     *outValueLen, \n  579                              const char **outNext )\n  580  {\n  581    const char *        src;\n  582    const char *        end;\n  583:   size_t              matchLen;\n  584    char                c;\n  585    \n  ...\n  592      const char *        linePtr;\n  593      const char *        lineEnd;\n  594:     size_t              lineLen;\n  595      const char *        valuePtr;\n  596      const char *        valueEnd;\n  ...\n  601      if( src >= end ) break;\n  602      lineEnd = src;\n  603:     lineLen = (size_t)( src - linePtr );\n  604      if( ( src < end ) && ( *src == '\\r' ) ) ++src;\n  605      if( ( src < end ) && ( *src == '\\n' ) ) ++src;\n  ...\n  612        while( ( nameEnd < lineEnd ) && ( *nameEnd != ':' ) ) ++nameEnd;\n  613        if( nameEnd >= lineEnd ) continue;\n  614:       matchLen = (size_t)( nameEnd - linePtr );\n  615      }\n  616      else if( ( lineLen <= matchLen ) || ( linePtr[ matchLen ] != ':' ) || \n  ...\n  638      if( outNameLen )    *outNameLen     = matchLen;\n  639      if( outValuePtr )   *outValuePtr    = valuePtr;\n  640:     if( outValueLen )   *outValueLen    = (size_t)( valueEnd - valuePtr );\n  641      if( outNext )       *outNext        = src;\n  642      return( kNoErr );\n  ...\n  645  }\n  646  \n  647: int HTTPScanFHeaderValue( const char *inHeaderPtr, size_t inHeaderLen, const char *inName, const char *inFormat, ... )\n  648  {\n  649    int                 n;\n  650    const char *        valuePtr;\n  651:   size_t              valueLen;\n  652    va_list             args;\n  653    \n  ...\n  705  {\n  706    char *nextPackagePtr;\n  707:   size_t chunckheaderLen = inHeader->extraDataPtr - inHeader->chunkedDataBufferPtr;\n  708  \n  709    if(inHeader->onClearCallback)\n  ...\n  750  }\n  751  \n  752: OSStatus CreateSimpleHTTPOKMessage( uint8_t **outMessage, size_t *outMessageSize )\n  753  {\n  754    OSStatus err = kNoMemoryErr;\n  ...\n  769  \n  770  \n  771: OSStatus CreateSimpleHTTPMessage( const char *contentType, uint8_t *inData, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize )\n  772  {\n  773    uint8_t *endOfHTTPHeader;  \n  ...\n  802  }\n  803  \n  804: OSStatus CreateSimpleHTTPMessageNoCopy( const char *contentType, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize )\n  805  {\n  806    OSStatus err = kParamErr;\n  ...\n  852  }\n  853  \n  854: OSStatus CreateHTTPRespondMessageNoCopy( int status, const char *contentType, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize )\n  855  {\n  856    OSStatus err = kParamErr;\n  ...\n  882  \n  883  \n  884: OSStatus CreateHTTPMessage( const char *methold, const char *url, const char *contentType, uint8_t *inData, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize )\n  885  {\n  886    uint8_t *endOfHTTPHeader;  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/HTTPUtils.h:\n   90  {\n   91      char                buf[ 512 ];        //! Buffer holding the start line and all headers.\n   92:     size_t              len;                //! Number of bytes in the header.\n   93      char *              extraDataPtr;       //! Ptr for any extra data beyond the header, it is alloced when http header is received.\n   94      char *              otaDataPtr;         //! Ptr for any OTA data beyond the header, it is alloced when one OTA package is received.\n   95:     size_t              extraDataLen;       //! Length of any extra data beyond the header.\n   96  \n   97      const char *        methodPtr;          //! Request method (e.g. \"GET\"). \"$\" for interleaved binary data.\n   98:     size_t              methodLen;          //! Number of bytes in request method.\n   99      const char *        urlPtr;             //! Request absolute or relative URL or empty if not a request.\n  100:     size_t              urlLen;             //! Number of bytes in URL.\n  101      URLComponents       url;                //! Parsed URL components.\n  102      const char *        protocolPtr;        //! Request or response protocol (e.g. \"HTTP/1.1\").\n  103:     size_t              protocolLen;        //! Number of bytes in protocol.\n  104      int                 statusCode;         //! Response status code (e.g. 200 for HTTP OK).\n  105      const char *        reasonPhrasePtr;    //! Response reason phrase (e.g. \"OK\" for an HTTP 200 OK response).\n  106:     size_t              reasonPhraseLen;    //! Number of bytes in reason phrase.\n  107  \n  108      uint8_t             channelID;          //! Interleaved binary data channel ID. 0 for other message types.\n  ...\n  115      bool                chunkedData;        //! true=Application should read the next chunked data.\n  116      char *              chunkedDataBufferPtr;     //! Ptr for any extra data beyond the header, it is alloced when http header is received.\n  117:     size_t              chunkedDataBufferLen; //! Total buffer length that stores the chunkedData, private use only\n  118  \n  119      void *              userContext;\n  120      bool                isCallbackSupported;\n  121:     OSStatus            (*onReceivedDataCallback) ( struct _HTTPHeader_t * , uint32_t, uint8_t *, size_t, void * ); \n  122      void                (*onClearCallback) ( struct _HTTPHeader_t * httpHeader, void * userContext );\n  123  \n  ...\n  126  } HTTPHeader_t;\n  127  \n  128: typedef OSStatus (*onReceivedDataCallback) ( struct _HTTPHeader_t * httpHeader, uint32_t pos, uint8_t * data, size_t len, void * userContext );\n  129  \n  130  typedef void (*onClearCallback) ( struct _HTTPHeader_t * httpHeader, void * userContext );\n  ...\n  134  bool findHeader ( HTTPHeader_t *inHeader,  char **  outHeaderEnd);\n  135  \n  136: int HTTPScanFHeaderValue( const char *inHeaderPtr, size_t inHeaderLen, const char *inName, const char *inFormat, ... );\n  137  \n  138: int findCRLF( const char *inDataPtr , size_t inDataLen, char **  nextDataPtr );\n  139  \n  140: int findChunkedDataLength( const char *inChunkPtr , size_t inChunkLen, char **  chunkedDataPtr, const char *inFormat, ... );\n  141  \n  142  int SocketReadHTTPHeader( int inSock, HTTPHeader_t *inHeader );\n  ...\n  154  \n  155  int HTTPGetHeaderField( const char *inHeaderPtr, \n  156:                              size_t     inHeaderLen, \n  157                               const char *inName, \n  158                               const char **outNamePtr, \n  159:                              size_t     *outNameLen, \n  160                               const char **outValuePtr, \n  161:                              size_t     *outValueLen, \n  162                               const char **outNext );\n  163  \n  ...\n  168  void HTTPHeaderClear( HTTPHeader_t *inHeader );\n  169  \n  170: int CreateSimpleHTTPOKMessage( uint8_t **outMessage, size_t *outMessageSize );\n  171  \n  172: OSStatus CreateSimpleHTTPMessage      ( const char *contentType, uint8_t *inData, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize );\n  173: OSStatus CreateSimpleHTTPMessageNoCopy( const char *contentType, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize );\n  174  \n  175: OSStatus CreateHTTPRespondMessageNoCopy( int status, const char *contentType, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize );\n  176  \n  177  \n  178: OSStatus CreateHTTPMessage( const char *methold, const char *url, const char *contentType, uint8_t *inData, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize );\n  179  \n  180  #endif // __HTTPUtils_h__\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/SecurityUtils.c:\n   29  //===========================================================================================================================\n   30  \n   31: int memcmp_constant_time( const void *inA, const void *inB, size_t inLen )\n   32  {\n   33      const uint8_t * const       a = (const uint8_t *) inA; \n   34      const uint8_t * const       b = (const uint8_t *) inB; \n   35      int                         result = 0; \n   36:     size_t                      i;   \n   37      \n   38      for( i = 0; i < inLen; ++i )\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/SecurityUtils.h:\n   33  //  This is needed to avoid certain timing attacks in cryptographic software.\n   34  //===========================================================================================================================\n   35: int memcmp_constant_time( const void *inA, const void *inB, size_t inLen );\n   36  \n   37  #endif // __SecurityUtils_h__\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/SHAUtils.c:\n   56  //===========================================================================================================================\n   57  \n   58: int SHA1_Update_compat( SHA_CTX_compat *ctx, const void *inData, size_t inLen )\n   59  {\n   60      const uint8_t *     src = (const uint8_t *) inData;\n   61:     size_t              n;\n   62      \n   63      while( inLen > 0 )\n   ..\n  127  //===========================================================================================================================\n  128  \n  129: unsigned char * SHA1_compat( const void *inData, size_t inLen, unsigned char *outDigest )\n  130  {\n  131      SHA_CTX_compat      ctx;\n  ...\n  279  //===========================================================================================================================\n  280  \n  281: int SHA512_Update_compat( SHA512_CTX_compat *ctx, const void *inData, size_t inLen )\n  282  {\n  283      const uint8_t *     src = (const uint8_t *) inData;\n  284:     size_t              n;\n  285      \n  286      while( inLen > 0 )\n  ...\n  351  //===========================================================================================================================\n  352  \n  353: unsigned char * SHA512_compat( const void *inData, size_t inLen, unsigned char *outDigest )\n  354  {\n  355      SHA512_CTX_compat       ctx;\n  ...\n  461  //===========================================================================================================================\n  462  \n  463: int SHA3_Update_compat( SHA3_CTX_compat *ctx, const void *inData, size_t inLen )\n  464  {\n  465      const uint8_t *     in = (const uint8_t *) inData;\n  466:     size_t              want;\n  467      \n  468      // Handle the previous data.\n  ...\n  501  int SHA3_Final_compat( uint8_t *outDigest, SHA3_CTX_compat *ctx )\n  502  {\n  503:     size_t      i;\n  504      \n  505      ctx->buffer[ctx->leftover] = 0x01;\n  ...\n  519  //===========================================================================================================================\n  520  \n  521: uint8_t *   SHA3_compat( const void *inData, size_t inLen, uint8_t outDigest[64] )\n  522  {\n  523      SHA3_CTX_compat     ctx;\n  ...\n  539      uint64_t        s21, s22, s23, s24;\n  540      uint64_t        t0, t1, t2, t3, t4, u0, u1, u2, u3, u4, v, w;\n  541:     size_t          i;\n  542      \n  543      s0  = ctx->state[ 0] ^ ReadLittle64( &in[0] );\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/SHAUtils.h:\n   41  \n   42  int SHA1_Init_compat( SHA_CTX_compat *ctx );\n   43: int SHA1_Update_compat( SHA_CTX_compat *ctx, const void *inData, size_t inLen );\n   44  int SHA1_Final_compat( unsigned char *outDigest, SHA_CTX_compat *ctx );\n   45: unsigned char * SHA1_compat( const void *inData, size_t inLen, unsigned char *outDigest );\n   46  \n   47  //===========================================================================================================================\n   ..\n   53      uint64_t        length;\n   54      uint64_t        state[ 8 ];\n   55:     size_t          curlen;\n   56      uint8_t         buf[ 128 ];\n   57      \n   ..\n   59  \n   60  int SHA512_Init_compat( SHA512_CTX_compat *ctx );\n   61: int SHA512_Update_compat( SHA512_CTX_compat *ctx, const void *inData, size_t inLen );\n   62  int SHA512_Final_compat( unsigned char *outDigest, SHA512_CTX_compat *ctx );\n   63: unsigned char * SHA512_compat( const void *inData, size_t inLen, unsigned char *outDigest );\n   64  \n   65  //===========================================================================================================================\n   ..\n   76  {\n   77      uint64_t        state[ SHA3_F / 64 ];\n   78:     size_t          leftover;\n   79      uint8_t         buffer[ SHA3_BLOCK_SIZE ];\n   80      \n   ..\n   82  \n   83  int SHA3_Init_compat( SHA3_CTX_compat *ctx );\n   84: int SHA3_Update_compat( SHA3_CTX_compat *ctx, const void *inData, size_t inLen );\n   85  int SHA3_Final_compat( unsigned char *outDigest, SHA3_CTX_compat *ctx );\n   86: uint8_t *   SHA3_compat( const void *inData, size_t inLen, uint8_t outDigest[ 64 ] );\n   87  \n   88  #endif // __SHAUtils_h_\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/SocketUtils.c:\n   27  #define socket_utils_log_trace() custom_log_trace(\"SocketUtils\")\n   28  \n   29: OSStatus SocketSend( int fd, const uint8_t *inBuf, size_t inBufLen )\n   30  {\n   31      socket_utils_log_trace();\n   32      OSStatus err = kParamErr;\n   33:     ssize_t writeResult;\n   34      int selectResult;\n   35:     size_t numWritten;\n   36      fd_set writeSet;\n   37      struct timeval_t t;\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/SocketUtils.h:\n   25  #include \"Common.h\"\n   26  \n   27: OSStatus SocketSend( int fd, const uint8_t *inBuf, size_t inBufLen );\n   28  \n   29  void SocketClose(int* fd);\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/StringUtils.c:\n  107  //===========================================================================================================================\n  108  \n  109: size_t memrlen( const void *inSrc, size_t inMaxLen )\n  110  {\n  111      const uint8_t * const       ptr = (const uint8_t *) inSrc;\n  112:     size_t                      i;\n  113  \n  114      for( i = inMaxLen; ( i > 0 ) && ( ptr[ i - 1 ] == 0 ); --i ) {}\n  ...\n  229  //===========================================================================================================================\n  230  \n  231: OSStatus TextToHardwareAddress( const void *inText, size_t inTextSize, size_t inAddrSize, void *outAddr )\n  232  {\n  233      OSStatus            err;\n  ...\n  269  }\n  270  \n  271: char* DataToHexString( const uint8_t *inBuf, size_t inBufLen )\n  272  {\n  273      char* buf_str = NULL;\n  ...\n  289  }\n  290  \n  291: char* DataToHexStringWithSpaces( const uint8_t *inBuf, size_t inBufLen )\n  292  {\n  293      char* buf_str = NULL;\n  ...\n  309  }\n  310  \n  311: char* DataToHexStringWithColons( const uint8_t *inBuf, size_t inBufLen )\n  312  {\n  313      char* buf_str = NULL;\n  ...\n  335  }\n  336  \n  337: char* DataToCString( const uint8_t *inBuf, size_t inBufLen )\n  338  {\n  339      char* cString = NULL;\n  ...\n  358  //===========================================================================================================================\n  359  \n  360: int strnicmp( const char *inS1, const char *inS2, size_t inMax )\n  361  {\n  362      const char *        end;\n  ...\n  385  //===========================================================================================================================\n  386  \n  387: int strnicmpx( const void *inS1, size_t inN, const char *inS2 )\n  388  {\n  389      const unsigned char *       s1;\n  ...\n  413  //===========================================================================================================================\n  414  \n  415: int VSNScanF( const void *inString, size_t inSize, const char *inFormat, va_list inArgs )\n  416  {\n  417      int                         matched;\n  ...\n  438      void *                      p;\n  439      const unsigned char **      ptrArg;\n  440:     size_t *                    sizeArg;\n  441:     size_t                      len;\n  442  \n  443      if( inSize == kSizeCString ) inSize = strlen( (const char *) inString );\n  ...\n  522  \n  523              case 'j':   // j for intmax_t * / uintmax_t *\n  524:             case 'z':   // z for size_t *\n  525              case 't':   // t for ptrdiff_t *\n  526                  sizeModifier = c;\n  ...\n  570                  if( storePtr )\n  571                  {\n  572:                     len = (size_t)( end - src );\n  573:                     if( len > (size_t) fieldWidth )\n  574                      {\n  575:                         len = (size_t) fieldWidth;\n  576                      }\n  577                      if( suppress ) { src += len; continue; }\n  ...\n  580                      if( ptrArg ) *ptrArg = src;\n  581  \n  582:                     sizeArg = va_arg( inArgs, size_t * );\n  583                      if( sizeArg ) *sizeArg = len;\n  584  \n  ...\n  622                      if( ptrArg ) *ptrArg = old;\n  623  \n  624:                     sizeArg = va_arg( inArgs, size_t * );\n  625:                     if( sizeArg ) *sizeArg = (size_t)( src - old );\n  626  \n  627                      ++matched;\n  ...\n  685                          if( ptrArg ) *ptrArg = old;\n  686  \n  687:                         sizeArg = va_arg( inArgs, size_t * );\n  688:                         if( sizeArg ) *sizeArg = (size_t)( src - old );\n  689                      }\n  690                      else\n  ...\n  823              case 'L': *( (int64_t   *) p ) =                        x; break;\n  824              case 'j': *( (intmax_t  *) p ) = (intmax_t)             x; break;\n  825:             case 'z': *( (size_t    *) p ) = (size_t)               x; break;\n  826              case 't': *( (ptrdiff_t *) p ) = (ptrdiff_t)            x; break;\n  827              case 'p': *( (void     **) p ) = (void *)( (uintptr_t)  x ); break;\n  ...\n  843  //===========================================================================================================================\n  844  \n  845: int strnicmp_suffix( const void *inStr, size_t inMaxLen, const char *inSuffix )\n  846  {\n  847      const char *        stringPtr;\n  848:     size_t              stringLen;\n  849:     size_t              suffixLen;\n  850  \n  851      stringPtr = (const char *) inStr;\n  ...\n  866  //===========================================================================================================================\n  867  \n  868: char * strnstr_suffix( const char *inStr, size_t inMaxLen, const char *inSuffix)\n  869  {\n  870:     size_t              stringLen;\n  871:     size_t              suffixLen;\n  872      char *              instr_tmp;\n  873      char *              inSuffix_tmp;\n  874:     size_t              i;\n  875      char *              ret;\n  876  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/StringUtils.h:\n   37      @abstract   Constant for describing the size of a null terminated string\n   38  */\n   39: #define kSizeCString ( (size_t) -1 )\n   40  \n   41  // ==== MAC String Tools ====   \n   ..\n   78  #define TextToMACAddress( TEXT, SIZE, ADDR )    TextToHardwareAddress( TEXT, SIZE, 6, ADDR )\n   79  \n   80: int TextToHardwareAddress( const void *inText, size_t inTextSize, size_t inAddrSize, void *outAddr );\n   81  \n   82  // ==== BYTE BUFFER TO STRING CONVERSION UTILS ====\n   83: char* DataToCString( const uint8_t *inBuf, size_t inBufLen );\n   84  \n   85: char* DataToHexString( const uint8_t *inBuf, size_t inBufLen );\n   86  \n   87: char* DataToHexStringWithSpaces( const uint8_t *inBuf, size_t inBufLen );\n   88  \n   89: char* DataToHexStringWithColons( const uint8_t *inBuf, size_t inBufLen );\n   90  \n   91  // ==== STRING COMPARE UTILS ====\n   92: int strnicmp_suffix( const void *inStr, size_t inMaxLen, const char *inSuffix );\n   93  \n   94: int strnicmp( const char *inS1, const char *inS2, size_t inMax );\n   95  \n   96: int strnicmpx( const void *inS1, size_t inN, const char *inS2 );\n   97  \n   98: char * strnstr_suffix( const char *inStr, size_t inMaxLen, const char *inSuffix);\n   99  \n  100: int VSNScanF( const void *inString, size_t inSize, const char *inFormat, va_list inArgs );\n  101  \n  102: size_t  memrlen( const void *inSrc, size_t inMaxLen );\n  103  \n  104  void *memmem(void *start, unsigned int s_len, void *find, unsigned int f_len);\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/TLVUtils.c:\n   29                       uint8_t *          outID, \n   30                       const uint8_t **   outData, \n   31:                      size_t *           outLen, \n   32                       const uint8_t **   outNext )\n   33  {\n   34      const uint8_t *     ptr;\n   35:     size_t              len;\n   36      const uint8_t *     next;\n   37  \n   38      //check( inSrc <= inEnd );\n   39:     len = (size_t)( inEnd - inSrc );\n   40      if( len < 2 )\n   41          return( kNotFoundErr );\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/TLVUtils.h:\n   33          uint8_t *           outID, \n   34          const uint8_t **    outData, \n   35:         size_t *            outLen, \n   36          const uint8_t **    outNext );\n   37  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/URLUtils.c:\n  166      \n  167      outComponents->schemePtr    = schemePtr;\n  168:     outComponents->schemeLen    = (size_t)( schemeEnd - schemePtr );\n  169      outComponents->userPtr      = userPtr;\n  170:     outComponents->userLen      = (size_t)( userEnd - userPtr );\n  171      outComponents->passwordPtr  = passwordPtr;\n  172:     outComponents->passwordLen  = (size_t)( passwordEnd - passwordPtr );\n  173      outComponents->hostPtr      = hostPtr;\n  174:     outComponents->hostLen      = (size_t)( hostEnd - hostPtr );\n  175      outComponents->pathPtr      = pathPtr;\n  176:     outComponents->pathLen      = (size_t)( pathEnd - pathPtr );\n  177      outComponents->queryPtr     = queryPtr;\n  178:     outComponents->queryLen     = (size_t)( queryEnd - queryPtr );\n  179      outComponents->fragmentPtr  = fragmentPtr;\n  180:     outComponents->fragmentLen  = (size_t)( fragmentEnd - fragmentPtr );\n  181      outComponents->segmentPtr   = ( ( pathPtr < pathEnd ) && ( *pathPtr      == '/' ) ) ? ( pathPtr + 1 ) : pathPtr;\n  182      outComponents->segmentEnd   = ( ( pathPtr < pathEnd ) && ( pathEnd[ -1 ] == '/' ) ) ? ( pathEnd - 1 ) : pathEnd;\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/URLUtils.h:\n   33  {\n   34      const char *    schemePtr;\n   35:     size_t          schemeLen;\n   36      const char *    userPtr;\n   37:     size_t          userLen;\n   38      const char *    passwordPtr;\n   39:     size_t          passwordLen;\n   40      const char *    hostPtr;\n   41:     size_t          hostLen;\n   42      const char *    pathPtr;\n   43:     size_t          pathLen;\n   44      const char *    queryPtr;\n   45:     size_t          queryLen;\n   46      const char *    fragmentPtr;\n   47:     size_t          fragmentLen;\n   48      \n   49      const char *    segmentPtr; // Ptr to the current resource path segment. Leading slash is removed, if present.\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/UartRecv.c:\n   29  #define uart_recv_log_trace() custom_log_trace(\"UART RECV\")\n   30  \n   31: static size_t _uart_get_one_packet(uint8_t* buf, int maxlen);\n   32  \n   33  void uartRecv_thread(void *inContext)\n   ..\n   55  * copy to buf, return len = datalen+10\n   56  */\n   57: size_t _uart_get_one_packet(uint8_t* inBuf, int inBufLen)\n   58  {\n   59    uart_recv_log_trace();\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/Curve25519/curve25519-donna-test.c:\n  163  	OSStatus			err;\n  164  	uint8_t				e[ 32 ], k[ 32 ], ek[ 32 ], ek2[ 32 ];\n  165: 	size_t				i, j, len;\n  166  	CFAbsoluteTime		t = 0;\n  167  	\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/JSON-C/config.h:\n  115  \n  116  /* Define to `unsigned' if <sys/types.h> does not define. */\n  117: #undef size_t\n  118  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/JSON-C/json_object.c:\n   27  \n   28  #if !HAVE_STRNDUP\n   29:   char* strndup(const char* str, size_t n);\n   30  #endif /* !HAVE_STRNDUP */\n   31  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/JSON-C/json_tokener.c:\n  140  #if !HAVE_STRNDUP\n  141  /* CAW: compliant version of strndup() */\n  142: char* strndup(const char* str, size_t n)\n  143  {\n  144    if(str) {\n  145:     size_t len = strlen(str);\n  146:     size_t nn = json_min(len,n);\n  147      char* s = (char*)malloc(sizeof(char) * (nn + 1));\n  148  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/JSON-C/json_util.c:\n  199  \n  200  #if HAVE_REALLOC == 0\n  201: void* rpl_realloc(void* p, size_t n)\n  202  {\n  203  	if (n == 0)\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOConfigServer.c:\n   63  static OSStatus _LocalConfigRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context_t * const inContext);\n   64  static void _easylinkConnectWiFi( mico_Context_t * const inContext);\n   65: static OSStatus onReceivedData(struct _HTTPHeader_t * httpHeader, uint32_t pos, uint8_t * data, size_t len, void * userContext );\n   66  static void onClearHTTPHeader(struct _HTTPHeader_t * httpHeader, void * userContext );\n   67  \n   ..\n  219  }\n  220  \n  221: static OSStatus onReceivedData(struct _HTTPHeader_t * inHeader, uint32_t inPos, uint8_t * inData, size_t inLen, void * inUserContext )\n  222  {\n  223    OSStatus err = kUnknownErr;\n  224    const char *    value;\n  225:   size_t          valueSize;\n  226    configContext_t *context = (configContext_t *)inUserContext;\n  227  \n  ...\n  286    const char *  json_str;\n  287    uint8_t *httpResponse = NULL;\n  288:   size_t httpResponseLen = 0;\n  289    json_object* report = NULL;\n  290    config_log_trace();\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOMfgtest.c:\n   22  static char cmd_str[64];\n   23  static void uartRecvMfg_thread(void *inContext);\n   24: static size_t _uart_get_one_packet(uint8_t* inBuf, int inBufLen);\n   25  \n   26  \n   ..\n  273  \n  274  \n  275: static size_t _uart_get_one_packet(uint8_t* inBuf, int inBufLen)\n  276  {\n  277    \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.c:\n  325    const char  *json_str;\n  326    \n  327:   size_t      httpResponseLen = 0;\n  328  \n  329    *fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);\n  ...\n  525      OSStatus err = kUnknownErr;\n  526      const char *        value;\n  527:     size_t              valueSize;\n  528  \n  529      easylink_log_trace();\n\n370 matches across 59 files\n\n\nSearching 901 files for \"size_t\" (whole word)\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoSocket.h:\n  270    *             -1 is returned,\n  271    */\n  272: ssize_t send(int sockfd, const void *buf, size_t len, int flags);\n  273  \n  274  /**\n  ...\n  277    * @note       Refer send() for details.\n  278    */\n  279: int write(int sockfd, void *buf, size_t len); \n  280  \n  281  \n  ...\n  297    *             -1 is returned,\n  298    */\n  299: ssize_t sendto(int  sockfd, const void *buf,  size_t len,  int flags, \n  300                const struct sockaddr_t  *dest_addr, socklen_t addrlen);\n  301  \n  ...\n  320    *             receive from a stream socket was 0.\n  321    */\n  322: ssize_t recv(int sockfd, void *buf, size_t len, int flags);\n  323  \n  324  /**\n  ...\n  327    * @note       Refer recv() for details.\n  328    */\n  329: int read(int sockfd, void *buf, size_t len);\n  330  \n  331  \n  ...\n  358    *             receive from a stream socket was 0.\n  359    */\n  360: ssize_t recvfrom(int  sockfd,  void  *buf,  size_t  len,  int  flags, \n  361                struct  sockaddr_t  *src_addr,  socklen_t *addrlen);\n  362   \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/EasyCloud/EasyCloudUtils.h:\n   38  OSStatus CreateHTTPMessageEx( const char *methold, const char * host, \n   39                               const char *url, const char *contentType, \n   40:                              uint8_t *inData, size_t inDataLen, \n   41:                              uint8_t **outMessage, size_t *outMessageSize );\n   42  OSStatus CreateSimpleHTTPFailedMessage( uint8_t **outMessage, \n   43:                                        size_t *outMessageSize );\n   44  int SocketReadHTTPHeaderEx( int inSock, HTTPHeader_t *inHeader );\n   45  OSStatus SocketReadHTTPBodyEx( int inSock, HTTPHeader_t *inHeader );\n   ..\n   47  // ============================= STRING UTILS ==============================\n   48  \n   49: char* DataToHexStringLowercase( const uint8_t *inBuf, size_t inBufLen );\n   50  // string replace, dst string must be freed by user\n   51  char* str_replace(char *dst, const char *src, const unsigned int srcLen, char *old_str, char *new_str);\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MICOCrypto/crypto_aead_chacha20poly1305.h:\n   14  #define crypto_aead_chacha20poly1305_KEYBYTES 32U\n   15  SODIUM_EXPORT\n   16: size_t crypto_aead_chacha20poly1305_keybytes(void);\n   17  \n   18  #define crypto_aead_chacha20poly1305_NSECBYTES 0U\n   19  SODIUM_EXPORT\n   20: size_t crypto_aead_chacha20poly1305_nsecbytes(void);\n   21  \n   22  #define crypto_aead_chacha20poly1305_NPUBBYTES 8U\n   23  SODIUM_EXPORT\n   24: size_t crypto_aead_chacha20poly1305_npubbytes(void);\n   25  \n   26  #define crypto_aead_chacha20poly1305_ABYTES 16U\n   27  SODIUM_EXPORT\n   28: size_t crypto_aead_chacha20poly1305_abytes(void);\n   29  \n   30  SODIUM_EXPORT\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MICOCrypto/crypto_sign.h:\n   23  #define crypto_sign_BYTES crypto_sign_ed25519_BYTES\n   24  SODIUM_EXPORT\n   25: size_t  crypto_sign_bytes(void);\n   26  \n   27  #define crypto_sign_SEEDBYTES crypto_sign_ed25519_SEEDBYTES\n   28  SODIUM_EXPORT\n   29: size_t  crypto_sign_seedbytes(void);\n   30  \n   31  #define crypto_sign_PUBLICKEYBYTES crypto_sign_ed25519_PUBLICKEYBYTES\n   32  SODIUM_EXPORT\n   33: size_t  crypto_sign_publickeybytes(void);\n   34  \n   35  #define crypto_sign_SECRETKEYBYTES crypto_sign_ed25519_SECRETKEYBYTES\n   36  SODIUM_EXPORT\n   37: size_t  crypto_sign_secretkeybytes(void);\n   38  \n   39  #define crypto_sign_PRIMITIVE \"ed25519\"\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MICOCrypto/crypto_sign_ed25519.h:\n   14  #define crypto_sign_ed25519_BYTES 64U\n   15  SODIUM_EXPORT\n   16: size_t crypto_sign_ed25519_bytes(void);\n   17  \n   18  #define crypto_sign_ed25519_SEEDBYTES 32U\n   19  SODIUM_EXPORT\n   20: size_t crypto_sign_ed25519_seedbytes(void);\n   21  \n   22  #define crypto_sign_ed25519_PUBLICKEYBYTES 32U\n   23  SODIUM_EXPORT\n   24: size_t crypto_sign_ed25519_publickeybytes(void);\n   25  \n   26  #define crypto_sign_ed25519_SECRETKEYBYTES (32U + 32U)\n   27  SODIUM_EXPORT\n   28: size_t crypto_sign_ed25519_secretkeybytes(void);\n   29  \n   30  SODIUM_EXPORT\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MICOCrypto/crypto_stream_chacha20.h:\n   23  #define crypto_stream_chacha20_KEYBYTES 32U\n   24  SODIUM_EXPORT\n   25: size_t crypto_stream_chacha20_keybytes(void);\n   26  \n   27  #define crypto_stream_chacha20_NONCEBYTES 8U\n   28  SODIUM_EXPORT\n   29: size_t crypto_stream_chacha20_noncebytes(void);\n   30  \n   31  SODIUM_EXPORT\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverMFiAuth.h:\n   63  */\n   64  OSStatus MicoMFiAuthCreateSignature( const  void      *inDigestPtr,\n   65:                                             size_t     inDigestLen,\n   66                                              uint8_t  **outSignaturePtr,\n   67:                                             size_t    *outSignatureLen );\n   68  \n   69  //---------------------------------------------------------------------------------------------------------------------------\n   ..\n   75      @param      outCertificateLen   Number of bytes in the DER-encoded certificate.\n   76  */\n   77: OSStatus MicoMFiAuthCopyCertificate( uint8_t **outCertificatePtr, size_t *outCertificateLen );\n   78  \n   79  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/hal/fsl_dspi_master_driver.h:\n   76      const uint8_t * restrict sendBuffer;  /*!< The buffer from which transmitted bytes are taken.*/\n   77      uint8_t * restrict receiveBuffer;     /*!< The buffer into which received bytes are placed.*/\n   78:     volatile size_t remainingSendByteCount;         /*!< Number of bytes remaining to send.*/\n   79:     volatile size_t remainingReceiveByteCount;      /*!< Number of bytes remaining to receive.*/\n   80      void * irqSync;                 /*!< Used to wait for ISR to complete its business.*/\n   81      bool useDma; /*!< User option to invoke usage of DMA */\n   ..\n  351                                                    const uint8_t * sendBuffer,\n  352                                                    uint8_t * receiveBuffer,\n  353:                                                   size_t transferByteCount,\n  354                                                    uint32_t timeout);\n  355  /*@}*/\n  ...\n  386                                            const uint8_t * sendBuffer,\n  387                                            uint8_t * receiveBuffer,\n  388:                                           size_t transferByteCount);\n  389  \n  390  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/hal/fsl_os_abstraction.h:\n  708   * @return Pointer to the reserved memory. NULL if memory could not be allocated.\n  709   */\n  710: void * OSA_MemAlloc(size_t size);\n  711  \n  712  /*!\n  ...\n  717   * @return Pointer to the reserved memory. NULL if memory could not be allocated.\n  718   */\n  719: void * OSA_MemAllocZero(size_t size);\n  720  \n  721  /*!\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/hal/fsl_os_abstraction_free_rtos.c:\n  635   *\n  636   *END**************************************************************************/\n  637: void *OSA_MemAlloc(size_t size)\n  638  {\n  639      return pvPortMalloc(size);\n  ...\n  648   *\n  649   *END**************************************************************************/\n  650: void * OSA_MemAllocZero(size_t size)\n  651  {\n  652      void *ptr = pvPortMalloc(size);\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/hal/fsl_uart_driver.h:\n   62      const uint8_t * txBuff;        /*!< The buffer of data being sent.*/\n   63      uint8_t * rxBuff;              /*!< The buffer of received data. */\n   64:     volatile size_t txSize;        /*!< The remaining number of bytes to be transmitted. */\n   65:     volatile size_t rxSize;        /*!< The remaining number of bytes to be received. */\n   66      volatile bool isTxBusy;        /*!< True if there is an active transmit. */\n   67      volatile bool isRxBusy;        /*!< True if there is an active receive. */\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/osa-d/fsl_os_abstraction.h:\n  727   * @return Pointer to the reserved memory. NULL if memory could not be allocated.\n  728   */\n  729: void * OSA_MemAlloc(size_t size);\n  730  \n  731  /*!\n  ...\n  736   * @return Pointer to the reserved memory. NULL if memory could not be allocated.\n  737   */\n  738: void * OSA_MemAllocZero(size_t size);\n  739  \n  740  /*!\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/osa-d/fsl_os_abstraction_mqx.h:\n  187  \n  188  /*! @brief Allocates the block aligned at a specific boundary */\n  189: void *OSA_MemoryAllocateAlign(size_t size, size_t align);\n  190  \n  191  /*@}*/\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/utilities/fsl_debug_console.c:\n  258  \n  259  #pragma weak __write\n  260: size_t __write(int handle, const unsigned char * buffer, size_t size)\n  261  {\n  262      if (buffer == 0)\n  ...\n  286  \n  287  #pragma weak __read\n  288: size_t __read(int handle, unsigned char * buffer, size_t size)\n  289  {\n  290      /* This function only reads from \"standard in\", for all other file*/\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/utilities/mem_tools.c:\n   36   * Function Definitions\n   37   ******************************************************************************/\n   38: void *mem_align(size_t ptrSize, uint32_t alignment)\n   39  {\n   40      char gap;   /* Variable to store difference between memory locations. */\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/utilities/mem_tools.h:\n   50  /*\n   51      @brief  Function  to peform aligned data memory allocation. Useful when memalign is not available.\n   52:     @param  ptrSize   size_t variable to pass size of memory to be allocated\n   53      @param  alignment uint32_t variable to pass byte size to align data with\n   54      @return pointer to aligned & allocated memory\n   55   */\n   56: void *mem_align(size_t ptrSize, uint32_t alignment);\n   57  \n   58  /*\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/LPCXpresso54102/retarget.h:\n  164     the following line to ensure that we are called with \"buffer\" as 0\n  165     (i.e. flush) when the application terminates. */\n  166: size_t __write(int handle, const unsigned char *buffer, size_t size)\n  167  {\n  168  #if defined(DEBUG_ENABLE)\n  169: 	size_t nChars = 0;\n  170  \n  171  	if (buffer == 0) {\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/LPCXpresso54102/NXP/lpc_board/board_common/retarget.h:\n  164     the following line to ensure that we are called with \"buffer\" as 0\n  165     (i.e. flush) when the application terminates. */\n  166: size_t __write(int handle, const unsigned char *buffer, size_t size)\n  167  {\n  168  #if defined(DEBUG_ENABLE)\n  169: 	size_t nChars = 0;\n  170  \n  171  	if (buffer == 0) {\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverRng.c:\n   92          while(RNG_GetFlagStatus(RNG_FLAG_DRDY)!=SET);\n   93          tempRDM = RNG_GetRandomNumber();\n   94:         memcpy(pByte, &tempRDM, (size_t)remainByteCount);\n   95      }\n   96      \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/EMW1062_Driver/SDIO/wlan_bus.c:\n  541          if ( direction == BUS_READ )\n  542          {\n  543:             memcpy( user_data, dma_data_source, (size_t) user_data_size );\n  544          }\n  545      }\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M4/STM32F4xx/MicoDriverRng.c:\n   92          while(RNG_GetFlagStatus(RNG_FLAG_DRDY)!=SET);\n   93          tempRDM = RNG_GetRandomNumber();\n   94:         memcpy(pByte, &tempRDM, (size_t)remainByteCount);\n   95      }\n   96      \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M4/STM32F4xx/EMW1062_Driver/SDIO/wlan_bus.c:\n  549          if ( direction == BUS_READ )\n  550          {\n  551:             memcpy( user_data, dma_data_source, (size_t) user_data_size );\n  552          }\n  553      }\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/IAR/stdio_IAR.c:\n   41  }\n   42  #else\n   43: size_t __write( int handle, const unsigned char * buffer, size_t size )\n   44  {\n   45    UNUSED_PARAMETER(handle);\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/IDEs/Keil/patch_keil.c:\n   22  extern void xPortSysTickHandler(void);\n   23  \n   24: size_t strnlen(const char *s, size_t count)    \n   25  {    \n   26          const char *sc;    \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/vendor/Freescale/MK64FxxL12/EMW1062_Driver/SDIO/wlan_bus.c:\n  549          if ( direction == BUS_READ )\n  550          {\n  551:             memcpy( user_data, dma_data_source, (size_t) user_data_size );\n  552          }\n  553      }\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/vendor/Freescale/MK64FxxL12/EMW1062_Driver/SPI/wwd_bus.c:\n   98   *             Function definitions\n   99   ******************************************************/\n  100: void *mem_align(size_t ptrSize, uint32_t alignment)\n  101  {\n  102      char gap;   /* Variable to store difference between memory locations. */\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/vendor/nxp/LPC54xx/EMW1062_Driver/SDIO/wlan_bus.c:\n  549          if ( direction == BUS_READ )\n  550          {\n  551:             memcpy( user_data, dma_data_source, (size_t) user_data_size );\n  552          }\n  553      }\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/AESUtils.c:\n   96  //===========================================================================================================================\n   97  \n   98: OSStatus    AES_CTR_Update( AES_CTR_Context *inContext, const void *inSrc, size_t inLen, void *inDst )\n   99  {\n  100      OSStatus            err;\n  ...\n  102      uint8_t *           dst;\n  103      uint8_t *           buf;\n  104:     size_t              used;\n  105:     size_t              i;\n  106      \n  107      // inSrc and inDst may be the same, but otherwise, the buffers must not overlap.\n  ...\n  253  //===========================================================================================================================\n  254  \n  255: OSStatus    AES_CBCFrame_Update( AES_CBCFrame_Context *inContext, const void *inSrc, size_t inSrcLen, void *inDst )\n  256  {\n  257      OSStatus            err;\n  ...\n  259      const uint8_t *     end;\n  260      uint8_t *           dst;\n  261:     size_t              len;\n  262      \n  263      src = (const uint8_t *) inSrc;\n  ...\n  267      // Process whole blocks.\n  268      \n  269:     len = inSrcLen & ~( (size_t)( kAES_CBCFrame_Size - 1 ) );\n  270      if( len > 0 )\n  271      {\n  ...\n  319          AES_CBCFrame_Context *  inContext, \n  320          const void *            inSrc1, \n  321:         size_t                  inLen1, \n  322          const void *            inSrc2, \n  323:         size_t                  inLen2, \n  324          void *                  inDst )\n  325  {\n  ...\n  330      uint8_t *           dst  = (uint8_t *) inDst;\n  331      OSStatus            err;\n  332:     size_t              len;\n  333:     size_t              i;\n  334  #if( !AES_UTILS_USE_COMMON_CRYPTO )\n  335      uint8_t             iv[ kAES_CBCFrame_Size ];\n  ...\n  348      // Process all whole blocks from buffer 1.\n  349      \n  350:     len = inLen1 & ~( (size_t)( kAES_CBCFrame_Size - 1 ) );\n  351      if( len > 0 )\n  352      {\n  ...\n  403      // Process any remaining whole blocks in buffer 2.\n  404      \n  405:     len = ( (size_t)( end2 - src2 ) ) & ~( (size_t)( kAES_CBCFrame_Size - 1 ) );\n  406      if( len > 0 )\n  407      {\n  ...\n  564  //===========================================================================================================================\n  565  \n  566: OSStatus    AES_ECB_Update( AES_ECB_Context *inContext, const void *inSrc, size_t inLen, void *inDst )\n  567  {\n  568      OSStatus            err;\n  569      const uint8_t *     src;\n  570      uint8_t *           dst;\n  571:     size_t              n;\n  572      \n  573      // inSrc and inDst may be the same, but otherwise, the buffers must not overlap.\n  ...\n  583      {\n  584          #if( AES_UTILS_USE_COMMON_CRYPTO )\n  585:             size_t      len;\n  586              \n  587              err = CCCryptorUpdate( inContext->cryptor, src, kAES_ECB_Size, dst, kAES_ECB_Size, &len );\n  ...\n  722  {\n  723      OSStatus        err;\n  724:     size_t          len;\n  725      \n  726      len = kAES_CGM_Size;\n  ...\n  753  {\n  754      OSStatus        err;\n  755:     size_t          len;\n  756      uint8_t         authTag[ kAES_CGM_Size ];\n  757      \n  ...\n  784  //===========================================================================================================================\n  785  \n  786: OSStatus    AES_GCM_AddAAD( AES_GCM_Context *inContext, const void *inPtr, size_t inLen )\n  787  {\n  788      OSStatus        err;\n  ...\n  807  \n  808  #if( AES_UTILS_HAS_COMMON_CRYPTO_GCM )\n  809: OSStatus    AES_GCM_Encrypt( AES_GCM_Context *inContext, const void *inSrc, size_t inLen, void *inDst )\n  810  {\n  811      OSStatus        err;\n  ...\n  818  }\n  819  #elif( AES_UTILS_HAS_GLADMAN_GCM )\n  820: OSStatus    AES_GCM_Encrypt( AES_GCM_Context *inContext, const void *inSrc, size_t inLen, void *inDst )\n  821  {\n  822      OSStatus        err;\n  ...\n  835  \n  836  #if( AES_UTILS_HAS_COMMON_CRYPTO_GCM )\n  837: OSStatus    AES_GCM_Decrypt( AES_GCM_Context *inContext, const void *inSrc, size_t inLen, void *inDst )\n  838  {\n  839      OSStatus        err;\n  ...\n  846  }\n  847  #elif( AES_UTILS_HAS_GLADMAN_GCM )\n  848: OSStatus    AES_GCM_Decrypt( AES_GCM_Context *inContext, const void *inSrc, size_t inLen, void *inDst )\n  849  {\n  850      OSStatus        err;\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/AESUtils.h:\n  140      uint8_t             ctr[ kAES_CTR_Size ];   //! PRIVATE: Big endian counter.\n  141      uint8_t             buf[ kAES_CTR_Size ];   //! PRIVATE: Keystream buffer.\n  142:     size_t              used;                   //! PRIVATE: Number of bytes of the keystream buffer that we've used.\n  143      \n  144      Boolean             legacy;                 //! true=do legacy, chunked encrypting/decrypting.\n  ...\n  151          const uint8_t       inKey[ kAES_CTR_Size ], \n  152          const uint8_t       inNonce[ kAES_CTR_Size ] );\n  153: OSStatus    AES_CTR_Update( AES_CTR_Context *inContext, const void *inSrc, size_t inSrcLen, void *inDst );\n  154  void        AES_CTR_Final( AES_CTR_Context *inContext );\n  155  \n  ...\n  206          const uint8_t           inIV[ kAES_CBCFrame_Size ], \n  207          Boolean                 inEncrypt );\n  208: OSStatus    AES_CBCFrame_Update( AES_CBCFrame_Context *inContext, const void *inSrc, size_t inSrcLen, void *inDst );\n  209  OSStatus\n  210      AES_CBCFrame_Update2( \n  211          AES_CBCFrame_Context *  inContext, \n  212          const void *            inSrc1, \n  213:         size_t                  inLen1, \n  214          const void *            inSrc2, \n  215:         size_t                  inLen2, \n  216          void *                  inDst );\n  217  void    AES_CBCFrame_Final( AES_CBCFrame_Context *inContext );\n  ...\n  280  \n  281  OSStatus    AES_ECB_Init( AES_ECB_Context *inContext, uint32_t inMode, const uint8_t inKey[ kAES_ECB_Size ] );\n  282: OSStatus    AES_ECB_Update( AES_ECB_Context *inContext, const void *inSrc, size_t inLen, void *inDst );\n  283  void        AES_ECB_Final( AES_ECB_Context *inContext );\n  284  \n  ...\n  344  OSStatus    AES_GCM_VerifyMessage( AES_GCM_Context *inContext, const uint8_t inAuthTag[ kAES_CGM_Size ] );\n  345  \n  346: OSStatus    AES_GCM_AddAAD( AES_GCM_Context *inContext, const void *inPtr, size_t inLen );\n  347: OSStatus    AES_GCM_Encrypt( AES_GCM_Context *inContext, const void *inSrc, size_t inLen, void *inDst );\n  348: OSStatus    AES_GCM_Decrypt( AES_GCM_Context *inContext, const void *inSrc, size_t inLen, void *inDst );\n  349  \n  350  #endif // AES_UTILS_HAS_GCM\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/HTTPUtils.c:\n   37  #define READ_LENGTH 1500\n   38  \n   39: OSStatus onReceivedDataCallbackDefault(struct _HTTPHeader_t * httpHeader, uint32_t pos, uint8_t * data, size_t len, void * userContext )\n   40  {\n   41    UNUSED_PARAMETER(httpHeader);\n   ..\n   54    char *          lim;\n   55    char *          end;\n   56:   size_t          len;\n   57    ssize_t         n;\n   58    \n   ..\n   64      if(findHeader( inHeader,  &end ))\n   65        break ;\n   66:     n = read( inSock, dst, (size_t)( lim - dst ) );\n   67:     if(      n  > 0 ) len = (size_t) n;\n   68      else  { err = kConnectionErr; goto exit; }\n   69      dst += len;\n   ..\n   71    }\n   72    \n   73:   inHeader->len = (size_t)( end - buf );\n   74    err = HTTPHeaderParse( inHeader );\n   75    require_noerr( err, exit );\n   76:   inHeader->extraDataLen = (size_t)( dst - end );\n   77    if(inHeader->extraDataPtr) {\n   78      free((uint8_t *)inHeader->extraDataPtr);\n   ..\n   93  \n   94    if (inHeader->contentLength != 0){ //Content length >0, create a memory buffer (Content length) and store extra data\n   95:     size_t copyDataLen = (inHeader->contentLength >= inHeader->extraDataLen)? inHeader->extraDataLen : inHeader->contentLength;\n   96      if((inHeader->onReceivedDataCallback)(inHeader, 0, (uint8_t *)end, copyDataLen, inHeader->userContext)==kNoErr){\n   97        inHeader->isCallbackSupported = true;\n   ..\n  128    char *buf = (char *)inHeader->buf;\n  129    char *src = (char *)inHeader->buf;\n  130:   size_t          len;\n  131    \n  132    // Check for interleaved binary data (4 byte header that begins with $). See RFC 2326 section 10.12.\n  ...\n  145      if( src >= *outHeaderEnd ) break;\n  146      \n  147:     len = (size_t)( *outHeaderEnd - src );\n  148      if( ( len >= 3 ) && ( src[ 1 ] == '\\r' ) && ( src[ 2 ] == '\\n' ) ) // CRLFCRLF or LFCRLF.\n  149      {\n  ...\n  171    int selectResult;\n  172    fd_set readSet;\n  173:   size_t    lastChunkLen, chunckheaderLen; \n  174    char *nextPackagePtr;\n  175    struct timeval_t t;\n  176:   size_t          readLength;\n  177    uint32_t pos = 0;\n  178    t.tv_sec = 5;\n  ...\n  195          require_action( selectResult >= 1, exit, err = kNotReadableErr );\n  196  \n  197:         readResult = read( inSock, inHeader->chunkedDataBufferPtr + inHeader->extraDataLen, (size_t)( inHeader->chunkedDataBufferLen - inHeader->extraDataLen ) );\n  198  \n  199          if( readResult  > 0 ) inHeader->extraDataLen += readResult;\n  ...\n  379    char                c;\n  380    const char *        value;\n  381:   size_t              valueSize;\n  382    int                 x;\n  383    \n  ...\n  437    {\n  438      ioHeader->methodPtr = src;\n  439:     ioHeader->methodLen = (size_t)( ptr - src );\n  440      ++ptr;\n  441      \n  ...\n  443      ioHeader->urlPtr = ptr;\n  444      while( ( ptr < end ) && ( *ptr != ' ' ) ) ++ptr;\n  445:     ioHeader->urlLen = (size_t)( ptr - ioHeader->urlPtr );\n  446      require_action( ptr < end, exit, err = kMalformedErr );\n  447      ++ptr;\n  ...\n  453      ioHeader->protocolPtr = ptr;\n  454      while( ( ptr < end ) && ( ( c = *ptr ) != '\\r' ) && ( c != '\\n' ) ) ++ptr;\n  455:     ioHeader->protocolLen = (size_t)( ptr - ioHeader->protocolPtr );\n  456      require_action( ptr < end, exit, err = kMalformedErr );\n  457      ++ptr;\n  ...\n  462      ioHeader->protocolPtr = src;\n  463      for( ++ptr; ( ptr < end ) && ( *ptr != ' ' ); ++ptr ) {}\n  464:     ioHeader->protocolLen = (size_t)( ptr - ioHeader->protocolPtr );\n  465      require_action( ptr < end, exit, err = kMalformedErr );\n  466      ++ptr;\n  ...\n  475      ioHeader->reasonPhrasePtr = ptr;\n  476      while( ( ptr < end ) && ( ( c = *ptr ) != '\\r' ) && ( c != '\\n' ) ) ++ptr;\n  477:     ioHeader->reasonPhraseLen = (size_t)( ptr - ioHeader->reasonPhrasePtr );\n  478      require_action( ptr < end, exit, err = kMalformedErr );\n  479      ++ptr;\n  ...\n  501  }\n  502  \n  503: int findCRLF( const char *inDataPtr , size_t inDataLen, char **  nextDataPtr ) //find CRLF\n  504  {\n  505    char *dst = (char *)inDataPtr + inDataLen;\n  506    char *src = (char *)inDataPtr;\n  507:   size_t          len;\n  508    \n  509    // Find an empty line (separates the length and data).\n  ...\n  513      if( src >= dst ) break;\n  514      \n  515:     len = (size_t)( dst - src );\n  516  \n  517      if( ( len >= 2 ) && ( src[ 1 ] == '\\n' ) ) // CRLF\n  ...\n  529  }\n  530  \n  531: int findChunkedDataLength( const char *inChunkPtr , size_t inChunkLen, char **  chunkedDataPtr, const char *inFormat, ... )\n  532  {\n  533    char *dst = (char *)inChunkPtr + inChunkLen;\n  534    char *src = (char *)inChunkPtr;\n  535:   size_t          len;\n  536    va_list         args;\n  537    \n  ...\n  543      if( src >= *chunkedDataPtr ) break;\n  544      \n  545:     len = (size_t)( *chunkedDataPtr - src );\n  546  \n  547      if( ( len >= 2 ) && ( src[ 1 ] == '\\n' ) ) // CRLF\n  ...\n  571  \n  572  OSStatus HTTPGetHeaderField( const char *inHeaderPtr, \n  573:                             size_t     inHeaderLen, \n  574                              const char *inName, \n  575                              const char **outNamePtr, \n  576:                             size_t     *outNameLen, \n  577                              const char **outValuePtr, \n  578:                             size_t     *outValueLen, \n  579                              const char **outNext )\n  580  {\n  581    const char *        src;\n  582    const char *        end;\n  583:   size_t              matchLen;\n  584    char                c;\n  585    \n  ...\n  592      const char *        linePtr;\n  593      const char *        lineEnd;\n  594:     size_t              lineLen;\n  595      const char *        valuePtr;\n  596      const char *        valueEnd;\n  ...\n  601      if( src >= end ) break;\n  602      lineEnd = src;\n  603:     lineLen = (size_t)( src - linePtr );\n  604      if( ( src < end ) && ( *src == '\\r' ) ) ++src;\n  605      if( ( src < end ) && ( *src == '\\n' ) ) ++src;\n  ...\n  612        while( ( nameEnd < lineEnd ) && ( *nameEnd != ':' ) ) ++nameEnd;\n  613        if( nameEnd >= lineEnd ) continue;\n  614:       matchLen = (size_t)( nameEnd - linePtr );\n  615      }\n  616      else if( ( lineLen <= matchLen ) || ( linePtr[ matchLen ] != ':' ) || \n  ...\n  638      if( outNameLen )    *outNameLen     = matchLen;\n  639      if( outValuePtr )   *outValuePtr    = valuePtr;\n  640:     if( outValueLen )   *outValueLen    = (size_t)( valueEnd - valuePtr );\n  641      if( outNext )       *outNext        = src;\n  642      return( kNoErr );\n  ...\n  645  }\n  646  \n  647: int HTTPScanFHeaderValue( const char *inHeaderPtr, size_t inHeaderLen, const char *inName, const char *inFormat, ... )\n  648  {\n  649    int                 n;\n  650    const char *        valuePtr;\n  651:   size_t              valueLen;\n  652    va_list             args;\n  653    \n  ...\n  705  {\n  706    char *nextPackagePtr;\n  707:   size_t chunckheaderLen = inHeader->extraDataPtr - inHeader->chunkedDataBufferPtr;\n  708  \n  709    if(inHeader->onClearCallback)\n  ...\n  750  }\n  751  \n  752: OSStatus CreateSimpleHTTPOKMessage( uint8_t **outMessage, size_t *outMessageSize )\n  753  {\n  754    OSStatus err = kNoMemoryErr;\n  ...\n  769  \n  770  \n  771: OSStatus CreateSimpleHTTPMessage( const char *contentType, uint8_t *inData, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize )\n  772  {\n  773    uint8_t *endOfHTTPHeader;  \n  ...\n  802  }\n  803  \n  804: OSStatus CreateSimpleHTTPMessageNoCopy( const char *contentType, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize )\n  805  {\n  806    OSStatus err = kParamErr;\n  ...\n  852  }\n  853  \n  854: OSStatus CreateHTTPRespondMessageNoCopy( int status, const char *contentType, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize )\n  855  {\n  856    OSStatus err = kParamErr;\n  ...\n  882  \n  883  \n  884: OSStatus CreateHTTPMessage( const char *methold, const char *url, const char *contentType, uint8_t *inData, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize )\n  885  {\n  886    uint8_t *endOfHTTPHeader;  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/HTTPUtils.h:\n   90  {\n   91      char                buf[ 512 ];        //! Buffer holding the start line and all headers.\n   92:     size_t              len;                //! Number of bytes in the header.\n   93      char *              extraDataPtr;       //! Ptr for any extra data beyond the header, it is alloced when http header is received.\n   94      char *              otaDataPtr;         //! Ptr for any OTA data beyond the header, it is alloced when one OTA package is received.\n   95:     size_t              extraDataLen;       //! Length of any extra data beyond the header.\n   96  \n   97      const char *        methodPtr;          //! Request method (e.g. \"GET\"). \"$\" for interleaved binary data.\n   98:     size_t              methodLen;          //! Number of bytes in request method.\n   99      const char *        urlPtr;             //! Request absolute or relative URL or empty if not a request.\n  100:     size_t              urlLen;             //! Number of bytes in URL.\n  101      URLComponents       url;                //! Parsed URL components.\n  102      const char *        protocolPtr;        //! Request or response protocol (e.g. \"HTTP/1.1\").\n  103:     size_t              protocolLen;        //! Number of bytes in protocol.\n  104      int                 statusCode;         //! Response status code (e.g. 200 for HTTP OK).\n  105      const char *        reasonPhrasePtr;    //! Response reason phrase (e.g. \"OK\" for an HTTP 200 OK response).\n  106:     size_t              reasonPhraseLen;    //! Number of bytes in reason phrase.\n  107  \n  108      uint8_t             channelID;          //! Interleaved binary data channel ID. 0 for other message types.\n  ...\n  115      bool                chunkedData;        //! true=Application should read the next chunked data.\n  116      char *              chunkedDataBufferPtr;     //! Ptr for any extra data beyond the header, it is alloced when http header is received.\n  117:     size_t              chunkedDataBufferLen; //! Total buffer length that stores the chunkedData, private use only\n  118  \n  119      void *              userContext;\n  120      bool                isCallbackSupported;\n  121:     OSStatus            (*onReceivedDataCallback) ( struct _HTTPHeader_t * , uint32_t, uint8_t *, size_t, void * ); \n  122      void                (*onClearCallback) ( struct _HTTPHeader_t * httpHeader, void * userContext );\n  123  \n  ...\n  126  } HTTPHeader_t;\n  127  \n  128: typedef OSStatus (*onReceivedDataCallback) ( struct _HTTPHeader_t * httpHeader, uint32_t pos, uint8_t * data, size_t len, void * userContext );\n  129  \n  130  typedef void (*onClearCallback) ( struct _HTTPHeader_t * httpHeader, void * userContext );\n  ...\n  134  bool findHeader ( HTTPHeader_t *inHeader,  char **  outHeaderEnd);\n  135  \n  136: int HTTPScanFHeaderValue( const char *inHeaderPtr, size_t inHeaderLen, const char *inName, const char *inFormat, ... );\n  137  \n  138: int findCRLF( const char *inDataPtr , size_t inDataLen, char **  nextDataPtr );\n  139  \n  140: int findChunkedDataLength( const char *inChunkPtr , size_t inChunkLen, char **  chunkedDataPtr, const char *inFormat, ... );\n  141  \n  142  int SocketReadHTTPHeader( int inSock, HTTPHeader_t *inHeader );\n  ...\n  154  \n  155  int HTTPGetHeaderField( const char *inHeaderPtr, \n  156:                              size_t     inHeaderLen, \n  157                               const char *inName, \n  158                               const char **outNamePtr, \n  159:                              size_t     *outNameLen, \n  160                               const char **outValuePtr, \n  161:                              size_t     *outValueLen, \n  162                               const char **outNext );\n  163  \n  ...\n  168  void HTTPHeaderClear( HTTPHeader_t *inHeader );\n  169  \n  170: int CreateSimpleHTTPOKMessage( uint8_t **outMessage, size_t *outMessageSize );\n  171  \n  172: OSStatus CreateSimpleHTTPMessage      ( const char *contentType, uint8_t *inData, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize );\n  173: OSStatus CreateSimpleHTTPMessageNoCopy( const char *contentType, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize );\n  174  \n  175: OSStatus CreateHTTPRespondMessageNoCopy( int status, const char *contentType, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize );\n  176  \n  177  \n  178: OSStatus CreateHTTPMessage( const char *methold, const char *url, const char *contentType, uint8_t *inData, size_t inDataLen, uint8_t **outMessage, size_t *outMessageSize );\n  179  \n  180  #endif // __HTTPUtils_h__\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/SecurityUtils.c:\n   29  //===========================================================================================================================\n   30  \n   31: int memcmp_constant_time( const void *inA, const void *inB, size_t inLen )\n   32  {\n   33      const uint8_t * const       a = (const uint8_t *) inA; \n   34      const uint8_t * const       b = (const uint8_t *) inB; \n   35      int                         result = 0; \n   36:     size_t                      i;   \n   37      \n   38      for( i = 0; i < inLen; ++i )\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/SecurityUtils.h:\n   33  //  This is needed to avoid certain timing attacks in cryptographic software.\n   34  //===========================================================================================================================\n   35: int memcmp_constant_time( const void *inA, const void *inB, size_t inLen );\n   36  \n   37  #endif // __SecurityUtils_h__\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/SHAUtils.c:\n   56  //===========================================================================================================================\n   57  \n   58: int SHA1_Update_compat( SHA_CTX_compat *ctx, const void *inData, size_t inLen )\n   59  {\n   60      const uint8_t *     src = (const uint8_t *) inData;\n   61:     size_t              n;\n   62      \n   63      while( inLen > 0 )\n   ..\n  127  //===========================================================================================================================\n  128  \n  129: unsigned char * SHA1_compat( const void *inData, size_t inLen, unsigned char *outDigest )\n  130  {\n  131      SHA_CTX_compat      ctx;\n  ...\n  279  //===========================================================================================================================\n  280  \n  281: int SHA512_Update_compat( SHA512_CTX_compat *ctx, const void *inData, size_t inLen )\n  282  {\n  283      const uint8_t *     src = (const uint8_t *) inData;\n  284:     size_t              n;\n  285      \n  286      while( inLen > 0 )\n  ...\n  351  //===========================================================================================================================\n  352  \n  353: unsigned char * SHA512_compat( const void *inData, size_t inLen, unsigned char *outDigest )\n  354  {\n  355      SHA512_CTX_compat       ctx;\n  ...\n  461  //===========================================================================================================================\n  462  \n  463: int SHA3_Update_compat( SHA3_CTX_compat *ctx, const void *inData, size_t inLen )\n  464  {\n  465      const uint8_t *     in = (const uint8_t *) inData;\n  466:     size_t              want;\n  467      \n  468      // Handle the previous data.\n  ...\n  501  int SHA3_Final_compat( uint8_t *outDigest, SHA3_CTX_compat *ctx )\n  502  {\n  503:     size_t      i;\n  504      \n  505      ctx->buffer[ctx->leftover] = 0x01;\n  ...\n  519  //===========================================================================================================================\n  520  \n  521: uint8_t *   SHA3_compat( const void *inData, size_t inLen, uint8_t outDigest[64] )\n  522  {\n  523      SHA3_CTX_compat     ctx;\n  ...\n  539      uint64_t        s21, s22, s23, s24;\n  540      uint64_t        t0, t1, t2, t3, t4, u0, u1, u2, u3, u4, v, w;\n  541:     size_t          i;\n  542      \n  543      s0  = ctx->state[ 0] ^ ReadLittle64( &in[0] );\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/SHAUtils.h:\n   41  \n   42  int SHA1_Init_compat( SHA_CTX_compat *ctx );\n   43: int SHA1_Update_compat( SHA_CTX_compat *ctx, const void *inData, size_t inLen );\n   44  int SHA1_Final_compat( unsigned char *outDigest, SHA_CTX_compat *ctx );\n   45: unsigned char * SHA1_compat( const void *inData, size_t inLen, unsigned char *outDigest );\n   46  \n   47  //===========================================================================================================================\n   ..\n   53      uint64_t        length;\n   54      uint64_t        state[ 8 ];\n   55:     size_t          curlen;\n   56      uint8_t         buf[ 128 ];\n   57      \n   ..\n   59  \n   60  int SHA512_Init_compat( SHA512_CTX_compat *ctx );\n   61: int SHA512_Update_compat( SHA512_CTX_compat *ctx, const void *inData, size_t inLen );\n   62  int SHA512_Final_compat( unsigned char *outDigest, SHA512_CTX_compat *ctx );\n   63: unsigned char * SHA512_compat( const void *inData, size_t inLen, unsigned char *outDigest );\n   64  \n   65  //===========================================================================================================================\n   ..\n   76  {\n   77      uint64_t        state[ SHA3_F / 64 ];\n   78:     size_t          leftover;\n   79      uint8_t         buffer[ SHA3_BLOCK_SIZE ];\n   80      \n   ..\n   82  \n   83  int SHA3_Init_compat( SHA3_CTX_compat *ctx );\n   84: int SHA3_Update_compat( SHA3_CTX_compat *ctx, const void *inData, size_t inLen );\n   85  int SHA3_Final_compat( unsigned char *outDigest, SHA3_CTX_compat *ctx );\n   86: uint8_t *   SHA3_compat( const void *inData, size_t inLen, uint8_t outDigest[ 64 ] );\n   87  \n   88  #endif // __SHAUtils_h_\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/SocketUtils.c:\n   27  #define socket_utils_log_trace() custom_log_trace(\"SocketUtils\")\n   28  \n   29: OSStatus SocketSend( int fd, const uint8_t *inBuf, size_t inBufLen )\n   30  {\n   31      socket_utils_log_trace();\n   ..\n   33      ssize_t writeResult;\n   34      int selectResult;\n   35:     size_t numWritten;\n   36      fd_set writeSet;\n   37      struct timeval_t t;\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/SocketUtils.h:\n   25  #include \"Common.h\"\n   26  \n   27: OSStatus SocketSend( int fd, const uint8_t *inBuf, size_t inBufLen );\n   28  \n   29  void SocketClose(int* fd);\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/StringUtils.c:\n  107  //===========================================================================================================================\n  108  \n  109: size_t memrlen( const void *inSrc, size_t inMaxLen )\n  110  {\n  111      const uint8_t * const       ptr = (const uint8_t *) inSrc;\n  112:     size_t                      i;\n  113  \n  114      for( i = inMaxLen; ( i > 0 ) && ( ptr[ i - 1 ] == 0 ); --i ) {}\n  ...\n  229  //===========================================================================================================================\n  230  \n  231: OSStatus TextToHardwareAddress( const void *inText, size_t inTextSize, size_t inAddrSize, void *outAddr )\n  232  {\n  233      OSStatus            err;\n  ...\n  269  }\n  270  \n  271: char* DataToHexString( const uint8_t *inBuf, size_t inBufLen )\n  272  {\n  273      char* buf_str = NULL;\n  ...\n  289  }\n  290  \n  291: char* DataToHexStringWithSpaces( const uint8_t *inBuf, size_t inBufLen )\n  292  {\n  293      char* buf_str = NULL;\n  ...\n  309  }\n  310  \n  311: char* DataToHexStringWithColons( const uint8_t *inBuf, size_t inBufLen )\n  312  {\n  313      char* buf_str = NULL;\n  ...\n  335  }\n  336  \n  337: char* DataToCString( const uint8_t *inBuf, size_t inBufLen )\n  338  {\n  339      char* cString = NULL;\n  ...\n  358  //===========================================================================================================================\n  359  \n  360: int strnicmp( const char *inS1, const char *inS2, size_t inMax )\n  361  {\n  362      const char *        end;\n  ...\n  385  //===========================================================================================================================\n  386  \n  387: int strnicmpx( const void *inS1, size_t inN, const char *inS2 )\n  388  {\n  389      const unsigned char *       s1;\n  ...\n  413  //===========================================================================================================================\n  414  \n  415: int VSNScanF( const void *inString, size_t inSize, const char *inFormat, va_list inArgs )\n  416  {\n  417      int                         matched;\n  ...\n  438      void *                      p;\n  439      const unsigned char **      ptrArg;\n  440:     size_t *                    sizeArg;\n  441:     size_t                      len;\n  442  \n  443      if( inSize == kSizeCString ) inSize = strlen( (const char *) inString );\n  ...\n  522  \n  523              case 'j':   // j for intmax_t * / uintmax_t *\n  524:             case 'z':   // z for size_t *\n  525              case 't':   // t for ptrdiff_t *\n  526                  sizeModifier = c;\n  ...\n  570                  if( storePtr )\n  571                  {\n  572:                     len = (size_t)( end - src );\n  573:                     if( len > (size_t) fieldWidth )\n  574                      {\n  575:                         len = (size_t) fieldWidth;\n  576                      }\n  577                      if( suppress ) { src += len; continue; }\n  ...\n  580                      if( ptrArg ) *ptrArg = src;\n  581  \n  582:                     sizeArg = va_arg( inArgs, size_t * );\n  583                      if( sizeArg ) *sizeArg = len;\n  584  \n  ...\n  622                      if( ptrArg ) *ptrArg = old;\n  623  \n  624:                     sizeArg = va_arg( inArgs, size_t * );\n  625:                     if( sizeArg ) *sizeArg = (size_t)( src - old );\n  626  \n  627                      ++matched;\n  ...\n  685                          if( ptrArg ) *ptrArg = old;\n  686  \n  687:                         sizeArg = va_arg( inArgs, size_t * );\n  688:                         if( sizeArg ) *sizeArg = (size_t)( src - old );\n  689                      }\n  690                      else\n  ...\n  823              case 'L': *( (int64_t   *) p ) =                        x; break;\n  824              case 'j': *( (intmax_t  *) p ) = (intmax_t)             x; break;\n  825:             case 'z': *( (size_t    *) p ) = (size_t)               x; break;\n  826              case 't': *( (ptrdiff_t *) p ) = (ptrdiff_t)            x; break;\n  827              case 'p': *( (void     **) p ) = (void *)( (uintptr_t)  x ); break;\n  ...\n  843  //===========================================================================================================================\n  844  \n  845: int strnicmp_suffix( const void *inStr, size_t inMaxLen, const char *inSuffix )\n  846  {\n  847      const char *        stringPtr;\n  848:     size_t              stringLen;\n  849:     size_t              suffixLen;\n  850  \n  851      stringPtr = (const char *) inStr;\n  ...\n  866  //===========================================================================================================================\n  867  \n  868: char * strnstr_suffix( const char *inStr, size_t inMaxLen, const char *inSuffix)\n  869  {\n  870:     size_t              stringLen;\n  871:     size_t              suffixLen;\n  872      char *              instr_tmp;\n  873      char *              inSuffix_tmp;\n  874:     size_t              i;\n  875      char *              ret;\n  876  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/StringUtils.h:\n   37      @abstract   Constant for describing the size of a null terminated string\n   38  */\n   39: #define kSizeCString ( (size_t) -1 )\n   40  \n   41  // ==== MAC String Tools ====   \n   ..\n   78  #define TextToMACAddress( TEXT, SIZE, ADDR )    TextToHardwareAddress( TEXT, SIZE, 6, ADDR )\n   79  \n   80: int TextToHardwareAddress( const void *inText, size_t inTextSize, size_t inAddrSize, void *outAddr );\n   81  \n   82  // ==== BYTE BUFFER TO STRING CONVERSION UTILS ====\n   83: char* DataToCString( const uint8_t *inBuf, size_t inBufLen );\n   84  \n   85: char* DataToHexString( const uint8_t *inBuf, size_t inBufLen );\n   86  \n   87: char* DataToHexStringWithSpaces( const uint8_t *inBuf, size_t inBufLen );\n   88  \n   89: char* DataToHexStringWithColons( const uint8_t *inBuf, size_t inBufLen );\n   90  \n   91  // ==== STRING COMPARE UTILS ====\n   92: int strnicmp_suffix( const void *inStr, size_t inMaxLen, const char *inSuffix );\n   93  \n   94: int strnicmp( const char *inS1, const char *inS2, size_t inMax );\n   95  \n   96: int strnicmpx( const void *inS1, size_t inN, const char *inS2 );\n   97  \n   98: char * strnstr_suffix( const char *inStr, size_t inMaxLen, const char *inSuffix);\n   99  \n  100: int VSNScanF( const void *inString, size_t inSize, const char *inFormat, va_list inArgs );\n  101  \n  102: size_t  memrlen( const void *inSrc, size_t inMaxLen );\n  103  \n  104  void *memmem(void *start, unsigned int s_len, void *find, unsigned int f_len);\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/TLVUtils.c:\n   29                       uint8_t *          outID, \n   30                       const uint8_t **   outData, \n   31:                      size_t *           outLen, \n   32                       const uint8_t **   outNext )\n   33  {\n   34      const uint8_t *     ptr;\n   35:     size_t              len;\n   36      const uint8_t *     next;\n   37  \n   38      //check( inSrc <= inEnd );\n   39:     len = (size_t)( inEnd - inSrc );\n   40      if( len < 2 )\n   41          return( kNotFoundErr );\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/TLVUtils.h:\n   33          uint8_t *           outID, \n   34          const uint8_t **    outData, \n   35:         size_t *            outLen, \n   36          const uint8_t **    outNext );\n   37  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/URLUtils.c:\n  166      \n  167      outComponents->schemePtr    = schemePtr;\n  168:     outComponents->schemeLen    = (size_t)( schemeEnd - schemePtr );\n  169      outComponents->userPtr      = userPtr;\n  170:     outComponents->userLen      = (size_t)( userEnd - userPtr );\n  171      outComponents->passwordPtr  = passwordPtr;\n  172:     outComponents->passwordLen  = (size_t)( passwordEnd - passwordPtr );\n  173      outComponents->hostPtr      = hostPtr;\n  174:     outComponents->hostLen      = (size_t)( hostEnd - hostPtr );\n  175      outComponents->pathPtr      = pathPtr;\n  176:     outComponents->pathLen      = (size_t)( pathEnd - pathPtr );\n  177      outComponents->queryPtr     = queryPtr;\n  178:     outComponents->queryLen     = (size_t)( queryEnd - queryPtr );\n  179      outComponents->fragmentPtr  = fragmentPtr;\n  180:     outComponents->fragmentLen  = (size_t)( fragmentEnd - fragmentPtr );\n  181      outComponents->segmentPtr   = ( ( pathPtr < pathEnd ) && ( *pathPtr      == '/' ) ) ? ( pathPtr + 1 ) : pathPtr;\n  182      outComponents->segmentEnd   = ( ( pathPtr < pathEnd ) && ( pathEnd[ -1 ] == '/' ) ) ? ( pathEnd - 1 ) : pathEnd;\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/URLUtils.h:\n   33  {\n   34      const char *    schemePtr;\n   35:     size_t          schemeLen;\n   36      const char *    userPtr;\n   37:     size_t          userLen;\n   38      const char *    passwordPtr;\n   39:     size_t          passwordLen;\n   40      const char *    hostPtr;\n   41:     size_t          hostLen;\n   42      const char *    pathPtr;\n   43:     size_t          pathLen;\n   44      const char *    queryPtr;\n   45:     size_t          queryLen;\n   46      const char *    fragmentPtr;\n   47:     size_t          fragmentLen;\n   48      \n   49      const char *    segmentPtr; // Ptr to the current resource path segment. Leading slash is removed, if present.\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/UartRecv.c:\n   29  #define uart_recv_log_trace() custom_log_trace(\"UART RECV\")\n   30  \n   31: static size_t _uart_get_one_packet(uint8_t* buf, int maxlen);\n   32  \n   33  void uartRecv_thread(void *inContext)\n   ..\n   55  * copy to buf, return len = datalen+10\n   56  */\n   57: size_t _uart_get_one_packet(uint8_t* inBuf, int inBufLen)\n   58  {\n   59    uart_recv_log_trace();\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/Curve25519/curve25519-donna-test.c:\n  163  	OSStatus			err;\n  164  	uint8_t				e[ 32 ], k[ 32 ], ek[ 32 ], ek2[ 32 ];\n  165: 	size_t				i, j, len;\n  166  	CFAbsoluteTime		t = 0;\n  167  	\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/JSON-C/config.h:\n  115  \n  116  /* Define to `unsigned' if <sys/types.h> does not define. */\n  117: #undef size_t\n  118  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/JSON-C/json_object.c:\n   27  \n   28  #if !HAVE_STRNDUP\n   29:   char* strndup(const char* str, size_t n);\n   30  #endif /* !HAVE_STRNDUP */\n   31  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/JSON-C/json_tokener.c:\n  140  #if !HAVE_STRNDUP\n  141  /* CAW: compliant version of strndup() */\n  142: char* strndup(const char* str, size_t n)\n  143  {\n  144    if(str) {\n  145:     size_t len = strlen(str);\n  146:     size_t nn = json_min(len,n);\n  147      char* s = (char*)malloc(sizeof(char) * (nn + 1));\n  148  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/JSON-C/json_util.c:\n  199  \n  200  #if HAVE_REALLOC == 0\n  201: void* rpl_realloc(void* p, size_t n)\n  202  {\n  203  	if (n == 0)\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOConfigServer.c:\n   63  static OSStatus _LocalConfigRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context_t * const inContext);\n   64  static void _easylinkConnectWiFi( mico_Context_t * const inContext);\n   65: static OSStatus onReceivedData(struct _HTTPHeader_t * httpHeader, uint32_t pos, uint8_t * data, size_t len, void * userContext );\n   66  static void onClearHTTPHeader(struct _HTTPHeader_t * httpHeader, void * userContext );\n   67  \n   ..\n  219  }\n  220  \n  221: static OSStatus onReceivedData(struct _HTTPHeader_t * inHeader, uint32_t inPos, uint8_t * inData, size_t inLen, void * inUserContext )\n  222  {\n  223    OSStatus err = kUnknownErr;\n  224    const char *    value;\n  225:   size_t          valueSize;\n  226    configContext_t *context = (configContext_t *)inUserContext;\n  227  \n  ...\n  286    const char *  json_str;\n  287    uint8_t *httpResponse = NULL;\n  288:   size_t httpResponseLen = 0;\n  289    json_object* report = NULL;\n  290    config_log_trace();\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOMfgtest.c:\n   22  static char cmd_str[64];\n   23  static void uartRecvMfg_thread(void *inContext);\n   24: static size_t _uart_get_one_packet(uint8_t* inBuf, int inBufLen);\n   25  \n   26  \n   ..\n  273  \n  274  \n  275: static size_t _uart_get_one_packet(uint8_t* inBuf, int inBufLen)\n  276  {\n  277    \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.c:\n  325    const char  *json_str;\n  326    \n  327:   size_t      httpResponseLen = 0;\n  328  \n  329    *fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);\n  ...\n  525      OSStatus err = kUnknownErr;\n  526      const char *        value;\n  527:     size_t              valueSize;\n  528  \n  529      easylink_log_trace();\n\n271 matches across 52 files\n",
 			"settings":
 			{
-				"buffer_size": 7355,
-				"line_ending": "Windows"
+				"buffer_size": 121595,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
 			}
 		},
 		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOParaStorage.c",
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoSocket.h",
 			"settings":
 			{
-				"buffer_size": 6097,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/HTTPUtils.h",
-			"settings":
-			{
-				"buffer_size": 8701,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/HTTPUtils.c",
-			"settings":
-			{
-				"buffer_size": 34269,
+				"buffer_size": 21887,
 				"line_ending": "Windows"
 			}
 		},
@@ -555,39 +541,71 @@
 			"file": "/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/Common.h",
 			"settings":
 			{
-				"buffer_size": 27949,
+				"buffer_size": 27897,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOConfigServer.c",
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MICORTOS.h",
 			"settings":
 			{
-				"buffer_size": 15387,
+				"buffer_size": 16212,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/FatFs/src/ff_gen_drv.h",
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/StringUtils.c",
 			"settings":
 			{
-				"buffer_size": 2917,
-				"line_ending": "Unix"
+				"buffer_size": 28925,
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/FatFs/src/diskio.h",
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/StringUtils.h",
 			"settings":
 			{
-				"buffer_size": 2717,
-				"line_ending": "Unix"
+				"buffer_size": 3841,
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppEntrance.c",
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/stm32f2xx_platform.c",
 			"settings":
 			{
-				"buffer_size": 4042,
+				"buffer_size": 17871,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/crt0_IAR.c",
+			"settings":
+			{
+				"buffer_size": 2573,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/startup_stm32f2xx_IAR.s",
+			"settings":
+			{
+				"buffer_size": 24696,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
+			"settings":
+			{
+				"buffer_size": 16192,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOMfgtest.c",
+			"settings":
+			{
+				"buffer_size": 7367,
 				"line_ending": "Windows"
 			}
 		}
@@ -652,6 +670,17 @@
 	},
 	"file_history":
 	[
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/crt0.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/startup_stm32f2xx_RVMDK.s",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/HTTPUtils.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICODefine.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOParaStorage.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/HTTPUtils.c",
+		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/Common.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOConfigServer.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/FatFs/src/ff_gen_drv.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/FatFs/src/diskio.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppEntrance.c",
 		"/Users/william/Develop/Clang_lib/ARMCC/include/stdio.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOConfigDelegate.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppDefine.h",
@@ -664,21 +693,17 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoWlan.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOMfgtest.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/FatFs/src/diskio.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/FatFs/src/integer.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/HomeKitUserInterface.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/MICOAppDefine.h",
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/MICO.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/MicoDefaults.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOConfigServer.c",
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/HTTPUtils.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MICO_EVB_1/platform.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICODefine.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoWlan.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICONotificationCenter.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/HTTPUtils.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/include/platform_sleep.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverFlash.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/hardfault.c",
@@ -700,7 +725,6 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDefaults.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoRTOS.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoSocket.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/crt0.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/crt0_IAR.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/platform_assert.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/SDIO/wlan_bus.c",
@@ -751,7 +775,6 @@
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppDefine.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/STM32F2xx_StdPeriph_Driver/inc/stm32f2xx_rtc.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/inc/MICORTOS.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppEntrance.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/stm32f2xx_it.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/startup_stm32f2xx_IAR.s",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/wwd_platform.c",
@@ -774,12 +797,7 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MICOPlatform.h",
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/inc/MICOWlan.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/WPS/WPS.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/HAL_EMW3162.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformMFiAuth.h",
-		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/include/platform_sleep.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/STM32F2xx_StdPeriph_Driver/src/stm32f2xx_tim.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformRandomNumber.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MICODriverPwm.h"
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/HAL_EMW3162.h"
 	],
 	"find":
 	{
@@ -806,6 +824,16 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"sys_state_change_sem",
+			"PlatformEasyLinkButtonLongPressedCallback",
+			"str",
+			"strdump",
+			"strd",
+			"strdump",
+			"memrlen",
+			"strnlen",
+			"memrlen",
+			"size_t",
 			"READ_LENGTH",
 			"CR",
 			"findChunkedDataLength",
@@ -923,17 +951,7 @@
 			"mico_i2c_message_t",
 			"MESSAGE_DISABLE_DMA",
 			"MESSAGE_DISABLE_DMA\nMESSAGE_DISABLE_DMA",
-			"MESSAGE_DISABLE_DMA",
-			"micoInit",
-			"Platform functions",
-			"SCB",
-			"sdio_irq",
-			"gpio_irq",
-			"wake_up_interrupt_triggered",
-			"wiced_platform_notify_irq",
-			"requested_sleep_time",
-			"rtc_reset_fail",
-			"rtc_sleep_abort"
+			"MESSAGE_DISABLE_DMA"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -947,7 +965,7 @@
 		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
-		"whole_word": false,
+		"whole_word": true,
 		"wrap": true
 	},
 	"groups":
@@ -957,51 +975,2626 @@
 			[
 				{
 					"buffer": 0,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICODefine.h",
 					"settings":
 					{
-						"buffer_size": 7355,
+						"buffer_size": 121595,
 						"regions":
 						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										166,
+										172
+									],
+									[
+										207,
+										213
+									],
+									[
+										357,
+										363
+									],
+									[
+										452,
+										458
+									],
+									[
+										497,
+										503
+									],
+									[
+										693,
+										699
+									],
+									[
+										728,
+										734
+									],
+									[
+										877,
+										883
+									],
+									[
+										991,
+										997
+									],
+									[
+										1034,
+										1040
+									],
+									[
+										1442,
+										1448
+									],
+									[
+										1519,
+										1525
+									],
+									[
+										1661,
+										1667
+									],
+									[
+										1995,
+										2001
+									],
+									[
+										2372,
+										2378
+									],
+									[
+										2517,
+										2523
+									],
+									[
+										2663,
+										2669
+									],
+									[
+										2807,
+										2813
+									],
+									[
+										3059,
+										3065
+									],
+									[
+										3195,
+										3201
+									],
+									[
+										3345,
+										3351
+									],
+									[
+										3500,
+										3506
+									],
+									[
+										3764,
+										3770
+									],
+									[
+										3889,
+										3895
+									],
+									[
+										4023,
+										4029
+									],
+									[
+										4170,
+										4176
+									],
+									[
+										4424,
+										4430
+									],
+									[
+										4558,
+										4564
+									],
+									[
+										4864,
+										4870
+									],
+									[
+										5018,
+										5024
+									],
+									[
+										5369,
+										5375
+									],
+									[
+										5606,
+										5612
+									],
+									[
+										6077,
+										6083
+									],
+									[
+										6141,
+										6147
+									],
+									[
+										6199,
+										6205
+									],
+									[
+										6270,
+										6276
+									],
+									[
+										6307,
+										6313
+									],
+									[
+										6396,
+										6402
+									],
+									[
+										6460,
+										6466
+									],
+									[
+										6518,
+										6524
+									],
+									[
+										6589,
+										6595
+									],
+									[
+										6625,
+										6631
+									],
+									[
+										6964,
+										6970
+									],
+									[
+										7138,
+										7144
+									],
+									[
+										7340,
+										7346
+									],
+									[
+										7396,
+										7402
+									],
+									[
+										7447,
+										7453
+									],
+									[
+										7508,
+										7514
+									],
+									[
+										7559,
+										7565
+									],
+									[
+										7626,
+										7632
+									],
+									[
+										7711,
+										7717
+									],
+									[
+										7768,
+										7774
+									],
+									[
+										7957,
+										7963
+									],
+									[
+										8128,
+										8134
+									],
+									[
+										8326,
+										8332
+									],
+									[
+										8381,
+										8387
+									],
+									[
+										8431,
+										8437
+									],
+									[
+										8491,
+										8497
+									],
+									[
+										8541,
+										8547
+									],
+									[
+										8607,
+										8613
+									],
+									[
+										8691,
+										8697
+									],
+									[
+										8747,
+										8753
+									],
+									[
+										8936,
+										8942
+									],
+									[
+										9110,
+										9116
+									],
+									[
+										9359,
+										9365
+									],
+									[
+										9530,
+										9536
+									],
+									[
+										9941,
+										9947
+									],
+									[
+										10075,
+										10081
+									],
+									[
+										10713,
+										10719
+									],
+									[
+										10855,
+										10861
+									],
+									[
+										11563,
+										11569
+									],
+									[
+										11664,
+										11670
+									],
+									[
+										12142,
+										12148
+									],
+									[
+										12464,
+										12470
+									],
+									[
+										12742,
+										12748
+									],
+									[
+										12891,
+										12897
+									],
+									[
+										13310,
+										13316
+									],
+									[
+										13348,
+										13354
+									],
+									[
+										13611,
+										13617
+									],
+									[
+										13649,
+										13655
+									],
+									[
+										13922,
+										13928
+									],
+									[
+										14175,
+										14181
+									],
+									[
+										14261,
+										14267
+									],
+									[
+										14707,
+										14713
+									],
+									[
+										14745,
+										14751
+									],
+									[
+										14957,
+										14963
+									],
+									[
+										14995,
+										15001
+									],
+									[
+										15275,
+										15281
+									],
+									[
+										15445,
+										15451
+									],
+									[
+										15720,
+										15726
+									],
+									[
+										15915,
+										15921
+									],
+									[
+										16264,
+										16270
+									],
+									[
+										16363,
+										16369
+									],
+									[
+										16849,
+										16855
+									],
+									[
+										17019,
+										17025
+									],
+									[
+										17283,
+										17289
+									],
+									[
+										17296,
+										17302
+									],
+									[
+										17489,
+										17495
+									],
+									[
+										17546,
+										17552
+									],
+									[
+										17644,
+										17650
+									],
+									[
+										17694,
+										17700
+									],
+									[
+										18043,
+										18049
+									],
+									[
+										18426,
+										18432
+									],
+									[
+										18656,
+										18662
+									],
+									[
+										18955,
+										18961
+									],
+									[
+										19011,
+										19017
+									],
+									[
+										19074,
+										19080
+									],
+									[
+										19399,
+										19405
+									],
+									[
+										19455,
+										19461
+									],
+									[
+										19518,
+										19524
+									],
+									[
+										19826,
+										19832
+									],
+									[
+										20087,
+										20093
+									],
+									[
+										20273,
+										20279
+									],
+									[
+										20319,
+										20325
+									],
+									[
+										20485,
+										20491
+									],
+									[
+										20812,
+										20818
+									],
+									[
+										21210,
+										21216
+									],
+									[
+										21547,
+										21553
+									],
+									[
+										21719,
+										21725
+									],
+									[
+										21984,
+										21990
+									],
+									[
+										22173,
+										22179
+									],
+									[
+										22486,
+										22492
+									],
+									[
+										22747,
+										22753
+									],
+									[
+										22933,
+										22939
+									],
+									[
+										22979,
+										22985
+									],
+									[
+										23145,
+										23151
+									],
+									[
+										23472,
+										23478
+									],
+									[
+										23870,
+										23876
+									],
+									[
+										24207,
+										24213
+									],
+									[
+										24379,
+										24385
+									],
+									[
+										24644,
+										24650
+									],
+									[
+										24833,
+										24839
+									],
+									[
+										25006,
+										25012
+									],
+									[
+										25064,
+										25070
+									],
+									[
+										25268,
+										25274
+									],
+									[
+										25298,
+										25304
+									],
+									[
+										25576,
+										25582
+									],
+									[
+										25762,
+										25768
+									],
+									[
+										25808,
+										25814
+									],
+									[
+										25974,
+										25980
+									],
+									[
+										26301,
+										26307
+									],
+									[
+										26699,
+										26705
+									],
+									[
+										27036,
+										27042
+									],
+									[
+										27208,
+										27214
+									],
+									[
+										27473,
+										27479
+									],
+									[
+										27662,
+										27668
+									],
+									[
+										27970,
+										27976
+									],
+									[
+										28302,
+										28308
+									],
+									[
+										28488,
+										28494
+									],
+									[
+										28534,
+										28540
+									],
+									[
+										28700,
+										28706
+									],
+									[
+										29027,
+										29033
+									],
+									[
+										29425,
+										29431
+									],
+									[
+										29762,
+										29768
+									],
+									[
+										29934,
+										29940
+									],
+									[
+										30199,
+										30205
+									],
+									[
+										30388,
+										30394
+									],
+									[
+										30750,
+										30756
+									],
+									[
+										30912,
+										30918
+									],
+									[
+										30949,
+										30955
+									],
+									[
+										31315,
+										31321
+									],
+									[
+										31480,
+										31486
+									],
+									[
+										31645,
+										31651
+									],
+									[
+										31840,
+										31846
+									],
+									[
+										31936,
+										31942
+									],
+									[
+										32135,
+										32141
+									],
+									[
+										32171,
+										32177
+									],
+									[
+										32396,
+										32402
+									],
+									[
+										32571,
+										32577
+									],
+									[
+										32602,
+										32608
+									],
+									[
+										32906,
+										32912
+									],
+									[
+										33062,
+										33068
+									],
+									[
+										33277,
+										33283
+									],
+									[
+										33482,
+										33488
+									],
+									[
+										33605,
+										33611
+									],
+									[
+										33920,
+										33926
+									],
+									[
+										34119,
+										34125
+									],
+									[
+										34328,
+										34334
+									],
+									[
+										34540,
+										34546
+									],
+									[
+										34749,
+										34755
+									],
+									[
+										35083,
+										35089
+									],
+									[
+										35526,
+										35532
+									],
+									[
+										35848,
+										35854
+									],
+									[
+										36044,
+										36050
+									],
+									[
+										36140,
+										36146
+									],
+									[
+										36505,
+										36511
+									],
+									[
+										36816,
+										36822
+									],
+									[
+										36915,
+										36921
+									],
+									[
+										37027,
+										37033
+									],
+									[
+										37215,
+										37221
+									],
+									[
+										37238,
+										37244
+									],
+									[
+										37286,
+										37292
+									],
+									[
+										37308,
+										37314
+									],
+									[
+										37583,
+										37589
+									],
+									[
+										37739,
+										37745
+									],
+									[
+										37770,
+										37776
+									],
+									[
+										37935,
+										37941
+									],
+									[
+										37995,
+										38001
+									],
+									[
+										38136,
+										38142
+									],
+									[
+										38274,
+										38280
+									],
+									[
+										38537,
+										38543
+									],
+									[
+										38939,
+										38945
+									],
+									[
+										39161,
+										39167
+									],
+									[
+										39367,
+										39373
+									],
+									[
+										39447,
+										39453
+									],
+									[
+										39558,
+										39564
+									],
+									[
+										39831,
+										39837
+									],
+									[
+										40067,
+										40073
+									],
+									[
+										40229,
+										40235
+									],
+									[
+										40413,
+										40419
+									],
+									[
+										40701,
+										40707
+									],
+									[
+										40976,
+										40982
+									],
+									[
+										41277,
+										41283
+									],
+									[
+										41474,
+										41480
+									],
+									[
+										41637,
+										41643
+									],
+									[
+										41803,
+										41809
+									],
+									[
+										41977,
+										41983
+									],
+									[
+										42162,
+										42168
+									],
+									[
+										42307,
+										42313
+									],
+									[
+										42522,
+										42528
+									],
+									[
+										42699,
+										42705
+									],
+									[
+										42821,
+										42827
+									],
+									[
+										42991,
+										42997
+									],
+									[
+										43160,
+										43166
+									],
+									[
+										43360,
+										43366
+									],
+									[
+										43659,
+										43665
+									],
+									[
+										43958,
+										43964
+									],
+									[
+										44154,
+										44160
+									],
+									[
+										44311,
+										44317
+									],
+									[
+										44441,
+										44447
+									],
+									[
+										44658,
+										44664
+									],
+									[
+										44835,
+										44841
+									],
+									[
+										44875,
+										44881
+									],
+									[
+										45041,
+										45047
+									],
+									[
+										45081,
+										45087
+									],
+									[
+										45258,
+										45264
+									],
+									[
+										45298,
+										45304
+									],
+									[
+										45504,
+										45510
+									],
+									[
+										45544,
+										45550
+									],
+									[
+										45817,
+										45823
+									],
+									[
+										46187,
+										46193
+									],
+									[
+										46411,
+										46417
+									],
+									[
+										46616,
+										46622
+									],
+									[
+										46876,
+										46882
+									],
+									[
+										47179,
+										47185
+									],
+									[
+										47654,
+										47660
+									],
+									[
+										47975,
+										47981
+									],
+									[
+										48265,
+										48271
+									],
+									[
+										48551,
+										48557
+									],
+									[
+										48673,
+										48679
+									],
+									[
+										48782,
+										48788
+									],
+									[
+										49041,
+										49047
+									],
+									[
+										49221,
+										49227
+									],
+									[
+										49345,
+										49351
+									],
+									[
+										49568,
+										49574
+									],
+									[
+										49691,
+										49697
+									],
+									[
+										49731,
+										49737
+									],
+									[
+										49829,
+										49835
+									],
+									[
+										49869,
+										49875
+									],
+									[
+										49988,
+										49994
+									],
+									[
+										50028,
+										50034
+									],
+									[
+										50185,
+										50191
+									],
+									[
+										50225,
+										50231
+									],
+									[
+										50585,
+										50591
+									],
+									[
+										50806,
+										50812
+									],
+									[
+										51262,
+										51268
+									],
+									[
+										51616,
+										51622
+									],
+									[
+										51714,
+										51720
+									],
+									[
+										51982,
+										51988
+									],
+									[
+										52292,
+										52298
+									],
+									[
+										52390,
+										52396
+									],
+									[
+										52660,
+										52666
+									],
+									[
+										52970,
+										52976
+									],
+									[
+										53067,
+										53073
+									],
+									[
+										53244,
+										53250
+									],
+									[
+										53516,
+										53522
+									],
+									[
+										53736,
+										53742
+									],
+									[
+										54037,
+										54043
+									],
+									[
+										54188,
+										54194
+									],
+									[
+										54462,
+										54468
+									],
+									[
+										54685,
+										54691
+									],
+									[
+										54843,
+										54849
+									],
+									[
+										55101,
+										55107
+									],
+									[
+										55333,
+										55339
+									],
+									[
+										55481,
+										55487
+									],
+									[
+										55782,
+										55788
+									],
+									[
+										55895,
+										55901
+									],
+									[
+										55955,
+										55961
+									],
+									[
+										56209,
+										56215
+									],
+									[
+										56501,
+										56507
+									],
+									[
+										56536,
+										56542
+									],
+									[
+										56644,
+										56650
+									],
+									[
+										56964,
+										56970
+									],
+									[
+										56983,
+										56989
+									],
+									[
+										57138,
+										57144
+									],
+									[
+										57283,
+										57289
+									],
+									[
+										57428,
+										57434
+									],
+									[
+										57561,
+										57567
+									],
+									[
+										57825,
+										57831
+									],
+									[
+										58072,
+										58078
+									],
+									[
+										58345,
+										58351
+									],
+									[
+										58562,
+										58568
+									],
+									[
+										58610,
+										58616
+									],
+									[
+										58854,
+										58860
+									],
+									[
+										59059,
+										59065
+									],
+									[
+										59119,
+										59125
+									],
+									[
+										59207,
+										59213
+									],
+									[
+										59446,
+										59452
+									],
+									[
+										59645,
+										59651
+									],
+									[
+										59710,
+										59716
+									],
+									[
+										59908,
+										59914
+									],
+									[
+										59977,
+										59983
+									],
+									[
+										60269,
+										60275
+									],
+									[
+										60289,
+										60295
+									],
+									[
+										60687,
+										60693
+									],
+									[
+										60789,
+										60795
+									],
+									[
+										60831,
+										60837
+									],
+									[
+										61111,
+										61117
+									],
+									[
+										61170,
+										61176
+									],
+									[
+										61212,
+										61218
+									],
+									[
+										61341,
+										61347
+									],
+									[
+										61616,
+										61622
+									],
+									[
+										61845,
+										61851
+									],
+									[
+										61864,
+										61870
+									],
+									[
+										62017,
+										62023
+									],
+									[
+										62096,
+										62102
+									],
+									[
+										62185,
+										62191
+									],
+									[
+										62274,
+										62280
+									],
+									[
+										62389,
+										62395
+									],
+									[
+										62495,
+										62501
+									],
+									[
+										62559,
+										62565
+									],
+									[
+										62648,
+										62654
+									],
+									[
+										62739,
+										62745
+									],
+									[
+										62809,
+										62815
+									],
+									[
+										62845,
+										62851
+									],
+									[
+										63178,
+										63184
+									],
+									[
+										63319,
+										63325
+									],
+									[
+										63445,
+										63451
+									],
+									[
+										63718,
+										63724
+									],
+									[
+										63987,
+										63993
+									],
+									[
+										64113,
+										64119
+									],
+									[
+										64239,
+										64245
+									],
+									[
+										64369,
+										64375
+									],
+									[
+										64491,
+										64497
+									],
+									[
+										64614,
+										64620
+									],
+									[
+										64742,
+										64748
+									],
+									[
+										65166,
+										65172
+									],
+									[
+										65240,
+										65246
+									],
+									[
+										65316,
+										65322
+									],
+									[
+										65392,
+										65398
+									],
+									[
+										65464,
+										65470
+									],
+									[
+										65537,
+										65543
+									],
+									[
+										65614,
+										65620
+									],
+									[
+										65951,
+										65957
+									],
+									[
+										66128,
+										66134
+									],
+									[
+										66414,
+										66420
+									],
+									[
+										66643,
+										66649
+									],
+									[
+										66814,
+										66820
+									],
+									[
+										67063,
+										67069
+									],
+									[
+										67112,
+										67118
+									],
+									[
+										67149,
+										67155
+									],
+									[
+										67399,
+										67405
+									],
+									[
+										67819,
+										67825
+									],
+									[
+										68083,
+										68089
+									],
+									[
+										68207,
+										68213
+									],
+									[
+										68399,
+										68405
+									],
+									[
+										68667,
+										68673
+									],
+									[
+										68778,
+										68784
+									],
+									[
+										68984,
+										68990
+									],
+									[
+										69177,
+										69183
+									],
+									[
+										69500,
+										69506
+									],
+									[
+										69650,
+										69656
+									],
+									[
+										69790,
+										69796
+									],
+									[
+										70021,
+										70027
+									],
+									[
+										70170,
+										70176
+									],
+									[
+										70327,
+										70333
+									],
+									[
+										70735,
+										70741
+									],
+									[
+										70812,
+										70818
+									],
+									[
+										70954,
+										70960
+									],
+									[
+										71288,
+										71294
+									],
+									[
+										71665,
+										71671
+									],
+									[
+										71810,
+										71816
+									],
+									[
+										71956,
+										71962
+									],
+									[
+										72100,
+										72106
+									],
+									[
+										72352,
+										72358
+									],
+									[
+										72488,
+										72494
+									],
+									[
+										72638,
+										72644
+									],
+									[
+										72793,
+										72799
+									],
+									[
+										73057,
+										73063
+									],
+									[
+										73182,
+										73188
+									],
+									[
+										73316,
+										73322
+									],
+									[
+										73463,
+										73469
+									],
+									[
+										73717,
+										73723
+									],
+									[
+										73851,
+										73857
+									],
+									[
+										74157,
+										74163
+									],
+									[
+										74311,
+										74317
+									],
+									[
+										74662,
+										74668
+									],
+									[
+										75051,
+										75057
+									],
+									[
+										75152,
+										75158
+									],
+									[
+										75630,
+										75636
+									],
+									[
+										75952,
+										75958
+									],
+									[
+										76230,
+										76236
+									],
+									[
+										76400,
+										76406
+									],
+									[
+										76675,
+										76681
+									],
+									[
+										76870,
+										76876
+									],
+									[
+										77219,
+										77225
+									],
+									[
+										77318,
+										77324
+									],
+									[
+										77804,
+										77810
+									],
+									[
+										77974,
+										77980
+									],
+									[
+										78238,
+										78244
+									],
+									[
+										78251,
+										78257
+									],
+									[
+										78444,
+										78450
+									],
+									[
+										78501,
+										78507
+									],
+									[
+										78599,
+										78605
+									],
+									[
+										78649,
+										78655
+									],
+									[
+										78998,
+										79004
+									],
+									[
+										79381,
+										79387
+									],
+									[
+										79611,
+										79617
+									],
+									[
+										79910,
+										79916
+									],
+									[
+										79966,
+										79972
+									],
+									[
+										80029,
+										80035
+									],
+									[
+										80354,
+										80360
+									],
+									[
+										80410,
+										80416
+									],
+									[
+										80473,
+										80479
+									],
+									[
+										80781,
+										80787
+									],
+									[
+										81068,
+										81074
+									],
+									[
+										81378,
+										81384
+									],
+									[
+										81665,
+										81671
+									],
+									[
+										81835,
+										81841
+									],
+									[
+										81893,
+										81899
+									],
+									[
+										82097,
+										82103
+									],
+									[
+										82127,
+										82133
+									],
+									[
+										82431,
+										82437
+									],
+									[
+										82736,
+										82742
+									],
+									[
+										83094,
+										83100
+									],
+									[
+										83453,
+										83459
+									],
+									[
+										83615,
+										83621
+									],
+									[
+										83652,
+										83658
+									],
+									[
+										84018,
+										84024
+									],
+									[
+										84183,
+										84189
+									],
+									[
+										84348,
+										84354
+									],
+									[
+										84543,
+										84549
+									],
+									[
+										84639,
+										84645
+									],
+									[
+										84838,
+										84844
+									],
+									[
+										84874,
+										84880
+									],
+									[
+										85099,
+										85105
+									],
+									[
+										85274,
+										85280
+									],
+									[
+										85305,
+										85311
+									],
+									[
+										85609,
+										85615
+									],
+									[
+										85765,
+										85771
+									],
+									[
+										85980,
+										85986
+									],
+									[
+										86185,
+										86191
+									],
+									[
+										86308,
+										86314
+									],
+									[
+										86623,
+										86629
+									],
+									[
+										86822,
+										86828
+									],
+									[
+										87031,
+										87037
+									],
+									[
+										87243,
+										87249
+									],
+									[
+										87452,
+										87458
+									],
+									[
+										87786,
+										87792
+									],
+									[
+										88229,
+										88235
+									],
+									[
+										88551,
+										88557
+									],
+									[
+										88747,
+										88753
+									],
+									[
+										88843,
+										88849
+									],
+									[
+										89208,
+										89214
+									],
+									[
+										89519,
+										89525
+									],
+									[
+										89618,
+										89624
+									],
+									[
+										89730,
+										89736
+									],
+									[
+										90034,
+										90040
+									],
+									[
+										90190,
+										90196
+									],
+									[
+										90356,
+										90362
+									],
+									[
+										90416,
+										90422
+									],
+									[
+										90557,
+										90563
+									],
+									[
+										90695,
+										90701
+									],
+									[
+										90958,
+										90964
+									],
+									[
+										91360,
+										91366
+									],
+									[
+										91582,
+										91588
+									],
+									[
+										91795,
+										91801
+									],
+									[
+										91906,
+										91912
+									],
+									[
+										92179,
+										92185
+									],
+									[
+										92415,
+										92421
+									],
+									[
+										92577,
+										92583
+									],
+									[
+										92761,
+										92767
+									],
+									[
+										93049,
+										93055
+									],
+									[
+										93324,
+										93330
+									],
+									[
+										93625,
+										93631
+									],
+									[
+										93822,
+										93828
+									],
+									[
+										93985,
+										93991
+									],
+									[
+										94151,
+										94157
+									],
+									[
+										94325,
+										94331
+									],
+									[
+										94510,
+										94516
+									],
+									[
+										94655,
+										94661
+									],
+									[
+										94870,
+										94876
+									],
+									[
+										95047,
+										95053
+									],
+									[
+										95169,
+										95175
+									],
+									[
+										95339,
+										95345
+									],
+									[
+										95508,
+										95514
+									],
+									[
+										95708,
+										95714
+									],
+									[
+										96007,
+										96013
+									],
+									[
+										96306,
+										96312
+									],
+									[
+										96502,
+										96508
+									],
+									[
+										96659,
+										96665
+									],
+									[
+										96789,
+										96795
+									],
+									[
+										97006,
+										97012
+									],
+									[
+										97183,
+										97189
+									],
+									[
+										97223,
+										97229
+									],
+									[
+										97389,
+										97395
+									],
+									[
+										97429,
+										97435
+									],
+									[
+										97606,
+										97612
+									],
+									[
+										97646,
+										97652
+									],
+									[
+										97852,
+										97858
+									],
+									[
+										97892,
+										97898
+									],
+									[
+										98165,
+										98171
+									],
+									[
+										98535,
+										98541
+									],
+									[
+										98759,
+										98765
+									],
+									[
+										98964,
+										98970
+									],
+									[
+										99224,
+										99230
+									],
+									[
+										99527,
+										99533
+									],
+									[
+										100002,
+										100008
+									],
+									[
+										100323,
+										100329
+									],
+									[
+										100613,
+										100619
+									],
+									[
+										100899,
+										100905
+									],
+									[
+										101021,
+										101027
+									],
+									[
+										101130,
+										101136
+									],
+									[
+										101389,
+										101395
+									],
+									[
+										101569,
+										101575
+									],
+									[
+										101693,
+										101699
+									],
+									[
+										101916,
+										101922
+									],
+									[
+										102039,
+										102045
+									],
+									[
+										102079,
+										102085
+									],
+									[
+										102177,
+										102183
+									],
+									[
+										102217,
+										102223
+									],
+									[
+										102336,
+										102342
+									],
+									[
+										102376,
+										102382
+									],
+									[
+										102533,
+										102539
+									],
+									[
+										102573,
+										102579
+									],
+									[
+										102933,
+										102939
+									],
+									[
+										103154,
+										103160
+									],
+									[
+										103610,
+										103616
+									],
+									[
+										103964,
+										103970
+									],
+									[
+										104062,
+										104068
+									],
+									[
+										104330,
+										104336
+									],
+									[
+										104640,
+										104646
+									],
+									[
+										104738,
+										104744
+									],
+									[
+										105008,
+										105014
+									],
+									[
+										105318,
+										105324
+									],
+									[
+										105415,
+										105421
+									],
+									[
+										105592,
+										105598
+									],
+									[
+										105864,
+										105870
+									],
+									[
+										106084,
+										106090
+									],
+									[
+										106385,
+										106391
+									],
+									[
+										106536,
+										106542
+									],
+									[
+										106810,
+										106816
+									],
+									[
+										107033,
+										107039
+									],
+									[
+										107191,
+										107197
+									],
+									[
+										107449,
+										107455
+									],
+									[
+										107681,
+										107687
+									],
+									[
+										107829,
+										107835
+									],
+									[
+										108130,
+										108136
+									],
+									[
+										108272,
+										108278
+									],
+									[
+										108526,
+										108532
+									],
+									[
+										108818,
+										108824
+									],
+									[
+										108853,
+										108859
+									],
+									[
+										108961,
+										108967
+									],
+									[
+										109281,
+										109287
+									],
+									[
+										109300,
+										109306
+									],
+									[
+										109455,
+										109461
+									],
+									[
+										109600,
+										109606
+									],
+									[
+										109745,
+										109751
+									],
+									[
+										109878,
+										109884
+									],
+									[
+										110142,
+										110148
+									],
+									[
+										110389,
+										110395
+									],
+									[
+										110662,
+										110668
+									],
+									[
+										110879,
+										110885
+									],
+									[
+										110927,
+										110933
+									],
+									[
+										111171,
+										111177
+									],
+									[
+										111376,
+										111382
+									],
+									[
+										111436,
+										111442
+									],
+									[
+										111524,
+										111530
+									],
+									[
+										111763,
+										111769
+									],
+									[
+										111962,
+										111968
+									],
+									[
+										112027,
+										112033
+									],
+									[
+										112225,
+										112231
+									],
+									[
+										112294,
+										112300
+									],
+									[
+										112586,
+										112592
+									],
+									[
+										112606,
+										112612
+									],
+									[
+										113004,
+										113010
+									],
+									[
+										113106,
+										113112
+									],
+									[
+										113148,
+										113154
+									],
+									[
+										113428,
+										113434
+									],
+									[
+										113487,
+										113493
+									],
+									[
+										113529,
+										113535
+									],
+									[
+										113658,
+										113664
+									],
+									[
+										113933,
+										113939
+									],
+									[
+										114162,
+										114168
+									],
+									[
+										114181,
+										114187
+									],
+									[
+										114334,
+										114340
+									],
+									[
+										114413,
+										114419
+									],
+									[
+										114502,
+										114508
+									],
+									[
+										114591,
+										114597
+									],
+									[
+										114706,
+										114712
+									],
+									[
+										114812,
+										114818
+									],
+									[
+										114876,
+										114882
+									],
+									[
+										114965,
+										114971
+									],
+									[
+										115056,
+										115062
+									],
+									[
+										115126,
+										115132
+									],
+									[
+										115162,
+										115168
+									],
+									[
+										115495,
+										115501
+									],
+									[
+										115636,
+										115642
+									],
+									[
+										115762,
+										115768
+									],
+									[
+										116035,
+										116041
+									],
+									[
+										116304,
+										116310
+									],
+									[
+										116430,
+										116436
+									],
+									[
+										116556,
+										116562
+									],
+									[
+										116686,
+										116692
+									],
+									[
+										116808,
+										116814
+									],
+									[
+										116931,
+										116937
+									],
+									[
+										117059,
+										117065
+									],
+									[
+										117483,
+										117489
+									],
+									[
+										117557,
+										117563
+									],
+									[
+										117633,
+										117639
+									],
+									[
+										117709,
+										117715
+									],
+									[
+										117781,
+										117787
+									],
+									[
+										117854,
+										117860
+									],
+									[
+										117931,
+										117937
+									],
+									[
+										118268,
+										118274
+									],
+									[
+										118445,
+										118451
+									],
+									[
+										118731,
+										118737
+									],
+									[
+										118960,
+										118966
+									],
+									[
+										119131,
+										119137
+									],
+									[
+										119380,
+										119386
+									],
+									[
+										119429,
+										119435
+									],
+									[
+										119466,
+										119472
+									],
+									[
+										119716,
+										119722
+									],
+									[
+										120136,
+										120142
+									],
+									[
+										120400,
+										120406
+									],
+									[
+										120524,
+										120530
+									],
+									[
+										120716,
+										120722
+									],
+									[
+										120984,
+										120990
+									],
+									[
+										121095,
+										121101
+									],
+									[
+										121301,
+										121307
+									],
+									[
+										121494,
+										121500
+									]
+								],
+								"scope": ""
+							}
 						},
 						"selection":
 						[
 							[
-								1777,
-								1796
+								69280,
+								69280
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"detect_indentation": false,
+							"output_tag": 2,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 716.0,
+						"translation.y": 28955.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOParaStorage.c",
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoSocket.h",
 					"settings":
 					{
-						"buffer_size": 6097,
+						"buffer_size": 21887,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3237,
-								3217
+								13231,
+								13237
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C.tmLanguage",
+							"syntax": "Packages/C++/C++.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
@@ -1013,74 +3606,18 @@
 				},
 				{
 					"buffer": 2,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/HTTPUtils.h",
-					"settings":
-					{
-						"buffer_size": 8701,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6142,
-								6142
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1440.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/HTTPUtils.c",
-					"settings":
-					{
-						"buffer_size": 34269,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								14076,
-								14076
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4856.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
 					"file": "/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/Common.h",
 					"settings":
 					{
-						"buffer_size": 27949,
+						"buffer_size": 27897,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3451,
-								3451
+								1164,
+								1164
 							]
 						],
 						"settings":
@@ -1090,53 +3627,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1326.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOConfigServer.c",
+					"buffer": 3,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MICORTOS.h",
 					"settings":
 					{
-						"buffer_size": 15387,
+						"buffer_size": 16212,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								9333,
-								9333
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 399.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/FatFs/src/ff_gen_drv.h",
-					"settings":
-					{
-						"buffer_size": 2917,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1553,
-								1553
+								2043,
+								2043
 							]
 						],
 						"settings":
@@ -1146,51 +3655,81 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 337.0,
+						"translation.y": 245.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/FatFs/src/diskio.h",
+					"buffer": 4,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/StringUtils.c",
 					"settings":
 					{
-						"buffer_size": 2717,
+						"buffer_size": 28925,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								485,
-								485
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage"
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 399.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppEntrance.c",
+					"buffer": 5,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/StringUtils.h",
 					"settings":
 					{
-						"buffer_size": 4042,
+						"buffer_size": 3841,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2548,
-								2548
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 832.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/stm32f2xx_platform.c",
+					"settings":
+					{
+						"buffer_size": 17871,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8878,
+								8878
 							]
 						],
 						"settings":
@@ -1200,7 +3739,119 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 576.0,
+						"translation.y": 3534.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/crt0_IAR.c",
+					"settings":
+					{
+						"buffer_size": 2573,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1895,
+								1911
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 307.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/startup_stm32f2xx_IAR.s",
+					"settings":
+					{
+						"buffer_size": 24696,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/R/R.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 988.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
+					"settings":
+					{
+						"buffer_size": 16192,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15690,
+								15690
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5728.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOMfgtest.c",
+					"settings":
+					{
+						"buffer_size": 7367,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6347,
+								6347
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3411.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1284,6 +3935,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 205.0,
+	"side_bar_width": 357.0,
 	"status_bar_visible": true
 }

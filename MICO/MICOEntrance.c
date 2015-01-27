@@ -62,7 +62,7 @@ const char *eaProtocols[1] = {EA_PROTOCOL};
 #define mico_log(M, ...) custom_log("MICO", M, ##__VA_ARGS__)
 #define mico_log_trace() custom_log_trace("MICO")
 
-__weak void sendNotifySYSWillPowerOff(void){
+WEAK void sendNotifySYSWillPowerOff(void){
 
 }
 
@@ -77,7 +77,7 @@ void micoNotify_ReadAppInfoHandler(char *str, int len, mico_Context_t * const in
 
 
 
-void PlatformEasyLinkButtonClickedCallback(void)
+USED void PlatformEasyLinkButtonClickedCallback(void)
 {
   mico_log_trace();
   bool needsUpdate = false;
@@ -102,7 +102,7 @@ exit:
   return;
 }
 
-void PlatformEasyLinkButtonLongPressedCallback(void)
+USED void PlatformEasyLinkButtonLongPressedCallback(void)
 {
   mico_log_trace();
   MICORestoreDefault(context);
@@ -113,7 +113,7 @@ exit:
   return;
 }
 
- void PlatformStandbyButtonClickedCallback(void)
+USED void PlatformStandbyButtonClickedCallback(void)
  {
     mico_log_trace();
     context->micoStatus.sys_state = eState_Standby;
@@ -390,6 +390,7 @@ int application_start(void)
   else if( context->flashContentInRam.micoSystemConfig.configured == mfgConfigured ){
     mico_log( "Enter MFG mode automatically" );
     mico_mfg_test(context);
+    mico_thread_sleep(MICO_NEVER_TIMEOUT);
   }
 #endif
 
