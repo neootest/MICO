@@ -46,14 +46,14 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>..\..\..\Build\COM.MXCHIP.SPP\EMW3162\Obj_RVMDK\</OutputDirectory>
-          <OutputName>COM.MXCHIP.SPP</OutputName>
+          <OutputDirectory>..\..\..\Build\Bootloader\EMW3162\Obj_RVMDK\</OutputDirectory>
+          <OutputName>bootloader</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>0</BrowseInformation>
-          <ListingPath>..\..\..\Build\COM.MXCHIP.SPP\EMW3162\list_RVMDK\</ListingPath>
+          <ListingPath>..\..\..\Build\Bootloader\EMW3162\List_RVMDK\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
           <CreateBatchFile>0</CreateBatchFile>
@@ -224,7 +224,7 @@
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>0</useUlib>
+            <useUlib>1</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <RoSelD>3</RoSelD>
@@ -309,8 +309,8 @@
               </OCR_RVCT3>
               <OCR_RVCT4>
                 <Type>1</Type>
-                <StartAddress>0x800c000</StartAddress>
-                <Size>0xf4000</Size>
+                <StartAddress>0x8000000</StartAddress>
+                <Size>0x8000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -347,7 +347,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
+            <Optim>0</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -363,9 +363,9 @@
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls>--diag_suppress=1,1293</MiscControls>
-              <Define>USE_STDPERIPH_DRIVER DEBUG</Define>
+              <Define>USE_STDPERIPH_DRIVER BOOTLOADER SIZE_OPTIMIZE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\include;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\inc;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\CMSIS;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv;..\..\..\Platform\Common\Cortex-M3\STM32F2xx;..\..\..\Platform\Common\Cortex-M3;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Inc;..\..\..\Demos\COM.MXCHIP.SPP;..\..\..\MICO;..\..\..\Platform\EMW3162;..\..\..\External;..\..\..\Library\support;..\..\..\Platform\include</IncludePath>
+              <IncludePath>..\..\..\include;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\inc;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\CMSIS;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv;..\..\..\Platform\Common\Cortex-M3\STM32F2xx;..\..\..\Platform\Common\Cortex-M3;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_HAL_Driver\Inc;..\..\..\Bootloader;..\..\..\MICO;..\..\..\Platform\EMW3162;..\..\..\External;..\..\..\Library\support;..\..\..\Platform\include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -386,7 +386,7 @@
             </VariousControls>
           </Aads>
           <LDads>
-            <umfTarg>1</umfTarg>
+            <umfTarg>0</umfTarg>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
             <noStLib>0</noStLib>
@@ -395,7 +395,7 @@
             <TextAddressRange>0x08000000</TextAddressRange>
             <DataAddressRange>0x20000000</DataAddressRange>
             <pXoBase></pXoBase>
-            <ScatterFile>..\..\..\Build\COM.MXCHIP.SPP\EMW3162\Obj_RVMDK\COM.MXCHIP.sct</ScatterFile>
+            <ScatterFile>..\..\..\Platform\EMW3162\bootloaderLinkerForKeil.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
             <Misc>--diag_warning=6218,6654,6238 --diag_suppress=6238</Misc>
@@ -406,127 +406,37 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>Application</GroupName>
+          <GroupName>Bootloader</GroupName>
           <Files>
             <File>
-              <FileName>LocalTcpServer.c</FileName>
+              <FileName>BootloaderEntrance.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\Demos\COM.MXCHIP.SPP\LocalTcpServer.c</FilePath>
+              <FilePath>..\..\..\Bootloader\BootloaderEntrance.c</FilePath>
             </File>
             <File>
-              <FileName>MICOAppEntrance.c</FileName>
+              <FileName>Getline.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\Demos\COM.MXCHIP.SPP\MICOAppEntrance.c</FilePath>
+              <FilePath>..\..\..\Bootloader\Getline.c</FilePath>
             </File>
             <File>
-              <FileName>MICOBonjour.c</FileName>
+              <FileName>menu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\Demos\COM.MXCHIP.SPP\MICOBonjour.c</FilePath>
+              <FilePath>..\..\..\Bootloader\menu.c</FilePath>
             </File>
             <File>
-              <FileName>MICOConfigDelegate.c</FileName>
+              <FileName>Update_for_OTA.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\Demos\COM.MXCHIP.SPP\MICOConfigDelegate.c</FilePath>
+              <FilePath>..\..\..\Bootloader\Update_for_OTA.c</FilePath>
             </File>
             <File>
-              <FileName>RemoteTcpClient.c</FileName>
+              <FileName>ymodem.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\Demos\COM.MXCHIP.SPP\RemoteTcpClient.c</FilePath>
+              <FilePath>..\..\..\Bootloader\ymodem.c</FilePath>
             </File>
-            <File>
-              <FileName>SppProtocol.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Demos\COM.MXCHIP.SPP\SppProtocol.c</FilePath>
-            </File>
-            <File>
-              <FileName>UartRecv.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Demos\COM.MXCHIP.SPP\UartRecv.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>MICO</GroupName>
-          <Files>
-            <File>
-              <FileName>MICOConfigMenu.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\MICO\MICOConfigMenu.c</FilePath>
-            </File>
-            <File>
-              <FileName>MICOConfigServer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\MICO\MICOConfigServer.c</FilePath>
-            </File>
-            <File>
-              <FileName>MICOEntrance.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\MICO\MICOEntrance.c</FilePath>
-            </File>
-            <File>
-              <FileName>MICONotificationCenter.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\MICO\MICONotificationCenter.c</FilePath>
-            </File>
-            <File>
-              <FileName>MICONTPClient.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\MICO\MICONTPClient.c</FilePath>
-            </File>
-            <File>
-              <FileName>MICOSystemMonitor.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\MICO\MICOSystemMonitor.c</FilePath>
-            </File>
-            <File>
-              <FileName>EasyLink.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\MICO\EasyLink\EasyLink.c</FilePath>
-            </File>
-            <File>
-              <FileName>EasyLinkSoftAP.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\MICO\SoftAP\EasyLinkSoftAP.c</FilePath>
-            </File>
-            <File>
-              <FileName>MICOParaStorage.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\MICO\MICOParaStorage.c</FilePath>
-            </File>
-            <File>
-              <FileName>WPS.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\MICO\WPS\WPS.c</FilePath>
-            </File>
-            <File>
-              <FileName>MICOMfgtest.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\MICO\MICOMfgtest.c</FilePath>
-            </File>
-            <File>
-              <FileName>MICOCli.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\MICO\MICOCli.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Library</GroupName>
-          <Files>
             <File>
               <FileName>patch_keil.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\Platform\IDEs\Keil\patch_keil.c</FilePath>
-            </File>
-            <File>
-              <FileName>MICOConfig.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\MICOConfig.c</FilePath>
-            </File>
-            <File>
-              <FileName>mxchipWNet_cm3_sdio.a</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\Library\mxchipWNet_cm3_sdio.a</FilePath>
             </File>
           </Files>
         </Group>
@@ -534,99 +444,14 @@
           <GroupName>Support</GroupName>
           <Files>
             <File>
-              <FileName>AESUtils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\AESUtils.c</FilePath>
-            </File>
-            <File>
-              <FileName>HTTPUtils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\HTTPUtils.c</FilePath>
-            </File>
-            <File>
-              <FileName>MDNSUtils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\MDNSUtils.c</FilePath>
-            </File>
-            <File>
-              <FileName>RingBufferUtils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\RingBufferUtils.c</FilePath>
-            </File>
-            <File>
-              <FileName>SecurityUtils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\SecurityUtils.c</FilePath>
-            </File>
-            <File>
-              <FileName>SHAUtils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\SHAUtils.c</FilePath>
-            </File>
-            <File>
-              <FileName>SocketUtils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\SocketUtils.c</FilePath>
-            </File>
-            <File>
               <FileName>StringUtils.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\Library\support\StringUtils.c</FilePath>
             </File>
             <File>
-              <FileName>TimeUtils.c</FileName>
+              <FileName>RingBufferUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\TimeUtils.c</FilePath>
-            </File>
-            <File>
-              <FileName>TLVUtils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\TLVUtils.c</FilePath>
-            </File>
-            <File>
-              <FileName>URLUtils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Library\support\URLUtils.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>External/JSON-C</GroupName>
-          <Files>
-            <File>
-              <FileName>arraylist.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\External\JSON-C\arraylist.c</FilePath>
-            </File>
-            <File>
-              <FileName>debug.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\External\JSON-C\debug.c</FilePath>
-            </File>
-            <File>
-              <FileName>json_object.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\External\JSON-C\json_object.c</FilePath>
-            </File>
-            <File>
-              <FileName>json_tokener.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\External\JSON-C\json_tokener.c</FilePath>
-            </File>
-            <File>
-              <FileName>json_util.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\External\JSON-C\json_util.c</FilePath>
-            </File>
-            <File>
-              <FileName>linkhash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\External\JSON-C\linkhash.c</FilePath>
-            </File>
-            <File>
-              <FileName>printbuf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\External\JSON-C\printbuf.c</FilePath>
+              <FilePath>..\..\..\Library\support\RingBufferUtils.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -642,11 +467,6 @@
               <FileName>misc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\misc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_adc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f2xx_can.c</FileName>
@@ -794,77 +614,9 @@
               <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_wwdg.c</FilePath>
             </File>
             <File>
-              <FileName>startup_stm32f2xx_RVMDK.s</FileName>
+              <FileName>startup_stm32f2xx_bootloader_RVMDK.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\startup_stm32f2xx_RVMDK.s</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Platform/MicoDriver/EMW1062</GroupName>
-          <Files>
-            <File>
-              <FileName>read_wifi_firmware.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\read_wifi_firmware.c</FilePath>
-            </File>
-            <File>
-              <FileName>wlan_platform.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\wlan_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>wlan_bus.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\SDIO\wlan_bus.c</FilePath>
-            </File>
-            <File>
-              <FileName>wwd_bus.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\SPI\wwd_bus.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>2</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\startup_stm32f2xx_bootloader_RVMDK.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -872,24 +624,9 @@
           <GroupName>Platform/MicoDriver/MCU</GroupName>
           <Files>
             <File>
-              <FileName>hardfault.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\hardfault.c</FilePath>
-            </File>
-            <File>
               <FileName>MicoDriverGpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverGpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>MicoDriverI2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverI2c.c</FilePath>
-            </File>
-            <File>
-              <FileName>MicoDriverRtc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverRtc.c</FilePath>
             </File>
             <File>
               <FileName>MicoDriverUart.c</FileName>
@@ -902,21 +639,6 @@
               <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\stm32f2xx_platform.c</FilePath>
             </File>
             <File>
-              <FileName>usbh_conf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\usbh_conf.c</FilePath>
-            </File>
-            <File>
-              <FileName>rtc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\rtc.c</FilePath>
-            </File>
-            <File>
-              <FileName>MicoDriverWdg.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverWdg.c</FilePath>
-            </File>
-            <File>
               <FileName>MicoDriverSpi.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverSpi.c</FilePath>
@@ -927,19 +649,14 @@
               <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverRng.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverPwm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverPwm.c</FilePath>
-            </File>
-            <File>
               <FileName>MicoDriverFlash.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverFlash.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverAdc.c</FileName>
+              <FileName>MicoDriverRtc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverAdc.c</FilePath>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\MicoDriverRtc.c</FilePath>
             </File>
             <File>
               <FileName>gpio_irq.c</FileName>
@@ -950,6 +667,11 @@
               <FileName>crt0_KEIL.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\Platform\Common\Cortex-M3\crt0_KEIL.c</FilePath>
+            </File>
+            <File>
+              <FileName>rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\rtc.c</FilePath>
             </File>
           </Files>
         </Group>

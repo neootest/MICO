@@ -130,19 +130,15 @@
 */
 
 #if( !defined( check ) )
-    #if( DEBUG )
-        #define check( X )                                                                                  \
-            do                                                                                              \
-            {                                                                                               \
-                if( unlikely( !(X) ) )                                                                      \
-                {                                                                                           \
-                    debug_print_assert( 0, #X, NULL, __FILE__, __LINE__, __PRETTY_FUNCTION__ );             \
-                }                                                                                           \
-                                                                                                            \
-            }   while( 1==0 )
-    #else
-        #define check( X )
-    #endif
+    #define check( X )                                                                                  \
+        do                                                                                              \
+        {                                                                                               \
+            if( unlikely( !(X) ) )                                                                      \
+            {                                                                                           \
+                debug_print_assert( 0, #X, NULL, __FILE__, __LINE__, __PRETTY_FUNCTION__ );             \
+            }                                                                                           \
+                                                                                                        \
+        }   while( 1==0 )
 #endif
               
 //---------------------------------------------------------------------------------------------------------------------------
@@ -157,20 +153,16 @@
 */
 
 #if( !defined( check_string ) )
-    #if( DEBUG )
-        #define check_string( X, STR )                                                                                  \
-            do                                                                                              \
-            {                                                                                               \
-                if( unlikely( !(X) ) )                                                                      \
-                {                                                                                           \
-                    debug_print_assert( 0, #X, STR, __FILE__, __LINE__, __PRETTY_FUNCTION__ );              \
-                    MICO_ASSERTION_FAIL_ACTION();                                                           \
-                }                                                                                           \
-                                                                                                            \
-            }   while( 1==0 )
-    #else
-        #define check_string( X, STR )
-    #endif
+    #define check_string( X, STR )                                                                                  \
+        do                                                                                              \
+        {                                                                                               \
+            if( unlikely( !(X) ) )                                                                      \
+            {                                                                                           \
+                debug_print_assert( 0, #X, STR, __FILE__, __LINE__, __PRETTY_FUNCTION__ );              \
+                MICO_ASSERTION_FAIL_ACTION();                                                           \
+            }                                                                                           \
+                                                                                                        \
+        }   while( 1==0 )
 #endif              
 
 //---------------------------------------------------------------------------------------------------------------------------

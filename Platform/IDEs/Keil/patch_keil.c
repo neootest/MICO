@@ -58,6 +58,7 @@ char *_sys_command_string(char * cmd, int len)
     return 0;
 }
 
+#ifndef  NO_MICO_RTOS
 USED int _mutex_initialize(void* mutex)
 {
   return 1;
@@ -76,7 +77,7 @@ USED void _mutex_release(void* mutex)
 USED void _mutex_free(void* mutex)
 {
 }
-
+#endif
 // logging.o
 char* __iar_Strstr(char* s1, char* s2)
 {  
