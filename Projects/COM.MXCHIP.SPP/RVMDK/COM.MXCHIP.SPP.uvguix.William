@@ -11,17 +11,17 @@
     <View>
       <WinId>38003</WinId>
       <ViewName>Registers</ViewName>
-      <TableColWidths>115 306</TableColWidths>
+      <TableColWidths>115 275</TableColWidths>
     </View>
     <View>
       <WinId>346</WinId>
       <ViewName>Code Coverage</ViewName>
-      <TableColWidths>670 160</TableColWidths>
+      <TableColWidths>848 160</TableColWidths>
     </View>
     <View>
       <WinId>204</WinId>
       <ViewName>Performance Analyzer</ViewName>
-      <TableColWidths>830</TableColWidths>
+      <TableColWidths>1008</TableColWidths>
     </View>
   </SECTreeCtrl>
 

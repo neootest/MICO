@@ -175,7 +175,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\startup_stm32f2xx_bootloader_RVMDK.s</Filename>
+          <Filename>&lt;1&gt;..\..\..\Platform\Common\Cortex-M3\STM32F2xx\STM32F2xx_Drv\startup_stm32f2xx_bootloader_RVMDK.s</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>
