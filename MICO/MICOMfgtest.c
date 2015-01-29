@@ -188,7 +188,7 @@ void mico_mfg_test(mico_Context_t *inContext)
   micoWlanStartAdv(&wNetConfig);
   
   /* Initialize UART interface */
-  uart_config.baud_rate    = inContext->flashContentInRam.appConfig.USART_BaudRate;
+  uart_config.baud_rate    = 115200;
   uart_config.data_width   = DATA_WIDTH_8BIT;
   uart_config.parity       = NO_PARITY;
   uart_config.stop_bits    = STOP_BITS_1;
@@ -197,7 +197,7 @@ void mico_mfg_test(mico_Context_t *inContext)
   
   ring_buffer_init  ( (ring_buffer_t *)&rx_buffer, (uint8_t *)rx_data, 2048 );
   MicoUartInitialize( UART_FOR_APP, &uart_config, (ring_buffer_t *)&rx_buffer );
-  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "MFG UART Recv", uartRecvMfg_thread, STACK_SIZE_UART_RECV_THREAD, (void*)inContext );
+  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "MFG UART Recv", uartRecvMfg_thread, 0x300, (void*)inContext );
   
   /* Initialize UDP interface */
   t.tv_sec = 5;
