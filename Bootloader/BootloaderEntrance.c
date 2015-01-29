@@ -46,6 +46,7 @@ extern OSStatus update(void);
 char menu[] =
 "\r\n"
 "MICO Bootloader for %s, HARDWARE_REVISION: %s\r\n"
+<<<<<<< HEAD
 "0:BOOTUPDATE <-r>\r\n"
 "1:FWUPDATE <-r>\r\n"
 "2:DRIVERUPDATE <-r>\r\n"
@@ -58,6 +59,8 @@ char menu[] =
 char menu[] =
 "\r\n"
 "MICO Bootloader for %s, HARDWARE_REVISION: %s\r\n"
+=======
+>>>>>>> TestMode
 "+ command -------------------------+ function ------------+\r\n"
 "| 0:BOOTUPDATE    <-r>             | Update bootloader    |\r\n"
 "| 1:FWUPDATE      <-r>             | Update application   |\r\n"
@@ -83,9 +86,9 @@ int main(void)
   init_memory();
   init_architecture();
   init_platform_bootloader();
-
+  
 #ifdef MICO_FLASH_FOR_UPDATE
-   update();
+  update();
 #endif
   
   /* BOOT_SEL = 1 => Normal start*/
@@ -101,5 +104,4 @@ int main(void)
     Main_Menu ();
   }
 }
-
 

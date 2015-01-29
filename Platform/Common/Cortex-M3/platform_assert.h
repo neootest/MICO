@@ -45,6 +45,10 @@
 #elif defined ( __CC_ARM )
 #define MICO_ASSERTION_FAIL_ACTION() __asm("bkpt 0")
 #endif
+<<<<<<< HEAD
+=======
+
+>>>>>>> TestMode
 /******************************************************
  *                   Enumerations
  ******************************************************/

@@ -29,9 +29,6 @@
 ******************************************************************************
 */
 
-#define TEST
-
-
 #include "time.h"
 #include "MicoPlatform.h"
 #include "platform.h"
@@ -48,42 +45,23 @@
 #endif 
 #include "StringUtils.h"
 
-#ifdef TEST
-// #define TEST_CONTEXT
-// #define TEST_NOTIFICATION   
-// #define TEST_EASYLINK       
-// #define TEST_APP            
-#define TEST_PLATFORM      
-#define TEST_WLAN
-// #define TEST_TIMER
-// #define TEST_TOAP
-// #define TEST_CONFIGSERVER
-// #define TEST_NTP
-// #define TEST_SYSMONITOR
-// #define TEST_SYSSTATUS
-#endif 
 
 #if defined (CONFIG_MODE_EASYLINK) || defined (CONFIG_MODE_EASYLINK_WITH_SOFTAP)
 // #include "EasyLink/EasyLink.h"
 #endif
-#if defined ( TEST_CONTEXT )
 static mico_Context_t *context;
-#endif 
-#if defined ( TEST_TIMER)
+#if 0 
 static mico_timer_t _watchdog_reload_timer;
 
-#endif
-#if defined ( TEST_SYSMONITOR )
 static mico_system_monitor_t mico_monitor;
 
-#endif
-#if defined ( TEST_EA )
 const char *eaProtocols[1] = {EA_PROTOCOL};
 #endif
 
 #define mico_log(M, ...) custom_log("MICO", M, ##__VA_ARGS__)
 #define mico_log_trace() custom_log_trace("MICO")
 
+#if 0
 __weak void sendNotifySYSWillPowerOff(void){
 
 }
@@ -315,7 +293,7 @@ static void mico_mfg_test(void)
   
   mico_thread_sleep(MICO_NEVER_TIMEOUT);
 }
-#if 0
+
 int application_start(void)
 {
   OSStatus err = kNoErr;

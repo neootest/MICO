@@ -56,7 +56,7 @@ __initial_sp
 ;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
 ; </h>
 
-Heap_Size       EQU     0x00012000
+Heap_Size       EQU     0x00014000
 
                 AREA    HEAP, NOINIT, READWRITE, ALIGN=3
 __heap_base
@@ -94,7 +94,7 @@ __Vectors       DCD     __initial_sp               ; Top of Stack
                 DCD     WWDG_IRQHandler                   ; Window WatchDog                                        
                 DCD     PVD_IRQHandler                    ; PVD through EXTI Line detection                        
                 DCD     TAMP_STAMP_IRQHandler             ; Tamper and TimeStamps through the EXTI line            
-                DCD     RTC_WKUP_IRQHandler               ; RTC Wakeup through the EXTI line                       
+                DCD     RTC_WKUP_irq                      ; RTC Wakeup through the EXTI line                       
                 DCD     FLASH_IRQHandler                  ; FLASH                                           
                 DCD     RCC_IRQHandler                    ; RCC                                             
                 DCD     EXTI0_IRQHandler                  ; EXTI Line0                                             
@@ -184,11 +184,15 @@ __Vectors_Size  EQU  __Vectors_End - __Vectors
 ; Reset handler
 Reset_Handler    PROC
                  EXPORT  Reset_Handler             [WEAK]
+        IMPORT  __low_level_init
         IMPORT  __main
  ;                LDR     R1, =0x0800C000
  ;                LDR     R0, [R1]
-  ;               MSR     MSP, R0
-		 LDR     R0, =__main
+ ;               MSR     MSP, R0
+
+                 LDR     R0, =__low_level_init
+                 BLX     R0
+                 LDR     R0, =__main
                  BX      R0
                  ENDP
 
@@ -252,7 +256,7 @@ Default_Handler PROC
                 EXPORT  WWDG_IRQHandler                   [WEAK]                                        
                 EXPORT  PVD_IRQHandler                    [WEAK]                      
                 EXPORT  TAMP_STAMP_IRQHandler             [WEAK]         
-                EXPORT  RTC_WKUP_IRQHandler               [WEAK]                     
+                EXPORT  RTC_WKUP_irq                      [WEAK]                     
                 EXPORT  FLASH_IRQHandler                  [WEAK]                                         
                 EXPORT  RCC_IRQHandler                    [WEAK]                                            
                 EXPORT  EXTI0_IRQHandler                  [WEAK]                                            
@@ -331,7 +335,7 @@ Default_Handler PROC
 WWDG_IRQHandler                                                       
 PVD_IRQHandler                                      
 TAMP_STAMP_IRQHandler                  
-RTC_WKUP_IRQHandler                                
+RTC_WKUP_irq                                
 FLASH_IRQHandler                                                       
 RCC_IRQHandler                                                            
 EXTI0_IRQHandler                                                          

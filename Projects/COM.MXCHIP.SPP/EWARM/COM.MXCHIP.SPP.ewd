@@ -53,7 +53,7 @@
         </option>
         <option>
           <name>RunToName</name>
-          <state>application_start</state>
+          <state>main</state>
         </option>
         <option>
           <name>CExtraOptionsCheck</name>

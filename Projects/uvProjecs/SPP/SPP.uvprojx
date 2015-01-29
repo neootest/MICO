@@ -46,14 +46,14 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>.\Objects\</OutputDirectory>
+          <OutputDirectory>..\..\..\Build\uvProj\SPP\Objects\</OutputDirectory>
           <OutputName>SPP</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
-          <ListingPath>.\Listings\</ListingPath>
+          <ListingPath>..\..\..\Build\uvProj\SPP\Listings\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
           <CreateBatchFile>0</CreateBatchFile>
@@ -601,6 +601,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\MICO\WPS\WPS.c</FilePath>
             </File>
+            <File>
+              <FileName>MICOMfgtest.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\MICO\MICOMfgtest.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1021,11 +1026,6 @@
           <GroupName>platform_board</GroupName>
           <Files>
             <File>
-              <FileName>hardfault.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\Common\Cortex-M3\hardfault.c</FilePath>
-            </File>
-            <File>
               <FileName>platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\Platform\EMW3162\platform.c</FilePath>
@@ -1089,6 +1089,11 @@
               <FileName>startup_stm32f2xx.s</FileName>
               <FileType>2</FileType>
               <FilePath>..\..\..\Platform\IDEs\Keil\startup_stm32f2xx.s</FilePath>
+            </File>
+            <File>
+              <FileName>crt0_KEIL.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Platform\Common\Cortex-M3\crt0_KEIL.c</FilePath>
             </File>
           </Files>
         </Group>
