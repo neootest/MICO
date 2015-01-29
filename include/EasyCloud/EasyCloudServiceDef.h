@@ -140,5 +140,11 @@ typedef struct _dev_activate_data_t {
   char                   user_token[MAX_SIZE_USER_TOKEN];
 } MVDActivateRequestData_t, MVDAuthorizeRequestData_t, MVDOTARequestData_t, MVDResetRequestData_t;
 
+/* params for download file from server */
+typedef struct _dev_download_file_data_t {
+  char                   file_path[MAX_SIZE_FILE_PATH];
+  char                   file_checksum[MAX_SIZE_FILE_MD5];
+  char                   file_version[MAX_SIZE_FW_VERSION];
+} MVDDownloadFileRequestData_t;
 
 #endif

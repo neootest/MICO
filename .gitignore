@@ -1,4 +1,5 @@
 Document/html/*
+Projects/uvProjecs/*
 Build/*
 *.dep
 *.jlink
@@ -12,3 +13,5 @@ Build/*
 si/*
 
 *.wspos
+
+*.William

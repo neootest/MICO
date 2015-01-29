@@ -39,6 +39,12 @@ OSStatus CreateHTTPMessageEx( const char *methold, const char * host,
                              const char *url, const char *contentType, 
                              uint8_t *inData, size_t inDataLen, 
                              uint8_t **outMessage, size_t *outMessageSize );
+OSStatus CreateHTTPMessageWithRange( const char *methold, const char * host, 
+                             const char *url, const char *contentType, 
+                             uint64_t rangeStart,
+                             uint8_t *inData, size_t inDataLen, 
+                             uint8_t **outMessage, size_t *outMessageSize );
+
 OSStatus CreateSimpleHTTPFailedMessage( uint8_t **outMessage, 
                                        size_t *outMessageSize );
 int SocketReadHTTPHeaderEx( int inSock, HTTPHeader_t *inHeader );
@@ -49,6 +55,10 @@ OSStatus SocketReadHTTPBodyEx( int inSock, HTTPHeader_t *inHeader );
 char* DataToHexStringLowercase( const uint8_t *inBuf, size_t inBufLen );
 // string replace, dst string must be freed by user
 char* str_replace(char *dst, const char *src, const unsigned int srcLen, char *old_str, char *new_str);
+
+#ifdef MICO_FLASH_FOR_UPDATE
+uint32_t getFlashStorageAddress(void);
+#endif
 
 #endif // __EASYCLOUD_UTILS_H__
 

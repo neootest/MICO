@@ -523,14 +523,17 @@
   </group>
   <group>
     <name>Library</name>
+    <group>
+      <name>EasyCloud</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_20150128_v0.2.8_debug.a</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_20150128_v0.2.8_release.a</name>
+      </file>
+    </group>
     <file>
       <name>$PROJ_DIR$\..\..\..\Library\MICOConfig.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\Library\MicoEasyCloudService_20150121_v0.2.7_debug.a</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\Library\MicoEasyCloudService_20150121_v0.2.7_release.a</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_cm3_sdio.a</name>

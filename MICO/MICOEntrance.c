@@ -38,6 +38,7 @@
 
 #include "MICONotificationCenter.h"
 #include "MICOSystemMonitor.h"
+#include "MicoCli.h"
 #include "EasyLink/EasyLink.h"
 #include "SoftAP/EasyLinkSoftAP.h"
 #include "WPS/WPS.h"
@@ -62,7 +63,7 @@ const char *eaProtocols[1] = {EA_PROTOCOL};
 #define mico_log(M, ...) custom_log("MICO", M, ##__VA_ARGS__)
 #define mico_log_trace() custom_log_trace("MICO")
 
-__weak void sendNotifySYSWillPowerOff(void){
+WEAK void sendNotifySYSWillPowerOff(void){
 
 }
 
@@ -77,7 +78,7 @@ void micoNotify_ReadAppInfoHandler(char *str, int len, mico_Context_t * const in
 
 
 
-void PlatformEasyLinkButtonClickedCallback(void)
+USED void PlatformEasyLinkButtonClickedCallback(void)
 {
   mico_log_trace();
   bool needsUpdate = false;
@@ -102,7 +103,7 @@ exit:
   return;
 }
 
-void PlatformEasyLinkButtonLongPressedCallback(void)
+USED void PlatformEasyLinkButtonLongPressedCallback(void)
 {
   mico_log_trace();
   MICORestoreDefault(context);
@@ -113,7 +114,7 @@ exit:
   return;
 }
 
- void PlatformStandbyButtonClickedCallback(void)
+USED void PlatformStandbyButtonClickedCallback(void)
  {
     mico_log_trace();
     context->micoStatus.sys_state = eState_Standby;
@@ -301,24 +302,11 @@ int application_start(void)
 
   /*wlan driver and tcpip init*/
   MicoInit();
+#ifdef MICO_CLI_ENABLE  
+  MicoCliInit();
+#endif
   MicoSysLed(true);
   mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
-
-  /* Enter test mode, call a build-in test function amd output on STDIO */
-  if(MicoShouldEnterMFGMode()==true)
-    mico_mfg_test();
-
-  /*Read current time from RTC.*/
-  MicoRtcGetTime(&time);
-  currentTime.tm_sec = time.sec;
-  currentTime.tm_min = time.min;
-  currentTime.tm_hour = time.hr;
-  currentTime.tm_mday = time.date;
-  currentTime.tm_wday = time.weekday;
-  currentTime.tm_mon = time.month - 1;
-  currentTime.tm_year = time.year + 100;
-  mico_log("Current Time: %s",asctime(&currentTime));
-
   micoWlanGetIPStatus(&para, Station);
   formatMACAddr(context->micoStatus.mac, (char *)&para.mac);
   MicoGetRfVer(wifi_ver, sizeof(wifi_ver));
@@ -334,6 +322,23 @@ int application_start(void)
   mico_init_timer(&_watchdog_reload_timer,APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000 - 100, _watchdog_reload_timer_handler, NULL);
   mico_start_timer(&_watchdog_reload_timer);
 
+  /* Enter test mode, call a build-in test function amd output on STDIO */
+  if(MicoShouldEnterMFGMode()==true){
+    mico_log( "Enter MFG mode by MFG button" );
+    mico_mfg_test(context);
+  }
+  
+  /*Read current time from RTC.*/
+  MicoRtcGetTime(&time);
+  currentTime.tm_sec = time.sec;
+  currentTime.tm_min = time.min;
+  currentTime.tm_hour = time.hr;
+  currentTime.tm_mday = time.date;
+  currentTime.tm_wday = time.weekday;
+  currentTime.tm_mon = time.month - 1;
+  currentTime.tm_year = time.year + 100;
+  mico_log("Current Time: %s",asctime(&currentTime));
+  
   /* Regisist notifications */
   err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)micoNotify_WifiStatusHandler );
   require_noerr( err, exit ); 
@@ -387,7 +392,9 @@ int application_start(void)
   }
 #ifdef MFG_MODE_AUTO
   else if( context->flashContentInRam.micoSystemConfig.configured == mfgConfigured ){
-    mico_mfg_test();
+    mico_log( "Enter MFG mode automatically" );
+    mico_mfg_test(context);
+    mico_thread_sleep(MICO_NEVER_TIMEOUT);
   }
 #endif
 
@@ -459,5 +466,3 @@ exit:
   mico_rtos_delete_thread(NULL);
   return kNoErr;
 }
-
-

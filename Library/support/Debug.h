@@ -36,17 +36,21 @@
 #if DEBUG
 #ifndef MICO_DISABLE_STDIO
 #ifndef NO_MICO_RTOS
+   extern int mico_debug_enabled;
    extern mico_mutex_t stdio_tx_mutex;
 
-    #define custom_log(N, M, ...) do {mico_rtos_lock_mutex( &stdio_tx_mutex );\
+    #define custom_log(N, M, ...) do {if (mico_debug_enabled==0)break;\
+                                      mico_rtos_lock_mutex( &stdio_tx_mutex );\
                                       printf("[%d][%s: %s:%4d] " M "\r\n", mico_get_time(), N, SHORT_FILE, __LINE__, ##__VA_ARGS__);\
                                       mico_rtos_unlock_mutex( &stdio_tx_mutex );}while(0==1)
                                         
-    #define debug_print_assert(A,B,C,D,E,F, ...) do {mico_rtos_lock_mutex( &stdio_tx_mutex );\
+    #define debug_print_assert(A,B,C,D,E,F, ...) do {if (mico_debug_enabled==0)break;\
+                                                     mico_rtos_lock_mutex( &stdio_tx_mutex );\
                                                      printf("[%d][MICO:%s:%s:%4d] **ASSERT** %s""\r\n", mico_get_time(), (D!=NULL) ? D : "", F, E, (C!=NULL) ? C : "", ##__VA_ARGS__);\
                                                      mico_rtos_unlock_mutex( &stdio_tx_mutex );}while(0==1)
     #if TRACE
-        #define custom_log_trace(N) do {mico_rtos_lock_mutex( &stdio_tx_mutex );\
+        #define custom_log_trace(N) do {if (mico_debug_enabled==0)break;\
+                                        mico_rtos_lock_mutex( &stdio_tx_mutex );\
                                         printf("[%s: [TRACE] %s] %s()\r\n", N, SHORT_FILE, __PRETTY_FUNCTION__);\
                                         mico_rtos_unlock_mutex( &stdio_tx_mutex );}while(0==1)
     #else  // !TRACE
@@ -126,19 +130,15 @@
 */
 
 #if( !defined( check ) )
-    #if( DEBUG )
-        #define check( X )                                                                                  \
-            do                                                                                              \
-            {                                                                                               \
-                if( unlikely( !(X) ) )                                                                      \
-                {                                                                                           \
-                    debug_print_assert( 0, #X, NULL, __FILE__, __LINE__, __PRETTY_FUNCTION__ );             \
-                }                                                                                           \
-                                                                                                            \
-            }   while( 1==0 )
-    #else
-        #define check( X )
-    #endif
+    #define check( X )                                                                                  \
+        do                                                                                              \
+        {                                                                                               \
+            if( unlikely( !(X) ) )                                                                      \
+            {                                                                                           \
+                debug_print_assert( 0, #X, NULL, __FILE__, __LINE__, __PRETTY_FUNCTION__ );             \
+            }                                                                                           \
+                                                                                                        \
+        }   while( 1==0 )
 #endif
               
 //---------------------------------------------------------------------------------------------------------------------------
@@ -153,20 +153,16 @@
 */
 
 #if( !defined( check_string ) )
-    #if( DEBUG )
-        #define check_string( X, STR )                                                                                  \
-            do                                                                                              \
-            {                                                                                               \
-                if( unlikely( !(X) ) )                                                                      \
-                {                                                                                           \
-                    debug_print_assert( 0, #X, STR, __FILE__, __LINE__, __PRETTY_FUNCTION__ );              \
-                    MICO_ASSERTION_FAIL_ACTION();                                                           \
-                }                                                                                           \
-                                                                                                            \
-            }   while( 1==0 )
-    #else
-        #define check_string( X, STR )
-    #endif
+    #define check_string( X, STR )                                                                                  \
+        do                                                                                              \
+        {                                                                                               \
+            if( unlikely( !(X) ) )                                                                      \
+            {                                                                                           \
+                debug_print_assert( 0, #X, STR, __FILE__, __LINE__, __PRETTY_FUNCTION__ );              \
+                MICO_ASSERTION_FAIL_ACTION();                                                           \
+            }                                                                                           \
+                                                                                                        \
+        }   while( 1==0 )
 #endif              
 
 //---------------------------------------------------------------------------------------------------------------------------

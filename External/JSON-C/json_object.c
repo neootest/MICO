@@ -25,6 +25,8 @@
 #include "json_object_private.h"
 #include "json_util.h"
 
+#include "StringUtils.h"
+
 #if !HAVE_STRNDUP
 char* strndup(const char* str, size_t n);
 #endif /* !HAVE_STRNDUP */

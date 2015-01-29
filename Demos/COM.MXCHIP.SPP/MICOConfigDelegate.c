@@ -44,7 +44,7 @@
 extern volatile ring_buffer_t  rx_buffer;
 extern volatile uint8_t        rx_data[UART_BUFFER_LENGTH];
 
-static mico_timer_t _Led_EL_timer = NULL;
+static mico_timer_t _Led_EL_timer;
 
 static void _led_EL_Timeout_handler( void* arg )
 {
