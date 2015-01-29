@@ -46,12 +46,6 @@
 #include "../../GCC/stdio_newlib.h"
 #endif /* ifdef __GNUC__ */
 
-#ifdef __GNUC__
-#define WEAK __attribute__ ((weak))
-#elif defined ( __IAR_SYSTEMS_ICC__ )
-#define WEAK __weak
-#endif /* ifdef __GNUC__ */
-
 /******************************************************
 *                      Macros
 ******************************************************/
@@ -129,7 +123,6 @@ static unsigned long rtc_timeout_start_time           = 0;
 *               Function Definitions
 ******************************************************/
 #if defined ( __ICCARM__ )
-
 static inline void __jump_to( uint32_t addr )
 {
   __asm( "MOV R1, #0x00000001" );
@@ -137,42 +130,50 @@ static inline void __jump_to( uint32_t addr )
   __asm( "BLX R0" );
 }
 
-#elif defined ( __GNUC__ )
 
+#elif defined ( __GNUC__ )
 __attribute__( ( always_inline ) ) static __INLINE void __jump_to( uint32_t addr )
 {
   addr |= 0x00000001;  /* Last bit of jump address indicates whether destination is Thumb or ARM code */
   __ASM volatile ("BX %0" : : "r" (addr) );
 }
 
+
+#elif defined ( __CC_ARM )
+static void __asm __jump_to( uint32_t addr )
+{
+  MOV R1, #0x00000001
+  ORR R0, R0, R1  /* Last bit of jump address indicates whether destination is Thumb or ARM code */
+  BLX R0
+}
 #endif
 
 /*Boot to mico application form APPLICATION_START_ADDRESS defined in platform_common_config.h */
 void startApplication(void)
 {
   uint32_t text_addr = APPLICATION_START_ADDRESS;
+  uint32_t* stack_ptr;
+  uint32_t* start_ptr;
+  SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk;
   
   if (((*(volatile uint32_t*)text_addr) & 0x2FFE0000 ) != 0x20000000)
   text_addr += 0x200;
   /* Test if user code is programmed starting from address "ApplicationAddress" */
   if (((*(volatile uint32_t*)text_addr) & 0x2FFE0000 ) == 0x20000000)
   { 
-    uint32_t* stack_ptr;
-    uint32_t* start_ptr;
-    
-    __asm( "MOV LR,        #0xFFFFFFFF" );
-    __asm( "MOV R1,        #0x01000000" );
-    __asm( "MSR APSR_nzcvq,     R1" );
-    __asm( "MOV R1,        #0x00000000" );
-    __asm( "MSR PRIMASK,   R1" );
-    __asm( "MSR FAULTMASK, R1" );
-    __asm( "MSR BASEPRI,   R1" );
-    __asm( "MSR CONTROL,   R1" );
-  
-   SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk; 
-    
     stack_ptr = (uint32_t*) text_addr;  /* Initial stack pointer is first 4 bytes of vector table */
     start_ptr = ( stack_ptr + 1 );  /* Reset vector is second 4 bytes of vector table */
+
+    #if defined ( __ICCARM__)
+    __ASM( "MOV LR,        #0xFFFFFFFF" );
+    __ASM( "MOV R1,        #0x01000000" );
+    __ASM( "MSR APSR_nzcvq,     R1" );
+    __ASM( "MOV R1,        #0x00000000" );
+    __ASM( "MSR PRIMASK,   R1" );
+    __ASM( "MSR FAULTMASK, R1" );
+    __ASM( "MSR BASEPRI,   R1" );
+    __ASM( "MSR CONTROL,   R1" );
+    #endif
     
     __set_MSP( *stack_ptr );
     __jump_to( *start_ptr );
@@ -224,6 +225,9 @@ WEAK void init_memory( void )
   
 }
 
+  
+
+
 void init_architecture( void )
 {
   uint8_t i;
@@ -233,7 +237,7 @@ void init_architecture( void )
    /*STM32 wakeup by watchdog in standby mode, re-enter standby mode in this situation*/
   if ( (PWR_GetFlagStatus(PWR_FLAG_SB) != RESET) && RCC_GetFlagStatus(RCC_FLAG_IWDGRST) != RESET){
      RCC_ClearFlag();
-     MicoSystemStandBy(MICO_WAIT_FOREVER);
+     PWR_EnterSTANDBYMode();
    }
   PWR_ClearFlag(PWR_FLAG_SB);
   
@@ -262,12 +266,10 @@ void init_architecture( void )
 #ifndef NO_MICO_RTOS 
   /* Ensure 802.11 device is in reset. */
   host_platform_init( );
-  
   MicoRtcInitialize();  
 #else //Bootloader
-  check_string(SysTick_Config(SystemCoreClock / 1000)==0, "Systemtick initialize failed!");
+  SysTick_Config(SystemCoreClock / 1000);
 #endif
- 
   /* Disable MCU powersave at start-up. Application must explicitly enable MCU powersave if desired */
   MCU_CLOCKS_NEEDED();
   
@@ -564,5 +566,6 @@ void mico_thread_msleep_no_os(uint32_t milliseconds)
   int tick_delay_start = mico_get_time_no_os();
   while(mico_get_time_no_os() < tick_delay_start+milliseconds);  
 }
+
 #endif
 

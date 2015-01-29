@@ -36,6 +36,7 @@
 #include "Platform_common_config.h"
 #include "HTTPUtils.h"
 #include "MICONotificationCenter.h"
+#include "StringUtils.h"
 
 #define config_log(M, ...) custom_log("CONFIG SERVER", M, ##__VA_ARGS__)
 #define config_log_trace() custom_log_trace("CONFIG SERVER")
@@ -44,6 +45,13 @@
 #define kCONFIGURLWrite         "/config-write"
 #define kCONFIGURLWriteByUAP    "/config-write-uap"  /* Don't reboot but connect to AP immediately */
 #define kCONFIGURLOTA           "/OTA"
+
+#define kMIMEType_MXCHIP_OTA    "application/ota-stream"
+
+typedef struct _configContext_t{
+  uint32_t flashStorageAddress;
+  bool     isFlashLocked;
+} configContext_t;
 
 extern OSStatus     ConfigIncommingJsonMessage( const char *input, mico_Context_t * const inContext );
 extern OSStatus     ConfigIncommingJsonMessageUAP( const char *input, mico_Context_t * const inContext );
@@ -54,7 +62,8 @@ static void localConfig_thread(void *inFd);
 static mico_Context_t *Context;
 static OSStatus _LocalConfigRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context_t * const inContext);
 static void _easylinkConnectWiFi( mico_Context_t * const inContext);
-
+static OSStatus onReceivedData(struct _HTTPHeader_t * httpHeader, uint32_t pos, uint8_t * data, size_t len, void * userContext );
+static void onClearHTTPHeader(struct _HTTPHeader_t * httpHeader, void * userContext );
 
 OSStatus MICOStartConfigServer ( mico_Context_t * const inContext )
 {
@@ -118,9 +127,10 @@ void localConfig_thread(void *inFd)
   fd_set readfds;
   struct timeval_t t;
   HTTPHeader_t *httpHeader = NULL;
+  configContext_t httpContext = {0, false};
 
   config_log_trace();
-  httpHeader = HTTPHeaderCreate();
+  httpHeader = HTTPHeaderCreateWithCallback(onReceivedData, onClearHTTPHeader, &httpContext);
   require_action( httpHeader, exit, err = kNoMemoryErr );
   HTTPHeaderClear( httpHeader );
 
@@ -139,25 +149,37 @@ void localConfig_thread(void *inFd)
     }
   
     if(clientFdIsSet||httpHeader->len){
-      mico_rtos_lock_mutex(&Context->flashContentInRam_mutex);
       err = SocketReadHTTPHeader( clientFd, httpHeader );
-      if( err != kNoErr) mico_rtos_unlock_mutex(&Context->flashContentInRam_mutex);
 
       switch ( err )
       {
         case kNoErr:
           // Read the rest of the HTTP body if necessary
-          do{
-            err = SocketReadHTTPBody( clientFd, httpHeader );
-            mico_rtos_unlock_mutex(&Context->flashContentInRam_mutex);
-            require_noerr(err, exit);
-
-            // Call the HTTPServer owner back with the acquired HTTP header
+          //do{
+          err = SocketReadHTTPBody( clientFd, httpHeader );
+          
+          if(httpHeader->dataEndedbyClose == true){
             err = _LocalConfigRespondInComingMessage( clientFd, httpHeader, Context );
-            require_noerr( err, exit ); 
-            if(httpHeader->contentLength == 0)
-              break;
-          } while( httpHeader->chunkedData == true || httpHeader->dataEndedbyClose == true);
+            require_noerr(err, exit);
+            err = kConnectionErr;
+            goto exit;
+          }else{
+            require_noerr(err, exit);
+            err = _LocalConfigRespondInComingMessage( clientFd, httpHeader, Context );
+            require_noerr(err, exit);
+          }
+          
+
+
+          //  if(httpHeader->contentLength == 0)
+          //    break;
+          //} while( httpHeader->chunkedData == true || httpHeader->dataEndedbyClose == true);
+
+          // Call the HTTPServer owner back with the acquired HTTP header
+          //err = _LocalConfigRespondInComingMessage( clientFd, httpHeader, Context );
+          //
+          //Exit if connection is closed
+          //require_noerr(err, exit); 
       
           // Reuse HTTPHeader
           HTTPHeaderClear( httpHeader );
@@ -170,14 +192,12 @@ void localConfig_thread(void *inFd)
         case kNoSpaceErr:
           config_log("ERROR: Cannot fit HTTPHeader.");
           goto exit;
-        break;
-
+        
         case kConnectionErr:
           // NOTE: kConnectionErr from SocketReadHTTPHeader means it's closed
           config_log("ERROR: Connection closed.");
           goto exit;
-           //goto Reconn;
-        break;
+
         default:
           config_log("ERROR: HTTP Header parse internal error: %d", err);
           goto exit;
@@ -188,10 +208,74 @@ void localConfig_thread(void *inFd)
 exit:
   config_log("Exit: Client exit with err = %d", err);
   SocketClose(&clientFd);
-  if(httpHeader) free(httpHeader);
+  if(httpHeader) {
+    HTTPHeaderClear( httpHeader );
+    free(httpHeader);
+  }
   mico_rtos_delete_thread(NULL);
   return;
 }
+
+static OSStatus onReceivedData(struct _HTTPHeader_t * inHeader, uint32_t inPos, uint8_t * inData, size_t inLen, void * inUserContext )
+{
+  OSStatus err = kUnknownErr;
+  const char *    value;
+  size_t          valueSize;
+  configContext_t *context = (configContext_t *)inUserContext;
+
+  err = HTTPGetHeaderField( inHeader->buf, inHeader->len, "Content-Type", NULL, NULL, &value, &valueSize, NULL );
+  if(err == kNoErr && strnicmpx( value, valueSize, kMIMEType_MXCHIP_OTA ) == 0){
+    config_log("OTA data %d, %d to: %x", inPos, inLen, context->flashStorageAddress);
+#ifdef MICO_FLASH_FOR_UPDATE  
+    if(inPos == 0){
+      context->flashStorageAddress = UPDATE_START_ADDRESS;
+      mico_rtos_lock_mutex(&Context->flashContentInRam_mutex); //We are write the Flash content, no other write is possiable
+      context->isFlashLocked = true;
+      err = MicoFlashInitialize( MICO_FLASH_FOR_UPDATE );
+      require_noerr(err, flashErrExit);
+      err = MicoFlashErase(MICO_FLASH_FOR_UPDATE, UPDATE_START_ADDRESS, UPDATE_END_ADDRESS);
+      require_noerr(err, flashErrExit);
+      err = MicoFlashWrite(MICO_FLASH_FOR_UPDATE, &context->flashStorageAddress, (uint8_t *)inData, inLen);
+      require_noerr(err, flashErrExit);
+    }else{
+      err = MicoFlashWrite(MICO_FLASH_FOR_UPDATE, &context->flashStorageAddress, (uint8_t *)inData, inLen);
+      require_noerr(err, flashErrExit);
+    }
+#else
+    config_log("OTA storage is not exist");
+    return kUnsupportedErr;
+#endif
+  }
+  else if(inHeader->chunkedData == true){
+    config_log("ChunkedData: %d, %d:", inPos, inLen);
+    for(uint32_t i = 0; i<inLen; i++)
+      printf("%c", inData[i]);
+    printf("\r\n");
+  }
+  else{
+    return kUnsupportedErr;
+  }
+
+  if(err!=kNoErr)  config_log("onReceivedData");
+  return err;
+
+flashErrExit:
+  MicoFlashFinalize(MICO_FLASH_FOR_UPDATE);
+  mico_rtos_unlock_mutex(&Context->flashContentInRam_mutex);
+  return err;
+}
+
+static void onClearHTTPHeader(struct _HTTPHeader_t * inHeader, void * inUserContext )
+{
+  UNUSED_PARAMETER(inHeader);
+  configContext_t *context = (configContext_t *)inUserContext;
+
+  if(context->isFlashLocked == true){
+    mico_rtos_unlock_mutex(&Context->flashContentInRam_mutex);
+    context->isFlashLocked = false;
+  }
+ }
+
 
 
 OSStatus _LocalConfigRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context_t * const inContext)
@@ -265,7 +349,6 @@ else if(HTTPHeaderMatchURL( inHeader, kCONFIGURLWriteByUAP ) == kNoErr){
   else if(HTTPHeaderMatchURL( inHeader, kCONFIGURLOTA ) == kNoErr){
     if(inHeader->contentLength > 0){
       config_log("Receive OTA data!");
-      mico_rtos_lock_mutex(&inContext->flashContentInRam_mutex);
       memset(&inContext->flashContentInRam.bootTable, 0, sizeof(boot_table_t));
       inContext->flashContentInRam.bootTable.length = inHeader->contentLength;
       inContext->flashContentInRam.bootTable.start_address = UPDATE_START_ADDRESS;
@@ -274,7 +357,6 @@ else if(HTTPHeaderMatchURL( inHeader, kCONFIGURLWriteByUAP ) == kNoErr){
       if(inContext->flashContentInRam.micoSystemConfig.configured != allConfigured)
         inContext->flashContentInRam.micoSystemConfig.easyLinkByPass = EASYLINK_SOFT_AP_BYPASS;
       MICOUpdateConfiguration(inContext);
-      mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
       SocketClose(&fd);
       inContext->micoStatus.sys_state = eState_Software_Reset;
       if(inContext->micoStatus.sys_state_change_sem != NULL );

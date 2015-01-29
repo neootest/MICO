@@ -143,7 +143,9 @@ typedef enum
 /* The number of UART interfaces this hardware platform has */
 #define NUMBER_OF_UART_INTERFACES  2
 
+#define UART_FOR_APP     MICO_UART_1
 #define STDIO_UART       MICO_UART_1
+#define CLI_UART         MICO_UART_2
 
 /* Memory map */
 #define INTERNAL_FLASH_START_ADDRESS    (uint32_t)0x00000000

@@ -53,7 +53,7 @@ void formatMACAddr(char *destAddr, char *srcAddr)
 //
 //  Alloc a new memory and store the input content
 //===========================================================================================================================
-char *__strdup(char *src)
+char *__strdup(const char *src)
 {
   int len;
   char *dst;
@@ -100,20 +100,44 @@ char *__strdup_trans_dot(char *src)
     return dst;
 }
 
-//===========================================================================================================================
-//  memrlen
-//
-//  Returns the number of bytes until the last 0 in the string.
-//===========================================================================================================================
 
-size_t memrlen( const void *inSrc, size_t inMaxLen )
-{
-    const uint8_t * const       ptr = (const uint8_t *) inSrc;
-    size_t                      i;
 
-    for( i = inMaxLen; ( i > 0 ) && ( ptr[ i - 1 ] == 0 ); --i ) {}
-    return( i );
-}
+
+/***  
+*strnlen - return the length of a null-terminated string  
+*  
+*Purpose:  
+*   Finds the length in bytes of the given string, not including  
+*   the final null character. Only the first maxsize characters  
+*   are inspected: if the null character is not found, maxsize is  
+*   returned.  
+*  
+*Entry:  
+*   const char * str - string whose length is to be computed  
+*   size_t maxsize  
+*  
+*Exit:  
+*   Length of the string "str", exclusive of the final null byte, or  
+*   maxsize if the null character is not found. 
+*  
+*Exceptions:  
+*  
+*******************************************************************************/ 
+#if defined (__CC_ARM)
+size_t strnlen(const char *str, size_t maxsize)  
+{  
+  size_t n;  
+  
+  /* Note that we do not check if s == NULL, because we do not  
+  * return errno_t...  
+  */  
+  
+  for (n = 0; n < maxsize && *str; n++, str++)  
+  ;  
+  
+  return n;  
+}  
+#endif
 
 
 void Int2Str(uint8_t* str, int32_t intnum)

@@ -474,7 +474,6 @@ void easylink_thread(void *inContext)
           case kNoSpaceErr:
             easylink_log("ERROR: Cannot fit HTTPHeader.");
             goto Reconn;
-          break;
 
           case kConnectionErr:
             // NOTE: kConnectionErr from SocketReadHTTPHeader means it's closed
@@ -489,8 +488,7 @@ void easylink_thread(void *inContext)
               msleep(20);
             }
             goto threadexit;
-             //goto Reconn;
-          break;
+
           default:
             easylink_log("ERROR: HTTP Header parse internal error: %d", err);
             goto Reconn;
@@ -533,7 +531,7 @@ OSStatus _FTCRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context
         easylink_log("Easylink server accepted!");
         err = kNoErr;
         goto exit;
-      break;
+
       case kStatusOK:
         easylink_log("Easylink server respond status OK!");
         err = HTTPGetHeaderField( inHeader->buf, inHeader->len, "Content-Type", NULL, NULL, &value, &valueSize, NULL );
@@ -573,7 +571,7 @@ OSStatus _FTCRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context
         }
         err = kNoErr;
         goto exit;
-      break;
+        
       default:
         goto exit;
     }

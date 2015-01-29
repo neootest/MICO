@@ -46,7 +46,6 @@
 #define UART_ONE_PACKAGE_LENGTH             1024
 #define wlanBufferLen                       1024
 #define UART_BUFFER_LENGTH                  2048
-#define UART_FOR_APP                        MICO_UART_1
 
 #define LOCAL_TCP_SERVER_LOOPBACK_PORT      1000
 #define REMOTE_TCP_CLIENT_LOOPBACK_PORT     1002
@@ -95,8 +94,6 @@ typedef struct _current_app_status_t {
 void localTcpServer_thread(void *inContext);
 void remoteTcpClient_thread(void *inContext);
 void uartRecv_thread(void *inContext);
-
-void mico_mfg_test(void);
 
 #endif
 

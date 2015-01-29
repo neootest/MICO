@@ -21,6 +21,7 @@
 
 
 #include "MICO.h"
+#include "StringUtils.h"
 #include "HTTPUtils.h"
 #include "MicoPlatform.h"
 #include "platform_common_config.h"
@@ -28,16 +29,22 @@
 #include <errno.h>
 #include <stdarg.h>
 
-#include "StringUtils.h"
-
 #define kCRLFNewLine     "\r\n"
 #define kCRLFLineEnding  "\r\n\r\n"
 
 #define http_utils_log(M, ...) custom_log("HTTPUtils", M, ##__VA_ARGS__)
 
-#ifdef MICO_FLASH_FOR_UPDATE
-static volatile uint32_t flashStorageAddress = UPDATE_START_ADDRESS;
-#endif
+#define READ_LENGTH 1500
+
+OSStatus onReceivedDataCallbackDefault(struct _HTTPHeader_t * httpHeader, uint32_t pos, uint8_t * data, size_t len, void * userContext )
+{
+  UNUSED_PARAMETER(httpHeader);
+  UNUSED_PARAMETER(pos);
+  UNUSED_PARAMETER(data);
+  UNUSED_PARAMETER(len);
+  UNUSED_PARAMETER(userContext);
+  return kUnsupportedErr;
+}
 
 int SocketReadHTTPHeader( int inSock, HTTPHeader_t *inHeader )
 {
@@ -48,8 +55,6 @@ int SocketReadHTTPHeader( int inSock, HTTPHeader_t *inHeader )
   char *          end;
   size_t          len;
   ssize_t         n;
-  const char *    value;
-  size_t          valueSize;
   
   buf = inHeader->buf;
   dst = buf + inHeader->len;
@@ -73,35 +78,10 @@ int SocketReadHTTPHeader( int inSock, HTTPHeader_t *inHeader )
     free((uint8_t *)inHeader->extraDataPtr);
     inHeader->extraDataPtr = 0;
   }
-  
-  if(inHeader->otaDataPtr) {
-    free((uint8_t *)inHeader->otaDataPtr);
-    inHeader->otaDataPtr = 0;
-  }
-  
-  /* For MXCHIP OTA function, store extra data to OTA data temporary */
-  err = HTTPGetHeaderField( inHeader->buf, inHeader->len, "Content-Type", NULL, NULL, &value, &valueSize, NULL );
-
-  if(err == kNoErr && strnicmpx( value, valueSize, kMIMEType_MXCHIP_OTA ) == 0){
-#ifdef MICO_FLASH_FOR_UPDATE  
-    http_utils_log("Receive OTA data!");    
-    flashStorageAddress = UPDATE_START_ADDRESS;
-    err = MicoFlashInitialize( MICO_FLASH_FOR_UPDATE );
-    require_noerr(err, exit);
-    err = MicoFlashErase(MICO_FLASH_FOR_UPDATE, UPDATE_START_ADDRESS, UPDATE_END_ADDRESS);
-    require_noerr(err, exit);
-    err = MicoFlashWrite(MICO_FLASH_FOR_UPDATE, &flashStorageAddress, (uint8_t *)end, inHeader->extraDataLen);
-    require_noerr(err, exit);
-#else
-    http_utils_log("OTA flash memory is not existed!");
-    err = kUnsupportedErr;
-#endif
-    goto exit;
-  }
 
   /* For chunked extra data without content length */
   if(inHeader->chunkedData == true){
-    inHeader->chunkedDataBufferLen = (inHeader->extraDataLen > 256)? inHeader->extraDataLen:256;
+    inHeader->chunkedDataBufferLen = (inHeader->extraDataLen > READ_LENGTH)? inHeader->extraDataLen:READ_LENGTH;
     inHeader->chunkedDataBufferPtr = calloc(inHeader->chunkedDataBufferLen, sizeof(uint8_t)); //Make extra data buffer larger than chunk length
     require_action(inHeader->chunkedDataBufferPtr, exit, err = kNoMemoryErr);
     memcpy((uint8_t *)inHeader->chunkedDataBufferPtr, end, inHeader->extraDataLen);
@@ -110,20 +90,30 @@ int SocketReadHTTPHeader( int inSock, HTTPHeader_t *inHeader )
   }
 
   /* Extra data with content length */
+
   if (inHeader->contentLength != 0){ //Content length >0, create a memory buffer (Content length) and store extra data
-    size_t copyDataLen = (inHeader->contentLength >= inHeader->extraDataLen)? inHeader->contentLength:inHeader->extraDataLen;
-    inHeader->extraDataPtr = calloc(copyDataLen , sizeof(uint8_t));
-    require_action(inHeader->extraDataPtr, exit, err = kNoMemoryErr);
-    memcpy((uint8_t *)inHeader->extraDataPtr, end, copyDataLen);
+    size_t copyDataLen = (inHeader->contentLength >= inHeader->extraDataLen)? inHeader->extraDataLen : inHeader->contentLength;
+    if((inHeader->onReceivedDataCallback)(inHeader, 0, (uint8_t *)end, copyDataLen, inHeader->userContext)==kNoErr){
+      inHeader->isCallbackSupported = true;
+      inHeader->extraDataPtr = calloc(READ_LENGTH, sizeof(uint8_t));
+      require_action(inHeader->extraDataPtr, exit, err = kNoMemoryErr);
+    }else{
+      inHeader->isCallbackSupported = false;
+      inHeader->extraDataPtr = calloc(inHeader->contentLength , sizeof(uint8_t));
+      require_action(inHeader->extraDataPtr, exit, err = kNoMemoryErr);
+      memcpy((uint8_t *)inHeader->extraDataPtr, end, copyDataLen);
+    }
     err = kNoErr;
   } /* Extra data without content length, data is ended by conntection close */
-  else if(inHeader->extraDataLen != 0){ //Content length =0, but extra data length >0, create a memory buffer (1500)and store extra data
-    inHeader->dataEndedbyClose = true;
-    inHeader->extraDataPtr = calloc(1500, sizeof(uint8_t));
-    require_action(inHeader->extraDataPtr, exit, err = kNoMemoryErr);
-    memcpy((uint8_t *)inHeader->extraDataPtr, end, inHeader->extraDataLen);
-    err = kNoErr;
-  }
+  // else if(inHeader->extraDataLen != 0){ //Content length =0, but extra data length >0, create a memory buffer (1500)and store extra data
+  //   inHeader->dataEndedbyClose = true;
+  //   inHeader->extraDataPtr = calloc(1500, sizeof(uint8_t));
+  //   require_action(inHeader->extraDataPtr, exit, err = kNoMemoryErr);
+  //   memcpy((uint8_t *)inHeader->extraDataPtr, end, inHeader->extraDataLen);
+  //   (inHeader->onReceivedDataCallback)(inHeader, 0, (uint8_t *)inHeader->extraDataPtr, inHeader->extraDataLen, inHeader->userContext);
+
+  //   err = kNoErr;
+  // }
   else
     return kNoErr;
   
@@ -180,146 +170,185 @@ OSStatus SocketReadHTTPBody( int inSock, HTTPHeader_t *inHeader )
   ssize_t readResult;
   int selectResult;
   fd_set readSet;
-  const char *    value;
-  size_t          valueSize;
   size_t    lastChunkLen, chunckheaderLen; 
   char *nextPackagePtr;
   struct timeval_t t;
+  size_t          readLength;
+  uint32_t pos = 0;
   t.tv_sec = 5;
   t.tv_usec = 0;
-#ifdef MICO_FLASH_FOR_UPDATE
-  bool writeToFlash = false;
-#endif
   
   require( inHeader, exit );
-  
   err = kNotReadableErr;
   
   FD_ZERO( &readSet );
   FD_SET( inSock, &readSet );
 
-  /* Chunked data, return after receive one chunk */
+  /* Chunked data without content length */
   if( inHeader->chunkedData == true ){
-    /* Move next chunk to chunked data buffer header point */
-    lastChunkLen = inHeader->extraDataPtr - inHeader->chunkedDataBufferPtr + inHeader->contentLength;
-    if(inHeader->contentLength) lastChunkLen+=2;  //Last chunck data has a CRLF tail
-    memmove( inHeader->chunkedDataBufferPtr, inHeader->chunkedDataBufferPtr + lastChunkLen, inHeader->chunkedDataBufferLen - lastChunkLen  );
-    inHeader->extraDataLen -= lastChunkLen;
+    do{
+      /* Find Chunk data length */
+      while ( findChunkedDataLength( inHeader->chunkedDataBufferPtr, inHeader->extraDataLen, &inHeader->extraDataPtr ,"%llu", &inHeader->contentLength ) == false){
+        require_action(inHeader->extraDataLen < inHeader->chunkedDataBufferLen, exit, err=kMalformedErr );
 
-    while ( findChunkedDataLength( inHeader->chunkedDataBufferPtr, inHeader->extraDataLen, &inHeader->extraDataPtr ,"%llu", &inHeader->contentLength ) == false){
-      require_action(inHeader->extraDataLen < inHeader->chunkedDataBufferLen, exit, err=kMalformedErr );
-
-      selectResult = select( inSock + 1, &readSet, NULL, NULL, NULL );
-      require_action( selectResult >= 1, exit, err = kNotReadableErr );
-
-      readResult = read( inSock, inHeader->extraDataPtr, (size_t)( inHeader->chunkedDataBufferLen - inHeader->extraDataLen ) );
-
-      if( readResult  > 0 ) inHeader->extraDataLen += readResult;
-      else { err = kConnectionErr; goto exit; }
-    }
-
-    chunckheaderLen = inHeader->extraDataPtr - inHeader->chunkedDataBufferPtr;
-
-    if(inHeader->contentLength == 0){ //This is the last chunk
-      while( findCRLF( inHeader->extraDataPtr, inHeader->extraDataLen - chunckheaderLen, &nextPackagePtr ) == false){ //find CRLF
         selectResult = select( inSock + 1, &readSet, NULL, NULL, NULL );
         require_action( selectResult >= 1, exit, err = kNotReadableErr );
 
-        readResult = read( inSock,
-                          (uint8_t *)( inHeader->extraDataPtr + inHeader->extraDataLen - chunckheaderLen ),
-                          256 - inHeader->extraDataLen ); //Assume chunk trailer length is less than 256 (256 is the min chunk buffer, maybe dangerous
+        readResult = read( inSock, inHeader->chunkedDataBufferPtr + inHeader->extraDataLen, (size_t)( inHeader->chunkedDataBufferLen - inHeader->extraDataLen ) );
 
         if( readResult  > 0 ) inHeader->extraDataLen += readResult;
         else { err = kConnectionErr; goto exit; }
       }
 
-      err = kNoErr;
-      goto exit;
-    }
-    else{
-      /* Extend chunked data buffer */
-      if( inHeader->chunkedDataBufferLen < inHeader->contentLength + chunckheaderLen + 2){
-        inHeader->chunkedDataBufferLen = inHeader->contentLength + chunckheaderLen + 256;
-        inHeader->chunkedDataBufferPtr = realloc(inHeader->chunkedDataBufferPtr, inHeader->chunkedDataBufferLen);
-        require_action(inHeader->extraDataPtr, exit, err = kNoMemoryErr);
-      }
+      chunckheaderLen = inHeader->extraDataPtr - inHeader->chunkedDataBufferPtr;
 
-      /* Read chunked data */
-      while ( inHeader->extraDataLen < inHeader->contentLength + chunckheaderLen + 2 ){
-        selectResult = select( inSock + 1, &readSet, NULL, NULL, NULL );
-        require_action( selectResult >= 1, exit, err = kNotReadableErr );
+      /* Check the last chunk */
+      if(inHeader->contentLength == 0){ 
+        while( findCRLF( inHeader->extraDataPtr, inHeader->extraDataLen - chunckheaderLen, &nextPackagePtr ) == false){ //find CRLF
+          selectResult = select( inSock + 1, &readSet, NULL, NULL, NULL );
+          require_action( selectResult >= 1, exit, err = kNotReadableErr );
 
-        readResult = read( inSock,
-                          (uint8_t *)( inHeader->extraDataPtr + inHeader->extraDataLen - chunckheaderLen),
-                          ( inHeader->contentLength - (inHeader->extraDataLen - chunckheaderLen) + 2 ));
-        
-        if( readResult  > 0 ) inHeader->extraDataLen += readResult;
-        else { err = kConnectionErr; goto exit; }
+          readResult = read( inSock,
+                            (uint8_t *)( inHeader->extraDataPtr + inHeader->extraDataLen - chunckheaderLen ),
+                            256 - inHeader->extraDataLen ); //Assume chunk trailer length is less than 256 (256 is the min chunk buffer, maybe dangerous
+
+          if( readResult  > 0 ) inHeader->extraDataLen += readResult;
+          else { err = kConnectionErr; goto exit; }
+          (inHeader->onReceivedDataCallback)(inHeader, inHeader->extraDataLen - readResult, (uint8_t *)inHeader->extraDataPtr, readResult, inHeader->userContext);
+        }
+
+        err = kNoErr;
+        goto exit;
       } 
-      
-      if( *(inHeader->extraDataPtr + inHeader->contentLength) != '\r' ||
-         *(inHeader->extraDataPtr + inHeader->contentLength +1 ) != '\n'){
-           err = kMalformedErr; 
-           goto exit;
-         }
-    }
+      else{ // Read chunk data
+        /* Chunk package already exist, callback, move to buffer's head */
+        if( inHeader->extraDataLen >= inHeader->contentLength + chunckheaderLen + 2 ){
+          require_action( *(inHeader->extraDataPtr + inHeader->contentLength ) == '\r' &&
+                          *(inHeader->extraDataPtr + inHeader->contentLength + 1 ) == '\n', 
+                          exit, err = kMalformedErr);
+
+          (inHeader->onReceivedDataCallback)(inHeader,  pos, 
+                                                        (uint8_t *)inHeader->extraDataPtr, 
+                                                        inHeader->contentLength, 
+                                                        inHeader->userContext);
+          pos+=inHeader->contentLength;
+
+          /* Move next chunk to chunked data buffer header point */
+          lastChunkLen = inHeader->extraDataPtr - inHeader->chunkedDataBufferPtr + inHeader->contentLength;
+          if(inHeader->contentLength) lastChunkLen += 2;  //Last chunck data has a CRLF tail
+          memmove( inHeader->chunkedDataBufferPtr, inHeader->chunkedDataBufferPtr + lastChunkLen, inHeader->chunkedDataBufferLen - lastChunkLen  );
+          inHeader->extraDataLen -= lastChunkLen;
+        }
+        /* Chunck exist without the last LF, generate callback abd recv LF */
+        /* Callback , read LF */
+        else if(inHeader->extraDataLen == inHeader->contentLength + chunckheaderLen +1){ //recv CR 
+
+          require_action( *(inHeader->chunkedDataBufferPtr + inHeader->extraDataLen - 1) == '\r' ,
+                          exit, err = kMalformedErr);
+
+          (inHeader->onReceivedDataCallback)(inHeader,  pos, 
+                                                        (uint8_t *)inHeader->extraDataPtr, 
+                                                        inHeader->extraDataLen - chunckheaderLen-1, 
+                                                        inHeader->userContext);
+          pos+=inHeader->extraDataLen - chunckheaderLen-1;
+          selectResult = select( inSock + 1, &readSet, NULL, NULL, NULL );
+          require_action( selectResult >= 1, exit, err = kNotReadableErr );
+
+          readResult = read( inSock, (uint8_t *)inHeader->extraDataPtr, 1);
+
+          if( readResult  > 0 ) {}
+          else { err = kConnectionErr; goto exit; }
+
+          require_action( *(inHeader->extraDataPtr) == '\n', exit, err = kMalformedErr);
+          inHeader->extraDataLen = 0;
+        }
+        else{
+          /* Callback , read , callback , read CRLF */
+          (inHeader->onReceivedDataCallback)(inHeader, pos, 
+                                                       (uint8_t *)inHeader->extraDataPtr, 
+                                                       inHeader->extraDataLen - chunckheaderLen, 
+                                                       inHeader->userContext);
+          pos += inHeader->extraDataLen - chunckheaderLen;
+
+          while ( inHeader->extraDataLen < inHeader->contentLength + chunckheaderLen  ){
+            selectResult = select( inSock + 1, &readSet, NULL, NULL, NULL );
+            require_action( selectResult >= 1, exit, err = kNotReadableErr );
+
+            if( inHeader->contentLength - (inHeader->extraDataLen - chunckheaderLen) > inHeader->chunkedDataBufferLen - chunckheaderLen)
+              //Data needed is greater than valid buffer size
+              readLength = inHeader->chunkedDataBufferLen - chunckheaderLen; 
+            else
+              //Data needed is less than valid buffer size
+              readLength = inHeader->contentLength - (inHeader->extraDataLen - chunckheaderLen) ; 
+
+            readResult = read( inSock, (uint8_t *)inHeader->extraDataPtr, readLength);
+            
+            if( readResult  > 0 ) inHeader->extraDataLen += readResult;
+            else { err = kConnectionErr; goto exit; }
+
+            (inHeader->onReceivedDataCallback)(inHeader, pos, 
+                                                         (uint8_t *)inHeader->extraDataPtr, 
+                                                         readResult, 
+                                                         inHeader->userContext);
+            pos += readResult;
+          } 
+
+          selectResult = select( inSock + 1, &readSet, NULL, NULL, NULL );
+          require_action( selectResult >= 1, exit, err = kNotReadableErr );
+
+          readResult = read( inSock, (uint8_t *)inHeader->extraDataPtr, 2);
+
+          if( readResult  > 0 ) {}
+          else { err = kConnectionErr; goto exit; }
+
+
+          require_action( *(inHeader->extraDataPtr) == '\r' &&
+                          *(inHeader->extraDataPtr+1 ) == '\n', 
+                          exit, err = kMalformedErr);
+
+          inHeader->extraDataLen = 0;
+        }
+      }
+    }while(inHeader->contentLength != 0);
   }
 
   /* We has extra data but total length is not clear, store them to 1500 bytes buffer 
      return when connection is disconnected by remote server */
-  if( inHeader->dataEndedbyClose == true){ 
-    if(inHeader->contentLength == 0) { //First read body, return using data received by SocketReadHTTPHeader
-      inHeader->contentLength = inHeader->extraDataLen;
-    }else{
-      selectResult = select( inSock + 1, &readSet, NULL, NULL, NULL );
-      require_action( selectResult >= 1, exit, err = kNotReadableErr );
+  // if( inHeader->dataEndedbyClose == true){ 
+  //   if(inHeader->contentLength == 0) { //First read body, return using data received by SocketReadHTTPHeader
+  //     inHeader->contentLength = inHeader->extraDataLen;
+  //   }else{
+  //     selectResult = select( inSock + 1, &readSet, NULL, NULL, NULL );
+  //     require_action( selectResult >= 1, exit, err = kNotReadableErr );
       
-      readResult = read( inSock,
-                        (uint8_t*)( inHeader->extraDataPtr ),
-                        1500 );
-      if( readResult  > 0 ) inHeader->contentLength = readResult;
-      else { err = kConnectionErr; goto exit; }
-    }
-    err = kNoErr;
-    goto exit;
-  }
+  //     readResult = read( inSock,
+  //                       (uint8_t*)( inHeader->extraDataPtr ),
+  //                       1500 );
+  //     if( readResult  > 0 ) inHeader->contentLength = readResult;
+  //     else { err = kConnectionErr; goto exit; }
+  //   }
+  //   err = kNoErr;
+  //   goto exit;
+  // }
   
-  /* We has extra data and we has a predefined buffer to store the total extra data
-     return when all data has received*/
+
   while ( inHeader->extraDataLen < inHeader->contentLength )
   {
     selectResult = select( inSock + 1, &readSet, NULL, NULL, &t );
     require_action( selectResult >= 1, exit, err = kNotReadableErr );
-    
-    err = HTTPGetHeaderField( inHeader->buf, inHeader->len, "Content-Type", NULL, NULL, &value, &valueSize, NULL );
-    require_noerr(err, exit);
-    if( strnicmpx( value, valueSize, kMIMEType_MXCHIP_OTA ) == 0 ){
-#ifdef MICO_FLASH_FOR_UPDATE  
-      writeToFlash = true;
-      inHeader->otaDataPtr = calloc(OTA_Data_Length_per_read, sizeof(uint8_t)); 
-      require_action(inHeader->otaDataPtr, exit, err = kNoMemoryErr);
-      if((inHeader->contentLength - inHeader->extraDataLen)<OTA_Data_Length_per_read){
-        readResult = read( inSock,
-                          (uint8_t*)( inHeader->otaDataPtr ),
-                          ( inHeader->contentLength - inHeader->extraDataLen ) );
-      }else{
-        readResult = read( inSock,
-                          (uint8_t*)( inHeader->otaDataPtr ),
-                          OTA_Data_Length_per_read);
-      }
-      if( readResult  > 0 ) inHeader->extraDataLen += readResult;
-      else { err = kConnectionErr; goto exit; }
 
-      err = MicoFlashWrite(MICO_FLASH_FOR_UPDATE, &flashStorageAddress, (uint8_t *)inHeader->otaDataPtr, readResult);
-      require_noerr(err, exit);
+    if(inHeader->isCallbackSupported == true){
+      /* We has extra data, and we give these data to application by onReceivedDataCallback function */
+      readLength = inHeader->contentLength - inHeader->extraDataLen > READ_LENGTH? READ_LENGTH:inHeader->contentLength - inHeader->extraDataLen;
+      readResult = read( inSock,
+                        (uint8_t*)( inHeader->extraDataPtr),
+                        readLength );
       
-      free(inHeader->otaDataPtr);
-      inHeader->otaDataPtr = 0;
-#else
-      http_utils_log("OTA flash memory is not existed, !");
-      err = kUnsupportedErr;
-#endif
+      if( readResult  > 0 ) inHeader->extraDataLen += readResult;
+      else { err = kConnectionErr; goto exit; }      
+      (inHeader->onReceivedDataCallback)(inHeader, inHeader->extraDataLen - readResult, (uint8_t *)inHeader->extraDataPtr, readResult, inHeader->userContext);
     }else{
+      /* We has extra data and we has a predefined buffer to store the total extra data return when all data has received*/
       readResult = read( inSock,
                         (uint8_t*)( inHeader->extraDataPtr + inHeader->extraDataLen ),
                         ( inHeader->contentLength - inHeader->extraDataLen ) );
@@ -327,19 +356,11 @@ OSStatus SocketReadHTTPBody( int inSock, HTTPHeader_t *inHeader )
       if( readResult  > 0 ) inHeader->extraDataLen += readResult;
       else { err = kConnectionErr; goto exit; }
     }
-  }  
+  }
   err = kNoErr;
   
 exit:
   if(err != kNoErr) inHeader->len = 0;
-  if(inHeader->otaDataPtr) {
-    free(inHeader->otaDataPtr);
-    inHeader->otaDataPtr = 0;
-  }
-#ifdef MICO_FLASH_FOR_UPDATE
-  if(writeToFlash == true) MicoFlashFinalize(MICO_FLASH_FOR_UPDATE);
-#endif
-
   return err;
 }
 
@@ -664,13 +685,30 @@ char* HTTPHeaderMatchPartialURL( HTTPHeader_t *inHeader, const char *url )
 
 HTTPHeader_t * HTTPHeaderCreate( void )
 {
-  return calloc(1, sizeof(HTTPHeader_t));
+  HTTPHeader_t *httpHeader;
+  httpHeader = calloc(1, sizeof(HTTPHeader_t));
+  httpHeader->onReceivedDataCallback = onReceivedDataCallbackDefault;
+  return httpHeader;
+}
+
+HTTPHeader_t * HTTPHeaderCreateWithCallback( onReceivedDataCallback inRecvFunc, onClearCallback onClearFunc, void * context )
+{
+  HTTPHeader_t *httpHeader;
+  httpHeader = HTTPHeaderCreate();
+  httpHeader->userContext = context;
+  httpHeader->onReceivedDataCallback = inRecvFunc;
+  httpHeader->onClearCallback = onClearFunc;
+  return httpHeader;
 }
 
 void HTTPHeaderClear( HTTPHeader_t *inHeader )
 {
   char *nextPackagePtr;
   size_t chunckheaderLen = inHeader->extraDataPtr - inHeader->chunkedDataBufferPtr;
+
+  if(inHeader->onClearCallback)
+    (inHeader->onClearCallback)(inHeader, inHeader->userContext);
+
   if(inHeader->chunkedData && (uint32_t *)inHeader->chunkedDataBufferPtr){ //chunk data
     /* Possible to read the header of the next http package */
     if(findCRLF( inHeader->extraDataPtr, inHeader->extraDataLen - chunckheaderLen, &nextPackagePtr ) ){
@@ -703,15 +741,11 @@ void HTTPHeaderClear( HTTPHeader_t *inHeader )
     if((uint32_t *)inHeader->extraDataPtr) {
       free((uint32_t *)inHeader->extraDataPtr);
       inHeader->extraDataPtr = NULL;
-    }
-    if((uint32_t *)inHeader->otaDataPtr) {
-      free((uint32_t *)inHeader->otaDataPtr);
-      inHeader->otaDataPtr = NULL;
-    }    
+    } 
     inHeader->dataEndedbyClose = false;
   }
 
-
+  inHeader->isCallbackSupported = false;
 
 }
 
