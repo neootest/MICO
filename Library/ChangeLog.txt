@@ -1,7 +1,17 @@
+版本号：31620002.020
+日期：2015-01-29
+1. 增加了一组用于调试用的CLI API。
+2. 提高了Airkiss的成功率，针对40MHz的路由器做了优化，提高了红米同TPlink的40MHz路由器的成功率；使用SSID的CRC值提高了配置速度和正确性。
+3. 增加API：int shutdown(int s, int how)用于开关socket，其中how定义如下：
+	 bit1=RX, bit2=TX；所以how==1表示关闭接收，how==2表示关闭发送，how==3表示关闭socket，等于close(s)。
+	 
 版本号：31620002.019
-日期：2014-12-29
+日期：2015-01-16
 1. 修正了FreeRTOS的BUG，可能出现锁无法工作，信号量无法等待预设的超时时间。
-2. Easylink Plus支持小MTU包格式，定位包的长度可以减少0x500.
+2. Easylink Plus支持小MTU包格式，定位包在小MTU下的长度缩减，其中0x5AA,0x5AB,0x5AC这3个包的长度直接减少为0xAA,0xAB,0xAC，Index定位包的长度减少0x450。
+3. 修正了Airkiss对于SSID和Key长度很短会无法配置成功的问题；优化了Airkiss的配置成功率。
+4. 修正了频繁调用wlan_disconnect可能导致系统异常的问题。
+5. 修正了双模式下UDP发送广播数据无法每个接口都发送出去的问题。
 
 版本号：31620002.018
 日期：2014-12-23
