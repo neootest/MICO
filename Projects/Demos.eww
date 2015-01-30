@@ -13,9 +13,6 @@
   <project>
     <path>$WS_DIR$\COM.WECHAT.SPP\EWARM\COM.WECHAT.SPP.ewp</path>
   </project>
-  <project>
-    <path>$WS_DIR$\platform_test\sample01\sample01.ewp</path>
-  </project>
   <batchBuild/>
 </workspace>
 
