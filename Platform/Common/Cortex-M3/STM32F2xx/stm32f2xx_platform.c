@@ -46,11 +46,6 @@
 #include "../../GCC/stdio_newlib.h"
 #endif /* ifdef __GNUC__ */
 
-#ifdef __GNUC__
-#define WEAK __attribute__ ((weak))
-#elif defined ( __IAR_SYSTEMS_ICC__ )
-#define WEAK __weak
-#endif /* ifdef __GNUC__ */
 
 /******************************************************
 *                      Macros
