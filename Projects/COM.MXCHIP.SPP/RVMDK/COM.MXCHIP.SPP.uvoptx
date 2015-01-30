@@ -45,11 +45,7 @@
         <PageWidth>79</PageWidth>
         <PageLength>66</PageLength>
         <TabStop>8</TabStop>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
         <ListingPath>..\..\..\Build\COM.MXCHIP.SPP\EMW3162\list_RVMDK\</ListingPath>
-=======
-        <ListingPath>..\..\..\Build\uvProj\Sample01\Listings\</ListingPath>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       </OPTLEX>
       <ListingPage>
         <CreateCListing>1</CreateCListing>
@@ -166,7 +162,6 @@
           <Name>-UV0010M9E -O206 -S10 -C0 -P00 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32F2xx_1024.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32F205RGTx$CMSIS\Flash\STM32F2xx_1024.FLM)</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <Breakpoint/>
       <WatchWindow2>
         <Ww>
@@ -216,378 +211,6 @@
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow2>
-=======
-      <Breakpoint>
-        <Bp>
-          <Number>0</Number>
-          <Type>0</Type>
-          <LineNumber>115</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>0</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
-          <Filename>..\..\..\Platform\vendor\mvsilicon\AP80A0s\platform_mico.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression></Expression>
-        </Bp>
-      </Breakpoint>
-      <Tracepoint>
-        <THDelay>0</THDelay>
-      </Tracepoint>
-      <DebugFlag>
-        <trace>0</trace>
-        <periodic>1</periodic>
-        <aLwin>1</aLwin>
-        <aCover>0</aCover>
-        <aSer1>0</aSer1>
-        <aSer2>0</aSer2>
-        <aPa>0</aPa>
-        <viewmode>1</viewmode>
-        <vrSel>0</vrSel>
-        <aSym>0</aSym>
-        <aTbox>0</aTbox>
-        <AscS1>0</AscS1>
-        <AscS2>0</AscS2>
-        <AscS3>0</AscS3>
-        <aSer3>0</aSer3>
-        <eProf>0</eProf>
-        <aLa>0</aLa>
-        <aPa1>0</aPa1>
-        <AscS4>0</AscS4>
-        <aSer4>0</aSer4>
-        <StkLoc>0</StkLoc>
-        <TrcWin>0</TrcWin>
-        <newCpu>0</newCpu>
-        <uProt>0</uProt>
-      </DebugFlag>
-      <LintExecutable></LintExecutable>
-      <LintConfigFile></LintConfigFile>
-    </TargetOption>
-  </Target>
-
-  <Target>
-    <TargetName>SimpleMico_AP80</TargetName>
-    <ToolsetNumber>0x4</ToolsetNumber>
-    <ToolsetName>ARM-ADS</ToolsetName>
-    <TargetOption>
-      <CLKADS>12000000</CLKADS>
-      <OPTTT>
-        <gFlags>1</gFlags>
-        <BeepAtEnd>1</BeepAtEnd>
-        <RunSim>0</RunSim>
-        <RunTarget>1</RunTarget>
-        <RunAbUc>0</RunAbUc>
-      </OPTTT>
-      <OPTHX>
-        <HexSelection>1</HexSelection>
-        <FlashByte>65535</FlashByte>
-        <HexRangeLowAddress>0</HexRangeLowAddress>
-        <HexRangeHighAddress>0</HexRangeHighAddress>
-        <HexOffset>0</HexOffset>
-      </OPTHX>
-      <OPTLEX>
-        <PageWidth>79</PageWidth>
-        <PageLength>66</PageLength>
-        <TabStop>8</TabStop>
-        <ListingPath>..\..\..\Build\uvProj\Sample01\Listings\</ListingPath>
-      </OPTLEX>
-      <ListingPage>
-        <CreateCListing>1</CreateCListing>
-        <CreateAListing>1</CreateAListing>
-        <CreateLListing>1</CreateLListing>
-        <CreateIListing>0</CreateIListing>
-        <AsmCond>1</AsmCond>
-        <AsmSymb>1</AsmSymb>
-        <AsmXref>0</AsmXref>
-        <CCond>1</CCond>
-        <CCode>0</CCode>
-        <CListInc>0</CListInc>
-        <CSymb>0</CSymb>
-        <LinkerCodeListing>0</LinkerCodeListing>
-      </ListingPage>
-      <OPTXL>
-        <LMap>1</LMap>
-        <LComments>1</LComments>
-        <LGenerateSymbols>1</LGenerateSymbols>
-        <LLibSym>1</LLibSym>
-        <LLines>1</LLines>
-        <LLocSym>1</LLocSym>
-        <LPubSym>1</LPubSym>
-        <LXref>0</LXref>
-        <LExpSel>0</LExpSel>
-      </OPTXL>
-      <OPTFL>
-        <tvExp>1</tvExp>
-        <tvExpOptDlg>0</tvExpOptDlg>
-        <IsCurrentTarget>0</IsCurrentTarget>
-      </OPTFL>
-      <CpuCode>7</CpuCode>
-      <DebugOpt>
-        <uSim>0</uSim>
-        <uTrg>1</uTrg>
-        <sLdApp>1</sLdApp>
-        <sGomain>1</sGomain>
-        <sRbreak>1</sRbreak>
-        <sRwatch>1</sRwatch>
-        <sRmem>1</sRmem>
-        <sRfunc>1</sRfunc>
-        <sRbox>1</sRbox>
-        <tLdApp>1</tLdApp>
-        <tGomain>1</tGomain>
-        <tRbreak>1</tRbreak>
-        <tRwatch>1</tRwatch>
-        <tRmem>1</tRmem>
-        <tRfunc>0</tRfunc>
-        <tRbox>1</tRbox>
-        <tRtrace>1</tRtrace>
-        <sRSysVw>1</sRSysVw>
-        <tRSysVw>1</tRSysVw>
-        <sRunDeb>0</sRunDeb>
-        <sLrtime>0</sLrtime>
-        <nTsel>1</nTsel>
-        <sDll></sDll>
-        <sDllPa></sDllPa>
-        <sDlgDll></sDlgDll>
-        <sDlgPa></sDlgPa>
-        <sIfile></sIfile>
-        <tDll></tDll>
-        <tDllPa></tDllPa>
-        <tDlgDll></tDlgDll>
-        <tDlgPa></tDlgPa>
-        <tIfile></tIfile>
-        <pMon>BIN\UL2CM3.DLL</pMon>
-      </DebugOpt>
-      <TargetDriverDllRegistry>
-        <SetRegEntry>
-          <Number>0</Number>
-          <Key>DLGUARM</Key>
-          <Name>(105=-1,-1,-1,-1,0)</Name>
-        </SetRegEntry>
-        <SetRegEntry>
-          <Number>0</Number>
-          <Key>ARMRTXEVENTFLAGS</Key>
-          <Name>-L50 -Z18 -C0 -M0 -T0</Name>
-        </SetRegEntry>
-        <SetRegEntry>
-          <Number>0</Number>
-          <Key>DLGTARM</Key>
-          <Name>(1010=-1,-1,-1,-1,0)(1007=-1,-1,-1,-1,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)(1012=-1,-1,-1,-1,0)</Name>
-        </SetRegEntry>
-        <SetRegEntry>
-          <Number>0</Number>
-          <Key>ARMDBGFLAGS</Key>
-          <Name></Name>
-        </SetRegEntry>
-        <SetRegEntry>
-          <Number>0</Number>
-          <Key>JL2CM3</Key>
-          <Name>-U304427288 -O78 -S6 -A0 -C0 -JU1 -JI127.0.0.1 -JP0 -RST0 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(4) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -TB1 -TFE0 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32F2xx_1024.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32F205ZGTx$CMSIS\Flash\STM32F2xx_1024.FLM)</Name>
-        </SetRegEntry>
-        <SetRegEntry>
-          <Number>0</Number>
-          <Key>UL2CM3</Key>
-          <Name>-UV0010M9E -O206 -S0 -C0 -P00 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC6000 -FN1 -FF0MV18X_16MB_V1.4.5 -FS00 -FL01000000</Name>
-        </SetRegEntry>
-      </TargetDriverDllRegistry>
-      <Breakpoint>
-        <Bp>
-          <Number>0</Number>
-          <Type>0</Type>
-          <LineNumber>0</LineNumber>
-          <EnabledFlag>0</EnabledFlag>
-          <Address>41040</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename></Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>0x0000A050</Expression>
-        </Bp>
-      </Breakpoint>
-      <Tracepoint>
-        <THDelay>0</THDelay>
-      </Tracepoint>
-      <DebugFlag>
-        <trace>0</trace>
-        <periodic>1</periodic>
-        <aLwin>1</aLwin>
-        <aCover>0</aCover>
-        <aSer1>0</aSer1>
-        <aSer2>0</aSer2>
-        <aPa>0</aPa>
-        <viewmode>1</viewmode>
-        <vrSel>0</vrSel>
-        <aSym>0</aSym>
-        <aTbox>0</aTbox>
-        <AscS1>0</AscS1>
-        <AscS2>0</AscS2>
-        <AscS3>0</AscS3>
-        <aSer3>0</aSer3>
-        <eProf>0</eProf>
-        <aLa>0</aLa>
-        <aPa1>0</aPa1>
-        <AscS4>0</AscS4>
-        <aSer4>0</aSer4>
-        <StkLoc>0</StkLoc>
-        <TrcWin>0</TrcWin>
-        <newCpu>0</newCpu>
-        <uProt>0</uProt>
-      </DebugFlag>
-      <LintExecutable></LintExecutable>
-      <LintConfigFile></LintConfigFile>
-    </TargetOption>
-  </Target>
-
-  <Target>
-    <TargetName>simpleRtos_ap80</TargetName>
-    <ToolsetNumber>0x4</ToolsetNumber>
-    <ToolsetName>ARM-ADS</ToolsetName>
-    <TargetOption>
-      <CLKADS>12000000</CLKADS>
-      <OPTTT>
-        <gFlags>1</gFlags>
-        <BeepAtEnd>1</BeepAtEnd>
-        <RunSim>0</RunSim>
-        <RunTarget>1</RunTarget>
-        <RunAbUc>0</RunAbUc>
-      </OPTTT>
-      <OPTHX>
-        <HexSelection>1</HexSelection>
-        <FlashByte>65535</FlashByte>
-        <HexRangeLowAddress>0</HexRangeLowAddress>
-        <HexRangeHighAddress>0</HexRangeHighAddress>
-        <HexOffset>0</HexOffset>
-      </OPTHX>
-      <OPTLEX>
-        <PageWidth>79</PageWidth>
-        <PageLength>66</PageLength>
-        <TabStop>8</TabStop>
-        <ListingPath>..\..\..\Build\uvProj\Sample01\Listings\</ListingPath>
-      </OPTLEX>
-      <ListingPage>
-        <CreateCListing>1</CreateCListing>
-        <CreateAListing>1</CreateAListing>
-        <CreateLListing>1</CreateLListing>
-        <CreateIListing>0</CreateIListing>
-        <AsmCond>1</AsmCond>
-        <AsmSymb>1</AsmSymb>
-        <AsmXref>0</AsmXref>
-        <CCond>1</CCond>
-        <CCode>0</CCode>
-        <CListInc>0</CListInc>
-        <CSymb>0</CSymb>
-        <LinkerCodeListing>0</LinkerCodeListing>
-      </ListingPage>
-      <OPTXL>
-        <LMap>1</LMap>
-        <LComments>1</LComments>
-        <LGenerateSymbols>1</LGenerateSymbols>
-        <LLibSym>1</LLibSym>
-        <LLines>1</LLines>
-        <LLocSym>1</LLocSym>
-        <LPubSym>1</LPubSym>
-        <LXref>0</LXref>
-        <LExpSel>0</LExpSel>
-      </OPTXL>
-      <OPTFL>
-        <tvExp>1</tvExp>
-        <tvExpOptDlg>0</tvExpOptDlg>
-        <IsCurrentTarget>0</IsCurrentTarget>
-      </OPTFL>
-      <CpuCode>7</CpuCode>
-      <DebugOpt>
-        <uSim>0</uSim>
-        <uTrg>1</uTrg>
-        <sLdApp>1</sLdApp>
-        <sGomain>1</sGomain>
-        <sRbreak>1</sRbreak>
-        <sRwatch>1</sRwatch>
-        <sRmem>1</sRmem>
-        <sRfunc>1</sRfunc>
-        <sRbox>1</sRbox>
-        <tLdApp>1</tLdApp>
-        <tGomain>1</tGomain>
-        <tRbreak>1</tRbreak>
-        <tRwatch>1</tRwatch>
-        <tRmem>1</tRmem>
-        <tRfunc>0</tRfunc>
-        <tRbox>1</tRbox>
-        <tRtrace>1</tRtrace>
-        <sRSysVw>1</sRSysVw>
-        <tRSysVw>1</tRSysVw>
-        <sRunDeb>0</sRunDeb>
-        <sLrtime>0</sLrtime>
-        <nTsel>1</nTsel>
-        <sDll></sDll>
-        <sDllPa></sDllPa>
-        <sDlgDll></sDlgDll>
-        <sDlgPa></sDlgPa>
-        <sIfile></sIfile>
-        <tDll></tDll>
-        <tDllPa></tDllPa>
-        <tDlgDll></tDlgDll>
-        <tDlgPa></tDlgPa>
-        <tIfile></tIfile>
-        <pMon>BIN\UL2CM3.DLL</pMon>
-      </DebugOpt>
-      <TargetDriverDllRegistry>
-        <SetRegEntry>
-          <Number>0</Number>
-          <Key>DLGUARM</Key>
-          <Name>(105=-1,-1,-1,-1,0)</Name>
-        </SetRegEntry>
-        <SetRegEntry>
-          <Number>0</Number>
-          <Key>ARMRTXEVENTFLAGS</Key>
-          <Name>-L50 -Z18 -C0 -M0 -T0</Name>
-        </SetRegEntry>
-        <SetRegEntry>
-          <Number>0</Number>
-          <Key>DLGTARM</Key>
-          <Name>(1010=-1,-1,-1,-1,0)(1007=-1,-1,-1,-1,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)(1012=-1,-1,-1,-1,0)</Name>
-        </SetRegEntry>
-        <SetRegEntry>
-          <Number>0</Number>
-          <Key>ARMDBGFLAGS</Key>
-          <Name></Name>
-        </SetRegEntry>
-        <SetRegEntry>
-          <Number>0</Number>
-          <Key>JL2CM3</Key>
-          <Name>-U304427288 -O78 -S6 -A0 -C0 -JU1 -JI127.0.0.1 -JP0 -RST0 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(4) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -TB1 -TFE0 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32F2xx_1024.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32F205ZGTx$CMSIS\Flash\STM32F2xx_1024.FLM)</Name>
-        </SetRegEntry>
-        <SetRegEntry>
-          <Number>0</Number>
-          <Key>UL2CM3</Key>
-          <Name>-UV0010M9E -O206 -S0 -C0 -P00 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC6000 -FN1 -FF0MV18X_16MB_V1.4.5 -FS00 -FL01000000</Name>
-        </SetRegEntry>
-      </TargetDriverDllRegistry>
-      <Breakpoint>
-        <Bp>
-          <Number>0</Number>
-          <Type>0</Type>
-          <LineNumber>0</LineNumber>
-          <EnabledFlag>0</EnabledFlag>
-          <Address>41040</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename></Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>0x0000A050</Expression>
-        </Bp>
-      </Breakpoint>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <Tracepoint>
         <THDelay>0</THDelay>
       </Tracepoint>
@@ -641,17 +264,6 @@
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
-=======
-  </Group>
-
-  <Group>
-    <GroupName>startup</GroupName>
-    <tvExp>0</tvExp>
-    <tvExpOptDlg>0</tvExpOptDlg>
-    <cbSel>0</cbSel>
-    <RteFlg>0</RteFlg>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
     <File>
       <GroupNumber>1</GroupNumber>
       <FileNumber>2</FileNumber>
@@ -944,11 +556,7 @@
   </Group>
 
   <Group>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
     <GroupName>Support</GroupName>
-=======
-    <GroupName>Mico</GroupName>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
     <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
@@ -992,7 +600,6 @@
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
     <File>
       <GroupNumber>4</GroupNumber>
       <FileNumber>26</FileNumber>
@@ -1009,19 +616,6 @@
     <File>
       <GroupNumber>4</GroupNumber>
       <FileNumber>27</FileNumber>
-=======
-  </Group>
-
-  <Group>
-    <GroupName>External</GroupName>
-    <tvExp>0</tvExp>
-    <tvExpOptDlg>0</tvExpOptDlg>
-    <cbSel>0</cbSel>
-    <RteFlg>0</RteFlg>
-    <File>
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>26</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1033,13 +627,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>4</GroupNumber>
       <FileNumber>28</FileNumber>
-=======
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>27</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1051,13 +640,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>4</GroupNumber>
       <FileNumber>29</FileNumber>
-=======
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>28</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1069,13 +653,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>4</GroupNumber>
       <FileNumber>30</FileNumber>
-=======
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>29</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1087,13 +666,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>4</GroupNumber>
       <FileNumber>31</FileNumber>
-=======
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>30</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1105,13 +679,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>4</GroupNumber>
       <FileNumber>32</FileNumber>
-=======
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>31</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1123,13 +692,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>4</GroupNumber>
       <FileNumber>33</FileNumber>
-=======
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>32</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1149,13 +713,8 @@
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>5</GroupNumber>
       <FileNumber>34</FileNumber>
-=======
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>33</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1167,13 +726,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>5</GroupNumber>
       <FileNumber>35</FileNumber>
-=======
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>34</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1185,13 +739,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>5</GroupNumber>
       <FileNumber>36</FileNumber>
-=======
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>35</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1203,13 +752,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>5</GroupNumber>
       <FileNumber>37</FileNumber>
-=======
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>36</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1221,13 +765,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>5</GroupNumber>
       <FileNumber>38</FileNumber>
-=======
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>37</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1239,13 +778,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>5</GroupNumber>
       <FileNumber>39</FileNumber>
-=======
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>38</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1257,13 +791,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>5</GroupNumber>
       <FileNumber>40</FileNumber>
-=======
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>39</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1283,13 +812,8 @@
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>41</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>40</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1301,13 +825,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>42</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>41</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1319,13 +838,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>43</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>42</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1337,13 +851,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>44</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>43</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1355,13 +864,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>45</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>44</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1386,13 +890,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>47</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>45</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1404,13 +903,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>48</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>46</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1422,13 +916,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>49</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>47</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1440,13 +929,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>50</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>48</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1458,13 +942,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>51</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>49</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1476,13 +955,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>52</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>50</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1494,13 +968,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>53</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>51</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1512,13 +981,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>54</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>52</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1530,13 +994,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>55</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>53</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1548,13 +1007,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>56</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>54</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1566,13 +1020,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>57</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>55</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1584,13 +1033,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>58</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>56</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1602,13 +1046,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>59</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>57</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1620,13 +1059,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>60</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>58</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1638,13 +1072,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>61</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>59</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1656,13 +1085,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>62</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>60</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1674,13 +1098,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>63</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>61</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1692,13 +1111,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>64</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>62</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1710,13 +1124,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>65</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>63</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1728,13 +1137,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>66</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>64</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1746,13 +1150,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>67</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>65</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1764,13 +1163,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>68</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>66</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1782,13 +1176,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>69</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>67</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1800,13 +1189,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>70</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>68</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1818,13 +1202,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>71</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>69</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1836,13 +1215,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <GroupNumber>6</GroupNumber>
       <FileNumber>72</FileNumber>
-=======
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>70</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1876,11 +1250,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>7</GroupNumber>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <FileNumber>74</FileNumber>
-=======
-      <FileNumber>71</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1940,11 +1310,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>8</GroupNumber>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <FileNumber>78</FileNumber>
-=======
-      <FileNumber>72</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1957,11 +1323,7 @@
     </File>
     <File>
       <GroupNumber>8</GroupNumber>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <FileNumber>79</FileNumber>
-=======
-      <FileNumber>73</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1974,11 +1336,7 @@
     </File>
     <File>
       <GroupNumber>8</GroupNumber>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <FileNumber>80</FileNumber>
-=======
-      <FileNumber>74</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1991,11 +1349,7 @@
     </File>
     <File>
       <GroupNumber>8</GroupNumber>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <FileNumber>81</FileNumber>
-=======
-      <FileNumber>75</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -2008,11 +1362,7 @@
     </File>
     <File>
       <GroupNumber>8</GroupNumber>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <FileNumber>82</FileNumber>
-=======
-      <FileNumber>76</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -2025,11 +1375,7 @@
     </File>
     <File>
       <GroupNumber>8</GroupNumber>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <FileNumber>83</FileNumber>
-=======
-      <FileNumber>77</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -2042,11 +1388,7 @@
     </File>
     <File>
       <GroupNumber>8</GroupNumber>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <FileNumber>84</FileNumber>
-=======
-      <FileNumber>78</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -2059,11 +1401,7 @@
     </File>
     <File>
       <GroupNumber>8</GroupNumber>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <FileNumber>85</FileNumber>
-=======
-      <FileNumber>79</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -2076,11 +1414,7 @@
     </File>
     <File>
       <GroupNumber>8</GroupNumber>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <FileNumber>86</FileNumber>
-=======
-      <FileNumber>80</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -2093,11 +1427,7 @@
     </File>
     <File>
       <GroupNumber>8</GroupNumber>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <FileNumber>87</FileNumber>
-=======
-      <FileNumber>81</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -2110,11 +1440,7 @@
     </File>
     <File>
       <GroupNumber>8</GroupNumber>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <FileNumber>88</FileNumber>
-=======
-      <FileNumber>82</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -2200,11 +1526,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>9</GroupNumber>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <FileNumber>94</FileNumber>
-=======
-      <FileNumber>83</FileNumber>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -2217,13 +1539,8 @@
     </File>
     <File>
       <GroupNumber>9</GroupNumber>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <FileNumber>95</FileNumber>
       <FileType>5</FileType>
-=======
-      <FileNumber>84</FileNumber>
-      <FileType>1</FileType>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2235,13 +1552,8 @@
     </File>
     <File>
       <GroupNumber>9</GroupNumber>
-<<<<<<< HEAD:Projects/COM.MXCHIP.SPP/RVMDK/COM.MXCHIP.SPP.uvoptx
       <FileNumber>96</FileNumber>
       <FileType>5</FileType>
-=======
-      <FileNumber>85</FileNumber>
-      <FileType>1</FileType>
->>>>>>> TestMode:Projects/uvProjecs/Sample01/Sample01.uvoptx
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2363,272 +1675,6 @@
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
-  </Group>
-
-  <Group>
-    <GroupName>dummy_1062_driver</GroupName>
-    <tvExp>0</tvExp>
-    <tvExpOptDlg>0</tvExpOptDlg>
-    <cbSel>0</cbSel>
-    <RteFlg>0</RteFlg>
-    <File>
-      <GroupNumber>10</GroupNumber>
-      <FileNumber>86</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Platform\vendor\Sample\Sample01\EMW1062\read_wifi_firmware.c</PathWithFileName>
-      <FilenameWithoutPath>read_wifi_firmware.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>10</GroupNumber>
-      <FileNumber>87</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Platform\vendor\Sample\Sample01\EMW1062\wlan_platform.c</PathWithFileName>
-      <FilenameWithoutPath>wlan_platform.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>10</GroupNumber>
-      <FileNumber>88</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Platform\vendor\Sample\Sample01\EMW1062\SDIO\wlan_bus.c</PathWithFileName>
-      <FilenameWithoutPath>wlan_bus.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-  </Group>
-
-  <Group>
-    <GroupName>BoardAP80V1</GroupName>
-    <tvExp>0</tvExp>
-    <tvExpOptDlg>0</tvExpOptDlg>
-    <cbSel>0</cbSel>
-    <RteFlg>0</RteFlg>
-    <File>
-      <GroupNumber>11</GroupNumber>
-      <FileNumber>89</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Platform\BoardConfig\AP80V1\platform.c</PathWithFileName>
-      <FilenameWithoutPath>platform.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-  </Group>
-
-  <Group>
-    <GroupName>MV_AP80_driver</GroupName>
-    <tvExp>0</tvExp>
-    <tvExpOptDlg>0</tvExpOptDlg>
-    <cbSel>0</cbSel>
-    <RteFlg>0</RteFlg>
-    <File>
-      <GroupNumber>12</GroupNumber>
-      <FileNumber>90</FileNumber>
-      <FileType>4</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Platform\vendor\mvsilicon\AP80A0s\driver\driver.lib</PathWithFileName>
-      <FilenameWithoutPath>driver.lib</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>12</GroupNumber>
-      <FileNumber>91</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Platform\vendor\mvsilicon\AP80A0s\MicoDriverAdc.c</PathWithFileName>
-      <FilenameWithoutPath>MicoDriverAdc.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>12</GroupNumber>
-      <FileNumber>92</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Platform\vendor\mvsilicon\AP80A0s\MicoDriverFlash.c</PathWithFileName>
-      <FilenameWithoutPath>MicoDriverFlash.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>12</GroupNumber>
-      <FileNumber>93</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Platform\vendor\mvsilicon\AP80A0s\MicoDriverGpio.c</PathWithFileName>
-      <FilenameWithoutPath>MicoDriverGpio.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>12</GroupNumber>
-      <FileNumber>94</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Platform\vendor\mvsilicon\AP80A0s\MicoDriverI2c.c</PathWithFileName>
-      <FilenameWithoutPath>MicoDriverI2c.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>12</GroupNumber>
-      <FileNumber>95</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Platform\vendor\mvsilicon\AP80A0s\MicoDriverPwm.c</PathWithFileName>
-      <FilenameWithoutPath>MicoDriverPwm.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>12</GroupNumber>
-      <FileNumber>96</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Platform\vendor\mvsilicon\AP80A0s\MicoDriverRng.c</PathWithFileName>
-      <FilenameWithoutPath>MicoDriverRng.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>12</GroupNumber>
-      <FileNumber>97</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Platform\vendor\mvsilicon\AP80A0s\MicoDriverRtc.c</PathWithFileName>
-      <FilenameWithoutPath>MicoDriverRtc.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>12</GroupNumber>
-      <FileNumber>98</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Platform\vendor\mvsilicon\AP80A0s\MicoDriverSpi.c</PathWithFileName>
-      <FilenameWithoutPath>MicoDriverSpi.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>12</GroupNumber>
-      <FileNumber>99</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Platform\vendor\mvsilicon\AP80A0s\MicoDriverUart.c</PathWithFileName>
-      <FilenameWithoutPath>MicoDriverUart.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>12</GroupNumber>
-      <FileNumber>100</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Platform\vendor\mvsilicon\AP80A0s\MicoDriverWdg.c</PathWithFileName>
-      <FilenameWithoutPath>MicoDriverWdg.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>12</GroupNumber>
-      <FileNumber>101</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Platform\vendor\mvsilicon\AP80A0s\platform_mico.c</PathWithFileName>
-      <FilenameWithoutPath>platform_mico.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>12</GroupNumber>
-      <FileNumber>102</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Platform\vendor\mvsilicon\AP80A0s\startup.c</PathWithFileName>
-      <FilenameWithoutPath>startup.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>12</GroupNumber>
-      <FileNumber>103</FileNumber>
-      <FileType>4</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Platform\vendor\mvsilicon\AP80A0s\freertos.lib</PathWithFileName>
-      <FilenameWithoutPath>freertos.lib</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-  </Group>
-
-  <Group>
-    <GroupName>::CMSIS</GroupName>
-    <tvExp>0</tvExp>
-    <tvExpOptDlg>0</tvExpOptDlg>
-    <cbSel>0</cbSel>
-    <RteFlg>1</RteFlg>
   </Group>
 
 </ProjectOpt>

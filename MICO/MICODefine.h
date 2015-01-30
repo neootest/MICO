@@ -51,10 +51,7 @@
 #define EASYLINK_BYPASS                         1
 #define EASYLINK_SOFT_AP_BYPASS                 2
 
-<<<<<<< HEAD
 #define MICO_CLI_ENABLE
-=======
->>>>>>> TestMode
 #define MFG_MODE_AUTO /**< Device enter MFG mode if MICO settings are erased. */
 
 /* Define MICO service thread stack size */
@@ -205,10 +202,6 @@ OSStatus MICORestoreMFG                 ( mico_Context_t * const inContext );
 #endif
 
 
-<<<<<<< HEAD
 void mico_mfg_test( mico_Context_t * const inContext );
-=======
-void mico_mfg_test(void);
->>>>>>> TestMode
 
 #endif /* __MICO_DEFINE_H */

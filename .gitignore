@@ -12,11 +12,4 @@ Build/*
 *.tmp
 si/*
 *.wspos
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-
->>>>>>> Stashed changes
 *.William
-=======
->>>>>>> TestMode

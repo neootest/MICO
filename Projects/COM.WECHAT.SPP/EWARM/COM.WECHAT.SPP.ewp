@@ -4037,15 +4037,6 @@
       <name>$PROJ_DIR$\..\..\..\Library\MICOConfig.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Library\MicoEasyCloudService_20150121_v0.2.7_debug.a</name>
-      <excluded>
-        <configuration>EMW3162</configuration>
-      </excluded>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\Library\MicoEasyCloudService_20150121_v0.2.7_release.a</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_cm3_sdio.a</name>
       <excluded>
         <configuration>MICO_EVB_1</configuration>
