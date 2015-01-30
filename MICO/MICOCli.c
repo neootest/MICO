@@ -486,7 +486,7 @@ int cli_unregister_commands(const struct cli_command *commands,
 
 	return 0;
 }
-
+#if (DEBUG)
 extern int mico_debug_enabled;
 static void micodebug_Command(char *pcWriteBuffer, int xWriteBufferLen,int argc, char **argv)
 {
@@ -508,7 +508,7 @@ static void micodebug_Command(char *pcWriteBuffer, int xWriteBufferLen,int argc,
 static const struct cli_command user_clis[1] = {
 	{"micodebug", "micodebug on/off", micodebug_Command},
 };
-
+#endif
 
 int MicoCliInit(void)
 {
@@ -538,7 +538,9 @@ int MicoCliInit(void)
         return kGeneralErr;
     }
 
+#if (DEBUG)
     cli_register_commands(user_clis, 1);
+#endif
 
 	ret = mico_rtos_create_thread(NULL, MICO_DEFAULT_WORKER_PRIORITY, "cli", cli_main, 4096, 0);
 	if (ret != kNoErr) {
