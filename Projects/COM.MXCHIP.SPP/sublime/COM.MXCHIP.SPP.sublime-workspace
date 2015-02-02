@@ -526,6 +526,75 @@
 				"buffer_size": 29843,
 				"line_ending": "Windows"
 			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform_common_config.h",
+			"settings":
+			{
+				"buffer_size": 8988,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "Searching 916 files for \"core_cm3.h\" (whole word)\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/stm32f2xx_havebug.h:\n  229    */\n  230  \n  231: #include \"core_cm3.h\"\n  232  #include \"system_stm32f2xx.h\"\n  233  #include <stdint.h>\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/STM32F2xx_StdPeriph_Driver/CMSIS/core_cm3.h:\n    1  /**************************************************************************//**\n    2:  * @file     core_cm3.h\n    3   * @brief    CMSIS Cortex-M3 Core Peripheral Access Layer Header File\n    4   * @version  V2.10\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/STM32F2xx_StdPeriph_Driver/inc/stm32f2xx.h:\n  241    */\n  242  \n  243: #include \"core_cm3.h\"\n  244  #include \"system_stm32f2xx.h\"\n  245  #include <stdint.h>\n\n3 matches across 3 files\n",
+			"settings":
+			{
+				"buffer_size": 939,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"contents": "",
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/stm32f2xx_havebug.h",
+			"file_size": -1,
+			"file_write_time": -1,
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOMfgtest.c",
+			"settings":
+			{
+				"buffer_size": 7270,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppDefine.h",
+			"settings":
+			{
+				"buffer_size": 3464,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOConfigServer.c",
+			"settings":
+			{
+				"buffer_size": 15334,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/stm32f2xx_platform.c",
+			"settings":
+			{
+				"buffer_size": 17811,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/HTTPUtils.c",
+			"settings":
+			{
+				"buffer_size": 34269,
+				"line_ending": "Windows"
+			}
 		}
 	],
 	"build_system": "",
@@ -723,7 +792,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 93.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"<open folders>",
@@ -742,6 +811,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"core_cm3.h",
+			"stop_mode_power_down_hook",
 			"MicoSystemStandBy",
 			"hard_fault_handler_c",
 			"init_platform",
@@ -867,9 +938,7 @@
 			"host_platform_deinit",
 			"host_platform_init",
 			"//",
-			"thread_wakeup",
-			"mico_uart_t",
-			"dma_peripheral_clock"
+			"thread_wakeup"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -889,7 +958,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 8,
 			"sheets":
 			[
 				{
@@ -916,6 +985,253 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform_common_config.h",
+					"settings":
+					{
+						"buffer_size": 8988,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7034,
+								7034
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2053.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"settings":
+					{
+						"buffer_size": 939,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										210,
+										220
+									],
+									[
+										540,
+										550
+									],
+									[
+										837,
+										847
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								216,
+								216
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/stm32f2xx_havebug.h",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOMfgtest.c",
+					"settings":
+					{
+						"buffer_size": 7270,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7101,
+								7101
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3625.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppDefine.h",
+					"settings":
+					{
+						"buffer_size": 3464,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2019,
+								2019
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 438.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOConfigServer.c",
+					"settings":
+					{
+						"buffer_size": 15334,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13209,
+								13210
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4876.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/stm32f2xx_platform.c",
+					"settings":
+					{
+						"buffer_size": 17811,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 6499.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/HTTPUtils.c",
+					"settings":
+					{
+						"buffer_size": 34269,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14208,
+								14218
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4562.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
