@@ -526,10 +526,10 @@
     <group>
       <name>EasyCloud</name>
       <file>
-        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_20150128_v0.2.8_debug.a</name>
+        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_20150202_v0.2.9_debug.a</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_20150128_v0.2.8_release.a</name>
+        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_20150202_v0.2.9_release.a</name>
       </file>
     </group>
     <file>
@@ -561,6 +561,9 @@
     </group>
     <file>
       <name>$PROJ_DIR$\..\..\..\MICO\SoftAP\EasyLinkSoftAP.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\MICO\MICOCli.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\MICO\MICOConfigMenu.c</name>

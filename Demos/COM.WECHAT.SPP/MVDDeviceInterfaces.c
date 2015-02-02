@@ -71,13 +71,13 @@ size_t _uart_get_one_packet(uint8_t* inBuf, int inBufLen)
   int datalen;
   
   while(1) {
-    if( MicoUartRecv( UART_FOR_APP, inBuf, inBufLen, UART_RECV_TIMEOUT) == kNoErr){
+    if( MicoUartRecv( UART_FOR_MCU, inBuf, inBufLen, UART_RECV_TIMEOUT) == kNoErr){
       return inBufLen;
     }
    else{
-     datalen = MicoUartGetLengthInBuffer( UART_FOR_APP );
+     datalen = MicoUartGetLengthInBuffer( UART_FOR_MCU );
      if(datalen){
-       MicoUartRecv(UART_FOR_APP, inBuf, datalen, UART_RECV_TIMEOUT);
+       MicoUartRecv(UART_FOR_MCU, inBuf, datalen, UART_RECV_TIMEOUT);
        return datalen;
      }
    }  
@@ -106,7 +106,7 @@ OSStatus MVDDevInterfaceInit(mico_Context_t* const inContext)
     uart_config.flags = UART_WAKEUP_DISABLE;
   ring_buffer_init  ( (ring_buffer_t *)&rx_buffer, (uint8_t *)rx_data, UART_BUFFER_LENGTH );
   
-  MicoUartInitialize( UART_FOR_APP, &uart_config, (ring_buffer_t *)&rx_buffer );
+  MicoUartInitialize( UART_FOR_MCU, &uart_config, (ring_buffer_t *)&rx_buffer );
   
   //USART receive thread
   err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "UART Recv", 
@@ -124,7 +124,7 @@ OSStatus MVDDevInterfaceSend(unsigned char *inBuf, unsigned int inBufLen)
   OSStatus err = kUnknownErr;
 
   dev_if_log("MVD => MCU:[%d]=%.*s", inBufLen, inBufLen, inBuf);
-  err = MicoUartSend(UART_FOR_APP, inBuf, inBufLen);
+  err = MicoUartSend(UART_FOR_MCU, inBuf, inBufLen);
   require_noerr_action( err, exit, dev_if_log("ERROR: send to USART error! err=%d", err) );
   return kNoErr;
   

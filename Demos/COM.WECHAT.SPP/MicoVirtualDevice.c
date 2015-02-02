@@ -235,7 +235,7 @@ OSStatus MVDCloudMsgProcess(mico_Context_t* context,
   require_noerr_action( err, exit, mvd_log("ERROR: send to MCU error! err=%d", err) );
   
   // add response to cloud(echo), replace topic 'device_id/in/xxx' to 'device_id/out/xxx'
-  responseTopic = str_replace(responseTopic, topic, topicLen, "/in", "/out");
+  responseTopic = ECS_str_replace(responseTopic, topic, topicLen, "/in", "/out");
   responseMsgLen = strlen(context->micoStatus.mac) + 2 + inBufLen;
   responseMsg = (unsigned char*)malloc(responseMsgLen + 1);
   memset(responseMsg, 0x00, responseMsgLen);
