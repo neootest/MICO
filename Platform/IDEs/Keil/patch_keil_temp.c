@@ -158,32 +158,32 @@ int is_nfc_up(void){
     return 0;
 }
 
-//int aes_decrypt(void)
-//{
-//    return 0;
-//}
+int aes_decrypt(void)
+{
+    return 0;
+}
 
-//int nfc_config_stop(void)
-//{
-//    return 0;
-//}
+int nfc_config_stop(void)
+{
+    return 0;
+}
 
-//int uart_init(void)
-//{
-//    return 0;
-//}
+int uart_init(void)
+{
+    return 0;
+}
 
-//int __data_GetMemChunk(void)
-//{
-//	return 0;
-//}
+int __data_GetMemChunk(void)
+{
+	return 0;
+}
 
-//int wiced_platform_get_rtc_time (){
-//    return 1;
-//}
-//int wiced_platform_set_rtc_time (){
-//    return 0;
-//}
+int wiced_platform_get_rtc_time (){
+    return 1;
+}
+int wiced_platform_set_rtc_time (){
+    return 0;
+}
 
 #endif 
 

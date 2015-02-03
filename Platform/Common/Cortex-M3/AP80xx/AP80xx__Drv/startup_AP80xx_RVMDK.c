@@ -16,7 +16,7 @@
 #define DBG printf
 
 #ifndef CFG_SYS_STACK_SIZE
-#define CFG_SYS_STACK_SIZE  0x1000
+//#define CFG_SYS_STACK_SIZE  0x1000
 #endif //FREERTOS_VERSION
 
 void reset_handler(void);
@@ -26,68 +26,50 @@ void memmanage_handler(void);
 void busfault_handler(void);
 void usagefault_handler(void);
 
-void svcall_interrupt(void) __attribute__((weak));
-void pendsv_interrupt(void) __attribute__((weak));
-void systick_interrupt(void) __attribute__((weak));
+void SVC_Handler(void);
+void PendSV_Handler(void) ;
+void SysTick_Handler(void) ;
 
-void GpioInterrupt(void) __attribute__((weak));
-void RtcInterrupt(void) __attribute__((weak));
-void IrInterrupt(void) __attribute__((weak));
-void FuartInterrupt(void);//__attribute__((weak));
-void BuartInterrupt(void) __attribute__((weak));
-void PwcInterrupt(void) __attribute__((weak));
-void Timer0Interrupt(void) __attribute__((weak));
-void UsbInterrupt(void) __attribute__((weak));
-void DmaCh0Interrupt(void) __attribute__((weak));
-void DmaCh1Interrupt(void) __attribute__((weak));
-void audio_decoder_interrupt_handler(void) __attribute__((weak));
-void SpisInterrupt(void) __attribute__((weak));
-void SdInterrupt(void) __attribute__((weak));
-void SpimInterrupt(void) __attribute__((weak));
-void SarAdcInterrupt(void) __attribute__((weak));
-void I2cInterrupt(void) __attribute__((weak));
-void Timer1Interrupt(void) __attribute__((weak));
-void WatchDogInterrupt(void) __attribute__((weak));
 
-static unsigned char sys_stack_heap[CFG_SYS_STACK_SIZE] __attribute__((section("MSP"))) = {0xA5,};
+//static unsigned char sys_stack_heap[CFG_SYS_STACK_SIZE] __attribute__((section("MSP"))) = {0xA5,};
 
-static void (*const vect_table[])(void) __attribute__((section("EXCEPT_VECTS"))) = {
-    (void(*)(void))(0x20000000 + CFG_SYS_STACK_SIZE),	//   Top of Stack
-    reset_handler,				//#1 :Reset Handler
-    nmi_handler,				//#2 :NMI Handler
-    hardfault_handler,			//#3 :Hard Fault Handler
-    memmanage_handler,			//#4 :MPU Fault Handler
-    busfault_handler,			//#5 :Bus Fault Handler
-    usagefault_handler,			//#6 :Usage Fault Handler
-    0,							//#7 :Reserved
-    0,							//#8 :Reserved
-    0,							//#9 :Reserved
-    0,							//#10:Reserved
-    svcall_interrupt,			//#11:SVCall Handler
-    0,							//#12:Debug Monitor Handler
-    0,							//#13:Reserved
-    pendsv_interrupt,			//#14:PendSV Handler
-    systick_interrupt,			//#15:SysTick Handler
-	
+//static void (*const vect_table[])(void) __attribute__((section("EXCEPT_VECTS"))) = {
+//    (void(*)(void))(0x20000000 + CFG_SYS_STACK_SIZE),	//   Top of Stack
+//    reset_handler,				//#1 :Reset Handler
+//    nmi_handler,				//#2 :NMI Handler
+//    hardfault_handler,			//#3 :Hard Fault Handler
+//    memmanage_handler,			//#4 :MPU Fault Handler
+//    busfault_handler,			//#5 :Bus Fault Handler
+//    usagefault_handler,			//#6 :Usage Fault Handler
+//    0,							//#7 :Reserved
+//    0,							//#8 :Reserved
+//    0,							//#9 :Reserved
+//    0,							//#10:Reserved
+//    SVC_Handler,			//#11:SVCall Handler
+//    0,							//#12:Debug Monitor Handler
+//    0,							//#13:Reserved
+//    PendSV_Handler,			//#14:PendSV Handler
+//    SysTick_Handler,			//#15:SysTick Handler
+//	
 
-    //-----------External Interrupts---------------------
-    GpioInterrupt, 				//#16: GPIO 
-    RtcInterrupt,				//#17: RTC
-    IrInterrupt,		    	//#18: IR
-    FuartInterrupt,				//#19: FUART
-    BuartInterrupt,				//#20: BUART 
-    PwcInterrupt,				//#21: PWC 
-    Timer0Interrupt,			//#22: TIMER0 
-    UsbInterrupt,				//#23: USB 
-    DmaCh0Interrupt,   			//#24: DMA CH0 
-    DmaCh1Interrupt,		    //#25: DMA CH1 
-    audio_decoder_interrupt_handler,      		//26: DECODER 
-    SpisInterrupt,              //#27: SPIS
-    SdInterrupt,				//#28: SDIO
-    SpimInterrupt,              //#29: SPIM
-    Timer1Interrupt,			//#30: TIMER1
-    WatchDogInterrupt,			//#31: WatchDog
-};
+//    //-----------External Interrupts---------------------
+//    GpioInterrupt, 				//#16: GPIO 
+//    RtcInterrupt,				//#17: RTC
+//    IrInterrupt,		    	//#18: IR
+//    FuartInterrupt,				//#19: FUART
+//    BuartInterrupt,				//#20: BUART 
+//    PwcInterrupt,				//#21: PWC 
+//    Timer0Interrupt,			//#22: TIMER0 
+//    UsbInterrupt,				//#23: USB 
+//    DmaCh0Interrupt,   			//#24: DMA CH0 
+//    DmaCh1Interrupt,		    //#25: DMA CH1 
+//    audio_decoder_interrupt_handler,      		//26: DECODER 
+//    SpisInterrupt,              //#27: SPIS
+//    SdInterrupt,				//#28: SDIO
+//    SpimInterrupt,              //#29: SPIM
+//    Timer1Interrupt,			//#30: TIMER1
+//    WatchDogInterrupt,			//#31: WatchDog
+//};
 		
 //******************************************************************************
 //
@@ -99,31 +81,43 @@ static void (*const vect_table[])(void) __attribute__((section("EXCEPT_VECTS")))
 /*
  * back trace
  */
+/** \brief  Get ISPR Register
+
+    This function returns the content of the ISPR Register.
+
+    \return               ISPR Register value
+ */
+static __inline unsigned int __get_IPSR(void)
+{
+  register unsigned int __regIPSR          __asm("ipsr");
+  return(__regIPSR);
+} 
+ 
 void trapfault_handler_dumpstack(unsigned long* irqs_regs, unsigned long* user_regs)
 {
 	DBG("\n>>>>>>>>>>>>>>[");
-//	switch(__get_IPSR())
-//	{
-//		case	3:
-//			DBG("Hard Fault");
-//			break;
+	switch(__get_IPSR())
+	{
+		case	3:
+			DBG("Hard Fault");
+			break;
 
-//		case	4:
-//			DBG("Memory Manage");
-//			break;
+		case	4:
+			DBG("Memory Manage");
+			break;
 
-//		case	5:
-//			DBG("Bus Fault");
-//			break;
+		case	5:
+			DBG("Bus Fault");
+			break;
 
-//		case	6:
-//			DBG("Usage Fault");
-//			break;
+		case	6:
+			DBG("Usage Fault");
+			break;
 
-//		default:
-//			DBG("Unknown Fault %d", __get_IPSR());
-//			break;
-//	}
+		default:
+			DBG("Unknown Fault %d", __get_IPSR());
+			break;
+	}
 	DBG(",corrupt,dump registers]>>>>>>>>>>>>>>>>>>\n");
 
 	DBG("R0  = 0x%08X\n", irqs_regs[0]);
@@ -169,15 +163,75 @@ void trapfault_handler_dumpstack(unsigned long* irqs_regs, unsigned long* user_r
 
 __asm void __bootup_stubs(void)
 {
-	PRESERVE8
-	THUMB
     
-__heap_base     EQU     (0x20000000 + CFG_SYS_STACK_SIZE)
-__heap_limit    EQU     (0x20000000 + CFG_SYS_STACK_SIZE)
-    
-__initial_sp	EQU		(0x20000000 + CFG_SYS_STACK_SIZE)
-	EXPORT		__initial_sp	
+Stack_Size      EQU     0x00000400
 
+                AREA    STACK, NOINIT, READWRITE, ALIGN=3
+Stack_Mem       SPACE   Stack_Size
+__initial_sp
+
+//; <h> Heap Configuration
+//;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
+//; </h>
+
+Heap_Size       EQU     0x0000C000
+
+
+                AREA    HEAP, NOINIT, READWRITE, ALIGN=3
+__heap_base
+Heap_Mem        SPACE   Heap_Size
+__heap_limit
+
+
+                PRESERVE8
+                THUMB
+
+//Vector Table Mapped to Address 0 at Reset
+                AREA    EXCEPT_VECTS, DATA, READONLY
+                EXPORT  __Vectors
+                EXPORT  __Vectors_End
+                EXPORT  __Vectors_Size
+
+__Vectors       DCD     __initial_sp               // Top of Stack
+                DCD     reset_handler              // Reset Handler
+                DCD     nmi_handler                // NMI Handler
+                DCD     hardfault_handler          // Hard Fault Handler
+                DCD     memmanage_handler          // MPU Fault Handler
+                DCD     busfault_handler           // Bus Fault Handler
+                DCD     usagefault_handler         // Usage Fault Handler
+                DCD     0                          //Reserved
+                DCD     0                          // Reserved
+                DCD     0                          // Reserved
+                DCD     0                          // Reserved
+                DCD     SVC_Handler                // SVCall Handler
+                DCD     0                           // Debug Monitor Handler
+                DCD     0                          // Reserved
+                DCD     PendSV_Handler             // PendSV Handler
+                DCD     SysTick_Handler            // SysTick Handler
+
+                // External Interrupts
+                DCD     GpioInterrupt                   // Window WatchDog                                        
+                DCD     RtcInterrupt                   // PVD through EXTI Line detection                        
+                DCD     IrInterrupt             // Tamper and TimeStamps through the EXTI line            
+                DCD     FuartInterrupt                      // RTC Wakeup through the EXTI line                       
+                DCD     BuartInterrupt                  // FLASH                                           
+                DCD     PwcInterrupt                    // RCC                                             
+                DCD     Timer0Interrupt                  // EXTI Line0                                             
+                DCD     UsbInterrupt                  //EXTI Line1                                             
+                DCD     DmaCh0Interrupt                  // EXTI Line2                                             
+                DCD     DmaCh1Interrupt                  // EXTI Line3                                             
+                DCD     audio_decoder_interrupt_handler                  //EXTI Line4                                             
+                DCD     SpisInterrupt          // DMA1 Stream 0                                   
+                DCD     SdInterrupt           // DMA1 Stream 1                                   
+                DCD     SpimInterrupt           // DMA1 Stream 2                                   
+                DCD     Timer1Interrupt           // DMA1 Stream 3                                   
+                DCD     WatchDogInterrupt           // DMA1 Stream 4                                   
+                                 
+__Vectors_End
+
+__Vectors_Size  EQU  __Vectors_End - __Vectors
+
+  
 	//image total size in bytes
 	AREA    |.ARM.__at_0x00000080|, CODE, READONLY
 IMAGE_SIZE	DCD	0xFFFFFFFF
@@ -225,7 +279,7 @@ CODE_ENCRYP_FLAG	DCD  0xFFFFFFFF
 	IMPORT	|Region$$Table$$Base|
 	IMPORT	|Region$$Table$$Limit|
 
-	IMPORT  main
+	IMPORT  __main
 	IMPORT  __low_level_init
 #ifdef	FREERTOS_VERSION
 	IMPORT	mmm_pool_top 
@@ -234,16 +288,16 @@ CODE_ENCRYP_FLAG	DCD  0xFFFFFFFF
 		//the follow code crack the uvision startup code -huangyucai20111018
 __mv_main
 		//set up the system stack	
-#ifdef	FREERTOS_VERSION
-		LDR		SP,=mmm_pool_top 
-#else
-		LDR		SP,=0x20008000
-#endif //FREERTOS_VERSION 
-		SUB		SP,SP,#0x1000
-		LDR		R0,=__initial_sp
-		SUB		R0,R0,#CFG_SYS_STACK_SIZE
-		LDR		R0,[R0]
-		PUSH	{R0}
+//#ifdef	FREERTOS_VERSION
+//		LDR		SP,=mmm_pool_top 
+//#else
+//		LDR		SP,=0x20008000
+//#endif //FREERTOS_VERSION 
+//		SUB		SP,SP,#0x1000
+//		LDR		R0,=__initial_sp
+//		SUB		R0,R0,#CFG_SYS_STACK_SIZE
+//		LDR		R0,[R0]
+//		PUSH	{R0}
 
 mv_main	PROC
 		EXPORT	mv_main	
@@ -270,8 +324,8 @@ __REGION_DECOMP_OK
 		 * TO DO
 		 */
 #else
-		IMPORT	__rt_lib_init 
-		BL		__rt_lib_init
+		//IMPORT	__rt_lib_init 
+		//BL		__rt_lib_init
 #endif//__MICROLIB
 
 		//fill the system stack space with debug symbol for debug only -huangyucai20111121
@@ -289,9 +343,10 @@ AGAIN
         CPSIE   I
         CPSIE   F
 		LDR		SP,=__initial_sp
+    //ADD   LR, PC, #0x6
 		LDR		R0,=__low_level_init
-		BX		R0
-		LDR		R0,=main
+		BLX		R0
+		LDR		R0,=__main
 		BX		R0
 
 		ENDP
@@ -370,6 +425,65 @@ usagefault_handler PROC
 #endif //(FREERTOS_VERSION))
 		ENDP
 
+SVC_Handler     PROC
+                EXPORT  SVC_Handler                
+                IMPORT vPortSVCHandler
+                //B vPortSVCHandler
+                B .
+                ENDP
+
+PendSV_Handler  PROC
+                EXPORT  PendSV_Handler             
+                IMPORT xPortPendSVHandler
+                //B xPortPendSVHandler
+                B .
+                ENDP
+    
+SysTick_Handler PROC
+                EXPORT  SysTick_Handler           
+                IMPORT xPortSysTickHandler
+                //B xPortSysTickHandler 
+                B  .
+                ENDP 
+
+Default_Handler PROC
+                EXPORT     GpioInterrupt             [WEAK]         // Window WatchDog                                        
+                EXPORT     RtcInterrupt               [WEAK]       // PVD through EXTI Line detection                        
+                EXPORT     IrInterrupt             [WEAK]   // Tamper and TimeStamps through the EXTI line            
+                IMPORT     FuartInterrupt           [WEAK]             // RTC Wakeup through the EXTI line                       
+                EXPORT     BuartInterrupt           [WEAK]          // FLASH                                           
+                EXPORT     PwcInterrupt             [WEAK]          // RCC                                             
+                EXPORT     Timer0Interrupt            [WEAK]         // EXTI Line0                                             
+                EXPORT     UsbInterrupt              [WEAK]       //EXTI Line1                                             
+                EXPORT     DmaCh0Interrupt            [WEAK]         // EXTI Line2                                             
+                EXPORT     DmaCh1Interrupt              [WEAK]       // EXTI Line3                                             
+                EXPORT     audio_decoder_interrupt_handler   [WEAK]                  //EXTI Line4                                             
+                EXPORT     SpisInterrupt          [WEAK]   // DMA1 Stream 0                                   
+                EXPORT     SdInterrupt           [WEAK]   // DMA1 Stream 1                                   
+                EXPORT     SpimInterrupt          [WEAK]    // DMA1 Stream 2                                   
+                EXPORT     Timer1Interrupt           [WEAK]   // DMA1 Stream 3                                   
+                EXPORT     WatchDogInterrupt          [WEAK]    // DMA1 Stream 4  
+
+GpioInterrupt                                     
+RtcInterrupt                                 
+IrInterrupt            
+//FuartInterrupt                        
+BuartInterrupt                                       
+PwcInterrupt                                                 
+Timer0Interrupt                                              
+UsbInterrupt                                             
+DmaCh0Interrupt                                             
+DmaCh1Interrupt                                           
+audio_decoder_interrupt_handler                                       
+SpisInterrupt                        
+SdInterrupt                                    
+SpimInterrupt                                     
+Timer1Interrupt                                       
+WatchDogInterrupt         
+                B       .
+
+                ENDP
+
 		ALIGN
 
 //******************************************************************************
@@ -387,15 +501,28 @@ usagefault_handler PROC
 // the location of the stack and heap.
 // 
 //******************************************************************************
-#ifdef __MICROLIB
-        EXPORT  __initial_sp
-        //EXPORT  __heap_base
-        //EXPORT  __heap_limit
-#else
-        EXPORT  __initial_sp
-        EXPORT  __heap_base
-        EXPORT  __heap_limit
-#endif //__MICROLIB
+                 IF      :DEF:__MICROLIB
+                
+                 EXPORT  __initial_sp
+                 EXPORT  __heap_base
+                 EXPORT  __heap_limit
+                
+                 ELSE
+                
+                 IMPORT  __use_two_region_memory
+                 EXPORT  __user_initial_stackheap
+                 
+__user_initial_stackheap
+
+                 LDR     R0, =  Heap_Mem
+                 LDR     R1, =(Stack_Mem + Stack_Size)
+                 LDR     R2, = (Heap_Mem +  Heap_Size)
+                 LDR     R3, = Stack_Mem
+                 BX      LR
+
+                 ALIGN
+
+                 ENDIF
 
 //******************************************************************************
 //

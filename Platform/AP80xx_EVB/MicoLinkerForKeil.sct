@@ -37,16 +37,16 @@ LR_FLASH 0x00000000 0x800000 - 255 * 1024 {;load region size_region
 
 	;do not change the execution region name named RW_XMEM
 	;you can enlarge or shrink the region size as you want
-	RW_XMEM 0x20000000 UNINIT 0x10000 {;64KB XMEM
-		*.o (MSP,+FIRST)
+	RW_XMEM 0x20000000 UNINIT 0x18000 {;64KB XMEM
+;		*.o (MSP,+FIRST)
 		.ANY(+RW,+ZI)
 	}
 
 	;if you want to change the RW_XMEM room,change this 0x20010000 
 	;for RW_XMEM end boundary only
-	RW_XMEM_END 0x20010000 - 4 UNINIT 4{
-		*.o (PSP)
-	}
+	;RW_XMEM_END 0x20010000 - 4 UNINIT 4{
+	;	*.o (PSP)
+	;}
 
 	;you can delete the following two execute regions if you
 	;want to use the whole memory totally

@@ -137,30 +137,30 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>JL2CM3</Key>
-          <Name>-U20080643 -O78 -S8 -A0 -C0 -JU1 -JI127.0.0.1 -JP0 -RST0 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(4) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -TB1 -TFE0 -FO7 -FD20000000 -FC9000 -FN1 -FF0MV18X_16MB_V1.4.5 -FS00 -FL01000000</Name>
+          <Name>-U20080643 -O78 -S10 -A0 -C0 -JU1 -JI127.0.0.1 -JP0 -RST0 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(4) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -TB1 -TFE0 -FO7 -FD20000000 -FC9000 -FN1 -FF0MV18X_16MB_V1.4.5 -FS00 -FL01000000</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
           <Key>UL2CM3</Key>
-          <Name>-UV0010M9E -O206 -S10 -C0 -P00 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0MV18X_16MB_V1.4.5 -FS00 -FL01000000</Name>
+          <Name>-UV0010M9E -O206 -S10 -C0 -P00 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FCA000 -FN1 -FF0MV18X_16MB_V1.4.5 -FS00 -FL01000000</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
       <Breakpoint>
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>59</LineNumber>
+          <LineNumber>0</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>6258</Address>
+          <Address>38364</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;1&gt;..\..\..\..\Platform\Common\Cortex-M3\crt0_KEIL.c</Filename>
+          <Filename></Filename>
           <ExecCommand></ExecCommand>
-          <Expression></Expression>
+          <Expression>0x000095DC</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow2>
@@ -570,7 +570,7 @@
 
   <Group>
     <GroupName>Support</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -854,7 +854,7 @@
 
   <Group>
     <GroupName>Platform/MicoDriver/EMW1062</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -866,7 +866,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\read_wifi_firmware.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1062_Driver\read_wifi_firmware.c</PathWithFileName>
       <FilenameWithoutPath>read_wifi_firmware.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -879,7 +879,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\wlan_platform.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1062_Driver\wlan_platform.c</PathWithFileName>
       <FilenameWithoutPath>wlan_platform.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -892,7 +892,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Platform\Common\Cortex-M3\STM32F2xx\EMW1062_Driver\SDIO\wlan_bus.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1062_Driver\SDIO\wlan_bus.c</PathWithFileName>
       <FilenameWithoutPath>wlan_bus.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1130,7 +1130,7 @@
 
   <Group>
     <GroupName>Platform/Board</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1142,7 +1142,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Platform\EMW3162\platform.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Platform\AP80xx_EVB\platform.c</PathWithFileName>
       <FilenameWithoutPath>platform.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1155,7 +1155,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Platform\EMW3162\platform.h</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Platform\AP80xx_EVB\platform.h</PathWithFileName>
       <FilenameWithoutPath>platform.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1168,7 +1168,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Platform\EMW3162\platform_common_config.h</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Platform\AP80xx_EVB\platform_common_config.h</PathWithFileName>
       <FilenameWithoutPath>platform_common_config.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>

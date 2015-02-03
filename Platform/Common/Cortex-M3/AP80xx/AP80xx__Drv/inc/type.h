@@ -17,6 +17,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif//__cplusplus
+  
+#include "Common.h"
 
 #ifndef NULL	
 #define	NULL			((void*)0)
@@ -26,8 +28,6 @@ extern "C" {
 #define	TRUE			(1)
 	
 typedef	void(*FPCALLBACK)(void);
-
-typedef unsigned char   		bool;
 
 typedef signed char				int8_t;
 typedef unsigned char			uint8_t;
@@ -46,7 +46,6 @@ typedef	unsigned int			size_t;
 #define BITBAND
 #define AT(address)             @ address
 #define SECTION(name)           @ name
-#define WEAK                    __weak
 #define UNUSED
 #define __NO_INIT__             __no_init
 #elif defined(__CC_ARM)    // For Keil compiler
@@ -54,7 +53,6 @@ typedef	unsigned int			size_t;
 #define BITBAND                 bitband
 #define AT(address)             at(address)
 #define SECTION(name)           section(name)
-#define WEAK                    weak
 #define UNUSED                  unused
 #define __NO_INIT__
 #else                      // For other compiler

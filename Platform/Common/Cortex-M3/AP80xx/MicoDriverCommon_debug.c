@@ -40,7 +40,12 @@
 #include "crt0.h"
 #include "MICODefaults.h"
 #include "MicoRTOS.h"
-#include "AP80xx.h"
+#include "irqs.h"
+#include "clk.h"
+#include "uart.h"
+#include "gpio.h"
+#include "cache.h"
+#include "delay.h"
 
 #ifdef __GNUC__
 #include "../../GCC/stdio_newlib.h"
@@ -180,25 +185,41 @@ void startApplication(void)
 * This brings up enough clocks to allow the processor to run quickly while initialising memory.
 * Other platform specific clock init can be done in init_platform() or init_architecture()
 */
-WEAK void init_clocks( void )
+void init_clocks( void )
 {
   //RCC_DeInit( ); /* if not commented then the LSE PA8 output will be disabled and never comes up again */
   
   /* Configure Clocks */
-  
+  ClkPorRcToDpll(0);
+    CacheInit();
+  ClkModuleEn(ALL_MODULE_CLK_SWITCH);
+  ClkModuleGateEn(ALL_MODULE_CLK_GATE_SWITCH);  
+
+    //SysTickInit();
+
+  //Disable Watchdog
+  WaitMs(200);
+  WdgDis();
+
+  GpioFuartRxIoConfig(1);
+  GpioFuartTxIoConfig(1);
+
+  FuartInit(115200,8,0,1);
   
 }
 
-WEAK void init_memory( void )
+void init_memory( void )
 {
   
 }
-
-  
-
 
 void init_architecture( void )
 {
+  
+  printf("init_architecture\n");
+  while(1);
+  //SysTick_Config(120000000 / 1000);
+  //while(1);
 //   uint8_t i;
   
 //   RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);

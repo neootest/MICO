@@ -185,29 +185,39 @@ void FuartInterrupt(void)
 }
 #endif //0
 
+#define mico_log(M, ...) custom_log("MICO", M, ##__VA_ARGS__)
+#define mico_log_trace() custom_log_trace("MICO")
 
+int application_start(void)
+{
+  DBG("Hello MICO!\n");
+  mico_thread_sleep(MICO_NEVER_TIMEOUT);
+	//mico_log("Hello world!");
+}
 
+#if 0
 int main(void)
 {
 	int i,echo;
 	int OutputAll = 0;
 	
 	
-	ClkPorRcToDpll(0);
-    CacheInit();
-	ClkModuleEn(ALL_MODULE_CLK_SWITCH);
-	ClkModuleGateEn(ALL_MODULE_CLK_GATE_SWITCH);	
+	// ClkPorRcToDpll(0);
+ //    CacheInit();
+	// ClkModuleEn(ALL_MODULE_CLK_SWITCH);
+	// ClkModuleGateEn(ALL_MODULE_CLK_GATE_SWITCH);	
 
-    //SysTickInit();
+ //    //SysTickInit();
 
-	//Disable Watchdog
-	WaitMs(200);
-	WdgDis();
+	// //Disable Watchdog
+	// WaitMs(200);
+	// WdgDis();
 
-	GpioFuartRxIoConfig(1);
-	GpioFuartTxIoConfig(1);
+	// GpioFuartRxIoConfig(1);
+	// GpioFuartTxIoConfig(1);
 
-	FuartInit(115200,8,0,1);
+	// FuartInit(115200,8,0,1);
+	DBG("Hello1111\n");
 	
 	//RX GPIO B29
 	GpioBuartRxIoConfig(3);
@@ -301,4 +311,5 @@ int main(void)
 		DBG("wakeup by buart datum interrupt\n");
 	}
 }
+#endif
 

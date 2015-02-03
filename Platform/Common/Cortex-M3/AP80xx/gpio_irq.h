@@ -33,7 +33,6 @@
 #pragma once
 
 #include <stdint.h>
-#include "stm32f2xx.h"
 #include "MICOPlatform.h"
 
 /******************************************************
@@ -52,11 +51,6 @@
  *                 Type Definitions
  ******************************************************/
 
-typedef GPIO_TypeDef             gpio_port_t;
-typedef uint8_t                  gpio_pin_number_t;
-typedef mico_gpio_irq_trigger_t gpio_irq_trigger_t;
-typedef mico_gpio_irq_handler_t gpio_irq_handler_t;
-
 /******************************************************
  *                    Structures
  ******************************************************/
@@ -73,5 +67,5 @@ typedef mico_gpio_irq_handler_t gpio_irq_handler_t;
 void gpio_irq( void );
 
 /* GPIO Interrupt API */
-OSStatus gpio_irq_enable ( gpio_port_t* gpio_port, gpio_pin_number_t gpio_pin_number, gpio_irq_trigger_t trigger, gpio_irq_handler_t handler, void* arg );
-OSStatus gpio_irq_disable( gpio_port_t* gpio_port, gpio_pin_number_t gpio_pin_number );
+//OSStatus gpio_irq_enable ( gpio_port_t* gpio_port, gpio_pin_number_t gpio_pin_number, gpio_irq_trigger_t trigger, gpio_irq_handler_t handler, void* arg );
+//OSStatus gpio_irq_disable( gpio_port_t* gpio_port, gpio_pin_number_t gpio_pin_number );
