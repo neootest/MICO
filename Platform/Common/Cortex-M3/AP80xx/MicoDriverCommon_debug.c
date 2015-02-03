@@ -217,7 +217,6 @@ void init_architecture( void )
 {
   
   printf("init_architecture\n");
-  while(1);
   //SysTick_Config(120000000 / 1000);
   //while(1);
 //   uint8_t i;
