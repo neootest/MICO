@@ -37,7 +37,7 @@ LR_FLASH 0x00000000 0x800000 - 255 * 1024 {;load region size_region
 
 	;do not change the execution region name named RW_XMEM
 	;you can enlarge or shrink the region size as you want
-	RW_XMEM 0x20000000 UNINIT 0x18000 {;64KB XMEM
+	RW_XMEM 0x20000000 0x18000 {;64KB XMEM
 ;		*.o (MSP,+FIRST)
 		.ANY(+RW,+ZI)
 	}

@@ -172,23 +172,6 @@ typedef enum IRQn
   
 } IRQn_Type;
 
-    // GpioInterrupt,        //#16: GPIO 
-    // RtcInterrupt,       //#17: RTC
-    // IrInterrupt,          //#18: IR
-    // FuartInterrupt,       //#19: FUART
-    // BuartInterrupt,       //#20: BUART 
-    // PwcInterrupt,       //#21: PWC 
-    // Timer0Interrupt,      //#22: TIMER0 
-    // UsbInterrupt,       //#23: USB 
-    // DmaCh0Interrupt,        //#24: DMA CH0 
-    // DmaCh1Interrupt,        //#25: DMA CH1 
-    // audio_decoder_interrupt_handler,          //26: DECODER 
-    // SpisInterrupt,              //#27: SPIS
-    // SdInterrupt,        //#28: SDIO
-    // SpimInterrupt,              //#29: SPIM
-    // Timer1Interrupt,      //#30: TIMER1
-    // WatchDogInterrupt,      //#31: WatchDog
-
 /**
   * @}
   */

@@ -98,7 +98,7 @@ extern OSStatus host_platform_init( void );
 /* mico_cpu_clock_hz is used by MICO RTOS */
 const uint32_t  mico_cpu_clock_hz = 120000000;
 
-static char stm32_platform_inited = 0;
+static char ap80xx_platform_inited = 0;
 
 #ifndef MICO_DISABLE_STDIO
 static const mico_uart_config_t stdio_uart_config =
@@ -181,6 +181,14 @@ void startApplication(void)
   }  
 }
 
+void FuartInterrupt(void)
+{
+}
+
+void BuartInterrupt(void)
+{
+}
+
 /* STM32F2 common clock initialisation function
 * This brings up enough clocks to allow the processor to run quickly while initialising memory.
 * Other platform specific clock init can be done in init_platform() or init_architecture()
@@ -200,11 +208,6 @@ void init_clocks( void )
   //Disable Watchdog
   WaitMs(200);
   WdgDis();
-
-  GpioFuartRxIoConfig(1);
-  GpioFuartTxIoConfig(1);
-
-  FuartInit(115200,8,0,1);
   
 }
 
@@ -215,54 +218,39 @@ void init_memory( void )
 
 void init_architecture( void )
 {
+  uint8_t i;
+    
+  /*Wakeup by watchdog in standby mode, re-enter standby mode in this situation*/
+  /*  To do  */
   
-  printf("init_architecture\n");
-  //SysTick_Config(120000000 / 1000);
-  //while(1);
-//   uint8_t i;
+  if ( ap80xx_platform_inited == 1 )
+    return;
   
-//   RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
+  /* Initialise the interrupt priorities to a priority lower than 0 so that the BASEPRI register can mask them */
+  /*  To do  */
   
-//    /*STM32 wakeup by watchdog in standby mode, re-enter standby mode in this situation*/
-//   if ( (PWR_GetFlagStatus(PWR_FLAG_SB) != RESET) && RCC_GetFlagStatus(RCC_FLAG_IWDGRST) != RESET){
-//      RCC_ClearFlag();
-//      PWR_EnterSTANDBYMode();
-//    }
-//   PWR_ClearFlag(PWR_FLAG_SB);
-  
-//   if ( stm32_platform_inited == 1 )
-//     return;
-  
-//   /* Initialise the interrupt priorities to a priority lower than 0 so that the BASEPRI register can mask them */
-//   for ( i = 0; i < 81; i++ )
-//   {
-//     NVIC ->IP[i] = 0xff;
-//   }
-  
-//   NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
-  
-// #ifndef MICO_DISABLE_STDIO
-// #ifndef NO_MICO_RTOS
-//   mico_rtos_init_mutex( &stdio_tx_mutex );
-//   mico_rtos_unlock_mutex ( &stdio_tx_mutex );
-//   mico_rtos_init_mutex( &stdio_rx_mutex );
-//   mico_rtos_unlock_mutex ( &stdio_rx_mutex );
-// #endif
-//   ring_buffer_init  ( (ring_buffer_t*)&stdio_rx_buffer, (uint8_t*)stdio_rx_data, STDIO_BUFFER_SIZE );
-//   MicoStdioUartInitialize( &stdio_uart_config, (ring_buffer_t*)&stdio_rx_buffer );
-// #endif
+#ifndef MICO_DISABLE_STDIO
+#ifndef NO_MICO_RTOS
+  mico_rtos_init_mutex( &stdio_tx_mutex );
+  mico_rtos_unlock_mutex ( &stdio_tx_mutex );
+  mico_rtos_init_mutex( &stdio_rx_mutex );
+  mico_rtos_unlock_mutex ( &stdio_rx_mutex );
+#endif
+  ring_buffer_init  ( (ring_buffer_t*)&stdio_rx_buffer, (uint8_t*)stdio_rx_data, STDIO_BUFFER_SIZE );
+  MicoStdioUartInitialize( &stdio_uart_config, (ring_buffer_t*)&stdio_rx_buffer );
+#endif
 
-// #ifndef NO_MICO_RTOS 
-//   /* Ensure 802.11 device is in reset. */
-//   host_platform_init( );
-//   MicoRtcInitialize();  
-// #else //Bootloader
-//   SysTick_Config(SystemCoreClock / 1000);
-// #endif
-//   /* Disable MCU powersave at start-up. Application must explicitly enable MCU powersave if desired */
-//   MCU_CLOCKS_NEEDED();
+#ifndef NO_MICO_RTOS 
+  /* Ensure 802.11 device is in reset. */
+  host_platform_init( );
+  MicoRtcInitialize();  
+#else //Bootloader
+  SysTick_Config(SystemCoreClock / 1000);
+#endif
+  /* Disable MCU powersave at start-up. Application must explicitly enable MCU powersave if desired */
+  MCU_CLOCKS_NEEDED();
   
-//   stm32_platform_inited = 1;  
+  ap80xx_platform_inited = 1;  
 }
 
 /******************************************************

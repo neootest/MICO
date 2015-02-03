@@ -26,11 +26,6 @@ void memmanage_handler(void);
 void busfault_handler(void);
 void usagefault_handler(void);
 
-void SVC_Handler(void);
-void PendSV_Handler(void) ;
-void SysTick_Handler(void) ;
-
-
 //static unsigned char sys_stack_heap[CFG_SYS_STACK_SIZE] __attribute__((section("MSP"))) = {0xA5,};
 
 //static void (*const vect_table[])(void) __attribute__((section("EXCEPT_VECTS"))) = {
@@ -191,6 +186,9 @@ __heap_limit
                 EXPORT  __Vectors
                 EXPORT  __Vectors_End
                 EXPORT  __Vectors_Size
+                IMPORT vPortSVCHandler
+                IMPORT xPortPendSVHandler
+                IMPORT xPortSysTickHandler
 
 __Vectors       DCD     __initial_sp               // Top of Stack
                 DCD     reset_handler              // Reset Handler
@@ -203,11 +201,11 @@ __Vectors       DCD     __initial_sp               // Top of Stack
                 DCD     0                          // Reserved
                 DCD     0                          // Reserved
                 DCD     0                          // Reserved
-                DCD     SVC_Handler                // SVCall Handler
+                DCD     vPortSVCHandler                // SVCall Handler
                 DCD     0                           // Debug Monitor Handler
                 DCD     0                          // Reserved
-                DCD     PendSV_Handler             // PendSV Handler
-                DCD     SysTick_Handler            // SysTick Handler
+                DCD     xPortPendSVHandler             // PendSV Handler
+                DCD     xPortSysTickHandler            // SysTick Handler
 
                 // External Interrupts
                 DCD     GpioInterrupt                   // Window WatchDog                                        
@@ -425,32 +423,12 @@ usagefault_handler PROC
 #endif //(FREERTOS_VERSION))
 		ENDP
 
-SVC_Handler     PROC
-                EXPORT  SVC_Handler                
-                IMPORT vPortSVCHandler
-                //B vPortSVCHandler
-                B .
-                ENDP
-
-PendSV_Handler  PROC
-                EXPORT  PendSV_Handler             
-                IMPORT xPortPendSVHandler
-                //B xPortPendSVHandler
-                B .
-                ENDP
-    
-SysTick_Handler PROC
-                EXPORT  SysTick_Handler           
-                IMPORT xPortSysTickHandler
-                //B xPortSysTickHandler 
-                B  .
-                ENDP 
 
 Default_Handler PROC
                 EXPORT     GpioInterrupt             [WEAK]         // Window WatchDog                                        
                 EXPORT     RtcInterrupt               [WEAK]       // PVD through EXTI Line detection                        
                 EXPORT     IrInterrupt             [WEAK]   // Tamper and TimeStamps through the EXTI line            
-                IMPORT     FuartInterrupt           [WEAK]             // RTC Wakeup through the EXTI line                       
+                EXPORT     FuartInterrupt           [WEAK]             // RTC Wakeup through the EXTI line                       
                 EXPORT     BuartInterrupt           [WEAK]          // FLASH                                           
                 EXPORT     PwcInterrupt             [WEAK]          // RCC                                             
                 EXPORT     Timer0Interrupt            [WEAK]         // EXTI Line0                                             
@@ -467,7 +445,7 @@ Default_Handler PROC
 GpioInterrupt                                     
 RtcInterrupt                                 
 IrInterrupt            
-//FuartInterrupt                        
+FuartInterrupt                        
 BuartInterrupt                                       
 PwcInterrupt                                                 
 Timer0Interrupt                                              

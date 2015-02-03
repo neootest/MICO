@@ -35,8 +35,6 @@
 
 #include "platform.h"
 #include "platform_common_config.h"
-#include "stm32f2xx_platform.h"
-#include "stm32f2xx.h"
 
 /******************************************************
 *                      Macros

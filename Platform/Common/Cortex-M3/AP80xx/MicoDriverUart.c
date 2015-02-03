@@ -35,7 +35,7 @@
 
 #include "platform.h"
 #include "platform_common_config.h"
-//#include "stm32f2xx_platform.h"
+#include "uart.h"
 //#include "gpio_irq.h"
 
 /******************************************************
@@ -133,6 +133,10 @@ OSStatus MicoStdioUartInitialize( const mico_uart_config_t* config, ring_buffer_
 
 OSStatus internal_uart_init( mico_uart_t uart, const mico_uart_config_t* config, ring_buffer_t* optional_rx_buffer )
 {
+  GpioFuartRxIoConfig(1);
+  GpioFuartTxIoConfig(1);
+
+  FuartInit(115200,8,0,1);
   return  kNoErr;
 }
 
@@ -148,7 +152,8 @@ OSStatus MicoUartSend( mico_uart_t uart, const void* data, uint32_t size )
 
 OSStatus MicoUartRecv( mico_uart_t uart, void* data, uint32_t size, uint32_t timeout )
 {
-
+  mico_thread_msleep(timeout);
+  return kTimeoutErr;
 }
 
 static OSStatus platform_uart_receive_bytes( mico_uart_t uart, void* data, uint32_t size, uint32_t timeout )

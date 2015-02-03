@@ -219,27 +219,26 @@ bool watchdog_check_last_reset( void )
 
 OSStatus mico_platform_init( void )
 {
-//#ifdef DEBUG
-//#if defined(__CC_ARM)
-//	platform_log("Build by Keil");
-//#elif defined (__IAR_SYSTEMS_ICC__)
-//	platform_log("Build by IAR");
-//#endif
-//#endif
-//  platform_log( "Platform initialised" );
-//  
-//  if ( true == watchdog_check_last_reset() )
-//  {
-//    platform_log( "WARNING: Watchdog reset occured previously. Please see watchdog.c for debugging instructions." );
-//  }
-  printf("mico_platform_init\n");
+ platform_log( "Mico platform initialised" );
+ if ( true == watchdog_check_last_reset() )
+ {
+   platform_log( "WARNING: Watchdog reset occured previously. Please see watchdog.c for debugging instructions." );
+ }
   
   return kNoErr;
 }
 
 void init_platform( void )
 {
-  printf("init_platform\n");
+  #ifdef DEBUG
+  #if defined(__CC_ARM)
+    platform_log("Build by Keil");
+  #elif defined (__IAR_SYSTEMS_ICC__)
+    platform_log("Build by IAR");
+  #endif
+  #endif
+
+  platform_log( "Platform initialised" );
 //  MicoGpioInitialize( (mico_gpio_t)MICO_SYS_LED, OUTPUT_PUSH_PULL );
 //  MicoGpioOutputLow( (mico_gpio_t)MICO_SYS_LED );
 //  MicoGpioInitialize( (mico_gpio_t)MICO_RF_LED, OUTPUT_OPEN_DRAIN_NO_PULL );
@@ -314,7 +313,7 @@ bool MicoShouldEnterMFGMode(void)
 //  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==false)
 //    return true;
 //  else
-//    return false;
+    return false;
 }
 
 bool MicoShouldEnterBootloader(void)
@@ -322,6 +321,6 @@ bool MicoShouldEnterBootloader(void)
 //  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==true)
 //    return true;
 //  else
-//    return false;
+    return false;
 }
 
