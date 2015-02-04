@@ -329,15 +329,17 @@ int application_start(void)
   }
   
   /*Read current time from RTC.*/
-  MicoRtcGetTime(&time);
-  currentTime.tm_sec = time.sec;
-  currentTime.tm_min = time.min;
-  currentTime.tm_hour = time.hr;
-  currentTime.tm_mday = time.date;
-  currentTime.tm_wday = time.weekday;
-  currentTime.tm_mon = time.month - 1;
-  currentTime.tm_year = time.year + 100;
-  mico_log("Current Time: %s",asctime(&currentTime));
+  if( MicoRtcGetTime(&time) == kNoErr ){
+    currentTime.tm_sec = time.sec;
+    currentTime.tm_min = time.min;
+    currentTime.tm_hour = time.hr;
+    currentTime.tm_mday = time.date;
+    currentTime.tm_wday = time.weekday;
+    currentTime.tm_mon = time.month - 1;
+    currentTime.tm_year = time.year + 100;
+    mico_log("Current Time: %s",asctime(&currentTime));
+  }else
+    mico_log("RTC function unsupported");
   
   /* Regisist notifications */
   err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)micoNotify_WifiStatusHandler );
