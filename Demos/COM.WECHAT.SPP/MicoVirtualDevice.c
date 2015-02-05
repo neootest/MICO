@@ -68,7 +68,7 @@ void MVDMainThread(void *arg)
 {
   OSStatus err = kUnknownErr;
   mico_Context_t *inContext = (mico_Context_t *)arg;
-  micoMemInfo_t *memInfo = NULL;
+  //micoMemInfo_t *memInfo = NULL;
   bool connected = false;
   
 #ifdef DEVICE_AUTO_ACTIVATE_ENABLE
@@ -86,8 +86,8 @@ void MVDMainThread(void *arg)
   
   while(1)
   {
-    memInfo = mico_memory_info();
-    mvd_log("[MVD]system free mem=%d", memInfo->free_memory);
+    //memInfo = mico_memory_info();
+    //mvd_log("[MVD]system free mem=%d", memInfo->free_memory);
     
     if(inContext->appStatus.virtualDevStatus.isCloudConnected){
       if (!connected){

@@ -237,7 +237,7 @@
         </option>
         <option>
           <name>CCDebugInfo</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>IEndianMode</name>
@@ -4004,7 +4004,7 @@
       <name>$PROJ_DIR$\..\..\..\include\MicoAlgorithm.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\include\MICOPlatform.h</name>
+      <name>$PROJ_DIR$\..\..\..\include\MicoPlatform.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\include\MICORTOS.h</name>
@@ -4024,13 +4024,13 @@
     <group>
       <name>EasyCloud</name>
       <file>
-        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_20150202_v0.2.9_debug.a</name>
+        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_20150205_v0.3.0_debug.a</name>
         <excluded>
           <configuration>EMW3162</configuration>
         </excluded>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_20150202_v0.2.9_release.a</name>
+        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_20150205_v0.3.0_release.a</name>
       </file>
     </group>
     <file>
