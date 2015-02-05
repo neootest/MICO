@@ -189,8 +189,8 @@ static void _button_EL_irq_handler( void* arg )
     interval = mico_get_time() + 1 - _default_start_time;
     if ( (_default_start_time != 0) && interval > 50 && interval < RestoreDefault_TimeOut){
       /* EasyLink button clicked once */
-      //PlatformEasyLinkButtonClickedCallback();
-      platform_log("PlatformEasyLinkButtonClickedCallback!");
+      PlatformEasyLinkButtonClickedCallback();
+      //platform_log("PlatformEasyLinkButtonClickedCallback!");
       MicoGpioOutputLow( (mico_gpio_t)MICO_RF_LED );
       MicoGpioEnableIRQ( (mico_gpio_t)EasyLink_BUTTON, IRQ_TRIGGER_FALLING_EDGE, _button_EL_irq_handler, NULL );
    }
@@ -211,8 +211,8 @@ static void _button_EL_Timeout_handler( void* arg )
   _default_start_time = 0;
   MicoGpioEnableIRQ( (mico_gpio_t)EasyLink_BUTTON, IRQ_TRIGGER_FALLING_EDGE, _button_EL_irq_handler, NULL );
   if( MicoGpioInputGet( (mico_gpio_t)EasyLink_BUTTON ) == 0){
-    platform_log("PlatformEasyLinkButtonLongPressedCallback!");
-    //PlatformEasyLinkButtonLongPressedCallback();
+    //platform_log("PlatformEasyLinkButtonLongPressedCallback!");
+    PlatformEasyLinkButtonLongPressedCallback();
   }
   mico_stop_timer(&_button_EL_timer);
 }
@@ -264,6 +264,7 @@ void init_platform( void )
 //  //  Initialise Standby/wakeup switcher
 //  MicoGpioInitialize( Standby_SEL, INPUT_PULL_UP );
 //  MicoGpioEnableIRQ( Standby_SEL , IRQ_TRIGGER_FALLING_EDGE, _button_STANDBY_irq_handler, NULL);
+
 }
 
 void init_platform_bootloader( void )

@@ -37,7 +37,7 @@
 #define MICO_CONFIG_MODE CONFIG_MODE_EASYLINK_WITH_SOFTAP
 
 /*User provided configurations*/
-#define CONFIGURATION_VERSION               0x00000002 // if default configuration is changed, update this number
+#define CONFIGURATION_VERSION               0x00000003 // if default configuration is changed, update this number
 #define MAX_Local_Client_Num                8
 #define LOCAL_PORT                          8080
 #define DEAFULT_REMOTE_SERVER               "192.168.2.254"

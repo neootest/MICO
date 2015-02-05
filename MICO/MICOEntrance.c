@@ -82,6 +82,7 @@ USED void PlatformEasyLinkButtonClickedCallback(void)
 {
   mico_log_trace();
   bool needsUpdate = false;
+  mico_log("PlatformEasyLinkButtonClickedCallback");
   
   if(context->flashContentInRam.micoSystemConfig.easyLinkByPass != EASYLINK_BYPASS_NO){
     context->flashContentInRam.micoSystemConfig.easyLinkByPass = EASYLINK_BYPASS_NO;
@@ -106,6 +107,8 @@ exit:
 USED void PlatformEasyLinkButtonLongPressedCallback(void)
 {
   mico_log_trace();
+
+  mico_log("PlatformEasyLinkButtonLongPressedCallback");
   MICORestoreDefault(context);
   context->micoStatus.sys_state = eState_Software_Reset;
   require(context->micoStatus.sys_state_change_sem, exit);
@@ -284,9 +287,7 @@ int application_start(void)
   mico_rtos_init_mutex(&context->flashContentInRam_mutex);
   mico_rtos_init_semaphore(&context->micoStatus.sys_state_change_sem, 1); 
 
-#if 0
   MICOReadConfiguration( context );
-#endif
 
   err = MICOInitNotificationCenter  ( context );
 
@@ -315,15 +316,7 @@ int application_start(void)
   //mico_log("%s mxchipWNet library version: %s", APP_INFO, MicoGetVer());
   mico_log("Wi-Fi driver version %s, mac %s", wifi_ver, context->micoStatus.mac);
   
-  while(1){
-    if( MicoGpioInputGet((mico_gpio_t)EasyLink_BUTTON) ) 
-       mico_log("On"); 
-     else
-       mico_log("Off"); 
-    mico_thread_sleep(1);
-  }
-
-  mico_thread_sleep(MICO_WAIT_FOREVER);
+#if 0
   /*Start system monotor thread*/
   err = MICOStartSystemMonitor(context);
   require_noerr_action( err, exit, mico_log("ERROR: Unable to start the system monitor.") );
@@ -441,6 +434,7 @@ int application_start(void)
 
     _ConnectToAP( context );
   }
+  #endif
 
   mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
   

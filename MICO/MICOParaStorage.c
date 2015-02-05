@@ -52,6 +52,7 @@ OSStatus MICORestoreDefault(mico_Context_t *inContext)
   paraEndAddress = PARA_END_ADDRESS;
 
   /*wlan configration is not need to change to a default state, use easylink to do that*/
+  memset(&inContext->flashContentInRam, 0x0, sizeof(inContext->flashContentInRam));
   sprintf(inContext->flashContentInRam.micoSystemConfig.name, DEFAULT_NAME);
   inContext->flashContentInRam.micoSystemConfig.configured = unConfigured;
   inContext->flashContentInRam.micoSystemConfig.easyLinkByPass = EASYLINK_BYPASS_NO;
@@ -114,6 +115,8 @@ OSStatus MICOReadConfiguration(mico_Context_t *inContext)
   uint32_t configInFlash;
   OSStatus err = kNoErr;
   configInFlash = PARA_START_ADDRESS;
+  err = MicoFlashInitialize(MICO_FLASH_FOR_PARA);
+  require_noerr(err, exit);
   err = MicoFlashRead(MICO_FLASH_FOR_PARA, &configInFlash, (uint8_t *)&inContext->flashContentInRam, sizeof(flash_content_t));
   seedNum = inContext->flashContentInRam.micoSystemConfig.seed;
   if(seedNum == -1) seedNum = 0;

@@ -36,25 +36,13 @@
 #include "Platform_common_config.h"
 #include "stdio.h"
 #include "AP80xx.h"
+#include "spi_flash.h"
 
-/* Private constants --------------------------------------------------------*/
-#define ADDR_FLASH_SECTOR_0     ((uint32_t)0x08000000) /* Base @ of Sector 0, 16 Kbyte */
-#define ADDR_FLASH_SECTOR_1     ((uint32_t)0x08004000) /* Base @ of Sector 1, 16 Kbyte */
-#define ADDR_FLASH_SECTOR_2     ((uint32_t)0x08008000) /* Base @ of Sector 2, 16 Kbyte */
-#define ADDR_FLASH_SECTOR_3     ((uint32_t)0x0800C000) /* Base @ of Sector 3, 16 Kbyte */
-#define ADDR_FLASH_SECTOR_4     ((uint32_t)0x08010000) /* Base @ of Sector 4, 64 Kbyte */
-#define ADDR_FLASH_SECTOR_5     ((uint32_t)0x08020000) /* Base @ of Sector 5, 128 Kbyte */
-#define ADDR_FLASH_SECTOR_6     ((uint32_t)0x08040000) /* Base @ of Sector 6, 128 Kbyte */
-#define ADDR_FLASH_SECTOR_7     ((uint32_t)0x08060000) /* Base @ of Sector 7, 128 Kbyte */
-#define ADDR_FLASH_SECTOR_8     ((uint32_t)0x08080000) /* Base @ of Sector 8, 128 Kbyte */
-#define ADDR_FLASH_SECTOR_9     ((uint32_t)0x080A0000) /* Base @ of Sector 9, 128 Kbyte */
-#define ADDR_FLASH_SECTOR_10    ((uint32_t)0x080C0000) /* Base @ of Sector 10, 128 Kbyte */
-#define ADDR_FLASH_SECTOR_11    ((uint32_t)0x080E0000) /* Base @ of Sector 11, 128 Kbyte */
+//#define DEBUG_FLASH
 
-/* End of the Flash address */
-#define FLASH_START_ADDRESS     (uint32_t)0x08000000  
-#define FLASH_END_ADDRESS       (uint32_t)0x080FFFFF
-#define FLASH_SIZE              (FLASH_END_ADDRESS -  FLASH_START_ADDRESS + 1)
+#ifdef DEBUG_FLASH
+#define APP_DBG printf
+#endif
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -73,58 +61,434 @@ static OSStatus internalFlashFinalize( void );
 static OSStatus spiFlashErase(uint32_t StartAddress, uint32_t EndAddress);
 #endif
 
+static bool FlashUnlock(void);
+static bool FlashLock(SPI_FLASH_LOCK_RANGE lock_range);
 
-const char* flash_name[] =
-{ 
-#ifdef USE_MICO_SPI_FLASH
-  [MICO_SPI_FLASH] = "SPI", 
-#endif
-  [MICO_INTERNAL_FLASH] = "Internal",
-};
+#ifdef DEBUG_FLASH
+SPI_FLASH_INFO  FlashInfo;
+
+void GetFlashGD(int32_t protect)
+{    
+	uint8_t  str[20];
+	int32_t FlashCapacity = 0;
+		
+	switch(FlashInfo.Did)
+	{
+		case 0x1340:	
+			strcpy((char *)str,"GD25Q40(GD25Q40B)");
+			FlashCapacity = 0x00080000;
+			break;
+
+		case 0x1240:
+        	strcpy((char *)str,"GD25Q20(GD25Q20B)");
+			FlashCapacity = 0x00040000;
+			break;       
+
+		case 0x1540:
+			strcpy((char *)str,"GD25Q16(GD25Q16B)");
+			FlashCapacity = 0x00200000;			
+			break; 
+
+		case 0x1640:
+        	strcpy((char *)str,"GD25Q32(GD25Q32B)");
+			FlashCapacity = 0x00400000;        
+			break;
+
+		case 0x1740:
+        	strcpy((char *)str,"GD25Q64B");
+			FlashCapacity = 0x00800000;          
+			break;
+
+		case 0x1440:
+        	strcpy((char *)str,"GD25Q80(GD25Q80B)");
+			FlashCapacity = 0x00100000;         
+			break;
+
+		case 0x1840:
+            strcpy((char *)str,"GD25Q128B");
+            FlashCapacity = 0x01000000;         
+            break;
+
+		default:
+			break;
+	}
+        
+    if(FlashCapacity > 0)
+    {
+        APP_DBG("Module:                ");
+        APP_DBG("%s\r\n",str);
+        APP_DBG("Capacity:                     ");
+        APP_DBG("0x%08X\r\n", FlashCapacity);
+    }  
+    else
+    {
+        APP_DBG("Found failed\r\n");
+    }
+}
+
+void GetFlashWinBound(int32_t protect)
+{	
+    uint8_t  str[20];
+	int32_t FlashCapacity = 0;
+    
+	switch(FlashInfo.Did)
+    {
+        case 0x1440:
+            strcpy((char *)str,"W25Q80BV");
+            FlashCapacity = 0x00100000;             
+            break;
+        
+        case 0x1760:
+            strcpy((char *)str,"W25Q64DW");
+            FlashCapacity = 0x00800000;             
+            break;
+        				
+        case 0x1740:
+            strcpy((char *)str,"W25Q64CV");
+            FlashCapacity = 0x00800000; 
+            break;
+        
+        default:
+            break;
+    }
+    
+    if(FlashCapacity > 0)
+    {
+        APP_DBG("Module:                ");
+        APP_DBG("%s\r\n",str);
+        APP_DBG("Capacity:                     ");
+        APP_DBG("0x%08X\r\n", FlashCapacity);
+    }  
+    else
+    {
+        APP_DBG("Found failed\r\n");
+    }
+}
+
+void GetFlashPct(void)
+{	
+    uint8_t  str[20];
+	int32_t FlashCapacity = 0;
+    
+	switch(FlashInfo.Did)
+    {
+        case 0x0126:
+            strcpy((char *)str,"PCT26VF016");
+            FlashCapacity = 0x00200000;        
+			break;
+
+        case 0x0226:       
+            strcpy((char *)str,"PCT26VF032");
+            FlashCapacity = 0x00400000;
+            break;
+
+        default:            
+			break;
+    }
+      
+    if(FlashCapacity > 0)
+    {
+        APP_DBG("Module:                ");
+        APP_DBG("%s\r\n",str);
+        APP_DBG("Capacity:                     ");
+        APP_DBG("0x%08X\r\n", FlashCapacity);
+    }  
+    else
+    {
+        APP_DBG("Found failed\r\n");
+    }
+}
+
+void GetFlashEon(int32_t protect)
+{
+    uint8_t  str[20];
+	int32_t FlashCapacity = 0;
+    
+	switch(FlashInfo.Did)
+    {
+        case 0x1430:
+            strcpy((char *)str,"EN25Q80A");
+            FlashCapacity = 0x00100000; 
+            break;
+
+        case 0x1530:
+            strcpy((char *)str,"EN25Q16A");
+            FlashCapacity = 0x00200000; 
+            break;
+
+        case 0x1830:
+            strcpy((char *)str,"EN25Q128");
+            FlashCapacity = 0x01000000; 
+            break;
+
+        case 0x1630:
+            strcpy((char *)str,"EN25Q32A");
+            FlashCapacity = 0x00400000; 
+            break;
+
+        case 0x1330:
+            strcpy((char *)str,"EN25Q40");
+            FlashCapacity = 0x00080000; 
+            break;
+
+        case 0x1730:
+            strcpy((char *)str,"EN25Q64");
+            FlashCapacity = 0x00800000; 
+            break;
+
+        case 0x1570:
+            strcpy((char *)str,"EN25QH16");
+            FlashCapacity = 0x00200000; 
+            break;
+
+        case 0x1670: 
+            strcpy((char *)str,"EN25QH32");
+            FlashCapacity = 0x00400000; 
+            break;
+
+        default:
+            break;
+    }
+    
+    if(FlashCapacity > 0)
+    {
+        APP_DBG("Module:                ");
+        APP_DBG("%s\r\n",str);
+        APP_DBG("Capacity:                     ");
+        APP_DBG("0x%08X\r\n", FlashCapacity);
+    }  
+    else
+    {
+        APP_DBG("Found failed\r\n");
+    }
+}
+
+void GetFlashBg(int32_t protect)
+{	
+    uint8_t  str[20];
+	int32_t FlashCapacity = 0;
+    
+    switch(FlashInfo.Did)
+    {
+        case 0x1540:
+            strcpy((char *)str,"BG25Q16A");
+            FlashCapacity = 0x00200000; 
+            break;
+
+        case 0x1340:
+            strcpy((char *)str,"BG25Q40A");
+            FlashCapacity = 0x00080000; 
+            break;
+        
+        case 0x1440:
+            strcpy((char *)str,"BG25Q80A");
+            FlashCapacity = 0x00100000; 
+            break;
+        
+        default:
+			break;         
+    }
+    
+    if(FlashCapacity > 0)
+    {
+        APP_DBG("Module:                ");
+        APP_DBG("%s\r\n",str);
+        APP_DBG("Capacity:                     ");
+        APP_DBG("0x%08X\r\n", FlashCapacity);
+    }  
+    else
+    {
+        APP_DBG("Found failed\r\n");
+    }
+}
+
+void GetFlashEsmt(int32_t protect)
+{
+    uint8_t  str[20];
+	int32_t FlashCapacity = 0;
+       
+	switch(FlashInfo.Did)
+    {
+        case 0x1440:
+            strcpy((char *)str,"F25L08QA");
+            FlashCapacity = 0x00100000; 
+            break;
+
+        case 0x1540:
+            strcpy((char *)str,"F25L16QA");
+            FlashCapacity = 0x00200000; 
+            break;
+
+        case 0x1641:
+            strcpy((char *)str,"F25L32QA");
+            FlashCapacity = 0x00400000; 
+            break;
+
+        case 0x1741:
+            strcpy((char *)str,"F25L64QA");
+            FlashCapacity = 0x00800000; 
+            break;
+              
+        default:
+            break;
+    }    
+    
+    if(FlashCapacity > 0)
+    {
+        APP_DBG("Module:                ");
+        APP_DBG("%s\r\n",str);
+        APP_DBG("Capacity:                     ");
+        APP_DBG("0x%08X\r\n", FlashCapacity);
+    }  
+    else
+    {
+        APP_DBG("Found failed\r\n");
+    }
+}
+
+void GetDidInfo(int32_t protect)
+{
+	APP_DBG("%-30s","Did:");
+	APP_DBG("0x%08X\r\n",FlashInfo.Did);
+	APP_DBG("%-30s","Lock Area(BP4~BP0:Bit4~Bit0):");
+	APP_DBG("0x%08X\r\n",protect);
+}
+
+void GetFlashInfo(void)
+{
+	int32_t protect = 0;
+   
+	APP_DBG("\r\n\r\n****************************************************************\n");
+        APP_DBG("%-30s\r\n","Flash information");
+	
+	if(FlashInfo.Mid != FLASH_PCT)
+	{
+		protect = SpiFlashIOCtl(3,0);
+		protect = (protect >> 2) & 0x1F;
+	}
+	
+    switch(FlashInfo.Mid)
+    {
+        case FLASH_GD:
+            APP_DBG("Manufacture:                         GD\r\n");
+			GetDidInfo(protect);
+            GetFlashGD(protect);
+            break;
+        
+        case FLASH_WINBOUND:
+            APP_DBG("Manufacture:                         WINBOUND\r\n");
+			GetDidInfo(protect);
+            GetFlashWinBound(protect);
+            break;
+        
+        case FLASH_PCT:
+            APP_DBG("Manufacture:                         PCT\r\n");
+            GetFlashPct();
+            break;
+        
+        case FLASH_EON:            
+            APP_DBG("Manufacture:                         EN\r\n");
+			GetDidInfo(protect);
+            GetFlashEon(protect);
+            break;
+        
+        case FLASH_BG:
+            APP_DBG("Manufacture:                         BG\r\n");
+			GetDidInfo(protect);
+            GetFlashBg(protect);
+            break;
+        
+        case FLASH_ESMT:
+            APP_DBG("Manufacture:                         ESMT\r\n");
+			GetDidInfo(protect);
+            GetFlashEsmt(protect);
+            break;
+        
+        default:            
+            APP_DBG("Manufacture:                         not found\r\n");
+            break;
+    }
+	APP_DBG("\r\n");
+	APP_DBG("****************************************************************\n");
+}
+
+#endif /* DEBUG_FLASH */
 
 OSStatus MicoFlashInitialize( mico_flash_t flash )
 { 
   platform_log_trace();
-  if(flash == MICO_INTERNAL_FLASH){
-    return internalFlashInitialize();    
-  }
-#ifdef USE_MICO_SPI_FLASH
-  else if(flash == MICO_SPI_FLASH){
-    if(sflash_handle.device_id)
-      return kNoErr;
-    else
-      return init_sflash( &sflash_handle, 0, SFLASH_WRITE_ALLOWED );
-  }
+  OSStatus err = kNoErr;
+  require_action( flash == MICO_SPI_FLASH, exit, err = kUnsupportedErr);
+
+  SpiFlashInfoInit();
+#ifdef  DEBUG_FLASH 
+  SpiFlashGetInfo(&FlashInfo);
+  GetFlashInfo();
 #endif
-  else
-    return kUnsupportedErr;
+    
+  require_action(FlashUnlock(), exit, err = kUnknownErr);
+exit:
+  return err;
 }
 
 OSStatus MicoFlashErase( mico_flash_t flash, uint32_t StartAddress, uint32_t EndAddress )
 {
   platform_log_trace();
-  return kUnsupportedErr;
+  OSStatus err = kNoErr;
+  require_action( flash == MICO_SPI_FLASH, exit, err = kUnsupportedErr);
+
+  err = SpiFlashErase( StartAddress, EndAddress - StartAddress +1 );
+
+  require_noerr_string(err, exit, "Flash erase error!");
+
+exit:
+  return err;
 }
 
 OSStatus MicoFlashWrite(mico_flash_t flash, volatile uint32_t* FlashAddress, uint8_t* Data ,uint32_t DataLength)
 {
-  return kUnsupportedErr;
+  platform_log_trace();
+  OSStatus err = kNoErr;
+  require_action( flash == MICO_SPI_FLASH, exit, err = kUnsupportedErr);
+
+  err = SpiFlashWrite(*FlashAddress, Data, DataLength);
+  require_noerr_string(err, exit, "Flash write error!");
+  *FlashAddress += DataLength;
+exit:
+  return err;
 }
 
 OSStatus MicoFlashRead(mico_flash_t flash, volatile uint32_t* FlashAddress, uint8_t* Data ,uint32_t DataLength)
 {
-  return kUnsupportedErr;
+  platform_log_trace();
+  OSStatus err = kNoErr;
+  require_action( flash == MICO_SPI_FLASH, exit, err = kUnsupportedErr);
+
+  err = SpiFlashRead(*FlashAddress, Data, DataLength);
+  require_noerr_string(err, exit, "Flash read error!");
+  *FlashAddress += DataLength;
+exit:
+  return err;
 }
+
 
 OSStatus MicoFlashFinalize( mico_flash_t flash )
 {
-  return kUnsupportedErr;
+  platform_log_trace();
+  OSStatus err = kNoErr;
+  require_action( flash == MICO_SPI_FLASH, exit, err = kUnsupportedErr);
+    
+  require_action(FlashLock(FLASH_LOCK_RANGE_ALL), exit, err = kUnknownErr);
+exit:
+  return err;
 }
+
 
 OSStatus internalFlashInitialize( void )
 { 
-  platform_log_trace();
-
+  // platform_log_trace();
+  // SpiFlashGetInfo(&FlashInfo);
+  // GetFlashInfo();
   return kNoErr;    
 }
 
@@ -161,37 +525,26 @@ OSStatus internalFlashByteWrite(__IO uint32_t* FlashAddress, uint8_t* Data ,uint
   return kNoErr;
 }
 
-/**
-* @brief  Returns the write protection status of user flash area.
-* @param  None
-* @retval 0: No write protected sectors inside the user flash area
-*         1: Some sectors inside the user flash area are write protected
-*/
-uint16_t _PlatformFlashGetWriteProtectionStatus(void)
+bool FlashUnlock(void)
 {
-  platform_log_trace();
-  return kNoErr;
+  char cmd[3] = "\x35\xBA\x69";
+  
+  if(SpiFlashIOCtl(IOCTL_FLASH_UNPROTECT, cmd, sizeof(cmd)) != FLASH_NONE_ERR)
+  {
+    return false;
+  }
+
+  return true;
 }
 
-/**
-* @brief  Disables the write protection of user flash area.
-* @param  None
-* @retval 1: Write Protection successfully disabled
-*         2: Error: Flash write unprotection failed
-*/
-uint32_t _PlatformFlashDisableWriteProtection(void)
+
+bool FlashLock(SPI_FLASH_LOCK_RANGE lock_range)
 {
-  platform_log_trace();
-  return kNoErr;
+  if(SpiFlashIOCtl(IOCTL_FLASH_PROTECT, lock_range) != FLASH_NONE_ERR)
+  {
+    return false;
+  }
+
+  return true;
 }
 
-/**
-* @brief  Gets the sector of a given address
-* @param  Address: Flash address
-* @retval The sector of a given address
-*/
-static uint32_t _GetSector(uint32_t Address)
-{
-    platform_log_trace();
-  return kNoErr;
-}

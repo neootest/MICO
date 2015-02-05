@@ -181,10 +181,6 @@ void startApplication(void)
   }  
 }
 
-void FuartInterrupt(void)
-{
-}
-
 void BuartInterrupt(void)
 {
 }

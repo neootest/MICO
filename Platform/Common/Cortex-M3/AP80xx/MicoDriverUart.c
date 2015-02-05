@@ -133,10 +133,28 @@ OSStatus MicoStdioUartInitialize( const mico_uart_config_t* config, ring_buffer_
 
 OSStatus internal_uart_init( mico_uart_t uart, const mico_uart_config_t* config, ring_buffer_t* optional_rx_buffer )
 {
+  #ifndef NO_MICO_RTOS
+  mico_rtos_init_semaphore(&uart_interfaces[uart].tx_complete, 1);
+  mico_rtos_init_semaphore(&uart_interfaces[uart].rx_complete, 1);
+#else
+  uart_interfaces[uart].tx_complete = false;
+  uart_interfaces[uart].rx_complete = false;
+#endif
+
+
   GpioFuartRxIoConfig(1);
   GpioFuartTxIoConfig(1);
 
   FuartInit(115200,8,0,1);
+
+  if (optional_rx_buffer != NULL)
+  {
+    /* Note that the ring_buffer should've been initialised first */
+    uart_interfaces[uart].rx_buffer = optional_rx_buffer;
+    uart_interfaces[uart].rx_size   = 0;
+    platform_uart_receive_bytes( uart, optional_rx_buffer->buffer, optional_rx_buffer->size, 0 );
+  }
+
   return  kNoErr;
 }
 
@@ -148,16 +166,104 @@ OSStatus MicoUartFinalize( mico_uart_t uart )
 OSStatus MicoUartSend( mico_uart_t uart, const void* data, uint32_t size )
 {
 
+  FuartSend( (uint8_t *)data, size);
+
 }
 
 OSStatus MicoUartRecv( mico_uart_t uart, void* data, uint32_t size, uint32_t timeout )
 {
-  mico_thread_msleep(timeout);
-  return kTimeoutErr;
+//  mico_thread_msleep(timeout);
+//  return kTimeoutErr;
+  if (uart_interfaces[uart].rx_buffer != NULL)
+  {
+    while (size != 0)
+    {
+      uint32_t transfer_size = MIN(uart_interfaces[uart].rx_buffer->size / 2, size);
+      
+      /* Check if ring buffer already contains the required amount of data. */
+      if ( transfer_size > ring_buffer_used_space( uart_interfaces[uart].rx_buffer ) )
+      {
+        /* Set rx_size and wait in rx_complete semaphore until data reaches rx_size or timeout occurs */
+        uart_interfaces[uart].rx_size = transfer_size;
+        
+#ifndef NO_MICO_RTOS
+        if ( mico_rtos_get_semaphore( &uart_interfaces[uart].rx_complete, timeout) != kNoErr )
+        {
+          uart_interfaces[uart].rx_size = 0;
+          return kTimeoutErr;
+        }
+#else
+        uart_interfaces[uart].rx_complete = false;
+        int delay_start = mico_get_time_no_os();
+        while(uart_interfaces[uart].rx_complete == false){
+          if(mico_get_time_no_os() >= delay_start + timeout && timeout != MICO_NEVER_TIMEOUT){
+            uart_interfaces[uart].rx_size = 0;
+            return kTimeoutErr;
+          }
+        }
+#endif
+        
+        /* Reset rx_size to prevent semaphore being set while nothing waits for the data */
+        uart_interfaces[uart].rx_size = 0;
+      }
+      
+      size -= transfer_size;
+      
+      // Grab data from the buffer
+      do
+      {
+        uint8_t* available_data;
+        uint32_t bytes_available;
+        
+        ring_buffer_get_data( uart_interfaces[uart].rx_buffer, &available_data, &bytes_available );
+        bytes_available = MIN( bytes_available, transfer_size );
+        memcpy( data, available_data, bytes_available );
+        transfer_size -= bytes_available;
+        data = ( (uint8_t*) data + bytes_available );
+        ring_buffer_consume( uart_interfaces[uart].rx_buffer, bytes_available );
+      } while ( transfer_size != 0 );
+    }
+    
+    if ( size != 0 )
+    {
+      return kGeneralErr;
+    }
+    else
+    {
+      return kNoErr;
+    }
+  }
+  else
+  {
+    return platform_uart_receive_bytes( uart, data, size, timeout );
+  }
+
+
+
+
+
+  
 }
 
 static OSStatus platform_uart_receive_bytes( mico_uart_t uart, void* data, uint32_t size, uint32_t timeout )
-{
+{ 
+  if ( timeout > 0 )
+  {
+#ifndef NO_MICO_RTOS
+    mico_rtos_get_semaphore( &uart_interfaces[uart].rx_complete, timeout );
+#else
+    uart_interfaces[uart].rx_complete = false;
+    int delay_start = mico_get_time_no_os();
+    while(uart_interfaces[uart].rx_complete == false){
+      if(mico_get_time_no_os() >= delay_start + timeout && timeout != MICO_NEVER_TIMEOUT){
+        break;
+      }
+    }
+#endif
+    return uart_interfaces[uart].rx_dma_result;
+  }
+  
+  
   return kNoErr;
 }
 
@@ -181,6 +287,58 @@ void RX_PIN_WAKEUP_handler(void *arg)
 
 }
 #endif
+
+void FuartInterrupt(void)
+{
+  int status;
+  uint8_t rxData;
+  status = FuartIOctl(UART_IOCTL_RXSTAT_GET,0);
+
+  if(status & 0x1E){
+    /*
+     * clear FIFO before clear other flags
+     */
+    FuartIOctl(UART_IOCTL_RXFIFO_CLR,0);
+    /*
+     * clear other error flags
+     */
+    FuartIOctl(UART_IOCTL_RXINT_CLR,0);
+  }
+
+  if(status & 0x01)
+  { 
+    //or,you can receive them in the interrupt directly
+    while(FuartRecvByte(&rxData) > 0){
+      ring_buffer_write( uart_interfaces[ 0 ].rx_buffer, &rxData,1 );
+    }
+
+    FuartIOctl(UART_IOCTL_RXINT_CLR,0);
+  }
+
+  // Notify thread if sufficient data are available
+  if ( ( uart_interfaces[ 0 ].rx_size > 0 ) &&
+      ( ring_buffer_used_space( uart_interfaces[ 0 ].rx_buffer ) >= uart_interfaces[ 0 ].rx_size ) )
+  {
+#ifndef NO_MICO_RTOS
+    mico_rtos_set_semaphore( &uart_interfaces[ 0 ].rx_complete );
+#else
+    uart_interfaces[ 0 ].rx_complete = true;
+#endif
+    uart_interfaces[ 0 ].rx_size = 0;
+  }
+  
+// #ifndef NO_MICO_RTOS
+//   if(uart_interfaces[ 0 ].sem_wakeup)
+//     mico_rtos_set_semaphore(&uart_interfaces[ 0 ].sem_wakeup);
+// #endif
+
+
+  if(FuartIOctl(UART_IOCTL_TXSTAT_GET,0) & 0x01)
+  {
+    FuartIOctl(UART_IOCTL_TXINT_CLR,0);
+    mico_rtos_set_semaphore( &uart_interfaces[ 0 ].tx_complete );
+  }
+}
 
 
 
