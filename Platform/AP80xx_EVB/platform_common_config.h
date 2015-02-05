@@ -154,15 +154,15 @@ Note: the 1st sector 0x08000000-0x08003FFF is reserved for the IAP code */
 #define INTERNAL_FLASH_END_ADDRESS     (uint32_t)0x080FFFFF
 #define INTERNAL_FLASH_SIZE            (INTERNAL_FLASH_END_ADDRESS - INTERNAL_FLASH_START_ADDRESS + 1)
 
-#define MICO_FLASH_FOR_APPLICATION  MICO_INTERNAL_FLASH
-#define APPLICATION_START_ADDRESS   (uint32_t)0x0800C000
-#define APPLICATION_END_ADDRESS     (uint32_t)0x0805FFFF
+#define MICO_FLASH_FOR_APPLICATION  MICO_SPI_FLASH
+#define APPLICATION_START_ADDRESS   (uint32_t)0x00000000
+#define APPLICATION_END_ADDRESS     (uint32_t)0x0807DFFF
 #define APPLICATION_FLASH_SIZE      (APPLICATION_END_ADDRESS - APPLICATION_START_ADDRESS + 1)
 
-#define MICO_FLASH_FOR_UPDATE       MICO_INTERNAL_FLASH /* Optional */
-#define UPDATE_START_ADDRESS        (uint32_t)0x08060000  /* Optional */
-#define UPDATE_END_ADDRESS          (uint32_t)0x080BFFFF  /* Optional */
-#define UPDATE_FLASH_SIZE           (UPDATE_END_ADDRESS - UPDATE_START_ADDRESS + 1) /* 384k bytes, optional*/
+// #define MICO_FLASH_FOR_UPDATE       MICO_INTERNAL_FLASH /* Optional */
+// #define UPDATE_START_ADDRESS        (uint32_t)0x08060000  /* Optional */
+// #define UPDATE_END_ADDRESS          (uint32_t)0x080BFFFF  /* Optional */
+// #define UPDATE_FLASH_SIZE           (UPDATE_END_ADDRESS - UPDATE_START_ADDRESS + 1) /* 384k bytes, optional*/
 
 #define MICO_FLASH_FOR_BOOT         MICO_INTERNAL_FLASH
 #define BOOT_START_ADDRESS          (uint32_t)0x08000000 
@@ -174,14 +174,14 @@ Note: the 1st sector 0x08000000-0x08003FFF is reserved for the IAP code */
 //#define DRIVER_END_ADDRESS          (uint32_t)0x080FFFFF 
 //#define DRIVER_FLASH_SIZE           (DRIVER_END_ADDRESS - DRIVER_START_ADDRESS + 1)
 
-#define MICO_FLASH_FOR_PARA         MICO_INTERNAL_FLASH
-#define PARA_START_ADDRESS          (uint32_t)0x08004000 
-#define PARA_END_ADDRESS            (uint32_t)0x08007FFF
+#define MICO_FLASH_FOR_PARA         MICO_SPI_FLASH
+#define PARA_START_ADDRESS          (uint32_t)0x0007E000 
+#define PARA_END_ADDRESS            (uint32_t)0x0007EFFF
 #define PARA_FLASH_SIZE             (PARA_END_ADDRESS - PARA_START_ADDRESS + 1)  
 
-#define MICO_FLASH_FOR_EX_PARA      MICO_INTERNAL_FLASH
-#define EX_PARA_START_ADDRESS       (uint32_t)0x08008000 
-#define EX_PARA_END_ADDRESS         (uint32_t)0x0800BFFF
+#define MICO_FLASH_FOR_EX_PARA      MICO_SPI_FLASH
+#define EX_PARA_START_ADDRESS       (uint32_t)0x0007F000 
+#define EX_PARA_END_ADDRESS         (uint32_t)0x0007FFFF
 #define EX_PARA_FLASH_SIZE          (EX_PARA_END_ADDRESS - EX_PARA_START_ADDRESS + 1)  
 
 /******************************************************

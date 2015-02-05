@@ -54,9 +54,9 @@
 *                    Structures
 ******************************************************/
 
+
 typedef struct
 {
-  gpio_port_t*       owner_port;
   gpio_irq_handler_t handler;
   void*              arg;
 } gpio_irq_data_t;
@@ -71,7 +71,7 @@ static uint8_t convert_port_to_port_number( gpio_port_t* port );
 *               Variables Definitions
 ******************************************************/
 
-static volatile gpio_irq_data_t gpio_irq_data[NUMBER_OF_GPIO_IRQ_LINES];
+static volatile gpio_irq_data_t gpio_irq_data[ 32*3 ];
 static uint8_t gpio_irq_management_initted = 0;
 
 /******************************************************

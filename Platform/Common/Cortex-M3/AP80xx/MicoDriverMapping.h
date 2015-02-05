@@ -36,6 +36,9 @@
 /******************************************************
  *                      Macros
  ******************************************************/
+ #define		GPIOA					(0x00)
+ #define		GPIOB					(0x0A)
+ #define		GPIOC					(0x14)
 
 /******************************************************
  *                    Constants
@@ -55,7 +58,8 @@
 
 typedef struct
 {
-  uint32_t                      pin;
+  uint8_t                       port;
+  uint8_t                       pin;
 } platform_pin_mapping_t;
 
 typedef struct

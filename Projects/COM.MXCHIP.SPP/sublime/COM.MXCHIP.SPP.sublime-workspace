@@ -520,76 +520,60 @@
 	"buffers":
 	[
 		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverCommon_debug.c",
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/startup_stm32f2xx_RVMDK.s",
 			"settings":
 			{
-				"buffer_size": 16649,
+				"buffer_size": 29843,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/AP80xx_EVB/platform.c",
+			"contents": "Searching 913 files for \"MicoRtcGetTime\" (whole word)\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverRtc.h:\n  114   * @return    kGeneralErr   : if an error occurred with any step\n  115   */\n  116: OSStatus MicoRtcGetTime(mico_rtc_time_t* time);\n  117  \n  118  /**\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverRtc.c:\n  268  * @return    WICED_ERROR   : if an error occurred with any step\n  269  */\n  270: OSStatus MicoRtcGetTime(mico_rtc_time_t* time)\n  271  {\n  272  #ifdef MICO_ENABLE_MCU_RTC\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/rtc.c:\n  486  //#ifdef RTC_ENABLED /* !!If we dont read the time and store it. get an error while trying to enter STM RTC initialisation mode */\n  487      /* save current rtc time locally */\n  488:     MicoRtcGetTime(&saved_rtc_time);\n  489  //#endif /* #ifdef RTC_ENABLED */\n  490  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/stm32f2xx_platform.c:\n  509    platform_log(\"Wake up in %d seconds\", secondsToWakeup);\n  510   \n  511:   MicoRtcGetTime(&time);\n  512    currentSecond = time.hr*3600 + time.min*60 + time.sec;\n  513    currentSecond += secondsToWakeup;\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M4/STM32F4xx/MicoDriverRtc.c:\n  259  * @return    WICED_ERROR   : if an error occurred with any step\n  260  */\n  261: OSStatus MicoRtcGetTime(mico_rtc_time_t* time)\n  262  {\n  263  #ifdef MICO_ENABLE_MCU_RTC\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M4/STM32F4xx/rtc.c:\n  486  //#ifdef RTC_ENABLED /* !!If we dont read the time and store it. get an error while trying to enter STM RTC initialisation mode */\n  487      /* save current rtc time locally */\n  488:     MicoRtcGetTime(&saved_rtc_time);\n  489  //#endif /* #ifdef RTC_ENABLED */\n  490  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M4/STM32F4xx/stm32f4xx_platform.c:\n  514    platform_log(\"Wake up in %d seconds\", secondsToWakeup);\n  515   \n  516:   MicoRtcGetTime(&time);\n  517    currentSecond = time.hr*3600 + time.min*60 + time.sec;\n  518    currentSecond += secondsToWakeup;\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/vendor/Freescale/MK64FxxL12/MicoDriverRtc.c:\n  139  * @return    WICED_ERROR   : if an error occurred with any step\n  140  */\n  141: OSStatus MicoRtcGetTime(mico_rtc_time_t* time)\n  142  {\n  143    uint32_t time_value;\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/vendor/nxp/LPC54xx/MicoDriverRtc.c:\n  170  * @return    WICED_ERROR   : if an error occurred with any step\n  171  */\n  172: OSStatus MicoRtcGetTime(mico_rtc_time_t* time)\n  173  {\n  174    uint32_t time_value;\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/vendor/nxp/LPC54xx/rtc.c:\n  486  //#ifdef RTC_ENABLED /* !!If we dont read the time and store it. get an error while trying to enter STM RTC initialisation mode */\n  487      /* save current rtc time locally */\n  488:     MicoRtcGetTime(&saved_rtc_time);\n  489  //#endif /* #ifdef RTC_ENABLED */\n  490  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/vendor/Sample/Sample01/MicoDriverRtc.c:\n  139  * @return    WICED_ERROR   : if an error occurred with any step\n  140  */\n  141: OSStatus MicoRtcGetTime(mico_rtc_time_t* time)\n  142  {\n  143    uint32_t time_value;\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c:\n  330    \n  331    /*Read current time from RTC.*/\n  332:   //MicoRtcGetTime(&time);\n  333    currentTime.tm_sec = time.sec;\n  334    currentTime.tm_min = time.min;\n\n12 matches across 12 files\n\n\nSearching 1004 files for \"gpio_irq_handler_t\" (whole word)\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/gpio_irq.c:\n   60    uint8_t                       port;\n   61    uint32_t                      pin;\n   62:   gpio_irq_handler_t handler;\n   63    void*              arg;\n   64  } gpio_irq_data_t;\n   ..\n   81  ******************************************************/\n   82  \n   83: OSStatus gpio_irq_enable( gpio_port_t* gpio_port, gpio_pin_number_t gpio_pin_number, gpio_irq_trigger_t trigger, gpio_irq_handler_t handler, void* arg )\n   84  {\n   85    uint32_t interrupt_line = (uint32_t) ( 1 << gpio_pin_number );\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/gpio_irq.h:\n   68  \n   69  /* GPIO Interrupt API */\n   70: OSStatus gpio_irq_enable ( gpio_port_t* gpio_port, gpio_pin_number_t gpio_pin_number, gpio_irq_trigger_t trigger, gpio_irq_handler_t handler, void* arg );\n   71  OSStatus gpio_irq_disable( gpio_port_t* gpio_port, gpio_pin_number_t gpio_pin_number );\n   72  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/gpio_irq.c:\n   58  {\n   59    gpio_port_t*       owner_port;\n   60:   gpio_irq_handler_t handler;\n   61    void*              arg;\n   62  } gpio_irq_data_t;\n   ..\n   79  ******************************************************/\n   80  \n   81: OSStatus gpio_irq_enable( gpio_port_t* gpio_port, gpio_pin_number_t gpio_pin_number, gpio_irq_trigger_t trigger, gpio_irq_handler_t handler, void* arg )\n   82  {\n   83    uint32_t interrupt_line = (uint32_t) ( 1 << gpio_pin_number );\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/gpio_irq.h:\n   56  typedef uint8_t                  gpio_pin_number_t;\n   57  typedef mico_gpio_irq_trigger_t gpio_irq_trigger_t;\n   58: typedef mico_gpio_irq_handler_t gpio_irq_handler_t;\n   59  \n   60  /******************************************************\n   ..\n   74  \n   75  /* GPIO Interrupt API */\n   76: OSStatus gpio_irq_enable ( gpio_port_t* gpio_port, gpio_pin_number_t gpio_pin_number, gpio_irq_trigger_t trigger, gpio_irq_handler_t handler, void* arg );\n   77  OSStatus gpio_irq_disable( gpio_port_t* gpio_port, gpio_pin_number_t gpio_pin_number );\n   78  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M4/STM32F4xx/gpio_irq.c:\n   58  {\n   59    gpio_port_t*       owner_port;\n   60:   gpio_irq_handler_t handler;\n   61    void*              arg;\n   62  } gpio_irq_data_t;\n   ..\n   79  ******************************************************/\n   80  \n   81: OSStatus gpio_irq_enable( gpio_port_t* gpio_port, gpio_pin_number_t gpio_pin_number, gpio_irq_trigger_t trigger, gpio_irq_handler_t handler, void* arg )\n   82  {\n   83    uint32_t interrupt_line = (uint32_t) ( 1 << gpio_pin_number );\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M4/STM32F4xx/gpio_irq.h:\n   56  typedef uint8_t                  gpio_pin_number_t;\n   57  typedef mico_gpio_irq_trigger_t gpio_irq_trigger_t;\n   58: typedef mico_gpio_irq_handler_t gpio_irq_handler_t;\n   59  \n   60  /******************************************************\n   ..\n   74  \n   75  /* GPIO Interrupt API */\n   76: OSStatus gpio_irq_enable ( gpio_port_t* gpio_port, gpio_pin_number_t gpio_pin_number, gpio_irq_trigger_t trigger, gpio_irq_handler_t handler, void* arg );\n   77  OSStatus gpio_irq_disable( gpio_port_t* gpio_port, gpio_pin_number_t gpio_pin_number );\n   78  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/vendor/Freescale/MK64FxxL12/gpio_irq.c:\n   60  ******************************************************/\n   61  \n   62: OSStatus gpio_irq_enable( uint32_t pin, gpio_irq_trigger_t trigger, gpio_irq_handler_t handler, void* arg )\n   63  {\n   64    \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/vendor/Freescale/MK64FxxL12/gpio_irq.h:\n   55  typedef uint8_t                  gpio_pin_number_t;\n   56  typedef mico_gpio_irq_trigger_t gpio_irq_trigger_t;\n   57: typedef mico_gpio_irq_handler_t gpio_irq_handler_t;\n   58  \n   59  /******************************************************\n   ..\n   73  \n   74  /* GPIO Interrupt API */\n   75: OSStatus gpio_irq_enable ( uint32_t pin, gpio_irq_trigger_t trigger, gpio_irq_handler_t handler, void* arg );\n   76  OSStatus gpio_irq_disable( uint32_t pin );\n   77  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/vendor/Freescale/MK64FxxL12/k64_gpio.h:\n   49  \n   50  typedef mico_gpio_irq_trigger_t gpio_irq_trigger_t;\n   51: typedef mico_gpio_irq_handler_t gpio_irq_handler_t;\n   52  typedef mico_gpio_config_t      gpio_config_t;\n   53  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/vendor/nxp/LPC54xx/gpio_irq.c:\n   60  ******************************************************/\n   61  \n   62: OSStatus gpio_irq_enable( gpio_port_t* gpio_port, gpio_pin_number_t gpio_pin_number, gpio_irq_trigger_t trigger, gpio_irq_handler_t handler, void* arg )\n   63  {\n   64    \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/vendor/nxp/LPC54xx/gpio_irq.h:\n   55  typedef uint8_t                  gpio_pin_number_t;\n   56  typedef mico_gpio_irq_trigger_t gpio_irq_trigger_t;\n   57: typedef mico_gpio_irq_handler_t gpio_irq_handler_t;\n   58  \n   59  /******************************************************\n   ..\n   73  \n   74  /* GPIO Interrupt API */\n   75: OSStatus gpio_irq_enable ( gpio_port_t* gpio_port, gpio_pin_number_t gpio_pin_number, gpio_irq_trigger_t trigger, gpio_irq_handler_t handler, void* arg );\n   76  OSStatus gpio_irq_disable( gpio_port_t* gpio_port, gpio_pin_number_t gpio_pin_number );\n   77  \n\n18 matches across 11 files\n",
 			"settings":
 			{
-				"buffer_size": 10744,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/AP80xx_EVB/platform.h",
-			"settings":
-			{
-				"buffer_size": 15142,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/AP80xx_EVB/platform_common_config.h",
-			"settings":
-			{
-				"buffer_size": 8994,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance_debug.c",
-			"settings":
-			{
-				"buffer_size": 7052,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "Searching 1004 files for \"CPSIE\" (whole word)\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoPlatform.h:\n   71   */\n   72  \n   73: #define ENABLE_INTERRUPTS   __asm(\"CPSIE i\")  /**< Enable interrupts to start task switching in MICO RTOS. */\n   74  #define DISABLE_INTERRUPTS  __asm(\"CPSID i\")  /**< Disable interrupts to stop task switching in MICO RTOS. */\n   75  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/startup/startup_MK64F12.s:\n  371          LDR     R0, =init_data_bss\n  372          BLX     R0\n  373:         CPSIE   I               ; Unmask interrupts\n  374          LDR     R0, =__iar_program_start\n  375          BX      R0\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx__Drv/startup_AP80xx_RVMDK.c:\n  299  #endif //CFG_SHELL_DEBUG\n  300          \n  301:         CPSIE   I\n  302:         CPSIE   F\n  303  		LDR		SP,=__initial_sp\n  304      //ADD   LR, PC, #0x6\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx__Drv/inc/irqs.h:\n  103  static void __ENABLE_IRQ(void)\n  104  {\n  105: 	asm(\"cpsie	i \");\n  106  	asm(\"bx		lr\");\n  107  }\n  ...\n  115  static void __ENABLE_FAULT_IRQ(void)\n  116  {\n  117: 	asm(\"cpsie	f \");\n  118  	asm(\"bx		lr\");\n  119  }\n  ...\n  129  static __asm void __ENABLE_IRQ(void)\n  130  {\n  131: 	cpsie	i\n  132  	bx		lr\n  133  }\n  ...\n  141  static __asm void __ENABLE_FAULT_IRQ(void)\n  142  {\n  143: 	cpsie	f\n  144  	bx		lr\n  145  }\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/CMSIS/core_cmFunc.h:\n  308  __attribute__( ( always_inline ) ) static __INLINE void __enable_irq(void)\n  309  {\n  310:   __ASM volatile (\"cpsie i\");\n  311  }\n  312  \n  ...\n  485  __attribute__( ( always_inline ) ) static __INLINE void __enable_fault_irq(void)\n  486  {\n  487:   __ASM volatile (\"cpsie f\");\n  488  }\n  489  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/STM32F2xx_StdPeriph_Driver/CMSIS/core_cmFunc.h:\n  308  __attribute__( ( always_inline ) ) static __INLINE void __enable_irq(void)\n  309  {\n  310:   __ASM volatile (\"cpsie i\");\n  311  }\n  312  \n  ...\n  485  __attribute__( ( always_inline ) ) static __INLINE void __enable_fault_irq(void)\n  486  {\n  487:   __ASM volatile (\"cpsie f\");\n  488  }\n  489  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M4/CMSIS/core_cmFunc.h:\n  315  __attribute__( ( always_inline ) ) __STATIC_INLINE void __enable_irq(void)\n  316  {\n  317:   __ASM volatile (\"cpsie i\");\n  318  }\n  319  \n  ...\n  492  __attribute__( ( always_inline ) ) __STATIC_INLINE void __enable_fault_irq(void)\n  493  {\n  494:   __ASM volatile (\"cpsie f\");\n  495  }\n  496  \n\n14 matches across 7 files\n\n\nSearching 1004 files for \"__get_IPSR\" (whole word)\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/hal/fsl_os_abstraction_free_rtos.c:\n  135      assert(pSem);\n  136  \n  137:     if (__get_IPSR())\n  138      {\n  139          return OSA_SemaphorePostFromISR(pSem);\n  ...\n  364      portBASE_TYPE taskToWake = pdFALSE;\n  365  \n  366:     if (__get_IPSR())\n  367      {\n  368          xEventGroupSetBitsFromISR(pEvent->eventHandler, flagsToSet, &taskToWake);\n  ...\n  390      assert(pEvent);\n  391  \n  392: 	if (__get_IPSR())\n  393  	{\n  394  	    xEventGroupClearBitsFromISR(pEvent->eventHandler, flagsToClear);\n  ...\n  567  osa_status_t OSA_MsgQPut(msg_queue_handler_t handler, void* pMessage)\n  568  {\n  569:     if (__get_IPSR())\n  570      {\n  571          return OSA_MessageQueuePutFromISR(handler, pMessage);\n  ...\n  692      portTickType ticks;\n  693  \n  694:     if (__get_IPSR())\n  695      {\n  696          ticks = xTaskGetTickCountFromISR();\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx__Drv/startup_AP80xx_RVMDK.c:\n   85  {\n   86  	DBG(\"\\n>>>>>>>>>>>>>>[\");\n   87: //	switch(__get_IPSR())\n   88  //	{\n   89  //		case	3:\n   ..\n  104  \n  105  //		default:\n  106: //			DBG(\"Unknown Fault %d\", __get_IPSR());\n  107  //			break;\n  108  //	}\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/CMSIS/core_cmFunc.h:\n   74      \\return               ISPR Register value\n   75   */\n   76: static __INLINE uint32_t __get_IPSR(void)\n   77  {\n   78    register uint32_t __regIPSR          __ASM(\"ipsr\");\n   ..\n  356      \\return               ISPR Register value\n  357   */\n  358: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_IPSR(void)\n  359  {\n  360    uint32_t result;\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/STM32F2xx_StdPeriph_Driver/CMSIS/core_cmFunc.h:\n   74      \\return               ISPR Register value\n   75   */\n   76: static __INLINE uint32_t __get_IPSR(void)\n   77  {\n   78    register uint32_t __regIPSR          __ASM(\"ipsr\");\n   ..\n  356      \\return               ISPR Register value\n  357   */\n  358: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_IPSR(void)\n  359  {\n  360    uint32_t result;\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M4/CMSIS/core_cmFunc.h:\n   74      \\return               IPSR Register value\n   75   */\n   76: __STATIC_INLINE uint32_t __get_IPSR(void)\n   77  {\n   78    register uint32_t __regIPSR          __ASM(\"ipsr\");\n   ..\n  363      \\return               IPSR Register value\n  364   */\n  365: __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_IPSR(void)\n  366  {\n  367    uint32_t result;\n\n13 matches across 5 files\n\n\nSearching 1004 files for \"__INLINE\" (whole word)\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/hal/fsl_os_abstraction.h:\n   36  \n   37  #if defined __CC_ARM\n   38: #define inline      __inline\n   39  #endif\n   40  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/FRDM_K64/osa-d/fsl_os_abstraction.h:\n   36  \n   37  #if defined __CC_ARM\n   38: #define inline      __inline\n   39  #endif\n   40  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverCommon.c:\n  134  \n  135  #elif defined ( __GNUC__ )\n  136: __attribute__( ( always_inline ) ) static __INLINE void __jump_to( uint32_t addr )\n  137  {\n  138    addr |= 0x00000001;  /* Last bit of jump address indicates whether destination is Thumb or ARM code */\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverCommon_debug.c:\n  134  \n  135  #elif defined ( __GNUC__ )\n  136: __attribute__( ( always_inline ) ) static __INLINE void __jump_to( uint32_t addr )\n  137  {\n  138    addr |= 0x00000001;  /* Last bit of jump address indicates whether destination is Thumb or ARM code */\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx__Drv/inc/delay.h:\n   33   */\n   34  #if defined(__CC_ARM)\n   35: static __INLINE __ASM  void Delay(uint32_t Loops)\n   36  {\n   37  __DELAY\n   ..\n   41  }\n   42  #elif defined(__ICCARM__)\n   43: static __INLINE void Delay(uint32_t Loops)\n   44  {\n   45      asm(\"__DELAY:           \\n\"\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/CMSIS/core_cm3.h:\n   57  #if   defined ( __CC_ARM )\n   58    #define __ASM            __asm                                      /*!< asm keyword for ARM Compiler          */\n   59:   #define __INLINE         __inline                                   /*!< inline keyword for ARM Compiler       */\n   60  \n   61  #elif defined ( __ICCARM__ )\n   62    #define __ASM           __asm                                       /*!< asm keyword for IAR Compiler          */\n   63:   #define __INLINE        inline                                      /*!< inline keyword for IAR Compiler. Only available in High optimization mode! */\n   64  \n   65  #elif defined ( __GNUC__ )\n   66    #define __ASM            __asm                                      /*!< asm keyword for GNU Compiler          */\n   67:   #define __INLINE         inline                                     /*!< inline keyword for GNU Compiler       */\n   68  \n   69  #elif defined ( __TASKING__ )\n   70    #define __ASM            __asm                                      /*!< asm keyword for TASKING Compiler      */\n   71:   #define __INLINE         inline                                     /*!< inline keyword for TASKING Compiler   */\n   72  \n   73  #endif\n   ..\n  869      \\param [in]      PriorityGroup  Priority grouping field\n  870   */\n  871: static __INLINE void NVIC_SetPriorityGrouping(uint32_t PriorityGroup)\n  872  {\n  873    uint32_t reg_value;\n  ...\n  890      \\return                Priority grouping field\n  891   */\n  892: static __INLINE uint32_t NVIC_GetPriorityGrouping(void)\n  893  {\n  894    return ((SCB->AIRCR & SCB_AIRCR_PRIGROUP_Msk) >> SCB_AIRCR_PRIGROUP_Pos);   /* read priority grouping field */\n  ...\n  903      \\param [in]      IRQn  Number of the external interrupt to enable\n  904   */\n  905: static __INLINE void NVIC_EnableIRQ(IRQn_Type IRQn)\n  906  {\n  907    NVIC->ISER[((uint32_t)(IRQn) >> 5)] = ((uint32_t)1 << ((uint32_t)(IRQn) & (uint32_t)0x1F)); /* enable interrupt */\n  ...\n  916      \\param [in]      IRQn  Number of the external interrupt to disable\n  917   */\n  918: static __INLINE void NVIC_DisableIRQ(IRQn_Type IRQn)\n  919  {\n  920    NVIC->ICER[((uint32_t)(IRQn) >> 5)] = ((uint32_t)1 << ((uint32_t)(IRQn) & (uint32_t)0x1F)); /* disable interrupt */\n  ...\n  931      \\return             1  Interrupt status is pending\n  932   */\n  933: static __INLINE uint32_t NVIC_GetPendingIRQ(IRQn_Type IRQn)\n  934  {\n  935    return((uint32_t) (((NVIC->ISPR[(uint32_t)(IRQn) >> 5] & ((uint32_t)1 << ((uint32_t)(IRQn) & (uint32_t)0x1F)))!=0)?1:0)); /* Return 1 if pending else 0 */\n  ...\n  944      \\param [in]      IRQn  Number of the interrupt for set pending\n  945   */\n  946: static __INLINE void NVIC_SetPendingIRQ(IRQn_Type IRQn)\n  947  {\n  948    NVIC->ISPR[((uint32_t)(IRQn) >> 5)] = ((uint32_t)1 << ((uint32_t)(IRQn) & (uint32_t)0x1F)); /* set interrupt pending */\n  ...\n  957      \\param [in]      IRQn  Number of the interrupt for clear pending\n  958   */\n  959: static __INLINE void NVIC_ClearPendingIRQ(IRQn_Type IRQn)\n  960  {\n  961    NVIC->ICPR[((uint32_t)(IRQn) >> 5)] = ((uint32_t)1 << ((uint32_t)(IRQn) & (uint32_t)0x1F)); /* Clear pending interrupt */\n  ...\n  970      \\return             1  Interrupt status is active\n  971   */\n  972: static __INLINE uint32_t NVIC_GetActive(IRQn_Type IRQn)\n  973  {\n  974    return((uint32_t)(((NVIC->IABR[(uint32_t)(IRQn) >> 5] & ((uint32_t)1 << ((uint32_t)(IRQn) & (uint32_t)0x1F)))!=0)?1:0)); /* Return 1 if active else 0 */\n  ...\n  987      \\param [in]  priority  Priority to set\n  988   */\n  989: static __INLINE void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)\n  990  {\n  991    if(IRQn < 0) {\n  ...\n 1008      \\return             Interrupt Priority\n 1009   */\n 1010: static __INLINE uint32_t NVIC_GetPriority(IRQn_Type IRQn)\n 1011  {\n 1012  \n ....\n 1032      \\return                        Encoded priority for the interrupt\n 1033   */\n 1034: static __INLINE uint32_t NVIC_EncodePriority (uint32_t PriorityGroup, uint32_t PreemptPriority, uint32_t SubPriority)\n 1035  {\n 1036    uint32_t PriorityGroupTmp = (PriorityGroup & 0x07);          /* only values 0..7 are used          */\n ....\n 1062      \\param [out]     pSubPriority  Sub priority value (starting from 0)\n 1063   */\n 1064: static __INLINE void NVIC_DecodePriority (uint32_t Priority, uint32_t PriorityGroup, uint32_t* pPreemptPriority, uint32_t* pSubPriority)\n 1065  {\n 1066    uint32_t PriorityGroupTmp = (PriorityGroup & 0x07);          /* only values 0..7 are used          */\n ....\n 1080      This function initiate a system reset request to reset the MCU.\n 1081   */\n 1082: static __INLINE void NVIC_SystemReset(void)\n 1083  {\n 1084    __DSB();                                                     /* Ensure all outstanding memory accesses included\n ....\n 1112      \\return          1  Function failed\n 1113   */\n 1114: static __INLINE uint32_t SysTick_Config(uint32_t ticks)\n 1115  {\n 1116    if (ticks > SysTick_LOAD_RELOAD_Msk)  return (1);            /* Reload value impossible */\n ....\n 1150      \\return             Character to transmit\n 1151   */\n 1152: static __INLINE uint32_t ITM_SendChar (uint32_t ch)\n 1153  {\n 1154    if ((CoreDebug->DEMCR & CoreDebug_DEMCR_TRCENA_Msk)  &&      /* Trace enabled */\n ....\n 1172      \\return         -1  No character received\n 1173   */\n 1174: static __INLINE int32_t ITM_ReceiveChar (void) {\n 1175    int32_t ch = -1;                           /* no character available */\n 1176  \n ....\n 1192      \\return          1  Character available\n 1193   */\n 1194: static __INLINE int32_t ITM_CheckChar (void) {\n 1195  \n 1196    if (ITM_RxBuffer == ITM_RXBUFFER_EMPTY) {\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/CMSIS/core_cmFunc.h:\n   48      \\return               Control Register value\n   49   */\n   50: static __INLINE uint32_t __get_CONTROL(void)\n   51  {\n   52    register uint32_t __regControl         __ASM(\"control\");\n   ..\n   61      \\param [in]    control  Control Register value to set\n   62   */\n   63: static __INLINE void __set_CONTROL(uint32_t control)\n   64  {\n   65    register uint32_t __regControl         __ASM(\"control\");\n   ..\n   74      \\return               ISPR Register value\n   75   */\n   76: static __INLINE uint32_t __get_IPSR(void)\n   77  {\n   78    register uint32_t __regIPSR          __ASM(\"ipsr\");\n   ..\n   87      \\return               APSR Register value\n   88   */\n   89: static __INLINE uint32_t __get_APSR(void)\n   90  {\n   91    register uint32_t __regAPSR          __ASM(\"apsr\");\n   ..\n  100      \\return               xPSR Register value\n  101   */\n  102: static __INLINE uint32_t __get_xPSR(void)\n  103  {\n  104    register uint32_t __regXPSR          __ASM(\"xpsr\");\n  ...\n  113      \\return               PSP Register value\n  114   */\n  115: static __INLINE uint32_t __get_PSP(void)\n  116  {\n  117    register uint32_t __regProcessStackPointer  __ASM(\"psp\");\n  ...\n  126      \\param [in]    topOfProcStack  Process Stack Pointer value to set\n  127   */\n  128: static __INLINE void __set_PSP(uint32_t topOfProcStack)\n  129  {\n  130    register uint32_t __regProcessStackPointer  __ASM(\"psp\");\n  ...\n  139      \\return               MSP Register value\n  140   */\n  141: static __INLINE uint32_t __get_MSP(void)\n  142  {\n  143    register uint32_t __regMainStackPointer     __ASM(\"msp\");\n  ...\n  152      \\param [in]    topOfMainStack  Main Stack Pointer value to set\n  153   */\n  154: static __INLINE void __set_MSP(uint32_t topOfMainStack)\n  155  {\n  156    register uint32_t __regMainStackPointer     __ASM(\"msp\");\n  ...\n  165      \\return               Priority Mask value\n  166   */\n  167: static __INLINE uint32_t __get_PRIMASK(void)\n  168  {\n  169    register uint32_t __regPriMask         __ASM(\"primask\");\n  ...\n  178      \\param [in]    priMask  Priority Mask\n  179   */\n  180: static __INLINE void __set_PRIMASK(uint32_t priMask)\n  181  {\n  182    register uint32_t __regPriMask         __ASM(\"primask\");\n  ...\n  209      \\return               Base Priority register value\n  210   */\n  211: static __INLINE uint32_t  __get_BASEPRI(void)\n  212  {\n  213    register uint32_t __regBasePri         __ASM(\"basepri\");\n  ...\n  222      \\param [in]    basePri  Base Priority value to set\n  223   */\n  224: static __INLINE void __set_BASEPRI(uint32_t basePri)\n  225  {\n  226    register uint32_t __regBasePri         __ASM(\"basepri\");\n  ...\n  235      \\return               Fault Mask register value\n  236   */\n  237: static __INLINE uint32_t __get_FAULTMASK(void)\n  238  {\n  239    register uint32_t __regFaultMask       __ASM(\"faultmask\");\n  ...\n  248      \\param [in]    faultMask  Fault Mask value to set\n  249   */\n  250: static __INLINE void __set_FAULTMASK(uint32_t faultMask)\n  251  {\n  252    register uint32_t __regFaultMask       __ASM(\"faultmask\");\n  ...\n  265      \\return               Floating Point Status/Control register value\n  266   */\n  267: static __INLINE uint32_t __get_FPSCR(void)\n  268  {\n  269  #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)\n  ...\n  282      \\param [in]    fpscr  Floating Point Status/Control value to set\n  283   */\n  284: static __INLINE void __set_FPSCR(uint32_t fpscr)\n  285  {\n  286  #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)\n  ...\n  306    Can only be executed in Privileged modes.\n  307   */\n  308: __attribute__( ( always_inline ) ) static __INLINE void __enable_irq(void)\n  309  {\n  310    __ASM volatile (\"cpsie i\");\n  ...\n  317    Can only be executed in Privileged modes.\n  318   */\n  319: __attribute__( ( always_inline ) ) static __INLINE void __disable_irq(void)\n  320  {\n  321    __ASM volatile (\"cpsid i\");\n  ...\n  329      \\return               Control Register value\n  330   */\n  331: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_CONTROL(void)\n  332  {\n  333    uint32_t result;\n  ...\n  344      \\param [in]    control  Control Register value to set\n  345   */\n  346: __attribute__( ( always_inline ) ) static __INLINE void __set_CONTROL(uint32_t control)\n  347  {\n  348    __ASM volatile (\"MSR control, %0\" : : \"r\" (control) );\n  ...\n  356      \\return               ISPR Register value\n  357   */\n  358: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_IPSR(void)\n  359  {\n  360    uint32_t result;\n  ...\n  371      \\return               APSR Register value\n  372   */\n  373: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_APSR(void)\n  374  {\n  375    uint32_t result;\n  ...\n  386      \\return               xPSR Register value\n  387   */\n  388: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_xPSR(void)\n  389  {\n  390    uint32_t result;\n  ...\n  401      \\return               PSP Register value\n  402   */\n  403: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_PSP(void)\n  404  {\n  405    register uint32_t result;\n  ...\n  416      \\param [in]    topOfProcStack  Process Stack Pointer value to set\n  417   */\n  418: __attribute__( ( always_inline ) ) static __INLINE void __set_PSP(uint32_t topOfProcStack)\n  419  {\n  420    __ASM volatile (\"MSR psp, %0\\n\" : : \"r\" (topOfProcStack) );\n  ...\n  428      \\return               MSP Register value\n  429   */\n  430: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_MSP(void)\n  431  {\n  432    register uint32_t result;\n  ...\n  443      \\param [in]    topOfMainStack  Main Stack Pointer value to set\n  444   */\n  445: __attribute__( ( always_inline ) ) static __INLINE void __set_MSP(uint32_t topOfMainStack)\n  446  {\n  447    __ASM volatile (\"MSR msp, %0\\n\" : : \"r\" (topOfMainStack) );\n  ...\n  455      \\return               Priority Mask value\n  456   */\n  457: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_PRIMASK(void)\n  458  {\n  459    uint32_t result;\n  ...\n  470      \\param [in]    priMask  Priority Mask\n  471   */\n  472: __attribute__( ( always_inline ) ) static __INLINE void __set_PRIMASK(uint32_t priMask)\n  473  {\n  474    __ASM volatile (\"MSR primask, %0\" : : \"r\" (priMask) );\n  ...\n  483      Can only be executed in Privileged modes.\n  484   */\n  485: __attribute__( ( always_inline ) ) static __INLINE void __enable_fault_irq(void)\n  486  {\n  487    __ASM volatile (\"cpsie f\");\n  ...\n  494      Can only be executed in Privileged modes.\n  495   */\n  496: __attribute__( ( always_inline ) ) static __INLINE void __disable_fault_irq(void)\n  497  {\n  498    __ASM volatile (\"cpsid f\");\n  ...\n  506      \\return               Base Priority register value\n  507   */\n  508: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_BASEPRI(void)\n  509  {\n  510    uint32_t result;\n  ...\n  521      \\param [in]    basePri  Base Priority value to set\n  522   */\n  523: __attribute__( ( always_inline ) ) static __INLINE void __set_BASEPRI(uint32_t value)\n  524  {\n  525    __ASM volatile (\"MSR basepri, %0\" : : \"r\" (value) );\n  ...\n  533      \\return               Fault Mask register value\n  534   */\n  535: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_FAULTMASK(void)\n  536  {\n  537    uint32_t result;\n  ...\n  548      \\param [in]    faultMask  Fault Mask value to set\n  549   */\n  550: __attribute__( ( always_inline ) ) static __INLINE void __set_FAULTMASK(uint32_t faultMask)\n  551  {\n  552    __ASM volatile (\"MSR faultmask, %0\" : : \"r\" (faultMask) );\n  ...\n  564      \\return               Floating Point Status/Control register value\n  565   */\n  566: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_FPSCR(void)\n  567  {\n  568  #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)\n  ...\n  583      \\param [in]    fpscr  Floating Point Status/Control value to set\n  584   */\n  585: __attribute__( ( always_inline ) ) static __INLINE void __set_FPSCR(uint32_t fpscr)\n  586  {\n  587  #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/CMSIS/core_cmInstr.h:\n  112      \\return               Reversed value\n  113   */\n  114: static __INLINE __ASM uint32_t __REV16(uint32_t value)\n  115  {\n  116    rev16 r0, r0\n  ...\n  126      \\return               Reversed value\n  127   */\n  128: static __INLINE __ASM int32_t __REVSH(int32_t value)\n  129  {\n  130    revsh r0, r0\n  ...\n  267      No Operation does nothing. This instruction can be used for code alignment purposes.\n  268   */\n  269: __attribute__( ( always_inline ) ) static __INLINE void __NOP(void)\n  270  {\n  271    __ASM volatile (\"nop\");\n  ...\n  278      until one of a number of events occurs.\n  279   */\n  280: __attribute__( ( always_inline ) ) static __INLINE void __WFI(void)\n  281  {\n  282    __ASM volatile (\"wfi\");\n  ...\n  289      a low-power state until one of a number of events occurs.\n  290   */\n  291: __attribute__( ( always_inline ) ) static __INLINE void __WFE(void)\n  292  {\n  293    __ASM volatile (\"wfe\");\n  ...\n  299      Send Event is a hint instruction. It causes an event to be signaled to the CPU.\n  300   */\n  301: __attribute__( ( always_inline ) ) static __INLINE void __SEV(void)\n  302  {\n  303    __ASM volatile (\"sev\");\n  ...\n  311      memory, after the instruction has been completed.\n  312   */\n  313: __attribute__( ( always_inline ) ) static __INLINE void __ISB(void)\n  314  {\n  315    __ASM volatile (\"isb\");\n  ...\n  322      It completes when all explicit memory accesses before this instruction complete.\n  323   */\n  324: __attribute__( ( always_inline ) ) static __INLINE void __DSB(void)\n  325  {\n  326    __ASM volatile (\"dsb\");\n  ...\n  333      and after the instruction, without ensuring their completion.\n  334   */\n  335: __attribute__( ( always_inline ) ) static __INLINE void __DMB(void)\n  336  {\n  337    __ASM volatile (\"dmb\");\n  ...\n  346      \\return               Reversed value\n  347   */\n  348: __attribute__( ( always_inline ) ) static __INLINE uint32_t __REV(uint32_t value)\n  349  {\n  350    uint32_t result;\n  ...\n  362      \\return               Reversed value\n  363   */\n  364: __attribute__( ( always_inline ) ) static __INLINE uint32_t __REV16(uint32_t value)\n  365  {\n  366    uint32_t result;\n  ...\n  378      \\return               Reversed value\n  379   */\n  380: __attribute__( ( always_inline ) ) static __INLINE int32_t __REVSH(int32_t value)\n  381  {\n  382    uint32_t result;\n  ...\n  396      \\return               Reversed value\n  397   */\n  398: __attribute__( ( always_inline ) ) static __INLINE uint32_t __RBIT(uint32_t value)\n  399  {\n  400    uint32_t result;\n  ...\n  412      \\return             value of type uint8_t at (*ptr)\n  413   */\n  414: __attribute__( ( always_inline ) ) static __INLINE uint8_t __LDREXB(volatile uint8_t *addr)\n  415  {\n  416      uint8_t result;\n  ...\n  428      \\return        value of type uint16_t at (*ptr)\n  429   */\n  430: __attribute__( ( always_inline ) ) static __INLINE uint16_t __LDREXH(volatile uint16_t *addr)\n  431  {\n  432      uint16_t result;\n  ...\n  444      \\return        value of type uint32_t at (*ptr)\n  445   */\n  446: __attribute__( ( always_inline ) ) static __INLINE uint32_t __LDREXW(volatile uint32_t *addr)\n  447  {\n  448      uint32_t result;\n  ...\n  462      \\return          1  Function failed\n  463   */\n  464: __attribute__( ( always_inline ) ) static __INLINE uint32_t __STREXB(uint8_t value, volatile uint8_t *addr)\n  465  {\n  466     uint32_t result;\n  ...\n  480      \\return          1  Function failed\n  481   */\n  482: __attribute__( ( always_inline ) ) static __INLINE uint32_t __STREXH(uint16_t value, volatile uint16_t *addr)\n  483  {\n  484     uint32_t result;\n  ...\n  498      \\return          1  Function failed\n  499   */\n  500: __attribute__( ( always_inline ) ) static __INLINE uint32_t __STREXW(uint32_t value, volatile uint32_t *addr)\n  501  {\n  502     uint32_t result;\n  ...\n  512  \n  513   */\n  514: __attribute__( ( always_inline ) ) static __INLINE void __CLREX(void)\n  515  {\n  516    __ASM volatile (\"clrex\");\n  ...\n  557      \\return             number of leading zeros in value\n  558   */\n  559: __attribute__( ( always_inline ) ) static __INLINE uint8_t __CLZ(uint32_t value)\n  560  {\n  561    uint8_t result;\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/stm32f2xx_platform.c:\n  134  \n  135  #elif defined ( __GNUC__ )\n  136: __attribute__( ( always_inline ) ) static __INLINE void __jump_to( uint32_t addr )\n  137  {\n  138    addr |= 0x00000001;  /* Last bit of jump address indicates whether destination is Thumb or ARM code */\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/STM32F2xx_StdPeriph_Driver/CMSIS/core_cm3.h:\n   57  #if   defined ( __CC_ARM )\n   58    #define __ASM            __asm                                      /*!< asm keyword for ARM Compiler          */\n   59:   #define __INLINE         __inline                                   /*!< inline keyword for ARM Compiler       */\n   60  \n   61  #elif defined ( __ICCARM__ )\n   62    #define __ASM           __asm                                       /*!< asm keyword for IAR Compiler          */\n   63:   #define __INLINE        inline                                      /*!< inline keyword for IAR Compiler. Only available in High optimization mode! */\n   64  \n   65  #elif defined ( __GNUC__ )\n   66    #define __ASM            __asm                                      /*!< asm keyword for GNU Compiler          */\n   67:   #define __INLINE         inline                                     /*!< inline keyword for GNU Compiler       */\n   68  \n   69  #elif defined ( __TASKING__ )\n   70    #define __ASM            __asm                                      /*!< asm keyword for TASKING Compiler      */\n   71:   #define __INLINE         inline                                     /*!< inline keyword for TASKING Compiler   */\n   72  \n   73  #endif\n   ..\n  869      \\param [in]      PriorityGroup  Priority grouping field\n  870   */\n  871: static __INLINE void NVIC_SetPriorityGrouping(uint32_t PriorityGroup)\n  872  {\n  873    uint32_t reg_value;\n  ...\n  890      \\return                Priority grouping field\n  891   */\n  892: static __INLINE uint32_t NVIC_GetPriorityGrouping(void)\n  893  {\n  894    return ((SCB->AIRCR & SCB_AIRCR_PRIGROUP_Msk) >> SCB_AIRCR_PRIGROUP_Pos);   /* read priority grouping field */\n  ...\n  903      \\param [in]      IRQn  Number of the external interrupt to enable\n  904   */\n  905: static __INLINE void NVIC_EnableIRQ(IRQn_Type IRQn)\n  906  {\n  907    NVIC->ISER[((uint32_t)(IRQn) >> 5)] = ((uint32_t)1 << ((uint32_t)(IRQn) & (uint32_t)0x1F)); /* enable interrupt */\n  ...\n  916      \\param [in]      IRQn  Number of the external interrupt to disable\n  917   */\n  918: static __INLINE void NVIC_DisableIRQ(IRQn_Type IRQn)\n  919  {\n  920    NVIC->ICER[((uint32_t)(IRQn) >> 5)] = ((uint32_t)1 << ((uint32_t)(IRQn) & (uint32_t)0x1F)); /* disable interrupt */\n  ...\n  931      \\return             1  Interrupt status is pending\n  932   */\n  933: static __INLINE uint32_t NVIC_GetPendingIRQ(IRQn_Type IRQn)\n  934  {\n  935    return((uint32_t) (((NVIC->ISPR[(uint32_t)(IRQn) >> 5] & ((uint32_t)1 << ((uint32_t)(IRQn) & (uint32_t)0x1F)))!=0)?1:0)); /* Return 1 if pending else 0 */\n  ...\n  944      \\param [in]      IRQn  Number of the interrupt for set pending\n  945   */\n  946: static __INLINE void NVIC_SetPendingIRQ(IRQn_Type IRQn)\n  947  {\n  948    NVIC->ISPR[((uint32_t)(IRQn) >> 5)] = ((uint32_t)1 << ((uint32_t)(IRQn) & (uint32_t)0x1F)); /* set interrupt pending */\n  ...\n  957      \\param [in]      IRQn  Number of the interrupt for clear pending\n  958   */\n  959: static __INLINE void NVIC_ClearPendingIRQ(IRQn_Type IRQn)\n  960  {\n  961    NVIC->ICPR[((uint32_t)(IRQn) >> 5)] = ((uint32_t)1 << ((uint32_t)(IRQn) & (uint32_t)0x1F)); /* Clear pending interrupt */\n  ...\n  970      \\return             1  Interrupt status is active\n  971   */\n  972: static __INLINE uint32_t NVIC_GetActive(IRQn_Type IRQn)\n  973  {\n  974    return((uint32_t)(((NVIC->IABR[(uint32_t)(IRQn) >> 5] & ((uint32_t)1 << ((uint32_t)(IRQn) & (uint32_t)0x1F)))!=0)?1:0)); /* Return 1 if active else 0 */\n  ...\n  987      \\param [in]  priority  Priority to set\n  988   */\n  989: static __INLINE void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)\n  990  {\n  991    if(IRQn < 0) {\n  ...\n 1008      \\return             Interrupt Priority\n 1009   */\n 1010: static __INLINE uint32_t NVIC_GetPriority(IRQn_Type IRQn)\n 1011  {\n 1012  \n ....\n 1032      \\return                        Encoded priority for the interrupt\n 1033   */\n 1034: static __INLINE uint32_t NVIC_EncodePriority (uint32_t PriorityGroup, uint32_t PreemptPriority, uint32_t SubPriority)\n 1035  {\n 1036    uint32_t PriorityGroupTmp = (PriorityGroup & 0x07);          /* only values 0..7 are used          */\n ....\n 1062      \\param [out]     pSubPriority  Sub priority value (starting from 0)\n 1063   */\n 1064: static __INLINE void NVIC_DecodePriority (uint32_t Priority, uint32_t PriorityGroup, uint32_t* pPreemptPriority, uint32_t* pSubPriority)\n 1065  {\n 1066    uint32_t PriorityGroupTmp = (PriorityGroup & 0x07);          /* only values 0..7 are used          */\n ....\n 1080      This function initiate a system reset request to reset the MCU.\n 1081   */\n 1082: static __INLINE void NVIC_SystemReset(void)\n 1083  {\n 1084    __DSB();                                                     /* Ensure all outstanding memory accesses included\n ....\n 1112      \\return          1  Function failed\n 1113   */\n 1114: static __INLINE uint32_t SysTick_Config(uint32_t ticks)\n 1115  {\n 1116    if (ticks > SysTick_LOAD_RELOAD_Msk)  return (1);            /* Reload value impossible */\n ....\n 1150      \\return             Character to transmit\n 1151   */\n 1152: static __INLINE uint32_t ITM_SendChar (uint32_t ch)\n 1153  {\n 1154    if ((CoreDebug->DEMCR & CoreDebug_DEMCR_TRCENA_Msk)  &&      /* Trace enabled */\n ....\n 1172      \\return         -1  No character received\n 1173   */\n 1174: static __INLINE int32_t ITM_ReceiveChar (void) {\n 1175    int32_t ch = -1;                           /* no character available */\n 1176  \n ....\n 1192      \\return          1  Character available\n 1193   */\n 1194: static __INLINE int32_t ITM_CheckChar (void) {\n 1195  \n 1196    if (ITM_RxBuffer == ITM_RXBUFFER_EMPTY) {\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/STM32F2xx_StdPeriph_Driver/CMSIS/core_cmFunc.h:\n   48      \\return               Control Register value\n   49   */\n   50: static __INLINE uint32_t __get_CONTROL(void)\n   51  {\n   52    register uint32_t __regControl         __ASM(\"control\");\n   ..\n   61      \\param [in]    control  Control Register value to set\n   62   */\n   63: static __INLINE void __set_CONTROL(uint32_t control)\n   64  {\n   65    register uint32_t __regControl         __ASM(\"control\");\n   ..\n   74      \\return               ISPR Register value\n   75   */\n   76: static __INLINE uint32_t __get_IPSR(void)\n   77  {\n   78    register uint32_t __regIPSR          __ASM(\"ipsr\");\n   ..\n   87      \\return               APSR Register value\n   88   */\n   89: static __INLINE uint32_t __get_APSR(void)\n   90  {\n   91    register uint32_t __regAPSR          __ASM(\"apsr\");\n   ..\n  100      \\return               xPSR Register value\n  101   */\n  102: static __INLINE uint32_t __get_xPSR(void)\n  103  {\n  104    register uint32_t __regXPSR          __ASM(\"xpsr\");\n  ...\n  113      \\return               PSP Register value\n  114   */\n  115: static __INLINE uint32_t __get_PSP(void)\n  116  {\n  117    register uint32_t __regProcessStackPointer  __ASM(\"psp\");\n  ...\n  126      \\param [in]    topOfProcStack  Process Stack Pointer value to set\n  127   */\n  128: static __INLINE void __set_PSP(uint32_t topOfProcStack)\n  129  {\n  130    register uint32_t __regProcessStackPointer  __ASM(\"psp\");\n  ...\n  139      \\return               MSP Register value\n  140   */\n  141: static __INLINE uint32_t __get_MSP(void)\n  142  {\n  143    register uint32_t __regMainStackPointer     __ASM(\"msp\");\n  ...\n  152      \\param [in]    topOfMainStack  Main Stack Pointer value to set\n  153   */\n  154: static __INLINE void __set_MSP(uint32_t topOfMainStack)\n  155  {\n  156    register uint32_t __regMainStackPointer     __ASM(\"msp\");\n  ...\n  165      \\return               Priority Mask value\n  166   */\n  167: static __INLINE uint32_t __get_PRIMASK(void)\n  168  {\n  169    register uint32_t __regPriMask         __ASM(\"primask\");\n  ...\n  178      \\param [in]    priMask  Priority Mask\n  179   */\n  180: static __INLINE void __set_PRIMASK(uint32_t priMask)\n  181  {\n  182    register uint32_t __regPriMask         __ASM(\"primask\");\n  ...\n  209      \\return               Base Priority register value\n  210   */\n  211: static __INLINE uint32_t  __get_BASEPRI(void)\n  212  {\n  213    register uint32_t __regBasePri         __ASM(\"basepri\");\n  ...\n  222      \\param [in]    basePri  Base Priority value to set\n  223   */\n  224: static __INLINE void __set_BASEPRI(uint32_t basePri)\n  225  {\n  226    register uint32_t __regBasePri         __ASM(\"basepri\");\n  ...\n  235      \\return               Fault Mask register value\n  236   */\n  237: static __INLINE uint32_t __get_FAULTMASK(void)\n  238  {\n  239    register uint32_t __regFaultMask       __ASM(\"faultmask\");\n  ...\n  248      \\param [in]    faultMask  Fault Mask value to set\n  249   */\n  250: static __INLINE void __set_FAULTMASK(uint32_t faultMask)\n  251  {\n  252    register uint32_t __regFaultMask       __ASM(\"faultmask\");\n  ...\n  265      \\return               Floating Point Status/Control register value\n  266   */\n  267: static __INLINE uint32_t __get_FPSCR(void)\n  268  {\n  269  #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)\n  ...\n  282      \\param [in]    fpscr  Floating Point Status/Control value to set\n  283   */\n  284: static __INLINE void __set_FPSCR(uint32_t fpscr)\n  285  {\n  286  #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)\n  ...\n  306    Can only be executed in Privileged modes.\n  307   */\n  308: __attribute__( ( always_inline ) ) static __INLINE void __enable_irq(void)\n  309  {\n  310    __ASM volatile (\"cpsie i\");\n  ...\n  317    Can only be executed in Privileged modes.\n  318   */\n  319: __attribute__( ( always_inline ) ) static __INLINE void __disable_irq(void)\n  320  {\n  321    __ASM volatile (\"cpsid i\");\n  ...\n  329      \\return               Control Register value\n  330   */\n  331: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_CONTROL(void)\n  332  {\n  333    uint32_t result;\n  ...\n  344      \\param [in]    control  Control Register value to set\n  345   */\n  346: __attribute__( ( always_inline ) ) static __INLINE void __set_CONTROL(uint32_t control)\n  347  {\n  348    __ASM volatile (\"MSR control, %0\" : : \"r\" (control) );\n  ...\n  356      \\return               ISPR Register value\n  357   */\n  358: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_IPSR(void)\n  359  {\n  360    uint32_t result;\n  ...\n  371      \\return               APSR Register value\n  372   */\n  373: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_APSR(void)\n  374  {\n  375    uint32_t result;\n  ...\n  386      \\return               xPSR Register value\n  387   */\n  388: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_xPSR(void)\n  389  {\n  390    uint32_t result;\n  ...\n  401      \\return               PSP Register value\n  402   */\n  403: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_PSP(void)\n  404  {\n  405    register uint32_t result;\n  ...\n  416      \\param [in]    topOfProcStack  Process Stack Pointer value to set\n  417   */\n  418: __attribute__( ( always_inline ) ) static __INLINE void __set_PSP(uint32_t topOfProcStack)\n  419  {\n  420    __ASM volatile (\"MSR psp, %0\\n\" : : \"r\" (topOfProcStack) );\n  ...\n  428      \\return               MSP Register value\n  429   */\n  430: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_MSP(void)\n  431  {\n  432    register uint32_t result;\n  ...\n  443      \\param [in]    topOfMainStack  Main Stack Pointer value to set\n  444   */\n  445: __attribute__( ( always_inline ) ) static __INLINE void __set_MSP(uint32_t topOfMainStack)\n  446  {\n  447    __ASM volatile (\"MSR msp, %0\\n\" : : \"r\" (topOfMainStack) );\n  ...\n  455      \\return               Priority Mask value\n  456   */\n  457: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_PRIMASK(void)\n  458  {\n  459    uint32_t result;\n  ...\n  470      \\param [in]    priMask  Priority Mask\n  471   */\n  472: __attribute__( ( always_inline ) ) static __INLINE void __set_PRIMASK(uint32_t priMask)\n  473  {\n  474    __ASM volatile (\"MSR primask, %0\" : : \"r\" (priMask) );\n  ...\n  483      Can only be executed in Privileged modes.\n  484   */\n  485: __attribute__( ( always_inline ) ) static __INLINE void __enable_fault_irq(void)\n  486  {\n  487    __ASM volatile (\"cpsie f\");\n  ...\n  494      Can only be executed in Privileged modes.\n  495   */\n  496: __attribute__( ( always_inline ) ) static __INLINE void __disable_fault_irq(void)\n  497  {\n  498    __ASM volatile (\"cpsid f\");\n  ...\n  506      \\return               Base Priority register value\n  507   */\n  508: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_BASEPRI(void)\n  509  {\n  510    uint32_t result;\n  ...\n  521      \\param [in]    basePri  Base Priority value to set\n  522   */\n  523: __attribute__( ( always_inline ) ) static __INLINE void __set_BASEPRI(uint32_t value)\n  524  {\n  525    __ASM volatile (\"MSR basepri, %0\" : : \"r\" (value) );\n  ...\n  533      \\return               Fault Mask register value\n  534   */\n  535: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_FAULTMASK(void)\n  536  {\n  537    uint32_t result;\n  ...\n  548      \\param [in]    faultMask  Fault Mask value to set\n  549   */\n  550: __attribute__( ( always_inline ) ) static __INLINE void __set_FAULTMASK(uint32_t faultMask)\n  551  {\n  552    __ASM volatile (\"MSR faultmask, %0\" : : \"r\" (faultMask) );\n  ...\n  564      \\return               Floating Point Status/Control register value\n  565   */\n  566: __attribute__( ( always_inline ) ) static __INLINE uint32_t __get_FPSCR(void)\n  567  {\n  568  #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)\n  ...\n  583      \\param [in]    fpscr  Floating Point Status/Control value to set\n  584   */\n  585: __attribute__( ( always_inline ) ) static __INLINE void __set_FPSCR(uint32_t fpscr)\n  586  {\n  587  #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/STM32F2xx_StdPeriph_Driver/CMSIS/core_cmInstr.h:\n  112      \\return               Reversed value\n  113   */\n  114: static __INLINE __ASM uint32_t __REV16(uint32_t value)\n  115  {\n  116    rev16 r0, r0\n  ...\n  126      \\return               Reversed value\n  127   */\n  128: static __INLINE __ASM int32_t __REVSH(int32_t value)\n  129  {\n  130    revsh r0, r0\n  ...\n  267      No Operation does nothing. This instruction can be used for code alignment purposes.\n  268   */\n  269: __attribute__( ( always_inline ) ) static __INLINE void __NOP(void)\n  270  {\n  271    __ASM volatile (\"nop\");\n  ...\n  278      until one of a number of events occurs.\n  279   */\n  280: __attribute__( ( always_inline ) ) static __INLINE void __WFI(void)\n  281  {\n  282    __ASM volatile (\"wfi\");\n  ...\n  289      a low-power state until one of a number of events occurs.\n  290   */\n  291: __attribute__( ( always_inline ) ) static __INLINE void __WFE(void)\n  292  {\n  293    __ASM volatile (\"wfe\");\n  ...\n  299      Send Event is a hint instruction. It causes an event to be signaled to the CPU.\n  300   */\n  301: __attribute__( ( always_inline ) ) static __INLINE void __SEV(void)\n  302  {\n  303    __ASM volatile (\"sev\");\n  ...\n  311      memory, after the instruction has been completed.\n  312   */\n  313: __attribute__( ( always_inline ) ) static __INLINE void __ISB(void)\n  314  {\n  315    __ASM volatile (\"isb\");\n  ...\n  322      It completes when all explicit memory accesses before this instruction complete.\n  323   */\n  324: __attribute__( ( always_inline ) ) static __INLINE void __DSB(void)\n  325  {\n  326    __ASM volatile (\"dsb\");\n  ...\n  333      and after the instruction, without ensuring their completion.\n  334   */\n  335: __attribute__( ( always_inline ) ) static __INLINE void __DMB(void)\n  336  {\n  337    __ASM volatile (\"dmb\");\n  ...\n  346      \\return               Reversed value\n  347   */\n  348: __attribute__( ( always_inline ) ) static __INLINE uint32_t __REV(uint32_t value)\n  349  {\n  350    uint32_t result;\n  ...\n  362      \\return               Reversed value\n  363   */\n  364: __attribute__( ( always_inline ) ) static __INLINE uint32_t __REV16(uint32_t value)\n  365  {\n  366    uint32_t result;\n  ...\n  378      \\return               Reversed value\n  379   */\n  380: __attribute__( ( always_inline ) ) static __INLINE int32_t __REVSH(int32_t value)\n  381  {\n  382    uint32_t result;\n  ...\n  396      \\return               Reversed value\n  397   */\n  398: __attribute__( ( always_inline ) ) static __INLINE uint32_t __RBIT(uint32_t value)\n  399  {\n  400    uint32_t result;\n  ...\n  412      \\return             value of type uint8_t at (*ptr)\n  413   */\n  414: __attribute__( ( always_inline ) ) static __INLINE uint8_t __LDREXB(volatile uint8_t *addr)\n  415  {\n  416      uint8_t result;\n  ...\n  428      \\return        value of type uint16_t at (*ptr)\n  429   */\n  430: __attribute__( ( always_inline ) ) static __INLINE uint16_t __LDREXH(volatile uint16_t *addr)\n  431  {\n  432      uint16_t result;\n  ...\n  444      \\return        value of type uint32_t at (*ptr)\n  445   */\n  446: __attribute__( ( always_inline ) ) static __INLINE uint32_t __LDREXW(volatile uint32_t *addr)\n  447  {\n  448      uint32_t result;\n  ...\n  462      \\return          1  Function failed\n  463   */\n  464: __attribute__( ( always_inline ) ) static __INLINE uint32_t __STREXB(uint8_t value, volatile uint8_t *addr)\n  465  {\n  466     uint32_t result;\n  ...\n  480      \\return          1  Function failed\n  481   */\n  482: __attribute__( ( always_inline ) ) static __INLINE uint32_t __STREXH(uint16_t value, volatile uint16_t *addr)\n  483  {\n  484     uint32_t result;\n  ...\n  498      \\return          1  Function failed\n  499   */\n  500: __attribute__( ( always_inline ) ) static __INLINE uint32_t __STREXW(uint32_t value, volatile uint32_t *addr)\n  501  {\n  502     uint32_t result;\n  ...\n  512  \n  513   */\n  514: __attribute__( ( always_inline ) ) static __INLINE void __CLREX(void)\n  515  {\n  516    __ASM volatile (\"clrex\");\n  ...\n  557      \\return             number of leading zeros in value\n  558   */\n  559: __attribute__( ( always_inline ) ) static __INLINE uint8_t __CLZ(uint32_t value)\n  560  {\n  561    uint8_t result;\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M4/CMSIS/core_cm4.h:\n   64  #if   defined ( __CC_ARM )\n   65    #define __ASM            __asm                                      /*!< asm keyword for ARM Compiler          */\n   66:   #define __INLINE         __inline                                   /*!< inline keyword for ARM Compiler       */\n   67:   #define __STATIC_INLINE  static __inline\n   68  \n   69  #elif defined ( __ICCARM__ )\n   70    #define __ASM            __asm                                      /*!< asm keyword for IAR Compiler          */\n   71:   #define __INLINE         inline                                     /*!< inline keyword for IAR Compiler. Only available in High optimization mode! */\n   72    #define __STATIC_INLINE  static inline\n   73  \n   ..\n   78  #elif defined ( __GNUC__ )\n   79    #define __ASM            __asm                                      /*!< asm keyword for GNU Compiler          */\n   80:   #define __INLINE         inline                                     /*!< inline keyword for GNU Compiler       */\n   81    #define __STATIC_INLINE  static inline\n   82  \n   83  #elif defined ( __TASKING__ )\n   84    #define __ASM            __asm                                      /*!< asm keyword for TASKING Compiler      */\n   85:   #define __INLINE         inline                                     /*!< inline keyword for TASKING Compiler   */\n   86    #define __STATIC_INLINE  static inline\n   87  \n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M4/STM32F4xx/stm32f4xx_platform.c:\n  141  #elif defined ( __GNUC__ )\n  142  \n  143: __attribute__( ( always_inline ) ) static __INLINE void __jump_to( uint32_t addr )\n  144  {\n  145    addr |= 0x00000001;  /* Last bit of jump address indicates whether destination is Thumb or ARM code */\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/vendor/Freescale/MK64FxxL12/ksdk_platform.c:\n  138  #elif defined ( __GNUC__ )\n  139  \n  140: __attribute__( ( always_inline ) ) static __INLINE void __jump_to( uint32_t addr )\n  141  {\n  142    addr |= 0x00000001;  /* Last bit of jump address indicates whether destination is Thumb or ARM code */\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/vendor/nxp/LPC54xx/nxp_platform.c:\n  140  #elif defined ( __GNUC__ )\n  141  \n  142: __attribute__( ( always_inline ) ) static __INLINE void __jump_to( uint32_t addr )\n  143  {\n  144    addr |= 0x00000001;  /* Last bit of jump address indicates whether destination is Thumb or ARM code */\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/vendor/nxp/LPC54xx/NXP_drivers/chip_common/lpc_types.h:\n  201  \n  202  #ifdef __CC_ARM\n  203: #define INLINE  __inline\n  204  #else\n  205  #define INLINE inline\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/GladmanAES/aes_via_ace.h:\n   22  \n   23  #if defined( _MSC_VER )\n   24: #  define INLINE  __inline\n   25  #elif defined( __GNUC__ )\n   26  #  define INLINE  static inline\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/GladmanAES/gf_mul_lo.h:\n   27  #if defined( USE_INLINING )\n   28  #  if defined( _MSC_VER )\n   29: #    define gf_decl __inline\n   30  #  elif defined( __GNUC__ ) || defined( __GNU_LIBRARY__ )\n   31  #    define gf_decl static inline\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/GladmanAES/mode_hdr.h:\n   83  #if defined( USE_INLINING )\n   84  #  if defined( _MSC_VER )\n   85: #    define mh_decl __inline\n   86  #  elif defined( __GNUC__ ) || defined( __GNU_LIBRARY__ )\n   87  #    define mh_decl static inline\n\n182 matches across 20 files\n",
-			"settings":
-			{
-				"buffer_size": 47614,
+				"buffer_size": 9408,
 				"line_ending": "Unix",
 				"name": "Find Results",
 				"scratch": true
 			}
 		},
 		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/CMSIS/core_cmFunc.h",
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/gpio_irq.h",
 			"settings":
 			{
-				"buffer_size": 15082,
+				"buffer_size": 3222,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M4/STM32F4xx/gpio_irq.c",
 			"settings":
 			{
-				"buffer_size": 16272,
+				"buffer_size": 11174,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverUart.c",
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M4/STM32F4xx/gpio_irq.h",
 			"settings":
 			{
-				"buffer_size": 5455,
+				"buffer_size": 3222,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MICODriverGpio.h",
+			"settings":
+			{
+				"buffer_size": 7440,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverRtc.c",
+			"settings":
+			{
+				"buffer_size": 10258,
 				"line_ending": "Windows"
 			}
 		}
@@ -654,29 +638,12 @@
 	},
 	"file_history":
 	[
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Projects/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx__Drv/startup_AP80xx_RVMDK.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverCommon.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance_debug.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/crt0_KEIL.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverMapping.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverUart.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/STM32F2xx_StdPeriph_Driver/inc/stm32f2xx.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx__Drv/inc/AP80xx.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/startup_stm32f2xx_RVMDK.s",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx__Drv/inc/cache.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform_common_config.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/stm32f2xx_havebug.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOMfgtest.c",
-		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppDefine.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOConfigServer.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/stm32f2xx_platform.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/HTTPUtils.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M4/STM32F4xx/STM32F4xx_Drv/startup_stm32f2xx_IAR.s",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppEntrance.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/IDEs/Keil/patch_keil.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/stm32f2xx_platform.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/JSON-C/json_util.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/startup_stm32f2xx_bootloader_IAR.s",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICODefine.h",
@@ -692,9 +659,13 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/StringUtils.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/crt0_IAR.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/startup_stm32f2xx_IAR.s",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOMfgtest.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/crt0.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/startup_stm32f2xx_RVMDK.s",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/HTTPUtils.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOParaStorage.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/HTTPUtils.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOConfigServer.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/FatFs/src/ff_gen_drv.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/FatFs/src/diskio.h",
 		"/Users/william/Develop/Clang_lib/ARMCC/include/stdio.h",
@@ -725,6 +696,7 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/IAR/stdio_IAR.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/include/PlatformLogging.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform_common_config.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/read_wifi_firmware.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoPlatform.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/TimeUtils.h",
@@ -754,6 +726,7 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformFlash.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/WAC/WAC.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformFlash.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Projects/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverRtc.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverUart.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/SDIO/wwd_bus.c",
@@ -777,11 +750,22 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/stm32f2xx_platform.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICONTPClient.c",
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoSocket.h",
+		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppDefine.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/STM32F2xx_StdPeriph_Driver/inc/stm32f2xx_rtc.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/inc/MICORTOS.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/stm32f2xx_it.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/startup_stm32f2xx_IAR.s",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/wwd_platform.c"
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/wwd_platform.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/SDIO/wwd_bus.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformLogging.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/WWD/SPI/wwd_bus_protocol.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/WWD/SDIO/wwd_bus_protocol.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/stm32f2xx_platform_mxchip.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/platformxx.c",
+		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MICODriverGpio.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformRandomNumberxx.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOSystemMonitor.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformWDG.h"
 	],
 	"find":
 	{
@@ -789,7 +773,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
 			"<open folders>",
@@ -808,19 +792,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"stm32_platform_inited",
-			"__INLINE",
-			"__get_IPSR",
-			"CPSIE",
-			"usagefault_handler",
-			"image",
-			"IRQn_Type",
-			"SysTick->CTRL",
-			"SysTick",
-			"BOOTLOADER_MAGIC_NUMBER",
-			"CacheInit",
-			"core_cm3.h",
-			"stop_mode_power_down_hook",
+			"gpio_irq_handler_t",
+			"MicoRtcGetTime",
 			"MicoSystemStandBy",
 			"hard_fault_handler_c",
 			"init_platform",
@@ -935,7 +908,18 @@
 			"optional_rx_buffer",
 			"sdio_oob_irq_handler",
 			"MCU_NOTIFY_WAKE_UP",
-			"wake_up_interrupt_notify"
+			"wake_up_interrupt_notify",
+			"wake_up_interrupt_triggered",
+			"init_clocks",
+			"PWR_CR_PDDS",
+			"__force_stores",
+			"RTC_SetWakeUpCounter",
+			"MicoSystemStandBy",
+			"host_platform_init_wlan_powersave_clock",
+			"host_platform_deinit",
+			"host_platform_init",
+			"//",
+			"thread_wakeup"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -955,153 +939,42 @@
 	"groups":
 	[
 		{
-			"selected": 8,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverCommon_debug.c",
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/startup_stm32f2xx_RVMDK.s",
 					"settings":
 					{
-						"buffer_size": 16649,
+						"buffer_size": 29843,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6865,
-								6865
+								1120,
+								1120
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
+							"syntax": "Packages/R/R.tmLanguage",
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2867.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/AP80xx_EVB/platform.c",
 					"settings":
 					{
-						"buffer_size": 10744,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/AP80xx_EVB/platform.h",
-					"settings":
-					{
-						"buffer_size": 15142,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1422,
-								1422
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 875.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/AP80xx_EVB/platform_common_config.h",
-					"settings":
-					{
-						"buffer_size": 8994,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance_debug.c",
-					"settings":
-					{
-						"buffer_size": 7052,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								91,
-								74
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"settings":
-					{
-						"buffer_size": 47614,
+						"buffer_size": 9408,
 						"regions":
 						{
 							"match":
@@ -1110,840 +983,124 @@
 								"regions":
 								[
 									[
-										183,
-										188
+										242,
+										256
 									],
 									[
-										575,
-										580
+										502,
+										516
 									],
 									[
-										877,
-										882
+										874,
+										888
 									],
 									[
-										902,
-										907
+										1149,
+										1163
 									],
 									[
-										1144,
-										1149
+										1481,
+										1495
 									],
 									[
-										1260,
-										1265
+										1853,
+										1867
 									],
 									[
-										1371,
-										1376
+										2128,
+										2142
 									],
 									[
-										1476,
-										1481
+										2461,
+										2475
 									],
 									[
-										1724,
-										1729
+										2732,
+										2746
 									],
 									[
-										1881,
-										1886
+										3092,
+										3106
 									],
 									[
-										2176,
-										2181
+										3372,
+										3386
 									],
 									[
-										2333,
-										2338
+										3584,
+										3598
 									],
 									[
-										2577,
-										2582
+										3971,
+										3989
 									],
 									[
-										2734,
-										2739
+										4255,
+										4273
 									],
 									[
-										3008,
-										3018
+										4634,
+										4652
 									],
 									[
-										3165,
-										3175
+										4936,
+										4954
 									],
 									[
-										3334,
-										3344
+										5220,
+										5238
 									],
 									[
-										3542,
-										3552
+										5598,
+										5616
 									],
 									[
-										3698,
-										3708
+										5856,
+										5874
 									],
 									[
-										3957,
-										3967
+										6158,
+										6176
 									],
 									[
-										4072,
-										4082
+										6442,
+										6460
 									],
 									[
-										4313,
-										4323
+										6820,
+										6838
 									],
 									[
-										4537,
-										4547
+										7078,
+										7096
 									],
 									[
-										4835,
-										4845
+										7469,
+										7487
 									],
 									[
-										5059,
-										5069
+										7786,
+										7804
 									],
 									[
-										5306,
-										5316
+										7999,
+										8017
 									],
 									[
-										5530,
-										5540
+										8305,
+										8323
 									],
 									[
-										5831,
-										5839
+										8670,
+										8688
 									],
 									[
-										6035,
-										6043
+										8978,
+										8996
 									],
 									[
-										6262,
-										6270
-									],
-									[
-										6626,
-										6634
-									],
-									[
-										6952,
-										6960
-									],
-									[
-										7081,
-										7089
-									],
-									[
-										7435,
-										7443
-									],
-									[
-										7452,
-										7460
-									],
-									[
-										7725,
-										7733
-									],
-									[
-										8050,
-										8058
-									],
-									[
-										8341,
-										8349
-									],
-									[
-										8567,
-										8575
-									],
-									[
-										8757,
-										8765
-									],
-									[
-										9043,
-										9051
-									],
-									[
-										9330,
-										9338
-									],
-									[
-										9603,
-										9611
-									],
-									[
-										9934,
-										9942
-									],
-									[
-										10228,
-										10236
-									],
-									[
-										10511,
-										10519
-									],
-									[
-										10812,
-										10820
-									],
-									[
-										10992,
-										11000
-									],
-									[
-										11168,
-										11176
-									],
-									[
-										11509,
-										11517
-									],
-									[
-										11865,
-										11873
-									],
-									[
-										12110,
-										12118
-									],
-									[
-										12352,
-										12360
-									],
-									[
-										12580,
-										12588
-									],
-									[
-										12793,
-										12801
-									],
-									[
-										13072,
-										13080
-									],
-									[
-										13281,
-										13289
-									],
-									[
-										13486,
-										13494
-									],
-									[
-										13675,
-										13683
-									],
-									[
-										13864,
-										13872
-									],
-									[
-										14052,
-										14060
-									],
-									[
-										14270,
-										14278
-									],
-									[
-										14478,
-										14486
-									],
-									[
-										14693,
-										14701
-									],
-									[
-										14902,
-										14910
-									],
-									[
-										15095,
-										15103
-									],
-									[
-										15309,
-										15317
-									],
-									[
-										15516,
-										15524
-									],
-									[
-										15727,
-										15735
-									],
-									[
-										15936,
-										15944
-									],
-									[
-										16172,
-										16180
-									],
-									[
-										16377,
-										16385
-									],
-									[
-										16598,
-										16606
-									],
-									[
-										16794,
-										16802
-									],
-									[
-										16996,
-										17004
-									],
-									[
-										17200,
-										17208
-									],
-									[
-										17438,
-										17446
-									],
-									[
-										17627,
-										17635
-									],
-									[
-										17816,
-										17824
-									],
-									[
-										18004,
-										18012
-									],
-									[
-										18225,
-										18233
-									],
-									[
-										18470,
-										18478
-									],
-									[
-										18688,
-										18696
-									],
-									[
-										18934,
-										18942
-									],
-									[
-										19122,
-										19130
-									],
-									[
-										19360,
-										19368
-									],
-									[
-										19564,
-										19572
-									],
-									[
-										19778,
-										19786
-									],
-									[
-										19979,
-										19987
-									],
-									[
-										20219,
-										20227
-									],
-									[
-										20421,
-										20429
-									],
-									[
-										20692,
-										20700
-									],
-									[
-										20932,
-										20940
-									],
-									[
-										21209,
-										21217
-									],
-									[
-										21367,
-										21375
-									],
-									[
-										21606,
-										21614
-									],
-									[
-										21791,
-										21799
-									],
-									[
-										21994,
-										22002
-									],
-									[
-										22219,
-										22227
-									],
-									[
-										22414,
-										22422
-									],
-									[
-										22640,
-										22648
-									],
-									[
-										22847,
-										22855
-									],
-									[
-										23029,
-										23037
-									],
-									[
-										23218,
-										23226
-									],
-									[
-										23409,
-										23417
-									],
-									[
-										23598,
-										23606
-									],
-									[
-										23803,
-										23811
-									],
-									[
-										24014,
-										24022
-									],
-									[
-										24228,
-										24236
-									],
-									[
-										24430,
-										24438
-									],
-									[
-										24645,
-										24653
-									],
-									[
-										24862,
-										24870
-									],
-									[
-										25040,
-										25048
-									],
-									[
-										25242,
-										25250
-									],
-									[
-										25516,
-										25524
-									],
-									[
-										25999,
-										26007
-									],
-									[
-										26016,
-										26024
-									],
-									[
-										26289,
-										26297
-									],
-									[
-										26614,
-										26622
-									],
-									[
-										26905,
-										26913
-									],
-									[
-										27131,
-										27139
-									],
-									[
-										27321,
-										27329
-									],
-									[
-										27607,
-										27615
-									],
-									[
-										27894,
-										27902
-									],
-									[
-										28167,
-										28175
-									],
-									[
-										28498,
-										28506
-									],
-									[
-										28792,
-										28800
-									],
-									[
-										29075,
-										29083
-									],
-									[
-										29376,
-										29384
-									],
-									[
-										29556,
-										29564
-									],
-									[
-										29732,
-										29740
-									],
-									[
-										30073,
-										30081
-									],
-									[
-										30429,
-										30437
-									],
-									[
-										30674,
-										30682
-									],
-									[
-										30916,
-										30924
-									],
-									[
-										31144,
-										31152
-									],
-									[
-										31357,
-										31365
-									],
-									[
-										31687,
-										31695
-									],
-									[
-										31896,
-										31904
-									],
-									[
-										32101,
-										32109
-									],
-									[
-										32290,
-										32298
-									],
-									[
-										32479,
-										32487
-									],
-									[
-										32667,
-										32675
-									],
-									[
-										32885,
-										32893
-									],
-									[
-										33093,
-										33101
-									],
-									[
-										33308,
-										33316
-									],
-									[
-										33517,
-										33525
-									],
-									[
-										33710,
-										33718
-									],
-									[
-										33924,
-										33932
-									],
-									[
-										34131,
-										34139
-									],
-									[
-										34342,
-										34350
-									],
-									[
-										34551,
-										34559
-									],
-									[
-										34787,
-										34795
-									],
-									[
-										34992,
-										35000
-									],
-									[
-										35213,
-										35221
-									],
-									[
-										35409,
-										35417
-									],
-									[
-										35611,
-										35619
-									],
-									[
-										35815,
-										35823
-									],
-									[
-										36053,
-										36061
-									],
-									[
-										36242,
-										36250
-									],
-									[
-										36431,
-										36439
-									],
-									[
-										36619,
-										36627
-									],
-									[
-										36840,
-										36848
-									],
-									[
-										37085,
-										37093
-									],
-									[
-										37303,
-										37311
-									],
-									[
-										37549,
-										37557
-									],
-									[
-										37737,
-										37745
-									],
-									[
-										37975,
-										37983
-									],
-									[
-										38179,
-										38187
-									],
-									[
-										38393,
-										38401
-									],
-									[
-										38594,
-										38602
-									],
-									[
-										38834,
-										38842
-									],
-									[
-										39036,
-										39044
-									],
-									[
-										39307,
-										39315
-									],
-									[
-										39547,
-										39555
-									],
-									[
-										39875,
-										39883
-									],
-									[
-										40033,
-										40041
-									],
-									[
-										40272,
-										40280
-									],
-									[
-										40457,
-										40465
-									],
-									[
-										40660,
-										40668
-									],
-									[
-										40885,
-										40893
-									],
-									[
-										41080,
-										41088
-									],
-									[
-										41306,
-										41314
-									],
-									[
-										41513,
-										41521
-									],
-									[
-										41695,
-										41703
-									],
-									[
-										41884,
-										41892
-									],
-									[
-										42075,
-										42083
-									],
-									[
-										42264,
-										42272
-									],
-									[
-										42469,
-										42477
-									],
-									[
-										42680,
-										42688
-									],
-									[
-										42894,
-										42902
-									],
-									[
-										43096,
-										43104
-									],
-									[
-										43311,
-										43319
-									],
-									[
-										43528,
-										43536
-									],
-									[
-										43706,
-										43714
-									],
-									[
-										43908,
-										43916
-									],
-									[
-										44251,
-										44259
-									],
-									[
-										44268,
-										44276
-									],
-									[
-										44398,
-										44406
-									],
-									[
-										44591,
-										44599
-									],
-									[
-										44970,
-										44978
-									],
-									[
-										45309,
-										45317
-									],
-									[
-										45672,
-										45680
-									],
-									[
-										46031,
-										46039
-									],
-									[
-										46380,
-										46388
-									],
-									[
-										46713,
-										46721
-									],
-									[
-										46915,
-										46923
-									],
-									[
-										47176,
-										47184
-									],
-									[
-										47470,
-										47478
+										9236,
+										9254
 									]
 								],
 								"scope": ""
@@ -1952,14 +1109,14 @@
 						"selection":
 						[
 							[
-								5660,
-								5660
+								5614,
+								5614
 							]
 						],
 						"settings":
 						{
 							"detect_indentation": false,
-							"output_tag": 3,
+							"output_tag": 2,
 							"result_base_dir": "",
 							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
 							"result_line_regex": "^ +([0-9]+):",
@@ -1967,53 +1124,131 @@
 							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 2670.0,
+						"translation.y": 1291.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/gpio_irq.h",
+					"settings":
+					{
+						"buffer_size": 3222,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1942,
+								1942
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 334.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M4/STM32F4xx/gpio_irq.c",
+					"settings":
+					{
+						"buffer_size": 11174,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2397,
+								2415
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 842.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M4/STM32F4xx/gpio_irq.h",
+					"settings":
+					{
+						"buffer_size": 3222,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2399,
+								2422
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 328.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MICODriverGpio.h",
+					"settings":
+					{
+						"buffer_size": 7440,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3112,
+								3112
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 740.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 6,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/CMSIS/core_cmFunc.h",
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverRtc.c",
 					"settings":
 					{
-						"buffer_size": 15082,
+						"buffer_size": 10258,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2406,
-								2286
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 607.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
-					"settings":
-					{
-						"buffer_size": 16272,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1831,
-								1831
+								8483,
+								8483
 							]
 						],
 						"settings":
@@ -2023,35 +1258,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 252.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverUart.c",
-					"settings":
-					{
-						"buffer_size": 5455,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2152,
-								2152
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1184.0,
+						"translation.y": 3744.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

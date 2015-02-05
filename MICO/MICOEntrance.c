@@ -314,6 +314,14 @@ int application_start(void)
   //MicoGetRfVer(wifi_ver, sizeof(wifi_ver));
   //mico_log("%s mxchipWNet library version: %s", APP_INFO, MicoGetVer());
   mico_log("Wi-Fi driver version %s, mac %s", wifi_ver, context->micoStatus.mac);
+  
+  while(1){
+    if( MicoGpioInputGet((mico_gpio_t)EasyLink_BUTTON) ) 
+       mico_log("On"); 
+     else
+       mico_log("Off"); 
+    mico_thread_sleep(1);
+  }
 
   mico_thread_sleep(MICO_WAIT_FOREVER);
   /*Start system monotor thread*/
