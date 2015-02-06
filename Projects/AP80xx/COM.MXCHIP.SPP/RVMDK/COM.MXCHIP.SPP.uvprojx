@@ -712,11 +712,6 @@
           <GroupName>Platform/MicoDriver/EMW1062</GroupName>
           <Files>
             <File>
-              <FileName>read_wifi_firmware.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1062_Driver\read_wifi_firmware.c</FilePath>
-            </File>
-            <File>
               <FileName>wlan_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1062_Driver\wlan_platform.c</FilePath>
@@ -725,6 +720,11 @@
               <FileName>wlan_bus.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1062_Driver\SDIO\wlan_bus.c</FilePath>
+            </File>
+            <File>
+              <FileName>read_wifi_firmware.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1062_Driver\read_wifi_firmware.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2101,11 +2101,6 @@
           <GroupName>Platform/MicoDriver/EMW1062</GroupName>
           <Files>
             <File>
-              <FileName>read_wifi_firmware.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1062_Driver\read_wifi_firmware.c</FilePath>
-            </File>
-            <File>
               <FileName>wlan_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1062_Driver\wlan_platform.c</FilePath>
@@ -2114,6 +2109,11 @@
               <FileName>wlan_bus.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1062_Driver\SDIO\wlan_bus.c</FilePath>
+            </File>
+            <File>
+              <FileName>read_wifi_firmware.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1062_Driver\read_wifi_firmware.c</FilePath>
             </File>
           </Files>
         </Group>

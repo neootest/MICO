@@ -100,10 +100,7 @@
 typedef enum
 {
   MICO_GPIO_UNUSED = -1,
-  MICO_GPIO_WLAN_POWERSAVE_CLOCK = 0,
-  WL_GPIO0,
-  WL_GPIO1,
-  WL_REG,
+  WL_GPIO1 = 0,
   WL_RESET,
   MICO_SYS_LED,
   MICO_RF_LED,
@@ -112,6 +109,10 @@ typedef enum
   EasyLink_BUTTON,
   MICO_COMMON_GPIO_MAX,
 } mico_common_gpio_t;
+
+#define MICO_GPIO_WLAN_POWERSAVE_CLOCK MICO_GPIO_UNUSED
+#define WL_REG MICO_GPIO_UNUSED
+#define WL_GPIO0 MICO_GPIO_UNUSED
 
 /* How the wlan's powersave clock is connected */
 typedef enum
@@ -127,7 +128,7 @@ typedef enum
  * 2. MCO (MCU Clock Output). 
  *    - Change the following directive to MICO_WLAN_POWERSAVE_CLOCK_IS_MCO
  */
-#define MICO_WLAN_POWERSAVE_CLOCK_SOURCE MICO_WLAN_POWERSAVE_CLOCK_IS_MCO
+#define MICO_WLAN_POWERSAVE_CLOCK_SOURCE MICO_WLAN_POWERSAVE_CLOCK_IS_NOT_EXIST
 
 #define MICO_WLAN_POWERSAVE_CLOCK_IS_NOT_EXIST  0
 #define MICO_WLAN_POWERSAVE_CLOCK_IS_PWM        1

@@ -263,7 +263,7 @@ OSStatus host_enable_oob_interrupt( void )
 {
    /* Set GPIO_B[1:0] to input. One of them will be re-purposed as OOB interrupt */
   MicoGpioInitialize( (mico_gpio_t)WL_GPIO0, OUTPUT_OPEN_DRAIN_NO_PULL );
-  MicoGpioInitialize( (mico_gpio_t)WL_GPIO0, OUTPUT_OPEN_DRAIN_NO_PULL );
+  MicoGpioInitialize( (mico_gpio_t)WL_GPIO1, OUTPUT_OPEN_DRAIN_NO_PULL );
   MicoGpioEnableIRQ( (mico_gpio_t)WL_GPIO1, IRQ_TRIGGER_RISING_EDGE, sdio_oob_irq_handler, 0 );
   
   return kNoErr;

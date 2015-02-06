@@ -84,11 +84,11 @@ const platform_pin_mapping_t gpio_mapping[] =
 //  /* Common GPIOs for internal use */
 //  [MICO_GPIO_WLAN_POWERSAVE_CLOCK]    = {WL_32K_OUT_BANK, WL_32K_OUT_PIN, WL_32K_OUT_BANK_CLK},
 //  [WL_GPIO0]                          = {GPIOB, 12,  RCC_AHB1Periph_GPIOB},
-//  [WL_GPIO1]                          = {GPIOB, 13,  RCC_AHB1Periph_GPIOB},
+  [WL_GPIO1]                            = {GPIOA,  10},
 //  [WL_REG]                            = {GPIOC,  1,  RCC_AHB1Periph_GPIOC},
-//  [WL_RESET]                          = {GPIOC,  5,  RCC_AHB1Periph_GPIOC},
-  [MICO_SYS_LED]                        = {GPIOA,  3}, 
-  [MICO_RF_LED]                         = {GPIOA,  4}, 
+  [WL_RESET]                            = {GPIOB,  20},
+  [MICO_SYS_LED]                        = {GPIOA,  3 }, 
+  [MICO_RF_LED]                         = {GPIOA,  4 }, 
 //  [BOOT_SEL]                          = {GPIOB,  1,  RCC_AHB1Periph_GPIOB}, 
 //  [MFG_SEL]                           = {GPIOB,  9,  RCC_AHB1Periph_GPIOB}, 
   [EasyLink_BUTTON]                     = {GPIOA,  5}, 
@@ -281,26 +281,26 @@ void init_platform_bootloader( void )
 
 void host_platform_reset_wifi( bool reset_asserted )
 {
-//  if ( reset_asserted == true )
-//  {
-//    MicoGpioOutputLow( (mico_gpio_t)WL_RESET );  
-//  }
-//  else
-//  {
-//    MicoGpioOutputHigh( (mico_gpio_t)WL_RESET ); 
-//  }
+  if ( reset_asserted == true )
+  {
+    MicoGpioOutputLow( (mico_gpio_t)WL_RESET );  
+  }
+  else
+  {
+    MicoGpioOutputHigh( (mico_gpio_t)WL_RESET ); 
+  }
 }
 
 void host_platform_power_wifi( bool power_enabled )
 {
-//  if ( power_enabled == true )
-//  {
-//    MicoGpioOutputLow( (mico_gpio_t)WL_REG );  
-//  }
-//  else
-//  {
-//    MicoGpioOutputHigh( (mico_gpio_t)WL_REG ); 
-//  }
+  if ( power_enabled == true )
+  {
+    MicoGpioOutputLow( (mico_gpio_t)WL_REG );  
+  }
+  else
+  {
+    MicoGpioOutputHigh( (mico_gpio_t)WL_REG ); 
+  }
 }
 
 void MicoSysLed(bool onoff)

@@ -5,7 +5,7 @@
 		[
 			[
 				"uint",
-				"uint32_t	typedef"
+				"uint8_t	typedef"
 			],
 			[
 				"GPIOA",
@@ -519,78 +519,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverGpio.c",
-			"settings":
-			{
-				"buffer_size": 10829,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MICODriverGpio.h",
-			"settings":
-			{
-				"buffer_size": 7440,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/gpio_irq.h",
-			"settings":
-			{
-				"buffer_size": 3000,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/gpio_irq.c",
-			"settings":
-			{
-				"buffer_size": 11124,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx_Drv/inc/gpio.h",
-			"settings":
-			{
-				"buffer_size": 26686,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
-			"settings":
-			{
-				"buffer_size": 16493,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/AP80xx_EVB/platform.c",
-			"settings":
-			{
-				"buffer_size": 10909,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx_Drv/startup_AP80xx_RVMDK.c",
-			"settings":
-			{
-				"buffer_size": 17546,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform.c",
-			"settings":
-			{
-				"buffer_size": 14492,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -652,12 +580,32 @@
 	},
 	"file_history":
 	[
-		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverMapping.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Projects/AP80xx/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/AP80xx_EVB/platform_common_config.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverUart.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/EMW1062_Driver/wlan_platform.c",
+		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx_Drv/inc/type.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/AP80xx_EVB/platform.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverCommon_debug.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx_Drv/inc/gpio.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx_Drv/inc/sdio.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/Debug.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW5000/platform.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/EMW1062_Driver/SDIO/wlan_bus.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/EMW1062_Driver/SDIO/wlan_bus.c",
+		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MICODriverGpio.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M4/STM32F4xx/EMW1062_Driver/SDIO/wlan_bus.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Projects/AP80xx/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverUart.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/RingBufferUtils.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx_Drv/inc/uart.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/SppProtocol.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverGpio.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/gpio_irq.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/gpio_irq.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx_Drv/startup_AP80xx_RVMDK.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform.c",
+		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverMapping.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverCommon_debug.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverRtc.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/Common.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx_Drv/inc/AP80xx.h",
@@ -668,8 +616,6 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/IDEs/Keil/patch_keil.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/stm32f2xx_platform.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/JSON-C/json_util.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/startup_stm32f2xx_bootloader_IAR.s",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICODefine.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MICO_EVB_1/platform.c",
@@ -751,7 +697,6 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformFlash.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Projects/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverRtc.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverUart.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/SDIO/wwd_bus.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/SPI/wwd_bus.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/system_stm32f2xx.c",
@@ -761,25 +706,8 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformUartxx.c",
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOSystemMonitor.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/Debug.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverSpi.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/gpio_irq.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/gpio_irq.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/hardfault.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverAdc.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverPwm.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverRng.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverWdg.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/stm32f2xx_platform.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICONTPClient.c",
-		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoSocket.h",
-		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppDefine.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/STM32F2xx_StdPeriph_Driver/inc/stm32f2xx_rtc.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/inc/MICORTOS.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/stm32f2xx_it.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/startup_stm32f2xx_IAR.s",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/wwd_platform.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/SDIO/wwd_bus.h"
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/gpio_irq.c"
 	],
 	"find":
 	{
@@ -790,6 +718,8 @@
 		"height": 93.0,
 		"where_history":
 		[
+			"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/AP80xx_EVB",
+			"",
 			"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx__Drv",
 			"<open folders>",
 			"",
@@ -807,6 +737,47 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"host_enable_oob_interrupt",
+			"WL_GPIO1",
+			"WL_GPIO0",
+			"response_expected",
+			"host_platform_sdio_transfer",
+			"user_data",
+			"memcpy",
+			"user_data",
+			"dma_data_source",
+			"dma_data_source\ndma_data_source",
+			"dma_data_source",
+			"sdio_prepare_data_transfer",
+			"sdio_oob_irq_handler",
+			"host_platform_get_oob_interrupt_pin",
+			"sdio_oob_irq_handler",
+			"host_enable_oob_interrupt",
+			"IRQ",
+			"host_platform_sdio_transfer",
+			"sdio_transfer_finished_semaphore",
+			"user_data",
+			"host_platform_sdio_transfer",
+			"    \n",
+			");\n",
+			"SdioSendCommand",
+			"check_string",
+			"sdio_prepare_data_transfer",
+			"host_platform_sdio_transfer",
+			"SDIO_ENUMERATION_TIMEOUT_MS",
+			"GpioSdIoConfig",
+			"SD_PORT_NUM",
+			"SD_PORT_NUM\nSD_PORT_NUM",
+			"sdio_prepare_data_transfer",
+			"sdio_block_size_t",
+			"sdio_oob_irq_handler",
+			"FuartSend",
+			"rx_dma_stream->NDTR",
+			"rx_buffer->size",
+			"platform_uart_receive_bytes",
+			"optional_rx_buffer",
+			"MicoUartSend",
+			"sppWlanCommandProcess",
 			"GpioIntDis",
 			"_button_EL_Timeout_handler",
 			"GPIOC14",
@@ -893,48 +864,7 @@
 			"ConfigWillStop",
 			"ConfigWillStop\nConfigWillStop",
 			"_FTCRespondInComingMessage",
-			"easylink_sem",
-			"easylink_thread",
-			"easylinkClient_fd",
-			"_cleanEasyLinkResource",
-			"stopEasyLink",
-			"EasyLinkNotify_SYSWillPowerOffHandler",
-			"str2hex",
-			"easylink_thread",
-			"rtc",
-			"_PlatformFlashByteWrite",
-			"APP_HDR_START_ADDR",
-			"The MIT License",
-			"__IO",
-			"network_InitTypeDef_st",
-			"MICO_RF_LED",
-			"C000",
-			"800C000",
-			"host_platform_reset_wifi",
-			"WL_RESET_BANK",
-			"find_optimal_block_size",
-			"host_platform_enable_high_speed_sdio",
-			"sdio_prepare_data_transfer",
-			"WL_GPIO0_BANK",
-			"host_platform_init",
-			"host_platform_bus_init",
-			"WL_GPIO0_BANK",
-			"SPI_IRQ_BANK",
-			"spi_irq_handler",
-			"wake_up_interrupt_notify",
-			"wiced_platform_notify_irq",
-			"host_platform_get_oob_interrupt_pin",
-			"0800C000",
-			"vect",
-			"v e c t",
-			"init_platform",
-			"host_platform_get_cycle_count",
-			"host_platform_power_wifi",
-			"mico_rtos_suspend_all_thread",
-			"stm32f2_clock_needed_counter",
-			"stm32f2xx_clocks_needed",
-			"MCU_CLOCKS_NOT_NEEDED",
-			"MicoMcuPowerSaveConfig"
+			"easylink_sem"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -954,253 +884,8 @@
 	"groups":
 	[
 		{
-			"selected": 6,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverGpio.c",
-					"settings":
-					{
-						"buffer_size": 10829,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								10334,
-								10334
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4744.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MICODriverGpio.h",
-					"settings":
-					{
-						"buffer_size": 7440,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3251,
-								3227
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/gpio_irq.h",
-					"settings":
-					{
-						"buffer_size": 3000,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								410,
-								410
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 319.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/gpio_irq.c",
-					"settings":
-					{
-						"buffer_size": 11124,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								9180,
-								9180
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3367.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx_Drv/inc/gpio.h",
-					"settings":
-					{
-						"buffer_size": 26686,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								10967,
-								10974
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 8782.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
-					"settings":
-					{
-						"buffer_size": 16493,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								10356,
-								10356
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4339.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/AP80xx_EVB/platform.c",
-					"settings":
-					{
-						"buffer_size": 10909,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6701,
-								6701
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2619.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx_Drv/startup_AP80xx_RVMDK.c",
-					"settings":
-					{
-						"buffer_size": 17546,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								14892,
-								14905
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 6275.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform.c",
-					"settings":
-					{
-						"buffer_size": 14492,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3449.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -1237,7 +922,7 @@
 	"menu_visible": true,
 	"output.clang":
 	{
-		"height": 212.0
+		"height": 189.0
 	},
 	"output.exec":
 	{
@@ -1280,6 +965,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 357.0,
+	"side_bar_width": 254.0,
 	"status_bar_visible": true
 }

@@ -145,24 +145,14 @@
           <Name>-UV0010M9E -O206 -S0 -C0 -P00 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO3 -FD20000000 -FCA000 -FN1 -FF0MV18X_16MB_V1.4.5 -FS00 -FL01000000</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint>
-        <Bp>
-          <Number>0</Number>
-          <Type>0</Type>
-          <LineNumber>163</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>0</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
-          <Filename>&lt;2&gt;..\..\..\..\Platform\Common\Cortex-M3\AP80xx\MicoDriverUart.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression></Expression>
-        </Bp>
-      </Breakpoint>
+      <Breakpoint/>
+      <WatchWindow1>
+        <Ww>
+          <count>0</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>gpio_mapping</ItemText>
+        </Ww>
+      </WatchWindow1>
       <WatchWindow2>
         <Ww>
           <count>0</count>
@@ -376,27 +366,10 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>UL2CM3</Key>
-          <Name>-UV0010M9E -O718 -S2 -C0 -P00 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO3 -FD20000000 -FC9000 -FN1 -FF0MV18X_16MB_V1.4.5 -FS00 -FL01000000</Name>
+          <Name>-UV0010M9E -O718 -S0 -C0 -P00 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO3 -FD20000000 -FC9000 -FN1 -FF0MV18X_16MB_V1.4.5 -FS00 -FL01000000</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint>
-        <Bp>
-          <Number>0</Number>
-          <Type>0</Type>
-          <LineNumber>163</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>0</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
-          <Filename>&lt;2&gt;..\..\..\..\Platform\Common\Cortex-M3\AP80xx\MicoDriverUart.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression></Expression>
-        </Bp>
-      </Breakpoint>
+      <Breakpoint/>
       <WatchWindow2>
         <Ww>
           <count>0</count>
@@ -1097,8 +1070,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1062_Driver\read_wifi_firmware.c</PathWithFileName>
-      <FilenameWithoutPath>read_wifi_firmware.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1062_Driver\wlan_platform.c</PathWithFileName>
+      <FilenameWithoutPath>wlan_platform.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1110,8 +1083,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1062_Driver\wlan_platform.c</PathWithFileName>
-      <FilenameWithoutPath>wlan_platform.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1062_Driver\SDIO\wlan_bus.c</PathWithFileName>
+      <FilenameWithoutPath>wlan_bus.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1123,8 +1096,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1062_Driver\SDIO\wlan_bus.c</PathWithFileName>
-      <FilenameWithoutPath>wlan_bus.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1062_Driver\read_wifi_firmware.c</PathWithFileName>
+      <FilenameWithoutPath>read_wifi_firmware.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
