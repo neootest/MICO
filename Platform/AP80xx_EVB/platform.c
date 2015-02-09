@@ -92,6 +92,8 @@ const platform_pin_mapping_t gpio_mapping[] =
 //  [BOOT_SEL]                          = {GPIOB,  1,  RCC_AHB1Periph_GPIOB}, 
 //  [MFG_SEL]                           = {GPIOB,  9,  RCC_AHB1Periph_GPIOB}, 
   [EasyLink_BUTTON]                     = {GPIOA,  5}, 
+  [STDIO_UART_RX]                       = {GPIOB,  6},
+  [STDIO_UART_TX]                       = {GPIOB,  7},
 
 //  /* GPIOs for external use */
 //  [MICO_GPIO_1]  = {6},
@@ -152,13 +154,21 @@ const platform_spi_mapping_t spi_mapping[] =
 
 const platform_uart_mapping_t uart_mapping[] =
 {
-  [MICO_UART_1] =
+[MICO_UART_1] =
   {
-      1
+    .uart                            = FUART,
+    .pin_tx                          = &gpio_mapping[STDIO_UART_TX],
+    .pin_rx                          = &gpio_mapping[STDIO_UART_RX],
+    .pin_cts                         = NULL,
+    .pin_rts                         = NULL,
   },
   [MICO_UART_2] =
   {
-   1
+    .uart                            = BUART,
+    .pin_tx                          = &gpio_mapping[STDIO_UART_TX],
+    .pin_rx                          = &gpio_mapping[STDIO_UART_RX],
+    .pin_cts                         = NULL,
+    .pin_rts                         = NULL,
   },
 };
 

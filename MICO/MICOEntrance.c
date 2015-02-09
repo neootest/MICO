@@ -270,6 +270,7 @@ static void _watchdog_reload_timer_handler( void* arg )
   (void)(arg);
   MICOUpdateSystemMonitor(&mico_monitor, APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000-100);
 }
+const char test_data[] = "Hello!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
 
 int application_start(void)
 {
@@ -304,7 +305,7 @@ int application_start(void)
   require_noerr( err, exit ); 
 
   /*wlan driver and tcpip init*/
-  MicoInit();
+//  MicoInit();
 #ifdef MICO_CLI_ENABLE  
   MicoCliInit();
 #endif
@@ -312,9 +313,12 @@ int application_start(void)
   mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
   micoWlanGetIPStatus(&para, Station);
   formatMACAddr(context->micoStatus.mac, (char *)&para.mac);
-  MicoGetRfVer(wifi_ver, sizeof(wifi_ver));
+//  MicoGetRfVer(wifi_ver, sizeof(wifi_ver));
   mico_log("%s mxchipWNet library version: %s", APP_INFO, MicoGetVer());
   mico_log("Wi-Fi driver version %s, mac %s", wifi_ver, context->micoStatus.mac);
+  
+  MicoUartSend(STDIO_UART, test_data, sizeof(test_data));
+  mico_thread_sleep(MICO_WAIT_FOREVER);
   
 #if 1
   /*Start system monotor thread*/

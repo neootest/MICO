@@ -123,7 +123,7 @@ typedef enum
   MFG_SEL,
   Standby_SEL,
   EasyLink_BUTTON,
-  STDIO_UART_RX,  
+  STDIO_UART_RX,
   STDIO_UART_TX,  
   STDIO_UART_CTS,  
   STDIO_UART_RTS,  

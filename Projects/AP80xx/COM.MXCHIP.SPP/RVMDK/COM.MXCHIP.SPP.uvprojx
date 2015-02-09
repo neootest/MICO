@@ -447,6 +447,51 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Include</GroupName>
+          <Files>
+            <File>
+              <FileName>MICO.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\include\MICO.h</FilePath>
+            </File>
+            <File>
+              <FileName>MicoAES.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\include\MicoAES.h</FilePath>
+            </File>
+            <File>
+              <FileName>MicoAlgorithm.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\include\MicoAlgorithm.h</FilePath>
+            </File>
+            <File>
+              <FileName>MicoPlatform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\include\MicoPlatform.h</FilePath>
+            </File>
+            <File>
+              <FileName>MICORTOS.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\include\MICORTOS.h</FilePath>
+            </File>
+            <File>
+              <FileName>MicoSocket.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\include\MicoSocket.h</FilePath>
+            </File>
+            <File>
+              <FileName>MicoSRPServer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\include\MicoSRPServer.h</FilePath>
+            </File>
+            <File>
+              <FileName>MicoWlan.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\include\MicoWlan.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>MICO</GroupName>
           <Files>
             <File>
@@ -1265,51 +1310,6 @@
               <FileName>platform_common_config.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\..\..\Platform\AP80xx_EVB\platform_common_config.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Include</GroupName>
-          <Files>
-            <File>
-              <FileName>MICO.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\include\MICO.h</FilePath>
-            </File>
-            <File>
-              <FileName>MicoAES.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\include\MicoAES.h</FilePath>
-            </File>
-            <File>
-              <FileName>MicoAlgorithm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\include\MicoAlgorithm.h</FilePath>
-            </File>
-            <File>
-              <FileName>MicoPlatform.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\include\MicoPlatform.h</FilePath>
-            </File>
-            <File>
-              <FileName>MICORTOS.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\include\MICORTOS.h</FilePath>
-            </File>
-            <File>
-              <FileName>MicoSocket.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\include\MicoSocket.h</FilePath>
-            </File>
-            <File>
-              <FileName>MicoSRPServer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\include\MicoSRPServer.h</FilePath>
-            </File>
-            <File>
-              <FileName>MicoWlan.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\include\MicoWlan.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1836,6 +1836,51 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Include</GroupName>
+          <Files>
+            <File>
+              <FileName>MICO.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\include\MICO.h</FilePath>
+            </File>
+            <File>
+              <FileName>MicoAES.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\include\MicoAES.h</FilePath>
+            </File>
+            <File>
+              <FileName>MicoAlgorithm.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\include\MicoAlgorithm.h</FilePath>
+            </File>
+            <File>
+              <FileName>MicoPlatform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\include\MicoPlatform.h</FilePath>
+            </File>
+            <File>
+              <FileName>MICORTOS.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\include\MICORTOS.h</FilePath>
+            </File>
+            <File>
+              <FileName>MicoSocket.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\include\MicoSocket.h</FilePath>
+            </File>
+            <File>
+              <FileName>MicoSRPServer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\include\MicoSRPServer.h</FilePath>
+            </File>
+            <File>
+              <FileName>MicoWlan.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\include\MicoWlan.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>MICO</GroupName>
           <Files>
             <File>
@@ -2714,51 +2759,6 @@
               <FileName>platform_common_config.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\..\..\Platform\AP80xx_EVB\platform_common_config.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Include</GroupName>
-          <Files>
-            <File>
-              <FileName>MICO.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\include\MICO.h</FilePath>
-            </File>
-            <File>
-              <FileName>MicoAES.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\include\MicoAES.h</FilePath>
-            </File>
-            <File>
-              <FileName>MicoAlgorithm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\include\MicoAlgorithm.h</FilePath>
-            </File>
-            <File>
-              <FileName>MicoPlatform.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\include\MicoPlatform.h</FilePath>
-            </File>
-            <File>
-              <FileName>MICORTOS.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\include\MICORTOS.h</FilePath>
-            </File>
-            <File>
-              <FileName>MicoSocket.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\include\MicoSocket.h</FilePath>
-            </File>
-            <File>
-              <FileName>MicoSRPServer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\include\MicoSRPServer.h</FilePath>
-            </File>
-            <File>
-              <FileName>MicoWlan.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\include\MicoWlan.h</FilePath>
             </File>
           </Files>
         </Group>

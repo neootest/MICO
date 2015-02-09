@@ -107,6 +107,8 @@ typedef enum
   BOOT_SEL,
   MFG_SEL,
   EasyLink_BUTTON,
+  STDIO_UART_RX,
+  STDIO_UART_TX,
   MICO_COMMON_GPIO_MAX,
 } mico_common_gpio_t;
 

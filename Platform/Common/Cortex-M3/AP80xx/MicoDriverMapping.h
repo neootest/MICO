@@ -40,6 +40,9 @@
  #define		GPIOB					(0x0A)
  #define		GPIOC					(0x14)
 
+ #define		FUART					(0x00)
+ #define		BUART					(0x01)
+
 /******************************************************
  *                    Constants
  ******************************************************/
@@ -83,7 +86,28 @@ typedef void (* wakeup_irq_handler_t)(void *arg);
 
 typedef struct
 {
-  uint32_t                      pin;
+    uint8_t                          uart;
+    const platform_pin_mapping_t*    pin_tx;
+    const platform_pin_mapping_t*    pin_rx;
+    const platform_pin_mapping_t*    pin_cts;
+    const platform_pin_mapping_t*    pin_rts;
+    // peripheral_clock_t            usart_peripheral_clock;
+    // peripheral_clock_func_t       usart_peripheral_clock_func;
+    // irq_vector_t                  usart_irq;
+    // dma_registers_t*              tx_dma;
+    // dma_stream_registers_t*       tx_dma_stream;
+    // uint8_t                       tx_dma_stream_number;
+    // dma_channel_t                 tx_dma_channel;
+    // peripheral_clock_t            tx_dma_peripheral_clock;
+    // peripheral_clock_func_t       tx_dma_peripheral_clock_func;
+    // irq_vector_t                  tx_dma_irq;
+    // dma_registers_t*              rx_dma;
+    // dma_stream_registers_t*       rx_dma_stream;
+    // uint8_t                       rx_dma_stream_number;
+    // dma_channel_t                 rx_dma_channel;
+    // peripheral_clock_t            rx_dma_peripheral_clock;
+    // peripheral_clock_func_t       rx_dma_peripheral_clock_func;
+    // irq_vector_t                  rx_dma_irq;
 } platform_uart_mapping_t;
 
 typedef struct

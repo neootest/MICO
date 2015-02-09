@@ -67,42 +67,8 @@ __weak void SwUartSend(unsigned char* Buf, unsigned int BufLen)
 }
 
 int fputc(int c, FILE *f) {
-// begin added by lean_xiong @2013-12-19
-    if(!sOsDebugFlag)
-    {
-        return c;
-    }
-// end added by lean_xiong @2013-12-19
-    /*
-     * putchar is link to uart driver etc.
-     */
-    if(IsSwUartActedAsFuartFlag)
-    {
-        if((unsigned char)c == '\n')
-        {
-            const char lfca[2] = "\r\n";
-            SwUartSend((unsigned char*)lfca, 2);
-
-        }
-        else
-        {
-            SwUartSend((unsigned char*)&c, 1);
-        }
-    }
-    else
-    {
-        if((unsigned char)c == '\n')
-        {
-            const char lfca[2] = "\r\n";
-            FuartSend((unsigned char*)lfca, 2);
-        }
-        else
-        {
-            FuartSend((unsigned char*)&c, 1);
-        }
-    }
-    
-	return c;
+  MicoUartSend( STDIO_UART, &c, 1 );
+  return c;
 }
 
 

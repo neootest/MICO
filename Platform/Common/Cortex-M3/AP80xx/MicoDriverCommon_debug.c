@@ -181,10 +181,6 @@ void startApplication(void)
   }  
 }
 
-void BuartInterrupt(void)
-{
-}
-
 /* STM32F2 common clock initialisation function
 * This brings up enough clocks to allow the processor to run quickly while initialising memory.
 * Other platform specific clock init can be done in init_platform() or init_architecture()

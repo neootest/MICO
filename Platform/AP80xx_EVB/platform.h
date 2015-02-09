@@ -281,9 +281,8 @@ typedef enum
   MICO_FLASH_MAX,
 } mico_flash_t;
 
-#define STM32_UART_1 MICO_UART_1
-#define STM32_UART_2 NULL
-#define STM32_UART_6 MICO_UART_2
+#define AP80xx_FUART MICO_UART_1
+#define AP80xx_BUART MICO_UART_2
 
 /* Components connected to external I/Os*/
 #define Standby_SEL         (MICO_GPIO_29)
