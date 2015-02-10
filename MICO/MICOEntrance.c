@@ -305,7 +305,7 @@ int application_start(void)
   require_noerr( err, exit ); 
 
   /*wlan driver and tcpip init*/
-//  MicoInit();
+  //MicoInit();
 #ifdef MICO_CLI_ENABLE  
   MicoCliInit();
 #endif

@@ -168,7 +168,13 @@ OSStatus internal_uart_init( mico_uart_t uart, const mico_uart_config_t* config,
     require_noerr(err, exit);
 
     FuartIOctl(UART_IOCTL_RXINT_SET, 1);
-    //FuartIOctl(UART_IOCTL_TXINT_SET, 1);
+    
+    if (optional_rx_buffer != NULL){
+      /* Note that the ring_buffer should've been initialised first */
+      uart_interfaces[uart].rx_buffer = optional_rx_buffer;
+      uart_interfaces[uart].rx_size   = 0;
+      //platform_uart_receive_bytes( uart, optional_rx_buffer->buffer, optional_rx_buffer->size, 0 );
+    }
 
   }else if(uart_mapping[uart].uart == BUART){
     if( uart_mapping[uart].pin_tx->port == GPIOA && uart_mapping[uart].pin_tx->pin == 16 )

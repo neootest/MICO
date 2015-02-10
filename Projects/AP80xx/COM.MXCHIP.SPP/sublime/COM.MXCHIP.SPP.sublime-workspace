@@ -563,7 +563,7 @@
 			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverUart.c",
 			"settings":
 			{
-				"buffer_size": 13943,
+				"buffer_size": 15302,
 				"line_ending": "Windows"
 			}
 		},
@@ -572,6 +572,30 @@
 			"settings":
 			{
 				"buffer_size": 13855,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverUart.c",
+			"settings":
+			{
+				"buffer_size": 31070,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3165/platform_common_config.h",
+			"settings":
+			{
+				"buffer_size": 9340,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppEntrance.c",
+			"settings":
+			{
+				"buffer_size": 4030,
 				"line_ending": "Windows"
 			}
 		}
@@ -636,6 +660,8 @@
 	},
 	"file_history":
 	[
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverFlash.c",
+		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/Common.h",
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/RingBufferUtils.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/AP80xx_EVB/platform.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverUart.c",
@@ -689,7 +715,6 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoAlgorithm.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MICORTOS.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoSocket.h",
-		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/Common.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/StringUtils.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/StringUtils.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/crt0_IAR.c",
@@ -722,7 +747,6 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICONotificationCenter.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/include/platform_sleep.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverFlash.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/hardfault.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/rtc.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/rtc.h",
@@ -771,7 +795,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 93.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/AP80xx_EVB",
@@ -793,6 +817,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"MicoUartGetLengthInBuffer",
+			"platform_uart_receive_bytes",
+			"platform_uart_receive_bytes\nplatform_uart_receive_bytes",
 			"platform_uart_receive_bytes",
 			"tx_complete",
 			"    BuartInit(config->baud_rate, config->data_width + 5, config->parity, config->stop_bits + 1);\nDATA_WIDTH_9BIT",
@@ -917,10 +944,7 @@
 			"HTTPHeaderCreate",
 			"_ConnectToMfgAP",
 			"stop_mode_power_down_hook",
-			"_button_STANDBY_irq_handler",
-			"%f",
-			"lf",
-			"_cleanEasyLinkResource"
+			"_button_STANDBY_irq_handler"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -940,7 +964,6 @@
 	"groups":
 	[
 		{
-			"selected": 6,
 			"sheets":
 			[
 				{
@@ -966,7 +989,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4463.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1022,7 +1045,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1973.0,
+						"translation.y": 2226.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1048,7 +1071,7 @@
 							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 3475.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1065,36 +1088,8 @@
 						"selection":
 						[
 							[
-								1262,
-								1262
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 737.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverUart.c",
-					"settings":
-					{
-						"buffer_size": 13943,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7521,
-								7521
+								462,
+								462
 							]
 						],
 						"settings":
@@ -1104,7 +1099,35 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2531.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/MicoDriverUart.c",
+					"settings":
+					{
+						"buffer_size": 15302,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11419,
+								11434
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4287.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1121,8 +1144,8 @@
 						"selection":
 						[
 							[
-								4658,
-								4691
+								12840,
+								12840
 							]
 						],
 						"settings":
@@ -1131,7 +1154,91 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1649.0,
+						"translation.y": 5149.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverUart.c",
+					"settings":
+					{
+						"buffer_size": 31070,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								20542,
+								20598
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 7232.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3165/platform_common_config.h",
+					"settings":
+					{
+						"buffer_size": 9340,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7700,
+								7710
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2202.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppEntrance.c",
+					"settings":
+					{
+						"buffer_size": 4030,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3031,
+								2953
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 599.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1172,7 +1279,7 @@
 	"menu_visible": true,
 	"output.clang":
 	{
-		"height": 189.0
+		"height": 138.0
 	},
 	"output.exec":
 	{

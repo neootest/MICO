@@ -297,6 +297,7 @@ OSStatus host_platform_bus_init( void )
    {
        return result;
    }
+   host_platform_reset_wifi( true );
    msleep(100);
    host_platform_reset_wifi( false );
    msleep(100);
