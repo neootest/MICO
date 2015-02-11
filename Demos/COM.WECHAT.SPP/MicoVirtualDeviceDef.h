@@ -33,7 +33,6 @@
 // default device settings
 #define DEFAULT_LOGIN_ID                 "admin"
 #define DEFAULT_DEV_PASSWD               "admin"
-//#define DEFAULT_USER_TOKEN               "88888888"    // use MAC instead
    
 // default device info
 #define DEFAULT_DEVICE_ID                "none"
@@ -41,10 +40,7 @@
 
 #define STACK_SIZE_MVD_MAIN_THREAD       0x500
 
-/* device auto activate mechanism, comment out if not need */
-#define DEVICE_AUTO_ACTIVATE_ENABLE      1
-
-/* MQTT topic sub-level */
+/* MQTT topic sub-level, device_id/out/status */
 #define PUBLISH_TOPIC_CHANNEL_STATUS     "status"
 
 
@@ -58,28 +54,27 @@ typedef struct _virtual_device_config_t
   /* MCU connect settings */
   uint32_t          USART_BaudRate;
   
-  /* cloud connect settings */
-  bool              isActivated;                         // device activate status, RO
-  char              deviceId[MAX_SIZE_DEVICE_ID];        // get from cloud server, RO
-  char              masterDeviceKey[MAX_SIZE_DEVICE_KEY];// get from cloud server, RO
-  char              romVersion[MAX_SIZE_FW_VERSION];
+  /* cloud connect params */
+  bool              isActivated;                         // device activate flag
+  char              deviceId[MAX_SIZE_DEVICE_ID];        // get from cloud server
+  char              masterDeviceKey[MAX_SIZE_DEVICE_KEY];// get from cloud server
+  char              romVersion[MAX_SIZE_FW_VERSION];     // get from cloud server
   
-  char              loginId[MAX_SIZE_LOGIN_ID];
-  char              devPasswd[MAX_SIZE_DEV_PASSWD];
-  char              userToken[MAX_SIZE_USER_TOKEN];
+  char              loginId[MAX_SIZE_LOGIN_ID];          // not used for wechat dev
+  char              devPasswd[MAX_SIZE_DEV_PASSWD];      // not used for wechat dev
+  //char              userToken[MAX_SIZE_USER_TOKEN];    // use MAC addr instead
 } virtual_device_config_t;
 
 /* device status */
 typedef struct _virtual_device_status_t
 {
-  bool              isCloudConnected;   // cloud service connect
-  uint64_t          RecvRomFileSize;    // return OTA data size for bootTable.length
+  bool              isCloudConnected;   // cloud service connect status
+  uint64_t          RecvRomFileSize;    // return OTA data size for bootTable.length, 0 means not need to update
 } virtual_device_status_t;
 
 typedef struct _virtual_device_context_t {
   virtual_device_config_t config_info;  // virtual device config info
-  virtual_device_status_t status;       //virtual device running status
+  virtual_device_status_t status;       // virtual device running status
 } virtual_device_context_t;
-
 
 #endif

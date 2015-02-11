@@ -4024,13 +4024,13 @@
     <group>
       <name>EasyCloud</name>
       <file>
-        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_20150205_v0.3.0_debug.a</name>
+        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_20150209_v0.3.1_debug.a</name>
         <excluded>
           <configuration>EMW3162</configuration>
         </excluded>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_20150205_v0.3.0_release.a</name>
+        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_20150209_v0.3.1_release.a</name>
       </file>
     </group>
     <file>

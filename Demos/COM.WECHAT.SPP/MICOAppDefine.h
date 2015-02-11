@@ -32,7 +32,7 @@
 
 #define FIRMWARE_REVISION   "MICO_WECHAT_1_0"
 #define MANUFACTURER        "MXCHIP Inc."
-#define SERIAL_NUMBER       "20141223"
+#define SERIAL_NUMBER       "20150209"
 #define PROTOCOL            "com.wechat.spp"
 
 #ifdef DEFAULT_NAME

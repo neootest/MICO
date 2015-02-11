@@ -25,9 +25,9 @@
 
 #include "MicoVirtualDevice.h"
 
-
 #define app_log(M, ...) custom_log("APP", M, ##__VA_ARGS__)
 #define app_log_trace() custom_log_trace("APP")
+
 
 /* MICO system callback: Restore default configuration provided by application */
 void appRestoreDefault_callback(mico_Context_t *inContext)
@@ -50,14 +50,10 @@ OSStatus MICOStartApplication( mico_Context_t * const inContext )
   if(inContext->flashContentInRam.micoSystemConfig.bonjourEnable == true)
     MICOStartBonjourService( Station, inContext );
 
-  /* start virtual device */
+  /* start virtual device for communication (usart <==> cloud)*/
   err = MVDInit(inContext);
   require_noerr_action( err, exit, app_log("ERROR: virtual device start failed!") );
 
 exit:
   return err;
 }
-
-
-
-
