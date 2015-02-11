@@ -1,10 +1,11 @@
 ================================================================================
-¡¾2015.02.09¡¿
+¡¾2015.02.10¡¿
 [Name]   : MicoEasyCloudService
 [version]: v0.3.1
 
 [Changlog]:
-    1. fix EasyCloudServiceStop bug.
+    1. fix EasyCloudServiceStop bug£»
+    2. fix EasyCloud connect status change bug.
 
 ================================================================================
 ¡¾2015.02.05¡¿
