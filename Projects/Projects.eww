@@ -2,6 +2,9 @@
 
 <workspace>
   <project>
+    <path>$WS_DIR$\EMW3161_stm32f2xx\IAR\EMW3161.ewp</path>
+  </project>
+  <project>
     <path>$WS_DIR$\EMW3162_stm32f2xx\IAR\EMW3162.ewp</path>
   </project>
   <project>
