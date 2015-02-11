@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\EMW3161_stm32f2xx\IAR\EMW3161.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\EMW3162_stm32f2xx\IAR\EMW3162.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\EMW3165_stm32f4xx\IAR\EMW3165.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\MICO_EVB_1_stm32f2xx\IAR\MICO_EVB_1.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\Nucleo_stm32f411RE\IAR\Nucleo_411RE.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\LPCXpresso54102\IAR\LPCXpresso54102.ewp</path>
+  </project>
+  <batchBuild/>
+</workspace>
+
+
