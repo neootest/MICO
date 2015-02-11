@@ -21,7 +21,6 @@
 #define DEAFULT_REMOTE_SERVER         "192.168.2.254"
 #define DEFAULT_REMOTE_SERVER_PORT    8080
 #define UART_BUFFER_LENGTH            2048
-#define UART_FOR_APP                  MICO_UART_1
 
 #define BONJOUR_SERVICE                     "_easylink._tcp.local."
 
