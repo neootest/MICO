@@ -173,6 +173,7 @@
         <option>
           <name>CCDefines</name>
           <state>USE_STDPERIPH_DRIVER</state>
+          <state>DEBUG</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
