@@ -37,7 +37,7 @@
         </option>
         <option>
           <name>MacFile</name>
-          <state>$TOOLKIT_DIR$\config\flashloader\NXP\FlashNXPLPC540xx.mac</state>
+          <state>$PROJ_DIR$\..\..\..\Platform\vendor\nxp\FlashNXPLPC540xx.mac</state>
         </option>
         <option>
           <name>MemOverride</name>
@@ -45,7 +45,7 @@
         </option>
         <option>
           <name>MemFile</name>
-          <state>$TOOLKIT_DIR$\config\debugger\NXP\LPC540xx_M4.ddf</state>
+          <state>$PROJ_DIR$\..\..\..\Platform\vendor\nxp\LPC540xx_M4.ddf</state>
         </option>
         <option>
           <name>RunToEnable</name>
@@ -117,7 +117,7 @@
         </option>
         <option>
           <name>FlashLoadersV3</name>
-          <state>$TOOLKIT_DIR$\config\flashloader\NXP\FlashNXPLPC512KNiobe.board</state>
+          <state>$PROJ_DIR$\..\..\..\Platform\vendor\nxp\FlashNXPLPC512KNiobe.board</state>
         </option>
         <option>
           <name>OCImagesSuppressCheck1</name>
