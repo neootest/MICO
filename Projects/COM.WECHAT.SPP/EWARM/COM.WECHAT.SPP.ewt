@@ -506,7 +506,7 @@
       <name>$PROJ_DIR$\..\..\..\include\MicoAlgorithm.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\include\MICOPlatform.h</name>
+      <name>$PROJ_DIR$\..\..\..\include\MicoPlatform.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\include\MICORTOS.h</name>
@@ -526,10 +526,10 @@
     <group>
       <name>EasyCloud</name>
       <file>
-        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_20150209_v0.3.1_debug.a</name>
+        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_EMW3162_debug.a</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_20150209_v0.3.1_release.a</name>
+        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_EMW3162_release.a</name>
       </file>
     </group>
     <file>

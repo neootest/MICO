@@ -1,4 +1,15 @@
 ================================================================================
+¡¾2015.02.15¡¿
+[Name]   : MicoEasyCloudService
+[version]: v0.3.2
+
+[Changlog]:
+    1. parse host from full bin_file to be download.
+[NOTE]:
+    OTA function now can only be used by EMW3162, because OTA flash addr is 
+    built in the library, this will be fixed in next version.
+
+================================================================================
 ¡¾2015.02.10¡¿
 [Name]   : MicoEasyCloudService
 [version]: v0.3.1
