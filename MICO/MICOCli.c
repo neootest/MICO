@@ -371,6 +371,12 @@ static void get_version(char *pcWriteBuffer, int xWriteBufferLen,int argc, char 
     cmd_printf("Application version: %s\r\n", APP_INFO);
 }
 
+static void triggerSdioIrq(char *pcWriteBuffer, int xWriteBufferLen,int argc, char **argv)
+{   
+	cmd_printf("Trigger SDIO SEM\r\n");
+	wiced_thread_notify(  );
+}
+
 static void echo_cmd_handler(char *pcWriteBuffer, int xWriteBufferLen,int argc, char **argv)
 {
 	if (argc == 1) {
@@ -420,7 +426,9 @@ static const struct cli_command built_ins[] = {
     {"memset", "<addr> <value 1> [<value 2> ... <value n>]", memory_set_Command}, 
     {"memp", "print memp list", memp_dump_Command},
     {"wifidriver", "show wifi driver status", driver_state_Command}, // bus credite, flow control...
-    
+
+// William debug
+    {"trigger", "Trigger a SDIO interrupt", triggerSdioIrq}, 
 };
 
 int cli_register_command(const struct cli_command *command)

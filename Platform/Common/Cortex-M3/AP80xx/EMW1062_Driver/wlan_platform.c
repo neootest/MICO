@@ -109,9 +109,10 @@ bool host_platform_is_in_interrupt_context( void )
 {
     /* From the ARM Cortex-M3 Techinical Reference Manual
      * 0xE000ED04   ICSR    RW [a]  Privileged  0x00000000  Interrupt Control and State Register */
-    uint32_t active_interrupt_vector = (uint32_t)( SCB ->ICSR & 0x3fU );
+    //uint32_t active_interrupt_vector = (uint32_t)( SCB ->ICSR & 0x3fU );
+  
 
-    if ( active_interrupt_vector != 0 )
+    if ( __get_IPSR() != 0 )
     {
         return true;
     }

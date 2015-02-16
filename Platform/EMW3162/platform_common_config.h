@@ -57,7 +57,11 @@
 
 /************************************************************************
  * Uncomment to enable MCU real time clock */
-#define MICO_ENABLE_MCU_RTC
+//#define MICO_ENABLE_MCU_RTC
+
+/************************************************************************
+ * Uncomment to enable SDIO 1bit mode */
+#define SDIO_1_BIT
 
 
 
@@ -110,6 +114,7 @@ typedef enum
   BOOT_SEL,
   MFG_SEL,
   EasyLink_BUTTON,
+  SDIO_INT,
   MICO_COMMON_GPIO_MAX,
 } mico_common_gpio_t;
 

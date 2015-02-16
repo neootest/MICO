@@ -257,6 +257,8 @@ OSStatus MicoGpioEnableIRQ( mico_gpio_t gpio, mico_gpio_irq_trigger_t trigger, m
 
   MicoMcuPowerSaveConfig(false);
 
+  GpioIntClr(intPort, ((uint32_t)1 << gpio_mapping[gpio].pin));
+
   if( trigger == IRQ_TRIGGER_RISING_EDGE )
     GpioIntEn(intPort, ((uint32_t)1 << gpio_mapping[gpio].pin), GPIO_POS_EDGE_TRIGGER);
   else 
@@ -331,23 +333,26 @@ void GpioInterrupt(void)
       switch( port ){
       case GPIOA:
         if( intFlagA & ((uint32_t)1<<pin) ){
+          GpioIntClr(GPIO_A_INT, ((uint32_t)1<<pin));
           arg = gpio_irq_data[i].arg; 
           gpio_irq_data[i].handler( arg );
-          GpioIntClr(GPIO_A_INT, ((uint32_t)1<<pin));
+         
         }
         break;
       case GPIOB:
         if( intFlagB & ((uint32_t)1<<pin) ){
+          GpioIntClr(GPIO_B_INT, ((uint32_t)1<<pin));
           arg = gpio_irq_data[i].arg; 
           gpio_irq_data[i].handler( arg );
-          GpioIntClr(GPIO_B_INT, ((uint32_t)1<<pin));
+          
         }
         break;
       case GPIOC:
         if( intFlagC & ((uint32_t)1<<pin) ){
+          GpioIntClr(GPIO_C_INT, ((uint32_t)1<<pin));
           arg = gpio_irq_data[i].arg; 
           gpio_irq_data[i].handler( arg );
-          GpioIntClr(GPIO_C_INT, ((uint32_t)1<<pin));
+          
         }
         break;
       default:

@@ -177,6 +177,22 @@ static void sdio_oob_irq_handler( void* arg )
     wiced_platform_notify_irq( );
 }
 
+uint32_t errNotify = 0;
+
+static void sdio_irq_handler( void* arg )
+{
+    UNUSED_PARAMETER(arg);
+    wiced_platform_notify_irq( );
+}
+
+uint8_t host_get_SDIO_INT(void)
+{
+  if( MicoGpioInputGet(SDIO_INT)==0 )
+    return 1;
+  else
+    return 0;
+}
+
 void sdio_irq( void )
 {
     uint32_t intstatus = SDIO->STA;
@@ -225,6 +241,7 @@ void sdio_irq( void )
         {
             /* Clear the interrupt and then inform WICED thread */
             SDIO->ICR = SDIO_ICR_SDIOITC;
+         // printf("!");
             wiced_platform_notify_irq( );
         }
     }
@@ -262,8 +279,7 @@ static void sdio_disable_bus_irq( void )
 OSStatus host_enable_oob_interrupt( void )
 {
    /* Set GPIO_B[1:0] to input. One of them will be re-purposed as OOB interrupt */
-  MicoGpioInitialize( (mico_gpio_t)WL_GPIO0, OUTPUT_OPEN_DRAIN_NO_PULL );
-  MicoGpioInitialize( (mico_gpio_t)WL_GPIO1, OUTPUT_OPEN_DRAIN_NO_PULL );
+  MicoGpioInitialize( (mico_gpio_t)WL_GPIO1, INPUT_HIGH_IMPEDANCE );
   MicoGpioEnableIRQ( (mico_gpio_t)WL_GPIO1, IRQ_TRIGGER_RISING_EDGE, sdio_oob_irq_handler, 0 );
   
   return kNoErr;
@@ -329,30 +345,30 @@ OSStatus host_platform_bus_init( void )
     SDIO_CMD_BANK->MODER |= (GPIO_Mode_AF << (2*SDIO_CMD_PIN));
     SDIO_CLK_BANK->MODER |= (GPIO_Mode_AF << (2*SDIO_CLK_PIN));
     SDIO_D0_BANK->MODER  |= (GPIO_Mode_AF << (2*SDIO_D0_PIN));
-    SDIO_D1_BANK->MODER  |= (GPIO_Mode_AF << (2*SDIO_D1_PIN));
-    SDIO_D2_BANK->MODER  |= (GPIO_Mode_AF << (2*SDIO_D2_PIN));
-    SDIO_D3_BANK->MODER  |= (GPIO_Mode_AF << (2*SDIO_D3_PIN));
+     SDIO_D1_BANK->MODER  |= (GPIO_Mode_AF << (2*SDIO_D1_PIN));
+     SDIO_D2_BANK->MODER  |= (GPIO_Mode_AF << (2*SDIO_D2_PIN));
+     SDIO_D3_BANK->MODER  |= (GPIO_Mode_AF << (2*SDIO_D3_PIN));
 
     SDIO_CMD_BANK->OSPEEDR |= (GPIO_Speed_50MHz << (2*SDIO_CMD_PIN));
     SDIO_CLK_BANK->OSPEEDR |= (GPIO_Speed_50MHz << (2*SDIO_CLK_PIN));
     SDIO_D0_BANK->OSPEEDR  |= (GPIO_Speed_50MHz << (2*SDIO_D0_PIN));
-    SDIO_D1_BANK->OSPEEDR  |= (GPIO_Speed_50MHz << (2*SDIO_D1_PIN));
-    SDIO_D2_BANK->OSPEEDR  |= (GPIO_Speed_50MHz << (2*SDIO_D2_PIN));
-    SDIO_D3_BANK->OSPEEDR  |= (GPIO_Speed_50MHz << (2*SDIO_D3_PIN));
+     SDIO_D1_BANK->OSPEEDR  |= (GPIO_Speed_50MHz << (2*SDIO_D1_PIN));
+     SDIO_D2_BANK->OSPEEDR  |= (GPIO_Speed_50MHz << (2*SDIO_D2_PIN));
+     SDIO_D3_BANK->OSPEEDR  |= (GPIO_Speed_50MHz << (2*SDIO_D3_PIN));
 
     SDIO_CMD_BANK->PUPDR |= (GPIO_PuPd_UP << (2*SDIO_CMD_PIN));
     SDIO_CLK_BANK->PUPDR |= (GPIO_PuPd_UP << (2*SDIO_CLK_PIN));
     SDIO_D0_BANK->PUPDR  |= (GPIO_PuPd_UP << (2*SDIO_D0_PIN));
-    SDIO_D1_BANK->PUPDR  |= (GPIO_PuPd_UP << (2*SDIO_D1_PIN));
-    SDIO_D2_BANK->PUPDR  |= (GPIO_PuPd_UP << (2*SDIO_D2_PIN));
-    SDIO_D3_BANK->PUPDR  |= (GPIO_PuPd_UP << (2*SDIO_D3_PIN));
+     SDIO_D1_BANK->PUPDR  |= (GPIO_PuPd_UP << (2*SDIO_D1_PIN));
+     SDIO_D2_BANK->PUPDR  |= (GPIO_PuPd_UP << (2*SDIO_D2_PIN));
+     SDIO_D3_BANK->PUPDR  |= (GPIO_PuPd_UP << (2*SDIO_D3_PIN));
 
     SDIO_CMD_BANK->AFR[SDIO_CMD_PIN >> 0x03] |= (GPIO_AF_SDIO << (4*(SDIO_CMD_PIN & 0x07)));
     SDIO_CLK_BANK->AFR[SDIO_CLK_PIN >> 0x03] |= (GPIO_AF_SDIO << (4*(SDIO_CLK_PIN & 0x07)));
     SDIO_D0_BANK->AFR[SDIO_D0_PIN >> 0x03]   |= (GPIO_AF_SDIO << (4*(SDIO_D0_PIN & 0x07)));
-    SDIO_D1_BANK->AFR[SDIO_D1_PIN >> 0x03]   |= (GPIO_AF_SDIO << (4*(SDIO_D1_PIN & 0x07)));
-    SDIO_D2_BANK->AFR[SDIO_D2_PIN >> 0x03]   |= (GPIO_AF_SDIO << (4*(SDIO_D2_PIN & 0x07)));
-    SDIO_D3_BANK->AFR[SDIO_D3_PIN >> 0x03]   |= (GPIO_AF_SDIO << (4*(SDIO_D3_PIN & 0x07)));
+     SDIO_D1_BANK->AFR[SDIO_D1_PIN >> 0x03]   |= (GPIO_AF_SDIO << (4*(SDIO_D1_PIN & 0x07)));
+     SDIO_D2_BANK->AFR[SDIO_D2_PIN >> 0x03]   |= (GPIO_AF_SDIO << (4*(SDIO_D2_PIN & 0x07)));
+     SDIO_D3_BANK->AFR[SDIO_D3_PIN >> 0x03]   |= (GPIO_AF_SDIO << (4*(SDIO_D3_PIN & 0x07)));
 
     /*!< Enable the SDIO AHB Clock and the DMA2 Clock */
     RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_DMA2, ENABLE );
@@ -369,6 +385,9 @@ OSStatus host_platform_bus_init( void )
     SDIO_SetPowerState( SDIO_PowerState_ON );
     SDIO_SetSDIOReadWaitMode( SDIO_ReadWaitMode_CLK );
     SDIO_ClockCmd( ENABLE );
+    
+    // MicoGpioInitialize( (mico_gpio_t)SDIO_INT, INPUT_PULL_UP );
+ //MicoGpioEnableIRQ( (mico_gpio_t)SDIO_INT, IRQ_TRIGGER_FALLING_EDGE, sdio_irq_handler, 0 );
 
     MCU_CLOCKS_NOT_NEEDED();
 
@@ -488,6 +507,13 @@ restart:
     if ( command == SDIO_CMD_53 )
     {
         sdio_enable_bus_irq();
+      
+//      if ( direction == BUS_READ )
+//        {
+//            printf("R%d ", data_size);
+//        }else{
+//          printf("T%d ", data_size);
+//        }
 
         /* Dodgy STM32 hack to set the CMD53 byte mode size to be the same as the block size */
         if ( mode == SDIO_BYTE_MODE )
@@ -604,8 +630,6 @@ static void sdio_prepare_data_transfer( bus_transfer_direction_t direction, sdio
     DMA2_Stream3->M0AR = (uint32_t) dma_data_source;
     DMA2_Stream3->NDTR = dma_transfer_size/4;
 }
-
-
 
 void host_platform_enable_high_speed_sdio( void )
 {

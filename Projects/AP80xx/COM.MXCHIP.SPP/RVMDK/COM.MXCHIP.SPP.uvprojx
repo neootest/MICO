@@ -147,7 +147,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>1</TargetSelection>
+          <TargetSelection>7</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -161,7 +161,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver>BIN\UL2CM3.DLL</Driver>
+            <Driver>Segger\JL2CM3.dll</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -565,33 +565,14 @@
               <FilePath>..\..\..\..\Library\MICOConfig.c</FilePath>
             </File>
             <File>
-              <FileName>mxchipWNet_cm3_sdio.a</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\Library\mxchipWNet_cm3_sdio.a</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>aes.o|1|0|0|0,aes_wrap.o|1|0|0|0,airkiss.o|1|0|0|0,api_lib.o|1|0|0|0,api_msg.o|1|0|0|0,arc4.o|1|0|0|0,asn.o|1|0|0|0,asn1_dec.o|1|0|0|0,asn1_enc.o|1|0|0|0,autoip.o|1|0|0|0,coding.o|1|0|0|0,crl.o|1|0|0|0,croutine.o|1|0|0|0,def.o|1|0|0|0,des3.o|1|0|0|0,dh.o|1|0|0|0,dhcp.o|1|0|0|0,dhcp_server.o|1|0|0|0,dlmalloc.o|1|0|0|0,dns.o|1|0|0|0,dns_redirect.o|1|0|0|0,dnsclient.o|1|0|0|0,dsa.o|1|0|0|0,easylink.o|1|0|0|0,easylink2.o|1|0|0|0,ecc.o|1|0|0|0,err.o|1|0|0|0,error.o|1|0|0|0,etharp.o|1|0|0|0,ethernetif.o|1|0|0|0,hc128.o|1|0|0|0,heap_3.o|1|0|0|0,hmac.o|1|0|0|0,hmac_sha256.o|1|0|0|0,iar_mutex.o|1|0|0|0,icmp.o|1|0|0|0,igmp.o|1|0|0|0,inet.o|1|0|0|0,inet_chksum.o|1|0|0|0,init.o|1|0|0|0,integer.o|1|0|0|0,internal.o|1|0|0|0,io.o|1|0|0|0,ip.o|1|0|0|0,ip_addr.o|1|0|0|0,ip_frag.o|1|0|0|0,keys.o|1|0|0|0,list.o|1|0|0|0,logging.o|1|0|0|0,lwiptcpip.o|1|0|0|0,lwiptimers.o|1|0|0|0,md4.o|1|0|0|0,md5.o|1|0|0|0,mem.o|1|0|0|0,memory.o|1|0|0|0,memp.o|1|0|0|0,mftest.o|1|0|0|0,mib2.o|1|0|0|0,mib_structs.o|1|0|0|0,mico_ethif.o|1|0|0|0,msg_in.o|1|0|0|0,msg_out.o|1|0|0|0,mxchip_debug.o|1|0|0|0,mxchipbesl.o|1|0|0|0,mxchipWNET.o|1|0|0|0,netbuf.o|1|0|0|0,netdb.o|1|0|0|0,netif.o|1|0|0|0,netifapi.o|1|0|0|0,nn.o|1|0|0|0,ocsp.o|1|0|0|0,ostimers.o|1|0|0|0,pbuf.o|1|0|0|0,port.o|1|0|0|0,portasm.o|1|0|0|0,probe_request_detect.o|1|0|0|0,progressive_hmac.o|1|0|0|0,pwdbased.o|1|0|0|0,queue.o|1|0|0|0,rabbit.o|1|0|0|0,random.o|1|0|0|0,raw.o|1|0|0|0,read_wifi_firmware.o|1|0|0|0,ripemd.o|1|0|0|0,rsa.o|1|0|0|0,SDPCM.o|1|0|0|0,sha.o|1|0|0|0,sha256.o|1|0|0|0,sha512.o|1|0|0|0,sniffer.o|1|0|0|0,sockets.o|1|0|0|0,ssl.o|1|0|0|0,ssl_wrap.o|1|0|0|0,stats.o|1|0|0|0,sys.o|1|0|0|0,sys_arch.o|1|0|0|0,tasks.o|1|0|0|0,tcp.o|1|0|0|0,tcp_in.o|1|0|0|0,tcp_out.o|1|0|0|0,tcpip.o|1|0|0|0,tfm.o|1|0|0|0,time.o|1|0|0|0,tls.o|1|0|0|0,tlv.o|1|0|0|0,udp.o|1|0|0|0,wiced_lib.o|1|0|0|0,wiced_network.o|1|0|0|0,wiced_ping.o|1|0|0|0,wiced_rtos.o|1|0|0|0,wifi.o|1|0|0|0,wifimgr.o|1|0|0|0,wps_common.o|1|0|0|0,wps_crypto_internal-modexp.o|1|0|0|0,wps_enrollee.o|1|0|0|0,wps_host.o|1|0|0|0,wwd_ap.o|1|0|0|0,wwd_buffer.o|1|0|0|0,wwd_bus_protocol.o|1|0|0|0,wwd_crypto.o|1|0|0|0,wwd_firmware.o|1|0|0|0,wwd_internal.o|1|0|0|0,wwd_logging.o|1|0|0|0,wwd_management.o|1|0|0|0,wwd_network.o|1|0|0|0,wwd_ring_buffer.o|1|0|0|0,wwd_rtos.o|1|0|0|0,wwd_thread.o|1|0|0|0,wwd_wifi.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
-            </File>
-            <File>
               <FileName>patch_keil_temp.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\IDEs\Keil\patch_keil_temp.c</FilePath>
+            </File>
+            <File>
+              <FileName>mxchipWNet_cm3_sdio.a</FileName>
+              <FileType>4</FileType>
+              <FilePath>C:\Users\William\Documents\mxchipWNet_cm3_sdio.a</FilePath>
             </File>
           </Files>
         </Group>
@@ -765,6 +746,49 @@
               <FileName>wlan_bus.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1062_Driver\SDIO\wlan_bus.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>2</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>1</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
               <FileName>read_wifi_firmware.c</FileName>
@@ -1536,7 +1560,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>1</TargetSelection>
+          <TargetSelection>7</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -1550,7 +1574,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver>BIN\UL2CM3.DLL</Driver>
+            <Driver>Segger\JL2CM3.dll</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -1954,33 +1978,14 @@
               <FilePath>..\..\..\..\Library\MICOConfig.c</FilePath>
             </File>
             <File>
-              <FileName>mxchipWNet_cm3_sdio.a</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\Library\mxchipWNet_cm3_sdio.a</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>aes.o|1|0|0|0,aes_wrap.o|1|0|0|0,airkiss.o|1|0|0|0,api_lib.o|1|0|0|0,api_msg.o|1|0|0|0,arc4.o|1|0|0|0,asn.o|1|0|0|0,asn1_dec.o|1|0|0|0,asn1_enc.o|1|0|0|0,autoip.o|1|0|0|0,coding.o|1|0|0|0,crl.o|1|0|0|0,croutine.o|1|0|0|0,def.o|1|0|0|0,des3.o|1|0|0|0,dh.o|1|0|0|0,dhcp.o|1|0|0|0,dhcp_server.o|1|0|0|0,dlmalloc.o|1|0|0|0,dns.o|1|0|0|0,dns_redirect.o|1|0|0|0,dnsclient.o|1|0|0|0,dsa.o|1|0|0|0,easylink.o|1|0|0|0,easylink2.o|1|0|0|0,ecc.o|1|0|0|0,err.o|1|0|0|0,error.o|1|0|0|0,etharp.o|1|0|0|0,ethernetif.o|1|0|0|0,hc128.o|1|0|0|0,heap_3.o|1|0|0|0,hmac.o|1|0|0|0,hmac_sha256.o|1|0|0|0,iar_mutex.o|1|0|0|0,icmp.o|1|0|0|0,igmp.o|1|0|0|0,inet.o|1|0|0|0,inet_chksum.o|1|0|0|0,init.o|1|0|0|0,integer.o|1|0|0|0,internal.o|1|0|0|0,io.o|1|0|0|0,ip.o|1|0|0|0,ip_addr.o|1|0|0|0,ip_frag.o|1|0|0|0,keys.o|1|0|0|0,list.o|1|0|0|0,logging.o|1|0|0|0,lwiptcpip.o|1|0|0|0,lwiptimers.o|1|0|0|0,md4.o|1|0|0|0,md5.o|1|0|0|0,mem.o|1|0|0|0,memory.o|1|0|0|0,memp.o|1|0|0|0,mftest.o|1|0|0|0,mib2.o|1|0|0|0,mib_structs.o|1|0|0|0,mico_ethif.o|1|0|0|0,msg_in.o|1|0|0|0,msg_out.o|1|0|0|0,mxchip_debug.o|1|0|0|0,mxchipbesl.o|1|0|0|0,mxchipWNET.o|1|0|0|0,netbuf.o|1|0|0|0,netdb.o|1|0|0|0,netif.o|1|0|0|0,netifapi.o|1|0|0|0,nn.o|1|0|0|0,ocsp.o|1|0|0|0,ostimers.o|1|0|0|0,pbuf.o|1|0|0|0,port.o|1|0|0|0,portasm.o|1|0|0|0,probe_request_detect.o|1|0|0|0,progressive_hmac.o|1|0|0|0,pwdbased.o|1|0|0|0,queue.o|1|0|0|0,rabbit.o|1|0|0|0,random.o|1|0|0|0,raw.o|1|0|0|0,read_wifi_firmware.o|1|0|0|0,ripemd.o|1|0|0|0,rsa.o|1|0|0|0,SDPCM.o|1|0|0|0,sha.o|1|0|0|0,sha256.o|1|0|0|0,sha512.o|1|0|0|0,sniffer.o|1|0|0|0,sockets.o|1|0|0|0,ssl.o|1|0|0|0,ssl_wrap.o|1|0|0|0,stats.o|1|0|0|0,sys.o|1|0|0|0,sys_arch.o|1|0|0|0,tasks.o|1|0|0|0,tcp.o|1|0|0|0,tcp_in.o|1|0|0|0,tcp_out.o|1|0|0|0,tcpip.o|1|0|0|0,tfm.o|1|0|0|0,time.o|1|0|0|0,tls.o|1|0|0|0,tlv.o|1|0|0|0,udp.o|1|0|0|0,wiced_lib.o|1|0|0|0,wiced_network.o|1|0|0|0,wiced_ping.o|1|0|0|0,wiced_rtos.o|1|0|0|0,wifi.o|1|0|0|0,wifimgr.o|1|0|0|0,wps_common.o|1|0|0|0,wps_crypto_internal-modexp.o|1|0|0|0,wps_enrollee.o|1|0|0|0,wps_host.o|1|0|0|0,wwd_ap.o|1|0|0|0,wwd_buffer.o|1|0|0|0,wwd_bus_protocol.o|1|0|0|0,wwd_crypto.o|1|0|0|0,wwd_firmware.o|1|0|0|0,wwd_internal.o|1|0|0|0,wwd_logging.o|1|0|0|0,wwd_management.o|1|0|0|0,wwd_network.o|1|0|0|0,wwd_ring_buffer.o|1|0|0|0,wwd_rtos.o|1|0|0|0,wwd_thread.o|1|0|0|0,wwd_wifi.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
-            </File>
-            <File>
               <FileName>patch_keil_temp.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\IDEs\Keil\patch_keil_temp.c</FilePath>
+            </File>
+            <File>
+              <FileName>mxchipWNet_cm3_sdio.a</FileName>
+              <FileType>4</FileType>
+              <FilePath>C:\Users\William\Documents\mxchipWNet_cm3_sdio.a</FilePath>
             </File>
           </Files>
         </Group>

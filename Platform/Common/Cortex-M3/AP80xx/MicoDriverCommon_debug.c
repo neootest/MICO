@@ -535,5 +535,14 @@ void mico_thread_msleep_no_os(uint32_t milliseconds)
   int tick_delay_start = mico_get_time_no_os();
   while(mico_get_time_no_os() < tick_delay_start+milliseconds);  
 }
+#else
+extern volatile uint32_t gSysTick;
+
+void SysTick_Handler(void)
+{
+  gSysTick ++;
+  xPortSysTickHandler();
+}
+
 #endif
 

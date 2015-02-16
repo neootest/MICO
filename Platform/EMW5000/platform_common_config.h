@@ -59,6 +59,9 @@
  * Uncomment to enable MCU real time clock */
 //#define MICO_ENABLE_MCU_RTC
 
+/************************************************************************
+ * Uncomment to enable SDIO 1bit mode */
+#define SDIO_1_BIT
 
 
 #define HSE_SOURCE              RCC_HSE_ON               /* Use external crystal                 */
@@ -109,6 +112,7 @@ typedef enum
   EasyLink_BUTTON,
   STDIO_UART_RX,
   STDIO_UART_TX,
+  SDIO_INT,
   MICO_COMMON_GPIO_MAX,
 } mico_common_gpio_t;
 

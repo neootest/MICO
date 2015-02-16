@@ -94,6 +94,7 @@ const platform_pin_mapping_t gpio_mapping[] =
   [EasyLink_BUTTON]                     = {GPIOA,  5}, 
   [STDIO_UART_RX]                       = {GPIOB,  6},
   [STDIO_UART_TX]                       = {GPIOB,  7},
+  [SDIO_INT]                            = {GPIOA,  24},
 
 //  /* GPIOs for external use */
 //  [MICO_GPIO_1]  = {6},

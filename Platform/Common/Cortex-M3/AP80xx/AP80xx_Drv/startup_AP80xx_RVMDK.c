@@ -205,7 +205,7 @@ __Vectors       DCD     __initial_sp               // Top of Stack
                 DCD     0                           // Debug Monitor Handler
                 DCD     0                          // Reserved
                 DCD     xPortPendSVHandler             // PendSV Handler
-                DCD     xPortSysTickHandler            // SysTick Handler
+                DCD     SysTick_Handler            // SysTick Handler
 
                 // External Interrupts
                 DCD     GpioInterrupt                   // Window WatchDog                                        
@@ -425,6 +425,7 @@ usagefault_handler PROC
 
 
 Default_Handler PROC
+                EXPORT     SysTick_Handler              [WEAK]
                 EXPORT     GpioInterrupt             [WEAK]         // Window WatchDog                                        
                 EXPORT     RtcInterrupt               [WEAK]       // PVD through EXTI Line detection                        
                 EXPORT     IrInterrupt             [WEAK]   // Tamper and TimeStamps through the EXTI line            
@@ -442,6 +443,7 @@ Default_Handler PROC
                 EXPORT     Timer1Interrupt           [WEAK]   // DMA1 Stream 3                                   
                 EXPORT     WatchDogInterrupt          [WEAK]    // DMA1 Stream 4  
 
+SysTick_Handler
 GpioInterrupt                                     
 RtcInterrupt                                 
 IrInterrupt            

@@ -91,6 +91,7 @@ const platform_pin_mapping_t gpio_mapping[] =
   [BOOT_SEL]                          = {GPIOB,  1,  RCC_AHB1Periph_GPIOB}, //MICO_GPIO_16
   [MFG_SEL]                           = {GPIOB,  9,  RCC_AHB1Periph_GPIOB}, //MICO_GPIO_30
   [EasyLink_BUTTON]                   = {GPIOA,  1,  RCC_AHB1Periph_GPIOA}, //MICO_GPIO_11
+  [SDIO_INT]                          = {GPIOC,  9,  RCC_AHB1Periph_GPIOC}, //MICO_GPIO_11
 
   /* GPIOs for external use */
   [MICO_GPIO_1]  = {GPIOB,  6,  RCC_AHB1Periph_GPIOB},
