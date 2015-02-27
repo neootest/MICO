@@ -526,10 +526,10 @@
     <group>
       <name>EasyCloud</name>
       <file>
-        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_EMW3162_debug.a</name>
+        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_debug.a</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_EMW3162_release.a</name>
+        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_release.a</name>
       </file>
     </group>
     <file>

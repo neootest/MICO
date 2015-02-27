@@ -306,6 +306,12 @@ OSStatus MVDCloudInterfaceDevFirmwareUpdate(mico_Context_t* const inContext,
 {
   cloud_if_log_trace();
   OSStatus err = kUnknownErr;
+  ecs_ota_flash_params_t ota_flash_params = {
+    MICO_FLASH_FOR_UPDATE,
+    UPDATE_START_ADDRESS,
+    UPDATE_END_ADDRESS,
+    UPDATE_FLASH_SIZE
+  };
 
   cloud_if_log("MVDCloudInterfaceDevFirmwareUpdate: start ...");
   
@@ -346,7 +352,7 @@ OSStatus MVDCloudInterfaceDevFirmwareUpdate(mico_Context_t* const inContext,
                easyCloudContext.service_status.latestRomVersion);
   
   //get rom data
-  err = EasyCloudGetRomData(&easyCloudContext);
+  err = EasyCloudGetRomData(&easyCloudContext, ota_flash_params);
   require_noerr_action( err, exit, 
                        cloud_if_log("ERROR: EasyCloudGetRomData failed! err=%d", err) );
   

@@ -29,6 +29,7 @@
 
 //#include "HTTPUtils.h"
 #include "URLUtils.h"
+#include "MicoPlatform.h"
 
 
 // ============================= from HTTP utils ===============================
@@ -193,13 +194,26 @@ OSStatus ECS_CreateSimpleHTTPFailedMessage( uint8_t **outMessage,
 int ECS_SocketReadHTTPHeaderEx( int inSock, ECS_HTTPHeader_t *inHeader );
 OSStatus ECS_SocketReadHTTPBodyEx( int inSock, ECS_HTTPHeader_t *inHeader );
 
-#ifdef MICO_FLASH_FOR_UPDATE
+//#ifdef MICO_FLASH_FOR_UPDATE
+
+// OTA flash address
+typedef struct _ecs_ota_flash_params_t {
+  mico_flash_t flash_type;             // internal flash or spi flash
+  uint32_t update_flashStartAddress;
+  uint32_t update_flashEndAddress;
+  uint32_t update_flashSize;
+}ecs_ota_flash_params_t;
+
+void ECS_initFlashStorageParams(ecs_ota_flash_params_t flashStorageParams);
+
 uint32_t ECS_getFlashStorageAddress(void);
 void ECS_resetFlashStorageAddress(void);
 uint64_t ECS_getDownloadedFileSize(void);
 void ECS_FlashWriteDone(void);
 char* ECS_getRomFileMD5_32(void);
-#endif
+
+
+//#endif
 
 
 // ============================= STRING UTILS ==============================
