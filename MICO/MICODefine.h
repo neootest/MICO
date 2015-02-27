@@ -52,7 +52,7 @@
 #define EASYLINK_SOFT_AP_BYPASS                 2
 
 #define MICO_CLI_ENABLE
-#define MFG_MODE_AUTO /**< Device enter MFG mode if MICO settings are erased. */
+//#define MFG_MODE_AUTO /**< Device enter MFG mode if MICO settings are erased. */
 
 /* Define MICO service thread stack size */
 #ifdef DEBUG

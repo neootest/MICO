@@ -259,10 +259,12 @@ static OSStatus onReceivedData(struct _HTTPHeader_t * inHeader, uint32_t inPos, 
   if(err!=kNoErr)  config_log("onReceivedData");
   return err;
 
+#ifdef MICO_FLASH_FOR_UPDATE  
 flashErrExit:
   MicoFlashFinalize(MICO_FLASH_FOR_UPDATE);
   mico_rtos_unlock_mutex(&Context->flashContentInRam_mutex);
   return err;
+#endif
 }
 
 static void onClearHTTPHeader(struct _HTTPHeader_t * inHeader, void * inUserContext )

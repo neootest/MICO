@@ -569,3 +569,7 @@ void mico_thread_msleep_no_os(uint32_t milliseconds)
 }
 #endif
 
+void vApplicationTickHook(void)
+{
+}
+

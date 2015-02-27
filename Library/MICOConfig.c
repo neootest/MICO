@@ -31,6 +31,7 @@
 
 #include "Common.h"
 #include "MicoDefaults.h"
+#include "platform_common_config.h"
 
 #ifdef MICO_DEFAULT_APPLICATION_STACK_SIZE
 uint32_t  app_stack_size = MICO_DEFAULT_APPLICATION_STACK_SIZE; 
@@ -52,5 +53,11 @@ const uint32_t mico_nmode_enable = true;
 
 #ifdef DEBUG
 int mico_debug_enabled = 1;
+#endif
+
+#ifdef SDIO_1_BIT
+int sdio_1_bit_mode = 1;
+#else
+int sdio_1_bit_mode = 0;
 #endif
 
