@@ -134,7 +134,7 @@
  */
 #define __CM3_REV                 0x0200  /*!< Core Revision r2p0                            */
 #define __MPU_PRESENT             1       /*!< STM32F2XX provides an MPU                     */
-#define __NVIC_PRIO_BITS          4       /*!< STM32F2XX uses 4 Bits for the Priority Levels */
+#define __NVIC_PRIO_BITS          3       /*!< STM32F2XX uses 3 Bits for the Priority Levels */
 #define __Vendor_SysTickConfig    0       /*!< Set to 1 if different SysTick Config is used  */
 
 /**

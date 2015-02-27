@@ -185,12 +185,12 @@ static void sdio_irq_handler( void* arg )
     wiced_platform_notify_irq( );
 }
 
-uint8_t host_get_SDIO_INT(void)
+bool host_platform_is_sdio_int_asserted(void)
 {
   if( MicoGpioInputGet(SDIO_INT)==0 )
-    return 1;
+    return true;
   else
-    return 0;
+    return false;
 }
 
 void sdio_irq( void )
@@ -288,109 +288,19 @@ OSStatus host_enable_oob_interrupt( void )
 
 uint8_t host_platform_get_oob_interrupt_pin( void )
 {
-//    if ( ( gpio_mapping[ WL_GPIO1 ].bank == SDIO_OOB_IRQ_BANK ) && ( gpio_mapping[ WL_GPIO1 ].number == SDIO_OOB_IRQ_PIN ) )
-//    {
-//        /* WLAN GPIO1 */
-//        return 1;
-//    }
-//    else
-//    {
-//        /* WLAN GPIO0 */
-//        return 0;
-//    }
   return 1;
 }
 
 OSStatus host_platform_bus_init( void )
 {
-//    SDIO_InitTypeDef sdio_init_structure;
-//    NVIC_InitTypeDef nvic_init_structure;
    OSStatus result;
 
    MCU_CLOCKS_NEEDED();
 
-   result = mico_rtos_init_semaphore( &sdio_transfer_finished_semaphore, 1 );
-   if ( result != kNoErr )
-   {
-       return result;
-   }
-   // host_platform_reset_wifi( true );
-   // msleep(100);
-   // host_platform_reset_wifi( false );
-   // msleep(100);
    GpioSdIoConfig(1);
    SdioControllerInit();
-   SdioSetClk(1);
-
+   SdioSetClk(0);
    //SdioEnableClk();
-//    /* Turn on SDIO IRQ */
-//    SDIO->ICR = (uint32_t) 0xffffffff;
-//    nvic_init_structure.NVIC_IRQChannel                   = SDIO_IRQ_CHANNEL;
-//    /* Must be lower priority than the value of configMAX_SYSCALL_INTERRUPT_PRIORITY */
-//    /* otherwise FreeRTOS will not be able to mask the interrupt */
-//    /* keep in mind that ARMCM3 interrupt priority logic is inverted, the highest value */
-//    /* is the lowest priority */
-//    nvic_init_structure.NVIC_IRQChannelPreemptionPriority = (uint8_t) 0x2;
-//    nvic_init_structure.NVIC_IRQChannelSubPriority        = 0x0;
-//    nvic_init_structure.NVIC_IRQChannelCmd                = ENABLE;
-//    NVIC_Init( &nvic_init_structure );
-
-//    nvic_init_structure.NVIC_IRQChannel                   = DMA2_3_IRQ_CHANNEL;
-//    nvic_init_structure.NVIC_IRQChannelPreemptionPriority = (uint8_t) 0x3;
-//    nvic_init_structure.NVIC_IRQChannelSubPriority        = 0x0;
-//    nvic_init_structure.NVIC_IRQChannelCmd                = ENABLE;
-//    NVIC_Init( &nvic_init_structure );
-
-//    RCC_AHB1PeriphClockCmd( SDIO_CMD_BANK_CLK | SDIO_CLK_BANK_CLK | SDIO_D0_BANK_CLK | SDIO_D1_BANK_CLK | SDIO_D2_BANK_CLK | SDIO_D3_BANK_CLK, ENABLE );
-
-//    /* Set GPIO_B[1:0] to 00 to put WLAN module into SDIO mode */
-//    
-
-
-//    /* Setup GPIO pins for SDIO data & clock */
-//    SDIO_CMD_BANK->MODER |= (GPIO_Mode_AF << (2*SDIO_CMD_PIN));
-//    SDIO_CLK_BANK->MODER |= (GPIO_Mode_AF << (2*SDIO_CLK_PIN));
-//    SDIO_D0_BANK->MODER  |= (GPIO_Mode_AF << (2*SDIO_D0_PIN));
-//    SDIO_D1_BANK->MODER  |= (GPIO_Mode_AF << (2*SDIO_D1_PIN));
-//    SDIO_D2_BANK->MODER  |= (GPIO_Mode_AF << (2*SDIO_D2_PIN));
-//    SDIO_D3_BANK->MODER  |= (GPIO_Mode_AF << (2*SDIO_D3_PIN));
-
-//    SDIO_CMD_BANK->OSPEEDR |= (GPIO_Speed_50MHz << (2*SDIO_CMD_PIN));
-//    SDIO_CLK_BANK->OSPEEDR |= (GPIO_Speed_50MHz << (2*SDIO_CLK_PIN));
-//    SDIO_D0_BANK->OSPEEDR  |= (GPIO_Speed_50MHz << (2*SDIO_D0_PIN));
-//    SDIO_D1_BANK->OSPEEDR  |= (GPIO_Speed_50MHz << (2*SDIO_D1_PIN));
-//    SDIO_D2_BANK->OSPEEDR  |= (GPIO_Speed_50MHz << (2*SDIO_D2_PIN));
-//    SDIO_D3_BANK->OSPEEDR  |= (GPIO_Speed_50MHz << (2*SDIO_D3_PIN));
-
-//    SDIO_CMD_BANK->PUPDR |= (GPIO_PuPd_UP << (2*SDIO_CMD_PIN));
-//    SDIO_CLK_BANK->PUPDR |= (GPIO_PuPd_UP << (2*SDIO_CLK_PIN));
-//    SDIO_D0_BANK->PUPDR  |= (GPIO_PuPd_UP << (2*SDIO_D0_PIN));
-//    SDIO_D1_BANK->PUPDR  |= (GPIO_PuPd_UP << (2*SDIO_D1_PIN));
-//    SDIO_D2_BANK->PUPDR  |= (GPIO_PuPd_UP << (2*SDIO_D2_PIN));
-//    SDIO_D3_BANK->PUPDR  |= (GPIO_PuPd_UP << (2*SDIO_D3_PIN));
-
-//    SDIO_CMD_BANK->AFR[SDIO_CMD_PIN >> 0x03] |= (GPIO_AF_SDIO << (4*(SDIO_CMD_PIN & 0x07)));
-//    SDIO_CLK_BANK->AFR[SDIO_CLK_PIN >> 0x03] |= (GPIO_AF_SDIO << (4*(SDIO_CLK_PIN & 0x07)));
-//    SDIO_D0_BANK->AFR[SDIO_D0_PIN >> 0x03]   |= (GPIO_AF_SDIO << (4*(SDIO_D0_PIN & 0x07)));
-//    SDIO_D1_BANK->AFR[SDIO_D1_PIN >> 0x03]   |= (GPIO_AF_SDIO << (4*(SDIO_D1_PIN & 0x07)));
-//    SDIO_D2_BANK->AFR[SDIO_D2_PIN >> 0x03]   |= (GPIO_AF_SDIO << (4*(SDIO_D2_PIN & 0x07)));
-//    SDIO_D3_BANK->AFR[SDIO_D3_PIN >> 0x03]   |= (GPIO_AF_SDIO << (4*(SDIO_D3_PIN & 0x07)));
-
-//    /*!< Enable the SDIO AHB Clock and the DMA2 Clock */
-//    RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_DMA2, ENABLE );
-//    RCC_APB2PeriphClockCmd( RCC_APB2Periph_SDIO, ENABLE );
-
-//    SDIO_DeInit( );
-//    sdio_init_structure.SDIO_ClockDiv       = (uint8_t) 120; /* 0x78, clock is taken from the high speed APB bus ; */ /* About 400KHz */
-//    sdio_init_structure.SDIO_ClockEdge      = SDIO_ClockEdge_Rising;
-//    sdio_init_structure.SDIO_ClockBypass    = SDIO_ClockBypass_Disable;
-//    sdio_init_structure.SDIO_ClockPowerSave = SDIO_ClockPowerSave_Enable;
-//    sdio_init_structure.SDIO_BusWide        = SDIO_BusWide_1b;
-//    sdio_init_structure.SDIO_HardwareFlowControl = SDIO_HardwareFlowControl_Disable;
-//    SDIO_Init( &sdio_init_structure );
-//    SDIO_SetPowerState( SDIO_PowerState_ON );
-//    SDIO_SetSDIOReadWaitMode( SDIO_ReadWaitMode_CLK );
-//    SDIO_ClockCmd( ENABLE );
 
     MCU_CLOCKS_NOT_NEEDED();
 
@@ -505,8 +415,6 @@ OSStatus host_platform_bus_deinit( void )
     return 0;
 }
 
-uint8_t errNotify = 0;
-
 OSStatus host_platform_sdio_transfer( bus_transfer_direction_t direction, sdio_command_t command, sdio_transfer_mode_t mode, sdio_block_size_t block_size, uint32_t argument, /*@null@*/ uint32_t* data, uint16_t data_size, sdio_response_needed_t response_expected, /*@out@*/ /*@null@*/ uint32_t* response )
 {
   UNUSED_PARAMETER(mode);
@@ -514,7 +422,7 @@ OSStatus host_platform_sdio_transfer( bus_transfer_direction_t direction, sdio_c
    OSStatus result = kNoErr;
    uint16_t attempts = 0;
    uint8_t response_full[6];
-  uint32_t *response_tmp;
+  uint32_t response_tmp;
   uint32_t blockNumber, blockIdx;
   bool status;
 
@@ -527,9 +435,6 @@ OSStatus host_platform_sdio_transfer( bus_transfer_direction_t direction, sdio_c
 
     MCU_CLOCKS_NEEDED();
 
-//    /* Ensure the bus isn't stuck half way through transfer */
-//    DMA2_Stream3->CR   = 0;
-
 restart:
 //    SDIO->ICR = (uint32_t) 0xFFFFFFFF;
     sdio_transfer_failed = false;
@@ -539,6 +444,7 @@ restart:
     if (attempts >= (uint16_t) BUS_LEVEL_MAX_RETRIES)
     {
         result = kGeneralErr;
+        platform_log("Error 4");
         goto exit;
     }
 
@@ -610,14 +516,12 @@ restart:
 
       if ( direction == BUS_READ )
       {
-         //if(data_size > 512) 
-           //printf("R%d ", data_size);
         if(mode == SDIO_BYTE_MODE)
              SdioStartReciveData(temp_dma_buffer, data_size);
         else
              SdioStartReciveData(temp_dma_buffer, block_size);
-
-          SdioSendCommand(command, argument, 20);
+          
+          require_noerr_quiet(SdioSendCommand(command, argument, 2), restart);
           while(!SdioIsDatTransDone());
           if(mode == SDIO_BLOCK_MODE){
             blockNumber = argument & (uint32_t) ( 0x1FF ) ;
@@ -626,43 +530,21 @@ restart:
               while(!SdioIsDatTransDone());
             }
           }
-
-
-          // if(data_size == 92){
-          //    SdioStartReciveData((uint8_t *)&temp_dma_buffer[64], 64);
-          //    while(!SdioIsDatTransDone());
-          //  }
-
           SdioEndDatTrans();
           memcpy( data, temp_dma_buffer, (size_t) data_size );
        }else{
-         //printf("T%d ", data_size);
-         if(data_size == 96)
-           errNotify = 1;
-         else
-           errNotify = 0;
-          //printf("0x%x, 0x%x, mode0x%x, block:0x%x ", command, argument, mode, block_size);
-         SdioSendCommand(command, argument, 20);
+         memcpy(temp_dma_buffer, data, data_size);
+         require_noerr_quiet(SdioSendCommand(command, argument, 2), restart);
          if(mode == SDIO_BYTE_MODE){
-            SdioStartSendData((uint8_t *)data, data_size);
+            SdioStartSendData((uint8_t *)temp_dma_buffer, data_size);
             while(!SdioIsDatTransDone());
          }else{
             blockNumber = argument & (uint32_t) ( 0x1FF ) ;
             for( blockIdx = 0; blockIdx < blockNumber; blockIdx++ ){
-              SdioStartSendData( (uint8_t *)data + blockIdx * block_size, block_size);
+              SdioStartSendData( (uint8_t *)temp_dma_buffer + blockIdx * block_size, block_size);
               while(!SdioIsDatTransDone());
             }
          }
-         // if( data_size == 66 || data_size == 96){
-         //   SdioStartSendData((uint8_t *)data, 64);
-         //   while(!SdioIsDatTransDone());
-         //   SdioStartSendData((uint8_t *)data[64], 64);
-         //   while(!SdioIsDatTransDone());
-         // }else{
-         //    SdioStartSendData((uint8_t *)data, data_size);
-         //    while(!SdioIsDatTransDone());
-         // }
-         // //printf("0x%x, 0x%x, mode0x%x, block:0x%x ", command, argument, mode, block_size);
          SdioEndDatTrans();
 
        }
@@ -675,9 +557,12 @@ restart:
 //        SDIO->ARG = argument;
 //        SDIO->CMD = (uint32_t) ( command | SDIO_Response_Short | SDIO_Wait_No | SDIO_CPSM_Enable );
       //printf("*");
-      //msleep(5);
 
-       status = SdioSendCommand(command, argument, 100);
+      status = SdioSendCommand(command, argument, 5);
+      
+      if( response_expected == RESPONSE_NEEDED  && status != 0  ) {
+        goto restart;
+      }
 
 //       if(response_expected == RESPONSE_NEEDED && status == false){
 //          goto restart;
@@ -698,15 +583,13 @@ restart:
     if ( response != NULL )
     {
       SdioGetCmdResp(response_full, 6);
-      //memcpy(response, &response_full[1], 4 ); 
-      response_tmp = (uint32_t *)&response_full[1];
-      *response = hton32(*response_tmp);
+      *response = hton32(*(uint32_t *)&response_full[1]);
     }
+
     result = kNoErr;
 
 exit:
     MCU_CLOCKS_NOT_NEEDED();
-//    SDIO->MASK = SDIO_MASK_SDIOITIE;
     return result;
 }
 

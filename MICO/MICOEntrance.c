@@ -291,7 +291,6 @@ static void _watchdog_reload_timer_handler( void* arg )
   (void)(arg);
   MICOUpdateSystemMonitor(&mico_monitor, APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000-100);
 }
-const char test_data[] = "Hello!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
 
 int application_start(void)
 {
@@ -301,7 +300,6 @@ int application_start(void)
   mico_rtc_time_t time;
   char wifi_ver[64];
   mico_log_trace(); 
-      uint32_t intFlagA, intFlagB, intFlagC;
 
   /*Read current configurations*/
   context = ( mico_Context_t *)malloc(sizeof(mico_Context_t) );
@@ -331,53 +329,45 @@ int application_start(void)
 #ifdef MICO_CLI_ENABLE  
   MicoCliInit();
 #endif
-//  MicoSysLed(true);
-//  mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
+  MicoSysLed(true);
+  mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
   micoWlanGetIPStatus(&para, Station);
   formatMACAddr(context->micoStatus.mac, (char *)&para.mac);
   MicoGetRfVer(wifi_ver, sizeof(wifi_ver));
   mico_log("%s mxchipWNet library version: %s", APP_INFO, MicoGetVer());
   mico_log("Wi-Fi driver version %s, mac %s", wifi_ver, context->micoStatus.mac);
   
-
-  
-#if 1
   /*Start system monotor thread*/
-//  err = MICOStartSystemMonitor(context);
-//  require_noerr_action( err, exit, mico_log("ERROR: Unable to start the system monitor.") );
+  err = MICOStartSystemMonitor(context);
+  require_noerr_action( err, exit, mico_log("ERROR: Unable to start the system monitor.") );
 
-//  err = MICORegisterSystemMonitor(&mico_monitor, APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000);
-//  require_noerr( err, exit );
-//  mico_init_timer(&_watchdog_reload_timer,APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000 - 100, _watchdog_reload_timer_handler, NULL);
-//  mico_start_timer(&_watchdog_reload_timer);
+  err = MICORegisterSystemMonitor(&mico_monitor, APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000);
+  require_noerr( err, exit );
+  mico_init_timer(&_watchdog_reload_timer,APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000 - 100, _watchdog_reload_timer_handler, NULL);
+  mico_start_timer(&_watchdog_reload_timer);
 
-//  /* Enter test mode, call a build-in test function amd output on STDIO */
-//  if(MicoShouldEnterMFGMode()==true){
-//    mico_log( "Enter MFG mode by MFG button" );
-//    mico_mfg_test(context);
-//  }
+  /* Enter test mode, call a build-in test function amd output on STDIO */
+  if(MicoShouldEnterMFGMode()==true){
+    mico_log( "Enter MFG mode by MFG button" );
+    mico_mfg_test(context);
+  }
   
   /*Read current time from RTC.*/
-//  MicoRtcGetTime(&time);
-//  currentTime.tm_sec = time.sec;
-//  currentTime.tm_min = time.min;
-//  currentTime.tm_hour = time.hr;
-//  currentTime.tm_mday = time.date;
-//  currentTime.tm_wday = time.weekday;
-//  currentTime.tm_mon = time.month - 1;
-//  currentTime.tm_year = time.year + 100;
-//  mico_log("Current Time: %s",asctime(&currentTime));
+  if( MicoRtcGetTime(&time) == kNoErr){
+    currentTime.tm_sec = time.sec;
+    currentTime.tm_min = time.min;
+    currentTime.tm_hour = time.hr;
+    currentTime.tm_mday = time.date;
+    currentTime.tm_wday = time.weekday;
+    currentTime.tm_mon = time.month - 1;
+    currentTime.tm_year = time.year + 100;
+    mico_log("Current Time: %s",asctime(&currentTime));
+  }else
+    mico_log("RTC function unsupported");
   
   /* Regisist notifications */
   err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)micoNotify_WifiStatusHandler );
   require_noerr( err, exit ); 
-
-  _ConnectToAP_debug(context);
-  while(1){
-    mico_log("Tick");
-    mico_thread_sleep(2); 
-  }
-  
 
   if( context->flashContentInRam.micoSystemConfig.configured == wLanUnConfigured ||
       context->flashContentInRam.micoSystemConfig.configured == unConfigured){
@@ -467,7 +457,6 @@ int application_start(void)
 
     _ConnectToAP( context );
   }
-  #endif
 
   mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
   

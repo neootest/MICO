@@ -87,12 +87,12 @@ USED int _mutex_initialize(void* mutex)
 
 USED void _mutex_acquire(void* mutex)
 {
-//  mico_rtos_suspend_all_thread();
+  mico_rtos_suspend_all_thread();
 }
 
 USED void _mutex_release(void* mutex)
 {
-//  mico_rtos_resume_all_thread();
+  mico_rtos_resume_all_thread();
 }
 
 USED void _mutex_free(void* mutex)

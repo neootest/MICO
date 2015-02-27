@@ -169,7 +169,7 @@ __initial_sp
 //;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
 //; </h>
 
-Heap_Size       EQU     0x0000C000
+Heap_Size       EQU     0x00011800
 
 
                 AREA    HEAP, NOINIT, READWRITE, ALIGN=3
@@ -182,7 +182,7 @@ __heap_limit
                 THUMB
 
 //Vector Table Mapped to Address 0 at Reset
-                AREA    EXCEPT_VECTS, DATA, READONLY
+                AREA    RESET, DATA, READONLY
                 EXPORT  __Vectors
                 EXPORT  __Vectors_End
                 EXPORT  __Vectors_Size
@@ -300,46 +300,46 @@ __mv_main
 mv_main	PROC
 		EXPORT	mv_main	
 			
-		//get the load region layout table
-		LDR		R4,=|Region$$Table$$Base|
-		LDR		R5,=|Region$$Table$$Limit|
-__NEXT_REGION
-		CMP		R4,R5
-		//everything is ok
-		BCS		__REGION_DECOMP_OK
-		LDM		R4,{R0-R3}
-		//decompress the data following the compress algorithm as compiling method
-		STMDB	R13!,{R4,R5}
-		ORR		R3,R3,#0x01
-		BLX 	R3
-		LDMIA	R13!,{R4,R5}
-		ADD		R4,R4,#0x10
-		B		__NEXT_REGION
+//		//get the load region layout table
+//		LDR		R4,=|Region$$Table$$Base|
+//		LDR		R5,=|Region$$Table$$Limit|
+//__NEXT_REGION
+//		CMP		R4,R5
+//		//everything is ok
+//		BCS		__REGION_DECOMP_OK
+//		LDM		R4,{R0-R3}
+//		//decompress the data following the compress algorithm as compiling method
+//		STMDB	R13!,{R4,R5}
+//		ORR		R3,R3,#0x01
+//		BLX 	R3
+//		LDMIA	R13!,{R4,R5}
+//		ADD		R4,R4,#0x10
+//		B		__NEXT_REGION
 
-__REGION_DECOMP_OK
-#ifdef __MICROLIB
+//__REGION_DECOMP_OK
+//#ifdef __MICROLIB
 		/*
 		 * TO DO
 		 */
-#else
+//#else
 		//IMPORT	__rt_lib_init 
 		//BL		__rt_lib_init
-#endif//__MICROLIB
+//#endif//__MICROLIB
 
 		//fill the system stack space with debug symbol for debug only -huangyucai20111121
-#ifdef CFG_SHELL_DEBUG
-		LDR		R2,=CFG_SYS_STACK_SIZE
-		LDR		R3,=__initial_sp
-		SUB		R3,R3,#1
-		MOV		R4,#0xA5
-AGAIN
-		STRB	R4,[R3],#-0x01
-		SUBS	R2,R2,#0x01
-		BHI		AGAIN
-#endif //CFG_SHELL_DEBUG
+//#ifdef CFG_SHELL_DEBUG
+//		LDR		R2,=CFG_SYS_STACK_SIZE
+//		LDR		R3,=__initial_sp
+//		SUB		R3,R3,#1
+//		MOV		R4,#0xA5
+//AGAIN
+//		STRB	R4,[R3],#-0x01
+//		SUBS	R2,R2,#0x01
+//		BHI		AGAIN
+//#endif //CFG_SHELL_DEBUG
         
-        CPSIE   I
-        CPSIE   F
+//        CPSIE   I
+//        CPSIE   F
 		LDR		SP,=__initial_sp
     //ADD   LR, PC, #0x6
 		LDR		R0,=__low_level_init

@@ -201,7 +201,7 @@ OSStatus internal_uart_init( mico_uart_t uart, const mico_uart_config_t* config,
 
     require_action( config->flow_control == FLOW_CONTROL_DISABLED, exit, err = kUnsupportedErr );
 
-    err =  BuartExFifoInit(0x0, 2048, 1024, 1);
+    err =  BuartExFifoInit(0x5800, 1024*5, 1024*5, 1);
     require_noerr(err, exit);
 
     err = BuartInit(config->baud_rate, config->data_width + 5, config->parity, config->stop_bits + 1);

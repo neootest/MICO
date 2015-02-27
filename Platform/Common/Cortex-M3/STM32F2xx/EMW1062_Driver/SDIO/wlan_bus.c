@@ -179,18 +179,12 @@ static void sdio_oob_irq_handler( void* arg )
 
 uint32_t errNotify = 0;
 
-static void sdio_irq_handler( void* arg )
+bool host_platform_is_sdio_int_asserted(void)
 {
-    UNUSED_PARAMETER(arg);
-    wiced_platform_notify_irq( );
-}
-
-uint8_t host_get_SDIO_INT(void)
-{
-  if( MicoGpioInputGet(SDIO_INT)==0 )
-    return 1;
-  else
-    return 0;
+//  if( MicoGpioInputGet(SDIO_INT)==0 )
+//    return true;
+//  else
+    return false;
 }
 
 void sdio_irq( void )
@@ -241,7 +235,6 @@ void sdio_irq( void )
         {
             /* Clear the interrupt and then inform WICED thread */
             SDIO->ICR = SDIO_ICR_SDIOITC;
-         // printf("!");
             wiced_platform_notify_irq( );
         }
     }
@@ -417,6 +410,8 @@ OSStatus host_platform_sdio_enumerate( void )
             return kTimeoutErr;
         }
     } while ( ( result != kNoErr ) && ( mico_thread_msleep( (uint32_t) 1 ), ( 1 == 1 ) ) );
+    
+    printf("host_platform_sdio_enumerate");
     /* If you're stuck here, check the platform matches your hardware */
 
     /* Send CMD7 with the returned RCA to select the card */
@@ -584,6 +579,7 @@ restart:
             loop_count--;
             if ( loop_count == 0 || ( ( response_expected == RESPONSE_NEEDED ) && ( ( temp_sta & SDIO_ERROR_MASK ) != 0 ) ) )
             {
+              printf("Error:%d,%d", loop_count, response_expected);
                 goto restart;
             }
         } while ( ( temp_sta & SDIO_FLAG_CMDACT ) != 0 );

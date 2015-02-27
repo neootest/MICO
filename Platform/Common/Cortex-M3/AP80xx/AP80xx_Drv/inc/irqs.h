@@ -74,7 +74,7 @@ typedef enum IRQn_PRIO
     MMFLT_IRQn_PRIO		= 0,
     BUSFLT_IRQn_PRIO	= 0,
     USGFLT_IRQn_PRIO	= 0,
-    SVCALL_IRQn_PRIO	= 1,
+    SVCALL_IRQn_PRIO	= 0,
     DBGMON_IRQn_PRIO	= 0,
     PENDSV_IRQn_PRIO	= IRQ_PRIO_LOWEST/*must be the lowest*/,
     SYSTICK_IRQn_PRIO	= IRQ_PRIO_LOWEST/*must be the lowest*/,

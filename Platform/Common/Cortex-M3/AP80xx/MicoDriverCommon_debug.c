@@ -96,7 +96,7 @@ extern OSStatus host_platform_init( void );
 *               Variables Definitions
 ******************************************************/
 /* mico_cpu_clock_hz is used by MICO RTOS */
-const uint32_t  mico_cpu_clock_hz = 120000000;
+const uint32_t  mico_cpu_clock_hz = 96000000;
 
 static char ap80xx_platform_inited = 0;
 
@@ -191,11 +191,9 @@ void init_clocks( void )
   
   /* Configure Clocks */
   ClkPorRcToDpll(0);
-    CacheInit();
+  CacheInit();
   ClkModuleEn(ALL_MODULE_CLK_SWITCH);
   ClkModuleGateEn(ALL_MODULE_CLK_GATE_SWITCH);  
-
-    //SysTickInit();
 
   //Disable Watchdog
   WaitMs(200);
@@ -207,6 +205,7 @@ void init_memory( void )
 {
   
 }
+#define AIRCR_VECTKEY_MASK    ((uint32_t)0x05FA0000)
 
 void init_architecture( void )
 {
@@ -215,11 +214,54 @@ void init_architecture( void )
   /*Wakeup by watchdog in standby mode, re-enter standby mode in this situation*/
   /*  To do  */
   
-  if ( ap80xx_platform_inited == 1 )
-    return;
+  //if ( ap80xx_platform_inited == 1 )
+  //  return;
   
+  NVIC_SetPriorityGrouping(__NVIC_PRIO_BITS + 1);
   /* Initialise the interrupt priorities to a priority lower than 0 so that the BASEPRI register can mask them */
   /*  To do  */
+  // for ( i = 0; i < 24; i++ )
+  // {
+  //   NVIC ->IP[i] = 0xE0;
+  // }
+
+  NVIC_SetPriority(MMFLT_IRQn,  MMFLT_IRQn_PRIO);
+  NVIC_SetPriority(BUSFLT_IRQn, BUSFLT_IRQn_PRIO);
+  NVIC_SetPriority(USGFLT_IRQn, USGFLT_IRQn_PRIO);
+  NVIC_SetPriority(SVCALL_IRQn, SVCALL_IRQn_PRIO);
+  NVIC_SetPriority(DBGMON_IRQn, DBGMON_IRQn_PRIO);
+  NVIC_SetPriority(PENDSV_IRQn, PENDSV_IRQn_PRIO);
+  NVIC_SetPriority(SysTick_IRQn,  SYSTICK_IRQn_PRIO);
+  /*
+   * enable 3 exception interrupt
+   */
+  SCB->SHCSR |= SCB_SHCSR_USGFAULTENA_Msk;
+  SCB->SHCSR |= SCB_SHCSR_BUSFAULTENA_Msk;
+  SCB->SHCSR |= SCB_SHCSR_MEMFAULTENA_Msk;
+
+  /*
+   * SOC interrupt(External Interrupt)
+   */
+  NVIC_SetPriority(GPIO_IRQn,   GPIO_IRQn_PRIO);
+  NVIC_SetPriority(RTC_IRQn,    RTC_IRQn_PRIO);
+  NVIC_SetPriority(IR_IRQn,   IR_IRQn_PRIO);
+  NVIC_SetPriority(FUART_IRQn,  FUART_IRQn_PRIO);
+  NVIC_SetPriority(BUART_IRQn,  BUART_IRQn_PRIO);
+  NVIC_SetPriority(PWC_IRQn,    PWC_IRQn_PRIO);
+  NVIC_SetPriority(TMR0_IRQn,   TMR0_IRQn_PRIO);
+  NVIC_SetPriority(USB_IRQn,    USB_IRQn_PRIO);
+  NVIC_SetPriority(DMACH0_IRQn, DMACH0_IRQn_PRIO);
+  NVIC_SetPriority(DMACH1_IRQn, DMACH1_IRQn_PRIO);
+  NVIC_SetPriority(DECODER_IRQn,  DECODER_IRQn_PRIO);
+  NVIC_SetPriority(SPIS_IRQn,   SPIS_IRQn_PRIO);
+  NVIC_SetPriority(SD_IRQn,   SD_IRQn_PRIO);
+  NVIC_SetPriority(SPIM_IRQn,   SPIM_IRQn_PRIO);
+  NVIC_SetPriority(TMR1_IRQn,   TMR1_IRQn_PRIO);
+  NVIC_SetPriority(WDG_IRQn,    WDG_IRQn_PRIO);
+  
+  //NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
+  /* Set to Priority Group 3 */
+  
   
 #ifndef MICO_DISABLE_STDIO
 #ifndef NO_MICO_RTOS
