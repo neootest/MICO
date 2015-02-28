@@ -7417,7 +7417,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$PROJ_DIR$\..\..\..\Platform\Nucleo_411RE\micoLinkerForIAR.icf</state>
+          <state>$PROJ_DIR$\..\..\..\Platform\EMW3288\micoLinkerForIAR.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>

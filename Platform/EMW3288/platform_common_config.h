@@ -108,9 +108,7 @@ typedef enum
 
   WL_GPIO0 = 0,
   WL_GPIO1,
-  WL_RESET,
-  MICO_SYS_LED,
-  MICO_RF_LED,
+
   BOOT_SEL,
   MFG_SEL,
   Standby_SEL,
