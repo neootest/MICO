@@ -205,9 +205,9 @@ Notes
 
 typedef enum
 {
-    MICO_GPIO_1 = MICO_COMMON_GPIO_MAX,
-    MICO_GPIO_2,
-    //MICO_GPIO_3,
+    APP_UART_RX = MICO_COMMON_GPIO_MAX,
+    APP_UART_TX,
+    MICO_GPIO_3,
     MICO_GPIO_4,
     MICO_GPIO_5,
     MICO_GPIO_6,

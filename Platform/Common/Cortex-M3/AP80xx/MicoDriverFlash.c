@@ -47,9 +47,7 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-#ifdef USE_MICO_SPI_FLASH
-static sflash_handle_t sflash_handle = {0x0, 0x0, SFLASH_WRITE_NOT_ALLOWED};
-#endif
+
 /* Private function prototypes -----------------------------------------------*/
 static uint32_t _GetSector( uint32_t Address );
 static OSStatus internalFlashInitialize( void );
@@ -63,6 +61,15 @@ static OSStatus spiFlashErase(uint32_t StartAddress, uint32_t EndAddress);
 
 static bool FlashUnlock(void);
 static bool FlashLock(SPI_FLASH_LOCK_RANGE lock_range);
+
+const char* flash_name[] =
+{ 
+#ifdef USE_MICO_SPI_FLASH
+  [MICO_SPI_FLASH] = "SPI", 
+#endif
+  [MICO_INTERNAL_FLASH] = "Internal",
+};
+
 
 #ifdef DEBUG_FLASH
 SPI_FLASH_INFO  FlashInfo;
@@ -463,11 +470,16 @@ OSStatus MicoFlashRead(mico_flash_t flash, volatile uint32_t* FlashAddress, uint
   platform_log_trace();
   OSStatus err = kNoErr;
   require_action( flash == MICO_SPI_FLASH, exit, err = kUnsupportedErr);
+  require_quiet(DataLength > 0, exit);
 
   err = SpiFlashRead(*FlashAddress, Data, DataLength);
   require_noerr_string(err, exit, "Flash read error!");
   *FlashAddress += DataLength;
 exit:
+  if ( err != 0 ) {
+    platform_log("Err read addr: 0x%x,:%d",  *FlashAddress, DataLength);
+    while(1);
+  }
   return err;
 }
 

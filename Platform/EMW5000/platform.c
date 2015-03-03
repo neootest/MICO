@@ -87,8 +87,8 @@ const platform_pin_mapping_t gpio_mapping[] =
   [WL_GPIO1]                            = {GPIOA,  10},
 //  [WL_REG]                            = {GPIOC,  1,  RCC_AHB1Periph_GPIOC},
   [WL_RESET]                            = {GPIOB,  20},
-  [MICO_SYS_LED]                        = {GPIOA,  3 }, 
-  [MICO_RF_LED]                         = {GPIOA,  4 }, 
+  [MICO_SYS_LED]                        = {GPIOB,  2 }, 
+  [MICO_RF_LED]                         = {GPIOB,  3 }, 
 //  [BOOT_SEL]                          = {GPIOB,  1,  RCC_AHB1Periph_GPIOB}, 
 //  [MFG_SEL]                           = {GPIOB,  9,  RCC_AHB1Periph_GPIOB}, 
   [EasyLink_BUTTON]                     = {GPIOA,  5}, 
@@ -97,8 +97,8 @@ const platform_pin_mapping_t gpio_mapping[] =
   [SDIO_INT]                            = {GPIOA,  24},
 
 //  /* GPIOs for external use */
-//  [MICO_GPIO_1]  = {6},
-//  [MICO_GPIO_2]  = {GPIOB,  7,  RCC_AHB1Periph_GPIOB},
+  [APP_UART_RX]                         = {GPIOB, 6},
+  [APP_UART_TX]                         = {GPIOB, 7},  
 //  [MICO_GPIO_4]  = {GPIOC,  7,  RCC_AHB1Periph_GPIOC},
 //  [MICO_GPIO_5]  = {GPIOA,  4,  RCC_AHB1Periph_GPIOA},
 //  [MICO_GPIO_6]  = {GPIOA,  4,  RCC_AHB1Periph_GPIOA},
@@ -158,8 +158,8 @@ const platform_uart_mapping_t uart_mapping[] =
 [MICO_UART_1] =
   {
     .uart                            = FUART,
-    .pin_tx                          = &gpio_mapping[STDIO_UART_TX],
-    .pin_rx                          = &gpio_mapping[STDIO_UART_RX],
+    .pin_tx                          = &gpio_mapping[APP_UART_TX],
+    .pin_rx                          = &gpio_mapping[APP_UART_RX],
     .pin_cts                         = NULL,
     .pin_rts                         = NULL,
   },
@@ -262,9 +262,9 @@ void init_platform( void )
   #endif
 
   platform_log( "Platform initialised" );
-  MicoGpioInitialize( (mico_gpio_t)MICO_SYS_LED, OUTPUT_PUSH_PULL );
+  MicoGpioInitialize( (mico_gpio_t)MICO_SYS_LED, OUTPUT_OPEN_DRAIN_NO_PULL );
   MicoSysLed(false);
-  MicoGpioInitialize( (mico_gpio_t)MICO_RF_LED, OUTPUT_PUSH_PULL );
+  MicoGpioInitialize( (mico_gpio_t)MICO_RF_LED, OUTPUT_OPEN_DRAIN_NO_PULL );
   MicoRfLed(false);
   
   //  Initialise EasyLink buttons

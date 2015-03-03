@@ -174,14 +174,12 @@ extern void wiced_platform_notify_irq( void );
 static void sdio_oob_irq_handler( void* arg )
 {
     UNUSED_PARAMETER(arg);
-//  printf("?");
     wiced_platform_notify_irq( );
 }
 
 static void sdio_irq_handler( void* arg )
 {
     UNUSED_PARAMETER(arg);
-//  printf("!");
     wiced_platform_notify_irq( );
 }
 
@@ -192,6 +190,7 @@ bool host_platform_is_sdio_int_asserted(void)
   else
     return false;
 }
+
 
 void sdio_irq( void )
 {
@@ -335,35 +334,6 @@ OSStatus host_platform_sdio_enumerate( void )
    /* Send CMD7 with the returned RCA to select the card */
    host_platform_sdio_transfer( BUS_WRITE, SDIO_CMD_7, SDIO_BYTE_MODE, SDIO_1B_BLOCK, data, 0, 0, RESPONSE_NEEDED, NULL );
 
-
-
-
-//    OSStatus       result;
-//    uint32_t       loop_count;
-//    uint32_t       data = 0;
-
-//    loop_count = 0;
-//    do
-//    {
-//        /* Send CMD0 to set it to idle state */
-//        host_platform_sdio_transfer( BUS_WRITE, SDIO_CMD_0, SDIO_BYTE_MODE, SDIO_1B_BLOCK, 0, 0, 0, NO_RESPONSE, NULL );
-
-//        /* CMD5. */
-//        host_platform_sdio_transfer( BUS_READ, SDIO_CMD_5, SDIO_BYTE_MODE, SDIO_1B_BLOCK, 0, 0, 0, NO_RESPONSE, NULL );
-
-//        /* Send CMD3 to get RCA. */
-//        result = host_platform_sdio_transfer( BUS_READ, SDIO_CMD_3, SDIO_BYTE_MODE, SDIO_1B_BLOCK, 0, 0, 0, RESPONSE_NEEDED, &data );
-//        loop_count++;
-//        if ( loop_count >= (uint32_t) SDIO_ENUMERATION_TIMEOUT_MS )
-//        {
-//            return kTimeoutErr;
-//        }
-//    } while ( ( result != kNoErr ) && ( mico_thread_msleep( (uint32_t) 1 ), ( 1 == 1 ) ) );
-//    /* If you're stuck here, check the platform matches your hardware */
-
-//    /* Send CMD7 with the returned RCA to select the card */
-//    host_platform_sdio_transfer( BUS_WRITE, SDIO_CMD_7, SDIO_BYTE_MODE, SDIO_1B_BLOCK, data, 0, 0, RESPONSE_NEEDED, NULL );
-
     return kNoErr;
 }
 
@@ -444,7 +414,9 @@ restart:
     if (attempts >= (uint16_t) BUS_LEVEL_MAX_RETRIES)
     {
         result = kGeneralErr;
-        platform_log("Error 4");
+        //printf("!");
+        platform_log("SDIO error!");
+        mico_thread_sleep(0xFFFFFFFF);
         goto exit;
     }
 
@@ -452,68 +424,6 @@ restart:
     current_command = command;
     if ( command == SDIO_CMD_53 )
     {
-//        sdio_enable_bus_irq();
-
-//        /* Dodgy STM32 hack to set the CMD53 byte mode size to be the same as the block size */
-//        if ( mode == SDIO_BYTE_MODE )
-//        {
-//            block_size = find_optimal_block_size( data_size );
-//            if ( block_size < SDIO_512B_BLOCK )
-//            {
-//                argument = ( argument & (uint32_t) ( ~0x1FF ) ) | block_size;
-//            }
-//            else
-//            {
-//                argument = ( argument & (uint32_t) ( ~0x1FF ) );
-//            }
-//        }
-         //block_size = find_optimal_block_size( data_size );
-        // if ( block_size < SDIO_512B_BLOCK )
-        // {
-        //    argument = ( argument & (uint32_t) ( ~0x1FF ) ) | block_size;
-        // }
-        // else
-        // {
-        //    argument = ( argument & (uint32_t) ( ~0x1FF ) );
-        // }
-
-//        /* Prepare the SDIO for a data transfer */
-//        current_transfer_direction = direction;
-//        sdio_prepare_data_transfer( direction, block_size, (uint8_t*) data, data_size );
-
-        /* Send the command */
-//        SDIO->ARG = argument;
-//        SDIO->CMD = (uint32_t) ( command | SDIO_Response_Short | SDIO_Wait_No | SDIO_CPSM_Enable );
-//argument = ( argument & (uint32_t) ( ~0x1FF ) ) | block_size;
-          
-
-//        /* Wait for the whole transfer to complete */
-//        result = mico_rtos_get_semaphore( &sdio_transfer_finished_semaphore, (uint32_t) 50 );
-//        if ( result != kNoErr )
-//        {
-//            goto exit;
-//        }
-
-//        if ( sdio_transfer_failed == true )
-//        {
-//            goto restart;
-//        }
-
-//        /* Check if there were any SDIO errors */
-//        require(( SDIO->STA & ( SDIO_STA_DTIMEOUT | SDIO_STA_CTIMEOUT ) ) == 0, restart);
-//        require_string(( SDIO->STA & ( SDIO_STA_CCRCFAIL | SDIO_STA_DCRCFAIL | SDIO_STA_TXUNDERR | SDIO_STA_RXOVERR ) ) == 0, restart, "SDIO communication failure");
-
-//        /* Wait till complete */
-//        loop_count = (uint32_t) SDIO_TX_RX_COMPLETE_TIMEOUT_LOOPS;
-//        do
-//        {
-//            loop_count--;
-//            if ( loop_count == 0 || ( ( SDIO->STA & SDIO_ERROR_MASK ) != 0 ) )
-//            {
-//                goto restart;
-//            }
-//        } while ( ( SDIO->STA & ( SDIO_STA_TXACT | SDIO_STA_RXACT ) ) != 0 );
-
       if ( direction == BUS_READ )
       {
         if(mode == SDIO_BYTE_MODE)
@@ -521,7 +431,24 @@ restart:
         else
              SdioStartReciveData(temp_dma_buffer, block_size);
           
-          require_noerr_quiet(SdioSendCommand(command, argument, 2), restart);
+          //require_noerr_quiet(SdioSendCommand(command, argument, 2), restart);
+          status = SdioSendCommand(command, argument, 2);
+          if(status != 0){
+            printf("@");
+            SdioEndDatTrans();
+            SdioDisableClk();
+            GpioSdIoConfig(1);
+            SdioControllerInit();
+            SdioSetClk(0);
+            SdioEnableClk();
+            
+            
+            
+            
+            
+            
+            goto restart;
+          }
           while(!SdioIsDatTransDone());
           if(mode == SDIO_BLOCK_MODE){
             blockNumber = argument & (uint32_t) ( 0x1FF ) ;
@@ -534,7 +461,12 @@ restart:
           memcpy( data, temp_dma_buffer, (size_t) data_size );
        }else{
          memcpy(temp_dma_buffer, data, data_size);
-         require_noerr_quiet(SdioSendCommand(command, argument, 2), restart);
+         //require_noerr_quiet(SdioSendCommand(command, argument, 2), restart);
+         status = SdioSendCommand(command, argument, 2);
+          if(status != 0){
+            printf("#");
+            goto restart;
+          }
          if(mode == SDIO_BYTE_MODE){
             SdioStartSendData((uint8_t *)temp_dma_buffer, data_size);
             while(!SdioIsDatTransDone());
@@ -551,33 +483,13 @@ restart:
     }
     else
     {
-//        uint32_t temp_sta;
-
-//        /* Send the command */
-//        SDIO->ARG = argument;
-//        SDIO->CMD = (uint32_t) ( command | SDIO_Response_Short | SDIO_Wait_No | SDIO_CPSM_Enable );
-      //printf("*");
 
       status = SdioSendCommand(command, argument, 5);
       
       if( response_expected == RESPONSE_NEEDED  && status != 0  ) {
+        printf("$");
         goto restart;
       }
-
-//       if(response_expected == RESPONSE_NEEDED && status == false){
-//          goto restart;
-//       }
-
-       //   loop_count = (uint32_t) COMMAND_FINISHED_CMD52_TIMEOUT_LOOPS;
-       // do
-       // {
-           
-       //     loop_count--;
-       //     if ( loop_count == 0 || ( ( response_expected == RESPONSE_NEEDED ) && ( ( temp_sta & SDIO_ERROR_MASK ) != 0 ) ) )
-       //     {
-       //         goto restart;
-       //     }
-       // } while ( ( temp_sta & SDIO_FLAG_CMDACT ) != 0 );
     }
 
     if ( response != NULL )

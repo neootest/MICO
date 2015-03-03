@@ -31,7 +31,6 @@
 */ 
 
 
-#include "stm32f2xx_platform.h"
 #include "platform.h"
 #include "platform_common_config.h"
 #include "MicoPlatform.h"
@@ -41,6 +40,12 @@
 #include "crt0.h"
 #include "MICODefaults.h"
 #include "MicoRTOS.h"
+#include "irqs.h"
+#include "clk.h"
+#include "uart.h"
+#include "gpio.h"
+#include "cache.h"
+#include "delay.h"
 
 #ifdef __GNUC__
 #include "../../GCC/stdio_newlib.h"
@@ -50,9 +55,6 @@
 /******************************************************
 *                      Macros
 ******************************************************/
-#ifndef BOOTLOADER_MAGIC_NUMBER
-#define BOOTLOADER_MAGIC_NUMBER 0x4d435242
-#endif
 
 #define NUMBER_OF_LSE_TICKS_PER_MILLISECOND(scale_factor) ( 32768 / 1000 / scale_factor )
 #define CONVERT_FROM_TICKS_TO_MS(n,s) ( n / NUMBER_OF_LSE_TICKS_PER_MILLISECOND(s) )
@@ -64,8 +66,6 @@
 #ifndef STDIO_BUFFER_SIZE
 #define STDIO_BUFFER_SIZE   64
 #endif
-
-#define RTC_INTERRUPT_EXTI_LINE EXTI_Line22
 
 #define CK_SPRE_CLOCK_SOURCE_SELECTED 0xFFFF
 
@@ -96,9 +96,10 @@ extern OSStatus host_platform_init( void );
 *               Variables Definitions
 ******************************************************/
 /* mico_cpu_clock_hz is used by MICO RTOS */
-const uint32_t  mico_cpu_clock_hz = 120000000;
+const uint32_t  mico_cpu_clock_hz = 96000000;
+const int CFG_PRIO_BITS = 3;
 
-static char stm32_platform_inited = 0;
+static char ap80xx_platform_inited = 0;
 
 #ifndef MICO_DISABLE_STDIO
 static const mico_uart_config_t stdio_uart_config =
@@ -185,73 +186,83 @@ void startApplication(void)
 * This brings up enough clocks to allow the processor to run quickly while initialising memory.
 * Other platform specific clock init can be done in init_platform() or init_architecture()
 */
-WEAK void init_clocks( void )
+void init_clocks( void )
 {
   //RCC_DeInit( ); /* if not commented then the LSE PA8 output will be disabled and never comes up again */
   
   /* Configure Clocks */
+  ClkPorRcToDpll(0);
+  CacheInit();
+  ClkModuleEn(ALL_MODULE_CLK_SWITCH);
+  ClkModuleGateEn(ALL_MODULE_CLK_GATE_SWITCH);  
+
+  //Disable Watchdog
+  WaitMs(200);
+  WdgDis();
   
-  RCC_HSEConfig( HSE_SOURCE );
-  RCC_WaitForHSEStartUp( );
-  
-  RCC_HCLKConfig( AHB_CLOCK_DIVIDER );
-  RCC_PCLK2Config( APB2_CLOCK_DIVIDER );
-  RCC_PCLK1Config( APB1_CLOCK_DIVIDER );
-  
-  /* Enable the PLL */
-  FLASH_SetLatency( INT_FLASH_WAIT_STATE );
-  FLASH_PrefetchBufferCmd( ENABLE );
-  
-  /* Use the clock configuration utility from ST to calculate these values
-  * http://www.st.com/st-web-ui/static/active/en/st_prod_software_internet/resource/technical/software/utility/stsw-stm32090.zip
-  */
-  RCC_PLLConfig( PLL_SOURCE, PLL_M_CONSTANT, PLL_N_CONSTANT, PLL_P_CONSTANT, PPL_Q_CONSTANT ); /* NOTE: The CPU Clock Frequency is independently defined in <WICED-SDK>/Wiced/Platform/<platform>/<platform>.mk */
-  RCC_PLLCmd( ENABLE );
-  
-  while ( RCC_GetFlagStatus( RCC_FLAG_PLLRDY ) == RESET )
-  {
-  }
-  RCC_SYSCLKConfig( SYSTEM_CLOCK_SOURCE );
-  
-  while ( RCC_GetSYSCLKSource( ) != 0x08 )
-  {
-  }
-  
-  /* Configure HCLK clock as SysTick clock source. */
-  SysTick_CLKSourceConfig( SYSTICK_CLOCK_SOURCE );
 }
 
-WEAK void init_memory( void )
+void init_memory( void )
 {
   
 }
-
-  
-
+#define AIRCR_VECTKEY_MASK    ((uint32_t)0x05FA0000)
 
 void init_architecture( void )
 {
   uint8_t i;
+    
+  /*Wakeup by watchdog in standby mode, re-enter standby mode in this situation*/
+  /*  To do  */
   
-  RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
+  //if ( ap80xx_platform_inited == 1 )
+  //  return;
   
-   /*STM32 wakeup by watchdog in standby mode, re-enter standby mode in this situation*/
-  if ( (PWR_GetFlagStatus(PWR_FLAG_SB) != RESET) && RCC_GetFlagStatus(RCC_FLAG_IWDGRST) != RESET){
-     RCC_ClearFlag();
-     PWR_EnterSTANDBYMode();
-   }
-  PWR_ClearFlag(PWR_FLAG_SB);
-  
-  if ( stm32_platform_inited == 1 )
-    return;
-  
+  NVIC_SetPriorityGrouping(__NVIC_PRIO_BITS + 1);
   /* Initialise the interrupt priorities to a priority lower than 0 so that the BASEPRI register can mask them */
-  for ( i = 0; i < 81; i++ )
-  {
-    NVIC ->IP[i] = 0xff;
-  }
+  /*  To do  */
+  // for ( i = 0; i < 24; i++ )
+  // {
+  //   NVIC ->IP[i] = 0xE0;
+  // }
+
+  NVIC_SetPriority(MMFLT_IRQn,  MMFLT_IRQn_PRIO);
+  NVIC_SetPriority(BUSFLT_IRQn, BUSFLT_IRQn_PRIO);
+  NVIC_SetPriority(USGFLT_IRQn, USGFLT_IRQn_PRIO);
+  NVIC_SetPriority(SVCALL_IRQn, SVCALL_IRQn_PRIO);
+  NVIC_SetPriority(DBGMON_IRQn, DBGMON_IRQn_PRIO);
+  NVIC_SetPriority(PENDSV_IRQn, PENDSV_IRQn_PRIO);
+  NVIC_SetPriority(SysTick_IRQn,  SYSTICK_IRQn_PRIO);
+  /*
+   * enable 3 exception interrupt
+   */
+  SCB->SHCSR |= SCB_SHCSR_USGFAULTENA_Msk;
+  SCB->SHCSR |= SCB_SHCSR_BUSFAULTENA_Msk;
+  SCB->SHCSR |= SCB_SHCSR_MEMFAULTENA_Msk;
+
+  /*
+   * SOC interrupt(External Interrupt)
+   */
+  NVIC_SetPriority(GPIO_IRQn,   GPIO_IRQn_PRIO);
+  NVIC_SetPriority(RTC_IRQn,    RTC_IRQn_PRIO);
+  NVIC_SetPriority(IR_IRQn,   IR_IRQn_PRIO);
+  NVIC_SetPriority(FUART_IRQn,  FUART_IRQn_PRIO);
+  NVIC_SetPriority(BUART_IRQn,  BUART_IRQn_PRIO);
+  NVIC_SetPriority(PWC_IRQn,    PWC_IRQn_PRIO);
+  NVIC_SetPriority(TMR0_IRQn,   TMR0_IRQn_PRIO);
+  NVIC_SetPriority(USB_IRQn,    USB_IRQn_PRIO);
+  NVIC_SetPriority(DMACH0_IRQn, DMACH0_IRQn_PRIO);
+  NVIC_SetPriority(DMACH1_IRQn, DMACH1_IRQn_PRIO);
+  NVIC_SetPriority(DECODER_IRQn,  DECODER_IRQn_PRIO);
+  NVIC_SetPriority(SPIS_IRQn,   SPIS_IRQn_PRIO);
+  NVIC_SetPriority(SD_IRQn,   SD_IRQn_PRIO);
+  NVIC_SetPriority(SPIM_IRQn,   SPIM_IRQn_PRIO);
+  NVIC_SetPriority(TMR1_IRQn,   TMR1_IRQn_PRIO);
+  NVIC_SetPriority(WDG_IRQn,    WDG_IRQn_PRIO);
   
-  NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
+  //NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
+  /* Set to Priority Group 3 */
+  
   
 #ifndef MICO_DISABLE_STDIO
 #ifndef NO_MICO_RTOS
@@ -269,12 +280,12 @@ void init_architecture( void )
   host_platform_init( );
   MicoRtcInitialize();  
 #else //Bootloader
-  SysTick_Config(SystemCoreClock / 1000);
+  SysTickInit();
 #endif
   /* Disable MCU powersave at start-up. Application must explicitly enable MCU powersave if desired */
   MCU_CLOCKS_NEEDED();
   
-  stm32_platform_inited = 1;  
+  ap80xx_platform_inited = 1;  
 }
 
 /******************************************************
@@ -482,7 +493,7 @@ unsigned long platform_power_down_hook( unsigned long delay_ms )
 
 void RTC_WKUP_irq( void )
 {
-  EXTI_ClearITPendingBit( RTC_INTERRUPT_EXTI_LINE );
+//  EXTI_ClearITPendingBit( RTC_INTERRUPT_EXTI_LINE );
 }
 
 void platform_idle_hook( void )
@@ -497,45 +508,45 @@ void MicoSystemReboot(void)
 
 void MicoSystemStandBy(uint32_t secondsToWakeup)
 { 
-  mico_rtc_time_t time;
-  uint32_t currentSecond;
-  RTC_AlarmTypeDef  RTC_AlarmStructure;
+//  mico_rtc_time_t time;
+//  uint32_t currentSecond;
+//  RTC_AlarmTypeDef  RTC_AlarmStructure;
 
-  PWR_WakeUpPinCmd(ENABLE);
+//  PWR_WakeUpPinCmd(ENABLE);
 
-  if(secondsToWakeup == MICO_WAIT_FOREVER)
-    PWR_EnterSTANDBYMode();
+//  if(secondsToWakeup == MICO_WAIT_FOREVER)
+//    PWR_EnterSTANDBYMode();
 
-  platform_log("Wake up in %d seconds", secondsToWakeup);
- 
-  MicoRtcGetTime(&time);
-  currentSecond = time.hr*3600 + time.min*60 + time.sec;
-  currentSecond += secondsToWakeup;
-  RTC_AlarmStructure.RTC_AlarmTime.RTC_H12     = RTC_HourFormat_24;
-  RTC_AlarmStructure.RTC_AlarmTime.RTC_Hours   = currentSecond/3600%24;
-  RTC_AlarmStructure.RTC_AlarmTime.RTC_Minutes = currentSecond/60%60;
-  RTC_AlarmStructure.RTC_AlarmTime.RTC_Seconds = currentSecond%60;
-  RTC_AlarmStructure.RTC_AlarmDateWeekDay = 0x31;
-  RTC_AlarmStructure.RTC_AlarmDateWeekDaySel = RTC_AlarmDateWeekDaySel_Date;
-  RTC_AlarmStructure.RTC_AlarmMask = RTC_AlarmMask_DateWeekDay ;
+//  platform_log("Wake up in %d seconds", secondsToWakeup);
+// 
+//  MicoRtcGetTime(&time);
+//  currentSecond = time.hr*3600 + time.min*60 + time.sec;
+//  currentSecond += secondsToWakeup;
+//  RTC_AlarmStructure.RTC_AlarmTime.RTC_H12     = RTC_HourFormat_24;
+//  RTC_AlarmStructure.RTC_AlarmTime.RTC_Hours   = currentSecond/3600%24;
+//  RTC_AlarmStructure.RTC_AlarmTime.RTC_Minutes = currentSecond/60%60;
+//  RTC_AlarmStructure.RTC_AlarmTime.RTC_Seconds = currentSecond%60;
+//  RTC_AlarmStructure.RTC_AlarmDateWeekDay = 0x31;
+//  RTC_AlarmStructure.RTC_AlarmDateWeekDaySel = RTC_AlarmDateWeekDaySel_Date;
+//  RTC_AlarmStructure.RTC_AlarmMask = RTC_AlarmMask_DateWeekDay ;
 
-  RTC_AlarmCmd(RTC_Alarm_A, DISABLE);
-  /* Disable the Alarm A */
-  RTC_ITConfig(RTC_IT_ALRA, DISABLE);
+//  RTC_AlarmCmd(RTC_Alarm_A, DISABLE);
+//  /* Disable the Alarm A */
+//  RTC_ITConfig(RTC_IT_ALRA, DISABLE);
 
-  /* Clear RTC Alarm Flag */ 
-  RTC_ClearFlag(RTC_FLAG_ALRAF);
+//  /* Clear RTC Alarm Flag */ 
+//  RTC_ClearFlag(RTC_FLAG_ALRAF);
 
-  RTC_SetAlarm(RTC_Format_BIN, RTC_Alarm_A, &RTC_AlarmStructure);
+//  RTC_SetAlarm(RTC_Format_BIN, RTC_Alarm_A, &RTC_AlarmStructure);
 
-  /* Enable RTC Alarm A Interrupt: this Interrupt will wake-up the system from
-     STANDBY mode (RTC Alarm IT not enabled in NVIC) */
-  RTC_ITConfig(RTC_IT_ALRA, ENABLE);
+//  /* Enable RTC Alarm A Interrupt: this Interrupt will wake-up the system from
+//     STANDBY mode (RTC Alarm IT not enabled in NVIC) */
+//  RTC_ITConfig(RTC_IT_ALRA, ENABLE);
 
-  /* Enable the Alarm A */
-  RTC_AlarmCmd(RTC_Alarm_A, ENABLE);
+//  /* Enable the Alarm A */
+//  RTC_AlarmCmd(RTC_Alarm_A, ENABLE);
 
-  PWR_EnterSTANDBYMode();
+//  PWR_EnterSTANDBYMode();
 }
 
 void MicoMcuPowerSaveConfig( int enable )
@@ -554,7 +565,7 @@ static volatile uint32_t no_os_tick = 0;
 void SysTick_Handler(void)
 {
   no_os_tick ++;
-  IWDG_ReloadCounter();
+  //IWDG_ReloadCounter();
 }
 
 uint32_t mico_get_time_no_os(void)
@@ -567,5 +578,14 @@ void mico_thread_msleep_no_os(uint32_t milliseconds)
   int tick_delay_start = mico_get_time_no_os();
   while(mico_get_time_no_os() < tick_delay_start+milliseconds);  
 }
+#else
+extern volatile uint32_t gSysTick;
+
+void SysTick_Handler(void)
+{
+  gSysTick ++;
+  xPortSysTickHandler();
+}
+
 #endif
 

@@ -53,7 +53,9 @@ int __low_level_init( void )
      
 #ifdef BOOTLOADER  
       /* Set the Vector Table base location at 0x20000000 */ 
-     *SCB_VTOR_ADDRESS = 0x20000000;
+     //*SCB_VTOR_ADDRESS = 0x20000000;
+       init_clocks();
+     init_memory();
 #else
      /* Setup the interrupt vectors address */
      *SCB_VTOR_ADDRESS = (unsigned long)&Image$$ER_IROM1$$Base;

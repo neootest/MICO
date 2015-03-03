@@ -338,13 +338,13 @@ int application_start(void)
   mico_log("Wi-Fi driver version %s, mac %s", wifi_ver, context->micoStatus.mac);
   
   /*Start system monotor thread*/
-  err = MICOStartSystemMonitor(context);
-  require_noerr_action( err, exit, mico_log("ERROR: Unable to start the system monitor.") );
+//  err = MICOStartSystemMonitor(context);
+//  require_noerr_action( err, exit, mico_log("ERROR: Unable to start the system monitor.") );
 
-  err = MICORegisterSystemMonitor(&mico_monitor, APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000);
-  require_noerr( err, exit );
-  mico_init_timer(&_watchdog_reload_timer,APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000 - 100, _watchdog_reload_timer_handler, NULL);
-  mico_start_timer(&_watchdog_reload_timer);
+//  err = MICORegisterSystemMonitor(&mico_monitor, APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000);
+//  require_noerr( err, exit );
+//  mico_init_timer(&_watchdog_reload_timer,APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000 - 100, _watchdog_reload_timer_handler, NULL);
+//  mico_start_timer(&_watchdog_reload_timer);
 
   /* Enter test mode, call a build-in test function amd output on STDIO */
   if(MicoShouldEnterMFGMode()==true){

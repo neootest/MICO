@@ -81,7 +81,7 @@ typedef enum IRQn_PRIO
     /*
      * SOC interrupt(External Interrupt)
      */
-    GPIO_IRQn_PRIO		= IRQ_PRIO_LOWEST,
+    GPIO_IRQn_PRIO		= 1,
     RTC_IRQn_PRIO		= IRQ_PRIO_LOWEST,
     IR_IRQn_PRIO		= 2,
     FUART_IRQn_PRIO		= IRQ_PRIO_HIGHEST,

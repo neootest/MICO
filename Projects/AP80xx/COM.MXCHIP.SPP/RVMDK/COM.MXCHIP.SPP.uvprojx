@@ -565,14 +565,9 @@
               <FilePath>..\..\..\..\Library\MICOConfig.c</FilePath>
             </File>
             <File>
-              <FileName>patch_keil_temp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\patch_keil_temp.c</FilePath>
-            </File>
-            <File>
               <FileName>mxchipWNet_cm3_sdio.a</FileName>
               <FileType>4</FileType>
-              <FilePath>C:\Users\William\Documents\mxchipWNet_cm3_sdio.a</FilePath>
+              <FilePath>..\..\..\..\Library\mxchipWNet_cm3_sdio.a</FilePath>
             </File>
           </Files>
         </Group>
@@ -1318,7 +1313,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/Board/AP80xx_EVB</GroupName>
+          <GroupName>Board/AP80xx_EVB</GroupName>
           <Files>
             <File>
               <FileName>platform.c</FileName>
@@ -1338,7 +1333,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/Board/EMW5000</GroupName>
+          <GroupName>Board/EMW5000</GroupName>
           <GroupOption>
             <CommonProperty>
               <UseCPPCompiler>0</UseCPPCompiler>
@@ -1414,6 +1409,26 @@
               <FileName>platform_common_config.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\..\..\Platform\EMW5000\platform_common_config.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/KEIL</GroupName>
+          <Files>
+            <File>
+              <FileName>memory_debugger.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\Platform\IDEs\Keil\memory_debugger.lib</FilePath>
+            </File>
+            <File>
+              <FileName>retarget.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\IDEs\Keil\retarget.c</FilePath>
+            </File>
+            <File>
+              <FileName>thread_safe.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\IDEs\Keil\thread_safe.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1493,7 +1508,7 @@
           <AfterMake>
             <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>C:\Keil\ARM\ARMCC\bin\fromelf.exe --bin  ..\..\..\..\Build\COM.MXCHIP.SPP\AP80xx\Obj_RVMDK\COM.MXCHIP.SPP.axf --output ..\..\..\..\Build\COM.MXCHIP.SPP\Output\AP80xx\COM.MXCHIP.SPP.bin</UserProg1Name>
+            <UserProg1Name>C:\Keil\ARM\ARMCC\bin\fromelf.exe --bin  ..\..\..\..\Build\COM.MXCHIP.SPP\EMW5000\Obj_RVMDK\COM.MXCHIP.SPP.axf --output ..\..\..\..\Build\COM.MXCHIP.SPP\Output\EMW5000\COM.MXCHIP.SPP.bin</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -1560,7 +1575,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>1</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -1574,7 +1589,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver>Segger\JL2CM3.dll</Driver>
+            <Driver>BIN\UL2CM3.DLL</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -1589,7 +1604,7 @@
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
           <Flash3>"" ()</Flash3>
-          <Flash4>.\Flasher_RVMDK.ini</Flash4>
+          <Flash4>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\AP80xx_Drv\RVMDK_Flasher.ini</Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
           <pFcArmRoot></pFcArmRoot>
@@ -1978,14 +1993,9 @@
               <FilePath>..\..\..\..\Library\MICOConfig.c</FilePath>
             </File>
             <File>
-              <FileName>patch_keil_temp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\patch_keil_temp.c</FilePath>
-            </File>
-            <File>
               <FileName>mxchipWNet_cm3_sdio.a</FileName>
               <FileType>4</FileType>
-              <FilePath>C:\Users\William\Documents\mxchipWNet_cm3_sdio.a</FilePath>
+              <FilePath>..\..\..\..\Library\mxchipWNet_cm3_sdio.a</FilePath>
             </File>
           </Files>
         </Group>
@@ -2688,7 +2698,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/Board/AP80xx_EVB</GroupName>
+          <GroupName>Board/AP80xx_EVB</GroupName>
           <GroupOption>
             <CommonProperty>
               <UseCPPCompiler>0</UseCPPCompiler>
@@ -2768,7 +2778,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/Board/EMW5000</GroupName>
+          <GroupName>Board/EMW5000</GroupName>
           <Files>
             <File>
               <FileName>platform.c</FileName>
@@ -2784,6 +2794,26 @@
               <FileName>platform_common_config.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\..\..\Platform\EMW5000\platform_common_config.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/KEIL</GroupName>
+          <Files>
+            <File>
+              <FileName>memory_debugger.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\Platform\IDEs\Keil\memory_debugger.lib</FilePath>
+            </File>
+            <File>
+              <FileName>retarget.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\IDEs\Keil\retarget.c</FilePath>
+            </File>
+            <File>
+              <FileName>thread_safe.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\IDEs\Keil\thread_safe.c</FilePath>
             </File>
           </Files>
         </Group>

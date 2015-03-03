@@ -526,6 +526,30 @@
 				"buffer_size": 55362,
 				"line_ending": "Windows"
 			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/EMW1062_Driver/SDIO/wlan_bus.c",
+			"settings":
+			{
+				"buffer_size": 25122,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/LocalTcpServer.c",
+			"settings":
+			{
+				"buffer_size": 5749,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/SocketUtils.c",
+			"settings":
+			{
+				"buffer_size": 2949,
+				"line_ending": "Windows"
+			}
 		}
 	],
 	"build_system": "",
@@ -743,6 +767,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"attempts",
+			"nvic",
 			"RCC_GetClocksFreq",
 			"sdio_transfer_failed",
 			"sdio_enable_bus_irq",
@@ -868,9 +894,7 @@
 			"vect",
 			"v e c t",
 			"init_platform",
-			"host_platform_get_cycle_count",
-			"host_platform_power_wifi",
-			"mico_rtos_suspend_all_thread"
+			"host_platform_get_cycle_count"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -890,6 +914,7 @@
 	"groups":
 	[
 		{
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -916,6 +941,90 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 4089.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/EMW1062_Driver/SDIO/wlan_bus.c",
+					"settings":
+					{
+						"buffer_size": 25122,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								18231,
+								18239
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 975.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/LocalTcpServer.c",
+					"settings":
+					{
+						"buffer_size": 5749,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4747,
+								4740
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1878.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/SocketUtils.c",
+					"settings":
+					{
+						"buffer_size": 2949,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 602.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

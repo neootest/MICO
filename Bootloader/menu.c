@@ -113,9 +113,10 @@ int findCommandPara(char *commandBody, char *para, char *paraBody, int paraBodyL
   int i = 0;
   int k, j;
   int retval = -1;
+  char *para_in_ram = __strdup(para);
   
-  for (i = 0; para[i] != 0; i++)  {                /* convert to upper characters */
-    para[i] = toupper(para[i]);
+  for (i = 0; para_in_ram[i] != 0; i++)  {                /* convert to upper characters */
+    para_in_ram[i] = toupper(para_in_ram[i]);
   }
 
   i = 0;

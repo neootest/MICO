@@ -324,7 +324,6 @@ void GpioInterrupt(void)
   intFlagB = GpioIntFlagGet( GPIO_B_INT );
   intFlagC = GpioIntFlagGet( GPIO_C_INT );
 
-
   for( i = 0; i < NUMBER_OF_GPIO_IRQ_LINES; i++ ){
     if ( gpio_irq_data[i].handler != NULL ){
       port = gpio_irq_data[i].port;

@@ -299,6 +299,12 @@ OSStatus FUartRecv( mico_uart_t uart, void* data, uint32_t size, uint32_t timeou
   }
   else
   {
+#ifndef NO_MICO_RTOS
+    mico_thread_msleep(timeout);
+#else
+    mico_thread_msleep_no_os(timeout);
+#endif
+
     return kNoMemoryErr;
   }
 }
@@ -317,10 +323,10 @@ OSStatus BUartRecv( mico_uart_t uart, void* data, uint32_t size, uint32_t timeou
         /* Set rx_size and wait in rx_complete semaphore until data reaches rx_size or timeout occurs */
         uart_interfaces[uart].rx_size = transfer_size;
         
-#ifndef NO_MICO_RTOS
         BuartIOctl(BUART_IOCTL_RXFIFO_TRGR_DEPTH_SET, uart_interfaces[uart].rx_size-1);
         BuartIOctl(UART_IOCTL_RXINT_SET, 1);
-
+        
+#ifndef NO_MICO_RTOS
         if ( mico_rtos_get_semaphore( &uart_interfaces[uart].rx_complete, timeout) != kNoErr )
         {
           //BuartIOctl(UART_IOCTL_RXINT_SET, 0);
@@ -435,16 +441,15 @@ void FuartInterrupt(void)
       uart_interfaces[ AP80xx_FUART ].rx_size = 0;
     }
   }
-  
-// #ifndef NO_MICO_RTOS
-//   if(uart_interfaces[ 0 ].sem_wakeup)
-//     mico_rtos_set_semaphore(&uart_interfaces[ 0 ].sem_wakeup);
-// #endif
 
   if(FuartIOctl(UART_IOCTL_TXSTAT_GET,0) & 0x01)
   {
     FuartIOctl(UART_IOCTL_TXINT_CLR,0);
+#ifndef NO_MICO_RTOS
     mico_rtos_set_semaphore( &uart_interfaces[ AP80xx_FUART ].tx_complete );
+#else
+    uart_interfaces[ AP80xx_FUART ].tx_complete = true;
+#endif
   }
 }
 
@@ -491,7 +496,12 @@ void BuartInterrupt(void)
   if(BuartIOctl(UART_IOCTL_TXSTAT_GET,0) & 0x01)
   {
     BuartIOctl(UART_IOCTL_TXINT_CLR,0);
+
+#ifndef NO_MICO_RTOS
     mico_rtos_set_semaphore( &uart_interfaces[ AP80xx_BUART ].tx_complete );
+#else
+    uart_interfaces[ AP80xx_FUART ].tx_complete = true;
+#endif
   }
 }
 
