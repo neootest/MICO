@@ -75,17 +75,17 @@ typedef enum _DMA_ADDR_WIDTH
 **********************************************************
 */
 /**
- * @Brief	Copy data from source to destination
+ * @Brief	通过DMA通道CH0在XMEM/VMEM/PMEM/SDRAM内部或两两传输数据
  * @Param	SrcAddr
  * @Param	DstAddr
  * @Param	Length
  * @Return	None
- * @Note@ 	Transfer Length is max to 65536
+ * @Note@ 	Transfer Length is max to 65536 bytes
  */
 void DmaMemoryCopy(uint32_t SrcAddr, uint32_t DstAddr, uint32_t Length);
 
 /**
- * @Brief	Get DMA Primary CH0 interrupt stauts
+ * @Brief	Get DMA Primary CH0 interrupt status
  * @Param	None
  * @Return	Interrupt flag
  * @Note@
@@ -93,7 +93,7 @@ void DmaMemoryCopy(uint32_t SrcAddr, uint32_t DstAddr, uint32_t Length);
 bool DmaPriCh0GetInt(void);
 
 /**
- * @Brief	Clear DMA Primary CH0 interrupt stauts
+ * @Brief	Clear DMA Primary CH0 interrupt status
  * @Param	None
  * @Return	None
  * @Note@
@@ -119,7 +119,7 @@ void DmaSetChannelMode(uint8_t Channel, uint8_t Mode);
 void DmaPriCh0Close(void);
 
 /**
- * @Brief	DMA CH0 SW request 
+ * @Brief	DMA CH0 request 
  * @Param	None
  * @Return	None
  * @Note@
@@ -127,7 +127,7 @@ void DmaPriCh0Close(void);
 void DmaCh0SwReq(void);
 
 /**
- * @Brief	Get DMA Primary CH1 interrupt stauts
+ * @Brief	Get DMA Primary CH1 interrupt status
  * @Param	None
  * @Return	Interrupt flag
  * @Note@
@@ -135,7 +135,7 @@ void DmaCh0SwReq(void);
 bool DmaPriCh1GetInt(void);
 
 /**
- * @Brief	Clear DMA Primary CH1 interrupt stauts
+ * @Brief	Clear DMA Primary CH1 interrupt status
  * @Param	None
  * @Return	None
  * @Note@
@@ -150,15 +150,17 @@ void DmaPriCh1IntClr(void);
  */
 void DmaPriCh1Close(void);
 
-//////////////////test code////////////////////////
-void DmaMemCopyTest(uint8_t Mode, uint8_t Channel);
-
+/**
+ * @Brief	设置DMA传输的参数
+ * @Param	请结合几个参数的数据结构理解
+ * @Return	None
+ * @Note@
+ */
 void DmaSetParameter(uint8_t Channel,
                      uint32_t SrcAddr, DMA_ADDR_INC SrcAddrNCR, DMA_ADDR_WIDTH SrcDataWIDTH,
                      uint32_t DstAddr, DMA_ADDR_INC DStAddrINCR, DMA_ADDR_WIDTH DstDataWIDTH,
                      uint8_t BurstSize, uint32_t XferSize);
 
-void DmaMemoryCopyTest(uint32_t SrcAddr, uint32_t DstAddr, uint32_t Length);
 bool DmaCopyDone(void);
 
 #ifdef __cplusplus

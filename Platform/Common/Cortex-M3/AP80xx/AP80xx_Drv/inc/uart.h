@@ -268,13 +268,14 @@ bool FuartStartByteSend(uint8_t Data);
 /**
  * @brief
  *   The FuartInit() function initialize the iosel'th referred by IoSel uart's basic configuration
- *   such as baudrate referred to BaudRate (1200~3000000 bps)and frame length (5~8 bits) referred
+ *   such as baudrate referred to BaudRate and frame length (5~8 bits) referred
  *   by DatumBits and weather or not need to parity(0 for NO, 1 for ODD, 2 for EVEN) referred by
  *   Parity and one frame stop bits (1 or 2).
  *
- * @param	BaudRate	buffer where the transmitt data come from
- * @param	Parity		whether use parith or not
- * @param	StopBits	uart stop length in bit
+ * @param	BaudRate	96MHz主频下，取值（1200bps~3000000bps），48MHz主频下，最大1500000bps
+ * @param	DatumBits	数据位数，取值（5,6,7,8）
+ * @param	Parity		奇偶校验，取值（0：无校验，1：奇校验，2：偶校验）
+ * @param	StopBits	停止位，取值（1：1bit停止位，2：2bit停止位）
  * @return
  *   Upon successful completion,BaudRate() function shall return 0.
  *   Otherwise,a negative error code will be returned.
@@ -383,10 +384,10 @@ int32_t BuartExFifoInit(uint16_t FifoStartAddr, uint16_t RxFifoDepth, uint16_t T
  * (1 or 2), the parameter IoSel is used as I/O multiple reuse, the last parameter is CTS/RTS flow
  * control reuse group selection.
  *
- * @param	BaudRate	rx/tx communication baudrate speed
- * @param	DatumBits	data bits in each frame
- * @param	Parity		whether use parity or not
- * @param	StopBits	stop bits in each frame
+ * @param	BaudRate	96MHz主频下，取值（1200bps~3000000bps），48MHz主频下，最大1500000bps
+ * @param	DatumBits	数据位数，取值（5,6,7,8）
+ * @param	Parity		奇偶校验，取值（0：无校验，1：奇校验，2：偶校验）
+ * @param	StopBits	停止位，取值（1：1bit停止位，2：2bit停止位）
  *
  * @return
  *   Upon successful completion,BaudRate() function shall return 0.

@@ -112,6 +112,27 @@ void SdioControllerInit(void);
 bool SdioSendCommand(uint8_t Cmd, uint32_t Param, uint16_t TimeOut);
 
 /**
+ * @brief  enable sd int, it includes and data int
+ * @param  NONE
+ * @return NONE
+ */
+void SdioDataInterruptEn(void);
+
+/**
+ * @brief  disable sd int, it includes data int
+ * @param  NONE
+ * @return NONE
+ */
+void SdioDataInterruptDis(void);
+
+/**
+ * @brief  clear sd int, it includes data int
+ * @param  NONE
+ * @return NONE
+ */
+void SdioDataInterruptClear(void);
+
+/**
  * @brief  get command response
  * @param  RespBuf save the response
  * @param  RespBufLen the length of the response,

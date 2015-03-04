@@ -190,7 +190,35 @@ bool host_platform_is_sdio_int_asserted(void)
   else
     return false;
 }
+bool waiting = false;
 
+void SdInterrupt(void)
+{
+    OSStatus result = kNoErr;
+    uint8_t sdioStatus = 0;
+
+    /* Clear interrupt */
+    SdioDataInterruptClear();
+
+    // sdioStatus = SdioGetStatus();
+    // if( result != kNoErr )
+    //   return;
+
+    if(waiting == true){
+      result = mico_rtos_set_semaphore( &sdio_transfer_finished_semaphore );
+      waiting = false;
+    }else{
+      //platform_log("Unexcepted!");
+
+    }
+
+    /* check result if in debug mode */
+    //check_string(result == kNoErr, "failed to set dma semaphore" );
+
+    /*@-noeffect@*/
+    //(void) result; /* ignore result if in release mode */
+    /*@+noeffect@*/
+}
 
 void sdio_irq( void )
 {
@@ -280,7 +308,7 @@ OSStatus host_enable_oob_interrupt( void )
     /* Set GPIO_B[1:0] to input. One of them will be re-purposed as OOB interrupt */
     MicoGpioInitialize( (mico_gpio_t)WL_GPIO0, OUTPUT_OPEN_DRAIN_NO_PULL );
     MicoGpioInitialize( (mico_gpio_t)WL_GPIO1, INPUT_HIGH_IMPEDANCE );
-    MicoGpioEnableIRQ( (mico_gpio_t)WL_GPIO1, IRQ_TRIGGER_RISING_EDGE, sdio_oob_irq_handler, 0 );
+    //MicoGpioEnableIRQ( (mico_gpio_t)WL_GPIO1, IRQ_TRIGGER_RISING_EDGE, sdio_oob_irq_handler, 0 );
 
     return kNoErr;
 }
@@ -296,9 +324,21 @@ OSStatus host_platform_bus_init( void )
 
    MCU_CLOCKS_NEEDED();
 
+    result = mico_rtos_init_semaphore( &sdio_transfer_finished_semaphore, 1);
+
+    //result = mico_rtos_set_semaphore( &sdio_transfer_finished_semaphore);
+
+    if ( result != kNoErr )
+    {
+        return result;
+    }
+
+    // mico_rtos_get_semaphore( &sdio_transfer_finished_semaphore, (uint32_t) 10000 );
+
    GpioSdIoConfig(1);
    SdioControllerInit();
    SdioSetClk(0);
+   NVIC_EnableIRQ(SD_IRQn);
    //SdioEnableClk();
 
     MCU_CLOCKS_NOT_NEEDED();
@@ -414,7 +454,6 @@ restart:
     if (attempts >= (uint16_t) BUS_LEVEL_MAX_RETRIES)
     {
         result = kGeneralErr;
-        //printf("!");
         platform_log("SDIO error!");
         mico_thread_sleep(0xFFFFFFFF);
         goto exit;
@@ -424,6 +463,7 @@ restart:
     current_command = command;
     if ( command == SDIO_CMD_53 )
     {
+      
       if ( direction == BUS_READ )
       {
         if(mode == SDIO_BYTE_MODE)
@@ -432,54 +472,84 @@ restart:
              SdioStartReciveData(temp_dma_buffer, block_size);
           
           //require_noerr_quiet(SdioSendCommand(command, argument, 2), restart);
-          status = SdioSendCommand(command, argument, 2);
+          SdioDataInterruptEn();
+          waiting = true;
+          status = SdioSendCommand(command, argument, 1);
           if(status != 0){
-            printf("@");
-            SdioEndDatTrans();
-            SdioDisableClk();
-            GpioSdIoConfig(1);
-            SdioControllerInit();
-            SdioSetClk(0);
-            SdioEnableClk();
-            
-            
-            
-            
-            
-            
             goto restart;
           }
-          while(!SdioIsDatTransDone());
+
+          result = mico_rtos_get_semaphore( &sdio_transfer_finished_semaphore, (uint32_t) 50 );
+          waiting = false;
+          if ( result != kNoErr )
+          {
+            printf("@@, %d", data_size);
+            //SdioDataInterruptDis();
+            goto restart;
+          }
+
+          //while(!SdioIsDatTransDone());
           if(mode == SDIO_BLOCK_MODE){
             blockNumber = argument & (uint32_t) ( 0x1FF ) ;
             for( blockIdx = 1; blockIdx < blockNumber; blockIdx++ ){
               SdioStartReciveData( (uint8_t *)temp_dma_buffer + blockIdx * block_size, block_size);
-              while(!SdioIsDatTransDone());
+              waiting = true;
+              result = mico_rtos_get_semaphore( &sdio_transfer_finished_semaphore, (uint32_t) 50 );
+              waiting = false;
+              if ( result != kNoErr )
+              {
+                printf("@, %d", data_size);
+                //SdioDataInterruptDis();
+                goto restart;
+              }
+              //while(!SdioIsDatTransDone());
             }
           }
           SdioEndDatTrans();
+          SdioDataInterruptDis();
           memcpy( data, temp_dma_buffer, (size_t) data_size );
-       }else{
+       }else{         
          memcpy(temp_dma_buffer, data, data_size);
          //require_noerr_quiet(SdioSendCommand(command, argument, 2), restart);
-         status = SdioSendCommand(command, argument, 2);
+         status = SdioSendCommand(command, argument, 1);
           if(status != 0){
-            printf("#");
             goto restart;
           }
+
+          SdioDataInterruptEn();
          if(mode == SDIO_BYTE_MODE){
+            waiting = true;
             SdioStartSendData((uint8_t *)temp_dma_buffer, data_size);
-            while(!SdioIsDatTransDone());
+            result = mico_rtos_get_semaphore( &sdio_transfer_finished_semaphore, (uint32_t) 50 );
+            waiting = false;
+            if ( result != kNoErr )
+            {
+              printf("$, %d", data_size);
+              //SdioDataInterruptDis();
+              goto restart;
+            }
+            //while(!SdioIsDatTransDone());
          }else{
+            
             blockNumber = argument & (uint32_t) ( 0x1FF ) ;
             for( blockIdx = 0; blockIdx < blockNumber; blockIdx++ ){
               SdioStartSendData( (uint8_t *)temp_dma_buffer + blockIdx * block_size, block_size);
-              while(!SdioIsDatTransDone());
+              waiting = true;
+              result = mico_rtos_get_semaphore( &sdio_transfer_finished_semaphore, (uint32_t) 50 );
+              waiting = false;
+              if ( result != kNoErr )
+              {
+                printf("-, %d", data_size);
+                //SdioDataInterruptDis();
+                goto restart;
+              }
+              //while(!SdioIsDatTransDone());
             }
          }
          SdioEndDatTrans();
-
+         SdioDataInterruptDis();
        }
+       
     }
     else
     {
@@ -487,7 +557,6 @@ restart:
       status = SdioSendCommand(command, argument, 5);
       
       if( response_expected == RESPONSE_NEEDED  && status != 0  ) {
-        printf("$");
         goto restart;
       }
     }

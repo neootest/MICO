@@ -47,7 +47,7 @@ bool SpiSlaveInit(uint8_t Mode, uint32_t StartAddr, uint32_t RxDepth, uint32_t T
 void SpiSlaveClose(void);
 
 /**
- * @Brief	SPI slave module send 1 byte
+ * @Brief	SPI slave module send data
  * @Param	Buf 		source date address point
  * @Param	BufLen 		source data length
  * @Param	TimeOut		send fail timeout value
@@ -56,7 +56,7 @@ void SpiSlaveClose(void);
 uint32_t SpiSlaveSend(uint8_t* Buf, uint32_t BufLen, uint32_t TimeOut);
 
 /**
- * @Brief	SPI slave module receive 1 byte
+ * @Brief	SPI slave module receive data
  * @Param	Buf 		recieve date address point
  * @Param	BufLen 		recieve data length
  * @Param	TimeOut 	recieve fail timeout value

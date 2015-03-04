@@ -76,6 +76,9 @@ uint16_t HostStorGetBlockSize(void);
  */
 uint32_t HostStorGetLastLBA(void);
 
+
+void SetDriverTerminateFuc(TerminateFunc func);
+
 #ifdef  __cplusplus
 }
 #endif//__cplusplus

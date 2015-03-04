@@ -78,22 +78,22 @@ typedef enum _ALC_CHANNEL
 *                   ADC SECTION
 ******************************************************************************/
 /**
- * @brief  channel switch
+ * @brief  Audio ADC交换左右声道的采样值
  * @param  IsSwitch 1-switch, 0-as normal
  * @return NONE
  */
 void AdcChannelSwap(uint8_t IsSwap);
 
 /**
- * @brief  config adc into record mode
- * @param  ClkMode 1--USB mode, 0--Normal mode
+ * @brief  Audio ADC时钟源选择
+ * @param  ClkMode 1--USB mode(12MHz), 0--Normal mode(11.2896/12.288MHz)
  * @return NONE
  */
 bool AdcConfig(uint8_t ClkMode);
 
 /**
- * @brief  config adc into record mode
- * @param  ClkMode 1--USB mode, 0--Normal mode
+ * @brief  在PMEM中开辟存储Audio ADC采样数据的空间，并打开写入到PMEM的通道
+ * @param  ClkMode 1--USB mode(12MHz), 0--Normal mode(11.2896/12.288MHz)
  * @param  PmemAddr assign start addr of adc write pmem, base addr offset relative
  * @param  PmemDepth assign depth of pmem
  * @return NONE
@@ -101,21 +101,21 @@ bool AdcConfig(uint8_t ClkMode);
 bool AdcToPmem(uint8_t ClkMode, uint16_t PmemAddr, uint16_t PmemDepth);
 
 /**
- * @brief  config adc data to i2s
- * @param  ClkMode 1--USB mode, 0--Normal mode
+ * @brief  配置Audio ADC采样值到I2s out并且同时写入PMEM中，Audio ADC的采样率由I2S的LRCLK决定
+ * @param  ClkMode 1--USB mode(12MHz), 0--Normal mode(11.2896/12.288MHz)
  * @return NONE
  */
 void AdcToI2s(uint8_t ClkMode);
 
 /**
- * @brief  close adc module
+ * @brief  close audio adc module
  * @param  NONE
  * @return NONE
  */
 void AdcClose(void);
 
 /**
- * @brief  set digital volume to ADC
+ * @brief  set digital volume of Audio ADC
  * @param  LVol	-> [0x001:-72dB, 0xFFF:0dB]
  * @param  RVol	-> [0x001:-72dB, 0xFFF:0dB]
  * @return NONE
@@ -138,7 +138,7 @@ void AdcPmemWriteEn(void);
 void AdcPmemWriteDis(void);
 
 /**
- * @brief  adjust ADC clock frequnecy(sample rate)
+ * @brief  微调Audio ADC采样率，正值代表加快，负值代表减慢，0代表不进行采样率微调
  * @param  AdjEn TRUE: enable, FALSE: disable dac samplerate adjustment function 
  * @param  Ppm range:[-524287,524287] >0: clock speed up val*0.2ppm  <0:clock slow down val*0.2ppm  
  * @return None
@@ -225,14 +225,14 @@ uint32_t AdcPcmDataRead(uint8_t* Buffer, uint32_t NumSamplesRequired, uint32_t P
 
 
 /**
- * @brief  init asdm module(sigma-delta adc analog section)
+ * @brief  initialize analog section of audio ADC module
  * @param  NONE
  * @return NONE
  */
 void CodecAdcAnaInit(void);
 
 /**
- * @brief  init asdm module(sigma-delta adc analog section)
+ * @brief  deinitialize analog section of audio ADC module
  * @param  NONE
  * @return NONE
  */
@@ -268,6 +268,7 @@ void CodecAdcLineInGainConfig(uint8_t VolLeft, uint8_t VolRight);
  * @return NONE
  */
 void CodecAdcFmGainConfig(uint8_t VolLeft, uint8_t VolRight);
+
 
 //config analog reg for sigma detla adc line in path
 void AsdmAnaLinePathConfig(void);
