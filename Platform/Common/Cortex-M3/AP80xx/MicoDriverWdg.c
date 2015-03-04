@@ -33,7 +33,8 @@
 #include "MICOPlatform.h"
 #include "MICORTOS.h"
 #include "common.h"
-#include "debug.h"
+#include "Debug.h"
+#include "watchdog.h"
 
 #include "platform.h"
 #include "platform_common_config.h"
@@ -57,19 +58,10 @@
 /******************************************************
  *               Variables Definitions
  ******************************************************/
-#ifndef MICO_DISABLE_WATCHDOG
-static __IO uint32_t LsiFreq = 0;
-static __IO uint32_t CaptureNumber = 0, PeriodValue = 0;
-static mico_semaphore_t  _measureLSIComplete_SEM = NULL;
-uint16_t tmpCC4[2] = {0, 0};
-#endif
 
 /******************************************************
  *               Function Declarations
  ******************************************************/
-#ifndef MICO_DISABLE_WATCHDOG
-static uint32_t GetLSIFrequency(void);
-#endif
 
 /******************************************************
  *               Function Definitions
@@ -78,26 +70,38 @@ static uint32_t GetLSIFrequency(void);
 OSStatus MicoWdgInitialize( uint32_t timeout_ms )
 {
 // PLATFORM_TO_DO
-#ifndef MICO_DISABLE_WATCHDOG
-  retur kUnsupportedErr
-#else
-  UNUSED_PARAMETER( timeout_ms );
+#ifdef MICO_DISABLE_WATCHDOG
   return kUnsupportedErr;
+#else
+  OSStatus err = kNoErr;
+  require_action( timeout_ms < 4000 && timeout_ms > 0, exit, err = kParamErr );
+
+  if ( timeout_ms > 3000 )
+  	WdgEn(WDG_STEP_4S);
+  else if ( timeout_ms > 1000 )
+  	WdgEn(WDG_STEP_3S);
+  else
+  	WdgEn(WDG_STEP_1S);
+
+exit:
+	return err;
 #endif
 }
 
 OSStatus MicoWdgFinalize( void )
 {
     // PLATFORM_TO_DO
+    WdgDis();
     return kNoErr;
 }
 
 void MicoWdgReload( void )
 {
 #ifndef MICO_DISABLE_WATCHDOG
-  return;
+	WdgFeed();
+	return;
 #else
-  return;
+	return;
 #endif
 }
 

@@ -147,7 +147,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>1</TargetSelection>
+          <TargetSelection>7</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -161,7 +161,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver>BIN\UL2CM3.DLL</Driver>
+            <Driver>Segger\JL2CM3.dll</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -514,11 +514,6 @@
           <GroupName>Library</GroupName>
           <Files>
             <File>
-              <FileName>patch_keil.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\patch_keil.c</FilePath>
-            </File>
-            <File>
               <FileName>MICOConfig.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Library\MICOConfig.c</FilePath>
@@ -526,7 +521,7 @@
             <File>
               <FileName>mxchipWNet_cm3_sdio.a</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\..\Library\mxchipWNet_cm3_sdio.a</FilePath>
+              <FilePath>C:\Users\William\Documents\mxchipWNet_cm3_sdio.a</FilePath>
             </File>
           </Files>
         </Group>
@@ -906,7 +901,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/Board</GroupName>
+          <GroupName>Board/EMW3162</GroupName>
           <Files>
             <File>
               <FileName>platform.c</FileName>
@@ -967,6 +962,26 @@
               <FileName>MicoWlan.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\..\..\include\MicoWlan.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/KEIL</GroupName>
+          <Files>
+            <File>
+              <FileName>retarget.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\IDEs\Keil\retarget.c</FilePath>
+            </File>
+            <File>
+              <FileName>thread_safe.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\IDEs\Keil\thread_safe.c</FilePath>
+            </File>
+            <File>
+              <FileName>memory_debugger.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>Y:\Develop\mxchipWNet Pro Demo@EMW316x\Platform\IDEs\Keil\memory_debugger.lib</FilePath>
             </File>
           </Files>
         </Group>

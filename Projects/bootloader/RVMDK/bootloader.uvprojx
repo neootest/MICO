@@ -433,11 +433,6 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\Bootloader\ymodem.c</FilePath>
             </File>
-            <File>
-              <FileName>patch_keil.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Platform\IDEs\Keil\patch_keil.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -676,7 +671,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/Board</GroupName>
+          <GroupName>Board/EMW3162</GroupName>
           <Files>
             <File>
               <FileName>platform.c</FileName>
@@ -737,6 +732,21 @@
               <FileName>MicoWlan.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\..\include\MicoWlan.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/KEIL</GroupName>
+          <Files>
+            <File>
+              <FileName>retarget.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Platform\IDEs\Keil\retarget.c</FilePath>
+            </File>
+            <File>
+              <FileName>thread_safe.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Platform\IDEs\Keil\thread_safe.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -176,7 +176,7 @@ uint32_t GetLSIFrequency(void)
   
   /* Enable TIM5 Interrupt channel */
   NVIC_InitStructure.NVIC_IRQChannel = TIM5_IRQn;
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 15;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 5;
   NVIC_InitStructure.NVIC_IRQChannelSubPriority = 8;
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   NVIC_Init(&NVIC_InitStructure);
@@ -192,6 +192,8 @@ uint32_t GetLSIFrequency(void)
 
   /* Wait until the TIM5 get 2 LSI edges (refer to TIM5_IRQHandler()) *********/
   mico_rtos_get_semaphore(&_measureLSIComplete_SEM, MICO_WAIT_FOREVER);
+  mico_rtos_deinit_semaphore( &_measureLSIComplete_SEM );
+  _measureLSIComplete_SEM = NULL;
 
   /* Deinitialize the TIM5 peripheral registers to their default reset values */
   TIM_ITConfig(TIM5, TIM_IT_CC4, DISABLE);
@@ -229,7 +231,7 @@ void TIM5_IRQHandler(void)
   {  
     /* Clear CC4 Interrupt pending bit */
     TIM_ClearITPendingBit(TIM5, TIM_IT_CC4);
-    if (CaptureNumber > 2)
+    if (CaptureNumber >= 2)
         return;
    
     /* Get the Input Capture value */

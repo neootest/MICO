@@ -229,7 +229,7 @@ void TIM5_IRQHandler(void)
   {  
     /* Clear CC4 Interrupt pending bit */
     TIM_ClearITPendingBit(TIM5, TIM_IT_CC4);
-    if (CaptureNumber > 2)
+    if (CaptureNumber >= 2)
         return;
    
     /* Get the Input Capture value */
