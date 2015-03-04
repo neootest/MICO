@@ -7596,7 +7596,7 @@
         </option>
         <option>
           <name>IlinkStackAnalysisEnable</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkStackControlFile</name>
@@ -8149,6 +8149,10 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_cm4f_8801.a</name>
+      <excluded>
+        <configuration>EMW3162</configuration>
+        <configuration>EMW3165</configuration>
+      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_cm4f_sdio.a</name>
@@ -8881,6 +8885,9 @@
           </group>
           <group>
             <name>EMW1088_Driver</name>
+            <excluded>
+              <configuration>EMW3165</configuration>
+            </excluded>
             <file>
               <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M4\STM32F4xx\EMW1088_Driver\read_wifi_firmware.c</name>
             </file>
@@ -8940,6 +8947,7 @@
               <file>
                 <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M4\STM32F4xx\STM32F4xx_Drv\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_fsmc.c</name>
                 <excluded>
+                  <configuration>EMW3165</configuration>
                   <configuration>EMW3288</configuration>
                 </excluded>
               </file>
@@ -9079,6 +9087,9 @@
           </file>
           <file>
             <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\EMW3288.c</name>
+            <excluded>
+              <configuration>EMW3165</configuration>
+            </excluded>
           </file>
           <file>
             <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\MICO_EVB_1.c</name>
@@ -9224,6 +9235,10 @@
     </group>
     <group>
       <name>EMW3288</name>
+      <excluded>
+        <configuration>EMW3162</configuration>
+        <configuration>EMW3165</configuration>
+      </excluded>
       <file>
         <name>$PROJ_DIR$\..\..\..\Platform\EMW3288\platform.c</name>
       </file>

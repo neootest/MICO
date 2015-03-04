@@ -288,13 +288,14 @@ OSStatus host_enable_oob_interrupt( void )
   return kNoErr;
 }
 
-int host_get_oob_state(void)
+bool host_platform_is_sdio_int_asserted(void)
 {
     if (MicoGpioInputGet((mico_gpio_t)WL_GPIO1) == true)//SDIO D1 is high
-        return 0;
+        return false;
     else
-        return 1; // SDIO D1 is low, data need read
+        return true; // SDIO D1 is low, data need read
 }
+
 
 uint8_t host_platform_get_oob_interrupt_pin( void )
 {
