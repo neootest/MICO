@@ -425,28 +425,34 @@
   <group>
     <name>Application</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP\MICOAppDefine.h</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED\MICOAppDefine.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP\MICOAppEntrance.c</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED\MICOAppEntrance.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP\MICOBonjour.c</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED\MICOBonjour.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP\MICOConfigDelegate.c</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED\MICOConfigDelegate.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP\MicoDefaults.h</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED\MicoDefaults.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP\MicoVirtualDevice.c</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED\MicoVirtualDevice.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP\MVDCloudInterfaces.c</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED\MVDCloudInterfaces.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP\MVDDeviceInterfaces.c</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED\MVDDeviceInterfaces.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED\MVDMsgProtocol.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED\RGB.c</name>
     </file>
   </group>
   <group>

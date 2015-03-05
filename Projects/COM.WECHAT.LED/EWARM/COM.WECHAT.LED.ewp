@@ -17,15 +17,15 @@
         <debug>0</debug>
         <option>
           <name>ExePath</name>
-          <state>..\..\..\Build\COM.WECHAT.SPP\Output\EMW3162</state>
+          <state>..\..\..\Build\COM.WECHAT.LED\Output\EMW3162</state>
         </option>
         <option>
           <name>ObjPath</name>
-          <state>..\..\..\Build\COM.WECHAT.SPP\EMW3162\Obj</state>
+          <state>..\..\..\Build\COM.WECHAT.LED\EMW3162\Obj</state>
         </option>
         <option>
           <name>ListPath</name>
-          <state>..\..\..\Build\COM.WECHAT.SPP\EMW3162\list</state>
+          <state>..\..\..\Build\COM.WECHAT.LED\EMW3162\list</state>
         </option>
         <option>
           <name>Variant</name>
@@ -304,7 +304,7 @@
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$\..\..\..\Platform</state>
           <state>$PROJ_DIR$\..\..\..\Library\support</state>
-          <state>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP</state>
+          <state>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED</state>
           <state>$PROJ_DIR$\..\..\..\MICO</state>
           <state>$PROJ_DIR$\..\..\..\Platform\EMW3162</state>
           <state>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M3\STM32F2xx</state>
@@ -608,7 +608,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>COM.WECHAT.SPP.bin</state>
+          <state>COM.WECHAT.LED.bin</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -662,7 +662,7 @@
         </option>
         <option>
           <name>IlinkOutputFile</name>
-          <state>COM.WECHAT.SPP.out</state>
+          <state>COM.WECHAT.LED.out</state>
         </option>
         <option>
           <name>IlinkDebugInfoEnable</name>
@@ -973,15 +973,15 @@
         <debug>1</debug>
         <option>
           <name>ExePath</name>
-          <state>..\..\..\Build\COM.WECHAT.SPP\Output\MICO_EVB_1</state>
+          <state>..\..\..\Build\COM.WECHAT.LED\Output\MICO_EVB_1</state>
         </option>
         <option>
           <name>ObjPath</name>
-          <state>..\..\..\Build\COM.WECHAT.SPP\MICO_EVB_1\obj</state>
+          <state>..\..\..\Build\COM.WECHAT.LED\MICO_EVB_1\obj</state>
         </option>
         <option>
           <name>ListPath</name>
-          <state>..\..\..\Build\COM.WECHAT.SPP\MICO_EVB_1\list</state>
+          <state>..\..\..\Build\COM.WECHAT.LED\MICO_EVB_1\list</state>
         </option>
         <option>
           <name>Variant</name>
@@ -1260,7 +1260,7 @@
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$\..\..\..\Platform</state>
           <state>$PROJ_DIR$\..\..\..\Library\support</state>
-          <state>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP</state>
+          <state>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED</state>
           <state>$PROJ_DIR$\..\..\..\MICO</state>
           <state>$PROJ_DIR$\..\..\..\Platform\MICO_EVB_1</state>
           <state>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M3\STM32F2xx</state>
@@ -1567,7 +1567,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>COM.WECHAT.SPP.bin</state>
+          <state>COM.WECHAT.LED.bin</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -1621,7 +1621,7 @@
         </option>
         <option>
           <name>IlinkOutputFile</name>
-          <state>COM.WECHAT.SPP.out</state>
+          <state>COM.WECHAT.LED.out</state>
         </option>
         <option>
           <name>IlinkDebugInfoEnable</name>
@@ -1932,15 +1932,15 @@
         <debug>0</debug>
         <option>
           <name>ExePath</name>
-          <state>..\..\..\Build\COM.WECHAT.SPP\Output\Nucleo_411RE</state>
+          <state>..\..\..\Build\COM.WECHAT.LED\Output\Nucleo_411RE</state>
         </option>
         <option>
           <name>ObjPath</name>
-          <state>..\..\..\Build\COM.WECHAT.SPP\Nucleo_411RE\Obj</state>
+          <state>..\..\..\Build\COM.WECHAT.LED\Nucleo_411RE\Obj</state>
         </option>
         <option>
           <name>ListPath</name>
-          <state>..\..\..\Build\COM.WECHAT.SPP\Nucleo_411RE\lisr</state>
+          <state>..\..\..\Build\COM.WECHAT.LED\Nucleo_411RE\lisr</state>
         </option>
         <option>
           <name>Variant</name>
@@ -2219,7 +2219,7 @@
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$\..\..\..\Platform</state>
           <state>$PROJ_DIR$\..\..\..\Library\support</state>
-          <state>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP</state>
+          <state>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED</state>
           <state>$PROJ_DIR$\..\..\..\MICO</state>
           <state>$PROJ_DIR$\..\..\..\Platform\Nucleo_411RE</state>
           <state>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M4\STM32F4xx</state>
@@ -2521,7 +2521,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>COM.WECHAT.SPP.bin</state>
+          <state>COM.WECHAT.LED.bin</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -2575,7 +2575,7 @@
         </option>
         <option>
           <name>IlinkOutputFile</name>
-          <state>COM.WECHAT.SPP.out</state>
+          <state>COM.WECHAT.LED.out</state>
         </option>
         <option>
           <name>IlinkDebugInfoEnable</name>
@@ -2886,15 +2886,15 @@
         <debug>0</debug>
         <option>
           <name>ExePath</name>
-          <state>..\..\..\Build\COM.WECHAT.SPP\Output\EMW3165</state>
+          <state>..\..\..\Build\COM.WECHAT.LED\Output\EMW3165</state>
         </option>
         <option>
           <name>ObjPath</name>
-          <state>..\..\..\Build\COM.WECHAT.SPP\EMW3165\Obj</state>
+          <state>..\..\..\Build\COM.WECHAT.LED\EMW3165\Obj</state>
         </option>
         <option>
           <name>ListPath</name>
-          <state>..\..\..\Build\COM.WECHAT.SPP\EMW3165\list</state>
+          <state>..\..\..\Build\COM.WECHAT.LED\EMW3165\list</state>
         </option>
         <option>
           <name>Variant</name>
@@ -3173,7 +3173,7 @@
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$\..\..\..\Platform</state>
           <state>$PROJ_DIR$\..\..\..\Library\support</state>
-          <state>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP</state>
+          <state>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED</state>
           <state>$PROJ_DIR$\..\..\..\MICO</state>
           <state>$PROJ_DIR$\..\..\..\Platform\EMW3165</state>
           <state>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M4\STM32F4xx</state>
@@ -3476,7 +3476,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>COM.WECHAT.SPP.bin</state>
+          <state>COM.WECHAT.LED.bin</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -3530,7 +3530,7 @@
         </option>
         <option>
           <name>IlinkOutputFile</name>
-          <state>COM.WECHAT.SPP.out</state>
+          <state>COM.WECHAT.LED.out</state>
         </option>
         <option>
           <name>IlinkDebugInfoEnable</name>
@@ -3841,15 +3841,15 @@
         <debug>0</debug>
         <option>
           <name>ExePath</name>
-          <state>..\..\..\Build\COM.WECHAT.SPP\Output\EMW3288\Exe</state>
+          <state>..\..\..\Build\COM.WECHAT.LED\Output\EMW3288\Exe</state>
         </option>
         <option>
           <name>ObjPath</name>
-          <state>..\..\..\Build\COM.WECHAT.SPP\Output\EMW3288\Obj</state>
+          <state>..\..\..\Build\COM.WECHAT.LED\Output\EMW3288\Obj</state>
         </option>
         <option>
           <name>ListPath</name>
-          <state>..\..\..\Build\COM.WECHAT.SPP\Output\EMW3288\List</state>
+          <state>..\..\..\Build\COM.WECHAT.LED\Output\EMW3288\List</state>
         </option>
         <option>
           <name>Variant</name>
@@ -4128,7 +4128,7 @@
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$\..\..\..\Platform</state>
           <state>$PROJ_DIR$\..\..\..\Library\support</state>
-          <state>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP</state>
+          <state>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED</state>
           <state>$PROJ_DIR$\..\..\..\MICO</state>
           <state>$PROJ_DIR$\..\..\..\Platform\EMW3288</state>
           <state>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M4\STM32F4xx</state>
@@ -4431,7 +4431,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>COM.WECHAT.SPP.bin</state>
+          <state>COM.WECHAT.LED.bin</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -4485,7 +4485,7 @@
         </option>
         <option>
           <name>IlinkOutputFile</name>
-          <state>COM.WECHAT.SPP.out</state>
+          <state>COM.WECHAT.LED.out</state>
         </option>
         <option>
           <name>IlinkDebugInfoEnable</name>
@@ -4784,28 +4784,34 @@
   <group>
     <name>Application</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP\MICOAppDefine.h</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED\MICOAppDefine.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP\MICOAppEntrance.c</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED\MICOAppEntrance.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP\MICOBonjour.c</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED\MICOBonjour.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP\MICOConfigDelegate.c</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED\MICOConfigDelegate.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP\MicoDefaults.h</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED\MicoDefaults.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP\MicoVirtualDevice.c</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED\MicoVirtualDevice.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP\MVDCloudInterfaces.c</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED\MVDCloudInterfaces.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.SPP\MVDDeviceInterfaces.c</name>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED\MVDDeviceInterfaces.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED\MVDMsgProtocol.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\Demos\COM.WECHAT.LED\RGB.c</name>
     </file>
   </group>
   <group>

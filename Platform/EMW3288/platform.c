@@ -92,6 +92,8 @@ const platform_pin_mapping_t gpio_mapping[] =
 #else
   [WL_GPIO1]                          = {GPIOB,  6,  RCC_AHB1Periph_GPIOB},
 #endif
+  [MICO_SYS_LED]                      = {GPIOB,  12, RCC_AHB1Periph_GPIOB}, 
+  [MICO_RF_LED]                       = {GPIOB,  13, RCC_AHB1Periph_GPIOB},
   [BOOT_SEL]                          = {GPIOB,  2,  RCC_AHB1Periph_GPIOB}, 
   [MFG_SEL]                           = {GPIOA,  4,  RCC_AHB1Periph_GPIOA}, 
   [EasyLink_BUTTON]                   = {GPIOB,  14, RCC_AHB1Periph_GPIOA}, 
@@ -100,18 +102,19 @@ const platform_pin_mapping_t gpio_mapping[] =
 
   /* GPIOs for external use */
   [MICO_GPIO_2]  = {GPIOA, 11,  RCC_AHB1Periph_GPIOA},
+  [MICO_GPIO_4]  = {GPIOA,  7,  RCC_AHB1Periph_GPIOA},
   [MICO_GPIO_8]  = {GPIOA,  2,  RCC_AHB1Periph_GPIOA},
   [MICO_GPIO_9]  = {GPIOA,  1,  RCC_AHB1Periph_GPIOA},
   [MICO_GPIO_12] = {GPIOA,  3,  RCC_AHB1Periph_GPIOA},
   [MICO_GPIO_16] = {GPIOC, 13,  RCC_AHB1Periph_GPIOC},
   [MICO_GPIO_17] = {GPIOB, 10,  RCC_AHB1Periph_GPIOB},
   [MICO_GPIO_18] = {GPIOB,  9,  RCC_AHB1Periph_GPIOB},
-  [MICO_GPIO_19] = {GPIOB, 12,  RCC_AHB1Periph_GPIOB},
+  //[MICO_GPIO_19] = {GPIOB, 12,  RCC_AHB1Periph_GPIOB},
   [MICO_GPIO_27] = {GPIOA, 12,  RCC_AHB1Periph_GPIOA},  
   [MICO_GPIO_29] = {GPIOA, 10,  RCC_AHB1Periph_GPIOA},
   [MICO_GPIO_30] = {GPIOB,  6,  RCC_AHB1Periph_GPIOB},
   [MICO_GPIO_31] = {GPIOB,  8,  RCC_AHB1Periph_GPIOB},
-  [MICO_GPIO_33] = {GPIOB, 13,  RCC_AHB1Periph_GPIOB},
+  //[MICO_GPIO_33] = {GPIOB, 13,  RCC_AHB1Periph_GPIOB},
   [MICO_GPIO_34] = {GPIOA,  5,  RCC_AHB1Periph_GPIOA},
   [MICO_GPIO_35] = {GPIOA, 10,  RCC_AHB1Periph_GPIOA},
   [MICO_GPIO_36] = {GPIOB,  1,  RCC_AHB1Periph_GPIOB},
@@ -140,10 +143,10 @@ const platform_pwm_mapping_t pwm_mappings[] =
   /* Extended PWM for internal use */
   [MICO_PWM_WLAN_POWERSAVE_CLOCK] = {TIM1, 1, RCC_APB2Periph_TIM1, GPIO_AF_TIM1, (platform_pin_mapping_t*)&gpio_mapping[MICO_GPIO_WLAN_POWERSAVE_CLOCK] }, /* or TIM2/Ch2                       */
 #endif
-  [MICO_PWM_1] = NULL,
-  //[MICO_PWM_1]  = {TIM4, 3, RCC_APB1Periph_TIM4, GPIO_AF_TIM4, (platform_pin_mapping_t*)&gpio_mapping[MICO_GPIO_10]},    /* or TIM10/Ch1                       */
-  //[MICO_PWM_2]  = {TIM12, 1, RCC_APB1Periph_TIM12, GPIO_AF_TIM12, (platform_pin_mapping_t*)&gpio_mapping[MICO_GPIO_13]}, /* or TIM1/Ch2N                       */
-  //[MICO_PWM_3]  = {TIM2, 4, RCC_APB1Periph_TIM2, GPIO_AF_TIM2, (platform_pin_mapping_t*)&gpio_mapping[MICO_GPIO_19]},    
+  //[MICO_PWM_1] = NULL,
+  [MICO_PWM_G]  = {TIM2, 2, RCC_APB1Periph_TIM2, GPIO_AF_TIM2, (platform_pin_mapping_t*)&gpio_mapping[MICO_GPIO_9]},    /* or TIM10/Ch1                       */
+  [MICO_PWM_B]  = {TIM2, 1, RCC_APB1Periph_TIM2, GPIO_AF_TIM2, (platform_pin_mapping_t*)&gpio_mapping[MICO_GPIO_34]}, /* or TIM1/Ch2N                       */
+  [MICO_PWM_R]  = {TIM3, 2, RCC_APB1Periph_TIM3, GPIO_AF_TIM3, (platform_pin_mapping_t*)&gpio_mapping[MICO_GPIO_4]},    
   /* TODO: fill in the other options here ... */
 };
 
@@ -367,9 +370,9 @@ void host_platform_power_wifi( bool power_enabled )
 void MicoSysLed(bool onoff)
 {
     if (onoff) {
-        MicoGpioOutputHigh( (mico_gpio_t)MICO_SYS_LED );
-    } else {
         MicoGpioOutputLow( (mico_gpio_t)MICO_SYS_LED );
+    } else {
+        MicoGpioOutputHigh( (mico_gpio_t)MICO_SYS_LED );
     }
 }
 
