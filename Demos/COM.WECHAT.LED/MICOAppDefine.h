@@ -41,14 +41,14 @@
 #define MICO_CONFIG_MODE CONFIG_MODE_AIRKISS
 
 /*User provided configurations*/
-#define CONFIGURATION_VERSION               0x00000002 // if default configuration is changed, update this number
+#define CONFIGURATION_VERSION               0x00000003 // if default configuration is changed, update this number
 #define LOCAL_PORT                          8080
 #define BONJOUR_SERVICE                     "_easylink._tcp.local."
 
 /* product type */
-#define DEFAULT_PRODUCT_ID        "af2b33be"
-#define DEFAULT_PRODUCT_KEY       "3077ea98-4d07-42db-955a-49821dd39ccb"
-#define DEFAULT_ROM_VERSION       "v0.0.3"
+#define DEFAULT_PRODUCT_ID        "f2889664"
+#define DEFAULT_PRODUCT_KEY       "fc7773f7-9199-4999-8bac-803ec949c61f"
+#define DEFAULT_ROM_VERSION       "v0.0.1"
 
 /*Application's configuration stores in flash*/
 typedef struct
