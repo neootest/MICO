@@ -315,12 +315,12 @@ exit:
 void MVDRestoreDefault(mico_Context_t* const context)
 {
   // start a thread to reset device info on EasyCloud
-  mico_rtos_init_semaphore(&_reset_cloud_info_sem, 1);
-  mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "MVD resetCloudInfo", 
-                                MVDDevCloudInfoResetThread, 0x800, 
-                                context );
-  mico_rtos_get_semaphore(&_reset_cloud_info_sem, 5000);  // 5s timeout
-  
+//  mico_rtos_init_semaphore(&_reset_cloud_info_sem, 1);
+//  mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "MVD resetCloudInfo", 
+//                                MVDDevCloudInfoResetThread, 0x800, 
+//                                context );
+//  mico_rtos_get_semaphore(&_reset_cloud_info_sem, 5000);  // 5s timeout
+//  
   // reset all MVD config params
   memset((void*)&(context->flashContentInRam.appConfig.virtualDevConfig), 
          0, sizeof(virtual_device_config_t));
