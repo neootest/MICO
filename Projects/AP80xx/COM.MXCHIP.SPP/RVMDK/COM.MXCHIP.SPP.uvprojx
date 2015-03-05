@@ -567,7 +567,7 @@
             <File>
               <FileName>mxchipWNet_cm3_sdio.a</FileName>
               <FileType>4</FileType>
-              <FilePath>C:\Users\William\Documents\mxchipWNet_cm3_sdio.a</FilePath>
+              <FilePath>..\..\..\..\Library\mxchipWNet_cm3_sdio.a</FilePath>
             </File>
           </Files>
         </Group>
@@ -1947,7 +1947,7 @@
             <File>
               <FileName>mxchipWNet_cm3_sdio.a</FileName>
               <FileType>4</FileType>
-              <FilePath>C:\Users\William\Documents\mxchipWNet_cm3_sdio.a</FilePath>
+              <FilePath>..\..\..\..\Library\mxchipWNet_cm3_sdio.a</FilePath>
             </File>
           </Files>
         </Group>
