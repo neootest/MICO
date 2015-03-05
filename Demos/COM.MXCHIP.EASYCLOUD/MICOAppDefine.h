@@ -35,11 +35,6 @@
 #define SERIAL_NUMBER       "20150211"
 #define PROTOCOL            "com.mxchip.easycloud"
 
-#ifdef DEFAULT_NAME
-#undef DEFAULT_NAME
-#define DEFAULT_NAME        "EMW3162 EasyCloud"
-#endif
-
 
 /* Wi-Fi configuration mode */
 #define MICO_CONFIG_MODE CONFIG_MODE_EASYLINK

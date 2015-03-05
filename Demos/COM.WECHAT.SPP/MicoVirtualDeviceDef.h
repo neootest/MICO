@@ -63,6 +63,9 @@ typedef struct _virtual_device_config_t
   char              loginId[MAX_SIZE_LOGIN_ID];          // not used for wechat dev
   char              devPasswd[MAX_SIZE_DEV_PASSWD];      // not used for wechat dev
   //char              userToken[MAX_SIZE_USER_TOKEN];    // use MAC addr instead
+  
+  /* reset flag */
+  bool              needCloudReset;                     // need reset cloud when set
 } virtual_device_config_t;
 
 /* device status */

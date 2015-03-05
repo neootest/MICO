@@ -91,12 +91,13 @@ void mvdNotify_WifiStatusHandler(WiFiEvent event, mico_Context_t * const inConte
   return;
 }
 
+#define DEVICE_RESET_RETRY_CNT    3
 OSStatus easycloud_reset_cloud_info(mico_Context_t * const context)
 {
   OSStatus err = kUnknownErr;
   MVDResetRequestData_t devDefaultResetData;
   mico_Context_t *inContext = (mico_Context_t *)context;
-  int retry_cnt = 3;
+  int retry_cnt = 1;
   
   
   do{
@@ -107,12 +108,12 @@ OSStatus easycloud_reset_cloud_info(mico_Context_t * const context)
     }
     else{
       mvd_log("[MVD]Device EasyCloud context init [FAILED]");
-      retry_cnt--;
+      retry_cnt++;
       continue;
     }
     
     /* cloud info reset */
-    mvd_log("[MVD]Device reset EasyCloud info try[%d] ...", 4 - retry_cnt);
+    mvd_log("[MVD]Device reset EasyCloud info try[%d] ...", retry_cnt);
     memset((void*)&devDefaultResetData, 0, sizeof(devDefaultResetData));
     strncpy(devDefaultResetData.loginId,
             inContext->flashContentInRam.appConfig.virtualDevConfig.loginId,
@@ -128,11 +129,11 @@ OSStatus easycloud_reset_cloud_info(mico_Context_t * const context)
       mvd_log("[MVD]Device reset EasyCloud info [OK]");
     }
     else{
-      mvd_log("[MVD]Device EasyCloud info [FAILED]");
+      mvd_log("[MVD]Device reset EasyCloud info [FAILED]");
+          retry_cnt++;
     }
     
-    retry_cnt--;
-  }while((kNoErr != err) && (retry_cnt > 0));
+  }while((kNoErr != err) && (retry_cnt <= DEVICE_RESET_RETRY_CNT));
   
   return err;
 }
@@ -187,10 +188,11 @@ void MVDMainThread(void *arg)
     mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "MVDResetCloudInfo", 
                             MVDDevCloudInfoResetThread, 0x800, 
                             inContext );
-    err = mico_rtos_get_semaphore(&_reset_cloud_info_sem, 5000);  // 5s timeout
+    err = mico_rtos_get_semaphore(&_reset_cloud_info_sem, MICO_WAIT_FOREVER);
     if(kNoErr == err){
       mico_rtos_lock_mutex(&inContext->flashContentInRam_mutex);
       inContext->flashContentInRam.appConfig.virtualDevConfig.needCloudReset = false;
+      inContext->flashContentInRam.appConfig.virtualDevConfig.isActivated = false;
       err = MICOUpdateConfiguration(inContext);
       mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
       mvd_log("MVD Cloud reset success!");
@@ -231,8 +233,9 @@ void MVDMainThread(void *arg)
         inContext->flashContentInRam.micoSystemConfig.easyLinkByPass = EASYLINK_SOFT_AP_BYPASS;
       MICOUpdateConfiguration(inContext);
       inContext->micoStatus.sys_state = eState_Software_Reset;
-      if(inContext->micoStatus.sys_state_change_sem != NULL );
-      mico_rtos_set_semaphore(&inContext->micoStatus.sys_state_change_sem);
+      if(inContext->micoStatus.sys_state_change_sem != NULL ){
+        mico_rtos_set_semaphore(&inContext->micoStatus.sys_state_change_sem);
+      }
       mico_thread_sleep(MICO_WAIT_FOREVER);
     }
     else{
@@ -326,18 +329,20 @@ exit:
 // reset default value
 void MVDRestoreDefault(mico_Context_t* const context)
 {
+  bool need_reset = false;
+  
+  // save reset flag
+  if(context->flashContentInRam.appConfig.virtualDevConfig.isActivated){
+    need_reset = true;
+  }
+  
   // reset all MVD config params
   memset((void*)&(context->flashContentInRam.appConfig.virtualDevConfig), 
          0, sizeof(virtual_device_config_t));
   
   context->flashContentInRam.appConfig.virtualDevConfig.USART_BaudRate = 115200;
   
-  if(context->flashContentInRam.appConfig.virtualDevConfig.isActivated){
-    context->flashContentInRam.appConfig.virtualDevConfig.needCloudReset = true;  // need reset cloud when restart
-  }
-  else{
-    context->flashContentInRam.appConfig.virtualDevConfig.needCloudReset = false;
-  }
+  context->flashContentInRam.appConfig.virtualDevConfig.isActivated = false;
   sprintf(context->flashContentInRam.appConfig.virtualDevConfig.deviceId, DEFAULT_DEVICE_ID);
   sprintf(context->flashContentInRam.appConfig.virtualDevConfig.masterDeviceKey, DEFAULT_DEVICE_KEY);
   sprintf(context->flashContentInRam.appConfig.virtualDevConfig.romVersion, DEFAULT_ROM_VERSION);
@@ -345,6 +350,15 @@ void MVDRestoreDefault(mico_Context_t* const context)
   sprintf(context->flashContentInRam.appConfig.virtualDevConfig.loginId, DEFAULT_LOGIN_ID);
   sprintf(context->flashContentInRam.appConfig.virtualDevConfig.devPasswd, DEFAULT_DEV_PASSWD);
   sprintf(context->flashContentInRam.appConfig.virtualDevConfig.userToken, context->micoStatus.mac);
+  
+  // set reset flag for next startup
+  if(need_reset){
+    context->flashContentInRam.appConfig.virtualDevConfig.needCloudReset = true;
+    context->flashContentInRam.appConfig.virtualDevConfig.isActivated = true;
+  }
+  else{
+    context->flashContentInRam.appConfig.virtualDevConfig.needCloudReset = false;
+  }
 }
 
 OSStatus MVDInit(mico_Context_t* const inContext)
