@@ -150,9 +150,9 @@ typedef struct
  *             Variables
  ******************************************************/
 
-static uint8_t   temp_dma_buffer[2*1024];
-static uint8_t*  user_data;
-static uint32_t  user_data_size;
+//static uint8_t   temp_dma_buffer[2*1024];
+//static uint8_t*  user_data;
+//static uint32_t  user_data_size;
 static uint8_t*  dma_data_source;
 static uint32_t  dma_transfer_size;
 
@@ -577,10 +577,6 @@ restart:
             }
         } while ( ( SDIO->STA & ( SDIO_STA_TXACT | SDIO_STA_RXACT ) ) != 0 );
 
-        if ( direction == BUS_READ )
-        {
-            memcpy( user_data, dma_data_source, (size_t) user_data_size );
-        }
     }
     else
     {
@@ -618,18 +614,11 @@ exit:
 static void sdio_prepare_data_transfer( bus_transfer_direction_t direction, sdio_block_size_t block_size, /*@unique@*/ uint8_t* data, uint16_t data_size ) /*@modifies dma_data_source, user_data, user_data_size, dma_transfer_size@*/
 {
     /* Setup a single transfer using the temp buffer */
-    user_data         = data;
-    user_data_size    = data_size;
+    //user_data         = data;
+    //user_data_size    = data_size;
     dma_transfer_size = (uint32_t) ( ( ( data_size + (uint16_t) block_size - 1 ) / (uint16_t) block_size ) * (uint16_t) block_size );
+    dma_data_source = data;
 
-    if ( direction == BUS_WRITE )
-    {
-        dma_data_source = data;
-    }
-    else
-    {
-        dma_data_source = temp_dma_buffer;
-    }
 
     SDIO->DTIMER = (uint32_t) 0xFFFFFFFF;
     SDIO->DLEN   = dma_transfer_size;
