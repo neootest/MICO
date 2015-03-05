@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>AP80xx</TargetName>
+      <TargetName>AP80xx_EVB</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
@@ -147,7 +147,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>1</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -161,7 +161,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver>Segger\JL2CM3.dll</Driver>
+            <Driver>BIN\UL2CM3.DLL</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -310,7 +310,7 @@
               <OCR_RVCT4>
                 <Type>1</Type>
                 <StartAddress>0x0</StartAddress>
-                <Size>0x40000</Size>
+                <Size>0x7f000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -335,7 +335,7 @@
               <OCR_RVCT9>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x10000</Size>
+                <Size>0x1d800</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
@@ -386,7 +386,7 @@
             </VariousControls>
           </Aads>
           <LDads>
-            <umfTarg>0</umfTarg>
+            <umfTarg>1</umfTarg>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
             <noStLib>0</noStLib>
@@ -395,7 +395,7 @@
             <TextAddressRange>0x08000000</TextAddressRange>
             <DataAddressRange>0x20000000</DataAddressRange>
             <pXoBase></pXoBase>
-            <ScatterFile>..\..\..\..\Platform\AP80xx_EVB\MicoLinkerForKeil.sct</ScatterFile>
+            <ScatterFile>..\..\..\..\Build\COM.MXCHIP.SPP\AP80xx\Obj_RVMDK\COM.MXCHIP.SPP.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
             <Misc>--keep *.o(.mach*.init)  --keep *.o(.shell*.cmd)  --keep *.o(.notify*.init)  --keep *.o(.sched.stub*) --keep *.o(.driver*.isr) --keep *.o(CACHE.4KBMEM)
@@ -567,7 +567,7 @@
             <File>
               <FileName>mxchipWNet_cm3_sdio.a</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\..\Library\mxchipWNet_cm3_sdio.a</FilePath>
+              <FilePath>C:\Users\William\Documents\mxchipWNet_cm3_sdio.a</FilePath>
             </File>
           </Files>
         </Group>
@@ -1265,6 +1265,26 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Platform/KEIL</GroupName>
+          <Files>
+            <File>
+              <FileName>memory_debugger.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\Platform\IDEs\Keil\memory_debugger.lib</FilePath>
+            </File>
+            <File>
+              <FileName>retarget.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\IDEs\Keil\retarget.c</FilePath>
+            </File>
+            <File>
+              <FileName>thread_safe.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\IDEs\Keil\thread_safe.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Board/EMW5000</GroupName>
           <GroupOption>
             <CommonProperty>
@@ -1345,22 +1365,22 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/KEIL</GroupName>
+          <GroupName>Board/AP80xx_EVB</GroupName>
           <Files>
             <File>
-              <FileName>memory_debugger.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\memory_debugger.lib</FilePath>
+              <FileName>platform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\AP80xx_EVB\platform.c</FilePath>
             </File>
             <File>
-              <FileName>retarget.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\retarget.c</FilePath>
+              <FileName>platform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\Platform\AP80xx_EVB\platform.h</FilePath>
             </File>
             <File>
-              <FileName>thread_safe.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\thread_safe.c</FilePath>
+              <FileName>platform_common_config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\Platform\AP80xx_EVB\platform_common_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1507,7 +1527,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>1</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -1521,7 +1541,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver>Segger\JL2CM3.dll</Driver>
+            <Driver>BIN\UL2CM3.DLL</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -1755,7 +1775,7 @@
             <TextAddressRange>0x08000000</TextAddressRange>
             <DataAddressRange>0x20000000</DataAddressRange>
             <pXoBase></pXoBase>
-            <ScatterFile>..\..\..\..\Platform\EMW5000\MicoLinkerForKeil.sct</ScatterFile>
+            <ScatterFile></ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
             <Misc>--keep *.o(.mach*.init)  --keep *.o(.shell*.cmd)  --keep *.o(.notify*.init)  --keep *.o(.sched.stub*) --keep *.o(.driver*.isr) --keep *.o(CACHE.4KBMEM)
@@ -1927,7 +1947,7 @@
             <File>
               <FileName>mxchipWNet_cm3_sdio.a</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\..\Library\mxchipWNet_cm3_sdio.a</FilePath>
+              <FilePath>C:\Users\William\Documents\mxchipWNet_cm3_sdio.a</FilePath>
             </File>
           </Files>
         </Group>
@@ -2582,6 +2602,26 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Platform/KEIL</GroupName>
+          <Files>
+            <File>
+              <FileName>memory_debugger.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\Platform\IDEs\Keil\memory_debugger.lib</FilePath>
+            </File>
+            <File>
+              <FileName>retarget.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\IDEs\Keil\retarget.c</FilePath>
+            </File>
+            <File>
+              <FileName>thread_safe.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\IDEs\Keil\thread_safe.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Board/EMW5000</GroupName>
           <Files>
             <File>
@@ -2602,22 +2642,82 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/KEIL</GroupName>
+          <GroupName>Board/AP80xx_EVB</GroupName>
+          <GroupOption>
+            <CommonProperty>
+              <UseCPPCompiler>0</UseCPPCompiler>
+              <RVCTCodeConst>0</RVCTCodeConst>
+              <RVCTZI>0</RVCTZI>
+              <RVCTOtherData>0</RVCTOtherData>
+              <ModuleSelection>0</ModuleSelection>
+              <IncludeInBuild>0</IncludeInBuild>
+              <AlwaysBuild>2</AlwaysBuild>
+              <GenerateAssemblyFile>2</GenerateAssemblyFile>
+              <AssembleAssemblyFile>2</AssembleAssemblyFile>
+              <PublicsOnly>2</PublicsOnly>
+              <StopOnExitCode>11</StopOnExitCode>
+              <CustomArgument></CustomArgument>
+              <IncludeLibraryModules></IncludeLibraryModules>
+              <ComprImg>1</ComprImg>
+            </CommonProperty>
+            <GroupArmAds>
+              <Cads>
+                <interw>2</interw>
+                <Optim>0</Optim>
+                <oTime>2</oTime>
+                <SplitLS>2</SplitLS>
+                <OneElfS>2</OneElfS>
+                <Strict>2</Strict>
+                <EnumInt>2</EnumInt>
+                <PlainCh>2</PlainCh>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <wLevel>2</wLevel>
+                <uThumb>2</uThumb>
+                <uSurpInc>2</uSurpInc>
+                <uC99>2</uC99>
+                <useXO>2</useXO>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Cads>
+              <Aads>
+                <interw>2</interw>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <thumb>2</thumb>
+                <SplitLS>2</SplitLS>
+                <SwStkChk>2</SwStkChk>
+                <NoWarn>2</NoWarn>
+                <uSurpInc>2</uSurpInc>
+                <useXO>2</useXO>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Aads>
+            </GroupArmAds>
+          </GroupOption>
           <Files>
             <File>
-              <FileName>memory_debugger.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\memory_debugger.lib</FilePath>
+              <FileName>platform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\AP80xx_EVB\platform.c</FilePath>
             </File>
             <File>
-              <FileName>retarget.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\retarget.c</FilePath>
+              <FileName>platform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\Platform\AP80xx_EVB\platform.h</FilePath>
             </File>
             <File>
-              <FileName>thread_safe.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\thread_safe.c</FilePath>
+              <FileName>platform_common_config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\Platform\AP80xx_EVB\platform_common_config.h</FilePath>
             </File>
           </Files>
         </Group>

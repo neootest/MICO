@@ -46,9 +46,9 @@ extern "C"
  *                    Constants
  ******************************************************/
   
-#define HARDWARE_REVISION   "3162"
-#define DEFAULT_NAME        "EMW3162 Module"
-#define MODEL               "EMW3162"
+#define HARDWARE_REVISION   "v1"
+#define DEFAULT_NAME        "AP80xx EVB"
+#define MODEL               "AP80xxEVB"
 
    
 /******************************************************
@@ -205,8 +205,8 @@ Notes
 
 typedef enum
 {
-    MICO_GPIO_1 = MICO_COMMON_GPIO_MAX,
-    MICO_GPIO_2,
+    APP_UART_RX = MICO_COMMON_GPIO_MAX,
+    APP_UART_TX,
     //MICO_GPIO_3,
     MICO_GPIO_4,
     MICO_GPIO_5,

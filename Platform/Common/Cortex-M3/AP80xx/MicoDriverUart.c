@@ -208,6 +208,7 @@ OSStatus internal_uart_init( mico_uart_t uart, const mico_uart_config_t* config,
     require_noerr(err, exit);
     
     BuartIOctl(UART_IOCTL_RXINT_SET, 1);
+    BuartIOctl(UART_IOCTL_TXINT_SET, 1);
 
   }else
     return kUnsupportedErr;
@@ -223,17 +224,22 @@ OSStatus MicoUartFinalize( mico_uart_t uart )
 
 OSStatus MicoUartSend( mico_uart_t uart, const void* data, uint32_t size )
 {
-  if(uart_mapping[uart].uart == FUART)
+  if(uart_mapping[uart].uart == FUART){
     FuartSend( (uint8_t *)data, size);
-  else if(uart_mapping[uart].uart == BUART){
+    return kNoErr;
+  }else if(uart_mapping[uart].uart == BUART){
     BuartSend( (uint8_t *)data, size);
   }else
     return kUnsupportedErr;
+ 
+#ifndef NO_MICO_RTOS
+  mico_rtos_get_semaphore( &uart_interfaces[ uart ].tx_complete, MICO_NEVER_TIMEOUT );
+#else 
+  while(uart_interfaces[ uart ].tx_complete == false);
+  uart_interfaces[ uart ].tx_complete = false;
+#endif
 
 }
-
-
-
 
 OSStatus FUartRecv( mico_uart_t uart, void* data, uint32_t size, uint32_t timeout )
 {
@@ -384,7 +390,13 @@ OSStatus MicoUartRecv( mico_uart_t uart, void* data, uint32_t size, uint32_t tim
 
 uint32_t MicoUartGetLengthInBuffer( mico_uart_t uart )
 {
-  return ring_buffer_used_space( uart_interfaces[uart].rx_buffer );
+  uint32_t buart_rx_fifo_data_len;
+  if(uart_mapping[uart].uart == FUART)
+    return ring_buffer_used_space( uart_interfaces[uart].rx_buffer );
+  else if(uart_mapping[uart].uart == BUART){
+    BuartIOctl(BUART_IOCTL_RXFIFO_DATLEN_GET, buart_rx_fifo_data_len);
+    return buart_rx_fifo_data_len;
+  }
 }
 
 #ifndef NO_MICO_RTOS

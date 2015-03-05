@@ -97,8 +97,8 @@ const platform_pin_mapping_t gpio_mapping[] =
   [SDIO_INT]                            = {GPIOA,  24},
 
 //  /* GPIOs for external use */
-//  [MICO_GPIO_1]  = {6},
-//  [MICO_GPIO_2]  = {GPIOB,  7,  RCC_AHB1Periph_GPIOB},
+  [APP_UART_RX]                         = {GPIOB, 29},
+  [APP_UART_TX]                         = {GPIOB, 28},  
 //  [MICO_GPIO_4]  = {GPIOC,  7,  RCC_AHB1Periph_GPIOC},
 //  [MICO_GPIO_5]  = {GPIOA,  4,  RCC_AHB1Periph_GPIOA},
 //  [MICO_GPIO_6]  = {GPIOA,  4,  RCC_AHB1Periph_GPIOA},
@@ -166,8 +166,8 @@ const platform_uart_mapping_t uart_mapping[] =
   [MICO_UART_2] =
   {
     .uart                            = BUART,
-    .pin_tx                          = &gpio_mapping[STDIO_UART_TX],
-    .pin_rx                          = &gpio_mapping[STDIO_UART_RX],
+    .pin_tx                          = &gpio_mapping[APP_UART_TX],
+    .pin_rx                          = &gpio_mapping[APP_UART_RX],
     .pin_cts                         = NULL,
     .pin_rts                         = NULL,
   },
@@ -242,6 +242,13 @@ bool watchdog_check_last_reset( void )
 
 OSStatus mico_platform_init( void )
 {
+#ifdef DEBUG
+  #if defined(__CC_ARM)
+    platform_log("Build by Keil");
+  #elif defined (__IAR_SYSTEMS_ICC__)
+    platform_log("Build by IAR");
+  #endif
+#endif
  platform_log( "Mico platform initialised" );
  if ( true == watchdog_check_last_reset() )
  {
@@ -253,24 +260,15 @@ OSStatus mico_platform_init( void )
 
 void init_platform( void )
 {
-  #ifdef DEBUG
-  #if defined(__CC_ARM)
-    platform_log("Build by Keil");
-  #elif defined (__IAR_SYSTEMS_ICC__)
-    platform_log("Build by IAR");
-  #endif
-  #endif
-
-  platform_log( "Platform initialised" );
   MicoGpioInitialize( (mico_gpio_t)MICO_SYS_LED, OUTPUT_PUSH_PULL );
   MicoSysLed(false);
   MicoGpioInitialize( (mico_gpio_t)MICO_RF_LED, OUTPUT_PUSH_PULL );
   MicoRfLed(false);
   
   //  Initialise EasyLink buttons
-  MicoGpioInitialize( (mico_gpio_t)EasyLink_BUTTON, INPUT_PULL_UP );
-  mico_init_timer(&_button_EL_timer, RestoreDefault_TimeOut, _button_EL_Timeout_handler, NULL);
-  MicoGpioEnableIRQ( (mico_gpio_t)EasyLink_BUTTON, IRQ_TRIGGER_FALLING_EDGE, _button_EL_irq_handler, NULL );
+  //MicoGpioInitialize( (mico_gpio_t)EasyLink_BUTTON, INPUT_PULL_UP );
+  //mico_init_timer(&_button_EL_timer, RestoreDefault_TimeOut, _button_EL_Timeout_handler, NULL);
+  //MicoGpioEnableIRQ( (mico_gpio_t)EasyLink_BUTTON, IRQ_TRIGGER_FALLING_EDGE, _button_EL_irq_handler, NULL );
 //  
 //  //  Initialise Standby/wakeup switcher
 //  MicoGpioInitialize( Standby_SEL, INPUT_PULL_UP );
@@ -345,6 +343,6 @@ bool MicoShouldEnterBootloader(void)
 //  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==true)
 //    return true;
 //  else
-    return false;
+    return true;
 }
 

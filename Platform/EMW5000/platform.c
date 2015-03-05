@@ -242,6 +242,14 @@ bool watchdog_check_last_reset( void )
 
 OSStatus mico_platform_init( void )
 {
+#ifdef DEBUG
+  #if defined(__CC_ARM)
+    platform_log("Build by Keil");
+  #elif defined (__IAR_SYSTEMS_ICC__)
+    platform_log("Build by IAR");
+  #endif
+#endif
+  
  platform_log( "Mico platform initialised" );
  if ( true == watchdog_check_last_reset() )
  {
@@ -253,15 +261,7 @@ OSStatus mico_platform_init( void )
 
 void init_platform( void )
 {
-  #ifdef DEBUG
-  #if defined(__CC_ARM)
-    platform_log("Build by Keil");
-  #elif defined (__IAR_SYSTEMS_ICC__)
-    platform_log("Build by IAR");
-  #endif
-  #endif
 
-  platform_log( "Platform initialised" );
   MicoGpioInitialize( (mico_gpio_t)MICO_SYS_LED, OUTPUT_OPEN_DRAIN_NO_PULL );
   MicoSysLed(false);
   MicoGpioInitialize( (mico_gpio_t)MICO_RF_LED, OUTPUT_OPEN_DRAIN_NO_PULL );
@@ -345,6 +345,6 @@ bool MicoShouldEnterBootloader(void)
 //  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==true)
 //    return true;
 //  else
-    return false;
+    return true;
 }
 
