@@ -491,7 +491,8 @@ WatchDogInterrupt
                 
                  IMPORT  __use_two_region_memory
                  EXPORT  __user_initial_stackheap
-                 
+                 EXPORT  Heap_Mem
+                 EXPORT  Stack_Mem
 __user_initial_stackheap
 
                  LDR     R0, =  Heap_Mem
