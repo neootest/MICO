@@ -93,7 +93,7 @@ int SocketReadHTTPHeader( int inSock, HTTPHeader_t *inHeader )
 
   if (inHeader->contentLength != 0){ //Content length >0, create a memory buffer (Content length) and store extra data
     size_t copyDataLen = (inHeader->contentLength >= inHeader->extraDataLen)? inHeader->extraDataLen : inHeader->contentLength;
-    if((inHeader->onReceivedDataCallback)(inHeader, 0, (uint8_t *)end, copyDataLen, inHeader->userContext)==kNoErr){
+    if(inHeader->onReceivedDataCallback && (inHeader->onReceivedDataCallback)(inHeader, 0, (uint8_t *)end, copyDataLen, inHeader->userContext)==kNoErr){
       inHeader->isCallbackSupported = true;
       inHeader->extraDataPtr = calloc(READ_LENGTH, sizeof(uint8_t));
       require_action(inHeader->extraDataPtr, exit, err = kNoMemoryErr);

@@ -921,9 +921,6 @@
     </group>
     <file>
       <name>$PROJ_DIR$\..\..\..\MICO\MICOCli.c</name>
-      <configuration>
-        <name>EMW3162</name>
-      </configuration>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\MICO\MICOConfigMenu.c</name>

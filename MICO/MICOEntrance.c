@@ -429,8 +429,8 @@ int application_start(void)
     require_noerr_action( err, exit, mico_log("ERROR: Unable to start the NTP client thread.") );
 
     /*Start mico application*/
-    //err = MICOStartApplication( context );
-    //require_noerr( err, exit );
+    err = MICOStartApplication( context );
+    require_noerr( err, exit );
 
     _ConnectToAP( context );
   }
