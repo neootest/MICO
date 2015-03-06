@@ -104,15 +104,12 @@
 typedef enum
 {
   MICO_GPIO_UNUSED = -1,
-
-  WL_GPIO0 = 0,
-  WL_GPIO1,
+  WL_GPIO1 = 0,
   WL_RESET,
   MICO_SYS_LED,
   MICO_RF_LED,
   BOOT_SEL,
   MFG_SEL,
-  Standby_SEL,
   EasyLink_BUTTON,
   STDIO_UART_RX,  
   STDIO_UART_TX,  
@@ -120,7 +117,9 @@ typedef enum
 } mico_common_gpio_t;
 
 #define MICO_GPIO_WLAN_POWERSAVE_CLOCK MICO_GPIO_UNUSED
-#define WL_REG MICO_GPIO_UNUSED
+#define WL_REG                         MICO_GPIO_UNUSED
+#define WL_GPIO0                       MICO_GPIO_UNUSED
+#define Standby_SEL                    MICO_GPIO_UNUSED
 
 /* How the wlan's powersave clock is connected */
 typedef enum
@@ -153,8 +152,10 @@ typedef enum
 /* The number of UART interfaces this hardware platform has */
 #define NUMBER_OF_UART_INTERFACES  2
 
+#define UART_FOR_APP     MICO_UART_1
 #define STDIO_UART       MICO_UART_1
 #define MFG_TEST         MICO_UART_1
+#define CLI_UART         MICO_UART_2
 
 /* Memory map */
 #define INTERNAL_FLASH_START_ADDRESS    (uint32_t)0x08000000
@@ -166,7 +167,7 @@ typedef enum
 #define SPI_FLASH_SIZE                  (SPI_FLASH_END_ADDRESS - SPI_FLASH_START_ADDRESS + 1) /* 2M bytes*/
 
 #define MICO_FLASH_FOR_APPLICATION  MICO_INTERNAL_FLASH
-#define APPLICATION_START_ADDRESS   (uint32_t)0x08008000
+#define APPLICATION_START_ADDRESS   (uint32_t)0x0800C000
 #define APPLICATION_END_ADDRESS     (uint32_t)0x0807FFFF
 #define APPLICATION_FLASH_SIZE      (APPLICATION_END_ADDRESS - APPLICATION_START_ADDRESS + 1) /* 480 bytes*/
 

@@ -25,6 +25,7 @@
 
 //#include "MICODefine.h"
 #include "EasyCloudServiceDef.h"
+#include "EasyCloudUtils.h"
 
 /*******************************************************************************
  * INTERFACES
@@ -40,12 +41,18 @@ OSStatus EasyCloudAuthorize(easycloud_service_context_t* const context);
 
 OSStatus EasyCloudPublish(easycloud_service_context_t* const context, 
                           const unsigned char *msg, unsigned int msgLen);
+// publish to any topic
 OSStatus EasyCloudPublishto(easycloud_service_context_t* const context, 
                             const char* topic, 
                             const unsigned char *msg, unsigned int msgLen);
+// publish to sub-level "device_id/in/<level>"
+OSStatus EasyCloudPublishtoChannel(easycloud_service_context_t* const context, 
+                            const char* channel, 
+                            const unsigned char *msg, unsigned int msgLen);
 
 OSStatus EasyCloudGetLatestRomVersion(easycloud_service_context_t* const context); //get rom version
-OSStatus EasyCloudGetRomData(easycloud_service_context_t* const context); //get rom data
+OSStatus EasyCloudGetRomData(easycloud_service_context_t* const context,
+                             ecs_ota_flash_params_t ota_flash_params); //get rom data && write to flash
 
 OSStatus EasyCloudDeviceReset(easycloud_service_context_t* const context);
 

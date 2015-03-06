@@ -54,36 +54,36 @@ uint8_t tab_1024[1024] =
   };
 
 #if defined MICO_FLASH_FOR_UPDATE && defined MICO_FLASH_FOR_DRIVER
-const char MEMMAP[] = "\r\n\
+char MEMMAP[] = "\r\n\
 +******************** MICO Flash Map **************+\r\n\
-+-- Content --+-- Flash ---+--- Start ---+--- End ----+\r\n\
-| Bootloader  | %8s   |  0x%08x | 0x%08x |\r\n\
-| Settings    | %8s   |  0x%08x | 0x%08x |\r\n\
-| Application | %8s   |  0x%08x | 0x%08x |\r\n\
-| OTA Storage | %8s   |  0x%08x | 0x%08x |\r\n\
-| RF Driver   | %8s   |  0x%08x | 0x%08x |\r\n\
-+-------------+------------+-------------+------------+\r\n";
++-- Content --+-- Flash --+-- Start ---+--- End ----+\r\n\
+| Bootloader  | %8s | 0x%08x | 0x%08x |\r\n\
+| Settings    | %8s | 0x%08x | 0x%08x |\r\n\
+| Application | %8s | 0x%08x | 0x%08x |\r\n\
+| OTA Storage | %8s | 0x%08x | 0x%08x |\r\n\
+| RF Driver   | %8s | 0x%08x | 0x%08x |\r\n\
++-------------+----------+------------+------------+\r\n";
 #endif 
 
 #if !defined MICO_FLASH_FOR_UPDATE && defined MICO_FLASH_FOR_DRIVER
-const char MEMMAP[] = "\r\n\
+char MEMMAP[] = "\r\n\
 +******************** MICO Flash Map *****************+\r\n\
 +-- Content --+-- Flash ---+--- Start ---+--- End ----+\r\n\
-| Bootloader  | %8s   |  0x%08x | 0x%08x |\r\n\
-| Settings    | %8s   |  0x%08x | 0x%08x |\r\n\
-| Application | %8s   |  0x%08x | 0x%08x |\r\n\
-| RF Driver   | %8s   |  0x%08x | 0x%08x |\r\n\
-+-------------+------------+-------------+------------+\r\n";
+| Bootloader  | %8s | 0x%08x | 0x%08x |\r\n\
+| Settings    | %8s | 0x%08x | 0x%08x |\r\n\
+| Application | %8s | 0x%08x | 0x%08x |\r\n\
+| RF Driver   | %8s | 0x%08x | 0x%08x |\r\n\
++-------------+----------+------------+------------+\r\n";
 #endif
 
 #if !defined MICO_FLASH_FOR_UPDATE && !defined MICO_FLASH_FOR_DRIVER
-const char MEMMAP[] = "\r\n\
+char MEMMAP[] = "\r\n\
 +******************** MICO Flash Map *****************+\r\n\
 +-- Content --+-- Flash ---+--- Start ---+--- End ----+\r\n\
-| Bootloader  | %8s   |  0x%08x | 0x%08x |\r\n\
-| Settings    | %8s   |  0x%08x | 0x%08x |\r\n\
-| Application | %8s   |  0x%08x | 0x%08x |\r\n\
-+-------------+------------+-------------+------------+\r\n";
+| Bootloader  | %8s | 0x%08x | 0x%08x |\r\n\
+| Settings    | %8s | 0x%08x | 0x%08x |\r\n\
+| Application | %8s | 0x%08x | 0x%08x |\r\n\
++-------------+----------+------------+------------+\r\n";
 #endif
 
 
@@ -91,7 +91,7 @@ const char MEMMAP[] = "\r\n\
 char FileName[FILE_NAME_LENGTH];
 char ERROR_STR [] = "\n\r*** ERROR: %s\n\r";    /* ERROR message string in code   */
 
-extern const char menu[];
+extern char menu[];
 extern void getline (char *line, int n);          /* input line               */
 extern void startApplication(void);
 
@@ -113,9 +113,11 @@ int findCommandPara(char *commandBody, char *para, char *paraBody, int paraBodyL
   int i = 0;
   int k, j;
   int retval = -1;
+  char para_in_ram[100];
+  strncpy(para_in_ram, para, 100);
   
-  for (i = 0; para[i] != 0; i++)  {                /* convert to upper characters */
-    para[i] = toupper(para[i]);
+  for (i = 0; para_in_ram[i] != 0; i++)  {                /* convert to upper characters */
+    para_in_ram[i] = toupper(para_in_ram[i]);
   }
 
   i = 0;
@@ -164,18 +166,17 @@ void SerialDownload(mico_flash_t flash, uint32_t flashdestination, int32_t maxRe
   Size = Ymodem_Receive(&tab_1024[0], flash, flashdestination, maxRecvSize);
   if (Size > 0)
   {
-    printf("\n\n\r Programming Completed Successfully!\n\r--------------------------------\r\n Name: ");
+    printf("\n\n\r Programming Successfully!\n\r\r\n Name: ");
     printf("%s", FileName);
     
     Int2Str((uint8_t *)Number, Size);
     printf("\n\r Size: ");
     printf("%s", Number);
     printf(" Bytes\r\n");
-    printf("-------------------\n");
   }
   else if (Size == -1)
   {
-    printf("\n\n\rThe image size is higher than the allowed space memory!\n\r");
+    printf("\n\n\rThe image size is higher than memory!\n\r");
   }
   else if (Size == -2)
   {
@@ -187,7 +188,7 @@ void SerialDownload(mico_flash_t flash, uint32_t flashdestination, int32_t maxRe
   }
   else
   {
-    printf("\n\rFailed to receive the file!\n\r");
+    printf("\n\rFailed to receive file!\n\r");
   }
 }
 

@@ -612,31 +612,31 @@ void RX_PIN_WAKEUP_handler(void *arg)
 #endif
 
 
-//void USART1_IRQHandler( void )
-//{
-//  // Clear all interrupts. It's safe to do so because only RXNE interrupt is enabled
-//  USART1->SR = (uint16_t) (USART1->SR | 0xffff);
-//  
-//  // Update tail
-//  uart_interfaces[ STM32_UART_1 ].rx_buffer->tail = uart_interfaces[ STM32_UART_1 ].rx_buffer->size - uart_mapping[ STM32_UART_1 ].rx_dma_stream->NDTR;
-//  
-//  // Notify thread if sufficient data are available
-//  if ( ( uart_interfaces[ STM32_UART_1 ].rx_size > 0 ) &&
-//      ( ring_buffer_used_space( uart_interfaces[ STM32_UART_1 ].rx_buffer ) >= uart_interfaces[STM32_UART_1].rx_size ) )
-//  {
-//#ifndef NO_MICO_RTOS
-//    mico_rtos_set_semaphore( &uart_interfaces[ STM32_UART_1 ].rx_complete );
-//#else
-//    uart_interfaces[ STM32_UART_1 ].rx_complete = true;
-//#endif
-//    uart_interfaces[ STM32_UART_1 ].rx_size = 0;
-//  }
-//  
-//#ifndef NO_MICO_RTOS
-//  if(uart_interfaces[ STM32_UART_1 ].sem_wakeup)
-//    mico_rtos_set_semaphore(&uart_interfaces[ STM32_UART_1 ].sem_wakeup);
-//#endif
-//}
+void USART1_IRQHandler( void )
+{
+  // Clear all interrupts. It's safe to do so because only RXNE interrupt is enabled
+  USART1->SR = (uint16_t) (USART1->SR | 0xffff);
+  
+  // Update tail
+  uart_interfaces[ STM32_UART_1 ].rx_buffer->tail = uart_interfaces[ STM32_UART_1 ].rx_buffer->size - uart_mapping[ STM32_UART_1 ].rx_dma_stream->NDTR;
+  
+  // Notify thread if sufficient data are available
+  if ( ( uart_interfaces[ STM32_UART_1 ].rx_size > 0 ) &&
+      ( ring_buffer_used_space( uart_interfaces[ STM32_UART_1 ].rx_buffer ) >= uart_interfaces[STM32_UART_1].rx_size ) )
+  {
+#ifndef NO_MICO_RTOS
+    mico_rtos_set_semaphore( &uart_interfaces[ STM32_UART_1 ].rx_complete );
+#else
+    uart_interfaces[ STM32_UART_1 ].rx_complete = true;
+#endif
+    uart_interfaces[ STM32_UART_1 ].rx_size = 0;
+  }
+  
+#ifndef NO_MICO_RTOS
+  if(uart_interfaces[ STM32_UART_1 ].sem_wakeup)
+    mico_rtos_set_semaphore(&uart_interfaces[ STM32_UART_1 ].sem_wakeup);
+#endif
+}
 
 void USART2_IRQHandler( void )
 {

@@ -69,7 +69,7 @@ uint32_t Str2Int(uint8_t *inputstr, int32_t *intnum);
 
 
 /*Allocate a memory to store the string*/
-char *__strdup(char *src);
+char *__strdup(const char *src);
 
 /*Allocate a memory to store the string, and transfer '.' to '\.'*/
 char *__strdup_trans_dot(char *src);
@@ -99,9 +99,14 @@ char * strnstr_suffix( const char *inStr, size_t inMaxLen, const char *inSuffix)
 
 int VSNScanF( const void *inString, size_t inSize, const char *inFormat, va_list inArgs );
 
-size_t  memrlen( const void *inSrc, size_t inMaxLen );
-
 void *memmem(void *start, unsigned int s_len, void *find, unsigned int f_len);
+
+#if defined (__CC_ARM)
+#define strdup __strdup
+size_t strnlen(const char *s, size_t count);
+#endif
+
+
 
 
 

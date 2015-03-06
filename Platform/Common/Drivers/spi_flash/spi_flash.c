@@ -340,11 +340,10 @@ int init_sflash( sflash_handle_t* const handle, int peripheral_id, sflash_write_
         return status;
     }
 
-
+    
     handle->device_id = ( ((uint32_t) tmp_device_id[0]) << 16 ) +
                         ( ((uint32_t) tmp_device_id[1]) <<  8 ) +
                         ( ((uint32_t) tmp_device_id[2]) <<  0 );
-
     handle->write_allowed = write_allowed_in;
 
     if ( write_allowed_in == SFLASH_WRITE_ALLOWED )

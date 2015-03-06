@@ -32,17 +32,12 @@
 
 #define FIRMWARE_REVISION   "MICO_WECHAT_1_0"
 #define MANUFACTURER        "MXCHIP Inc."
-#define SERIAL_NUMBER       "20141223"
+#define SERIAL_NUMBER       "20150209"
 #define PROTOCOL            "com.wechat.spp"
-
-#ifdef DEFAULT_NAME
-#undef DEFAULT_NAME
-#define DEFAULT_NAME        "EMW3162 Wechat"
-#endif
 
 
 /* Wi-Fi configuration mode */
-//#define MICO_CONFIG_MODE CONFIG_MODE_EASYLINK_PLUS
+//#define MICO_CONFIG_MODE CONFIG_MODE_EASYLINK
 #define MICO_CONFIG_MODE CONFIG_MODE_AIRKISS
 
 /*User provided configurations*/
@@ -53,7 +48,7 @@
 /* product type */
 #define DEFAULT_PRODUCT_ID                  "2bed1355"
 #define DEFAULT_PRODUCT_KEY                 "d98963de-97c9-11e4-ae3a-f23c9150064b"
-#define DEFAULT_ROM_VERSION                 "v0.1.0"
+#define DEFAULT_ROM_VERSION                 "v0.0.1"
 
 /*Application's configuration stores in flash*/
 typedef struct

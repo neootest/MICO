@@ -338,6 +338,90 @@
       </data>
     </settings>
   </configuration>
+  <configuration>
+    <name>EMW3288</name>
+    <toolchain>
+      <name>ARM</name>
+    </toolchain>
+    <debug>0</debug>
+    <settings>
+      <name>RuntimeChecking</name>
+      <archiveVersion>0</archiveVersion>
+      <data>
+        <version>2</version>
+        <wantNonLocal>1</wantNonLocal>
+        <debug>0</debug>
+        <option>
+          <name>GenRtcDebugHeap</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcEnableBoundsChecking</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcCheckPtrsNonInstrMem</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>GenRtcTrackPointerBounds</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>GenRtcCheckAccesses</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>GenRtcGenerateEntries</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcNrTrackedPointers</name>
+          <state>1000</state>
+        </option>
+        <option>
+          <name>GenRtcIntOverflow</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcIncUnsigned</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcIntConversion</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcInclExplicit</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcIntShiftOverflow</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcInclUnsignedShiftOverflow</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcUnhandledCase</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcDivByZero</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcEnable</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcCheckPtrsNonInstrFunc</name>
+          <state>1</state>
+        </option>
+      </data>
+    </settings>
+  </configuration>
   <group>
     <name>Application</name>
     <file>
@@ -466,34 +550,34 @@
     <group>
       <name>MicoDriver</name>
       <file>
-        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverAdc.h</name>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MICODriverAdc.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverGpio.h</name>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MICODriverGpio.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverI2c.h</name>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MICODriverI2c.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverMFiAuth.h</name>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MICODriverMFiAuth.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverPwm.h</name>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MICODriverPwm.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverRng.h</name>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MICODriverRng.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverRtc.h</name>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MICODriverRtc.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverSpi.h</name>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MICODriverSpi.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverUart.h</name>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MICODriverUART.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverWdg.h</name>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MICODriverWdg.h</name>
       </file>
     </group>
     <file>
@@ -506,7 +590,7 @@
       <name>$PROJ_DIR$\..\..\..\include\MicoAlgorithm.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\include\MicoPlatform.h</name>
+      <name>$PROJ_DIR$\..\..\..\include\MICOPlatform.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\include\MICORTOS.h</name>
@@ -523,20 +607,26 @@
   </group>
   <group>
     <name>Library</name>
+    <group>
+      <name>EasyCloud</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_debug.a</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\Library\EasyCloud\MicoEasyCloudService_release.a</name>
+      </file>
+    </group>
     <file>
       <name>$PROJ_DIR$\..\..\..\Library\MICOConfig.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\Library\MicoEasyCloudService_20141230_v0.2.5_debug.a</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\Library\MicoEasyCloudService_20141230_v0.2.5_release.a</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_cm3_sdio.a</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_cm3_spi.a</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_cm4f_8801.a</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_cm4f_sdio.a</name>
@@ -556,8 +646,20 @@
         <name>$PROJ_DIR$\..\..\..\MICO\Airkiss\Airkiss.h</name>
       </file>
     </group>
+    <group>
+      <name>EasyLink</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\MICO\EasyLink\EasyLink.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\MICO\EasyLink\EasyLink.h</name>
+      </file>
+    </group>
     <file>
       <name>$PROJ_DIR$\..\..\..\MICO\SoftAP\EasyLinkSoftAP.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\MICO\MICOCli.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\MICO\MICOConfigMenu.c</name>
@@ -821,6 +923,18 @@
             </file>
           </group>
           <group>
+            <name>EMW1088_Driver</name>
+            <file>
+              <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M4\STM32F4xx\EMW1088_Driver\read_wifi_firmware.c</name>
+            </file>
+            <file>
+              <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M4\STM32F4xx\EMW1088_Driver\wlan_bus.c</name>
+            </file>
+            <file>
+              <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M4\STM32F4xx\EMW1088_Driver\wlan_platform.c</name>
+            </file>
+          </group>
+          <group>
             <name>STM32F4xx_Drv</name>
             <group>
               <name>STM32F4xx_StdPeriph_Driver</name>
@@ -986,6 +1100,9 @@
             <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\EMW3165.c</name>
           </file>
           <file>
+            <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\EMW3288.c</name>
+          </file>
+          <file>
             <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\MICO_EVB_1.c</name>
           </file>
           <file>
@@ -1061,6 +1178,18 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\Platform\EMW3165\platform_common_config.h</name>
+      </file>
+    </group>
+    <group>
+      <name>EMW3288</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\Platform\EMW3288\platform.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\Platform\EMW3288\platform.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\Platform\EMW3288\platform_common_config.h</name>
       </file>
     </group>
     <group>

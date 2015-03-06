@@ -55,81 +55,81 @@
 #include "json_tokener.h"
 #include "json_util.h"
 
-struct json_object* json_object_from_file(const char *filename)
-{
-  struct printbuf *pb;
-  struct json_object *obj;
-  char buf[JSON_FILE_BUF_SIZE];
-  int ret;
-  FILE * fd;
+// struct json_object* json_object_from_file(const char *filename)
+// {
+//   struct printbuf *pb;
+//   struct json_object *obj;
+//   char buf[JSON_FILE_BUF_SIZE];
+//   int ret;
+//   FILE * fd;
 
-  if((fd = fopen(filename, "R")) < 0) {
-    MC_ERROR("json_object_from_file: error reading file %s: %s\n",
-	     filename, strerror(errno));
-    return (struct json_object*)error_ptr(-1);
-  }
-  if(!(pb = printbuf_new())) {
-    fclose(fd);
-    MC_ERROR("json_object_from_file: printbuf_new failed\n");
-    return (struct json_object*)error_ptr(-1);
-  }
-  while((ret = fread(buf,JSON_FILE_BUF_SIZE, sizeof(char), fd)) > 0) {
-  //while((ret = fread(fd, buf, JSON_FILE_BUF_SIZE)) > 0) {
-    printbuf_memappend(pb, buf, ret);
-  }
-  fclose(fd);
-  if(ret < 0) {
-    MC_ABORT("json_object_from_file: error reading file %s: %s\n",
-	     filename, strerror(errno));
-    printbuf_free(pb);
-    return (struct json_object*)error_ptr(-1);
-  }
-  obj = json_tokener_parse(pb->buf);
-  printbuf_free(pb);
-  return obj;
-}
+//   if((fd = fopen(filename, "R")) < 0) {
+//     MC_ERROR("json_object_from_file: error reading file %s: %s\n",
+// 	     filename, strerror(errno));
+//     return (struct json_object*)error_ptr(-1);
+//   }
+//   if(!(pb = printbuf_new())) {
+//     fclose(fd);
+//     MC_ERROR("json_object_from_file: printbuf_new failed\n");
+//     return (struct json_object*)error_ptr(-1);
+//   }
+//   while((ret = fread(buf,JSON_FILE_BUF_SIZE, sizeof(char), fd)) > 0) {
+//   //while((ret = fread(fd, buf, JSON_FILE_BUF_SIZE)) > 0) {
+//     printbuf_memappend(pb, buf, ret);
+//   }
+//   fclose(fd);
+//   if(ret < 0) {
+//     MC_ABORT("json_object_from_file: error reading file %s: %s\n",
+// 	     filename, strerror(errno));
+//     printbuf_free(pb);
+//     return (struct json_object*)error_ptr(-1);
+//   }
+//   obj = json_tokener_parse(pb->buf);
+//   printbuf_free(pb);
+//   return obj;
+// }
 
-int json_object_to_file(char *filename, struct json_object *obj)
-{
-  const char *json_str;
-  int ret;
-  unsigned int wpos, wsize;
-  FILE * fd;
+// int json_object_to_file(char *filename, struct json_object *obj)
+// {
+//   const char *json_str;
+//   int ret;
+//   unsigned int wpos, wsize;
+//   FILE * fd;
 
-  if(!obj) {
-    MC_ERROR("json_object_to_file: object is null\n");
-    return -1;
-  }
+//   if(!obj) {
+//     MC_ERROR("json_object_to_file: object is null\n");
+//     return -1;
+//   }
 
-  if((fd = fopen(filename, "W")) < 0) {
-    MC_ERROR("json_object_to_file: error opening file %s: %s\n",
-	     filename, strerror(errno));
-    return -1;
-  }
+//   if((fd = fopen(filename, "W")) < 0) {
+//     MC_ERROR("json_object_to_file: error opening file %s: %s\n",
+// 	     filename, strerror(errno));
+//     return -1;
+//   }
 
-  if(!(json_str = json_object_to_json_string(obj))) {
-    fclose(fd);
-    return -1;
-  }
+//   if(!(json_str = json_object_to_json_string(obj))) {
+//     fclose(fd);
+//     return -1;
+//   }
 
-  wsize = (unsigned int)(strlen(json_str) & UINT_MAX); /* CAW: probably unnecessary, but the most 64bit safe */
-  wpos = 0;
-  while(wpos < wsize) {
-    if((ret = fwrite(json_str + wpos, wsize-wpos, sizeof(char), fd)) < 0) {
-//    if((ret = write(fd, json_str + wpos, wsize-wpos)) < 0) {
-      fclose(fd);
-      MC_ERROR("json_object_to_file: error writing file %s: %s\n",
-	     filename, strerror(errno));
-      return -1;
-    }
+//   wsize = (unsigned int)(strlen(json_str) & UINT_MAX); /* CAW: probably unnecessary, but the most 64bit safe */
+//   wpos = 0;
+//   while(wpos < wsize) {
+//     if((ret = fwrite(json_str + wpos, wsize-wpos, sizeof(char), fd)) < 0) {
+// //    if((ret = write(fd, json_str + wpos, wsize-wpos)) < 0) {
+//       fclose(fd);
+//       MC_ERROR("json_object_to_file: error writing file %s: %s\n",
+// 	     filename, strerror(errno));
+//       return -1;
+//     }
 
-	/* because of the above check for ret < 0, we can safely cast and add */
-    wpos += (unsigned int)ret;
-  }
+// 	/* because of the above check for ret < 0, we can safely cast and add */
+//     wpos += (unsigned int)ret;
+//   }
 
-  fclose(fd);
-  return 0;
-}
+//   fclose(fd);
+//   return 0;
+// }
 
 int json_parse_int64(const char *buf, int64_t *retval)
 {

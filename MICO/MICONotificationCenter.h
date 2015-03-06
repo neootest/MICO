@@ -34,7 +34,8 @@
 #ifndef __MICONOTIFICATIONCENTER_H__
 #define __MICONOTIFICATIONCENTER_H__
 
-#include "MICODefine.h"
+//#include "MICODefine.h"
+#include "Common.h"
 
 typedef enum {
   NOTIFY_STATION_UP = 1,

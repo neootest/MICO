@@ -1,0 +1,56 @@
+{
+	
+	"folders":
+	[
+		{
+			"path": "../../../../include"
+		},
+		{
+			"path": "../../../../Platform"
+		},
+		{
+			"path": "../../../../Library"
+		},
+		{
+			"path": "../../../../Demos/COM.MXCHIP.SPP"
+		},
+		{
+			"path": "../../../../External"
+		},
+		{
+			"path": "../../../../MICO"
+		}
+	],
+	"settings":
+	{
+		"sublimeclang_options":
+		[
+			"-Wno-typedef-redefinition",
+			"-Wno-unused-parameter",
+			"-Wno-empty-body",
+			"-Wno-attributes",
+			"-ferror-limit=0",
+			"-W",
+			"-c",
+			"-D__int64=long long",
+			"-D__pure=__attribute__((const))",
+			"-D__value_in_regs=__attribute__(())",
+			"-DDEBUG",
+			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/",
+			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/External/",
+			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/",
+			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/include/",
+			"-I/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/",
+			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/",
+			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/EMW1062_Driver/",
+			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx_Drv/",
+			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx_Drv/inc/",
+			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/AP80xx_EVB/",
+			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/",
+			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/MICO/",
+			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/",
+			"-I/Users/william/Develop/Clang_lib/Include/",
+			"-I/Users/william/Develop/Clang_lib/ARMCC/include/"
+		]
+	}
+}

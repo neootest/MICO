@@ -335,3 +335,8 @@ void HKCharacteristicInit(mico_Context_t * const inContext)
   strncpy(inContext->appStatus.service.name,                    "Wiliam's thermostat", 64);
 #endif
 }
+
+int verify_otp(void)
+{
+  return 1;
+}

@@ -590,6 +590,90 @@
       </data>
     </settings>
   </configuration>
+  <configuration>
+    <name>EMW3288</name>
+    <toolchain>
+      <name>ARM</name>
+    </toolchain>
+    <debug>0</debug>
+    <settings>
+      <name>RuntimeChecking</name>
+      <archiveVersion>0</archiveVersion>
+      <data>
+        <version>2</version>
+        <wantNonLocal>1</wantNonLocal>
+        <debug>0</debug>
+        <option>
+          <name>GenRtcDebugHeap</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcEnableBoundsChecking</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcCheckPtrsNonInstrMem</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>GenRtcTrackPointerBounds</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>GenRtcCheckAccesses</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>GenRtcGenerateEntries</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcNrTrackedPointers</name>
+          <state>1000</state>
+        </option>
+        <option>
+          <name>GenRtcIntOverflow</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcIncUnsigned</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcIntConversion</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcInclExplicit</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcIntShiftOverflow</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcInclUnsignedShiftOverflow</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcUnhandledCase</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcDivByZero</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcEnable</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcCheckPtrsNonInstrFunc</name>
+          <state>1</state>
+        </option>
+      </data>
+    </settings>
+  </configuration>
   <group>
     <name>Application</name>
     <file>
@@ -800,6 +884,9 @@
       <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_cm3_spi.a</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_cm4f_8801.a</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\Library\mxchipWNet_cm4f_sdio.a</name>
     </file>
     <file>
@@ -832,6 +919,12 @@
         <name>$PROJ_DIR$\..\..\..\MICO\WPS\WPS.c</name>
       </file>
     </group>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\MICO\MICOCli.c</name>
+      <configuration>
+        <name>EMW3162</name>
+      </configuration>
+    </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\MICO\MICOConfigMenu.c</name>
     </file>
@@ -1172,6 +1265,18 @@
             </file>
           </group>
           <group>
+            <name>EMW1088_Driver</name>
+            <file>
+              <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M4\STM32F4xx\EMW1088_Driver\read_wifi_firmware.c</name>
+            </file>
+            <file>
+              <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M4\STM32F4xx\EMW1088_Driver\wlan_bus.c</name>
+            </file>
+            <file>
+              <name>$PROJ_DIR$\..\..\..\Platform\Common\Cortex-M4\STM32F4xx\EMW1088_Driver\wlan_platform.c</name>
+            </file>
+          </group>
+          <group>
             <name>STM32F4xx_Drv</name>
             <group>
               <name>STM32F4xx_StdPeriph_Driver</name>
@@ -1337,6 +1442,9 @@
             <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\EMW3165.c</name>
           </file>
           <file>
+            <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\EMW3288.c</name>
+          </file>
+          <file>
             <name>$PROJ_DIR$\..\..\..\Platform\Common\Drivers\spi_flash\MICO_EVB_1.c</name>
           </file>
           <file>
@@ -1424,6 +1532,18 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\Platform\EMW3165\platform_common_config.h</name>
+      </file>
+    </group>
+    <group>
+      <name>EMW3288</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\Platform\EMW3288\platform.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\Platform\EMW3288\platform.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\Platform\EMW3288\platform_common_config.h</name>
       </file>
     </group>
     <group>

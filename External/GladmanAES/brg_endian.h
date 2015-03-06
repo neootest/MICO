@@ -121,7 +121,7 @@ Issue Date: 20/12/2007
       defined( THINK_C ) || defined( __VMCMS__ ) || defined( _AIX )
 #  define PLATFORM_BYTE_ORDER IS_BIG_ENDIAN
 
-#elif 0     /* **** EDIT HERE IF NECESSARY **** */
+#elif 1     /* **** EDIT HERE IF NECESSARY **** */
 #  define PLATFORM_BYTE_ORDER IS_LITTLE_ENDIAN
 #elif 0     /* **** EDIT HERE IF NECESSARY **** */
 #  define PLATFORM_BYTE_ORDER IS_BIG_ENDIAN

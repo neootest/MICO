@@ -24,6 +24,7 @@
 #include <stdio.h>
 
 #include "MICODefine.h"
+#include "MICONotificationCenter.h"
 
 #include "MicoVirtualDevice.h"
 #include "MVDDeviceInterfaces.h"
@@ -34,88 +35,300 @@
 #define mvd_log(M, ...) custom_log("MVD", M, ##__VA_ARGS__)
 #define mvd_log_trace() custom_log_trace("MVD")
 
+// cloud status
+#define DEFAULT_MVD_CLOUD_CONNECTED_MSG_2CLOUD     "{\"MVDCloud\":\"connected\"}"
+#define DEFAULT_MVD_CLOUD_CONNECTED_MSG_2MCU       "[MVD]Cloud: connected\r\n"
+#define DEFAULT_MVD_CLOUD_DISCONNECTED_MSG_2MCU    "[MVD]Cloud: disconnected\r\n"
 
-#define DEFAULT_MVD_CLOUD_CONNECTED      "{\"MVDCloud\":\"connected\"}\r\n"
+// wifi status
+#define DEFAULT_MVD_STATION_UP_MSG_2MCU            "[MVD]Wi-Fi: Station up\r\n"
+#define DEFAULT_MVD_STATION_DOWN_MSG_2MCU          "[MVD]Wi-Fi: Station down\r\n"
+
+// OTA status
+#define DEFAULT_MVD_OTA_CHECK_MSG_2MCU             "[MVD]OTA: Checking ...\r\n"
+#define DEFAULT_MVD_OTA_UPDATE_MSG_2MCU            "[MVD]OTA: Update && reboot ...\r\n"
+#define DEFAULT_MVD_OTA_UP_TO_DATE_MSG_2MCU        "[MVD]OTA: Up-to-date\r\n"
+#define DEFAULT_MVD_OTA_DOWNLOAD_FAILED_MSG_2MCU   "[MVD]OTA: Download failed\r\n"
+
+// dev activate status
+#define DEFAULT_MVD_DEV_ACTIVATE_START_MSG_2MCU    "[MVD]Activate: Start ...\r\n"
+#define DEFAULT_MVD_DEV_ACTIVATE_OK_MSG_2MCU       "[MVD]Activate: Success\r\n"
+#define DEFAULT_MVD_DEV_ACTIVATE_FAILED_MSG_2MCU   "[MVD]Activate: Failed\r\n"
+
+// restore config status
+#define DEFAULT_MVD_RESET_CLOUD_INFO_START_MSG_2MCU   "[MVD]CloudReset: Start ...\r\n"
+#define DEFAULT_MVD_RESET_CLOUD_INFO_OK_MSG_2MCU      "[MVD]CloudReset: Success\r\n"
+#define DEFAULT_MVD_RESET_CLOUD_INFO_FAILED_MSG_2MCU  "[MVD]CloudReset: Failed\r\n"
+
+
+static mico_semaphore_t _wifi_station_on_sem = NULL;
+static mico_semaphore_t _reset_cloud_info_sem = NULL;
+
+void mvdNotify_WifiStatusHandler(WiFiEvent event, mico_Context_t * const inContext)
+{
+  mvd_log_trace();
+  (void)inContext;
+  switch (event) {
+  case NOTIFY_STATION_UP:
+    MVDDevInterfaceSend(DEFAULT_MVD_STATION_UP_MSG_2MCU, 
+                        strlen(DEFAULT_MVD_STATION_UP_MSG_2MCU));
+    if(NULL == _wifi_station_on_sem){
+      mico_rtos_init_semaphore(&_wifi_station_on_sem, 1);
+    }
+    mico_rtos_set_semaphore(&_wifi_station_on_sem);
+    break;
+  case NOTIFY_STATION_DOWN:
+    MVDDevInterfaceSend(DEFAULT_MVD_STATION_DOWN_MSG_2MCU, 
+                        strlen(DEFAULT_MVD_STATION_DOWN_MSG_2MCU));
+    break;
+  case NOTIFY_AP_UP:
+    break;
+  case NOTIFY_AP_DOWN:
+    break;
+  default:
+    break;
+  }
+  return;
+}
+
+#define DEVICE_RESET_RETRY_CNT    3
+OSStatus easycloud_reset_cloud_info(mico_Context_t * const context)
+{
+  OSStatus err = kUnknownErr;
+  MVDResetRequestData_t devDefaultResetData;
+  mico_Context_t *inContext = (mico_Context_t *)context;
+  int retry_cnt = 1;
+  
+  do{
+    /* cloud context init */
+    err = MVDCloudInterfaceInit(inContext);
+    if(kNoErr == err){
+      mvd_log("[MVD]Device EasyCloud context init [OK]");
+    }
+    else{
+      mvd_log("[MVD]Device EasyCloud context init [FAILED]");
+      retry_cnt++;
+      continue;
+    }
+    
+    /* cloud info reset */
+    mvd_log("[MVD]Device reset EasyCloud info try[%d] ...", retry_cnt);
+    memset((void*)&devDefaultResetData, 0, sizeof(devDefaultResetData));
+    strncpy(devDefaultResetData.loginId,
+            inContext->flashContentInRam.appConfig.virtualDevConfig.loginId,
+            MAX_SIZE_LOGIN_ID);
+    strncpy(devDefaultResetData.devPasswd,
+            inContext->flashContentInRam.appConfig.virtualDevConfig.devPasswd,
+            MAX_SIZE_DEV_PASSWD);
+    strncpy(devDefaultResetData.user_token,
+            inContext->micoStatus.mac,
+            MAX_SIZE_USER_TOKEN);
+    err = MVDCloudInterfaceResetCloudDevInfo(inContext, devDefaultResetData);
+    if(kNoErr == err){
+      mvd_log("[MVD]Device reset EasyCloud info [OK]");
+    }
+    else{
+      mvd_log("[MVD]Device reset EasyCloud info [FAILED]");
+      retry_cnt++;
+    }
+    
+  }while((kNoErr != err) && (retry_cnt <= DEVICE_RESET_RETRY_CNT));
+  
+  return err;
+}
+
+void MVDDevCloudInfoResetThread(void *arg)
+{
+  OSStatus err = kUnknownErr;
+  mico_Context_t *inContext = (mico_Context_t *)arg;
+  
+  // stop EasyCloud service first
+  err = MVDCloudInterfaceStop(inContext);
+  require_noerr_action( err, exit, mvd_log("ERROR: stop EasyCloud service failed!") );
+  
+  // cloud reset request
+  MVDDevInterfaceSend(DEFAULT_MVD_RESET_CLOUD_INFO_START_MSG_2MCU, 
+                      strlen(DEFAULT_MVD_RESET_CLOUD_INFO_START_MSG_2MCU));     
+  err = easycloud_reset_cloud_info(inContext);
+  if(kNoErr == err){
+    inContext->appStatus.virtualDevStatus.isCloudConnected = false;
+        
+    mico_rtos_lock_mutex(&inContext->flashContentInRam_mutex);
+    inContext->flashContentInRam.appConfig.virtualDevConfig.isActivated = false;
+    MICOUpdateConfiguration(inContext);
+    mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
+    
+    //mvd_log("[MVD]MVDDevCloudInfoResetThread: cloud reset success!");
+    MVDDevInterfaceSend(DEFAULT_MVD_RESET_CLOUD_INFO_OK_MSG_2MCU, 
+                        strlen(DEFAULT_MVD_RESET_CLOUD_INFO_OK_MSG_2MCU));
+    
+    // send ok semaphore
+    mico_rtos_set_semaphore(&_reset_cloud_info_sem);
+  }
+  
+exit:
+  if(kNoErr != err){
+    mvd_log("[MVD]MVDDevCloudInfoResetThread EXIT: err=%d",err);
+    MVDDevInterfaceSend(DEFAULT_MVD_RESET_CLOUD_INFO_FAILED_MSG_2MCU, 
+                        strlen(DEFAULT_MVD_RESET_CLOUD_INFO_FAILED_MSG_2MCU));
+  }
+  mico_rtos_delete_thread(NULL);
+  return;
+}
 
 void MVDMainThread(void *arg)
 {
-  mico_Context_t *inContext = (mico_Context_t *)arg;
-  micoMemInfo_t *memInfo = NULL;
-  bool connected = false;
-#ifdef DEVICE_AUTO_ACTIVATE_ENABLE
   OSStatus err = kUnknownErr;
-  int wait_time = DEVICE_AUTO_ACTIVATE_TIME/1;  //auto activate after 3s
+  mico_Context_t *inContext = (mico_Context_t *)arg;
+  
+  bool connected = false;
+  MVDOTARequestData_t devOTARequestData;
   MVDActivateRequestData_t devDefaultActivateData;
-#endif
   
   mvd_log("MVD main thread start.");
-      
-  memInfo = mico_memory_info();
-  mvd_log("[MVD]system free mem=%d", memInfo->free_memory);
+  // wait for station on
+  while(kNoErr != mico_rtos_get_semaphore(&_wifi_station_on_sem, MICO_WAIT_FOREVER));
   
+  /* check reset cloud info */
+  if((inContext->flashContentInRam.appConfig.virtualDevConfig.needCloudReset) && 
+     (inContext->flashContentInRam.appConfig.virtualDevConfig.isActivated)){
+    // start a thread to reset device info on EasyCloud
+    mico_rtos_init_semaphore(&_reset_cloud_info_sem, 1);
+    mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "MVDResetCloudInfo", 
+                            MVDDevCloudInfoResetThread, 0x800, 
+                            inContext );
+    err = mico_rtos_get_semaphore(&_reset_cloud_info_sem, MICO_WAIT_FOREVER);
+    if(kNoErr == err){
+      mico_rtos_lock_mutex(&inContext->flashContentInRam_mutex);
+      inContext->flashContentInRam.appConfig.virtualDevConfig.needCloudReset = false;
+      inContext->flashContentInRam.appConfig.virtualDevConfig.isActivated = false;
+      err = MICOUpdateConfiguration(inContext);
+      mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
+      mvd_log("MVD Cloud reset success!");
+      goto exit;  // do nothing after reset, please press reset button.
+    }
+    else{
+      mvd_log("MVD Cloud reset failed!");
+    }
+  }
+  
+  /* check OTA when wifi on */
+  //mvd_log(DEFAULT_MVD_OTA_CHECK_MSG_2MCU);
+  MVDDevInterfaceSend(DEFAULT_MVD_OTA_CHECK_MSG_2MCU, 
+                        strlen(DEFAULT_MVD_OTA_CHECK_MSG_2MCU));
+  memset((void*)&devOTARequestData, 0, sizeof(devOTARequestData));
+  strncpy(devOTARequestData.loginId,
+          inContext->flashContentInRam.appConfig.virtualDevConfig.loginId,
+          MAX_SIZE_LOGIN_ID);
+  strncpy(devOTARequestData.devPasswd,
+          inContext->flashContentInRam.appConfig.virtualDevConfig.devPasswd,
+          MAX_SIZE_DEV_PASSWD);
+  strncpy(devOTARequestData.user_token,
+          inContext->micoStatus.mac,
+          MAX_SIZE_USER_TOKEN);
+  err = MVDCloudInterfaceDevFirmwareUpdate(inContext, devOTARequestData);
+  if(kNoErr == err){
+    if(inContext->appStatus.virtualDevStatus.RecvRomFileSize > 0){
+      //mvd_log(DEFAULT_MVD_OTA_UPDATE_MSG_2MCU);
+      MVDDevInterfaceSend(DEFAULT_MVD_OTA_UPDATE_MSG_2MCU, 
+                        strlen(DEFAULT_MVD_OTA_UPDATE_MSG_2MCU));
+      // set bootloader to reboot && update app fw
+      mico_rtos_lock_mutex(&inContext->flashContentInRam_mutex);
+      memset(&inContext->flashContentInRam.bootTable, 0, sizeof(boot_table_t));
+      inContext->flashContentInRam.bootTable.length = inContext->appStatus.virtualDevStatus.RecvRomFileSize;
+      inContext->flashContentInRam.bootTable.start_address = UPDATE_START_ADDRESS;
+      inContext->flashContentInRam.bootTable.type = 'A';
+      inContext->flashContentInRam.bootTable.upgrade_type = 'U';
+      if(inContext->flashContentInRam.micoSystemConfig.configured != allConfigured)
+        inContext->flashContentInRam.micoSystemConfig.easyLinkByPass = EASYLINK_SOFT_AP_BYPASS;
+      MICOUpdateConfiguration(inContext);
+      mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
+      inContext->micoStatus.sys_state = eState_Software_Reset;
+      if(inContext->micoStatus.sys_state_change_sem != NULL ){
+        mico_rtos_set_semaphore(&inContext->micoStatus.sys_state_change_sem);
+      }
+      mico_thread_sleep(MICO_WAIT_FOREVER);
+    }
+    else{
+      //mvd_log(DEFAULT_MVD_OTA_UP_TO_DATE_MSG_2MCU);
+      MVDDevInterfaceSend(DEFAULT_MVD_OTA_UP_TO_DATE_MSG_2MCU, 
+                        strlen(DEFAULT_MVD_OTA_UP_TO_DATE_MSG_2MCU));
+    }
+  }
+  else{
+    //mvd_log(DEFAULT_MVD_OTA_DOWNLOAD_FAILED_MSG_2MCU);
+    MVDDevInterfaceSend(DEFAULT_MVD_OTA_DOWNLOAD_FAILED_MSG_2MCU, 
+                        strlen(DEFAULT_MVD_OTA_DOWNLOAD_FAILED_MSG_2MCU));
+  }
+  
+  /* activate when wifi on */
+  while(false == inContext->flashContentInRam.appConfig.virtualDevConfig.isActivated){
+    // auto activate, using default login_id/dev_pass/user_token
+    //mvd_log(DEFAULT_MVD_DEV_ACTIVATE_START_MSG_2MCU);
+    MVDDevInterfaceSend(DEFAULT_MVD_DEV_ACTIVATE_START_MSG_2MCU, 
+                        strlen(DEFAULT_MVD_DEV_ACTIVATE_START_MSG_2MCU));
+    memset((void*)&devDefaultActivateData, 0, sizeof(devDefaultActivateData));
+    strncpy(devDefaultActivateData.loginId,
+            inContext->flashContentInRam.appConfig.virtualDevConfig.loginId,
+            MAX_SIZE_LOGIN_ID);
+    strncpy(devDefaultActivateData.devPasswd,
+            inContext->flashContentInRam.appConfig.virtualDevConfig.devPasswd,
+            MAX_SIZE_DEV_PASSWD);
+    strncpy(devDefaultActivateData.user_token,
+            inContext->micoStatus.mac,
+            MAX_SIZE_USER_TOKEN);
+    err = MVDCloudInterfaceDevActivate(inContext, devDefaultActivateData);
+    if(kNoErr == err){
+      //mvd_log("device activate success!");
+      MVDDevInterfaceSend(DEFAULT_MVD_DEV_ACTIVATE_OK_MSG_2MCU, 
+                          strlen(DEFAULT_MVD_DEV_ACTIVATE_OK_MSG_2MCU));
+    }
+    else{
+      //mvd_log("device activate failed, err = %d, retry in %d s ...", err, 1);
+      MVDDevInterfaceSend(DEFAULT_MVD_DEV_ACTIVATE_FAILED_MSG_2MCU, 
+                          strlen(DEFAULT_MVD_DEV_ACTIVATE_FAILED_MSG_2MCU));
+    }
+    mico_thread_sleep(1);
+  }
+  mvd_log("[MVD]device already activated.");
+  
+  /* start EasyCloud service */
+  err = MVDCloudInterfaceStart(inContext);
+  require_noerr_action(err, exit, 
+                       mvd_log("ERROR: MVDCloudInterfaceStart failed!") );
+  
+  /* loop connect status */
   while(1)
   {
-//    memInfo = mico_memory_info();
-//    mvd_log("[MVD]system free mem=%d", memInfo->free_memory);
-    
     if(inContext->appStatus.virtualDevStatus.isCloudConnected){
       if (!connected){
-        mvd_log("[MVD]cloud service connected!");
-        MVDDevInterfaceSend("cloud connected!", strlen("cloud connected!"));
-        MVDCloudInterfaceSend(DEFAULT_MVD_CLOUD_CONNECTED, 
-                              strlen(DEFAULT_MVD_CLOUD_CONNECTED));
-        
         connected = true;
+        
+        //mvd_log("[MVD]Cloud: connected");
+        MVDDevInterfaceSend(DEFAULT_MVD_CLOUD_CONNECTED_MSG_2MCU, 
+                            strlen(DEFAULT_MVD_CLOUD_CONNECTED_MSG_2MCU));
+        MVDCloudInterfaceSendtoChannel(PUBLISH_TOPIC_CHANNEL_STATUS,
+                                       DEFAULT_MVD_CLOUD_CONNECTED_MSG_2CLOUD, 
+                                       strlen(DEFAULT_MVD_CLOUD_CONNECTED_MSG_2CLOUD));  
       }
     }
     else{
       if (connected){
-        connected = false; //recovery value;
-#ifdef DEVICE_AUTO_ACTIVATE_ENABLE
-        wait_time = DEVICE_AUTO_ACTIVATE_TIME/1;  //recovery value;
-#endif
-        mvd_log("[MVD]cloud service disconnected!");
-        MVDDevInterfaceSend("device disconnected!", strlen("device disconnected!"));
+        connected = false;
+        
+        //mvd_log("[MVD]Cloud: disconnected");
+        MVDDevInterfaceSend(DEFAULT_MVD_CLOUD_DISCONNECTED_MSG_2MCU, 
+                            strlen(DEFAULT_MVD_CLOUD_DISCONNECTED_MSG_2MCU));
       }
-      
-#ifdef DEVICE_AUTO_ACTIVATE_ENABLE
-      if(false == inContext->flashContentInRam.appConfig.virtualDevConfig.isActivated){
-        if (wait_time > 0){
-          mvd_log("cloud service disconnected, will activate device after %ds...", 
-                  wait_time*1);
-          wait_time--;
-        }
-        else if(0 == wait_time){
-          // auto activate, using default login_id/dev_pass/user_token
-          mvd_log("auto activate device by MVD...");
-          memset((void*)&devDefaultActivateData, 0, sizeof(devDefaultActivateData));
-          strncpy(devDefaultActivateData.loginId,
-                  inContext->flashContentInRam.appConfig.virtualDevConfig.loginId,
-                  MAX_SIZE_LOGIN_ID);
-          strncpy(devDefaultActivateData.devPasswd,
-                  inContext->flashContentInRam.appConfig.virtualDevConfig.devPasswd,
-                  MAX_SIZE_DEV_PASSWD);
-          strncpy(devDefaultActivateData.user_token,
-                  inContext->micoStatus.mac,
-                  MAX_SIZE_USER_TOKEN);
-          err = MVDCloudInterfaceDevActivate(inContext, devDefaultActivateData);
-          if(kNoErr == err){
-            mvd_log("device activate success!");
-            wait_time = -1;  //activate ok, never do activate again.
-          }
-          else{
-            wait_time = 1;  //reactivate after 1 (1*1) seconds
-            mvd_log("device activate failed, will retry in %ds...", wait_time*1);
-          }
-        }
-        else{
-        }
-      }
-#endif
     }
     
     mico_thread_sleep(1);
   }
+  
+exit:
+  mvd_log("[MVD]MVDMainThread exit err=%d.", err);
+  mico_rtos_delete_thread(NULL);
+  return;
 }
 
 
@@ -123,9 +336,17 @@ void MVDMainThread(void *arg)
  * virtual device interfaces init
  ******************************************************************************/
 
+// reset default value
 void MVDRestoreDefault(mico_Context_t* const context)
 {
-  // clean all config buffer
+  bool need_reset = false;
+  
+  // save reset flag
+  if(context->flashContentInRam.appConfig.virtualDevConfig.isActivated){
+    need_reset = true;
+  }
+  
+  // reset all MVD config params
   memset((void*)&(context->flashContentInRam.appConfig.virtualDevConfig), 
          0, sizeof(virtual_device_config_t));
   
@@ -138,8 +359,16 @@ void MVDRestoreDefault(mico_Context_t* const context)
   
   sprintf(context->flashContentInRam.appConfig.virtualDevConfig.loginId, DEFAULT_LOGIN_ID);
   sprintf(context->flashContentInRam.appConfig.virtualDevConfig.devPasswd, DEFAULT_DEV_PASSWD);
-  //sprintf(context->flashContentInRam.appConfig.virtualDevConfig.userToken, DEFAULT_USER_TOKEN);
-  sprintf(context->flashContentInRam.appConfig.virtualDevConfig.userToken, context->micoStatus.mac);
+  //sprintf(context->flashContentInRam.appConfig.virtualDevConfig.userToken, context->micoStatus.mac);
+  
+  // set reset flag for next startup
+  if(need_reset){
+    context->flashContentInRam.appConfig.virtualDevConfig.needCloudReset = true;
+    context->flashContentInRam.appConfig.virtualDevConfig.isActivated = true;
+  }
+  else{
+    context->flashContentInRam.appConfig.virtualDevConfig.needCloudReset = false;
+  }
 }
 
 OSStatus MVDInit(mico_Context_t* const inContext)
@@ -160,7 +389,16 @@ OSStatus MVDInit(mico_Context_t* const inContext)
   require_noerr_action(err, exit, 
                        mvd_log("ERROR: virtual device cloud interface init failed!") );
   
-  // start MVD monitor thread
+  // wifi notify
+  err = mico_rtos_init_semaphore(&_wifi_station_on_sem, 1);
+  require_noerr_action(err, exit, 
+                       mvd_log("ERROR: mico_rtos_init_semaphore (_wifi_station_on_sem) failed!") );
+  
+  err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)mvdNotify_WifiStatusHandler );
+  require_noerr_action(err, exit, 
+                       mvd_log("ERROR: MICOAddNotification (mico_notify_WIFI_STATUS_CHANGED) failed!") );
+ 
+  // start MVD main thread
   err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "MVD main", 
                                 MVDMainThread, STACK_SIZE_MVD_MAIN_THREAD, 
                                 inContext );
@@ -170,10 +408,70 @@ exit:
 }
 
 /*******************************************************************************
+ * MVD get state
+ ******************************************************************************/
+// cloud connect state
+bool MVDCloudIsConnect(mico_Context_t* const context)
+{
+  if(NULL == context){
+    return false;
+  }
+  return context->appStatus.virtualDevStatus.isCloudConnected;
+}
+
+// device activate state
+bool MVDIsActivated(mico_Context_t* const context)
+{
+  if(NULL == context){
+    return false;
+  }
+  return context->flashContentInRam.appConfig.virtualDevConfig.isActivated;
+}
+
+
+/*******************************************************************************
+ * MVD message send interface
+ ******************************************************************************/
+
+// MVD => MCU
+// send to USART
+OSStatus MVDSendMsg2Device(mico_Context_t* const context, 
+                           unsigned char *inBuf, unsigned int inBufLen)
+{
+  mvd_log_trace();
+  OSStatus err = kUnknownErr;
+  
+  err = MVDDevInterfaceSend(inBuf, inBufLen);  // transfer raw data
+  require_noerr_action( err, exit, mvd_log("ERROR: send to cloud error! err=%d", err) );
+  return kNoErr;
+  
+exit:
+  return err;
+}
+
+// MVD => Cloud
+// if topic is NULL, send to default topic: device_id/out,
+// else send to sub-channel: device_id/out/<topic>
+OSStatus MVDSendMsg2Cloud(mico_Context_t* const context, const char* topic, 
+                       unsigned char *inBuf, unsigned int inBufLen)
+{
+  mvd_log_trace();
+  OSStatus err = kUnknownErr;
+  
+  err = MVDCloudInterfaceSendtoChannel(topic, inBuf, inBufLen);  // transfer raw data
+  require_noerr_action( err, exit, mvd_log("ERROR: send to cloud error! err=%d", err) );
+  return kNoErr;
+  
+exit:
+  return err;
+}
+
+
+/*******************************************************************************
  * MVD message exchange protocol
  ******************************************************************************/
 
-// Cloud => MCU
+// handle cloud msg here, for example: send to USART or echo to cloud
 OSStatus MVDCloudMsgProcess(mico_Context_t* context, 
                             const char* topic, const unsigned int topicLen,
                             unsigned char *inBuf, unsigned int inBufLen)
@@ -185,11 +483,13 @@ OSStatus MVDCloudMsgProcess(mico_Context_t* context,
   unsigned char* ptr = NULL;
   int responseMsgLen = 0;
   
-  err = MVDDevInterfaceSend(inBuf, inBufLen); // transfer raw data
+  /* send to USART */
+  err = MVDDevInterfaceSend(inBuf, inBufLen); // transfer raw data to USART
   require_noerr_action( err, exit, mvd_log("ERROR: send to MCU error! err=%d", err) );
   
-  // add response to cloud(echo), replace topic 'device_id/in/xxx' to 'device_id/out/xxx'
-  responseTopic = str_replace(responseTopic, topic, topicLen, "/in", "/out");
+  /* echo to cloud */
+  // responseTopic = device_id/out, message = [MAC]msg
+  responseTopic = ECS_str_replace(responseTopic, topic, topicLen, "/in", "/out");
   responseMsgLen = strlen(context->micoStatus.mac) + 2 + inBufLen;
   responseMsg = (unsigned char*)malloc(responseMsgLen + 1);
   memset(responseMsg, 0x00, responseMsgLen);
@@ -222,86 +522,17 @@ exit:
   return err;
 }
 
-// MCU => Cloud
+// handle MCU msg here, for example: send to Cloud
 OSStatus MVDDeviceMsgProcess(mico_Context_t* const context, 
                              uint8_t *inBuf, unsigned int inBufLen)
 {
   mvd_log_trace();
   OSStatus err = kUnknownErr;
   
-  err = MVDCloudInterfaceSend(inBuf, inBufLen);  // transfer raw data
+  err = MVDCloudInterfaceSend(inBuf, inBufLen);  // transfer raw data to cloud
   require_noerr_action( err, exit, mvd_log("ERROR: send to cloud error! err=%d", err) );
   return kNoErr;
   
 exit:
   return err;
 }
-
-
-/*******************************************************************************
- * MVD cloud control interfaces
- ******************************************************************************/
-
-//activate
-OSStatus MVDActivate(mico_Context_t* const context, 
-                     MVDActivateRequestData_t activateData)
-{
-  OSStatus err = kUnknownErr;
-  
-  err = MVDCloudInterfaceDevActivate(context, activateData);
-  require_noerr_action(err, exit, 
-                       mvd_log("ERROR: device activate failed! err=%d", err) );
-  return kNoErr;
-  
-exit:
-  return err;
-}
-  
-//authorize
-OSStatus MVDAuthorize(mico_Context_t* const context,
-                      MVDAuthorizeRequestData_t authorizeData)
-{
-  OSStatus err = kUnknownErr;
-  mico_Context_t *inContext = context;
-
-  err = MVDCloudInterfaceDevAuthorize(inContext, authorizeData);
-  require_noerr_action(err, exit, 
-                       mvd_log("ERROR: device authorize failed! err=%d", err) );
-  return kNoErr;
-  
-exit:
-  return err;
-}
-
-//OTA
-OSStatus MVDFirmwareUpdate(mico_Context_t* const context,
-                           MVDOTARequestData_t OTAData)
-{
-  OSStatus err = kUnknownErr;
-  mico_Context_t *inContext = context;
-  
-  err = MVDCloudInterfaceDevFirmwareUpdate(inContext, OTAData);
-  require_noerr_action(err, exit, 
-                       mvd_log("ERROR: Firmware Update error! err=%d", err) );
-  return kNoErr;
-  
-exit:
-  return err;
-}
-
-//reset device info on cloud
-OSStatus MVDResetCloudDevInfo(mico_Context_t* const context,
-                              MVDResetRequestData_t devResetData)
-{
-  OSStatus err = kUnknownErr;
-  mico_Context_t *inContext = context;
-  
-  err = MVDCloudInterfaceResetCloudDevInfo(inContext, devResetData);
-  require_noerr_action(err, exit, 
-                       mvd_log("ERROR: reset device info on cloud error! err=%d", err) );
-  return kNoErr;
-  
-exit:
-  return err;
-}
-

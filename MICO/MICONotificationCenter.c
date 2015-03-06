@@ -32,6 +32,8 @@
 
 
 #include "MICONotificationCenter.h"
+#include "Common.h"
+#include "Mico.h"
 
 typedef struct _Notify_list{
   void  *function;
@@ -39,25 +41,25 @@ typedef struct _Notify_list{
   void  *contex;
 } _Notify_list_t;
 
-static mico_Context_t * _Context;
+static void * _Context;
 
 _Notify_list_t* Notify_list[20] = {NULL};
 
 /* MICO system defined notifications */
-typedef void (*mico_notify_WIFI_SCAN_COMPLETE_function)           ( ScanResult *pApList, mico_Context_t * inContext );
-typedef void (*mico_notify_WIFI_SCAN_ADV_COMPLETE_function)       ( ScanResult_adv *pApAdvList, mico_Context_t * inContext );
-typedef void (*mico_notify_WIFI_STATUS_CHANGED_function)          ( WiFiEvent status, mico_Context_t * inContext );
-typedef void (*mico_notify_WiFI_PARA_CHANGED_function)            ( apinfo_adv_t *ap_info, char *key, int key_len, mico_Context_t * inContext );
-typedef void (*mico_notify_DHCP_COMPLETE_function)                ( IPStatusTypedef *pnet, mico_Context_t * inContext );
-typedef void (*mico_notify_EASYLINK_COMPLETE_function)            ( network_InitTypeDef_st *nwkpara, mico_Context_t * inContext );
-typedef void (*mico_notify_EASYLINK_GET_EXTRA_DATA_function)      ( int datalen, char*data, mico_Context_t * inContext );
-typedef void (*mico_notify_TCP_CLIENT_CONNECTED_function)         ( int fd, mico_Context_t * inContext );
-typedef void (*mico_notify_DNS_RESOLVE_COMPLETED_function)        ( uint8_t *hostname, uint32_t ip, mico_Context_t * inContext );
-typedef void (*mico_notify_READ_APP_INFO_function)                ( char *str, int len, mico_Context_t * inContext );
-typedef void (*mico_notify_SYS_WILL_POWER_OFF_function)           ( mico_Context_t * inContext );
-typedef void (*mico_notify_WIFI_CONNECT_FAILED_function)          ( OSStatus err, mico_Context_t * inContext );
-typedef void (*mico_notify_WIFI_FATAL_ERROR_function)             ( mico_Context_t * inContext );
-typedef void (*mico_notify_STACK_OVERFLOW_ERROR_function)         ( char *taskname, mico_Context_t * const inContext );
+typedef void (*mico_notify_WIFI_SCAN_COMPLETE_function)           ( ScanResult *pApList, void * inContext );
+typedef void (*mico_notify_WIFI_SCAN_ADV_COMPLETE_function)       ( ScanResult_adv *pApAdvList, void * inContext );
+typedef void (*mico_notify_WIFI_STATUS_CHANGED_function)          ( WiFiEvent status, void * inContext );
+typedef void (*mico_notify_WiFI_PARA_CHANGED_function)            ( apinfo_adv_t *ap_info, char *key, int key_len, void * inContext );
+typedef void (*mico_notify_DHCP_COMPLETE_function)                ( IPStatusTypedef *pnet, void * inContext );
+typedef void (*mico_notify_EASYLINK_COMPLETE_function)            ( network_InitTypeDef_st *nwkpara, void * inContext );
+typedef void (*mico_notify_EASYLINK_GET_EXTRA_DATA_function)      ( int datalen, char*data, void * inContext );
+typedef void (*mico_notify_TCP_CLIENT_CONNECTED_function)         ( int fd, void * inContext );
+typedef void (*mico_notify_DNS_RESOLVE_COMPLETED_function)        ( uint8_t *hostname, uint32_t ip, void * inContext );
+typedef void (*mico_notify_READ_APP_INFO_function)                ( char *str, int len, void * inContext );
+typedef void (*mico_notify_SYS_WILL_POWER_OFF_function)           ( void * inContext );
+typedef void (*mico_notify_WIFI_CONNECT_FAILED_function)          ( OSStatus err, void * inContext );
+typedef void (*mico_notify_WIFI_FATAL_ERROR_function)             ( void * inContext );
+typedef void (*mico_notify_STACK_OVERFLOW_ERROR_function)         ( char *taskname, void * const inContext );
 
 /* User defined notifications */
 

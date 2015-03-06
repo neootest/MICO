@@ -16,6 +16,12 @@
   <project>
     <path>$WS_DIR$\COM.WECHAT.SPP\EWARM\COM.WECHAT.SPP.ewp</path>
   </project>
+    <project>
+    <path>$WS_DIR$\COM.MXCHIP.EASYCLOUD\EWARM\COM.MXCHIP.EASYCLOUD.ewp</path>
+  </project>
+    <project>
+    <path>$WS_DIR$\COM.WECHAT.LED\EWARM\COM.WECHAT.LED.ewp</path>
+  </project>
   <batchBuild/>
 </workspace>
 

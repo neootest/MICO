@@ -58,7 +58,7 @@ OSStatus SocketSend( int fd, const uint8_t *inBuf, size_t inBufLen )
 
         numWritten += writeResult;
 
-        socket_utils_log("Wrote %zu / %zu bytes", numWritten, inBufLen);
+        //socket_utils_log("Wrote %zu / %zu bytes", numWritten, inBufLen);
 
     } while( numWritten < inBufLen );
 

@@ -118,8 +118,14 @@ OSStatus host_platform_bus_init( void )
   gpio_init_structure.GPIO_Mode = GPIO_Mode_AF;
   gpio_init_structure.GPIO_OType = GPIO_OType_PP;
   gpio_init_structure.GPIO_Speed = GPIO_Speed_100MHz;
-  gpio_init_structure.GPIO_Pin = ( 1 << SPI_BUS_CLOCK_PIN ) | ( 1 << SPI_BUS_MISO_PIN ) | ( 1 << SPI_BUS_MOSI_PIN );
+  gpio_init_structure.GPIO_Pin = ( 1 << SPI_BUS_CLOCK_PIN );
   GPIO_Init( SPI_BUS_CLOCK_BANK, &gpio_init_structure );
+  
+  gpio_init_structure.GPIO_Mode = GPIO_Mode_AF;
+  gpio_init_structure.GPIO_OType = GPIO_OType_PP;
+  gpio_init_structure.GPIO_Speed = GPIO_Speed_100MHz;
+  gpio_init_structure.GPIO_Pin = ( 1 << SPI_BUS_MISO_PIN ) | ( 1 << SPI_BUS_MOSI_PIN );
+  GPIO_Init( SPI_BUS_MISO_BANK, &gpio_init_structure );
   GPIO_PinAFConfig( SPI_BUS_CLOCK_BANK, SPI_BUS_CLOCK_PIN, SPIX_AF );
   GPIO_PinAFConfig( SPI_BUS_MISO_BANK, SPI_BUS_MISO_PIN, SPIX_AF );
   GPIO_PinAFConfig( SPI_BUS_MOSI_BANK, SPI_BUS_MOSI_PIN, SPIX_AF );
