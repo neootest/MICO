@@ -19,6 +19,14 @@
 
 #pragma import(__use_no_semihosting_swi)
 
+struct mxchip_mallinfo {
+  int num_of_chunks;  /* number of free chunks */
+  int total_memory;  /* maximum total allocated space */
+  int allocted_memory; /* total allocated space */
+  int free_memory; /* total free space */
+};
+struct mxchip_mallinfo *mxchip_memory_info(void);
+
 struct __FILE { int handle; /* Add whatever you need here */ };
 FILE __stdout;
 FILE __stdin;
@@ -83,9 +91,9 @@ int is_nfc_up(void){
     return 0;
 }
 
-__weak void *__iar_dlmallinfo(void)
+struct mxchip_mallinfo* mico_memory_info(void)
 {
-	return NULL;
+    return mxchip_memory_info();
 }
 
 __weak int aes_decrypt(void)
