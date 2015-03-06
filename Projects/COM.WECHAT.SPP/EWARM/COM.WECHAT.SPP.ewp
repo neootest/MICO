@@ -4549,7 +4549,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>D:\github\MICO\Platform\EMW3288\micoLinkerForIAR.icf</state>
+          <state>$PROJ_DIR$\..\..\..\Platform\EMW3288\micoLinkerForIAR.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -4922,34 +4922,34 @@
     <group>
       <name>MicoDriver</name>
       <file>
-        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MICODriverAdc.h</name>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverAdc.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MICODriverGpio.h</name>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverGpio.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MICODriverI2c.h</name>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverI2c.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MICODriverMFiAuth.h</name>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverMFiAuth.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MICODriverPwm.h</name>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverPwm.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MICODriverRng.h</name>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverRng.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MICODriverRtc.h</name>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverRtc.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MICODriverSpi.h</name>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverSpi.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MICODriverUART.h</name>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverUart.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MICODriverWdg.h</name>
+        <name>$PROJ_DIR$\..\..\..\include\MicoDrivers\MicoDriverWdg.h</name>
       </file>
     </group>
     <file>
@@ -4962,7 +4962,7 @@
       <name>$PROJ_DIR$\..\..\..\include\MicoAlgorithm.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\include\MICOPlatform.h</name>
+      <name>$PROJ_DIR$\..\..\..\include\MicoPlatform.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\include\MICORTOS.h</name>
