@@ -520,6 +520,7 @@
 	"buffers":
 	[
 		{
+<<<<<<< HEAD
 			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/EMW1062_Driver/SDIO/wlan_bus.c",
 			"settings":
 			{
@@ -591,6 +592,29 @@
 			{
 				"buffer_size": 1798,
 				"line_ending": "Windows"
+=======
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.WECHAT.SPP/MVDDeviceInterfaces.c",
+			"settings":
+			{
+				"buffer_size": 4242,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3165/platform.c",
+			"settings":
+			{
+				"buffer_size": 14515,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3165/platform_common_config.h",
+			"settings":
+			{
+				"buffer_size": 9266,
+				"line_ending": "Unix"
+>>>>>>> HomeKit_master
 			}
 		}
 	],
@@ -654,6 +678,7 @@
 	},
 	"file_history":
 	[
+<<<<<<< HEAD
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/STM32F2xx_StdPeriph_Driver/src/stm32f2xx_usart.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/EMW1062_Driver/SDIO/wlan_bus.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverGpio.c",
@@ -720,6 +745,19 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOConfigDelegate.c",
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform_common_config.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.HA/HaProtocol.c",
+=======
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppDefine.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/HomeKitUserInterface.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/MICOAppDefine.h",
+		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoWlan.h",
+		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/MICO.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/MicoDefaults.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOConfigServer.c",
+		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/HTTPUtils.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICODefine.h",
+>>>>>>> HomeKit_master
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoRTOS.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICONotificationCenter.c",
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2XX/STM32F2XX_Drv/STM32F2xx_StdPeriph_Driver/inc/stm32f2xx_rcc.h",
@@ -781,7 +819,57 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverSpi.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/gpio_irq.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/hardfault.c",
+<<<<<<< HEAD
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverAdc.c"
+=======
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverAdc.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverPwm.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverRng.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverWdg.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/stm32f2xx_platform.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICONTPClient.c",
+		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoSocket.h",
+		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppDefine.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/STM32F2xx_StdPeriph_Driver/inc/stm32f2xx_rtc.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/inc/MICORTOS.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppEntrance.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/stm32f2xx_it.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/startup_stm32f2xx_IAR.s",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/wwd_platform.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/SDIO/wwd_bus.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformLogging.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/WWD/SPI/wwd_bus_protocol.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/WWD/SDIO/wwd_bus_protocol.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/stm32f2xx_platform_mxchip.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/platformxx.c",
+		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MICODriverGpio.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformRandomNumberxx.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOSystemMonitor.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformWDG.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/watchdog.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/wiced_defaults.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformWDG.c",
+		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/Platform.h",
+		"/Users/william/Develop/Clang_lib/ARMCC/include/time.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/WAC/PlatformMFiAuth.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MICOPlatform.h",
+		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/inc/MICOWlan.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/WPS/WPS.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/HAL_EMW3162.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformMFiAuth.h",
+		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/include/platform_sleep.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/Common.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/STM32F2xx_StdPeriph_Driver/src/stm32f2xx_tim.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformRandomNumber.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MICODriverPwm.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MICOPlatformPwm.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/STM32F2xx_StdPeriph_Driver/src/misc.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/SppProtocol.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/temp/MICOPlatformUart.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/temp/MICOPlatform.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/UartRecv.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/SHAUtils.h"
+>>>>>>> HomeKit_master
 	],
 	"find":
 	{
@@ -809,6 +897,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+<<<<<<< HEAD
 			"flash_name",
 			"attempts",
 			"nvic",
@@ -894,6 +983,9 @@
 			"HTTPHeaderCreate",
 			"_ConnectToMfgAP",
 			"stop_mode_power_down_hook",
+=======
+			"fetch",
+>>>>>>> HomeKit_master
 			"_button_STANDBY_irq_handler",
 			"%f",
 			"lf",
@@ -936,7 +1028,95 @@
 			"0800C000",
 			"vect",
 			"v e c t",
+<<<<<<< HEAD
 			"init_platform"
+=======
+			"init_platform",
+			"host_platform_get_cycle_count",
+			"host_platform_power_wifi",
+			"mico_rtos_suspend_all_thread",
+			"stm32f2_clock_needed_counter",
+			"stm32f2xx_clocks_needed",
+			"MCU_CLOCKS_NOT_NEEDED",
+			"MicoMcuPowerSaveConfig",
+			"MicoUartGetLengthInBuffer",
+			"platform_uart_receive_bytes",
+			"optional_rx_buffer",
+			"sdio_oob_irq_handler",
+			"MCU_NOTIFY_WAKE_UP",
+			"wake_up_interrupt_notify",
+			"wake_up_interrupt_triggered",
+			"init_clocks",
+			"PWR_CR_PDDS",
+			"__force_stores",
+			"RTC_SetWakeUpCounter",
+			"MicoSystemStandBy",
+			"host_platform_init_wlan_powersave_clock",
+			"host_platform_deinit",
+			"host_platform_init",
+			"//",
+			"thread_wakeup",
+			"mico_uart_t",
+			"dma_peripheral_clock",
+			"peripheral_clock_func_t",
+			"tx_dma_irq",
+			"IRQn_Type",
+			"_Rx_irq_handler",
+			"uart_mapping",
+			"thread_wakeup",
+			"thread_wakeup\nthread_wakeup",
+			"thread_wakeup",
+			"uart_wakeup_thread_handler",
+			"&wakeup",
+			"dma_flag_tc",
+			"MicoRtcInitialize",
+			"mico_mcu_powersave_config",
+			"mico_i2c_message_t",
+			"MESSAGE_DISABLE_DMA",
+			"MESSAGE_DISABLE_DMA\nMESSAGE_DISABLE_DMA",
+			"MESSAGE_DISABLE_DMA",
+			"micoInit",
+			"Platform functions",
+			"SCB",
+			"sdio_irq",
+			"gpio_irq",
+			"wake_up_interrupt_triggered",
+			"wiced_platform_notify_irq",
+			"requested_sleep_time",
+			"rtc_reset_fail",
+			"rtc_sleep_abort",
+			"stm32f2xx_clocks_needed",
+			"RTC_WKUP_irq",
+			"select_wut_prescaler_calculate_wakeup_time",
+			"scale_factor",
+			"select_wut_prescaler_calculate_wakeup_time",
+			"WEAK",
+			"rtc_timeout_start_time",
+			"stdio_uart_config",
+			"tile",
+			"va",
+			"UART_BUFFER_LENGTH",
+			"reset_rtc_values",
+			"wake_up_interrupt_triggered",
+			"host_platform_reset_wifi",
+			"host_platform_ran",
+			"random",
+			"MICODriverRng",
+			"_button_STANDBY_irq_handler",
+			"wiced_platform_init",
+			"spi_baudrate_division_mapping_t",
+			"watchdog_check_last_reset",
+			"select_wut_prescaler_calculate_wakeup_time",
+			"WUT_COUNTER_MAX",
+			"platform_power_down_hook",
+			"stop_mode_power_down_hook",
+			"select_wut_prescaler_calculate_wakeup_time",
+			"stm32f2xx_clocks_needed",
+			"mico_default_time",
+			"RTC_ENABLED",
+			"wiced_default_time",
+			";\n"
+>>>>>>> HomeKit_master
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -961,10 +1141,17 @@
 			[
 				{
 					"buffer": 0,
+<<<<<<< HEAD
 					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/EMW1062_Driver/SDIO/wlan_bus.c",
 					"settings":
 					{
 						"buffer_size": 25122,
+=======
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.WECHAT.SPP/MVDDeviceInterfaces.c",
+					"settings":
+					{
+						"buffer_size": 4242,
+>>>>>>> HomeKit_master
 						"regions":
 						{
 						},
@@ -982,25 +1169,41 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
+<<<<<<< HEAD
 						"translation.y": 975.0,
+=======
+						"translation.y": 1208.0,
+>>>>>>> HomeKit_master
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+<<<<<<< HEAD
 					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/LocalTcpServer.c",
 					"settings":
 					{
 						"buffer_size": 5749,
+=======
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3165/platform.c",
+					"settings":
+					{
+						"buffer_size": 14515,
+>>>>>>> HomeKit_master
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
+<<<<<<< HEAD
 								4747,
 								4740
+=======
+								3946,
+								3946
+>>>>>>> HomeKit_master
 							]
 						],
 						"settings":
@@ -1010,13 +1213,18 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
+<<<<<<< HEAD
 						"translation.y": 1878.0,
+=======
+						"translation.y": 2059.0,
+>>>>>>> HomeKit_master
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
+<<<<<<< HEAD
 					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/SocketUtils.c",
 					"settings":
 					{
@@ -1076,6 +1284,12 @@
 					"settings":
 					{
 						"buffer_size": 1250,
+=======
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3165/platform_common_config.h",
+					"settings":
+					{
+						"buffer_size": 9266,
+>>>>>>> HomeKit_master
 						"regions":
 						{
 							"match":
@@ -1110,6 +1324,7 @@
 						"selection":
 						[
 							[
+<<<<<<< HEAD
 								258,
 								258
 							]
@@ -1226,6 +1441,10 @@
 							[
 								1664,
 								1723
+=======
+								0,
+								0
+>>>>>>> HomeKit_master
 							]
 						],
 						"settings":
@@ -1233,7 +1452,11 @@
 							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
+<<<<<<< HEAD
 						"translation.y": 0.0,
+=======
+						"translation.y": 440.0,
+>>>>>>> HomeKit_master
 						"zoom_level": 1.0
 					},
 					"type": "text"

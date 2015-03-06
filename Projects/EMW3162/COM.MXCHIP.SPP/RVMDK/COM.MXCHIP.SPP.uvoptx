@@ -117,7 +117,11 @@
         <tRSysVw>1</tRSysVw>
         <sRunDeb>0</sRunDeb>
         <sLrtime>0</sLrtime>
+<<<<<<< HEAD
         <nTsel>7</nTsel>
+=======
+        <nTsel>1</nTsel>
+>>>>>>> HomeKit_master
         <sDll></sDll>
         <sDllPa></sDllPa>
         <sDlgDll></sDlgDll>
@@ -128,7 +132,11 @@
         <tDlgDll></tDlgDll>
         <tDlgPa></tDlgPa>
         <tIfile></tIfile>
+<<<<<<< HEAD
         <pMon>Segger\JL2CM3.dll</pMon>
+=======
+        <pMon>BIN\UL2CM3.DLL</pMon>
+>>>>>>> HomeKit_master
       </DebugOpt>
       <TargetDriverDllRegistry>
         <SetRegEntry>
@@ -361,7 +369,11 @@
 
   <Group>
     <GroupName>MICO</GroupName>
+<<<<<<< HEAD
     <tvExp>1</tvExp>
+=======
+    <tvExp>0</tvExp>
+>>>>>>> HomeKit_master
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1246,7 +1258,11 @@
 
   <Group>
     <GroupName>Platform/MicoDriver/EMW1062</GroupName>
+<<<<<<< HEAD
     <tvExp>0</tvExp>
+=======
+    <tvExp>1</tvExp>
+>>>>>>> HomeKit_master
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

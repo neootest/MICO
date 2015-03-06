@@ -147,7 +147,11 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
+<<<<<<< HEAD
           <TargetSelection>7</TargetSelection>
+=======
+          <TargetSelection>1</TargetSelection>
+>>>>>>> HomeKit_master
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -161,7 +165,11 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
+<<<<<<< HEAD
             <Driver>Segger\JL2CM3.dll</Driver>
+=======
+            <Driver>BIN\UL2CM3.DLL</Driver>
+>>>>>>> HomeKit_master
           </TargetDlls>
         </DebugOption>
         <Utilities>
