@@ -91,6 +91,11 @@ int is_nfc_up(void){
     return 0;
 }
 
+__weak void *__iar_dlmallinfo(void)
+{
+    return NULL;
+}
+
 struct mxchip_mallinfo* mico_memory_info(void)
 {
     return mxchip_memory_info();
