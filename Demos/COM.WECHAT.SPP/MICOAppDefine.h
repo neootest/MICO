@@ -35,14 +35,9 @@
 #define SERIAL_NUMBER       "20150209"
 #define PROTOCOL            "com.wechat.spp"
 
-#ifdef DEFAULT_NAME
-#undef DEFAULT_NAME
-#define DEFAULT_NAME        "EMW3162 Wechat"
-#endif
-
 
 /* Wi-Fi configuration mode */
-//#define MICO_CONFIG_MODE CONFIG_MODE_EASYLINK_PLUS
+//#define MICO_CONFIG_MODE CONFIG_MODE_EASYLINK
 #define MICO_CONFIG_MODE CONFIG_MODE_AIRKISS
 
 /*User provided configurations*/
