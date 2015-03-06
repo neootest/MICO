@@ -83,7 +83,12 @@ int is_nfc_up(void){
     return 0;
 }
 
-int aes_decrypt(void)
+__weak void *__iar_dlmallinfo(void)
+{
+	return NULL;
+}
+
+__weak int aes_decrypt(void)
 {
     return 0;
 }

@@ -387,15 +387,13 @@ OSStatus MicoUartRecv( mico_uart_t uart, void* data, uint32_t size, uint32_t tim
     BUartRecv( uart, data, size, timeout );
 }
 
-
 uint32_t MicoUartGetLengthInBuffer( mico_uart_t uart )
 {
-  uint32_t buart_rx_fifo_data_len;
+  uint32_t buart_rx_fifo_data_len = 0;
   if(uart_mapping[uart].uart == FUART)
     return ring_buffer_used_space( uart_interfaces[uart].rx_buffer );
   else if(uart_mapping[uart].uart == BUART){
-    BuartIOctl(BUART_IOCTL_RXFIFO_DATLEN_GET, buart_rx_fifo_data_len);
-    return buart_rx_fifo_data_len;
+    return BuartIOctl(BUART_IOCTL_RXFIFO_DATLEN_GET, 0);
   }
 }
 
