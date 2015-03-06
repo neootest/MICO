@@ -109,18 +109,9 @@ json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
   char name[50], *tempString;
   OTA_Versions_t versions;
   char rfVersion[50];
-  char *rfVer = rfVersion, *rfVerTemp = NULL;
   json_object *sectors, *sector, *subMenuSectors, *subMenuSector, *mainObject = NULL;
 
   MicoGetRfVer( rfVersion, 50 );
-//  rfVer = strstr(rfVersion, "version ");
-//  if(rfVer) rfVer = rfVer + strlen("version ");
-//  rfVerTemp = rfVer;
-
-//  for(rfVerTemp = rfVer; *rfVerTemp != ' '; rfVerTemp++);
-//  *rfVerTemp = 0x0;
-  
-  config_delegate_log("RF version=%s", rfVersion);
 
   if(inContext->flashContentInRam.micoSystemConfig.configured == wLanUnConfigured){
     /*You can upload a specific menu*/
@@ -182,7 +173,7 @@ json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
         require_noerr(err, exit);
         err = MICOAddStringCellToSector(subMenuSector, "MICO OS Rev.",   MicoGetVer(),      "RO", NULL);
         require_noerr(err, exit);
-        err = MICOAddStringCellToSector(subMenuSector, "RF Driver Rev.", rfVer,             "RO", NULL);
+        err = MICOAddStringCellToSector(subMenuSector, "RF Driver Rev.", rfVersion,         "RO", NULL);
         require_noerr(err, exit);
         err = MICOAddStringCellToSector(subMenuSector, "Model",          MODEL,             "RO", NULL);
         require_noerr(err, exit);

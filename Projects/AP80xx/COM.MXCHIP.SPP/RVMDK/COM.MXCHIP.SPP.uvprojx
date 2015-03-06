@@ -309,8 +309,8 @@
               </OCR_RVCT3>
               <OCR_RVCT4>
                 <Type>1</Type>
-                <StartAddress>0x0</StartAddress>
-                <Size>0x7f000</Size>
+                <StartAddress>0xa000</StartAddress>
+                <Size>0x76000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -817,6 +817,86 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Platform/MicoDriver/EMW1088</GroupName>
+          <GroupOption>
+            <CommonProperty>
+              <UseCPPCompiler>0</UseCPPCompiler>
+              <RVCTCodeConst>0</RVCTCodeConst>
+              <RVCTZI>0</RVCTZI>
+              <RVCTOtherData>0</RVCTOtherData>
+              <ModuleSelection>0</ModuleSelection>
+              <IncludeInBuild>0</IncludeInBuild>
+              <AlwaysBuild>2</AlwaysBuild>
+              <GenerateAssemblyFile>2</GenerateAssemblyFile>
+              <AssembleAssemblyFile>2</AssembleAssemblyFile>
+              <PublicsOnly>2</PublicsOnly>
+              <StopOnExitCode>11</StopOnExitCode>
+              <CustomArgument></CustomArgument>
+              <IncludeLibraryModules></IncludeLibraryModules>
+              <ComprImg>1</ComprImg>
+            </CommonProperty>
+            <GroupArmAds>
+              <Cads>
+                <interw>2</interw>
+                <Optim>0</Optim>
+                <oTime>2</oTime>
+                <SplitLS>2</SplitLS>
+                <OneElfS>2</OneElfS>
+                <Strict>2</Strict>
+                <EnumInt>2</EnumInt>
+                <PlainCh>2</PlainCh>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <wLevel>2</wLevel>
+                <uThumb>2</uThumb>
+                <uSurpInc>2</uSurpInc>
+                <uC99>2</uC99>
+                <useXO>2</useXO>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Cads>
+              <Aads>
+                <interw>2</interw>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <thumb>2</thumb>
+                <SplitLS>2</SplitLS>
+                <SwStkChk>2</SwStkChk>
+                <NoWarn>2</NoWarn>
+                <uSurpInc>2</uSurpInc>
+                <useXO>2</useXO>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Aads>
+            </GroupArmAds>
+          </GroupOption>
+          <Files>
+            <File>
+              <FileName>read_wifi_firmware.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1088_Driver\read_wifi_firmware.c</FilePath>
+            </File>
+            <File>
+              <FileName>wlan_bus.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1088_Driver\wlan_bus.c</FilePath>
+            </File>
+            <File>
+              <FileName>wlan_platform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1088_Driver\wlan_platform.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Platform/MicoDriver/MCU</GroupName>
           <Files>
             <File>
@@ -1295,6 +1375,25 @@
               <FileName>memory_debugger.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\Platform\IDEs\Keil\memory_debugger.lib</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>2</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules>mxchip_memory.o|1|0|0|0</IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds/>
+              </FileOption>
             </File>
             <File>
               <FileName>retarget.c</FileName>
@@ -1309,7 +1408,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Board/EMW5000</GroupName>
+          <GroupName>Board/EMW5162</GroupName>
           <GroupOption>
             <CommonProperty>
               <UseCPPCompiler>0</UseCPPCompiler>
@@ -1409,86 +1508,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/MicoDriver/EMW1088</GroupName>
-          <GroupOption>
-            <CommonProperty>
-              <UseCPPCompiler>0</UseCPPCompiler>
-              <RVCTCodeConst>0</RVCTCodeConst>
-              <RVCTZI>0</RVCTZI>
-              <RVCTOtherData>0</RVCTOtherData>
-              <ModuleSelection>0</ModuleSelection>
-              <IncludeInBuild>0</IncludeInBuild>
-              <AlwaysBuild>2</AlwaysBuild>
-              <GenerateAssemblyFile>2</GenerateAssemblyFile>
-              <AssembleAssemblyFile>2</AssembleAssemblyFile>
-              <PublicsOnly>2</PublicsOnly>
-              <StopOnExitCode>11</StopOnExitCode>
-              <CustomArgument></CustomArgument>
-              <IncludeLibraryModules></IncludeLibraryModules>
-              <ComprImg>1</ComprImg>
-            </CommonProperty>
-            <GroupArmAds>
-              <Cads>
-                <interw>2</interw>
-                <Optim>0</Optim>
-                <oTime>2</oTime>
-                <SplitLS>2</SplitLS>
-                <OneElfS>2</OneElfS>
-                <Strict>2</Strict>
-                <EnumInt>2</EnumInt>
-                <PlainCh>2</PlainCh>
-                <Ropi>2</Ropi>
-                <Rwpi>2</Rwpi>
-                <wLevel>2</wLevel>
-                <uThumb>2</uThumb>
-                <uSurpInc>2</uSurpInc>
-                <uC99>2</uC99>
-                <useXO>2</useXO>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </Cads>
-              <Aads>
-                <interw>2</interw>
-                <Ropi>2</Ropi>
-                <Rwpi>2</Rwpi>
-                <thumb>2</thumb>
-                <SplitLS>2</SplitLS>
-                <SwStkChk>2</SwStkChk>
-                <NoWarn>2</NoWarn>
-                <uSurpInc>2</uSurpInc>
-                <useXO>2</useXO>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </Aads>
-            </GroupArmAds>
-          </GroupOption>
-          <Files>
-            <File>
-              <FileName>read_wifi_firmware.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1088_Driver\read_wifi_firmware.c</FilePath>
-            </File>
-            <File>
-              <FileName>wlan_bus.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1088_Driver\wlan_bus.c</FilePath>
-            </File>
-            <File>
-              <FileName>wlan_platform.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1088_Driver\wlan_platform.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Board/EMW3088</GroupName>
           <GroupOption>
             <CommonProperty>
@@ -1556,12 +1575,22 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\EMW3088\platform.c</FilePath>
             </File>
+            <File>
+              <FileName>platform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\Platform\EMW3088\platform.h</FilePath>
+            </File>
+            <File>
+              <FileName>platform_common_config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\Platform\EMW3088\platform_common_config.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
     </Target>
     <Target>
-      <TargetName>EMW5000</TargetName>
+      <TargetName>EMW5162</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
@@ -2309,6 +2338,86 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Platform/MicoDriver/EMW1088</GroupName>
+          <GroupOption>
+            <CommonProperty>
+              <UseCPPCompiler>0</UseCPPCompiler>
+              <RVCTCodeConst>0</RVCTCodeConst>
+              <RVCTZI>0</RVCTZI>
+              <RVCTOtherData>0</RVCTOtherData>
+              <ModuleSelection>0</ModuleSelection>
+              <IncludeInBuild>0</IncludeInBuild>
+              <AlwaysBuild>2</AlwaysBuild>
+              <GenerateAssemblyFile>2</GenerateAssemblyFile>
+              <AssembleAssemblyFile>2</AssembleAssemblyFile>
+              <PublicsOnly>2</PublicsOnly>
+              <StopOnExitCode>11</StopOnExitCode>
+              <CustomArgument></CustomArgument>
+              <IncludeLibraryModules></IncludeLibraryModules>
+              <ComprImg>1</ComprImg>
+            </CommonProperty>
+            <GroupArmAds>
+              <Cads>
+                <interw>2</interw>
+                <Optim>0</Optim>
+                <oTime>2</oTime>
+                <SplitLS>2</SplitLS>
+                <OneElfS>2</OneElfS>
+                <Strict>2</Strict>
+                <EnumInt>2</EnumInt>
+                <PlainCh>2</PlainCh>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <wLevel>2</wLevel>
+                <uThumb>2</uThumb>
+                <uSurpInc>2</uSurpInc>
+                <uC99>2</uC99>
+                <useXO>2</useXO>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Cads>
+              <Aads>
+                <interw>2</interw>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <thumb>2</thumb>
+                <SplitLS>2</SplitLS>
+                <SwStkChk>2</SwStkChk>
+                <NoWarn>2</NoWarn>
+                <uSurpInc>2</uSurpInc>
+                <useXO>2</useXO>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Aads>
+            </GroupArmAds>
+          </GroupOption>
+          <Files>
+            <File>
+              <FileName>read_wifi_firmware.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1088_Driver\read_wifi_firmware.c</FilePath>
+            </File>
+            <File>
+              <FileName>wlan_bus.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1088_Driver\wlan_bus.c</FilePath>
+            </File>
+            <File>
+              <FileName>wlan_platform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1088_Driver\wlan_platform.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Platform/MicoDriver/MCU</GroupName>
           <Files>
             <File>
@@ -2801,7 +2910,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Board/EMW5000</GroupName>
+          <GroupName>Board/EMW5162</GroupName>
           <Files>
             <File>
               <FileName>platform.c</FileName>
@@ -2901,32 +3010,82 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/MicoDriver/EMW1088</GroupName>
-          <Files>
-            <File>
-              <FileName>read_wifi_firmware.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1088_Driver\read_wifi_firmware.c</FilePath>
-            </File>
-            <File>
-              <FileName>wlan_bus.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1088_Driver\wlan_bus.c</FilePath>
-            </File>
-            <File>
-              <FileName>wlan_platform.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1088_Driver\wlan_platform.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Board/EMW3088</GroupName>
+          <GroupOption>
+            <CommonProperty>
+              <UseCPPCompiler>0</UseCPPCompiler>
+              <RVCTCodeConst>0</RVCTCodeConst>
+              <RVCTZI>0</RVCTZI>
+              <RVCTOtherData>0</RVCTOtherData>
+              <ModuleSelection>0</ModuleSelection>
+              <IncludeInBuild>0</IncludeInBuild>
+              <AlwaysBuild>2</AlwaysBuild>
+              <GenerateAssemblyFile>2</GenerateAssemblyFile>
+              <AssembleAssemblyFile>2</AssembleAssemblyFile>
+              <PublicsOnly>2</PublicsOnly>
+              <StopOnExitCode>11</StopOnExitCode>
+              <CustomArgument></CustomArgument>
+              <IncludeLibraryModules></IncludeLibraryModules>
+              <ComprImg>1</ComprImg>
+            </CommonProperty>
+            <GroupArmAds>
+              <Cads>
+                <interw>2</interw>
+                <Optim>0</Optim>
+                <oTime>2</oTime>
+                <SplitLS>2</SplitLS>
+                <OneElfS>2</OneElfS>
+                <Strict>2</Strict>
+                <EnumInt>2</EnumInt>
+                <PlainCh>2</PlainCh>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <wLevel>2</wLevel>
+                <uThumb>2</uThumb>
+                <uSurpInc>2</uSurpInc>
+                <uC99>2</uC99>
+                <useXO>2</useXO>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Cads>
+              <Aads>
+                <interw>2</interw>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <thumb>2</thumb>
+                <SplitLS>2</SplitLS>
+                <SwStkChk>2</SwStkChk>
+                <NoWarn>2</NoWarn>
+                <uSurpInc>2</uSurpInc>
+                <useXO>2</useXO>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Aads>
+            </GroupArmAds>
+          </GroupOption>
           <Files>
             <File>
               <FileName>platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\EMW3088\platform.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\Platform\EMW3088\platform.h</FilePath>
+            </File>
+            <File>
+              <FileName>platform_common_config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\Platform\EMW3088\platform_common_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3235,7 +3394,7 @@
               </OCR_RVCT3>
               <OCR_RVCT4>
                 <Type>1</Type>
-                <StartAddress>0x0</StartAddress>
+                <StartAddress>0x8000</StartAddress>
                 <Size>0x7f000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
@@ -3803,6 +3962,26 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Platform/MicoDriver/EMW1088</GroupName>
+          <Files>
+            <File>
+              <FileName>read_wifi_firmware.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1088_Driver\read_wifi_firmware.c</FilePath>
+            </File>
+            <File>
+              <FileName>wlan_bus.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1088_Driver\wlan_bus.c</FilePath>
+            </File>
+            <File>
+              <FileName>wlan_platform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1088_Driver\wlan_platform.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Platform/MicoDriver/MCU</GroupName>
           <Files>
             <File>
@@ -4295,7 +4474,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Board/EMW5000</GroupName>
+          <GroupName>Board/EMW5162</GroupName>
           <GroupOption>
             <CommonProperty>
               <UseCPPCompiler>0</UseCPPCompiler>
@@ -4455,32 +4634,22 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/MicoDriver/EMW1088</GroupName>
-          <Files>
-            <File>
-              <FileName>read_wifi_firmware.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1088_Driver\read_wifi_firmware.c</FilePath>
-            </File>
-            <File>
-              <FileName>wlan_bus.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1088_Driver\wlan_bus.c</FilePath>
-            </File>
-            <File>
-              <FileName>wlan_platform.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\EMW1088_Driver\wlan_platform.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Board/EMW3088</GroupName>
           <Files>
             <File>
               <FileName>platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\EMW3088\platform.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\Platform\EMW3088\platform.h</FilePath>
+            </File>
+            <File>
+              <FileName>platform_common_config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\Platform\EMW3088\platform_common_config.h</FilePath>
             </File>
           </Files>
         </Group>

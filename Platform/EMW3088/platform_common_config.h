@@ -155,49 +155,46 @@ typedef enum
 #define CLI_UART         MICO_UART_1
 
 #define USE_MICO_SPI_FLASH
-/* Define the address from where user application will be loaded.
-Note: the 1st sector 0x08000000-0x08003FFF is reserved for the IAP code */
-#define INTERNAL_FLASH_START_ADDRESS   (uint32_t)0x08000000
-#define INTERNAL_FLASH_END_ADDRESS     (uint32_t)0x080FFFFF
+
+#define INTERNAL_FLASH_START_ADDRESS   (uint32_t)0x00000000
+#define INTERNAL_FLASH_END_ADDRESS     (uint32_t)0x00000000
 #define INTERNAL_FLASH_SIZE            (INTERNAL_FLASH_END_ADDRESS - INTERNAL_FLASH_START_ADDRESS + 1)
 
+/* Define the address from where user application will be loaded.
+Note: the 1st sector 0x00000000-0x00000000 is reserved for the IAP code */
 #define SPI_FLASH_START_ADDRESS         (uint32_t)0x00000000
 #define SPI_FLASH_END_ADDRESS           (uint32_t)0x001FFFFF
 #define SPI_FLASH_SIZE                  (SPI_FLASH_END_ADDRESS - SPI_FLASH_START_ADDRESS + 1) /* 2M bytes*/
 
 #define MICO_FLASH_FOR_APPLICATION  MICO_SPI_FLASH
-#define APPLICATION_START_ADDRESS   (uint32_t)0x00000000
-#define APPLICATION_END_ADDRESS     (uint32_t)0x001FFFFF
-#define APPLICATION_FLASH_SIZE      (APPLICATION_END_ADDRESS - APPLICATION_START_ADDRESS + 1)
+#define APPLICATION_START_ADDRESS   (uint32_t)0x0000A000
+#define APPLICATION_END_ADDRESS     (uint32_t)0x0007FFFF
+#define APPLICATION_FLASH_SIZE      (APPLICATION_END_ADDRESS - APPLICATION_START_ADDRESS + 1) /* 472k bytes */
 
-// #define MICO_FLASH_FOR_UPDATE       MICO_INTERNAL_FLASH /* Optional */
-// #define UPDATE_START_ADDRESS        (uint32_t)0x08060000  /* Optional */
-// #define UPDATE_END_ADDRESS          (uint32_t)0x080BFFFF  /* Optional */
-// #define UPDATE_FLASH_SIZE           (UPDATE_END_ADDRESS - UPDATE_START_ADDRESS + 1) /* 384k bytes, optional*/
+#define MICO_FLASH_FOR_UPDATE       MICO_SPI_FLASH /* Optional */
+#define UPDATE_START_ADDRESS        (uint32_t)0x00080000  /* Optional */
+#define UPDATE_END_ADDRESS          (uint32_t)0x000FFFFF  /* Optional */
+#define UPDATE_FLASH_SIZE           (UPDATE_END_ADDRESS - UPDATE_START_ADDRESS + 1) /* 512k bytes, optional*/
 
 #define MICO_FLASH_FOR_BOOT         MICO_SPI_FLASH
 #define BOOT_START_ADDRESS          (uint32_t)0x00000000 
-#define BOOT_END_ADDRESS            (uint32_t)0x08007FFF 
-#define BOOT_FLASH_SIZE             (BOOT_END_ADDRESS - BOOT_START_ADDRESS + 1)
+#define BOOT_END_ADDRESS            (uint32_t)0x00007FFF 
+#define BOOT_FLASH_SIZE             (BOOT_END_ADDRESS - BOOT_START_ADDRESS + 1)   /* 32k bytes */
 
 #define MICO_FLASH_FOR_DRIVER       MICO_SPI_FLASH
 #define DRIVER_START_ADDRESS        (uint32_t)0x0019C000 
 #define DRIVER_END_ADDRESS          (uint32_t)0x001FFFFF 
-#define DRIVER_FLASH_SIZE           (DRIVER_END_ADDRESS - DRIVER_START_ADDRESS + 1)
+#define DRIVER_FLASH_SIZE           (DRIVER_END_ADDRESS - DRIVER_START_ADDRESS + 1)  /* 4k bytes */
 
 #define MICO_FLASH_FOR_PARA         MICO_SPI_FLASH
-//#define PARA_START_ADDRESS          (uint32_t)0x00008000 
-//#define PARA_END_ADDRESS            (uint32_t)0x00008FFF
-#define PARA_START_ADDRESS          (uint32_t)0x0007E000 
-#define PARA_END_ADDRESS            (uint32_t)0x0007EFFF
-#define PARA_FLASH_SIZE             (PARA_END_ADDRESS - PARA_START_ADDRESS + 1)  
+#define PARA_START_ADDRESS          (uint32_t)0x00008000 
+#define PARA_END_ADDRESS            (uint32_t)0x00008FFF
+#define PARA_FLASH_SIZE             (PARA_END_ADDRESS - PARA_START_ADDRESS + 1)  /* 4k bytes */
 
 #define MICO_FLASH_FOR_EX_PARA      MICO_SPI_FLASH
-//#define PARA_START_ADDRESS          (uint32_t)0x00009000 
-//#define PARA_END_ADDRESS            (uint32_t)0x00009FFF
-#define EX_PARA_START_ADDRESS       (uint32_t)0x0007F000 
-#define EX_PARA_END_ADDRESS         (uint32_t)0x0007FFFF
-#define EX_PARA_FLASH_SIZE          (EX_PARA_END_ADDRESS - EX_PARA_START_ADDRESS + 1)  
+#define EX_PARA_START_ADDRESS       (uint32_t)0x00009000 
+#define EX_PARA_END_ADDRESS         (uint32_t)0x00009FFF
+#define EX_PARA_FLASH_SIZE          (EX_PARA_END_ADDRESS - EX_PARA_START_ADDRESS + 1)   /* 4k bytes */
 /******************************************************
 *                   Enumerations
 ******************************************************/

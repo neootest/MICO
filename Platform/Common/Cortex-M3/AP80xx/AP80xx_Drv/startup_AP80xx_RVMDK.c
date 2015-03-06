@@ -186,9 +186,9 @@ __heap_limit
                 EXPORT  __Vectors
                 EXPORT  __Vectors_End
                 EXPORT  __Vectors_Size
-                IMPORT vPortSVCHandler
-                IMPORT xPortPendSVHandler
-                IMPORT xPortSysTickHandler
+                IMPORT  vPortSVCHandler
+                IMPORT  xPortPendSVHandler
+                IMPORT  xPortSysTickHandler
 
 __Vectors       DCD     __initial_sp               // Top of Stack
                 DCD     reset_handler              // Reset Handler
@@ -228,49 +228,6 @@ __Vectors       DCD     __initial_sp               // Top of Stack
 __Vectors_End
 
 __Vectors_Size  EQU  __Vectors_End - __Vectors
-
-  
-	//image total size in bytes
-	AREA    |.ARM.__at_0x00000080|, CODE, READONLY
-IMAGE_SIZE	DCD	0xFFFFFFFF
-
-	//product ID & Check sum
-	AREA    |.ARM.__at_0x00000084|, CODE, READONLY
-PIDCHKSUM	FILL 8, 0xFF
-
-
-	//constant data offset
-	AREA    |.ARM.__at_0x0000008C|, CODE, READONLY
-CONSTDATA	DCD	0x100000
-
-	//user data offset
-	AREA    |.ARM.__at_0x00000090|, CODE, READONLY
-USERDATA	DCD	0x1A0000
-
-	//sdk version
-	AREA    |.ARM.__at_0x00000094|, CODE, READONLY
-SDK_VER_CHIPID	DCB		0x12    //MV chip ID
-SDK_VER_MAJOR	DCB		2       //MV SDK major version
-SDK_VER_MINOR	DCB		0      //MV SDK minor version
-SDK_VER_USER	DCB		1       //user SDK version
-
-	//code memory(exclude of this 4 bytes) crc
-	AREA    |.ARM.__at_0x00000098|, CODE, READONLY
-SDK_CODECRC	DCD	0xFFFFFFFF
-
-    //code magic number
-	AREA    |.ARM.__at_0x0000009C|, CODE, READONLY
-SDK_CODEMGC	DCD	0xB0BEBDC9
-
-    //32KHz external oscillator input/output capacitance calibration value
-	AREA    |.ARM.__at_0x000000A0|, CODE, READONLY
-OSC32K_CAP	DCD	0x00000706
-
-    AREA    |.ARM.__at_0x000000A4|, CODE, READONLY    
-USER_RESV_ZOOM    FILL  (0xFC - 0xA4),    0xFF
-
-    AREA    |.ARM.__at_0x000000FC|, CODE, READONLY    
-CODE_ENCRYP_FLAG	DCD  0xFFFFFFFF
 
 	AREA    |.text|, CODE, READONLY
 

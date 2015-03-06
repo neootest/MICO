@@ -146,7 +146,7 @@ static void __asm __jump_to( uint32_t addr )
 {
   MOV R1, #0x00000001
   ORR R0, R0, R1  /* Last bit of jump address indicates whether destination is Thumb or ARM code */
-  BLX R0
+  BX R0
 }
 #endif
 
@@ -197,7 +197,7 @@ void init_clocks( void )
   ClkModuleGateEn(ALL_MODULE_CLK_GATE_SWITCH);  
 
   //Disable Watchdog
-  WaitMs(200);
+  //WaitMs(200);
   WdgDis();
   
 }
