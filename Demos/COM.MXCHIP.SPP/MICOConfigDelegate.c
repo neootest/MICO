@@ -85,6 +85,19 @@ void ConfigEasyLinkIsSuccess( mico_Context_t * const inContext )
   return;
 }
 
+
+void ConfigAirkissIsSuccess( mico_Context_t * const inContext )
+{
+  (void)(inContext); 
+  config_delegate_log_trace();
+
+  mico_stop_timer(&_Led_EL_timer);
+  mico_deinit_timer( &_Led_EL_timer );
+  mico_init_timer(&_Led_EL_timer, SYS_LED_TRIGGER_INTERVAL_AFTER_EASYLINK, _led_EL_Timeout_handler, NULL);
+  mico_start_timer(&_Led_EL_timer);
+  return;
+}
+
 void ConfigSoftApWillStart(mico_Context_t * const inContext )
 {
   mico_stop_timer(&_Led_EL_timer);

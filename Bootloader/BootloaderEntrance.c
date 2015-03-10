@@ -50,7 +50,7 @@ char menu[] =
 "1:FWUPDATE <-r>\r\n"
 "2:DRIVERUPDATE <-r>\r\n"
 "3:PARAUPDATE <-r><-e>\r\n"
-"4:FLASHUPDATE  <-i><-s><-e><-r> <-start><-end>\r\n"
+"4:FLASHUPDATE  <-i><-s><-e><-r><-start><-end>\r\n"
 "5:MEMORYMAP\r\n"
 "6:BOOT\r\n"
 "7:REBOOT\r\n";

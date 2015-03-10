@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>EMW5162</TargetName>
+      <TargetName>EMW5062</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
@@ -496,92 +496,107 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/AP80xx</GroupName>
+          <GroupName>Platform/Cortex-M3</GroupName>
           <Files>
             <File>
-              <FileName>driver.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\AP80xx_Drv\driver.lib</FilePath>
+              <FileName>crt0_RVMDK.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\Cortex-M3\crt0_RVMDK.c</FilePath>
             </File>
             <File>
-              <FileName>startup_AP80xx_bootloader_RVMDK.c</FileName>
+              <FileName>hardfault.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\AP80xx_Drv\startup_AP80xx_bootloader_RVMDK.c</FilePath>
+              <FilePath>..\..\..\..\Platform\Cortex-M3\hardfault.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/MicoDriver/MCU</GroupName>
+          <GroupName>Platform/RVMDK</GroupName>
           <Files>
             <File>
-              <FileName>MicoDriverFlash.c</FileName>
+              <FileName>Retarget.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\MicoDriverFlash.c</FilePath>
-            </File>
-            <File>
-              <FileName>MicoDriverGpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\MicoDriverGpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>MicoDriverUart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\MicoDriverUart.c</FilePath>
-            </File>
-            <File>
-              <FileName>MicoDriverCommon.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\MicoDriverCommon.c</FilePath>
-            </File>
-            <File>
-              <FileName>crt0_KEIL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\crt0_KEIL.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Platform/KEIL</GroupName>
-          <Files>
-            <File>
-              <FileName>retarget.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\retarget.c</FilePath>
+              <FilePath>..\..\..\..\Platform\RVMDK\Retarget.c</FilePath>
             </File>
             <File>
               <FileName>thread_safe.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\thread_safe.c</FilePath>
+              <FilePath>..\..\..\..\Platform\RVMDK\thread_safe.c</FilePath>
             </File>
             <File>
               <FileName>memory_debugger.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>Y:\Develop\mxchipWNet Pro Demo@EMW316x\Platform\IDEs\Keil\memory_debugger.lib</FilePath>
+              <FilePath>..\..\..\..\Platform\RVMDK\memory_debugger.lib</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Board/EMW5162</GroupName>
+          <GroupName>Platform/MCU/MX1101/RVMDK</GroupName>
+          <Files>
+            <File>
+              <FileName>startup_mx1101_bootloader.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\RVMDK\startup_mx1101_bootloader.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/MCU/MX1101/peripherals</GroupName>
+          <Files>
+            <File>
+              <FileName>MicoDriverCommon.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverCommon.c</FilePath>
+            </File>
+            <File>
+              <FileName>MicoDriverFlash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverFlash.c</FilePath>
+            </File>
+            <File>
+              <FileName>MicoDriverGpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverGpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>MicoDriverUart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverUart.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/MCU/MX1101/peripherals/Libraries</GroupName>
+          <Files>
+            <File>
+              <FileName>driver.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\driver.lib</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Board/EMW5062</GroupName>
           <Files>
             <File>
               <FileName>platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\EMW5000\platform.c</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5062\platform.c</FilePath>
             </File>
             <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Platform\EMW5000\platform.h</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5062\platform.h</FilePath>
             </File>
             <File>
               <FileName>platform_common_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Platform\EMW5000\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5062\platform_common_config.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Board/AP80xx_EVB</GroupName>
+          <GroupName>Board/MX1101_EVB</GroupName>
           <GroupOption>
             <CommonProperty>
               <UseCPPCompiler>0</UseCPPCompiler>
@@ -646,24 +661,24 @@
             <File>
               <FileName>platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\AP80xx_EVB\platform.c</FilePath>
+              <FilePath>..\..\..\..\Board\MX1101_EVB\platform.c</FilePath>
             </File>
             <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Platform\AP80xx_EVB\platform.h</FilePath>
+              <FilePath>..\..\..\..\Board\MX1101_EVB\platform.h</FilePath>
             </File>
             <File>
               <FileName>platform_common_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Platform\AP80xx_EVB\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\MX1101_EVB\platform_common_config.h</FilePath>
             </File>
           </Files>
         </Group>
       </Groups>
     </Target>
     <Target>
-      <TargetName>AP80xx_EVB</TargetName>
+      <TargetName>MX1101_EVB</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
@@ -702,14 +717,14 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>..\..\..\..\Build\Bootloader\EMW5162\obj_RVMDK\</OutputDirectory>
+          <OutputDirectory>..\..\..\..\Build\Bootloader\MX1101_EVB\obj_RVMDK\</OutputDirectory>
           <OutputName>bootloader</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>0</BrowseInformation>
-          <ListingPath>..\..\..\..\Build\Bootloader\EMW5162\List_RVMDK\</ListingPath>
+          <ListingPath>..\..\..\..\Build\Bootloader\MX1101_EVB\list_RVMDK\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
           <CreateBatchFile>0</CreateBatchFile>
@@ -736,7 +751,7 @@
           <AfterMake>
             <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>C:\Keil\ARM\ARMCC\bin\fromelf.exe --bin  ..\..\..\..\Build\Bootloader\EMW5162\Obj_RVMDK\bootloader.axf --output ..\..\..\..\Build\Bootloader\Output\EMW5162\Bootloader.bin</UserProg1Name>
+            <UserProg1Name>C:\Keil\ARM\ARMCC\bin\fromelf.exe --bin  ..\..\..\..\Build\Bootloader\MX1101_EVB\Obj_RVMDK\bootloader.axf --output ..\..\..\..\Build\Bootloader\Output\MX1101_EVB\Bootloader.bin</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -803,7 +818,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>1</TargetSelection>
+          <TargetSelection>7</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -817,7 +832,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver>BIN\UL2CM3.DLL</Driver>
+            <Driver>Segger\JL2CM3.dll</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -832,7 +847,7 @@
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
           <Flash3>"" ()</Flash3>
-          <Flash4>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\AP80xx_Drv\RVMDK_Flasher.ini</Flash4>
+          <Flash4>..\..\..\..\Platform\MCU\MX1101\RVMDK\RVMDK_Flasher.ini</Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
           <pFcArmRoot></pFcArmRoot>
@@ -1021,7 +1036,7 @@
               <MiscControls>--diag_suppress=1,1293</MiscControls>
               <Define>USE_STDPERIPH_DRIVER BOOTLOADER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\include;..\..\..\..\Library\support;..\..\..\..\Platform\Common\Cortex-M3\AP80xx\AP80xx__Drv;..\..\..\..\Platform\Common\Cortex-M3\AP80xx;..\..\..\..\Platform\Common\Cortex-M3;..\..\..\..\Platform\Common\Cortex-M3\AP80xx\AP80xx_Drv\inc;..\..\..\..\Bootloader;..\..\..\..\MICO;..\..\..\..\Platform\AP80xx_EVB;..\..\..\..\External;..\..\..\..\Platform\include</IncludePath>
+              <IncludePath>..\..\..\..\Bootloader;..\..\..\..\include;..\..\..\..\MICO;..\..\..\..\External;..\..\..\..\Library\support;..\..\..\..\Board\MX1101_EVB;..\..\..\..\Platform\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\inc;..\..\..\..\Platform\MCU\MX1101\peripherals</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1152,72 +1167,130 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/AP80xx</GroupName>
+          <GroupName>Platform/Cortex-M3</GroupName>
           <Files>
             <File>
-              <FileName>driver.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\AP80xx_Drv\driver.lib</FilePath>
+              <FileName>crt0_RVMDK.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\Cortex-M3\crt0_RVMDK.c</FilePath>
             </File>
             <File>
-              <FileName>startup_AP80xx_bootloader_RVMDK.c</FileName>
+              <FileName>hardfault.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\AP80xx_Drv\startup_AP80xx_bootloader_RVMDK.c</FilePath>
+              <FilePath>..\..\..\..\Platform\Cortex-M3\hardfault.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/MicoDriver/MCU</GroupName>
+          <GroupName>Platform/RVMDK</GroupName>
           <Files>
             <File>
-              <FileName>MicoDriverFlash.c</FileName>
+              <FileName>Retarget.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\MicoDriverFlash.c</FilePath>
-            </File>
-            <File>
-              <FileName>MicoDriverGpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\MicoDriverGpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>MicoDriverUart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\MicoDriverUart.c</FilePath>
-            </File>
-            <File>
-              <FileName>MicoDriverCommon.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\MicoDriverCommon.c</FilePath>
-            </File>
-            <File>
-              <FileName>crt0_KEIL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Common\Cortex-M3\crt0_KEIL.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Platform/KEIL</GroupName>
-          <Files>
-            <File>
-              <FileName>retarget.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\retarget.c</FilePath>
+              <FilePath>..\..\..\..\Platform\RVMDK\Retarget.c</FilePath>
             </File>
             <File>
               <FileName>thread_safe.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\thread_safe.c</FilePath>
+              <FilePath>..\..\..\..\Platform\RVMDK\thread_safe.c</FilePath>
             </File>
             <File>
               <FileName>memory_debugger.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>Y:\Develop\mxchipWNet Pro Demo@EMW316x\Platform\IDEs\Keil\memory_debugger.lib</FilePath>
+              <FilePath>..\..\..\..\Platform\RVMDK\memory_debugger.lib</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Board/EMW5162</GroupName>
+          <GroupName>Platform/MCU/MX1101/RVMDK</GroupName>
+          <Files>
+            <File>
+              <FileName>startup_mx1101_bootloader.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\RVMDK\startup_mx1101_bootloader.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/MCU/MX1101/peripherals</GroupName>
+          <Files>
+            <File>
+              <FileName>MicoDriverCommon.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverCommon.c</FilePath>
+            </File>
+            <File>
+              <FileName>MicoDriverFlash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverFlash.c</FilePath>
+            </File>
+            <File>
+              <FileName>MicoDriverGpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverGpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>MicoDriverUart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverUart.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/MCU/MX1101/peripherals/Libraries</GroupName>
+          <Files>
+            <File>
+              <FileName>driver.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\driver.lib</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Board/EMW5062</GroupName>
           <GroupOption>
             <CommonProperty>
               <UseCPPCompiler>0</UseCPPCompiler>
@@ -1282,37 +1355,37 @@
             <File>
               <FileName>platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\EMW5000\platform.c</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5062\platform.c</FilePath>
             </File>
             <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Platform\EMW5000\platform.h</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5062\platform.h</FilePath>
             </File>
             <File>
               <FileName>platform_common_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Platform\EMW5000\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5062\platform_common_config.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Board/AP80xx_EVB</GroupName>
+          <GroupName>Board/MX1101_EVB</GroupName>
           <Files>
             <File>
               <FileName>platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\AP80xx_EVB\platform.c</FilePath>
+              <FilePath>..\..\..\..\Board\MX1101_EVB\platform.c</FilePath>
             </File>
             <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Platform\AP80xx_EVB\platform.h</FilePath>
+              <FilePath>..\..\..\..\Board\MX1101_EVB\platform.h</FilePath>
             </File>
             <File>
               <FileName>platform_common_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Platform\AP80xx_EVB\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\MX1101_EVB\platform_common_config.h</FilePath>
             </File>
           </Files>
         </Group>

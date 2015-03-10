@@ -253,26 +253,26 @@ void Main_Menu(void)
     /***************** Command "0" or "BOOTUPDATE": Update the application  *************************/
     if(strcmp(cmdname, "BOOTUPDATE") == 0 || strcmp(cmdname, "0") == 0) {
       if (findCommandPara(cmdbuf, "r", NULL, 0) != -1){
-        printf ("\n\rRead Bootloader only......\n\r");
+        printf ("\n\rRead Bootloader only...\n\r");
         MicoFlashInitialize(MICO_FLASH_FOR_BOOT);
         SerialUpload(MICO_FLASH_FOR_BOOT, BOOT_START_ADDRESS, "BootLoaderImage.bin", BOOT_FLASH_SIZE);
         MicoFlashFinalize(MICO_FLASH_FOR_BOOT);
         continue;
       }
-      printf ("\n\rUpdating Bootloader......\n\r");
+      printf ("\n\rUpdating Bootloader...\n\r");
       SerialDownload(MICO_FLASH_FOR_BOOT, BOOT_START_ADDRESS, BOOT_FLASH_SIZE);
     }
 
     /***************** Command "1" or "FWUPDATE": Update the MICO application  *************************/
     else if(strcmp(cmdname, "FWUPDATE") == 0 || strcmp(cmdname, "1") == 0)	{
       if (findCommandPara(cmdbuf, "r", NULL, 0) != -1){
-        printf ("\n\rRead MICO application only......\n\r");
+        printf ("\n\rRead MICO application only...\n\r");
         MicoFlashInitialize(MICO_FLASH_FOR_APPLICATION);
         SerialUpload(MICO_FLASH_FOR_APPLICATION, APPLICATION_START_ADDRESS, "ApplicationImage.bin", APPLICATION_FLASH_SIZE);
         MicoFlashFinalize(MICO_FLASH_FOR_APPLICATION);
         continue;
       }
-      printf ("\n\rUpdating MICO application......\n\r");
+      printf ("\n\rUpdating MICO application...\n\r");
       SerialDownload(MICO_FLASH_FOR_APPLICATION, APPLICATION_START_ADDRESS, APPLICATION_FLASH_SIZE); 							   	
     }
 
@@ -281,13 +281,13 @@ void Main_Menu(void)
     else if(strcmp(cmdname, "DRIVERUPDATE") == 0 || strcmp(cmdname, "2") == 0) {
 #ifdef MICO_FLASH_FOR_DRIVER
       if (findCommandPara(cmdbuf, "r", NULL, 0) != -1){
-        printf ("\n\rRead RF driver only......\n\r");
+        printf ("\n\rRead RF driver only...\n\r");
         MicoFlashInitialize(MICO_FLASH_FOR_DRIVER);
         SerialUpload(MICO_FLASH_FOR_DRIVER, DRIVER_START_ADDRESS, "DriverImage.bin", DRIVER_FLASH_SIZE);
         MicoFlashFinalize(MICO_FLASH_FOR_DRIVER);
         continue;
       }
-      printf ("\n\rUpdating RF driver......\n\r");
+      printf ("\n\rUpdating RF driver...\n\r");
       SerialDownload(MICO_FLASH_FOR_DRIVER, DRIVER_START_ADDRESS, DRIVER_FLASH_SIZE);  
 #else
       printf ("\n\rNo independ flash memory for RF driver, exiting...\n\r");
@@ -297,13 +297,20 @@ void Main_Menu(void)
     /***************** Command "3" or "PARAUPDATE": Update the application  *************************/
     else if(strcmp(cmdname, "PARAUPDATE") == 0 || strcmp(cmdname, "3") == 0)  {
       if (findCommandPara(cmdbuf, "e", NULL, 0) != -1){
-        printf ("\n\rErasing MICO settings only......\n\r");
+        printf ("\n\rErasing MICO settings only...\n\r");
         MicoFlashInitialize(MICO_FLASH_FOR_PARA);
         MicoFlashErase(MICO_FLASH_FOR_PARA, PARA_START_ADDRESS, PARA_END_ADDRESS);
         MicoFlashFinalize(MICO_FLASH_FOR_PARA);
         continue;
       }
-      printf ("\n\rUpdating MICO settings......\n\r");
+      if (findCommandPara(cmdbuf, "r", NULL, 0) != -1){
+        printf ("\n\rRead MICO settings only...\n\r");
+        MicoFlashInitialize(MICO_FLASH_FOR_PARA);
+        SerialUpload(MICO_FLASH_FOR_PARA, PARA_START_ADDRESS, "DriverImage.bin", PARA_FLASH_SIZE);
+        MicoFlashFinalize(MICO_FLASH_FOR_PARA);
+        continue;
+      }
+      printf ("\n\rUpdating MICO settings...\n\r");
       SerialDownload(MICO_FLASH_FOR_PARA, PARA_START_ADDRESS, PARA_FLASH_SIZE);                        
     }
 
@@ -321,12 +328,12 @@ void Main_Menu(void)
       inputFlashArea = false;
       if (findCommandPara(cmdbuf, "start", startAddressStr, 10) != -1){
         if(Str2Int((uint8_t *)startAddressStr, &startAddress)==0){ //Found Flash start address
-          printf ("\n\rIllegal flash start address.\n\r");
+          printf ("\n\rIllegal start address.\n\r");
           continue;
         }else{
           if (findCommandPara(cmdbuf, "end", endAddressStr, 10) != -1){ //Found Flash end address
             if(Str2Int((uint8_t *)endAddressStr, &endAddress)==0){
-              printf ("\n\rIllegal flash end address.\n\r");
+              printf ("\n\rIllegal end address.\n\r");
               continue;
             }else{
               inputFlashArea = true;

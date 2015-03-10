@@ -46,14 +46,14 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>..\..\..\..\Build\COM.MXCHIP.SPP\AP80xx\Obj_RVMDK\</OutputDirectory>
+          <OutputDirectory>..\..\..\..\Build\COM.MXCHIP.SPP\MX1101_EVB\obj_RVMDK\</OutputDirectory>
           <OutputName>COM.MXCHIP.SPP.axf</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>0</BrowseInformation>
-          <ListingPath>..\..\..\..\Build\COM.MXCHIP.SPP\AP80xx\List_RVMDK\</ListingPath>
+          <ListingPath>..\..\..\..\Build\COM.MXCHIP.SPP\MX1101_EVB\list_RVMDK\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
           <CreateBatchFile>0</CreateBatchFile>
@@ -80,7 +80,7 @@
           <AfterMake>
             <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>C:\Keil\ARM\ARMCC\bin\fromelf.exe --bin  ..\..\..\..\Build\COM.MXCHIP.SPP\AP80xx\Obj_RVMDK\COM.MXCHIP.SPP.axf --output ..\..\..\..\Build\COM.MXCHIP.SPP\Output\AP80xx\COM.MXCHIP.SPP.bin</UserProg1Name>
+            <UserProg1Name>C:\Keil\ARM\ARMCC\bin\fromelf.exe --bin  ..\..\..\..\Build\COM.MXCHIP.SPP\MX1101_EVB\Obj_RVMDK\COM.MXCHIP.SPP.axf --output ..\..\..\..\Build\COM.MXCHIP.SPP\Output\MX1101_EVB\COM.MXCHIP.SPP.bin</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -347,7 +347,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>4</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -365,7 +365,7 @@
               <MiscControls>--diag_suppress=1,1293</MiscControls>
               <Define>DEBUG</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\inc;..\..\..\..\Demos\COM.MXCHIP.SPP;..\..\..\..\MICO;..\..\..\..\Board\MX1101_EVB;..\..\..\..\External;..\..\..\..\Library\support</IncludePath>
+              <IncludePath>..\..\..\..\Demos\COM.MXCHIP.SPP;..\..\..\..\include;..\..\..\..\MICO;..\..\..\..\External;..\..\..\..\Library\support;..\..\..\..\Board\MX1101_EVB;..\..\..\..\Platform\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\inc;..\..\..\..\Platform\MCU\MX1101\peripherals</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -699,11 +699,6 @@
           <GroupName>Platform/Cortex-M3</GroupName>
           <Files>
             <File>
-              <FileName>crt0_EWARM.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Cortex-M3\crt0_EWARM.c</FilePath>
-            </File>
-            <File>
               <FileName>crt0_RVMDK.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\Cortex-M3\crt0_RVMDK.c</FilePath>
@@ -712,16 +707,6 @@
               <FileName>hardfault.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\Cortex-M3\hardfault.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Platform/RVMDK</GroupName>
-          <Files>
-            <File>
-              <FileName>memory_debugger.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\memory_debugger.lib</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -729,28 +714,62 @@
                   <RVCTZI>0</RVCTZI>
                   <RVCTOtherData>0</RVCTOtherData>
                   <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
+                  <IncludeInBuild>0</IncludeInBuild>
                   <AlwaysBuild>2</AlwaysBuild>
                   <GenerateAssemblyFile>2</GenerateAssemblyFile>
                   <AssembleAssemblyFile>2</AssembleAssemblyFile>
                   <PublicsOnly>2</PublicsOnly>
                   <StopOnExitCode>11</StopOnExitCode>
                   <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>mxchip_memory.o|1|0|0|0</IncludeLibraryModules>
+                  <IncludeLibraryModules></IncludeLibraryModules>
                   <ComprImg>1</ComprImg>
                 </CommonProperty>
-                <FileArmAds/>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
               </FileOption>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/RVMDK</GroupName>
+          <Files>
             <File>
-              <FileName>retarget.c</FileName>
+              <FileName>Retarget.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\retarget.c</FilePath>
+              <FilePath>..\..\..\..\Platform\RVMDK\Retarget.c</FilePath>
             </File>
             <File>
               <FileName>thread_safe.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\thread_safe.c</FilePath>
+              <FilePath>..\..\..\..\Platform\RVMDK\thread_safe.c</FilePath>
+            </File>
+            <File>
+              <FileName>memory_debugger.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\Platform\RVMDK\memory_debugger.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -761,16 +780,6 @@
               <FileName>startup_mx1101.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\MCU\MX1101\RVMDK\startup_mx1101.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Platform/MCU/MX1101/peripherals/Libraries</GroupName>
-          <Files>
-            <File>
-              <FileName>driver.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\driver.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -1150,7 +1159,17 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Board/EMW5162</GroupName>
+          <GroupName>Platform/MCU/MX1101/peripherals/Libraries</GroupName>
+          <Files>
+            <File>
+              <FileName>driver.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\driver.lib</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Board/EMW5062</GroupName>
           <GroupOption>
             <CommonProperty>
               <UseCPPCompiler>0</UseCPPCompiler>
@@ -1215,17 +1234,17 @@
             <File>
               <FileName>platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\EMW5000\platform.c</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5062\platform.c</FilePath>
             </File>
             <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Platform\EMW5000\platform.h</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5062\platform.h</FilePath>
             </File>
             <File>
               <FileName>platform_common_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Platform\EMW5000\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5062\platform_common_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1250,7 +1269,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Board/EMW3088</GroupName>
+          <GroupName>Board/MicoKit3088</GroupName>
           <GroupOption>
             <CommonProperty>
               <UseCPPCompiler>0</UseCPPCompiler>
@@ -1315,17 +1334,17 @@
             <File>
               <FileName>platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\EMW3088\platform.c</FilePath>
+              <FilePath>..\..\..\..\Board\MicoKit3088\platform.c</FilePath>
             </File>
             <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Platform\EMW3088\platform.h</FilePath>
+              <FilePath>..\..\..\..\Board\MicoKit3088\platform.h</FilePath>
             </File>
             <File>
               <FileName>platform_common_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Platform\EMW3088\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\MicoKit3088\platform_common_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1371,14 +1390,14 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>..\..\..\..\Build\COM.MXCHIP.SPP\EMW5000\Obj_RVMDK\</OutputDirectory>
+          <OutputDirectory>..\..\..\..\Build\COM.MXCHIP.SPP\EMW5062\obj_RVMDK\</OutputDirectory>
           <OutputName>COM.MXCHIP.SPP.axf</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>0</BrowseInformation>
-          <ListingPath>..\..\..\..\Build\COM.MXCHIP.SPP\EMW5000\List_RVMDK\</ListingPath>
+          <ListingPath>..\..\..\..\Build\COM.MXCHIP.SPP\EMW5062\list_RVMDK\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
           <CreateBatchFile>0</CreateBatchFile>
@@ -1405,7 +1424,7 @@
           <AfterMake>
             <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>C:\Keil\ARM\ARMCC\bin\fromelf.exe --bin  ..\..\..\..\Build\COM.MXCHIP.SPP\EMW5000\Obj_RVMDK\COM.MXCHIP.SPP.axf --output ..\..\..\..\Build\COM.MXCHIP.SPP\Output\EMW5000\COM.MXCHIP.SPP.bin</UserProg1Name>
+            <UserProg1Name>C:\Keil\ARM\ARMCC\bin\fromelf.exe --bin  ..\..\..\..\Build\COM.MXCHIP.SPP\EMW5062\Obj_RVMDK\COM.MXCHIP.SPP.axf --output ..\..\..\..\Build\COM.MXCHIP.SPP\Output\EMW5062\COM.MXCHIP.SPP.bin</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -1690,7 +1709,7 @@
               <MiscControls>--diag_suppress=1,1293</MiscControls>
               <Define>DEBUG</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\include;..\..\..\..\Platform\Common\Cortex-M3\AP80xx\AP80xx__Drv;..\..\..\..\Platform\Common\Cortex-M3\AP80xx;..\..\..\..\Platform\Common\Cortex-M3;..\..\..\..\Demos\COM.MXCHIP.SPP;..\..\..\..\MICO;..\..\..\..\Platform\EMW5000;..\..\..\..\External;..\..\..\..\Library\support;..\..\..\..\Platform\include;..\..\..\..\Platform\Common\Cortex-M3\AP80xx\AP80xx_Drv\inc;..\..\..\..\Platform\Common\Cortex-M3\CMSIS</IncludePath>
+              <IncludePath>..\..\..\..\Demos\COM.MXCHIP.SPP;..\..\..\..\include;..\..\..\..\MICO;..\..\..\..\External;..\..\..\..\Library\support;..\..\..\..\Board\EMW5062;..\..\..\..\Platform\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\inc;..\..\..\..\Platform\MCU\MX1101\peripherals</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2005,11 +2024,6 @@
           <GroupName>Platform/Cortex-M3</GroupName>
           <Files>
             <File>
-              <FileName>crt0_EWARM.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Cortex-M3\crt0_EWARM.c</FilePath>
-            </File>
-            <File>
               <FileName>crt0_RVMDK.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\Cortex-M3\crt0_RVMDK.c</FilePath>
@@ -2018,6 +2032,49 @@
               <FileName>hardfault.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\Cortex-M3\hardfault.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
           </Files>
         </Group>
@@ -2025,19 +2082,19 @@
           <GroupName>Platform/RVMDK</GroupName>
           <Files>
             <File>
-              <FileName>memory_debugger.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\memory_debugger.lib</FilePath>
-            </File>
-            <File>
-              <FileName>retarget.c</FileName>
+              <FileName>Retarget.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\retarget.c</FilePath>
+              <FilePath>..\..\..\..\Platform\RVMDK\Retarget.c</FilePath>
             </File>
             <File>
               <FileName>thread_safe.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\thread_safe.c</FilePath>
+              <FilePath>..\..\..\..\Platform\RVMDK\thread_safe.c</FilePath>
+            </File>
+            <File>
+              <FileName>memory_debugger.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\Platform\RVMDK\memory_debugger.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -2048,16 +2105,6 @@
               <FileName>startup_mx1101.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\MCU\MX1101\RVMDK\startup_mx1101.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Platform/MCU/MX1101/peripherals/Libraries</GroupName>
-          <Files>
-            <File>
-              <FileName>driver.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\driver.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -2168,6 +2215,49 @@
               <FileName>MicoDriverAdc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverAdc.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
               <FileName>MicoDriverCommon.c</FileName>
@@ -2188,16 +2278,145 @@
               <FileName>MicoDriverI2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverI2c.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
               <FileName>MicoDriverPwm.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverPwm.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
               <FileName>MicoDriverRng.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverRng.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
               <FileName>MicoDriverRtc.c</FileName>
@@ -2208,6 +2427,49 @@
               <FileName>MicoDriverSpi.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverSpi.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
               <FileName>MicoDriverUart.c</FileName>
@@ -2222,22 +2484,32 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Board/EMW5162</GroupName>
+          <GroupName>Platform/MCU/MX1101/peripherals/Libraries</GroupName>
+          <Files>
+            <File>
+              <FileName>driver.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\driver.lib</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Board/EMW5062</GroupName>
           <Files>
             <File>
               <FileName>platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\EMW5000\platform.c</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5062\platform.c</FilePath>
             </File>
             <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Platform\EMW5000\platform.h</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5062\platform.h</FilePath>
             </File>
             <File>
               <FileName>platform_common_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Platform\EMW5000\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5062\platform_common_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2322,7 +2594,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Board/EMW3088</GroupName>
+          <GroupName>Board/MicoKit3088</GroupName>
           <GroupOption>
             <CommonProperty>
               <UseCPPCompiler>0</UseCPPCompiler>
@@ -2387,17 +2659,17 @@
             <File>
               <FileName>platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\EMW3088\platform.c</FilePath>
+              <FilePath>..\..\..\..\Board\MicoKit3088\platform.c</FilePath>
             </File>
             <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Platform\EMW3088\platform.h</FilePath>
+              <FilePath>..\..\..\..\Board\MicoKit3088\platform.h</FilePath>
             </File>
             <File>
               <FileName>platform_common_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Platform\EMW3088\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\MicoKit3088\platform_common_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2443,14 +2715,14 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>..\..\..\..\Build\COM.MXCHIP.SPP\EMW3088\obj\</OutputDirectory>
+          <OutputDirectory>..\..\..\..\Build\COM.MXCHIP.SPP\MIcoKit3088\obj_RVMDK\</OutputDirectory>
           <OutputName>COM.MXCHIP.SPP.axf</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
-          <ListingPath>..\..\..\..\Build\COM.MXCHIP.SPP\EMW3088\list\</ListingPath>
+          <ListingPath>..\..\..\..\Build\COM.MXCHIP.SPP\MIcoKit3088\list_RVMDK\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
           <CreateBatchFile>0</CreateBatchFile>
@@ -2475,9 +2747,9 @@
             <nStopB2X>0</nStopB2X>
           </BeforeMake>
           <AfterMake>
-            <RunUserProg1>0</RunUserProg1>
+            <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>C:\Keil\ARM\ARMCC\bin\fromelf.exe --bin  ..\..\..\..\Build\COM.MXCHIP.SPP\AP80xx\Obj_RVMDK\COM.MXCHIP.SPP.axf --output ..\..\..\..\Build\COM.MXCHIP.SPP\Output\AP80xx\COM.MXCHIP.SPP.bin</UserProg1Name>
+            <UserProg1Name>C:\Keil\ARM\ARMCC\bin\fromelf.exe --bin  ..\..\..\..\Build\COM.MXCHIP.SPP\MicoKit3088\Obj_RVMDK\COM.MXCHIP.SPP.axf --output ..\..\..\..\Build\COM.MXCHIP.SPP\Output\MicoKit3088\COM.MXCHIP.SPP.bin</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -2744,7 +3016,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>4</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -2762,7 +3034,7 @@
               <MiscControls>--diag_suppress=1,1293</MiscControls>
               <Define>DEBUG</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\include;..\..\..\..\Platform\Common\Cortex-M3\AP80xx\AP80xx__Drv;..\..\..\..\Platform\Common\Cortex-M3\AP80xx;..\..\..\..\Platform\Common\Cortex-M3;..\..\..\..\Demos\COM.MXCHIP.SPP;..\..\..\..\MICO;..\..\..\..\Platform\EMW3088;..\..\..\..\External;..\..\..\..\Library\support;..\..\..\..\Platform\include;..\..\..\..\Platform\Common\Cortex-M3\AP80xx\AP80xx_Drv\inc;..\..\..\..\Platform\Common\Cortex-M3\CMSIS</IncludePath>
+              <IncludePath>..\..\..\..\Demos\COM.MXCHIP.SPP;..\..\..\..\include;..\..\..\..\MICO;..\..\..\..\External;..\..\..\..\Library\support;..\..\..\..\Board\MicoKit3088;..\..\..\..\Platform\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\inc;..\..\..\..\Platform\MCU\MX1101\peripherals</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2796,7 +3068,7 @@
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
             <Misc>--keep *.o(.mach*.init)  --keep *.o(.shell*.cmd)  --keep *.o(.notify*.init)  --keep *.o(.sched.stub*) --keep *.o(.driver*.isr) --keep *.o(CACHE.4KBMEM)
---diag_suppress=L6314W,L6319W --diag_warning=6218,6654,6238 --diag_suppress=6238 --no_strict_wchar_size --no_strict_enum_size</Misc>
+--diag_suppress=L6314W,L6319W --diag_warning=6218,6654,6238 --diag_suppress=6238,L6436W,L6432W,L6433W --no_strict_wchar_size  --no_strict_enum_size</Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>
@@ -3096,11 +3368,6 @@
           <GroupName>Platform/Cortex-M3</GroupName>
           <Files>
             <File>
-              <FileName>crt0_EWARM.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\Cortex-M3\crt0_EWARM.c</FilePath>
-            </File>
-            <File>
               <FileName>crt0_RVMDK.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\Cortex-M3\crt0_RVMDK.c</FilePath>
@@ -3109,6 +3376,49 @@
               <FileName>hardfault.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\Cortex-M3\hardfault.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
           </Files>
         </Group>
@@ -3116,19 +3426,19 @@
           <GroupName>Platform/RVMDK</GroupName>
           <Files>
             <File>
-              <FileName>memory_debugger.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\memory_debugger.lib</FilePath>
-            </File>
-            <File>
-              <FileName>retarget.c</FileName>
+              <FileName>Retarget.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\retarget.c</FilePath>
+              <FilePath>..\..\..\..\Platform\RVMDK\Retarget.c</FilePath>
             </File>
             <File>
               <FileName>thread_safe.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\IDEs\Keil\thread_safe.c</FilePath>
+              <FilePath>..\..\..\..\Platform\RVMDK\thread_safe.c</FilePath>
+            </File>
+            <File>
+              <FileName>memory_debugger.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\Platform\RVMDK\memory_debugger.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -3139,16 +3449,6 @@
               <FileName>startup_mx1101.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\MCU\MX1101\RVMDK\startup_mx1101.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Platform/MCU/MX1101/peripherals/Libraries</GroupName>
-          <Files>
-            <File>
-              <FileName>driver.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\driver.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -3259,6 +3559,49 @@
               <FileName>MicoDriverAdc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverAdc.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
               <FileName>MicoDriverCommon.c</FileName>
@@ -3279,16 +3622,145 @@
               <FileName>MicoDriverI2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverI2c.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
               <FileName>MicoDriverPwm.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverPwm.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
               <FileName>MicoDriverRng.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverRng.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
               <FileName>MicoDriverRtc.c</FileName>
@@ -3299,6 +3771,49 @@
               <FileName>MicoDriverSpi.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverSpi.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
               <FileName>MicoDriverUart.c</FileName>
@@ -3313,7 +3828,17 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Board/EMW5162</GroupName>
+          <GroupName>Platform/MCU/MX1101/peripherals/Libraries</GroupName>
+          <Files>
+            <File>
+              <FileName>driver.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\driver.lib</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Board/EMW5062</GroupName>
           <GroupOption>
             <CommonProperty>
               <UseCPPCompiler>0</UseCPPCompiler>
@@ -3378,17 +3903,17 @@
             <File>
               <FileName>platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\EMW5000\platform.c</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5062\platform.c</FilePath>
             </File>
             <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Platform\EMW5000\platform.h</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5062\platform.h</FilePath>
             </File>
             <File>
               <FileName>platform_common_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Platform\EMW5000\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5062\platform_common_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3473,22 +3998,22 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Board/EMW3088</GroupName>
+          <GroupName>Board/MicoKit3088</GroupName>
           <Files>
             <File>
               <FileName>platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\EMW3088\platform.c</FilePath>
+              <FilePath>..\..\..\..\Board\MicoKit3088\platform.c</FilePath>
             </File>
             <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Platform\EMW3088\platform.h</FilePath>
+              <FilePath>..\..\..\..\Board\MicoKit3088\platform.h</FilePath>
             </File>
             <File>
               <FileName>platform_common_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Platform\EMW3088\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\MicoKit3088\platform_common_config.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -43,7 +43,7 @@
 #define config_delegate_log_trace() custom_log_trace("Config Delegate")
 
 
-static mico_timer_t _Led_EL_timer = NULL;
+static mico_timer_t _Led_EL_timer;
 
 static void _led_EL_Timeout_handler( void* arg )
 {

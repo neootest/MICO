@@ -31,6 +31,7 @@
 */
 
 #include "MICO.h"
+#include "MicoWlan.h"
 #include "MICONotificationCenter.h"
 
 #include "MicoPlatform.h"
@@ -171,10 +172,7 @@ exit:
 void AirkissNotify_AirkissGetExtraDataHandler(int datalen, char* data, mico_Context_t * const inContext)
 {
   OSStatus err;
-  int index ;
-  char address[16];
   airkiss_log_trace();
-  uint32_t *ipInfo, ipInfoCount;
   require_action(inContext, exit, err = kParamErr);
   char *debugString;
 
@@ -302,7 +300,7 @@ void airkiss_thread(void *inContext)
   mico_Context_t *Context = inContext;
   int fd;
   struct sockaddr_t addr;
-  int i = 0, ret;
+  int i = 0;
   
   airkiss_log_trace();
   require_action(airkiss_sem, threadexit, err = kNotPreparedErr);
@@ -326,7 +324,7 @@ void airkiss_thread(void *inContext)
   addr.s_port = 10000;
   airkiss_log("Send UDP to WECHAT");
   while(1){
-    ret = sendto(fd, &airkiss_data, 1, 0, &addr, sizeof(addr));
+    sendto(fd, &airkiss_data, 1, 0, &addr, sizeof(addr));
     
     msleep(10);
     i++;
