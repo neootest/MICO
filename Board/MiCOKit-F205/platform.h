@@ -50,7 +50,7 @@ extern "C"
  ******************************************************/
   
 #define HARDWARE_REVISION   "v1"
-#define DEFAULT_NAME        "MiCOKit"
+#define DEFAULT_NAME        "MiCOKit F205"
 #define MODEL               "MiCOKit-205"
    
 /******************************************************
