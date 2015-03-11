@@ -87,91 +87,7 @@
     </settings>
   </configuration>
   <configuration>
-    <name>MICO_EVB_1</name>
-    <toolchain>
-      <name>ARM</name>
-    </toolchain>
-    <debug>1</debug>
-    <settings>
-      <name>RuntimeChecking</name>
-      <archiveVersion>0</archiveVersion>
-      <data>
-        <version>2</version>
-        <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
-        <option>
-          <name>GenRtcDebugHeap</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcEnableBoundsChecking</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcCheckPtrsNonInstrMem</name>
-          <state>1</state>
-        </option>
-        <option>
-          <name>GenRtcTrackPointerBounds</name>
-          <state>1</state>
-        </option>
-        <option>
-          <name>GenRtcCheckAccesses</name>
-          <state>1</state>
-        </option>
-        <option>
-          <name>GenRtcGenerateEntries</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcNrTrackedPointers</name>
-          <state>1000</state>
-        </option>
-        <option>
-          <name>GenRtcIntOverflow</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcIncUnsigned</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcIntConversion</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcInclExplicit</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcIntShiftOverflow</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcInclUnsignedShiftOverflow</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcUnhandledCase</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcDivByZero</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcEnable</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcCheckPtrsNonInstrFunc</name>
-          <state>1</state>
-        </option>
-      </data>
-    </settings>
-  </configuration>
-  <configuration>
-    <name>EMW3161</name>
+    <name>MICOKit-F205</name>
     <toolchain>
       <name>ARM</name>
     </toolchain>
@@ -255,7 +171,7 @@
     </settings>
   </configuration>
   <configuration>
-    <name>MICOKit-F205</name>
+    <name>MiCOKit-3161</name>
     <toolchain>
       <name>ARM</name>
     </toolchain>
@@ -340,6 +256,18 @@
   </configuration>
   <group>
     <name>Board</name>
+    <group>
+      <name>MiCOKit-3161</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3161\platform.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3161\platform.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3161\platform_common_config.h</name>
+      </file>
+    </group>
     <group>
       <name>MiCOKit-3162</name>
       <file>
