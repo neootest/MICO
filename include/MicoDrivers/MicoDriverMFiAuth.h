@@ -37,13 +37,14 @@
 
 #pragma once
 #include "Common.h"
+#include "MicoPlatform.h"
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*! @function   PlatformMFiAuthInitialize
     @abstract   Performs any platform-specific initialization needed. Example: Bring up I2C interface for communication with
                 the Apple Authentication Coprocessor.
 */
-OSStatus MicoMFiAuthInitialize( void );
+OSStatus MicoMFiAuthInitialize( mico_i2c_t i2c );
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*! @function   PlatformMFiAuthFinalize

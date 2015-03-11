@@ -3,91 +3,7 @@
 <project>
   <fileVersion>2</fileVersion>
   <configuration>
-    <name>MiCOKit-3162</name>
-    <toolchain>
-      <name>ARM</name>
-    </toolchain>
-    <debug>0</debug>
-    <settings>
-      <name>RuntimeChecking</name>
-      <archiveVersion>0</archiveVersion>
-      <data>
-        <version>2</version>
-        <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
-        <option>
-          <name>GenRtcDebugHeap</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcEnableBoundsChecking</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcCheckPtrsNonInstrMem</name>
-          <state>1</state>
-        </option>
-        <option>
-          <name>GenRtcTrackPointerBounds</name>
-          <state>1</state>
-        </option>
-        <option>
-          <name>GenRtcCheckAccesses</name>
-          <state>1</state>
-        </option>
-        <option>
-          <name>GenRtcGenerateEntries</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcNrTrackedPointers</name>
-          <state>1000</state>
-        </option>
-        <option>
-          <name>GenRtcIntOverflow</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcIncUnsigned</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcIntConversion</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcInclExplicit</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcIntShiftOverflow</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcInclUnsignedShiftOverflow</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcUnhandledCase</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcDivByZero</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcEnable</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcCheckPtrsNonInstrFunc</name>
-          <state>1</state>
-        </option>
-      </data>
-    </settings>
-  </configuration>
-  <configuration>
-    <name>MiCOKit-F205</name>
+    <name>MiCOKit-3165</name>
     <toolchain>
       <name>ARM</name>
     </toolchain>
@@ -202,31 +118,22 @@
     <file>
       <name>$PROJ_DIR$\..\..\..\..\Demos\COM.Apple.HomeKit\MICOConfigDelegate.c</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.Apple.HomeKit\MicoDefaults.h</name>
+    </file>
   </group>
   <group>
     <name>Board</name>
     <group>
-      <name>MiCO-3162</name>
+      <name>MiCOKit-3165</name>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\platform.c</name>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3165\platform.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\platform.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3165\platform.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\platform_common_config.h</name>
-      </file>
-    </group>
-    <group>
-      <name>MiCO-F205</name>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform_common_config.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3165\platform_common_config.h</name>
       </file>
     </group>
   </group>
@@ -407,14 +314,29 @@
       <name>$PROJ_DIR$\..\..\..\..\Library\MicoSrpServer.a</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\mxchipWNet_cm3_sdio.a</name>
+      <name>$PROJ_DIR$\..\..\..\..\Library\mxchipWNet_cm4f_8801.a</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\mxchipWNet_cm3_spi.a</name>
+      <name>$PROJ_DIR$\..\..\..\..\Library\mxchipWNet_cm4f_sdio.a</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\Library\mxchipWNet_cm4f_spi.a</name>
     </file>
   </group>
   <group>
     <name>MICO</name>
+    <group>
+      <name>AirKiss</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\MICO\Airkiss\Airkiss.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\MICO\Airkiss\Airkiss_CM3_Debug.a</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\MICO\Airkiss\Airkiss_CM3_Release.a</name>
+      </file>
+    </group>
     <group>
       <name>EasyLink</name>
       <file>
@@ -473,12 +395,12 @@
   <group>
     <name>Platform</name>
     <group>
-      <name>Cortex-M3</name>
+      <name>Cortex-M4</name>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\Platform\Cortex-M3\crt0_EWARM.c</name>
+        <name>$PROJ_DIR$\..\..\..\..\Platform\Cortex-M4\crt0_EWARM.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\Platform\Cortex-M3\hardfault.c</name>
+        <name>$PROJ_DIR$\..\..\..\..\Platform\Cortex-M4\hardfault.c</name>
       </file>
     </group>
     <group>
@@ -488,48 +410,18 @@
         <file>
           <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\MicoDriverMFiAuth\MicoDriverMFiAuth.a</name>
         </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\MicoDriverMFiAuth\MicoDriverMFiAuth.c</name>
+        </file>
       </group>
       <group>
         <name>SPI Flash</name>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash\MiCOKit-F205.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash\EMW3165.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash\spi_flash.c</name>
         </file>
-      </group>
-      <group>
-        <name>STM32_USB_Host_Library</name>
-        <group>
-          <name>Class</name>
-          <group>
-            <name>MSC</name>
-            <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc.c</name>
-            </file>
-            <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc_bot.c</name>
-            </file>
-            <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc_scsi.c</name>
-            </file>
-          </group>
-        </group>
-        <group>
-          <name>Core</name>
-          <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\STM32_USB_Host_Library\Core\Src\usbh_core.c</name>
-          </file>
-          <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\STM32_USB_Host_Library\Core\Src\usbh_ctlreq.c</name>
-          </file>
-          <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\STM32_USB_Host_Library\Core\Src\usbh_ioreq.c</name>
-          </file>
-          <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\STM32_USB_Host_Library\Core\Src\usbh_pipes.c</name>
-          </file>
-        </group>
       </group>
     </group>
     <group>
@@ -539,32 +431,32 @@
       </file>
     </group>
     <group>
-      <name>STM32F2xx</name>
+      <name>STM32F4xx</name>
       <group>
         <name>EMW1062</name>
         <group>
           <name>SDIO</name>
           <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\SDIO\wlan_bus.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\EMW1062_Driver\SDIO\wlan_bus.c</name>
           </file>
         </group>
         <group>
           <name>SPI</name>
           <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\SPI\wwd_bus.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\EMW1062_Driver\SPI\wwd_bus.c</name>
           </file>
         </group>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\read_wifi_firmware.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\EMW1062_Driver\read_wifi_firmware.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\wlan_platform.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\EMW1062_Driver\wlan_platform.c</name>
         </file>
       </group>
       <group>
         <name>EWARM</name>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\EWARM\startup_stm32f2xx_EWARM.s</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\EWARM\startup_stm32f411xe_IAR.s</name>
         </file>
       </group>
       <group>
@@ -572,161 +464,152 @@
         <group>
           <name>Libraries</name>
           <group>
-            <name>STM32F2xx_HAL_Driver</name>
+            <name>STM32F4xx_StdPeriph_Driver</name>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\misc.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_hcd.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_adc.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_usb.c</name>
-            </file>
-          </group>
-          <group>
-            <name>STM32F2xx_StdPeriph_Driver</name>
-            <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\misc.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_can.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_adc.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_crc.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_can.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cryp.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_crc.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cryp_aes.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cryp_des.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_aes.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cryp_tdes.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_des.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dac.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_tdes.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dbgmcu.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dac.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dcmi.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dbgmcu.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dma.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dcmi.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dma2d.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dma.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_exti.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_exti.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_flash.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_flash.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_flash_ramfunc.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_fsmc.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_gpio.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_gpio.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_hash.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_hash_md5.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash_md5.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_hash_sha1.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash_sha1.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_i2c.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_i2c.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_iwdg.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_iwdg.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_ltdc.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_pwr.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_pwr.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rcc.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rcc.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rng.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rng.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rtc.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rtc.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_sdio.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_sai.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_spi.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_sdio.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_syscfg.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_spi.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_tim.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_syscfg.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_usart.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_tim.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_wwdg.c</name>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_usart.c</name>
+            </file>
+            <file>
+              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_wwdg.c</name>
             </file>
           </group>
           <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\stm32f2xx_conf.h</name>
-          </file>
-          <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\system_stm32f2xx.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\system_stm32f4xx.c</name>
           </file>
         </group>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\gpio_irq.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\gpio_irq.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverAdc.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\MicoDriverAdc.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverFlash.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\MicoDriverFlash.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverGpio.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\MicoDriverGpio.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverI2c.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\MicoDriverI2c.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverPwm.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\MicoDriverPwm.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverRng.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\MicoDriverRng.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverRtc.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\MicoDriverRtc.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverSpi.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\MicoDriverSpi.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverUart.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\MicoDriverUart.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverWdg.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\MicoDriverWdg.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\rtc.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\rtc.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\stm32f2xx_platform.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\usbh_conf.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\stm32f4xx_platform.c</name>
         </file>
       </group>
     </group>

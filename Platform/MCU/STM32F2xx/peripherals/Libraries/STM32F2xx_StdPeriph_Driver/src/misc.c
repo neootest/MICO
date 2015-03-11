@@ -18,7 +18,7 @@
   *
   *            1. Configure the NVIC Priority Grouping using NVIC_PriorityGroupConfig()
   *                function according to the following table.
- 
+  *
   *  The table below gives the allowed values of the pre-emption priority and subpriority according
   *  to the Priority Grouping configuration performed by NVIC_PriorityGroupConfig function
   *    ==========================================================================================================================

@@ -66,6 +66,6 @@ typedef struct
     
 } WACPlatformParameters_t;
 
-OSStatus startMFiWAC( mico_Context_t * const inContext, WACPlatformParameters_t *inWACPara, int timeOut );
+OSStatus startMFiWAC( mico_Context_t * const inContext, WACPlatformParameters_t *inWACPara, mico_i2c_t i2c, int timeOut );
 
 #endif /* __WAC_H */
