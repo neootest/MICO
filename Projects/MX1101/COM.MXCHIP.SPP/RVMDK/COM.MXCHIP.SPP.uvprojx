@@ -1269,7 +1269,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Board/MicoKit3088</GroupName>
+          <GroupName>Board/MicoKit-3088</GroupName>
           <GroupOption>
             <CommonProperty>
               <UseCPPCompiler>0</UseCPPCompiler>
@@ -1334,17 +1334,17 @@
             <File>
               <FileName>platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Board\MicoKit3088\platform.c</FilePath>
+              <FilePath>..\..\..\..\Board\MiCOKit-3088\platform.c</FilePath>
             </File>
             <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Board\MicoKit3088\platform.h</FilePath>
+              <FilePath>..\..\..\..\Board\MiCOKit-3088\platform.h</FilePath>
             </File>
             <File>
               <FileName>platform_common_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Board\MicoKit3088\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\MiCOKit-3088\platform_common_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2594,7 +2594,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Board/MicoKit3088</GroupName>
+          <GroupName>Board/MicoKit-3088</GroupName>
           <GroupOption>
             <CommonProperty>
               <UseCPPCompiler>0</UseCPPCompiler>
@@ -2659,17 +2659,17 @@
             <File>
               <FileName>platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Board\MicoKit3088\platform.c</FilePath>
+              <FilePath>..\..\..\..\Board\MiCOKit-3088\platform.c</FilePath>
             </File>
             <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Board\MicoKit3088\platform.h</FilePath>
+              <FilePath>..\..\..\..\Board\MiCOKit-3088\platform.h</FilePath>
             </File>
             <File>
               <FileName>platform_common_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Board\MicoKit3088\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\MiCOKit-3088\platform_common_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3034,7 +3034,7 @@
               <MiscControls>--diag_suppress=1,1293</MiscControls>
               <Define>DEBUG</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\Demos\COM.MXCHIP.SPP;..\..\..\..\include;..\..\..\..\MICO;..\..\..\..\External;..\..\..\..\Library\support;..\..\..\..\Board\MicoKit3088;..\..\..\..\Platform\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\inc;..\..\..\..\Platform\MCU\MX1101\peripherals</IncludePath>
+              <IncludePath>..\..\..\..\Demos\COM.MXCHIP.SPP;..\..\..\..\include;..\..\..\..\MICO;..\..\..\..\External;..\..\..\..\Library\support;..\..\..\..\Board\MicoKit-3088;..\..\..\..\Platform\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\inc;..\..\..\..\Platform\MCU\MX1101\peripherals</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -3998,22 +3998,22 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Board/MicoKit3088</GroupName>
+          <GroupName>Board/MicoKit-3088</GroupName>
           <Files>
             <File>
               <FileName>platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Board\MicoKit3088\platform.c</FilePath>
+              <FilePath>..\..\..\..\Board\MiCOKit-3088\platform.c</FilePath>
             </File>
             <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Board\MicoKit3088\platform.h</FilePath>
+              <FilePath>..\..\..\..\Board\MiCOKit-3088\platform.h</FilePath>
             </File>
             <File>
               <FileName>platform_common_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Board\MicoKit3088\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\MiCOKit-3088\platform_common_config.h</FilePath>
             </File>
           </Files>
         </Group>
