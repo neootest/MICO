@@ -953,7 +953,7 @@
             <File>
               <FileName>MicoDriverMFiAuth.a</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\..\Platform\Drivers\MicoDriverMFiAuth.a</FilePath>
+              <FilePath>..\..\..\..\Platform\Drivers\MicoDriverMFiAuth\MicoDriverMFiAuth.a</FilePath>
             </File>
           </Files>
         </Group>
@@ -2299,7 +2299,7 @@
             <File>
               <FileName>MicoDriverMFiAuth.a</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\..\Platform\Drivers\MicoDriverMFiAuth.a</FilePath>
+              <FilePath>..\..\..\..\Platform\Drivers\MicoDriverMFiAuth\MicoDriverMFiAuth.a</FilePath>
             </File>
           </Files>
         </Group>
