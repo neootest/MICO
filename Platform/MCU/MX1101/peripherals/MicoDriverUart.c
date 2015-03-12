@@ -510,7 +510,7 @@ void BuartInterrupt(void)
 #ifndef NO_MICO_RTOS
     mico_rtos_set_semaphore( &uart_interfaces[ AP80xx_BUART ].tx_complete );
 #else
-    uart_interfaces[ AP80xx_FUART ].tx_complete = true;
+    uart_interfaces[ AP80xx_BUART ].tx_complete = true;
 #endif
   }
 }

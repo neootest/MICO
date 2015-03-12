@@ -176,7 +176,7 @@
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
           <Flash3>"" ()</Flash3>
-          <Flash4>.\Flasher_RVMDK.ini</Flash4>
+          <Flash4>..\..\..\..\Platform\MCU\MX1101\RVMDK\MVDownloader_UserCode.ini</Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
           <pFcArmRoot></pFcArmRoot>
@@ -1520,7 +1520,7 @@
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
           <Flash3>"" ()</Flash3>
-          <Flash4>..\..\..\..\Platform\Common\Cortex-M3\AP80xx\AP80xx_Drv\RVMDK_Flasher.ini</Flash4>
+          <Flash4>..\..\..\..\Platform\MCU\MX1101\RVMDK\MVDownloader_UserCode.ini</Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
           <pFcArmRoot></pFcArmRoot>
@@ -1653,7 +1653,7 @@
               </OCR_RVCT3>
               <OCR_RVCT4>
                 <Type>1</Type>
-                <StartAddress>0x0</StartAddress>
+                <StartAddress>0xa000</StartAddress>
                 <Size>0x7f000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
@@ -2845,7 +2845,7 @@
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
           <Flash3>"" ()</Flash3>
-          <Flash4>.\Flasher_RVMDK.ini</Flash4>
+          <Flash4>..\..\..\..\Platform\MCU\MX1101\RVMDK\MVDownloader_UserCode.ini</Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
           <pFcArmRoot></pFcArmRoot>
@@ -2978,7 +2978,7 @@
               </OCR_RVCT3>
               <OCR_RVCT4>
                 <Type>1</Type>
-                <StartAddress>0x8000</StartAddress>
+                <StartAddress>0xa000</StartAddress>
                 <Size>0x7f000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
