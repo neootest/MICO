@@ -3,7 +3,7 @@
 <project>
   <fileVersion>2</fileVersion>
   <configuration>
-    <name>EMW3162</name>
+    <name>MiCOKit-3165</name>
     <toolchain>
       <name>ARM</name>
     </toolchain>
@@ -45,7 +45,7 @@
         </option>
         <option>
           <name>MemFile</name>
-          <state>$TOOLKIT_DIR$\CONFIG\debugger\ST\STM32F205ZG.ddf</state>
+          <state>$TOOLKIT_DIR$\CONFIG\debugger\ST\STM32F411CE.ddf</state>
         </option>
         <option>
           <name>RunToEnable</name>
@@ -53,7 +53,7 @@
         </option>
         <option>
           <name>RunToName</name>
-          <state>application_start</state>
+          <state>main</state>
         </option>
         <option>
           <name>CExtraOptionsCheck</name>
@@ -81,7 +81,7 @@
         </option>
         <option>
           <name>OCProductVersion</name>
-          <state>5.30.0.51236</state>
+          <state>7.30.1.7765</state>
         </option>
         <option>
           <name>OCDynDriverList</name>
@@ -89,7 +89,7 @@
         </option>
         <option>
           <name>OCLastSavedByProductVersion</name>
-          <state>6.70.1.5793</state>
+          <state>7.30.1.7765</state>
         </option>
         <option>
           <name>OCDownloadAttachToProgram</name>
@@ -117,7 +117,7 @@
         </option>
         <option>
           <name>FlashLoadersV3</name>
-          <state>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32f205xG.board</state>
+          <state>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32F411xE.board</state>
         </option>
         <option>
           <name>OCImagesSuppressCheck1</name>
@@ -269,7 +269,7 @@
         </option>
         <option>
           <name>AngelLogFile</name>
-          <state>$TOOLKIT_DIR$\cspycomm.log</state>
+          <state>$PROJ_DIR$\cspycomm.log</state>
         </option>
         <option>
           <name>OCDriverInfo</name>
@@ -469,7 +469,7 @@
         </option>
         <option>
           <name>LogFile</name>
-          <state>$TOOLKIT_DIR$\cspycomm.log</state>
+          <state>$PROJ_DIR$\cspycomm.log</state>
         </option>
         <option>
           <name>CCJTagBreakpointRadio</name>
@@ -481,7 +481,7 @@
         </option>
         <option>
           <name>CCJTagUpdateBreakpoints</name>
-          <state>main</state>
+          <state>_call_main</state>
         </option>
       </data>
     </settings>
@@ -498,7 +498,7 @@
         </option>
         <option>
           <name>CRomLogFileEditB</name>
-          <state>$TOOLKIT_DIR$\cspycomm.log</state>
+          <state>$PROJ_DIR$\cspycomm.log</state>
         </option>
         <option>
           <name>CRomCommPort</name>
@@ -733,7 +733,7 @@
         <debug>0</debug>
         <option>
           <name>JLinkSpeed</name>
-          <state>32</state>
+          <state>1000</state>
         </option>
         <option>
           <name>CCJLinkDoLogfile</name>
@@ -741,7 +741,7 @@
         </option>
         <option>
           <name>CCJLinkLogFile</name>
-          <state>$TOOLKIT_DIR$\cspycomm.log</state>
+          <state>$PROJ_DIR$\cspycomm.log</state>
         </option>
         <option>
           <name>CCJLinkHWResetDelay</name>
@@ -753,7 +753,7 @@
         </option>
         <option>
           <name>JLinkInitialSpeed</name>
-          <state>32</state>
+          <state>1000</state>
         </option>
         <option>
           <name>CCDoJlinkMultiTarget</name>
@@ -786,7 +786,7 @@
         <option>
           <name>CCUSBDevice</name>
           <version>1</version>
-          <state>2</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCRDICatchReset</name>
@@ -826,7 +826,7 @@
         </option>
         <option>
           <name>CCJLinkUpdateBreakpoints</name>
-          <state>main</state>
+          <state>_call_main</state>
         </option>
         <option>
           <name>CCJLinkInterfaceRadio</name>
@@ -983,7 +983,7 @@
         </option>
         <option>
           <name>LogFile</name>
-          <state>$TOOLKIT_DIR$\cspycomm.log</state>
+          <state>$PROJ_DIR$\cspycomm.log</state>
         </option>
         <option>
           <name>DoEmuMultiTarget</name>
@@ -1034,7 +1034,7 @@
         </option>
         <option>
           <name>CCJTagUpdateBreakpoints</name>
-          <state>main</state>
+          <state>_call_main</state>
         </option>
         <option>
           <name>CCMacraigorInterfaceRadio</name>
@@ -1072,7 +1072,7 @@
         </option>
         <option>
           <name>CCPEMicroJtagSpeed</name>
-          <state>1000</state>
+          <state>#UNINITIALIZED#</state>
         </option>
         <option>
           <name>CCJPEMicroShowSettings</name>
@@ -1127,7 +1127,7 @@
         <debug>0</debug>
         <option>
           <name>CRDIDriverDll</name>
-          <state>Browse to your RDI driver</state>
+          <state>###Uninitialized###</state>
         </option>
         <option>
           <name>CRDILogFileCheck</name>
@@ -1135,7 +1135,7 @@
         </option>
         <option>
           <name>CRDILogFileEdit</name>
-          <state>$TOOLKIT_DIR$\cspycomm.log</state>
+          <state>$PROJ_DIR$\cspycomm.log</state>
         </option>
         <option>
           <name>CCRDIHWReset</name>
@@ -1222,7 +1222,7 @@
         <debug>0</debug>
         <option>
           <name>CThirdPartyDriverDll</name>
-          <state>Browse to your third-party driver</state>
+          <state>###Uninitialized###</state>
         </option>
         <option>
           <name>CThirdPartyLogFileCheck</name>
@@ -1230,7 +1230,7 @@
         </option>
         <option>
           <name>CThirdPartyLogFileEditB</name>
-          <state>$TOOLKIT_DIR$\cspycomm.log</state>
+          <state>$PROJ_DIR$\cspycomm.log</state>
         </option>
         <option>
           <name>OCDriverInfo</name>
@@ -1259,16 +1259,16 @@
         </option>
         <option>
           <name>TIPackage</name>
-          <state>C:\ti\ccsv5\ccs_base</state>
+          <state></state>
         </option>
         <option>
           <name>CCXds100InterfaceList</name>
           <version>2</version>
-          <state>7</state>
+          <state>0</state>
         </option>
         <option>
           <name>BoardFile</name>
-          <state>Browse to your board file</state>
+          <state></state>
         </option>
         <option>
           <name>DoLogfile</name>
@@ -1307,7 +1307,7 @@
       </plugin>
       <plugin>
         <file>$TOOLKIT_DIR$\plugins\rtos\OpenRTOS\OpenRTOSPlugin.ewplugin</file>
-        <loadFlag>1</loadFlag>
+        <loadFlag>0</loadFlag>
       </plugin>
       <plugin>
         <file>$TOOLKIT_DIR$\plugins\rtos\SafeRTOS\SafeRTOSPlugin.ewplugin</file>
@@ -1352,18 +1352,18 @@
     </debuggerPlugins>
   </configuration>
   <configuration>
-    <name>MICO_EVB_1</name>
+    <name>MiCOKit-3288</name>
     <toolchain>
       <name>ARM</name>
     </toolchain>
-    <debug>1</debug>
+    <debug>0</debug>
     <settings>
       <name>C-SPY</name>
       <archiveVersion>2</archiveVersion>
       <data>
         <version>26</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>CInput</name>
           <state>1</state>
@@ -1394,7 +1394,7 @@
         </option>
         <option>
           <name>MemFile</name>
-          <state>$TOOLKIT_DIR$\CONFIG\debugger\ST\STM32F205ZG.ddf</state>
+          <state>$TOOLKIT_DIR$\CONFIG\debugger\ST\STM32F411CE.ddf</state>
         </option>
         <option>
           <name>RunToEnable</name>
@@ -1402,7 +1402,7 @@
         </option>
         <option>
           <name>RunToName</name>
-          <state>application_start</state>
+          <state>main</state>
         </option>
         <option>
           <name>CExtraOptionsCheck</name>
@@ -1430,7 +1430,7 @@
         </option>
         <option>
           <name>OCProductVersion</name>
-          <state>5.30.0.51236</state>
+          <state>7.30.1.7765</state>
         </option>
         <option>
           <name>OCDynDriverList</name>
@@ -1438,7 +1438,7 @@
         </option>
         <option>
           <name>OCLastSavedByProductVersion</name>
-          <state>6.70.1.5793</state>
+          <state>7.30.1.7765</state>
         </option>
         <option>
           <name>OCDownloadAttachToProgram</name>
@@ -1466,7 +1466,7 @@
         </option>
         <option>
           <name>FlashLoadersV3</name>
-          <state>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32f205xG.board</state>
+          <state>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32F411xE.board</state>
         </option>
         <option>
           <name>OCImagesSuppressCheck1</name>
@@ -1564,7 +1564,7 @@
       <data>
         <version>1</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OCSimDriverInfo</name>
           <state>1</state>
@@ -1589,7 +1589,7 @@
       <data>
         <version>0</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>CCAngelHeartbeat</name>
           <state>1</state>
@@ -1618,7 +1618,7 @@
         </option>
         <option>
           <name>AngelLogFile</name>
-          <state>$TOOLKIT_DIR$\cspycomm.log</state>
+          <state>$PROJ_DIR$\cspycomm.log</state>
         </option>
         <option>
           <name>OCDriverInfo</name>
@@ -1632,7 +1632,7 @@
       <data>
         <version>2</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -1803,7 +1803,7 @@
       <data>
         <version>0</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -1818,7 +1818,7 @@
         </option>
         <option>
           <name>LogFile</name>
-          <state>$TOOLKIT_DIR$\cspycomm.log</state>
+          <state>$PROJ_DIR$\cspycomm.log</state>
         </option>
         <option>
           <name>CCJTagBreakpointRadio</name>
@@ -1830,7 +1830,7 @@
         </option>
         <option>
           <name>CCJTagUpdateBreakpoints</name>
-          <state>main</state>
+          <state>_call_main</state>
         </option>
       </data>
     </settings>
@@ -1840,14 +1840,14 @@
       <data>
         <version>1</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>CRomLogFileCheck</name>
           <state>0</state>
         </option>
         <option>
           <name>CRomLogFileEditB</name>
-          <state>$TOOLKIT_DIR$\cspycomm.log</state>
+          <state>$PROJ_DIR$\cspycomm.log</state>
         </option>
         <option>
           <name>CRomCommPort</name>
@@ -1871,7 +1871,7 @@
       <data>
         <version>4</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -2079,10 +2079,10 @@
       <data>
         <version>15</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>JLinkSpeed</name>
-          <state>32</state>
+          <state>1000</state>
         </option>
         <option>
           <name>CCJLinkDoLogfile</name>
@@ -2090,7 +2090,7 @@
         </option>
         <option>
           <name>CCJLinkLogFile</name>
-          <state>$TOOLKIT_DIR$\cspycomm.log</state>
+          <state>$PROJ_DIR$\cspycomm.log</state>
         </option>
         <option>
           <name>CCJLinkHWResetDelay</name>
@@ -2102,7 +2102,7 @@
         </option>
         <option>
           <name>JLinkInitialSpeed</name>
-          <state>32</state>
+          <state>1000</state>
         </option>
         <option>
           <name>CCDoJlinkMultiTarget</name>
@@ -2135,7 +2135,7 @@
         <option>
           <name>CCUSBDevice</name>
           <version>1</version>
-          <state>2</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCRDICatchReset</name>
@@ -2175,7 +2175,7 @@
         </option>
         <option>
           <name>CCJLinkUpdateBreakpoints</name>
-          <state>main</state>
+          <state>_call_main</state>
         </option>
         <option>
           <name>CCJLinkInterfaceRadio</name>
@@ -2279,7 +2279,7 @@
       <data>
         <version>2</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -2312,7 +2312,7 @@
       <data>
         <version>3</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>jtag</name>
           <version>0</version>
@@ -2332,7 +2332,7 @@
         </option>
         <option>
           <name>LogFile</name>
-          <state>$TOOLKIT_DIR$\cspycomm.log</state>
+          <state>$PROJ_DIR$\cspycomm.log</state>
         </option>
         <option>
           <name>DoEmuMultiTarget</name>
@@ -2383,7 +2383,7 @@
         </option>
         <option>
           <name>CCJTagUpdateBreakpoints</name>
-          <state>main</state>
+          <state>_call_main</state>
         </option>
         <option>
           <name>CCMacraigorInterfaceRadio</name>
@@ -2401,7 +2401,7 @@
       <data>
         <version>1</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -2421,7 +2421,7 @@
         </option>
         <option>
           <name>CCPEMicroJtagSpeed</name>
-          <state>1000</state>
+          <state>#UNINITIALIZED#</state>
         </option>
         <option>
           <name>CCJPEMicroShowSettings</name>
@@ -2473,10 +2473,10 @@
       <data>
         <version>2</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>CRDIDriverDll</name>
-          <state>Browse to your RDI driver</state>
+          <state>###Uninitialized###</state>
         </option>
         <option>
           <name>CRDILogFileCheck</name>
@@ -2484,7 +2484,7 @@
         </option>
         <option>
           <name>CRDILogFileEdit</name>
-          <state>$TOOLKIT_DIR$\cspycomm.log</state>
+          <state>$PROJ_DIR$\cspycomm.log</state>
         </option>
         <option>
           <name>CCRDIHWReset</name>
@@ -2530,7 +2530,7 @@
       <data>
         <version>2</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -2568,10 +2568,10 @@
       <data>
         <version>0</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>CThirdPartyDriverDll</name>
-          <state>Browse to your third-party driver</state>
+          <state>###Uninitialized###</state>
         </option>
         <option>
           <name>CThirdPartyLogFileCheck</name>
@@ -2579,7 +2579,7 @@
         </option>
         <option>
           <name>CThirdPartyLogFileEditB</name>
-          <state>$TOOLKIT_DIR$\cspycomm.log</state>
+          <state>$PROJ_DIR$\cspycomm.log</state>
         </option>
         <option>
           <name>OCDriverInfo</name>
@@ -2593,7 +2593,7 @@
       <data>
         <version>2</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -2608,16 +2608,16 @@
         </option>
         <option>
           <name>TIPackage</name>
-          <state>C:\ti\ccsv5\ccs_base</state>
+          <state></state>
         </option>
         <option>
           <name>CCXds100InterfaceList</name>
           <version>2</version>
-          <state>7</state>
+          <state>0</state>
         </option>
         <option>
           <name>BoardFile</name>
-          <state>Browse to your board file</state>
+          <state></state>
         </option>
         <option>
           <name>DoLogfile</name>
@@ -2656,7 +2656,7 @@
       </plugin>
       <plugin>
         <file>$TOOLKIT_DIR$\plugins\rtos\OpenRTOS\OpenRTOSPlugin.ewplugin</file>
-        <loadFlag>1</loadFlag>
+        <loadFlag>0</loadFlag>
       </plugin>
       <plugin>
         <file>$TOOLKIT_DIR$\plugins\rtos\SafeRTOS\SafeRTOSPlugin.ewplugin</file>

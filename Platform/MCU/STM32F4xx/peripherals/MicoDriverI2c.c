@@ -84,6 +84,8 @@ OSStatus MicoI2cInitialize( mico_i2c_device_t* device  )
   GPIO_InitTypeDef GPIO_InitStructure;
   I2C_InitTypeDef  I2C_InitStructure;
   
+  if (device->port == MICO_I2C_UNUSED) return kUnsupportedErr;
+  
   MicoMcuPowerSaveConfig(false);
   
   // Init I2C GPIO clocks
@@ -217,6 +219,8 @@ bool MicoI2cProbeDevice( mico_i2c_device_t* device, int retries )
   int            i;
   OSStatus       result;
   
+  if (device->port == MICO_I2C_UNUSED) return false;
+  
   MicoMcuPowerSaveConfig(false);
   
   for ( i = 0; i < retries; i++ )
@@ -276,6 +280,8 @@ bool MicoI2cProbeDevice( mico_i2c_device_t* device, int retries )
 static OSStatus i2c_dma_config_and_execute( mico_i2c_device_t* device, mico_i2c_message_t* message, bool tx_dma  )
 {
   uint32_t counter;
+  
+  if (device->port == MICO_I2C_UNUSED) return kUnsupportedErr;
   
   /* Initialize the DMA with the new parameters */
   if ( tx_dma == true )
@@ -352,6 +358,8 @@ static OSStatus i2c_dma_transfer( mico_i2c_device_t* device, mico_i2c_message_t*
   OSStatus       result;
   uint32_t       counter;
   int            i = 0;
+  
+  if (device->port == MICO_I2C_UNUSED) return kUnsupportedErr;
   
   if ( message->combined == true )
   {
@@ -568,6 +576,8 @@ static OSStatus i2c_transfer_message_no_dma( mico_i2c_device_t* device, mico_i2c
 {
   OSStatus       result;
   int            i = 0;
+  
+  if (device->port == MICO_I2C_UNUSED) return kUnsupportedErr;
   
   if ( message->combined == true )
   {
@@ -873,6 +883,8 @@ OSStatus MicoI2cTransfer( mico_i2c_device_t* device, mico_i2c_message_t* message
   OSStatus result;
   int i = 0;
   
+  if (device->port == MICO_I2C_UNUSED) return kUnsupportedErr;
+  
   MicoMcuPowerSaveConfig(false);
   
   for( i=0; i < number_of_messages; i++ )
@@ -901,6 +913,8 @@ OSStatus MicoI2cTransfer( mico_i2c_device_t* device, mico_i2c_message_t* message
 
 OSStatus MicoI2cFinalize( mico_i2c_device_t* device )
 {
+  if (device->port == MICO_I2C_UNUSED) return kUnsupportedErr;
+  
   MicoMcuPowerSaveConfig(false);
   
   /* Disable I2C peripheral clocks */

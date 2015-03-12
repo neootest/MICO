@@ -259,27 +259,23 @@ void init_architecture( void )
   ring_buffer_init  ( (ring_buffer_t*)&stdio_rx_buffer, (uint8_t*)stdio_rx_data, STDIO_BUFFER_SIZE );
   MicoStdioUartInitialize( &stdio_uart_config, (ring_buffer_t*)&stdio_rx_buffer );
 #endif
-
-#ifdef NO_MICO_RTOS
-  check_string(SysTick_Config(mico_cpu_clock_hz / 1000)==0, "Systemtick initialize failed!");
-#endif
   
+#ifndef NO_MICO_RTOS 
   /* Ensure 802.11 device is in reset. */
   host_platform_init( );
-  
-  MicoRtcInitialize();
-  
+  MicoRtcInitialize();  
+#else //Bootloader
+  SysTick_Config(SystemCoreClock / 1000);
+#endif
   /* Disable MCU powersave at start-up. Application must explicitly enable MCU powersave if desired */
   MCU_CLOCKS_NEEDED();
   
-  stm32_platform_inited = 1;  
+  stm32_platform_inited = 1;    
 }
 
 /******************************************************
 *            Interrupt Service Routines
 ******************************************************/
-
-
 
 #ifndef MICO_DISABLE_MCU_POWERSAVE
 static int stm32f2_clock_needed_counter = 0;
