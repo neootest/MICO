@@ -143,10 +143,14 @@ typedef enum
 /* The number of UART interfaces this hardware platform has */
 #define NUMBER_OF_UART_INTERFACES  2
 
-#define UART_FOR_APP     MICO_UART_1
+#ifdef BOOTLOADER
+#define STDIO_UART       MICO_UART_1
+#else
+#define UART_FOR_APP     MICO_UART_2
 #define STDIO_UART       MICO_UART_1
 #define MFG_TEST         MICO_UART_1
-#define CLI_UART         MICO_UART_2
+#define CLI_UART         MICO_UART_1
+#endif
 
 /* Define the address from where user application will be loaded.
 Note: the 1st sector 0x08000000-0x08003FFF is reserved for the IAP code */

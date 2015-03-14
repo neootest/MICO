@@ -92,7 +92,7 @@ int main(void)
   if(MicoShouldEnterBootloader() == false)
     startApplication();
   /* BOOT_SEL = 0, MFG_SEL = 0 => Normal start, MICO will enter MFG mode when "MicoInit" is called*/
-  else if(MicoShouldEnterMFGMode()==true)
+  else if(MicoShouldEnterMFGMode() == true)
     startApplication();
 
   printf ( menu, MODEL, HARDWARE_REVISION );

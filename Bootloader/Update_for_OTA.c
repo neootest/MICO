@@ -101,6 +101,7 @@ Log_Status updateLogCheck(boot_table_t *updateLog)
       if(updateLog->length > APPLICATION_FLASH_SIZE)
         return Log_dataLengthOverFlow;
     }
+#ifdef MICO_FLASH_FOR_DRIVER
     else if(updateLog->type == 'D'){
       destStartAddress = DRIVER_START_ADDRESS;
       destEndAddress = DRIVER_END_ADDRESS;
@@ -108,6 +109,7 @@ Log_Status updateLogCheck(boot_table_t *updateLog)
       if(updateLog->length > DRIVER_FLASH_SIZE)
         return Log_dataLengthOverFlow;
     }
+#endif
     else 
       return Log_contentTypeNotExist;
     

@@ -46,7 +46,7 @@ extern "C"
  *                    Constants
  ******************************************************/
   
-#define HARDWARE_REVISION   "v1"
+#define HARDWARE_REVISION   "MicoKit3088_1"
 #define DEFAULT_NAME        "MicoKit3088"
 #define MODEL               "MicoKit3088"
 

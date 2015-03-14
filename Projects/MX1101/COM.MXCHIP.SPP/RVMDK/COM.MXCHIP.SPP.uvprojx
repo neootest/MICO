@@ -771,6 +771,11 @@
               <FileType>4</FileType>
               <FilePath>..\..\..\..\Platform\RVMDK\memory_debugger.lib</FilePath>
             </File>
+            <File>
+              <FileName>memory_debugger.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\RVMDK\memory_debugger.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2096,6 +2101,11 @@
               <FileType>4</FileType>
               <FilePath>..\..\..\..\Platform\RVMDK\memory_debugger.lib</FilePath>
             </File>
+            <File>
+              <FileName>memory_debugger.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\RVMDK\memory_debugger.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2715,14 +2725,14 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>..\..\..\..\Build\COM.MXCHIP.SPP\MIcoKit3088\obj_RVMDK\</OutputDirectory>
+          <OutputDirectory>..\..\..\..\Build\COM.MXCHIP.SPP\MiCOKit-3088\obj_RVMDK\</OutputDirectory>
           <OutputName>COM.MXCHIP.SPP.axf</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
-          <ListingPath>..\..\..\..\Build\COM.MXCHIP.SPP\MIcoKit3088\list_RVMDK\</ListingPath>
+          <ListingPath>..\..\..\..\Build\COM.MXCHIP.SPP\MiCOKit-3088\list_RVMDK\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
           <CreateBatchFile>0</CreateBatchFile>
@@ -2749,7 +2759,7 @@
           <AfterMake>
             <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>C:\Keil\ARM\ARMCC\bin\fromelf.exe --bin  ..\..\..\..\Build\COM.MXCHIP.SPP\MicoKit3088\Obj_RVMDK\COM.MXCHIP.SPP.axf --output ..\..\..\..\Build\COM.MXCHIP.SPP\Output\MicoKit3088\COM.MXCHIP.SPP.bin</UserProg1Name>
+            <UserProg1Name>C:\Keil\ARM\ARMCC\bin\fromelf.exe --bin  ..\..\..\..\Build\COM.MXCHIP.SPP\MiCOKit-3088\Obj_RVMDK\COM.MXCHIP.SPP.axf --output ..\..\..\..\Build\COM.MXCHIP.SPP\Output\MiCOKit-3088\COM.MXCHIP.SPP.bin</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -2978,8 +2988,8 @@
               </OCR_RVCT3>
               <OCR_RVCT4>
                 <Type>1</Type>
-                <StartAddress>0xa000</StartAddress>
-                <Size>0x7f000</Size>
+                <StartAddress>0xb000</StartAddress>
+                <Size>0xc0000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -3439,6 +3449,11 @@
               <FileName>memory_debugger.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\Platform\RVMDK\memory_debugger.lib</FilePath>
+            </File>
+            <File>
+              <FileName>memory_debugger.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\RVMDK\memory_debugger.c</FilePath>
             </File>
           </Files>
         </Group>

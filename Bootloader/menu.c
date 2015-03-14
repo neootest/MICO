@@ -56,24 +56,34 @@ uint8_t tab_1024[1024] =
 #if defined MICO_FLASH_FOR_UPDATE && defined MICO_FLASH_FOR_DRIVER
 char MEMMAP[] = "\r\n\
 +******************** MICO Flash Map **************+\r\n\
-+-- Content --+-- Flash --+-- Start ---+--- End ----+\r\n\
-| Bootloader  | %8s | 0x%08x | 0x%08x |\r\n\
-| Settings    | %8s | 0x%08x | 0x%08x |\r\n\
-| Application | %8s | 0x%08x | 0x%08x |\r\n\
-| OTA Storage | %8s | 0x%08x | 0x%08x |\r\n\
-| RF Driver   | %8s | 0x%08x | 0x%08x |\r\n\
-+-------------+----------+------------+------------+\r\n";
++-- Content --+-- Flash ---+-- Start ---+--- End ----+\r\n\
+| Bootloader  | %10s | 0x%08x | 0x%08x |\r\n\
+| Settings    | %10s | 0x%08x | 0x%08x |\r\n\
+| Application | %10s | 0x%08x | 0x%08x |\r\n\
+| OTA Storage | %10s | 0x%08x | 0x%08x |\r\n\
+| RF Driver   | %10s | 0x%08x | 0x%08x |\r\n\
++-------------+------------+------------+------------+\r\n";
 #endif 
 
 #if !defined MICO_FLASH_FOR_UPDATE && defined MICO_FLASH_FOR_DRIVER
 char MEMMAP[] = "\r\n\
 +******************** MICO Flash Map *****************+\r\n\
 +-- Content --+-- Flash ---+--- Start ---+--- End ----+\r\n\
-| Bootloader  | %8s | 0x%08x | 0x%08x |\r\n\
-| Settings    | %8s | 0x%08x | 0x%08x |\r\n\
-| Application | %8s | 0x%08x | 0x%08x |\r\n\
-| RF Driver   | %8s | 0x%08x | 0x%08x |\r\n\
-+-------------+----------+------------+------------+\r\n";
+| Bootloader  | %10s | 0x%08x | 0x%08x |\r\n\
+| Settings    | %10s | 0x%08x | 0x%08x |\r\n\
+| Application | %10s | 0x%08x | 0x%08x |\r\n\
+| RF Driver   | %10s | 0x%08x | 0x%08x |\r\n\
++-------------+------------+------------+------------+\r\n";
+#endif
+
+#if defined MICO_FLASH_FOR_UPDATE && !defined MICO_FLASH_FOR_DRIVER
+char MEMMAP[] = "\r\n\
++******************** MICO Flash Map *****************+\r\n\
++-- Content --+-- Flash ---+--- Start ---+--- End ----+\r\n\
+| Bootloader  | %10s | 0x%08x | 0x%08x |\r\n\
+| Settings    | %10s | 0x%08x | 0x%08x |\r\n\
+| Application | %10s | 0x%08x | 0x%08x |\r\n\
++-------------+------------+------------+------------+\r\n";
 #endif
 
 #if !defined MICO_FLASH_FOR_UPDATE && !defined MICO_FLASH_FOR_DRIVER
@@ -399,6 +409,11 @@ void Main_Menu(void)
                      flash_name[MICO_FLASH_FOR_PARA], PARA_START_ADDRESS, PARA_END_ADDRESS,\
                      flash_name[MICO_FLASH_FOR_APPLICATION], APPLICATION_START_ADDRESS, APPLICATION_END_ADDRESS,\
                      flash_name[MICO_FLASH_FOR_DRIVER], DRIVER_START_ADDRESS, DRIVER_END_ADDRESS);
+#endif
+#if defined MICO_FLASH_FOR_UPDATE && !defined MICO_FLASH_FOR_DRIVER
+      printf(MEMMAP, flash_name[MICO_FLASH_FOR_BOOT],BOOT_START_ADDRESS,BOOT_END_ADDRESS,\
+                     flash_name[MICO_FLASH_FOR_PARA], PARA_START_ADDRESS, PARA_END_ADDRESS,\
+                     flash_name[MICO_FLASH_FOR_APPLICATION], APPLICATION_START_ADDRESS, APPLICATION_END_ADDRESS);
 #endif
 #if !defined MICO_FLASH_FOR_UPDATE && !defined MICO_FLASH_FOR_DRIVER
       printf(MEMMAP, flash_name[MICO_FLASH_FOR_BOOT],BOOT_START_ADDRESS,BOOT_END_ADDRESS,\
