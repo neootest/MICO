@@ -320,6 +320,7 @@
           <state>$PROJ_DIR$\..\..\..\..\External\FatFs\src\drivers</state>
           <state>$PROJ_DIR$\..\..\..\..\External\FatFs\src</state>
           <state>$PROJ_DIR$\..\..\..\..\include\EasyCloud</state>
+          <state>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1961,6 +1962,9 @@
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\platform_common_config.h</name>
       </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\platform_spi_flash.c</name>
+      </file>
     </group>
     <group>
       <name>MiCOKit-F205</name>
@@ -1975,6 +1979,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform_common_config.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform_spi_flash.c</name>
       </file>
     </group>
   </group>
@@ -2286,12 +2293,6 @@
       </group>
       <group>
         <name>SPI Flash</name>
-        <excluded>
-          <configuration>MiCOKit-3162</configuration>
-        </excluded>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash\MiCOKit-F205.c</name>
-        </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash\spi_flash.c</name>
         </file>

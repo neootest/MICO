@@ -319,6 +319,7 @@
           <state>$PROJ_DIR$\..\..\..\..\Platform\Drivers\STM32_USB_Host_Library\Class\MSC\Inc</state>
           <state>$PROJ_DIR$\..\..\..\..\External\FatFs\src\drivers</state>
           <state>$PROJ_DIR$\..\..\..\..\External\FatFs\src</state>
+          <state>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1959,7 +1960,7 @@
   <group>
     <name>Board</name>
     <group>
-      <name>MiCO-3162</name>
+      <name>MiCOKit-3162</name>
       <excluded>
         <configuration>MiCOKit-F205</configuration>
       </excluded>
@@ -1972,9 +1973,12 @@
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\platform_common_config.h</name>
       </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\platform_spi_flash.c</name>
+      </file>
     </group>
     <group>
-      <name>MiCO-F205</name>
+      <name>MiCOKit-F205</name>
       <excluded>
         <configuration>MiCOKit-3162</configuration>
       </excluded>
@@ -1986,6 +1990,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform_common_config.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform_spi_flash.c</name>
       </file>
     </group>
   </group>
@@ -2264,12 +2271,6 @@
       </group>
       <group>
         <name>SPI Flash</name>
-        <excluded>
-          <configuration>MiCOKit-3162</configuration>
-        </excluded>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash\MiCOKit-F205.c</name>
-        </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash\spi_flash.c</name>
         </file>
