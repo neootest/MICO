@@ -730,7 +730,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>Y:\Develop\mxchipWNet Pro Demo@EMW316x\Board\MiCOKit-3162\bootloaderLinkerForIAR.icf</state>
+          <state>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\bootloaderLinkerForIAR.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -1690,7 +1690,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>Y:\Develop\mxchipWNet Pro Demo@EMW316x\Board\MiCOKit-F205\bootloaderLinkerForIAR.icf</state>
+          <state>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\bootloaderLinkerForIAR.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -2240,6 +2240,7 @@
           <state>$PROJ_DIR$\..\..\..\..\Platform\Drivers\STM32_USB_Host_Library\Class\MSC\Inc</state>
           <state>$PROJ_DIR$\..\..\..\..\External\FatFs\src\drivers</state>
           <state>$PROJ_DIR$\..\..\..\..\External\FatFs\src</state>
+          <state>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -2649,7 +2650,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>Y:\Develop\mxchipWNet Pro Demo@EMW316x\Board\MiCOKit-3161\bootloaderLinkerForIAR.icf</state>
+          <state>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3161\bootloaderLinkerForIAR.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>

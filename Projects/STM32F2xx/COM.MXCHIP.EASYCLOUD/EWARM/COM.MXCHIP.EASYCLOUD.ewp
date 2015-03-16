@@ -730,7 +730,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>Y:\Develop\mxchipWNet Pro Demo@EMW316x\Board\MiCOKit-3162\micoLinkerForIAR.icf</state>
+          <state>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\micoLinkerForIAR.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -1690,7 +1690,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>Y:\Develop\mxchipWNet Pro Demo@EMW316x\Board\MiCOKit-F205\micoLinkerForIAR.icf</state>
+          <state>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\micoLinkerForIAR.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
