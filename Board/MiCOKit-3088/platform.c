@@ -39,6 +39,7 @@
 #include "platform_common_config.h"
 #include "PlatformLogging.h"
 #include "gpio.h"
+#include "nvm.h"
 
 /******************************************************
 *                      Macros
@@ -47,6 +48,30 @@
 /******************************************************
 *                    Constants
 ******************************************************/
+//keep consist with miscfg.h definition
+#define UPGRADE_NVM_ADDR        (176)//boot upgrade information at NVRAM address
+#define UPGRADE_ERRNO_NOERR   (-1) //just initialization after boot up
+#define UPGRADE_ERRNO_ENOENT  (-2) //no such file open by number
+#define UPGRADE_ERRNO_EIO   (-5) //read/write error
+#define UPGRADE_ERRNO_E2BIG   (-7) //too big than flash capacity
+#define UPGRADE_ERRNO_EBADF   (-9) //no need to upgrade
+#define UPGRADE_ERRNO_EFAULT  (-14) //address fault
+#define UPGRADE_ERRNO_EBUSY   (-16) //flash lock fail
+#define UPGRADE_ERRNO_ENODEV  (-19) //no upgrade device found
+#define UPGRADE_ERRNO_ENODATA (-61) //flash is empty
+#define UPGRADE_ERRNO_EPROTOTYPE (-91) //bad head format("MVO\x12")
+#define UPGRADE_ERRNO_ELIBBAD (-80) //CRC error
+#define UPGRADE_ERRNO_USBDEV  (-81) //no upgrade USB device
+#define UPGRADE_ERRNO_SDDEV   (-82) //no upgrade SD device
+#define UPGRADE_ERRNO_USBFILE (-83) //no upgrade file found in USB device
+#define UPGRADE_ERRNO_SDFILE  (-84) //no upgrade file found in SD device
+#define UPGRADE_ERRNO_NOBALL  (-85) //no upgrade ball in USB & SD device
+#define UPGRADE_ERRNO_CODEMGC (-86) //wrong code magic number
+#define UPGRADE_ERRNO_CODBUFDAT (-87) //code successful but data fail,because of constant data offset setting
+
+#define UPGRADE_SUCC_MAGIC    (0x57F9B3C8) //just a successful magic
+#define UPGRADE_REQT_MAGIC    (0x9ab4d18e) //just a request magic
+#define UPGRADE_ERRNO_LASTCLR (0x581f9831) //just a clear magic
 
 /******************************************************
 *                   Enumerations
@@ -278,13 +303,65 @@ void init_platform( void )
 
 void init_platform_bootloader( void )
 {
-//  MicoGpioInitialize( (mico_gpio_t)MICO_SYS_LED, OUTPUT_PUSH_PULL );
-//  MicoGpioOutputLow( (mico_gpio_t)MICO_SYS_LED );
-//  MicoGpioInitialize( (mico_gpio_t)MICO_RF_LED, OUTPUT_OPEN_DRAIN_NO_PULL );
-//  MicoGpioOutputHigh( (mico_gpio_t)MICO_RF_LED );
-//  
-//  MicoGpioInitialize((mico_gpio_t)BOOT_SEL, INPUT_PULL_UP);
-//  MicoGpioInitialize((mico_gpio_t)MFG_SEL, INPUT_HIGH_IMPEDANCE);
+  uint32_t BootNvmInfo;
+  /* Check last firmware update is success or not. */
+  bool UpgradeFileFound = false;
+
+  NvmRead(UPGRADE_NVM_ADDR, (uint8_t*)&BootNvmInfo, 4);
+  
+  if(false == UpgradeFileFound)
+  {
+    if(BootNvmInfo == UPGRADE_SUCC_MAGIC)
+    {
+      /*
+       * boot up check for the last time
+       */
+      platform_log("[UPGRADE]:upgrade successful completely");
+    }
+    else if(BootNvmInfo == (uint32_t)UPGRADE_ERRNO_NOERR)
+    {
+      platform_log("[UPGRADE]:no upgrade, boot normallly");
+    }
+    else if(BootNvmInfo == (uint32_t)UPGRADE_ERRNO_CODBUFDAT)
+    {
+      platform_log("[UPGRADE]:upgrade successful partly, data fail");
+    }
+    else
+    {
+      platform_log("[UPGRADE]:upgrade error, errno = %d", (int32_t)BootNvmInfo);
+    }
+  }
+  else
+  {
+    if(BootNvmInfo == (uint32_t)UPGRADE_ERRNO_NOERR)
+    {
+      platform_log("[UPGRADE]:found upgrade ball, prepare to boot upgrade");
+      BootNvmInfo = UPGRADE_REQT_MAGIC;
+      NvmWrite(UPGRADE_NVM_ADDR, (uint8_t*)&BootNvmInfo, 4);
+            //if you want PORRESET to reset GPIO only,uncomment it
+            //GpioPorSysReset(GPIO_RSTSRC_PORREST);
+      NVIC_SystemReset();
+      while(1);;;
+    }
+    else if(BootNvmInfo == UPGRADE_SUCC_MAGIC)
+    {
+      BootNvmInfo = (uint32_t)UPGRADE_ERRNO_NOERR;
+      NvmWrite(UPGRADE_NVM_ADDR, (uint8_t*)&BootNvmInfo, 4);
+      platform_log("[UPGRADE]:found upgrade ball file for the last time, re-plugin/out, if you want to upgrade again");
+    }
+    else
+    {
+      platform_log("[UPGRADE]:upgrade error, errno = %d", (int32_t)BootNvmInfo);
+      // BootNvmInfo = (uint32_t)UPGRADE_ERRNO_NOERR;
+      // NvmWrite(UPGRADE_NVM_ADDR, (uint8_t*)&BootNvmInfo, 4);
+      //BootNvmInfo = UPGRADE_REQT_MAGIC;
+      //NvmWrite(UPGRADE_NVM_ADDR, (uint8_t*)&BootNvmInfo, 4);
+            //if you want PORRESET to reset GPIO only,uncomment it
+            //GpioPorSysReset(GPIO_RSTSRC_PORREST);
+      //NVIC_SystemReset();
+      while(1);;;
+    }
+  }
 }
 
 

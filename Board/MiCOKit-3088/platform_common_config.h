@@ -196,7 +196,7 @@ typedef enum
 //#define MICO_FLASH_FOR_DRIVER       MICO_SPI_FLASH
 #define DRIVER_START_ADDRESS        (uint32_t)0x001A0000 
 #define DRIVER_END_ADDRESS          (uint32_t)0x001FFFFF
-#define DRIVER_FLASH_SIZE           (DRIVER_END_ADDRESS - DRIVER_START_ADDRESS + 1)  /* 4k bytes */
+#define DRIVER_FLASH_SIZE           (DRIVER_END_ADDRESS - DRIVER_START_ADDRESS + 1)  /* 384k bytes */
 /******************************************************
 *                   Enumerations
 ******************************************************/

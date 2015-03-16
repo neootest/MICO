@@ -154,7 +154,6 @@ STRCHR (const char *s, int c_in)
   switch (sizeof (longword))
     {
     case 4: magic_bits = 0x7efefeffL; break;
-    case 8: magic_bits = ((0x7efefefeL << 16) << 16) | 0xfefefeffL; break;
     default:
       abort ();
     }
@@ -266,7 +265,6 @@ STRCHR (const char *s, int c_in)
 	    }
 	}
   }
-  return NULL;
 }
 
 /* Search no more than N bytes of S for C.  */

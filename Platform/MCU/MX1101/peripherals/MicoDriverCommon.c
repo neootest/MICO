@@ -44,8 +44,12 @@
 #include "clk.h"
 #include "uart.h"
 #include "gpio.h"
+#include "watchdog.h"
+#include "timeout.h"
 #include "cache.h"
 #include "delay.h"
+#include "MicoDriverMapping.h"
+
 
 #ifdef __GNUC__
 #include "../../GCC/stdio_newlib.h"
@@ -215,21 +219,15 @@ void init_memory( void )
 
 void init_architecture( void )
 {
-  uint8_t i;
     
   /*Wakeup by watchdog in standby mode, re-enter standby mode in this situation*/
   /*  To do  */
   
-  //if ( ap80xx_platform_inited == 1 )
-  //  return;
+  if ( ap80xx_platform_inited == 1 )
+    return;
   
   NVIC_SetPriorityGrouping(__NVIC_PRIO_BITS + 1);
   /* Initialise the interrupt priorities to a priority lower than 0 so that the BASEPRI register can mask them */
-  /*  To do  */
-  // for ( i = 0; i < 24; i++ )
-  // {
-  //   NVIC ->IP[i] = 0xE0;
-  // }
 
   NVIC_SetPriority(MMFLT_IRQn,  MMFLT_IRQn_PRIO);
   NVIC_SetPriority(BUSFLT_IRQn, BUSFLT_IRQn_PRIO);
@@ -513,45 +511,6 @@ void MicoSystemReboot(void)
 
 void MicoSystemStandBy(uint32_t secondsToWakeup)
 { 
-//  mico_rtc_time_t time;
-//  uint32_t currentSecond;
-//  RTC_AlarmTypeDef  RTC_AlarmStructure;
-
-//  PWR_WakeUpPinCmd(ENABLE);
-
-//  if(secondsToWakeup == MICO_WAIT_FOREVER)
-//    PWR_EnterSTANDBYMode();
-
-//  platform_log("Wake up in %d seconds", secondsToWakeup);
-// 
-//  MicoRtcGetTime(&time);
-//  currentSecond = time.hr*3600 + time.min*60 + time.sec;
-//  currentSecond += secondsToWakeup;
-//  RTC_AlarmStructure.RTC_AlarmTime.RTC_H12     = RTC_HourFormat_24;
-//  RTC_AlarmStructure.RTC_AlarmTime.RTC_Hours   = currentSecond/3600%24;
-//  RTC_AlarmStructure.RTC_AlarmTime.RTC_Minutes = currentSecond/60%60;
-//  RTC_AlarmStructure.RTC_AlarmTime.RTC_Seconds = currentSecond%60;
-//  RTC_AlarmStructure.RTC_AlarmDateWeekDay = 0x31;
-//  RTC_AlarmStructure.RTC_AlarmDateWeekDaySel = RTC_AlarmDateWeekDaySel_Date;
-//  RTC_AlarmStructure.RTC_AlarmMask = RTC_AlarmMask_DateWeekDay ;
-
-//  RTC_AlarmCmd(RTC_Alarm_A, DISABLE);
-//  /* Disable the Alarm A */
-//  RTC_ITConfig(RTC_IT_ALRA, DISABLE);
-
-//  /* Clear RTC Alarm Flag */ 
-//  RTC_ClearFlag(RTC_FLAG_ALRAF);
-
-//  RTC_SetAlarm(RTC_Format_BIN, RTC_Alarm_A, &RTC_AlarmStructure);
-
-//  /* Enable RTC Alarm A Interrupt: this Interrupt will wake-up the system from
-//     STANDBY mode (RTC Alarm IT not enabled in NVIC) */
-//  RTC_ITConfig(RTC_IT_ALRA, ENABLE);
-
-//  /* Enable the Alarm A */
-//  RTC_AlarmCmd(RTC_Alarm_A, ENABLE);
-
-//  PWR_EnterSTANDBYMode();
 }
 
 void MicoMcuPowerSaveConfig( int enable )
@@ -562,6 +521,24 @@ void MicoMcuPowerSaveConfig( int enable )
     MCU_CLOCKS_NEEDED();
 }
 
+OSStatus stdio_hardfault( char* data, uint32_t size )
+{
+#ifndef MICO_DISABLE_STDIO
+  uint32_t idx;
+  BuartIOctl(UART_IOCTL_TXINT_SET, 1);
+
+  if(uart_mapping[STDIO_UART].uart == FUART){
+    FuartSend( (uint8_t *)data, size);
+    return kNoErr;
+  }else if(uart_mapping[STDIO_UART].uart == BUART){
+    BuartSend( (uint8_t *)data, size);
+    return kNoErr;
+  }else
+    return kUnsupportedErr;
+    
+#endif
+ return kNoErr;
+}
 
 
 #ifdef NO_MICO_RTOS
@@ -585,6 +562,7 @@ void mico_thread_msleep_no_os(uint32_t milliseconds)
 }
 #else
 extern volatile uint32_t gSysTick;
+void xPortSysTickHandler(void);
 
 void SysTick_Handler(void)
 {

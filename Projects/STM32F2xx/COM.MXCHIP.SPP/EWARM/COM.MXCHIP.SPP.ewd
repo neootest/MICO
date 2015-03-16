@@ -1402,7 +1402,7 @@
         </option>
         <option>
           <name>RunToName</name>
-          <state>main</state>
+          <state>application_start</state>
         </option>
         <option>
           <name>CExtraOptionsCheck</name>
@@ -1434,7 +1434,7 @@
         </option>
         <option>
           <name>OCDynDriverList</name>
-          <state>JLINK_ID</state>
+          <state>STLINK_ID</state>
         </option>
         <option>
           <name>OCLastSavedByProductVersion</name>

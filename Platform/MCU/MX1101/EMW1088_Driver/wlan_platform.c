@@ -158,8 +158,6 @@ OSStatus host_platform_init_wlan_powersave_clock( void )
     return platform_reset_wlan_powersave_clock( );
 
 #endif
-
-return kNoErr;
 }
 
 OSStatus host_platform_deinit_wlan_powersave_clock( void )

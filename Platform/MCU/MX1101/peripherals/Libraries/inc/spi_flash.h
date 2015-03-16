@@ -17,6 +17,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif//__cplusplus
+  
+#include    "irqs.h"
 
 #define     POSEDGE_SEL          (0)       /**<sampling at clk posedge */
 #define     NEGEDGE_SEL          (1)       /**<sampling at clk negedge */

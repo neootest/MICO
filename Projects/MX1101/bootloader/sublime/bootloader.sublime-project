@@ -18,6 +18,9 @@
 			"path": "../../../../External"
 		},
 		{
+			"path": "../../../../Board"
+		},
+		{
 			"path": "../../../../MICO"
 		}
 	],
@@ -35,18 +38,15 @@
 			"-D__int64=long long",
 			"-D__pure=__attribute__((const))",
 			"-D__value_in_regs=__attribute__(())",
-			"-DUSE_STDPERIPH_DRIVER",
+			"-DBOOTLOADER",
 			"-DDebug",
 			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Bootloader/",
 			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/External/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/",
 			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/include/",
-			"-I/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/EMW1062_Driver/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx_Drv/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/AP80xx/AP80xx_Drv/inc/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/AP80xx_EVB/",
+			"-I/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Cortex-M3/",
+			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/MX1101/peripherals/",
+			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/MX1101/peripherals/Libraries/inc",
+			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-3088/",
 			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/",
 			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/MICO/",
 			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/",

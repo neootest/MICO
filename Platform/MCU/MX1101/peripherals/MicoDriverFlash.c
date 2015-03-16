@@ -35,7 +35,7 @@
 #include "platform.h"
 #include "Platform_common_config.h"
 #include "stdio.h"
-#include "AP80xx.h"
+//#include "AP80xx.h"
 #include "spi_flash.h"
 
 //#define DEBUG_FLASH
@@ -49,15 +49,6 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* Private function prototypes -----------------------------------------------*/
-static uint32_t _GetSector( uint32_t Address );
-static OSStatus internalFlashInitialize( void );
-static OSStatus internalFlashErase(uint32_t StartAddress, uint32_t EndAddress);
-static OSStatus internalFlashWrite(volatile uint32_t* FlashAddress, uint32_t* Data ,uint32_t DataLength);
-static OSStatus internalFlashByteWrite( volatile uint32_t* FlashAddress, uint8_t* Data ,uint32_t DataLength );
-static OSStatus internalFlashFinalize( void );
-#ifdef USE_MICO_SPI_FLASH
-static OSStatus spiFlashErase(uint32_t StartAddress, uint32_t EndAddress);
-#endif
 
 static bool FlashUnlock(void);
 static bool FlashLock(SPI_FLASH_LOCK_RANGE lock_range);
@@ -494,30 +485,6 @@ OSStatus MicoFlashFinalize( mico_flash_t flash )
 exit:
   return err;
 }
-
-
-OSStatus internalFlashInitialize( void )
-{ 
-  // platform_log_trace();
-  // SpiFlashGetInfo(&FlashInfo);
-  // GetFlashInfo();
-  return kNoErr;    
-}
-
-OSStatus internalFlashErase(uint32_t StartAddress, uint32_t EndAddress)
-{
-  platform_log_trace();
-  return kNoErr;
-}
-
-#ifdef USE_MICO_SPI_FLASH
-OSStatus spiFlashErase(uint32_t StartAddress, uint32_t EndAddress)
-{
-  platform_log_trace();
-  return kNoErr;
-}
-#endif
-
 
 OSStatus internalFlashWrite(volatile uint32_t* FlashAddress, uint32_t* Data ,uint32_t DataLength)
 {

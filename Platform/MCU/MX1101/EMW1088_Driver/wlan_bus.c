@@ -143,27 +143,12 @@ typedef struct
  *             Variables
  ******************************************************/
 
-//static uint8_t   temp_dma_buffer[2*1024];
-//static uint8_t*  user_data;
-//static uint32_t  user_data_size;
-static uint8_t*  dma_data_source;
-static uint32_t  dma_transfer_size;
 
 static mico_semaphore_t sdio_transfer_finished_semaphore;
-
-static bool             sdio_transfer_failed;
-static bus_transfer_direction_t current_transfer_direction;
-static uint32_t                 current_command;
 
 /******************************************************
  *             Function declarations
  ******************************************************/
-
-static uint32_t          sdio_get_blocksize_dctrl   ( sdio_block_size_t block_size );
-static sdio_block_size_t find_optimal_block_size    ( uint32_t data_size );
-static void              sdio_prepare_data_transfer ( bus_transfer_direction_t direction, sdio_block_size_t block_size, /*@unique@*/ uint8_t* data, uint16_t data_size ) /*@modifies dma_data_source, user_data, user_data_size, dma_transfer_size@*/;
-
-void dma_irq ( void );
 OSStatus host_platform_sdio_transfer( bus_transfer_direction_t direction, sdio_command_t command, sdio_transfer_mode_t mode, sdio_block_size_t block_size, uint32_t argument, /*@null@*/ uint32_t* data, uint16_t data_size, sdio_response_needed_t response_expected, /*@out@*/ /*@null@*/ uint32_t* response );
 extern void wiced_platform_notify_irq( void );
 
@@ -185,7 +170,7 @@ static void sdio_irq_handler( void* arg )
 
 bool host_platform_is_sdio_int_asserted(void)
 {
-  if( MicoGpioInputGet(SDIO_INT)==0 )
+  if( MicoGpioInputGet( (mico_gpio_t)SDIO_INT)==0 )
     return true;
   else
     return false;
@@ -194,113 +179,15 @@ bool waiting = false;
 
 void SdInterrupt(void)
 {
-    OSStatus result = kNoErr;
-    uint8_t sdioStatus = 0;
-
     /* Clear interrupt */
     SdioDataInterruptClear();
 
-    // sdioStatus = SdioGetStatus();
-    // if( result != kNoErr )
-    //   return;
-
     if(waiting == true){
-      result = mico_rtos_set_semaphore( &sdio_transfer_finished_semaphore );
+      mico_rtos_set_semaphore( &sdio_transfer_finished_semaphore );
       waiting = false;
     }else{
       //platform_log("Unexcepted!");
-
     }
-
-    /* check result if in debug mode */
-    //check_string(result == kNoErr, "failed to set dma semaphore" );
-
-    /*@-noeffect@*/
-    //(void) result; /* ignore result if in release mode */
-    /*@+noeffect@*/
-}
-
-void sdio_irq( void )
-{
-//    uint32_t intstatus = SDIO->STA;
-
-//    if ( ( intstatus & ( SDIO_STA_CCRCFAIL | SDIO_STA_DCRCFAIL | SDIO_STA_TXUNDERR | SDIO_STA_RXOVERR  | SDIO_STA_STBITERR )) != 0 )
-//    {
-//        sdio_transfer_failed = true;
-//        SDIO->ICR = (uint32_t) 0xffffffff;
-//        mico_rtos_set_semaphore( &sdio_transfer_finished_semaphore );
-//    }
-//    else
-//    {
-//        if ((intstatus & (SDIO_STA_CMDREND | SDIO_STA_CMDSENT)) != 0)
-//        {
-//            if ( ( SDIO->RESP1 & 0x800 ) != 0 )
-//            {
-//                sdio_transfer_failed = true;
-//                mico_rtos_set_semaphore( &sdio_transfer_finished_semaphore );
-//            }
-//            else if (current_command == SDIO_CMD_53)
-//            {
-//                if (current_transfer_direction == BUS_WRITE)
-//                {
-//                    DMA2_Stream3->CR = DMA_DIR_MemoryToPeripheral |
-//                                       DMA_Channel_4 | DMA_PeripheralInc_Disable | DMA_MemoryInc_Enable |
-//                                       DMA_PeripheralDataSize_Word | DMA_MemoryDataSize_Word |
-//                                       DMA_Mode_Normal | DMA_Priority_VeryHigh |
-//                                       DMA_MemoryBurst_INC4 | DMA_PeripheralBurst_INC4 | DMA_SxCR_PFCTRL | DMA_SxCR_EN | DMA_SxCR_TCIE;
-//                }
-//                else
-//                {
-//                    DMA2_Stream3->CR = DMA_DIR_PeripheralToMemory |
-//                                       DMA_Channel_4 | DMA_PeripheralInc_Disable | DMA_MemoryInc_Enable |
-//                                       DMA_PeripheralDataSize_Word | DMA_MemoryDataSize_Word |
-//                                       DMA_Mode_Normal | DMA_Priority_VeryHigh |
-//                                       DMA_MemoryBurst_INC4 | DMA_PeripheralBurst_INC4 | DMA_SxCR_PFCTRL | DMA_SxCR_EN | DMA_SxCR_TCIE;
-//                }
-//            }
-
-//            /* Clear all command/response interrupts */
-//            SDIO->ICR = (SDIO_STA_CMDREND | SDIO_STA_CMDSENT);
-//        }
-
-//        /* Check whether the external interrupt was triggered */
-//        if ( ( intstatus & SDIO_STA_SDIOIT ) != 0 )
-//        {
-//            /* Clear the interrupt and then inform WICED thread */
-//            SDIO->ICR = SDIO_ICR_SDIOITC;
-//            wiced_platform_notify_irq( );
-//        }
-//    }
-}
-
-/*@-exportheader@*/ /* Function picked up by linker script */
-void dma_irq( void )
-{
-//    OSStatus result;
-
-//    /* Clear interrupt */
-//    DMA2->LIFCR = (uint32_t) (0x3F << 22);
-
-//    result = mico_rtos_set_semaphore( &sdio_transfer_finished_semaphore );
-
-//    /* check result if in debug mode */
-//    check_string(result == kNoErr, "failed to set dma semaphore" );
-
-//    /*@-noeffect@*/
-//    (void) result; /* ignore result if in release mode */
-//    /*@+noeffect@*/
-}
-/*@+exportheader@*/
-
-static void sdio_enable_bus_irq( void )
-{
-
- //   SDIO->MASK = SDIO_MASK_SDIOITIE | SDIO_MASK_CMDRENDIE | SDIO_MASK_CMDSENTIE;
-}
-
-static void sdio_disable_bus_irq( void )
-{
- //   SDIO->MASK = 0;
 }
 
 OSStatus host_enable_oob_interrupt( void )
@@ -428,11 +315,9 @@ OSStatus host_platform_bus_deinit( void )
 OSStatus host_platform_sdio_transfer( bus_transfer_direction_t direction, sdio_command_t command, sdio_transfer_mode_t mode, sdio_block_size_t block_size, uint32_t argument, /*@null@*/ uint32_t* data, uint16_t data_size, sdio_response_needed_t response_expected, /*@out@*/ /*@null@*/ uint32_t* response )
 {
   UNUSED_PARAMETER(mode);
-  uint32_t loop_count = 0;
-   OSStatus result = kNoErr;
-   uint16_t attempts = 0;
-   uint8_t response_full[6];
-  uint32_t response_tmp;
+  OSStatus result = kNoErr;
+  uint16_t attempts = 0;
+  uint8_t response_full[6];
   uint32_t blockNumber, blockIdx;
   bool status;
 
@@ -447,7 +332,6 @@ OSStatus host_platform_sdio_transfer( bus_transfer_direction_t direction, sdio_c
 
 restart:
 //    SDIO->ICR = (uint32_t) 0xFFFFFFFF;
-    sdio_transfer_failed = false;
     ++attempts;
 
     /* Check if we've tried too many times */
@@ -460,7 +344,6 @@ restart:
     }
 
     /* Prepare the data transfer register */
-    current_command = command;
     if ( command == SDIO_CMD_53 )
     {
       
@@ -602,63 +485,6 @@ void host_platform_enable_high_speed_sdio( void )
       MicoGpioInitialize( (mico_gpio_t)SDIO_INT, INPUT_HIGH_IMPEDANCE );
   MicoGpioEnableIRQ( (mico_gpio_t)SDIO_INT, IRQ_TRIGGER_FALLING_EDGE, sdio_irq_handler, 0 );
 }
-
-static sdio_block_size_t find_optimal_block_size( uint32_t data_size )
-{
-    if ( data_size > (uint32_t) 256 )
-        return SDIO_512B_BLOCK;
-    if ( data_size > (uint32_t) 128 )
-        return SDIO_256B_BLOCK;
-    if ( data_size > (uint32_t) 64 )
-        return SDIO_128B_BLOCK;
-    if ( data_size > (uint32_t) 32 )
-        return SDIO_64B_BLOCK;
-    if ( data_size > (uint32_t) 16 )
-        return SDIO_32B_BLOCK;
-    if ( data_size > (uint32_t) 8 )
-        return SDIO_16B_BLOCK;
-    if ( data_size > (uint32_t) 4 )
-        return SDIO_8B_BLOCK;
-    if ( data_size > (uint32_t) 2 )
-        return SDIO_4B_BLOCK;
-
-    return SDIO_4B_BLOCK;
-}
-
-static uint32_t sdio_get_blocksize_dctrl(sdio_block_size_t block_size)
-{
-    switch (block_size)
-    {
-//        case SDIO_1B_BLOCK:    return SDIO_DataBlockSize_1b;
-//        case SDIO_2B_BLOCK:    return SDIO_DataBlockSize_2b;
-//        case SDIO_4B_BLOCK:    return SDIO_DataBlockSize_4b;
-//        case SDIO_8B_BLOCK:    return SDIO_DataBlockSize_8b;
-//        case SDIO_16B_BLOCK:   return SDIO_DataBlockSize_16b;
-//        case SDIO_32B_BLOCK:   return SDIO_DataBlockSize_32b;
-//        case SDIO_64B_BLOCK:   return SDIO_DataBlockSize_64b;
-//        case SDIO_128B_BLOCK:  return SDIO_DataBlockSize_128b;
-//        case SDIO_256B_BLOCK:  return SDIO_DataBlockSize_256b;
-//        case SDIO_512B_BLOCK:  return SDIO_DataBlockSize_512b;
-//        case SDIO_1024B_BLOCK: return SDIO_DataBlockSize_1024b;
-//        case SDIO_2048B_BLOCK: return SDIO_DataBlockSize_2048b;
-        default: return 0;
-    }
-}
-
-void SDIO_IRQHandler(void)
-{
-  /* Process All SDIO Interrupt Sources */
-  sdio_irq();
-}
-
-void DMA2_Stream3_IRQHandler(void)
-{
-  dma_irq();
-}
-
-
-
-
 
 
 

@@ -267,6 +267,9 @@
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3161\platform_common_config.h</name>
       </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3161\platform_spi_flash.c</name>
+      </file>
     </group>
     <group>
       <name>MiCOKit-3162</name>
@@ -279,6 +282,9 @@
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\platform_common_config.h</name>
       </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\platform_spi_flash.c</name>
+      </file>
     </group>
     <group>
       <name>MICOKit-F205</name>
@@ -290,6 +296,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform_common_config.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform_spi_flash.c</name>
       </file>
     </group>
   </group>
@@ -389,9 +398,6 @@
       <name>Drivers</name>
       <group>
         <name>SPI Flash</name>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash\MiCOKit-F205.c</name>
-        </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash\spi_flash.c</name>
         </file>

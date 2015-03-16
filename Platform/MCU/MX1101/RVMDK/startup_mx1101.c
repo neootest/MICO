@@ -26,46 +26,6 @@ void memmanage_handler(void);
 void busfault_handler(void);
 void usagefault_handler(void);
 
-//static unsigned char sys_stack_heap[CFG_SYS_STACK_SIZE] __attribute__((section("MSP"))) = {0xA5,};
-
-//static void (*const vect_table[])(void) __attribute__((section("EXCEPT_VECTS"))) = {
-//    (void(*)(void))(0x20000000 + CFG_SYS_STACK_SIZE),	//   Top of Stack
-//    reset_handler,				//#1 :Reset Handler
-//    nmi_handler,				//#2 :NMI Handler
-//    hardfault_handler,			//#3 :Hard Fault Handler
-//    memmanage_handler,			//#4 :MPU Fault Handler
-//    busfault_handler,			//#5 :Bus Fault Handler
-//    usagefault_handler,			//#6 :Usage Fault Handler
-//    0,							//#7 :Reserved
-//    0,							//#8 :Reserved
-//    0,							//#9 :Reserved
-//    0,							//#10:Reserved
-//    SVC_Handler,			//#11:SVCall Handler
-//    0,							//#12:Debug Monitor Handler
-//    0,							//#13:Reserved
-//    PendSV_Handler,			//#14:PendSV Handler
-//    SysTick_Handler,			//#15:SysTick Handler
-//	
-
-//    //-----------External Interrupts---------------------
-//    GpioInterrupt, 				//#16: GPIO 
-//    RtcInterrupt,				//#17: RTC
-//    IrInterrupt,		    	//#18: IR
-//    FuartInterrupt,				//#19: FUART
-//    BuartInterrupt,				//#20: BUART 
-//    PwcInterrupt,				//#21: PWC 
-//    Timer0Interrupt,			//#22: TIMER0 
-//    UsbInterrupt,				//#23: USB 
-//    DmaCh0Interrupt,   			//#24: DMA CH0 
-//    DmaCh1Interrupt,		    //#25: DMA CH1 
-//    audio_decoder_interrupt_handler,      		//26: DECODER 
-//    SpisInterrupt,              //#27: SPIS
-//    SdInterrupt,				//#28: SDIO
-//    SpimInterrupt,              //#29: SPIM
-//    Timer1Interrupt,			//#30: TIMER1
-//    WatchDogInterrupt,			//#31: WatchDog
-//};
-		
 //******************************************************************************
 //
 // This is the code that gets called when the processor first starts execution
@@ -453,7 +413,7 @@ WatchDogInterrupt
 __user_initial_stackheap
 
                  LDR     R0, =  Heap_Mem
-                 LDR     R1, =(Stack_Mem + Stack_Size)
+                 LDR     R1, = (Stack_Mem + Stack_Size)
                  LDR     R2, = (Heap_Mem +  Heap_Size)
                  LDR     R3, = Stack_Mem
                  BX      LR

@@ -80,10 +80,6 @@ typedef struct
 
 static uart_interface_t uart_interfaces[NUMBER_OF_UART_INTERFACES];
 
-#ifndef NO_MICO_RTOS
-static mico_uart_t current_uart;
-#endif
-
 /******************************************************
 *               Function Declarations
 ******************************************************/
@@ -91,20 +87,8 @@ static mico_uart_t current_uart;
 static OSStatus internal_uart_init ( mico_uart_t uart, const mico_uart_config_t* config, ring_buffer_t* optional_rx_buffer );
 
 /* Interrupt service functions - called from interrupt vector table */
-#ifndef NO_MICO_RTOS
-static void thread_wakeup(void *arg);
-static void RX_PIN_WAKEUP_handler(void *arg);
-#endif
-
-void usart2_rx_dma_irq( void );
-void usart1_rx_dma_irq( void );
-void usart6_rx_dma_irq( void );
-void usart2_tx_dma_irq( void );
-void usart1_tx_dma_irq( void );
-void usart6_tx_dma_irq( void );
-void usart2_irq       ( void );
-void usart1_irq       ( void );
-void usart6_irq       ( void );
+void BuartInterrupt(void);
+void FuartInterrupt(void);
 
 /******************************************************
 *               Function Definitions
@@ -238,6 +222,7 @@ OSStatus MicoUartSend( mico_uart_t uart, const void* data, uint32_t size )
   while(uart_interfaces[ uart ].tx_complete == false);
   uart_interfaces[ uart ].tx_complete = false;
 #endif
+  return kNoErr;
 
 }
 
@@ -382,26 +367,22 @@ OSStatus BUartRecv( mico_uart_t uart, void* data, uint32_t size, uint32_t timeou
 OSStatus MicoUartRecv( mico_uart_t uart, void* data, uint32_t size, uint32_t timeout )
 {
   if(uart_mapping[uart].uart == FUART)
-    FUartRecv( uart, data, size, timeout );
+    return FUartRecv( uart, data, size, timeout );
   else if(uart_mapping[uart].uart == BUART)
-    BUartRecv( uart, data, size, timeout );
+    return BUartRecv( uart, data, size, timeout );
+  else
+    return kUnsupportedErr;
 }
 
 uint32_t MicoUartGetLengthInBuffer( mico_uart_t uart )
 {
-  uint32_t buart_rx_fifo_data_len = 0;
   if(uart_mapping[uart].uart == FUART)
     return ring_buffer_used_space( uart_interfaces[uart].rx_buffer );
   else if(uart_mapping[uart].uart == BUART){
     return BuartIOctl(BUART_IOCTL_RXFIFO_DATLEN_GET, 0);
   }
+  return 0;
 }
-
-#ifndef NO_MICO_RTOS
-static void thread_wakeup(void *arg)
-{
-}
-#endif
 
 /******************************************************
 *            Interrupt Service Routines
@@ -466,7 +447,6 @@ void FuartInterrupt(void)
 void BuartInterrupt(void)
 {
   int status;
-  uint8_t rxData;
   status = BuartIOctl(UART_IOCTL_RXSTAT_GET,0);
 
   if(status & 0x1E){

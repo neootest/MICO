@@ -165,10 +165,10 @@ typedef enum
 #ifdef BOOTLOADER
 #define STDIO_UART       MICO_UART_1
 #else
-#define UART_FOR_APP     MICO_UART_1
+#define UART_FOR_APP     MICO_UART_2
 #define STDIO_UART       MICO_UART_1
 #define MFG_TEST         MICO_UART_1
-#define CLI_UART         MICO_UART_2
+#define CLI_UART         MICO_UART_1
 #endif
 
 /* Memory map */

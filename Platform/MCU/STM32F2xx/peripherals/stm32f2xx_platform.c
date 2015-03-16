@@ -281,6 +281,19 @@ void init_architecture( void )
   stm32_platform_inited = 1;  
 }
 
+OSStatus stdio_hardfault( char* data, uint32_t size )
+{
+#ifndef MICO_DISABLE_STDIO
+  uint32_t idx;
+  for(idx = 0; idx < size; idx++){
+    while ( ( uart_mapping[ STDIO_UART ].usart->SR & USART_SR_TXE ) == 0 );
+    uart_mapping[ STDIO_UART ].usart->DR = (data[idx] & (uint16_t)0x01FF);
+    
+  }
+#endif
+  return kNoErr;
+}
+
 /******************************************************
 *            Interrupt Service Routines
 ******************************************************/
