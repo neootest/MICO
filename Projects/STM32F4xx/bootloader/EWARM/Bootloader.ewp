@@ -175,6 +175,7 @@
           <state>USE_STDPERIPH_DRIVER</state>
           <state>DEBUG</state>
           <state>BOOTLOADER</state>
+          <state>HSE_VALUE=26000000</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -1130,6 +1131,7 @@
           <state>USE_STDPERIPH_DRIVER</state>
           <state>DEBUG</state>
           <state>BOOTLOADER</state>
+          <state>HSE_VALUE=16000000</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
