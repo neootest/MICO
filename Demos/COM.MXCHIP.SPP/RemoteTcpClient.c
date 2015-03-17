@@ -59,12 +59,15 @@ void remoteTcpClient_thread(void *inContext)
   mico_Context_t *Context = inContext;
   struct sockaddr_t addr;
   fd_set readfds;
+  fd_set writeSet;
   char ipstr[16];
   struct timeval_t t;
-  int remoteTcpClient_loopBack_fd = -1;
   int remoteTcpClient_fd = -1;
   uint8_t *inDataBuffer = NULL;
-  uint8_t *outDataBuffer = NULL;  
+  int eventFd = -1;
+  mico_queue_t queue;
+  socket_msg_t *msg;
+  int sent_len, errno;
   
   mico_rtos_init_semaphore(&_wifiConnected_sem, 1);
   
@@ -74,19 +77,7 @@ void remoteTcpClient_thread(void *inContext)
   
   inDataBuffer = malloc(wlanBufferLen);
   require_action(inDataBuffer, exit, err = kNoMemoryErr);
-  outDataBuffer = malloc(wlanBufferLen);
-  require_action(inDataBuffer, exit, err = kNoMemoryErr);
   
-  /*Loopback fd, recv data from other thread */
-  remoteTcpClient_loopBack_fd = socket( AF_INET, SOCK_DGRM, IPPROTO_UDP );
-  require_action(IsValidSocket( remoteTcpClient_loopBack_fd ), exit, err = kNoResourcesErr );
-  addr.s_ip = IPADDR_LOOPBACK;
-  addr.s_port = REMOTE_TCP_CLIENT_LOOPBACK_PORT;
-  err = bind( remoteTcpClient_loopBack_fd, &addr, sizeof(addr) );
-  require_noerr( err, exit );
-  
-  t.tv_sec = 4;
-  t.tv_usec = 0;
   
   while(1) {
     if(remoteTcpClient_fd == -1 ) {
@@ -102,50 +93,70 @@ void remoteTcpClient_thread(void *inContext)
       
       err = connect(remoteTcpClient_fd, &addr, sizeof(addr));
       require_noerr_quiet(err, ReConnWithDelay);
-      
-      Context->appStatus.isRemoteConnected = true;
       client_log("Remote server connected at port: %d, fd: %d",  Context->flashContentInRam.appConfig.remoteServerPort,
                  remoteTcpClient_fd);
+      
+      err = socket_queue_create(Context, &queue);
+      require_noerr( err, exit );
+      eventFd = mico_create_event_fd(queue);
+      if (eventFd < 0) {
+        client_log("create event fd error");
+        goto ReConnWithDelay;
+      }
     }else{
       FD_ZERO(&readfds);
       FD_SET(remoteTcpClient_fd, &readfds);
-      FD_SET(remoteTcpClient_loopBack_fd, &readfds);
+      FD_SET(eventFd, &readfds); 
+      FD_ZERO(&writeSet );
+      FD_SET(remoteTcpClient_fd, &writeSet );
+      t.tv_sec = 4;
+      t.tv_usec = 0;
+      select(1, &readfds, &writeSet, NULL, &t);
+      /* send UART data */
+      if ((FD_ISSET( eventFd, &readfds )) && (FD_ISSET(remoteTcpClient_fd, &writeSet ))) {// have data and can write
+        if (kNoErr == mico_rtos_pop_from_queue( &queue, &msg, 0)) {
+           sent_len = write(remoteTcpClient_fd, msg->data, msg->len);
+           if (sent_len <= 0) {
+            len = sizeof(errno);
+            getsockopt(remoteTcpClient_fd, SOL_SOCKET, SO_ERROR, &errno, &len);
       
-      select(1, &readfds, NULL, NULL, &t);
-      
-      /*recv UART data using loopback fd*/
-      if (FD_ISSET( remoteTcpClient_loopBack_fd, &readfds) ) {
-        len = recv( remoteTcpClient_loopBack_fd, outDataBuffer, wlanBufferLen, 0 );
-        SocketSend( remoteTcpClient_fd, outDataBuffer, len );
+            socket_msg_free(msg);
+            if (errno != ENOMEM) {
+                client_log("write error, fd: %d, errno %d", remoteTcpClient_fd,errno );
+                goto ReConnWithDelay;
+            }
+           } else {
+                    socket_msg_free(msg);
+                }
+            }
       }
-      
       /*recv wlan data using remote client fd*/
       if (FD_ISSET(remoteTcpClient_fd, &readfds)) {
         len = recv(remoteTcpClient_fd, inDataBuffer, wlanBufferLen, 0);
         if(len <= 0) {
           client_log("Remote client closed, fd: %d", remoteTcpClient_fd);
-          Context->appStatus.isRemoteConnected = false;
           goto ReConnWithDelay;
         }
         sppWlanCommandProcess(inDataBuffer, &len, remoteTcpClient_fd, Context);
-
       }
 
     Continue:    
       continue;
       
     ReConnWithDelay:
+      if (eventFd >= 0) {
+        mico_delete_event_fd(eventFd);
+      }
+      socket_queue_delete(Context, &queue);
       if(remoteTcpClient_fd != -1){
         SocketClose(&remoteTcpClient_fd);
       }
       sleep(CLOUD_RETRY);
     }
   }
+    
 exit:
   if(inDataBuffer) free(inDataBuffer);
-  if(outDataBuffer) free(outDataBuffer);
-  if(remoteTcpClient_loopBack_fd != -1)
-    SocketClose(&remoteTcpClient_loopBack_fd);
   client_log("Exit: Remote TCP client exit with err = %d", err);
   mico_rtos_delete_thread(NULL);
   return;

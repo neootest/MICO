@@ -28,26 +28,27 @@
 #include "MICONotificationCenter.h"
 #include <stdio.h>
 
+#define MAX_SOCK_MSG_LEN (10*1024)
+int sockmsg_len = 0;
 #define spp_log(M, ...) custom_log("SPP", M, ##__VA_ARGS__)
 #define spp_log_trace() custom_log_trace("SPP")
 
-static int _recved_uart_loopback_fd = -1;
+void socket_msg_take(socket_msg_t*msg);
+void socket_msg_free(socket_msg_t*msg);
+
 
 OSStatus sppProtocolInit(mico_Context_t * const inContext)
 {
+  int i;
+  
   spp_log_trace();
-  OSStatus err = kUnknownErr;
   (void)inContext;
-  struct sockaddr_t addr;
 
-  inContext->appStatus.isRemoteConnected = false;
-
-  _recved_uart_loopback_fd = socket(AF_INET, SOCK_DGRM, IPPROTO_UDP);
-  addr.s_ip = IPADDR_LOOPBACK;
-  addr.s_port = RECVED_UART_DATA_LOOPBACK_PORT;
-  bind(_recved_uart_loopback_fd, &addr, sizeof(addr));
-
-  return err;
+  for(i=0; i < MAX_QUEUE_NUM; i++) {
+    inContext->appStatus.socket_out_queue[i] = NULL;
+  }
+  mico_rtos_init_mutex(&inContext->appStatus.queue_mtx);
+  return kNoErr;
 }
 
 OSStatus sppWlanCommandProcess(unsigned char *inBuf, int *inBufLen, int inSocketFd, mico_Context_t * const inContext)
@@ -68,24 +69,97 @@ OSStatus sppUartCommandProcess(uint8_t *inBuf, int inLen, mico_Context_t * const
   spp_log_trace();
   OSStatus err = kNoErr;
   int i;
-  struct sockaddr_t addr;
+  mico_queue_t* p_queue;
+  socket_msg_t *real_msg;
 
-  addr.s_ip = IPADDR_LOOPBACK;
+  if (MAX_SOCK_MSG_LEN < sockmsg_len)
+    return kNoMemoryErr;
+  real_msg = (socket_msg_t*)malloc(sizeof(socket_msg_t) - 1 + inLen);
 
-  for(i=0; i < MAX_Local_Client_Num; i++) {
-    if( inContext->appStatus.loopBack_PortList[i] != 0 ){
-      addr.s_port = inContext->appStatus.loopBack_PortList[i];
-      sendto(_recved_uart_loopback_fd, inBuf, inLen, 0, &addr, sizeof(addr));
+  if (real_msg == NULL)
+    return kNoMemoryErr;
+  sockmsg_len += (sizeof(socket_msg_t) - 1 + inLen);
+  real_msg->len = inLen;
+  memcpy(real_msg->data, inBuf, inLen);
+  real_msg->ref = 0;
+  
+  mico_rtos_lock_mutex(&inContext->appStatus.queue_mtx);
+  socket_msg_take(real_msg);
+  for(i=0; i < MAX_QUEUE_NUM; i++) {
+    p_queue = inContext->appStatus.socket_out_queue[i];
+    if(p_queue  != NULL ){
+      socket_msg_take(real_msg);
+      if (kNoErr != mico_rtos_push_to_queue(p_queue, &real_msg, 0)) {
+        socket_msg_free(real_msg);
     }
   }
-
-  if(inContext->appStatus.isRemoteConnected==true){
-    addr.s_ip = IPADDR_LOOPBACK;
-    addr.s_port = REMOTE_TCP_CLIENT_LOOPBACK_PORT;
-    sendto(_recved_uart_loopback_fd, inBuf, inLen, 0, &addr, sizeof(addr));
   }        
+  socket_msg_free(real_msg);
+  mico_rtos_unlock_mutex(&inContext->appStatus.queue_mtx);
   return err;
 }
 
+void socket_msg_take(socket_msg_t*msg)
+{
+    msg->ref++;
+}
 
+void socket_msg_free(socket_msg_t*msg)
+{
+    msg->ref--;
+    if (msg->ref == 0) {
+        sockmsg_len -= (sizeof(socket_msg_t) - 1 + msg->len);
+        free(msg);
+    
+    }
+}
+
+int socket_queue_create(mico_Context_t * const inContext, mico_queue_t *queue)
+{
+    OSStatus err;
+    int i;
+    mico_queue_t *p_queue;
+    
+    err = mico_rtos_init_queue(queue, "sockqueue", sizeof(int), MAX_QUEUE_LENGTH);
+    if (err != kNoErr)
+        return -1;
+    mico_rtos_lock_mutex(&inContext->appStatus.queue_mtx);
+    for(i=0; i < MAX_QUEUE_NUM; i++) {
+        p_queue = inContext->appStatus.socket_out_queue[i];
+        if(p_queue == NULL ){
+            inContext->appStatus.socket_out_queue[i] = queue;
+            mico_rtos_unlock_mutex(&inContext->appStatus.queue_mtx);
+            return 0;
+        }
+    }        
+    mico_rtos_unlock_mutex(&inContext->appStatus.queue_mtx);
+    mico_rtos_deinit_queue(queue);
+    return -1;
+}
+
+int socket_queue_delete(mico_Context_t * const inContext, mico_queue_t *queue)
+{
+    int i;
+    socket_msg_t *msg;
+    int ret = -1;
+
+    mico_rtos_lock_mutex(&inContext->appStatus.queue_mtx);
+    // remove queue
+    for(i=0; i < MAX_QUEUE_NUM; i++) {
+        if (queue == inContext->appStatus.socket_out_queue[i]) {
+            inContext->appStatus.socket_out_queue[i] = NULL;
+            ret = 0;
+        }
+    }
+    mico_rtos_unlock_mutex(&inContext->appStatus.queue_mtx);
+    // free queue buffer
+    while(kNoErr == mico_rtos_pop_from_queue( queue, &msg, 0)) {
+        socket_msg_free(msg);
+    }
+
+    // deinit queue
+    mico_rtos_deinit_queue(queue);
+    
+    return ret;
+}
 

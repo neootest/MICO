@@ -1,3 +1,29 @@
+版本号：31620002.026
+日期：2015-03-17
+1. Fix Select max FD size can't support OS event FD. 之前最大的FD size是17，而OS event的fd从是16到23.
+2. Changed: TCP write return immediately and set errno to ENOMEM when memory low. 之前在内存不足的时候write会卡住，直到TCP_MAXRTX重试超时才能退出，需要较长时间。
+3. Change TX_POOL_SIZE from 7 to 2. 由于TX_POOL仅用于UDP发送和WIFI命令的发送，不需要如此多的memory，可以节省空间。
+4. Change TCP_MAXRTX from 12 to 5. 加快当TCP无法发送数据而返回错误的速度。
+		
+版本号：31620002.025
+日期：2015-03-11
+1. 支持阿里Beacon IE的配置模式：
+	该功能集成在OpenAlink API里面，当启动alink配置之后，就会检查Beacon IE，probe response中的特殊IE，也会按照阿里一键配网协议去抓包。
+	int alink_get_tpsk(uint8_t *ie,  char *tpsk) // 回调函数，当接收到这种beacon/Probe response数据包就调用这个函数，。
+		参数：ie指向该阿里特殊IE；tpsk用于返回密码。
+
+
+	
+版本号：31620002.024
+日期：2015-03-04
+1. 支持Easylin V3。int OpenEasylink3(void)、int CloseEasylink3(void)
+2. Added weak var：int CFG_PRIO_BITS; 设置不同MCU的mask bit。
+3. 增加weak API：wiced_bool_t host_platform_is_sdio_int_asserted(void);设置wwd_thread是否需要take semphore。在某些状态下不需要等待IRQ触发就直接去读取数据。
+
+版本号：31620002.023
+日期：2015-02-26
+1. 修正了EasyLink，Airkiss等无法获取超过32字节的Key。
+
 版本号：31620002.022
 日期：2015-02-10
 1. 由于同阿里的库存在API命名冲突，把阿里一键配置协议的API修改为：

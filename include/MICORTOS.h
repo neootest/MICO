@@ -56,6 +56,8 @@ typedef void* mico_semaphore_t;
 typedef void* mico_mutex_t;
 typedef void* mico_thread_t;
 typedef void* mico_queue_t;
+typedef void* mico_event;// MICO OS event: mico_semaphore_t, mico_mutex_t or mico_queue_t
+
 typedef void (*timer_handler_t)( void* arg );
 
 typedef struct
@@ -503,6 +505,9 @@ OSStatus mico_deinit_timer( mico_timer_t* timer );
   * @return   false       : if not running
   */
 bool mico_is_timer_running( mico_timer_t* timer );
+
+int mico_create_event_fd(mico_event handle);
+int mico_delete_event_fd(int fd);
 
 /**
   * @}

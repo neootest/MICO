@@ -32,5 +32,9 @@ OSStatus sppUartCommandProcess(uint8_t *inBuf, int inLen, mico_Context_t * const
 
 
 void set_network_state(int state, int on);
+int socket_queue_create(mico_Context_t * const inContext, mico_queue_t *queue);
+int socket_queue_delete(mico_Context_t * const inContext, mico_queue_t *queue);
+void socket_msg_free(socket_msg_t*msg);
+void socket_msg_take(socket_msg_t*msg);
 
 #endif

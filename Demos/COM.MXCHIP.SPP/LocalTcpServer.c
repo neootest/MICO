@@ -30,9 +30,6 @@
 #define server_log(M, ...) custom_log("TCP SERVER", M, ##__VA_ARGS__)
 #define server_log_trace() custom_log_trace("TCP SERVER")
 
-const int loopBackPortTable[20] = { 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013, 
-                                    1014, 1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023};
-
 static void localTcpClient_thread(void *inFd);
 static mico_Context_t *Context;
 
@@ -42,7 +39,7 @@ void localTcpServer_thread(void *inContext)
 {
   server_log_trace();
   OSStatus err = kUnknownErr;
-  int i, j;
+  int j;
   Context = inContext;
   struct sockaddr_t addr;
   int sockaddr_t_size;
@@ -50,9 +47,6 @@ void localTcpServer_thread(void *inContext)
   char ip_address[16];
   
   int localTcpListener_fd = -1;
-
-  for(i=0; i < MAX_Local_Client_Num; i++) 
-    Context->appStatus.loopBack_PortList[i] = 0;
 
   /*Establish a TCP server fd that accept the tcp clients connections*/ 
   localTcpListener_fd = socket( AF_INET, SOCK_STREAM, IPPROTO_TCP );
@@ -94,37 +88,27 @@ exit:
 void localTcpClient_thread(void *inFd)
 {
   OSStatus err;
-  int i;
-  int indexForPortTable;
   int clientFd = *(int *)inFd;
-  int clientLoopBackFd = -1;
   uint8_t *inDataBuffer = NULL;
-  uint8_t *outDataBuffer = NULL;
   int len;
-  struct sockaddr_t addr;
   fd_set readfds;
+  fd_set writeSet;
   struct timeval_t t;
+  int eventFd = -1;
+  mico_queue_t queue;
+  socket_msg_t *msg;
+  int sent_len, errno;
 
   inDataBuffer = malloc(wlanBufferLen);
   require_action(inDataBuffer, exit, err = kNoMemoryErr);
-  outDataBuffer = malloc(wlanBufferLen);
-  require_action(outDataBuffer, exit, err = kNoMemoryErr);
 
-  for(i=0; i < MAX_Local_Client_Num; i++) {
-    if( Context->appStatus.loopBack_PortList[i] == 0 ){
-      Context->appStatus.loopBack_PortList[i] = loopBackPortTable[clientFd];
-      indexForPortTable = i;
-      break;
-    }
-  }
-
-  /*Loopback fd, recv data from other thread */
-  clientLoopBackFd = socket( AF_INET, SOCK_DGRM, IPPROTO_UDP );
-  require_action(IsValidSocket( clientLoopBackFd ), exit, err = kNoResourcesErr );
-  addr.s_ip = IPADDR_LOOPBACK;
-  addr.s_port = Context->appStatus.loopBack_PortList[indexForPortTable];
-  err = bind( clientLoopBackFd, &addr, sizeof(addr) );
+  err = socket_queue_create(Context, &queue);
   require_noerr( err, exit );
+  eventFd = mico_create_event_fd(queue);
+  if (eventFd < 0) {
+    server_log("create event fd error");
+    goto exit_with_queue;
+  } 
 
   t.tv_sec = 4;
   t.tv_usec = 0;
@@ -133,32 +117,48 @@ void localTcpClient_thread(void *inFd)
 
     FD_ZERO(&readfds);
     FD_SET(clientFd, &readfds); 
-    FD_SET(clientLoopBackFd, &readfds); 
+    FD_SET(eventFd, &readfds); 
+    FD_ZERO(&writeSet );
+    FD_SET(clientFd, &writeSet );
 
-    select(1, &readfds, NULL, NULL, &t);
-
-    /*recv UART data using loopback fd*/
-    if (FD_ISSET( clientLoopBackFd, &readfds )) {
-      len = recv( clientLoopBackFd, outDataBuffer, wlanBufferLen, 0 );
-      SocketSend( clientFd, outDataBuffer, len );
-    }
+    select(24, &readfds, &writeSet, NULL, &t);
+    /* send UART data */
+    if ((FD_ISSET( eventFd, &readfds )) && (FD_ISSET( clientFd, &writeSet ))) { // have data and can write
+        if(kNoErr == mico_rtos_pop_from_queue( &queue, &msg, 0)) {
+           sent_len = write(clientFd, msg->data, msg->len);
+           if (sent_len <= 0) {
+              len = sizeof(errno);
+              getsockopt(clientFd, SOL_SOCKET, SO_ERROR, &errno, &len);
+              socket_msg_free(msg);
+              server_log("write error, fd: %d, errno %d", clientFd, errno );
+              if (errno != ENOMEM) {
+                  goto exit_with_queue;
+              }
+           } else {
+                  socket_msg_free(msg);
+              }
+           }
+        }
 
     /*Read data from tcp clients and process these data using HA protocol */ 
     if (FD_ISSET(clientFd, &readfds)) {
       len = recv(clientFd, inDataBuffer, wlanBufferLen, 0);
-      require_action_quiet(len>0, exit, err = kConnectionErr);
+      require_action_quiet(len>0, exit_with_queue, err = kConnectionErr);
       sppWlanCommandProcess(inDataBuffer, &len, clientFd, Context);
     }
   }
 
+exit_with_queue:
+    len = sizeof(errno);
+    getsockopt(clientFd, SOL_SOCKET, SO_ERROR, &errno, &len);
+    server_log("Exit: Client exit with err = %d, socket errno %d", err, errno);
+    if (eventFd >= 0) {
+        mico_delete_event_fd(eventFd);
+    }
+    socket_queue_delete(Context, &queue);
 exit:
-    server_log("Exit: Client exit with err = %d", err);
-    Context->appStatus.loopBack_PortList[indexForPortTable] = 0;
-    if(clientLoopBackFd != -1)
-      SocketClose(&clientLoopBackFd);
     SocketClose(&clientFd);
     if(inDataBuffer) free(inDataBuffer);
-    if(outDataBuffer) free(outDataBuffer);
     mico_rtos_delete_thread(NULL);
     return;
 }

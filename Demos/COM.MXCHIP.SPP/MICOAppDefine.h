@@ -24,6 +24,7 @@
 #ifndef __MICOAPPDEFINE_H
 #define __MICOAPPDEFINE_H
 
+#include "MICO.h"
 #include "Common.h"
 
 #define APP_INFO   "mxchipWNet SPP Demo based on MICO OS"
@@ -38,7 +39,8 @@
 
 /*User provided configurations*/
 #define CONFIGURATION_VERSION               0x00000002 // if default configuration is changed, update this number
-#define MAX_Local_Client_Num                8
+#define MAX_QUEUE_NUM                       6  // 1 remote client, 5 local server
+#define MAX_QUEUE_LENGTH                    8  // each queue max 8 msg
 #define LOCAL_PORT                          8080
 #define DEAFULT_REMOTE_SERVER               "192.168.2.254"
 #define DEFAULT_REMOTE_SERVER_PORT          8080
@@ -82,12 +84,17 @@ typedef struct
   uint32_t          USART_BaudRate;
 } application_config_t;
 
+typedef struct _socket_msg {
+  int ref;
+  int len;
+  uint8_t data[1];
+} socket_msg_t;
+
 /*Running status*/
 typedef struct _current_app_status_t {
   /*Local clients port list*/
-  uint32_t          loopBack_PortList[MAX_Local_Client_Num];
-  /*Remote TCP client connecte*/
-  bool              isRemoteConnected;
+  mico_queue_t*  socket_out_queue[MAX_QUEUE_NUM];
+  mico_mutex_t   queue_mtx;
 } current_app_status_t;
 
 
