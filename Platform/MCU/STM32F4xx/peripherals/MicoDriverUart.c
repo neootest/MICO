@@ -64,6 +64,7 @@ typedef struct
 #ifndef NO_MICO_RTOS
   mico_semaphore_t    rx_complete;
   mico_semaphore_t    tx_complete;
+  mico_mutex_t        tx_mutex;
 #else
   volatile bool       rx_complete;
   volatile bool       tx_complete;
@@ -431,6 +432,9 @@ OSStatus MicoUartFinalize( mico_uart_t uart )
 
 OSStatus MicoUartSend( mico_uart_t uart, const void* data, uint32_t size )
 {
+#ifndef NO_MICO_RTOS
+  mico_rtos_lock_mutex(&uart_interfaces[uart].tx_mutex);
+#endif
   /* Reset DMA transmission result. The result is assigned in interrupt handler */
   uart_interfaces[uart].tx_dma_result = kGeneralErr;
   
@@ -459,7 +463,9 @@ OSStatus MicoUartSend( mico_uart_t uart, const void* data, uint32_t size )
   USART_DMACmd( uart_mapping[uart].usart, USART_DMAReq_Tx, DISABLE );
   
   MicoMcuPowerSaveConfig(true);
-  
+#ifndef NO_MICO_RTOS
+  mico_rtos_unlock_mutex(&uart_interfaces[uart].tx_mutex);
+#endif  
   return uart_interfaces[uart].tx_dma_result;
   //#endif
 }

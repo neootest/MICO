@@ -65,6 +65,7 @@ typedef struct
 #ifndef NO_MICO_RTOS
   mico_semaphore_t    rx_complete;
   mico_semaphore_t    tx_complete;
+  mico_mutex_t        tx_mutex;
 #else
   volatile bool       rx_complete;
   volatile bool       tx_complete;
@@ -208,16 +209,25 @@ OSStatus MicoUartFinalize( mico_uart_t uart )
 
 OSStatus MicoUartSend( mico_uart_t uart, const void* data, uint32_t size )
 {
+#ifndef NO_MICO_RTOS
+  mico_rtos_lock_mutex(&uart_interfaces[uart].tx_mutex);
+#endif
   if(uart_mapping[uart].uart == FUART){
     FuartSend( (uint8_t *)data, size);
+#ifndef NO_MICO_RTOS    
+    mico_rtos_unlock_mutex(&uart_interfaces[uart].tx_mutex);
+#endif
     return kNoErr;
   }else if(uart_mapping[uart].uart == BUART){
     BuartSend( (uint8_t *)data, size);
-  }else
+  }else {
+    mico_rtos_unlock_mutex(&uart_interfaces[uart].tx_mutex);
     return kUnsupportedErr;
+  }
  
 #ifndef NO_MICO_RTOS
   mico_rtos_get_semaphore( &uart_interfaces[ uart ].tx_complete, MICO_NEVER_TIMEOUT );
+  mico_rtos_unlock_mutex(&uart_interfaces[uart].tx_mutex);
 #else 
   while(uart_interfaces[ uart ].tx_complete == false);
   uart_interfaces[ uart ].tx_complete = false;

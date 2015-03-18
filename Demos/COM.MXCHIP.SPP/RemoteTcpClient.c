@@ -101,6 +101,7 @@ void remoteTcpClient_thread(void *inContext)
       eventFd = mico_create_event_fd(queue);
       if (eventFd < 0) {
         client_log("create event fd error");
+        socket_queue_delete(Context, &queue);
         goto ReConnWithDelay;
       }
     }else{
@@ -144,14 +145,16 @@ void remoteTcpClient_thread(void *inContext)
       continue;
       
     ReConnWithDelay:
-      if (eventFd >= 0) {
-        mico_delete_event_fd(eventFd);
-      }
-      socket_queue_delete(Context, &queue);
-      if(remoteTcpClient_fd != -1){
-        SocketClose(&remoteTcpClient_fd);
-      }
-      sleep(CLOUD_RETRY);
+        if (eventFd >= 0) {
+          mico_delete_event_fd(eventFd);
+          socket_queue_delete(Context, &queue);
+        }
+        if(remoteTcpClient_fd != -1){
+        
+        
+          SocketClose(&remoteTcpClient_fd);
+        }
+        sleep(CLOUD_RETRY);
     }
   }
     
