@@ -519,14 +519,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "bootloader.sublime-project",
-			"settings":
-			{
-				"buffer_size": 1540,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -588,7 +580,15 @@
 	},
 	"file_history":
 	[
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MX1101_EVB/platform.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Projects/MX1101/bootloader/sublime/bootloader.sublime-project",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/MX1101/peripherals/MicoDriverUart.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-3288/platform.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-F205/platform.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-3165/platform.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-3161/platform.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-3088/platform.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/EMW5062/platform.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/MX1101/RVMDK/startup_mx1101.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/STM32F2xx/RVMDK/startup_stm32f2xx_RVMDK.s",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/MX1101/RVMDK/startup_mx1101.s",
@@ -604,7 +604,6 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-3088/platform.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-3088/platform_common_config.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/MX1101/peripherals/Libraries/inc/timeout.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Projects/MX1101/bootloader/sublime/bootloader.sublime-project",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/LPCXpresso54102/platform.c",
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/include/platformInternal.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverUart.h",
@@ -708,14 +707,7 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformFlash.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Projects/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverRtc.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/SDIO/wwd_bus.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/SPI/wwd_bus.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/system_stm32f2xx.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/WPS/WPS.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/STM32F2xx_StdPeriph_Driver/src/stm32f2xx_rtc.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/WAC/WAC.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformUartxx.c",
-		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform.h"
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/SDIO/wwd_bus.c"
 	],
 	"find":
 	{
@@ -723,7 +715,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
 			"<open folders>",
@@ -742,6 +734,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"SFLASH_SUPPORT_MACRONIX_PART",
+			"SFLASH_SUPPORT_MACRONIX_PARTS",
 			"get_IPSR",
 			"__get_IPSR",
 			"ipsr",
@@ -867,9 +861,7 @@
 			"host_platform_init",
 			"//",
 			"thread_wakeup",
-			"mico_uart_t",
-			"dma_peripheral_clock",
-			"peripheral_clock_func_t"
+			"mico_uart_t"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -889,36 +881,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "bootloader.sublime-project",
-					"settings":
-					{
-						"buffer_size": 1540,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								277,
-								277
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 40.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],

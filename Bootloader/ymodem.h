@@ -63,8 +63,8 @@
 #define ABORT1                  (0x41)  /* 'A' == 0x41, abort by user */
 #define ABORT2                  (0x61)  /* 'a' == 0x61, abort by user */
 
-#define NAK_TIMEOUT             (500)
-#define MAX_ERRORS              (5)
+#define NAK_TIMEOUT             (50)
+#define MAX_ERRORS              (20)
 
 /* Exported functions ------------------------------------------------------- */
 int32_t Ymodem_Receive (uint8_t *buf, mico_flash_t flash, uint32_t flashdestination, int32_t maxRecvSize);

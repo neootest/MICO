@@ -67,6 +67,7 @@ static sflash_handle_t sflash_handle = {0x0, 0x0, SFLASH_WRITE_NOT_ALLOWED};
 #endif
 /* Private function prototypes -----------------------------------------------*/
 static uint32_t _GetSector( uint32_t Address );
+static OSStatus _GetAddress(uint32_t sector, uint32_t *startAddress, uint32_t *endAddress);
 static OSStatus internalFlashInitialize( void );
 static OSStatus internalFlashErase(uint32_t StartAddress, uint32_t EndAddress);
 static OSStatus internalFlashWrite(volatile uint32_t* FlashAddress, uint32_t* Data ,uint32_t DataLength);
@@ -194,7 +195,7 @@ OSStatus internalFlashErase(uint32_t StartAddress, uint32_t EndAddress)
 {
   platform_log_trace();
   OSStatus err = kNoErr;
-  uint32_t StartSector, EndSector, i = 0;
+  uint32_t StartSector, EndSector, i = 0, j = 0;
   
   /* Get the sector where start the user flash area */
   StartSector = _GetSector(StartAddress);
@@ -204,6 +205,13 @@ OSStatus internalFlashErase(uint32_t StartAddress, uint32_t EndAddress)
   {
     /* Device voltage range supposed to be [2.7V to 3.6V], the operation will
     be done by word */
+    _GetAddress(i, &StartAddress, &EndAddress);
+    for(j=StartAddress; j<=EndAddress; j+=8){
+      if( (*(uint32_t *)(j))!=0xFFFFFFFF )
+        break;
+    }
+    if( j>EndAddress ) 
+      continue;
     require_action(FLASH_EraseSector(i, VoltageRange_3) == FLASH_COMPLETE, exit, err = kWriteErr); 
   }
   
@@ -417,3 +425,79 @@ static uint32_t _GetSector(uint32_t Address)
   }
   return sector;
 }
+
+
+/**
+* @brief  Gets the address of a given sector
+* @param  Sector: The sector of a given address
+* @retval Flash address if the sector start
+*/
+static OSStatus _GetAddress(uint32_t sector, uint32_t *startAddress, uint32_t *endAddress)
+{
+  OSStatus err = kNoErr; 
+  if(sector == FLASH_Sector_0)
+  {
+    *startAddress = ADDR_FLASH_SECTOR_0;
+    *endAddress = ADDR_FLASH_SECTOR_1 - 1;
+  }
+  else if(sector == FLASH_Sector_1)
+  {
+    *startAddress = ADDR_FLASH_SECTOR_1;
+    *endAddress = ADDR_FLASH_SECTOR_2 - 1;
+  }
+  else if(sector == FLASH_Sector_2)
+  {
+    *startAddress = ADDR_FLASH_SECTOR_2;
+    *endAddress = ADDR_FLASH_SECTOR_3 - 1;
+  }
+  else if(sector == FLASH_Sector_3)
+  {
+    *startAddress = ADDR_FLASH_SECTOR_3;
+    *endAddress = ADDR_FLASH_SECTOR_4 - 1;
+  }
+  else if(sector == FLASH_Sector_4)
+  {
+    *startAddress = ADDR_FLASH_SECTOR_4;
+    *endAddress = ADDR_FLASH_SECTOR_5 - 1;
+  }
+  else if(sector == FLASH_Sector_5)
+  {
+    *startAddress = ADDR_FLASH_SECTOR_5;
+    *endAddress = ADDR_FLASH_SECTOR_6 - 1;
+  }
+  else if(sector == FLASH_Sector_6)
+  {
+    *startAddress = ADDR_FLASH_SECTOR_6;
+    *endAddress = ADDR_FLASH_SECTOR_7 - 1;
+  }
+  else if(sector == FLASH_Sector_7)
+  {
+    *startAddress = ADDR_FLASH_SECTOR_7;
+    *endAddress = ADDR_FLASH_SECTOR_8 - 1;
+  }
+  else if(sector == FLASH_Sector_8)
+  {
+    *startAddress = ADDR_FLASH_SECTOR_8;
+    *endAddress = ADDR_FLASH_SECTOR_9 - 1;
+  }
+  else if(sector == FLASH_Sector_9)
+  {
+    *startAddress = ADDR_FLASH_SECTOR_9;
+    *endAddress = ADDR_FLASH_SECTOR_10 - 1;
+  }
+  else if(sector == FLASH_Sector_10)
+  {
+    *startAddress = ADDR_FLASH_SECTOR_10;
+    *endAddress = ADDR_FLASH_SECTOR_11 - 1;
+  }
+  else if(sector == FLASH_Sector_11)
+  {
+    *startAddress = ADDR_FLASH_SECTOR_11;
+    *endAddress = FLASH_END_ADDRESS - 1;
+  }
+  else
+    err = kNotFoundErr;
+  
+  return err;
+}
+
