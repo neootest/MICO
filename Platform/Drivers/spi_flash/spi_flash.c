@@ -156,7 +156,7 @@ int sflash_write_page( const sflash_handle_t* const handle, unsigned long device
 #ifdef SFLASH_SUPPORT_MACRONIX_PARTS
     if ( SFLASH_MANUFACTURER( handle->device_id ) == SFLASH_MANUFACTURER_MACRONIX )
     {
-        max_write_size = 1;  /* TODO: this should be 256, but that causes write errors */
+        max_write_size = 256;  /* TODO: this should be 256, but that causes write errors */
         enable_before_every_write = 1;
     }
 #endif /* ifdef SFLASH_SUPPORT_MACRONIX_PARTS */
@@ -425,6 +425,8 @@ int generic_sflash_command( const sflash_handle_t* const handle, sflash_command_
             {
                 return status;
             }
+
+            
         } while( ( status_register & SFLASH_STATUS_REGISTER_BUSY ) != 0 );
 
     }

@@ -46,9 +46,9 @@ extern "C"
  *                    Constants
  ******************************************************/
   
-#define HARDWARE_REVISION   "5162"
-#define DEFAULT_NAME        "EMW5162 Module"
-#define MODEL               "EMW5162"
+#define HARDWARE_REVISION   "5062_1"
+#define DEFAULT_NAME        "EMW5062 Module"
+#define MODEL               "EMW5062"
 
    
 /******************************************************

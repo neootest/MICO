@@ -49,7 +49,7 @@ extern "C"
  *                    Constants
  ******************************************************/
   
-#define HARDWARE_REVISION   "v1"
+#define HARDWARE_REVISION   "MKF205_1"
 #define DEFAULT_NAME        "MiCOKit F205"
 #define MODEL               "MiCOKit-205"
    
@@ -294,7 +294,7 @@ typedef enum
 } mico_flash_t;
 
 #define USE_MICO_SPI_FLASH
-//#define SFLASH_SUPPORT_MACRONIX_PART 
+//#define SFLASH_SUPPORT_MACRONIX_PARTS 
 //#define SFLASH_SUPPORT_SST_PARTS
 #define SFLASH_SUPPORT_WINBOND_PARTS
 

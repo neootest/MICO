@@ -17,7 +17,7 @@
         <debug>0</debug>
         <option>
           <name>ExePath</name>
-          <state>..\..\..\..\Build\COM.MXCHIP.SPP\MiCOKit-3165</state>
+          <state>..\..\..\..\Build\COM.MXCHIP.SPP\Output\MiCOKit-3165</state>
         </option>
         <option>
           <name>ObjPath</name>

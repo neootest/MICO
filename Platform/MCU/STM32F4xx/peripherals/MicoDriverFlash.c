@@ -218,6 +218,12 @@ OSStatus spiFlashErase(uint32_t StartAddress, uint32_t EndAddress)
   OSStatus err = kNoErr;
   uint32_t StartSector, EndSector, i = 0;
   
+  if( StartAddress == SPI_FLASH_START_ADDRESS && EndAddress == SPI_FLASH_END_ADDRESS ){
+    platform_log("Excute full chip erase");
+    require_action(sflash_chip_erase(&sflash_handle) == kNoErr, exit, err = kWriteErr);
+    goto exit;
+  }
+  
   /* Get the sector where start the user flash area */
   StartSector = StartAddress>>12;
   EndSector = EndAddress>>12;

@@ -143,6 +143,7 @@ OSStatus internal_uart_init( mico_uart_t uart, const mico_uart_config_t* config,
 #ifndef NO_MICO_RTOS
   mico_rtos_init_semaphore(&uart_interfaces[uart].tx_complete, 1);
   mico_rtos_init_semaphore(&uart_interfaces[uart].rx_complete, 1);
+  mico_rtos_init_mutex(&uart_interfaces[uart].tx_mutex);
 #else
   uart_interfaces[uart].tx_complete = false;
   uart_interfaces[uart].rx_complete = false;
@@ -423,6 +424,7 @@ OSStatus MicoUartFinalize( mico_uart_t uart )
 #ifndef NO_MICO_RTOS
   mico_rtos_deinit_semaphore(&uart_interfaces[uart].rx_complete);
   mico_rtos_deinit_semaphore(&uart_interfaces[uart].tx_complete);
+  mico_rtos_deinit_mutex(&uart_interfaces[uart].tx_mutex);
 #endif
   
   MicoMcuPowerSaveConfig(true);

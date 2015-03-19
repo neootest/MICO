@@ -46,9 +46,9 @@ extern "C"
  *                    Constants
  ******************************************************/
   
-#define HARDWARE_REVISION   "3288"
-#define DEFAULT_NAME        "EMW3288 Module"
-#define MODEL               "EMW3288"
+#define HARDWARE_REVISION   "MK3288_1"
+#define DEFAULT_NAME        "MiCOKit 3288"
+#define MODEL               "MiCOKit-3288"
 #define Bootloader_VISION   "V 0.1"
    
 /******************************************************
@@ -303,7 +303,7 @@ typedef enum
 } mico_flash_t;
 
 #define USE_MICO_SPI_FLASH
-//#define SFLASH_SUPPORT_MACRONIX_PART 
+//#define SFLASH_SUPPORT_MACRONIX_PARTS
 //#define SFLASH_SUPPORT_SST_PARTS
 #define SFLASH_SUPPORT_WINBOND_PARTS
 

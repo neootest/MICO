@@ -121,7 +121,7 @@ json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
   config_delegate_log_trace();
   char name[50], *tempString;
   OTA_Versions_t versions;
-  char rfVersion[50];
+  char rfVersion[50] = {0};
   json_object *sectors, *sector, *subMenuSectors, *subMenuSector, *mainObject = NULL;
 
   MicoGetRfVer( rfVersion, 50 );

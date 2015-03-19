@@ -133,8 +133,8 @@ int findCommandPara(char *commandBody, char *para, char *paraBody, int paraBodyL
   i = 0;
   while(commandBody[i] != 0) {
     if(commandBody[i] == '-' ){
-      for(j=i+1, k=0; *(para+k)!=0x0; j++, k++ ){
-        if(commandBody[j] != *(para+k)){
+      for(j=i+1, k=0; *(para_in_ram+k)!=0x0; j++, k++ ){
+        if(commandBody[j] != *(para_in_ram+k)){
           break;
         } 
       }

@@ -127,6 +127,7 @@ OSStatus update(void)
   uint32_t updateStartAddress;
   uint32_t destStartAddress_tmp;
   uint32_t paraStartAddress;
+  uint32_t copyLength;
   OSStatus err = kNoErr;
  
   MicoFlashInitialize( (mico_flash_t)MICO_FLASH_FOR_UPDATE );
@@ -179,34 +180,29 @@ OSStatus update(void)
   err = MicoFlashErase( destFlashType, destStartAddress, destEndAddress );
   require_noerr(err, exit);
   size = (updateLog.length)/SizePerRW;
+  
   for(i = 0; i <= size; i++){
-    if( i==size && (updateLog.length)%SizePerRW){
-      err = MicoFlashRead(MICO_FLASH_FOR_UPDATE, &updateStartAddress, data , (updateLog.length)%SizePerRW);
-      require_noerr(err, exit);
-      err = MicoFlashInitialize( destFlashType );
-      require_noerr(err, exit);
-      err = MicoFlashWrite(destFlashType, &destStartAddress_tmp, data, (updateLog.length)%SizePerRW);
-      require_noerr(err, exit);
-      destStartAddress_tmp -= (updateLog.length)%SizePerRW;
-      err = MicoFlashRead(destFlashType, &destStartAddress_tmp, newData , (updateLog.length)%SizePerRW);
-      require_noerr(err, exit);
-      err = memcmp(data, newData, (updateLog.length)%SizePerRW);
-      require_noerr_action(err, exit, err = kWriteErr);
+    if( i == size ){
+      if( (updateLog.length)%SizePerRW )
+        copyLength = (updateLog.length)%SizePerRW;
+      else
+        break;
+    }else{
+      copyLength = SizePerRW;
     }
-    else{
-      err = MicoFlashRead(MICO_FLASH_FOR_UPDATE, &updateStartAddress, data , SizePerRW);
-      require_noerr(err, exit);
-      err = MicoFlashInitialize( destFlashType );
-      require_noerr(err, exit);
-      err = MicoFlashWrite(destFlashType, &destStartAddress_tmp, data, SizePerRW);
-      require_noerr(err, exit);
-      destStartAddress_tmp -= SizePerRW;
-      err = MicoFlashRead(destFlashType, &destStartAddress_tmp, newData , SizePerRW);
-      require_noerr(err, exit);
-      err = memcmp(data, newData, SizePerRW);
-      require_noerr_action(err, exit, err = kWriteErr); 
-    }
-  } 
+    err = MicoFlashRead(MICO_FLASH_FOR_UPDATE, &updateStartAddress, data , copyLength);
+    require_noerr(err, exit);
+    err = MicoFlashInitialize( destFlashType );
+    require_noerr(err, exit);
+    err = MicoFlashWrite(destFlashType, &destStartAddress_tmp, data, copyLength);
+    require_noerr(err, exit);
+    destStartAddress_tmp -= copyLength;
+    err = MicoFlashRead(destFlashType, &destStartAddress_tmp, newData , copyLength);
+    require_noerr(err, exit);
+    err = memcmp(data, newData, copyLength);
+    require_noerr_action(err, exit, err = kWriteErr); 
+ }  
+
   update_log("Update start to clear data...");
     
   paraStartAddress = PARA_START_ADDRESS;

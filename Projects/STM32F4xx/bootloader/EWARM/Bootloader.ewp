@@ -17,7 +17,7 @@
         <debug>0</debug>
         <option>
           <name>ExePath</name>
-          <state>..\..\..\..\Build\Bootloader\Output</state>
+          <state>..\..\..\..\Build\Bootloader\Output\MiCOKit-3165</state>
         </option>
         <option>
           <name>ObjPath</name>

@@ -46,9 +46,9 @@ extern "C"
  *                    Constants
  ******************************************************/
   
-#define HARDWARE_REVISION   "v1"
-#define DEFAULT_NAME        "AP80xx EVB"
-#define MODEL               "AP80xxEVB"
+#define HARDWARE_REVISION   "MX1101EVB_1"
+#define DEFAULT_NAME        "MX1101 EVB"
+#define MODEL               "MX1101_EVB"
 
    
 /******************************************************

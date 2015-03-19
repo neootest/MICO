@@ -46,9 +46,10 @@ extern "C"
  *                    Constants
  ******************************************************/
   
-#define HARDWARE_REVISION   "v1"
-#define DEFAULT_NAME        "MiCOKit 3161"
-#define MODEL               "MiCOKit-3161"
+#define HARDWARE_REVISION   "3161"
+#define DEFAULT_NAME        "EMW3161 Module"
+#define MODEL               "EMW3161"
+
 
    
 /******************************************************
