@@ -180,7 +180,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\..\..\..\MICO\MICOEntrance.c</Filename>
+          <Filename>&lt;2&gt;..\..\..\..\MICO\MICOEntrance.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\COM_MXCHIP_SPP\../../../../MICO/MICOEntrance.c\240</Expression>
         </Bp>
@@ -196,7 +196,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\..\..\..\MICO\MICOEntrance.c</Filename>
+          <Filename>&lt;2&gt;..\..\..\..\MICO\MICOEntrance.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\COM_MXCHIP_SPP\../../../../MICO/MICOEntrance.c\240</Expression>
         </Bp>
@@ -212,7 +212,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\..\..\..\MICO\MICOEntrance.c</Filename>
+          <Filename>&lt;2&gt;..\..\..\..\MICO\MICOEntrance.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\COM_MXCHIP_SPP\../../../../MICO/MICOEntrance.c\265</Expression>
         </Bp>
@@ -475,7 +475,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>0</BreakIfRCount>
-          <Filename>..\..\..\..\MICO\MICOEntrance.c</Filename>
+          <Filename>&lt;2&gt;..\..\..\..\MICO\MICOEntrance.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>
@@ -491,7 +491,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>0</BreakIfRCount>
-          <Filename>..\..\..\..\MICO\MICOEntrance.c</Filename>
+          <Filename>&lt;2&gt;..\..\..\..\MICO\MICOEntrance.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>
@@ -946,7 +946,7 @@
 
   <Group>
     <GroupName>MICO</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1174,7 +1174,7 @@
   </Group>
 
   <Group>
-    <GroupName>Library</GroupName>
+    <GroupName>MICO/Library</GroupName>
     <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>

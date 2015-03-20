@@ -715,7 +715,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Library</GroupName>
+          <GroupName>MICO/Library</GroupName>
           <Files>
             <File>
               <FileName>MICOConfig.c</FileName>
@@ -1987,7 +1987,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Library</GroupName>
+          <GroupName>MICO/Library</GroupName>
           <Files>
             <File>
               <FileName>MICOConfig.c</FileName>
