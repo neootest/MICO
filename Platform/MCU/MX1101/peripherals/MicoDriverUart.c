@@ -210,22 +210,24 @@ OSStatus MicoUartFinalize( mico_uart_t uart )
 
 OSStatus MicoUartSend( mico_uart_t uart, const void* data, uint32_t size )
 {
+  if(uart_mapping[uart].uart == FUART){
 #ifndef NO_MICO_RTOS
   mico_rtos_lock_mutex(&uart_interfaces[uart].tx_mutex);
 #endif
-  if(uart_mapping[uart].uart == FUART){
     FuartSend( (uint8_t *)data, size);
 #ifndef NO_MICO_RTOS    
     mico_rtos_unlock_mutex(&uart_interfaces[uart].tx_mutex);
 #endif
     return kNoErr;
   }else if(uart_mapping[uart].uart == BUART){
+#ifndef NO_MICO_RTOS
+  mico_rtos_lock_mutex(&uart_interfaces[uart].tx_mutex);
+#endif
     BuartSend( (uint8_t *)data, size);
   }else {
-    mico_rtos_unlock_mutex(&uart_interfaces[uart].tx_mutex);
     return kUnsupportedErr;
   }
- 
+
 #ifndef NO_MICO_RTOS
   mico_rtos_get_semaphore( &uart_interfaces[ uart ].tx_complete, MICO_NEVER_TIMEOUT );
   mico_rtos_unlock_mutex(&uart_interfaces[uart].tx_mutex);

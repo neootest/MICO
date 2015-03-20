@@ -580,6 +580,15 @@
 	},
 	"file_history":
 	[
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/EMW5062/platform_common_config.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-3161/platform_common_config.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-3088/platform_common_config.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-3162/platform_common_config.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-3165/platform_common_config.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-3288/platform_common_config.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-F205/platform_common_config.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MX1101_EVB/platform_common_config.h",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/Nucleo_411RE/platform_common_config.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MX1101_EVB/platform.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Projects/MX1101/bootloader/sublime/bootloader.sublime-project",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/MX1101/peripherals/MicoDriverUart.c",
@@ -598,11 +607,9 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Cortex-M3/CMSIS/core_cm3.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/STM32F4xx/peripherals/Libraries/stm32f4xx.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-3165/platform_common_config.h",
 		"/Users/William/Desktop/LocalTcpServer.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Bootloader/BootloaderEntrance.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-3088/platform.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-3088/platform_common_config.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/MX1101/peripherals/Libraries/inc/timeout.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/BoardConfig/LPCXpresso54102/platform.c",
 		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/include/platformInternal.h",
@@ -700,14 +707,7 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverRng.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverRtc.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverSpi.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverWdg.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MICO.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformFlash.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/WAC/WAC.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformFlash.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Projects/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverRtc.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/SDIO/wwd_bus.c"
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverWdg.h"
 	],
 	"find":
 	{
@@ -715,7 +715,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 93.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"<open folders>",

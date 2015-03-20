@@ -75,7 +75,7 @@
       <OPTFL>
         <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
-        <IsCurrentTarget>0</IsCurrentTarget>
+        <IsCurrentTarget>1</IsCurrentTarget>
       </OPTFL>
       <CpuCode>7</CpuCode>
       <DebugOpt>
@@ -246,6 +246,22 @@
           <Number>6</Number>
           <Type>0</Type>
           <LineNumber>98</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>0</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>0</BreakIfRCount>
+          <Filename>&lt;1&gt;..\..\..\..\Platform\Cortex-M3\hardfault.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression></Expression>
+        </Bp>
+        <Bp>
+          <Number>7</Number>
+          <Type>0</Type>
+          <LineNumber>78</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>0</Address>
           <ByteObject>0</ByteObject>
@@ -657,6 +673,22 @@
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>
+        <Bp>
+          <Number>11</Number>
+          <Type>0</Type>
+          <LineNumber>78</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>0</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>0</BreakIfRCount>
+          <Filename>&lt;1&gt;..\..\..\..\Platform\Cortex-M3\hardfault.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression></Expression>
+        </Bp>
       </Breakpoint>
       <WatchWindow2>
         <Ww>
@@ -766,7 +798,7 @@
   </Target>
 
   <Target>
-    <TargetName>MicoKit3088</TargetName>
+    <TargetName>MicoKit-3088</TargetName>
     <ToolsetNumber>0x4</ToolsetNumber>
     <ToolsetName>ARM-ADS</ToolsetName>
     <TargetOption>
@@ -819,7 +851,7 @@
       <OPTFL>
         <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
-        <IsCurrentTarget>1</IsCurrentTarget>
+        <IsCurrentTarget>0</IsCurrentTarget>
       </OPTFL>
       <CpuCode>7</CpuCode>
       <DebugOpt>
@@ -1055,7 +1087,7 @@
 
   <Group>
     <GroupName>Application</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1429,7 +1461,7 @@
   </Group>
 
   <Group>
-    <GroupName>Library</GroupName>
+    <GroupName>MICO/Library</GroupName>
     <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
@@ -1442,7 +1474,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\MICOConfig.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\MICO\Library\MICOConfig.c</PathWithFileName>
       <FilenameWithoutPath>MICOConfig.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1455,7 +1487,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\mxchipWNet_cm3_sdio.a</PathWithFileName>
+      <PathWithFileName>..\..\..\..\MICO\Library\mxchipWNet_cm3_sdio.a</PathWithFileName>
       <FilenameWithoutPath>mxchipWNet_cm3_sdio.a</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1468,7 +1500,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\mxchipWNet_cm3_8801.a</PathWithFileName>
+      <PathWithFileName>..\..\..\..\MICO\Library\mxchipWNet_cm3_8801.a</PathWithFileName>
       <FilenameWithoutPath>mxchipWNet_cm3_8801.a</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1489,7 +1521,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\AESUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\AESUtils.c</PathWithFileName>
       <FilenameWithoutPath>AESUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1502,7 +1534,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\HTTPUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\HTTPUtils.c</PathWithFileName>
       <FilenameWithoutPath>HTTPUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1515,7 +1547,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\MDNSUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\MDNSUtils.c</PathWithFileName>
       <FilenameWithoutPath>MDNSUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1528,7 +1560,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\RingBufferUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\RingBufferUtils.c</PathWithFileName>
       <FilenameWithoutPath>RingBufferUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1541,7 +1573,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\SecurityUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\SecurityUtils.c</PathWithFileName>
       <FilenameWithoutPath>SecurityUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1554,7 +1586,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\SHAUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\SHAUtils.c</PathWithFileName>
       <FilenameWithoutPath>SHAUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1567,7 +1599,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\SocketUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\SocketUtils.c</PathWithFileName>
       <FilenameWithoutPath>SocketUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1580,7 +1612,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\StringUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\StringUtils.c</PathWithFileName>
       <FilenameWithoutPath>StringUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1593,7 +1625,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\TimeUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\TimeUtils.c</PathWithFileName>
       <FilenameWithoutPath>TimeUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1606,7 +1638,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\TLVUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\TLVUtils.c</PathWithFileName>
       <FilenameWithoutPath>TLVUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1619,7 +1651,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\URLUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\URLUtils.c</PathWithFileName>
       <FilenameWithoutPath>URLUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1727,7 +1759,7 @@
 
   <Group>
     <GroupName>Platform/Cortex-M3</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1761,7 +1793,7 @@
 
   <Group>
     <GroupName>Platform/RVMDK</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1821,7 +1853,7 @@
 
   <Group>
     <GroupName>Platform/MCU/MX1101/RVMDK</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1936,7 +1968,7 @@
 
   <Group>
     <GroupName>Platform/MCU/MX1101/peripherals</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

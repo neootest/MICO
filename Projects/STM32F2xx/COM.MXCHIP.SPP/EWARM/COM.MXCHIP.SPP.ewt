@@ -498,18 +498,6 @@
     </file>
   </group>
   <group>
-    <name>Library</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\MICOConfig.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\mxchipWNet_cm3_sdio.a</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\mxchipWNet_cm3_spi.a</name>
-    </file>
-  </group>
-  <group>
     <name>MICO</name>
     <group>
       <name>AirKiss</name>
@@ -530,6 +518,18 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\MICO\SoftAP\EasyLinkSoftAP.c</name>
+      </file>
+    </group>
+    <group>
+      <name>Library</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Library\MICOConfig.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Library\mxchipWNet_cm3_sdio.a</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Library\mxchipWNet_cm3_spi.a</name>
       </file>
     </group>
     <group>

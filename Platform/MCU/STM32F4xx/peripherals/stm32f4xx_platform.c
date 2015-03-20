@@ -108,11 +108,7 @@ static char stm32_platform_inited = 0;
 #ifndef MICO_DISABLE_STDIO
 static const mico_uart_config_t stdio_uart_config =
 {
-#ifdef BOOTLOADER
-  .baud_rate    = 921600,
-#else
-  .baud_rate    = 115200,
-#endif
+  .baud_rate    = STDIO_UART_BAUDRATE,
   .data_width   = DATA_WIDTH_8BIT,
   .parity       = NO_PARITY,
   .stop_bits    = STOP_BITS_1,

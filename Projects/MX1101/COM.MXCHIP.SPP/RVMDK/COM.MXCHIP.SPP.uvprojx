@@ -365,7 +365,7 @@
               <MiscControls>--diag_suppress=1,1293</MiscControls>
               <Define>DEBUG</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\Demos\COM.MXCHIP.SPP;..\..\..\..\include;..\..\..\..\MICO;..\..\..\..\External;..\..\..\..\Library\support;..\..\..\..\Board\MX1101_EVB;..\..\..\..\Platform\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\inc;..\..\..\..\Platform\MCU\MX1101\peripherals</IncludePath>
+              <IncludePath>..\..\..\..\Demos\COM.MXCHIP.SPP;..\..\..\..\include;..\..\..\..\MICO;..\..\..\..\External;..\..\..\..\Support;..\..\..\..\Board\MX1101_EVB;..\..\..\..\Platform\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\inc;..\..\..\..\Platform\MCU\MX1101\peripherals</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -557,22 +557,22 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Library</GroupName>
+          <GroupName>MICO/Library</GroupName>
           <Files>
             <File>
               <FileName>MICOConfig.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\MICOConfig.c</FilePath>
+              <FilePath>..\..\..\..\MICO\Library\MICOConfig.c</FilePath>
             </File>
             <File>
               <FileName>mxchipWNet_cm3_sdio.a</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\..\Library\mxchipWNet_cm3_sdio.a</FilePath>
+              <FilePath>..\..\..\..\MICO\Library\mxchipWNet_cm3_sdio.a</FilePath>
             </File>
             <File>
               <FileName>mxchipWNet_cm3_8801.a</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\..\Library\mxchipWNet_cm3_8801.a</FilePath>
+              <FilePath>..\..\..\..\MICO\Library\mxchipWNet_cm3_8801.a</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -601,57 +601,57 @@
             <File>
               <FileName>AESUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\AESUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\AESUtils.c</FilePath>
             </File>
             <File>
               <FileName>HTTPUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\HTTPUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\HTTPUtils.c</FilePath>
             </File>
             <File>
               <FileName>MDNSUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\MDNSUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\MDNSUtils.c</FilePath>
             </File>
             <File>
               <FileName>RingBufferUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\RingBufferUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\RingBufferUtils.c</FilePath>
             </File>
             <File>
               <FileName>SecurityUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\SecurityUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\SecurityUtils.c</FilePath>
             </File>
             <File>
               <FileName>SHAUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\SHAUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\SHAUtils.c</FilePath>
             </File>
             <File>
               <FileName>SocketUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\SocketUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\SocketUtils.c</FilePath>
             </File>
             <File>
               <FileName>StringUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\StringUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\StringUtils.c</FilePath>
             </File>
             <File>
               <FileName>TimeUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\TimeUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\TimeUtils.c</FilePath>
             </File>
             <File>
               <FileName>TLVUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\TLVUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\TLVUtils.c</FilePath>
             </File>
             <File>
               <FileName>URLUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\URLUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\URLUtils.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1671,7 +1671,7 @@
               <MiscControls>--diag_suppress=1,1293</MiscControls>
               <Define>DEBUG</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\Demos\COM.MXCHIP.SPP;..\..\..\..\include;..\..\..\..\MICO;..\..\..\..\External;..\..\..\..\Library\support;..\..\..\..\Board\EMW5062;..\..\..\..\Platform\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\inc;..\..\..\..\Platform\MCU\MX1101\peripherals</IncludePath>
+              <IncludePath>..\..\..\..\Demos\COM.MXCHIP.SPP;..\..\..\..\include;..\..\..\..\MICO;..\..\..\..\External;..\..\..\..\Support;..\..\..\..\Board\EMW5062;..\..\..\..\Platform\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\inc;..\..\..\..\Platform\MCU\MX1101\peripherals</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1863,22 +1863,22 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Library</GroupName>
+          <GroupName>MICO/Library</GroupName>
           <Files>
             <File>
               <FileName>MICOConfig.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\MICOConfig.c</FilePath>
+              <FilePath>..\..\..\..\MICO\Library\MICOConfig.c</FilePath>
             </File>
             <File>
               <FileName>mxchipWNet_cm3_sdio.a</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\..\Library\mxchipWNet_cm3_sdio.a</FilePath>
+              <FilePath>..\..\..\..\MICO\Library\mxchipWNet_cm3_sdio.a</FilePath>
             </File>
             <File>
               <FileName>mxchipWNet_cm3_8801.a</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\..\Library\mxchipWNet_cm3_8801.a</FilePath>
+              <FilePath>..\..\..\..\MICO\Library\mxchipWNet_cm3_8801.a</FilePath>
             </File>
           </Files>
         </Group>
@@ -1888,57 +1888,57 @@
             <File>
               <FileName>AESUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\AESUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\AESUtils.c</FilePath>
             </File>
             <File>
               <FileName>HTTPUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\HTTPUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\HTTPUtils.c</FilePath>
             </File>
             <File>
               <FileName>MDNSUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\MDNSUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\MDNSUtils.c</FilePath>
             </File>
             <File>
               <FileName>RingBufferUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\RingBufferUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\RingBufferUtils.c</FilePath>
             </File>
             <File>
               <FileName>SecurityUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\SecurityUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\SecurityUtils.c</FilePath>
             </File>
             <File>
               <FileName>SHAUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\SHAUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\SHAUtils.c</FilePath>
             </File>
             <File>
               <FileName>SocketUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\SocketUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\SocketUtils.c</FilePath>
             </File>
             <File>
               <FileName>StringUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\StringUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\StringUtils.c</FilePath>
             </File>
             <File>
               <FileName>TimeUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\TimeUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\TimeUtils.c</FilePath>
             </File>
             <File>
               <FileName>TLVUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\TLVUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\TLVUtils.c</FilePath>
             </File>
             <File>
               <FileName>URLUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\URLUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\URLUtils.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2600,7 +2600,7 @@
       </Groups>
     </Target>
     <Target>
-      <TargetName>MicoKit3088</TargetName>
+      <TargetName>MicoKit-3088</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
@@ -2958,7 +2958,7 @@
               <MiscControls>--diag_suppress=1,1293</MiscControls>
               <Define>DEBUG</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\Demos\COM.MXCHIP.SPP;..\..\..\..\include;..\..\..\..\MICO;..\..\..\..\External;..\..\..\..\Library\support;..\..\..\..\Board\MicoKit-3088;..\..\..\..\Platform\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\inc;..\..\..\..\Platform\MCU\MX1101\peripherals</IncludePath>
+              <IncludePath>..\..\..\..\Demos\COM.MXCHIP.SPP;..\..\..\..\include;..\..\..\..\MICO;..\..\..\..\External;..\..\..\..\Support;..\..\..\..\Board\MicoKit-3088;..\..\..\..\Platform\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\inc;..\..\..\..\Platform\MCU\MX1101\peripherals</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -3150,17 +3150,17 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Library</GroupName>
+          <GroupName>MICO/Library</GroupName>
           <Files>
             <File>
               <FileName>MICOConfig.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\MICOConfig.c</FilePath>
+              <FilePath>..\..\..\..\MICO\Library\MICOConfig.c</FilePath>
             </File>
             <File>
               <FileName>mxchipWNet_cm3_sdio.a</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\..\Library\mxchipWNet_cm3_sdio.a</FilePath>
+              <FilePath>..\..\..\..\MICO\Library\mxchipWNet_cm3_sdio.a</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -3184,7 +3184,7 @@
             <File>
               <FileName>mxchipWNet_cm3_8801.a</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\..\Library\mxchipWNet_cm3_8801.a</FilePath>
+              <FilePath>..\..\..\..\MICO\Library\mxchipWNet_cm3_8801.a</FilePath>
             </File>
           </Files>
         </Group>
@@ -3194,57 +3194,57 @@
             <File>
               <FileName>AESUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\AESUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\AESUtils.c</FilePath>
             </File>
             <File>
               <FileName>HTTPUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\HTTPUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\HTTPUtils.c</FilePath>
             </File>
             <File>
               <FileName>MDNSUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\MDNSUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\MDNSUtils.c</FilePath>
             </File>
             <File>
               <FileName>RingBufferUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\RingBufferUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\RingBufferUtils.c</FilePath>
             </File>
             <File>
               <FileName>SecurityUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\SecurityUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\SecurityUtils.c</FilePath>
             </File>
             <File>
               <FileName>SHAUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\SHAUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\SHAUtils.c</FilePath>
             </File>
             <File>
               <FileName>SocketUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\SocketUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\SocketUtils.c</FilePath>
             </File>
             <File>
               <FileName>StringUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\StringUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\StringUtils.c</FilePath>
             </File>
             <File>
               <FileName>TimeUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\TimeUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\TimeUtils.c</FilePath>
             </File>
             <File>
               <FileName>TLVUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\TLVUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\TLVUtils.c</FilePath>
             </File>
             <File>
               <FileName>URLUtils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\support\URLUtils.c</FilePath>
+              <FilePath>..\..\..\..\Support\URLUtils.c</FilePath>
             </File>
           </Files>
         </Group>

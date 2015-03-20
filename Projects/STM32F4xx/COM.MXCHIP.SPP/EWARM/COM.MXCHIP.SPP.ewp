@@ -306,7 +306,7 @@
           <state>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP</state>
           <state>$PROJ_DIR$\..\..\..\..\include</state>
           <state>$PROJ_DIR$\..\..\..\..\MICO</state>
-          <state>$PROJ_DIR$\..\..\..\..\Library\support</state>
+          <state>$PROJ_DIR$\..\..\..\..\Support</state>
           <state>$PROJ_DIR$\..\..\..\..\External</state>
           <state>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3165</state>
           <state>$PROJ_DIR$\..\..\..\..\Platform\include</state>
@@ -1261,7 +1261,7 @@
           <state>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP</state>
           <state>$PROJ_DIR$\..\..\..\..\include</state>
           <state>$PROJ_DIR$\..\..\..\..\MICO</state>
-          <state>$PROJ_DIR$\..\..\..\..\Library\support</state>
+          <state>$PROJ_DIR$\..\..\..\..\Support</state>
           <state>$PROJ_DIR$\..\..\..\..\External</state>
           <state>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3288</state>
           <state>$PROJ_DIR$\..\..\..\..\Platform\include</state>
@@ -2157,22 +2157,22 @@
   <group>
     <name>Library</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\MICOConfig.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\MICO\Library\MICOConfig.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\mxchipWNet_cm4f_8801.a</name>
+      <name>$PROJ_DIR$\..\..\..\..\MICO\Library\mxchipWNet_cm4f_8801.a</name>
       <excluded>
         <configuration>MiCOKit-3165</configuration>
       </excluded>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\mxchipWNet_cm4f_sdio.a</name>
+      <name>$PROJ_DIR$\..\..\..\..\MICO\Library\mxchipWNet_cm4f_sdio.a</name>
       <excluded>
         <configuration>MiCOKit-3288</configuration>
       </excluded>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\mxchipWNet_cm4f_spi.a</name>
+      <name>$PROJ_DIR$\..\..\..\..\MICO\Library\mxchipWNet_cm4f_spi.a</name>
       <excluded>
         <configuration>MiCOKit-3165</configuration>
         <configuration>MiCOKit-3288</configuration>
@@ -2493,37 +2493,37 @@
   <group>
     <name>Support</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\AESUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\AESUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\HTTPUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\HTTPUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\MDNSUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\MDNSUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\RingBufferUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\RingBufferUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\SecurityUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\SecurityUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\SHAUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\SHAUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\SocketUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\SocketUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\StringUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\StringUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\TimeUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\TimeUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\TLVUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\TLVUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\URLUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\URLUtils.c</name>
     </file>
   </group>
 </project>

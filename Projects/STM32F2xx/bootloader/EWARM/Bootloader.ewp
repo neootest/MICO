@@ -306,7 +306,7 @@
           <state>$PROJ_DIR$\..\..\..\..\Bootloader</state>
           <state>$PROJ_DIR$\..\..\..\..\include</state>
           <state>$PROJ_DIR$\..\..\..\..\MICO</state>
-          <state>$PROJ_DIR$\..\..\..\..\Library\support</state>
+          <state>$PROJ_DIR$\..\..\..\..\Support</state>
           <state>$PROJ_DIR$\..\..\..\..\External</state>
           <state>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162</state>
           <state>$PROJ_DIR$\..\..\..\..\Platform\include</state>
@@ -1266,7 +1266,7 @@
           <state>$PROJ_DIR$\..\..\..\..\Bootloader</state>
           <state>$PROJ_DIR$\..\..\..\..\include</state>
           <state>$PROJ_DIR$\..\..\..\..\MICO</state>
-          <state>$PROJ_DIR$\..\..\..\..\Library\support</state>
+          <state>$PROJ_DIR$\..\..\..\..\Support</state>
           <state>$PROJ_DIR$\..\..\..\..\External</state>
           <state>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205</state>
           <state>$PROJ_DIR$\..\..\..\..\Platform\include</state>
@@ -2226,7 +2226,7 @@
           <state>$PROJ_DIR$\..\..\..\..\Bootloader</state>
           <state>$PROJ_DIR$\..\..\..\..\include</state>
           <state>$PROJ_DIR$\..\..\..\..\MICO</state>
-          <state>$PROJ_DIR$\..\..\..\..\Library\support</state>
+          <state>$PROJ_DIR$\..\..\..\..\Support</state>
           <state>$PROJ_DIR$\..\..\..\..\External</state>
           <state>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3161</state>
           <state>$PROJ_DIR$\..\..\..\..\Platform\include</state>
@@ -3233,10 +3233,10 @@
   <group>
     <name>Support</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\RingBufferUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\RingBufferUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\StringUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\StringUtils.c</name>
     </file>
   </group>
 </project>

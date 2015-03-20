@@ -584,10 +584,10 @@
   <group>
     <name>Support</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\RingBufferUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\RingBufferUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\StringUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\StringUtils.c</name>
     </file>
   </group>
 </project>

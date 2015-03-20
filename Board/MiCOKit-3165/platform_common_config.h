@@ -152,8 +152,15 @@ typedef enum
 /* The number of UART interfaces this hardware platform has */
 #define NUMBER_OF_UART_INTERFACES  2
 
-#define UART_FOR_APP     MICO_UART_2
+#ifdef BOOTLOADER
 #define STDIO_UART       MICO_UART_1
+#define STDIO_UART_BAUDRATE (921600) 
+#else
+#define STDIO_UART       MICO_UART_1
+#define STDIO_UART_BAUDRATE (115200) 
+#endif
+
+#define UART_FOR_APP     MICO_UART_2
 #define MFG_TEST         MICO_UART_1
 #define CLI_UART         MICO_UART_1
 
