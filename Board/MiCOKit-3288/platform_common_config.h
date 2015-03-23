@@ -184,9 +184,9 @@ typedef enum
 #define APPLICATION_FLASH_SIZE      (APPLICATION_END_ADDRESS - APPLICATION_START_ADDRESS + 1) /* 480 bytes*/
 
 #define MICO_FLASH_FOR_UPDATE       MICO_SPI_FLASH  /* Optional */
-#define UPDATE_START_ADDRESS        (uint32_t)0x00040000 /* Optional */
+#define UPDATE_START_ADDRESS        (uint32_t)0x00050000 /* Optional */
 #define UPDATE_END_ADDRESS          (uint32_t)0x0009FFFF /* Optional */
-#define UPDATE_FLASH_SIZE           (UPDATE_END_ADDRESS - UPDATE_START_ADDRESS + 1) /* 256k bytes, optional*/
+#define UPDATE_FLASH_SIZE           (UPDATE_END_ADDRESS - UPDATE_START_ADDRESS + 1) /* 320k bytes, optional*/
 
 #define MICO_FLASH_FOR_BOOT         MICO_INTERNAL_FLASH
 #define BOOT_START_ADDRESS          (uint32_t)0x08000000
@@ -195,8 +195,8 @@ typedef enum
 
 #define MICO_FLASH_FOR_DRIVER       MICO_SPI_FLASH
 #define DRIVER_START_ADDRESS        (uint32_t)0x00002000
-#define DRIVER_END_ADDRESS          (uint32_t)0x0003FFFF
-#define DRIVER_FLASH_SIZE           (DRIVER_END_ADDRESS - DRIVER_START_ADDRESS + 1) /* 248k bytes*/
+#define DRIVER_END_ADDRESS          (uint32_t)0x0004FFFF
+#define DRIVER_FLASH_SIZE           (DRIVER_END_ADDRESS - DRIVER_START_ADDRESS + 1) /* 312k bytes*/
 
 #define MICO_FLASH_FOR_PARA         MICO_SPI_FLASH
 #define PARA_START_ADDRESS          (uint32_t)0x00000000
