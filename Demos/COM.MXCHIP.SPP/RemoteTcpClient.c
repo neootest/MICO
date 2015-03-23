@@ -147,6 +147,7 @@ void remoteTcpClient_thread(void *inContext)
     ReConnWithDelay:
         if (eventFd >= 0) {
           mico_delete_event_fd(eventFd);
+          eventFd = -1;
           socket_queue_delete(Context, &queue);
         }
         if(remoteTcpClient_fd != -1){
