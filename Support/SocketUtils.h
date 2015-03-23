@@ -28,6 +28,8 @@ OSStatus SocketSend( int fd, const uint8_t *inBuf, size_t inBufLen );
 
 void SocketClose(int* fd);
 
+void SocketCloseForOSEvent(int* fd);
+
 void SocketAccept(int *plocalTcpClientsPool, int maxClientsNum, int newFd);
 
 #endif // __SocketUtils_h__

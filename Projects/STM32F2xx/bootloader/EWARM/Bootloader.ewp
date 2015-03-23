@@ -175,6 +175,7 @@
           <state>USE_STDPERIPH_DRIVER</state>
           <state>DEBUG</state>
           <state>BOOTLOADER</state>
+          <state>NO_MICO_RTOS</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -1135,6 +1136,7 @@
           <state>USE_STDPERIPH_DRIVER</state>
           <state>DEBUG</state>
           <state>BOOTLOADER</state>
+          <state>NO_MICO_RTOS</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -2095,6 +2097,7 @@
           <state>USE_STDPERIPH_DRIVER</state>
           <state>DEBUG</state>
           <state>BOOTLOADER</state>
+          <state>NO_MICO_RTOS</state>
         </option>
         <option>
           <name>CCPreprocFile</name>

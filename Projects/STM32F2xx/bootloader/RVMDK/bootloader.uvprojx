@@ -363,7 +363,7 @@
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls>--diag_suppress=1,1293</MiscControls>
-              <Define>USE_STDPERIPH_DRIVER BOOTLOADER SIZE_OPTIMIZE</Define>
+              <Define>USE_STDPERIPH_DRIVER BOOTLOADER SIZE_OPTIMIZE NO_MICO_RTOS</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\..\..\Bootloader;..\..\..\..\include;..\..\..\..\MICO;..\..\..\..\Support;..\..\..\..\External;..\..\..\..\Board\MiCOKit-3162;..\..\..\..\Platform\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\STM32F2xx\peripherals;..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\inc;..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries;..\..\..\..\Platform\Drivers\spi_flash</IncludePath>
             </VariousControls>
@@ -1269,7 +1269,7 @@
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls>--diag_suppress=1,1293</MiscControls>
-              <Define>USE_STDPERIPH_DRIVER BOOTLOADER</Define>
+              <Define>USE_STDPERIPH_DRIVER BOOTLOADER NO_MICO_RTOS</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\..\..\Bootloader;..\..\..\..\include;..\..\..\..\MICO;..\..\..\..\Support;..\..\..\..\External;..\..\..\..\Board\MiCOKit-F205;..\..\..\..\Platform\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\STM32F2xx\peripherals;..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\inc;..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries;..\..\..\..\Platform\Drivers\spi_flash</IncludePath>
             </VariousControls>

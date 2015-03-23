@@ -51,17 +51,10 @@ int __low_level_init( void )
       * When using GCC, this is done in crt0_GCC.c
       */
      
-#ifdef BOOTLOADER  
-      /* Set the Vector Table base location at 0x20000000 */ 
-     //*SCB_VTOR_ADDRESS = 0x20000000;
-       init_clocks();
-     init_memory();
-#else
      /* Setup the interrupt vectors address */
      *SCB_VTOR_ADDRESS = (unsigned long)&Image$$ER_IROM1$$Base;
      init_clocks();
      init_memory();
-#endif
 
      return 1; /* return 1 to force memory init */
 }

@@ -187,7 +187,7 @@ OSStatus internal_uart_init( mico_uart_t uart, const mico_uart_config_t* config,
 
     require_action( config->flow_control == FLOW_CONTROL_DISABLED, exit, err = kUnsupportedErr );
 
-    err =  BuartExFifoInit(0x5800, 1024*5, 1024*5, 1);
+    err =  BuartExFifoInit( (32-2-1)*1024, 1024*2, 1024, 1);
     require_noerr(err, exit);
 
     err = BuartInit(config->baud_rate, config->data_width + 5, config->parity, config->stop_bits + 1);
@@ -303,12 +303,7 @@ OSStatus FUartRecv( mico_uart_t uart, void* data, uint32_t size, uint32_t timeou
   }
   else
   {
-#ifndef NO_MICO_RTOS
     mico_thread_msleep(timeout);
-#else
-    mico_thread_msleep_no_os(timeout);
-#endif
-
     return kNoMemoryErr;
   }
 }

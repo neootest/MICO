@@ -181,7 +181,7 @@ OSStatus MicoI2cInitialize( mico_i2c_device_t* device  )
 
 static OSStatus i2c_wait_for_event( I2C_TypeDef* i2c, uint32_t event_id, uint32_t number_of_waits )
 {
-  msleep(2);
+  mico_thread_msleep(2);
   while ( I2C_CheckEvent( i2c, event_id ) != SUCCESS )
   {
     number_of_waits--;

@@ -75,7 +75,7 @@
       <OPTFL>
         <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
-        <IsCurrentTarget>0</IsCurrentTarget>
+        <IsCurrentTarget>1</IsCurrentTarget>
       </OPTFL>
       <CpuCode>18</CpuCode>
       <Books>
@@ -316,7 +316,7 @@
       <OPTFL>
         <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
-        <IsCurrentTarget>1</IsCurrentTarget>
+        <IsCurrentTarget>0</IsCurrentTarget>
       </OPTFL>
       <CpuCode>18</CpuCode>
       <Books>
@@ -1051,7 +1051,7 @@
   </Group>
 
   <Group>
-    <GroupName>Library</GroupName>
+    <GroupName>MICO/Library</GroupName>
     <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
@@ -1064,7 +1064,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\MICOConfig.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\MICO\Library\MICOConfig.c</PathWithFileName>
       <FilenameWithoutPath>MICOConfig.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1077,7 +1077,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\mxchipWNet_cm3_sdio.a</PathWithFileName>
+      <PathWithFileName>..\..\..\..\MICO\Library\mxchipWNet_cm3_sdio.a</PathWithFileName>
       <FilenameWithoutPath>mxchipWNet_cm3_sdio.a</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1090,7 +1090,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\EasyCloud\MicoEasyCloudService_debug.a</PathWithFileName>
+      <PathWithFileName>..\..\..\..\MICO\Library\EasyCloud\MicoEasyCloudService_debug.a</PathWithFileName>
       <FilenameWithoutPath>MicoEasyCloudService_debug.a</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1103,7 +1103,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\EasyCloud\MicoEasyCloudService_release.a</PathWithFileName>
+      <PathWithFileName>..\..\..\..\MICO\Library\EasyCloud\MicoEasyCloudService_release.a</PathWithFileName>
       <FilenameWithoutPath>MicoEasyCloudService_release.a</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1116,7 +1116,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\mxchipWNet_cm3_spi.a</PathWithFileName>
+      <PathWithFileName>..\..\..\..\MICO\Library\mxchipWNet_cm3_spi.a</PathWithFileName>
       <FilenameWithoutPath>mxchipWNet_cm3_spi.a</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1137,7 +1137,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\AESUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\AESUtils.c</PathWithFileName>
       <FilenameWithoutPath>AESUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1150,7 +1150,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\HTTPUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\HTTPUtils.c</PathWithFileName>
       <FilenameWithoutPath>HTTPUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1163,7 +1163,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\MDNSUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\MDNSUtils.c</PathWithFileName>
       <FilenameWithoutPath>MDNSUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1176,7 +1176,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\RingBufferUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\RingBufferUtils.c</PathWithFileName>
       <FilenameWithoutPath>RingBufferUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1189,7 +1189,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\SecurityUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\SecurityUtils.c</PathWithFileName>
       <FilenameWithoutPath>SecurityUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1202,7 +1202,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\SHAUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\SHAUtils.c</PathWithFileName>
       <FilenameWithoutPath>SHAUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1215,7 +1215,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\SocketUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\SocketUtils.c</PathWithFileName>
       <FilenameWithoutPath>SocketUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1228,7 +1228,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\StringUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\StringUtils.c</PathWithFileName>
       <FilenameWithoutPath>StringUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1241,7 +1241,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\TimeUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\TimeUtils.c</PathWithFileName>
       <FilenameWithoutPath>TimeUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1254,7 +1254,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\TLVUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\TLVUtils.c</PathWithFileName>
       <FilenameWithoutPath>TLVUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1267,7 +1267,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Library\support\URLUtils.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Support\URLUtils.c</PathWithFileName>
       <FilenameWithoutPath>URLUtils.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>

@@ -8,21 +8,20 @@
   <WorkspaceName>WorkSpace</WorkspaceName>
 
   <project>
-    <PathAndName>.\STM32F2xx\bootloader\RVMDK\bootloader.uvprojx</PathAndName>
-  </project>
-
-  <project>
-    <PathAndName>.\STM32F2xx\COM.Apple.HomeKit\RVMDK\COM.Apple.HomeKit.uvprojx</PathAndName>
-  </project>
-
-  <project>
-    <PathAndName>.\STM32F2xx\COM.MXCHIP.SPP\RVMDK\COM.MXCHIP.SPP.uvprojx</PathAndName>
+    <PathAndName>.\bootloader\RVMDK\bootloader.uvprojx</PathAndName>
     <NodeIsActive>1</NodeIsActive>
-    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
   <project>
-    <PathAndName>.\STM32F2xx\COM.WECHAT.SPP\RVMDK\COM.WECHAT.SPP.uvprojx</PathAndName>
+    <PathAndName>.\COM.Apple.HomeKit\RVMDK\COM.Apple.HomeKit.uvprojx</PathAndName>
+  </project>
+
+  <project>
+    <PathAndName>.\COM.MXCHIP.SPP\RVMDK\COM.MXCHIP.SPP.uvprojx</PathAndName>
+  </project>
+
+  <project>
+    <PathAndName>.\COM.WECHAT.SPP\RVMDK\COM.WECHAT.SPP.uvprojx</PathAndName>
   </project>
 
 </ProjectWorkspace>

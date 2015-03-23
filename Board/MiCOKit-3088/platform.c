@@ -38,8 +38,9 @@
 #include "MicoDriverMapping.h"
 #include "platform_common_config.h"
 #include "PlatformLogging.h"
-#include "gpio.h"
+#include "sd_card.h"
 #include "nvm.h"
+
 
 /******************************************************
 *                      Macros
@@ -72,6 +73,8 @@
 #define UPGRADE_SUCC_MAGIC    (0x57F9B3C8) //just a successful magic
 #define UPGRADE_REQT_MAGIC    (0x9ab4d18e) //just a request magic
 #define UPGRADE_ERRNO_LASTCLR (0x581f9831) //just a clear magic
+
+#define UDISK_PORT_NUM		        2		// USB PORT
 
 /******************************************************
 *                   Enumerations
@@ -120,6 +123,7 @@ const platform_pin_mapping_t gpio_mapping[] =
   [STDIO_UART_RX]                       = {GPIOB,  6},
   [STDIO_UART_TX]                       = {GPIOB,  7},
   [SDIO_INT]                            = {GPIOA,  24},
+  [USB_DETECT]                          = {GPIOA,  22},
 
 //  /* GPIOs for external use */
   [APP_UART_RX]                         = {GPIOB, 29},
@@ -301,14 +305,39 @@ void init_platform( void )
 
 }
 
+#ifdef BOOTLOADER
+#include "host_stor.h"
+#include "fat_file.h" 
+#include "host_hcd.h"
+#include "dir.h"
+
+static bool HardwareInit(DEV_ID DevId);
+static FOLDER	 RootFolder;
+static void FileBrowse(FS_CONTEXT* FsContext);
+static bool UpgradeFileFound = false;
+
+
 void init_platform_bootloader( void )
 {
   uint32_t BootNvmInfo;
-  /* Check last firmware update is success or not. */
-  bool UpgradeFileFound = false;
-
-  NvmRead(UPGRADE_NVM_ADDR, (uint8_t*)&BootNvmInfo, 4);
+  OSStatus err;
   
+  /* Check USB-HOST is inserted */
+  err = MicoGpioInitialize( (mico_gpio_t)USB_DETECT, INPUT_PULL_DOWN );
+  require_noerr(err, exit);
+  mico_thread_msleep_no_os(2);
+  
+  require_string( MicoGpioInputGet( (mico_gpio_t)USB_DETECT ) == true, exit, "USB device is not inserted" );
+
+  platform_log("USB device inserted");
+  if( HardwareInit(DEV_ID_USB) ){
+    FolderOpenByNum(&RootFolder, NULL, 1);
+    FileBrowse(RootFolder.FsContext);
+  }
+
+  /* Check last firmware update is success or not. */
+  NvmRead(UPGRADE_NVM_ADDR, (uint8_t*)&BootNvmInfo, 4);
+
   if(false == UpgradeFileFound)
   {
     if(BootNvmInfo == UPGRADE_SUCC_MAGIC)
@@ -352,17 +381,118 @@ void init_platform_bootloader( void )
     else
     {
       platform_log("[UPGRADE]:upgrade error, errno = %d", (int32_t)BootNvmInfo);
-      // BootNvmInfo = (uint32_t)UPGRADE_ERRNO_NOERR;
-      // NvmWrite(UPGRADE_NVM_ADDR, (uint8_t*)&BootNvmInfo, 4);
-      //BootNvmInfo = UPGRADE_REQT_MAGIC;
-      //NvmWrite(UPGRADE_NVM_ADDR, (uint8_t*)&BootNvmInfo, 4);
+      if( BootNvmInfo == -9 ) {
+        platform_log("[UPGRADE]:Same file, no need to update");
+        goto exit;
+      }
+      BootNvmInfo = (uint32_t)UPGRADE_ERRNO_NOERR;
+      NvmWrite(UPGRADE_NVM_ADDR, (uint8_t*)&BootNvmInfo, 4);
+      BootNvmInfo = UPGRADE_REQT_MAGIC;
+      NvmWrite(UPGRADE_NVM_ADDR, (uint8_t*)&BootNvmInfo, 4);
             //if you want PORRESET to reset GPIO only,uncomment it
             //GpioPorSysReset(GPIO_RSTSRC_PORREST);
-      //NVIC_SystemReset();
-      while(1);;;
+      NVIC_SystemReset();
     }
   }
+exit:
+  return;
 }
+
+static bool IsCardLink(void)
+{
+  return false;
+}
+static bool IsUDiskLink(void)
+{
+	return UsbHost2IsLink();
+}
+
+bool CheckAllDiskLinkFlag(void)
+{
+    return TRUE;
+}
+
+static bool HardwareInit(DEV_ID DevId)
+{
+	switch(DevId)
+	{
+		case DEV_ID_SD:
+			if(!IsCardLink())
+			{
+				return FALSE;
+			}
+			FSDeInit(DEV_ID_SD);
+			if(SdCardInit())	
+			{
+				return FALSE;
+			}
+			if(!FSInit(DEV_ID_SD))
+			{
+				return FALSE;
+			}
+			return TRUE;
+		case DEV_ID_USB:
+			Usb2SetDetectMode(1, 0);
+			UsbSetCurrentPort(UDISK_PORT_NUM);
+			if(!IsUDiskLink())
+			{
+				return FALSE;
+			}
+			FSDeInit(DEV_ID_SD);
+			FSDeInit(DEV_ID_USB);
+			if(!HostStorInit())
+			{
+				return FALSE;
+			}
+			if(!FSInit(DEV_ID_USB))
+			{
+				return FALSE;
+			}
+			return TRUE;
+		default:
+			break;
+	}
+	return FALSE;
+}
+static void FileBrowse(FS_CONTEXT* FsContext)
+{	
+	uint8_t	EntryType;
+	DirSetStartEntry(FsContext, FsContext->gFsInfo.RootStart, 0, TRUE);
+	FsContext->gFolderDirStart = FsContext->gFsInfo.RootStart;
+	while(1)
+	{
+		EntryType = DirGetNextEntry(FsContext);
+		switch(EntryType)
+		{
+			case ENTRY_FILE:
+//				platform_log("%-.11s  %d年%d月%d日 %d:%d:%d  %d 字节",
+//					FsContext->gCurrentEntry->FileName,
+//					1980+(FsContext->gCurrentEntry->CreateDate >> 9),
+//					(FsContext->gCurrentEntry->CreateDate >> 5) & 0xF,
+//					(FsContext->gCurrentEntry->CreateDate) & 0x1F,
+//					FsContext->gCurrentEntry->CreateTime >> 11,
+//					(FsContext->gCurrentEntry->CreateTime >> 5) & 0x3F,
+//					((FsContext->gCurrentEntry->CreateTime << 1) & 0x3F) + (FsContext->gCurrentEntry->CrtTimeTenth / 100),
+//					FsContext->gCurrentEntry->Size);
+      	if((FsContext->gCurrentEntry->ExtName[0] == 'M') && 
+           (FsContext->gCurrentEntry->ExtName[1] == 'V') && 
+           (FsContext->gCurrentEntry->ExtName[2] == 'A')){
+            UpgradeFileFound = true;
+            return;
+          }
+				break;
+			case ENTRY_FOLDER:
+				break;
+			case ENTRY_END:
+        return;
+			default:
+				break;
+		}
+	}
+}
+
+#endif
+
 
 
 void host_platform_reset_wifi( bool reset_asserted )
@@ -422,4 +552,5 @@ bool MicoShouldEnterBootloader(void)
 //  else
     return true;
 }
+
 

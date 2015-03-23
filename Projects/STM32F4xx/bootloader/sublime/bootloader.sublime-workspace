@@ -539,7 +539,7 @@
 			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/STM32F4xx/peripherals/stm32f4xx_platform.c",
 			"settings":
 			{
-				"buffer_size": 18228,
+				"buffer_size": 18241,
 				"line_ending": "Windows"
 			}
 		},
@@ -563,7 +563,7 @@
 			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Bootloader/Update_for_OTA.c",
 			"settings":
 			{
-				"buffer_size": 8482,
+				"buffer_size": 7933,
 				"line_ending": "Windows"
 			}
 		},
@@ -571,7 +571,7 @@
 			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-3165/platform_common_config.h",
 			"settings":
 			{
-				"buffer_size": 9449,
+				"buffer_size": 9594,
 				"line_ending": "Windows"
 			}
 		},
@@ -779,7 +779,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 93.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"<open folders>",
@@ -1007,15 +1007,15 @@
 					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/STM32F4xx/peripherals/stm32f4xx_platform.c",
 					"settings":
 					{
-						"buffer_size": 18228,
+						"buffer_size": 18241,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1828,
-								1828
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1091,7 +1091,7 @@
 					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Bootloader/Update_for_OTA.c",
 					"settings":
 					{
-						"buffer_size": 8482,
+						"buffer_size": 7933,
 						"regions":
 						{
 						},
@@ -1119,15 +1119,15 @@
 					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-3165/platform_common_config.h",
 					"settings":
 					{
-						"buffer_size": 9449,
+						"buffer_size": 9594,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2961,
-								2974
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1154,8 +1154,8 @@
 						"selection":
 						[
 							[
-								11067,
-								11067
+								10705,
+								10705
 							]
 						],
 						"settings":

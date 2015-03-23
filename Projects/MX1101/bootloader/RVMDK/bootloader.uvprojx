@@ -363,7 +363,7 @@
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls>--diag_suppress=1,1293</MiscControls>
-              <Define>USE_STDPERIPH_DRIVER BOOTLOADER</Define>
+              <Define>USE_STDPERIPH_DRIVER BOOTLOADER  NO_MICO_RTOS</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\..\..\Bootloader;..\..\..\..\include;..\..\..\..\MICO;..\..\..\..\External;..\..\..\..\Support;..\..\..\..\Board\EMW5062;..\..\..\..\Platform\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\inc;..\..\..\..\Platform\MCU\MX1101\peripherals</IncludePath>
             </VariousControls>
@@ -580,6 +580,31 @@
               <FileName>startup_mx1101_bootloader.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\MCU\MX1101\RVMDK\startup_mx1101_bootloader.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/MCU/MX1101/filesystem</GroupName>
+          <Files>
+            <File>
+              <FileName>fs.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\fs.lib</FilePath>
+            </File>
+            <File>
+              <FileName>diskio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\diskio.c</FilePath>
+            </File>
+            <File>
+              <FileName>partition.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\partition.c</FilePath>
+            </File>
+            <File>
+              <FileName>presearch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\presearch.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1157,7 +1182,7 @@
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls>--diag_suppress=1,1293</MiscControls>
-              <Define>USE_STDPERIPH_DRIVER BOOTLOADER</Define>
+              <Define>USE_STDPERIPH_DRIVER BOOTLOADER  NO_MICO_RTOS</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\..\..\Bootloader;..\..\..\..\include;..\..\..\..\MICO;..\..\..\..\External;..\..\..\..\Support;..\..\..\..\Board\MX1101_EVB;..\..\..\..\Platform\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\inc;..\..\..\..\Platform\MCU\MX1101\peripherals</IncludePath>
             </VariousControls>
@@ -1374,6 +1399,31 @@
               <FileName>startup_mx1101_bootloader.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\MCU\MX1101\RVMDK\startup_mx1101_bootloader.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/MCU/MX1101/filesystem</GroupName>
+          <Files>
+            <File>
+              <FileName>fs.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\fs.lib</FilePath>
+            </File>
+            <File>
+              <FileName>diskio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\diskio.c</FilePath>
+            </File>
+            <File>
+              <FileName>partition.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\partition.c</FilePath>
+            </File>
+            <File>
+              <FileName>presearch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\presearch.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1951,9 +2001,9 @@
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls>--diag_suppress=1,1293</MiscControls>
-              <Define>USE_STDPERIPH_DRIVER BOOTLOADER Debug</Define>
+              <Define>USE_STDPERIPH_DRIVER BOOTLOADER DEBUG NO_MICO_RTOS</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\Bootloader;..\..\..\..\include;..\..\..\..\MICO;..\..\..\..\External;..\..\..\..\Support;..\..\..\..\Board\MiCOKit-3088;..\..\..\..\Platform\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\inc;..\..\..\..\Platform\MCU\MX1101\peripherals</IncludePath>
+              <IncludePath>..\..\..\..\Bootloader;..\..\..\..\include;..\..\..\..\MICO;..\..\..\..\External;..\..\..\..\Support;..\..\..\..\Board\MiCOKit-3088;..\..\..\..\Platform\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\inc;..\..\..\..\Platform\MCU\MX1101\peripherals;..\..\..\..\Platform\MCU\MX1101\FileSystem\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1974,7 +2024,7 @@
             </VariousControls>
           </Aads>
           <LDads>
-            <umfTarg>0</umfTarg>
+            <umfTarg>1</umfTarg>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
             <noStLib>0</noStLib>
@@ -2095,49 +2145,6 @@
               <FileName>hardfault.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\Cortex-M3\hardfault.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>2</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
             </File>
           </Files>
         </Group>
@@ -2168,6 +2175,50 @@
               <FileName>startup_mx1101_bootloader.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\MCU\MX1101\RVMDK\startup_mx1101_bootloader.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/MCU/MX1101/filesystem</GroupName>
+          <Files>
+            <File>
+              <FileName>fs.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\fs.lib</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>1</ModuleSelection>
+                  <IncludeInBuild>2</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules>dir.o|1|0|0|0,dir_lookup.o|1|0|0|0,fat.o|1|0|0|0,fat_file.o|1|0|0|0,folder.o|1|0|0|0,fs_mount.o|1|0|0|0,fsinfo.o|1|0|0|0,fsmount_buffermanager.o|1|0|0|0,utf.o|1|0|0|0</IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds/>
+              </FileOption>
+            </File>
+            <File>
+              <FileName>diskio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\diskio.c</FilePath>
+            </File>
+            <File>
+              <FileName>partition.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\partition.c</FilePath>
+            </File>
+            <File>
+              <FileName>presearch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\presearch.c</FilePath>
             </File>
           </Files>
         </Group>

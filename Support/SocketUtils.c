@@ -75,8 +75,19 @@ exit:
 void SocketClose(int* fd)
 {
     int tempFd = *fd;
+    if ( tempFd < 0 )
+      return;
     *fd = -1;
     close(tempFd);
+}
+
+void SocketCloseForOSEvent(int* fd)
+{
+    int tempFd = *fd;
+    if ( tempFd < 0 )
+      return;
+    *fd = -1;
+    mico_delete_event_fd(tempFd);
 }
 
 void SocketAccept(int *plocalTcpClientsPool, int maxClientsNum, int newFd)

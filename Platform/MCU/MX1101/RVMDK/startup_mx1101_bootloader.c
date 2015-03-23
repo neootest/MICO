@@ -234,7 +234,7 @@ PIDCHKSUM	FILL 8, 0xFF
 
 	//constant data offset
 	AREA    |.ARM.__at_0x0000008C|, CODE, READONLY
-CONSTDATA	DCD	0x100000
+CONSTDATA	DCD	0xA000
 
 	//user data offset
 	AREA    |.ARM.__at_0x00000090|, CODE, READONLY

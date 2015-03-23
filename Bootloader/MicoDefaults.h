@@ -37,8 +37,6 @@ extern "C"
 {
 #endif
 
-#define NO_MICO_RTOS
-
 #ifdef __cplusplus
 } /*extern "C" */
 #endif

@@ -76,27 +76,17 @@
 #define SYSTICK_CLOCK_SOURCE    SysTick_CLKSource_HCLK   /* SysTick clock source = AHB clock     */
 #define INT_FLASH_WAIT_STATE    FLASH_Latency_3          /* Internal flash wait state = 3 cycles */
 
-#define SDIO_OOB_IRQ_BANK       GPIOB
-#define SDIO_CLK_BANK           GPIOC
-#define SDIO_CMD_BANK           GPIOD
-#define SDIO_D0_BANK            GPIOC
-#define SDIO_D1_BANK            GPIOC
-#define SDIO_D2_BANK            GPIOC
-#define SDIO_D3_BANK            GPIOC
-#define SDIO_OOB_IRQ_BANK_CLK   RCC_AHB1Periph_GPIOB
-#define SDIO_CLK_BANK_CLK       RCC_AHB1Periph_GPIOC
-#define SDIO_CMD_BANK_CLK       RCC_AHB1Periph_GPIOD
-#define SDIO_D0_BANK_CLK        RCC_AHB1Periph_GPIOC
-#define SDIO_D1_BANK_CLK        RCC_AHB1Periph_GPIOC
-#define SDIO_D2_BANK_CLK        RCC_AHB1Periph_GPIOC
-#define SDIO_D3_BANK_CLK        RCC_AHB1Periph_GPIOC
-#define SDIO_OOB_IRQ_PIN        13
-#define SDIO_CLK_PIN            12
-#define SDIO_CMD_PIN            2
-#define SDIO_D0_PIN             8
-#define SDIO_D1_PIN             9
-#define SDIO_D2_PIN             10
-#define SDIO_D3_PIN             11
+#define FUNC_USB_EN					   
+//#define FUNC_CARD_EN					
+
+#ifdef FUNC_USB_EN
+  #define UDISK_PORT_NUM		        2		// USB端口定义
+#endif
+
+#ifdef FUNC_CARD_EN
+  #define	SD_PORT_NUM                 1		// SD卡端口定义
+#endif
+
 
 /* These are internal platform connections only */
 typedef enum
@@ -112,6 +102,7 @@ typedef enum
   STDIO_UART_RX,
   STDIO_UART_TX,
   SDIO_INT,
+  USB_DETECT,
   MICO_COMMON_GPIO_MAX,
 } mico_common_gpio_t;
 
@@ -173,33 +164,46 @@ typedef enum
 
 #define MICO_FLASH_FOR_BOOT         MICO_SPI_FLASH
 #define BOOT_START_ADDRESS          (uint32_t)0x00000000 
-#define BOOT_END_ADDRESS            (uint32_t)0x00007FFF 
-#define BOOT_FLASH_SIZE             (BOOT_END_ADDRESS - BOOT_START_ADDRESS + 1)   /* 32k bytes */
+#define BOOT_END_ADDRESS            (uint32_t)0x00009FFF 
+#define BOOT_FLASH_SIZE             (BOOT_END_ADDRESS - BOOT_START_ADDRESS + 1)   /* 36k bytes */
 
 #define MICO_FLASH_FOR_PARA         MICO_SPI_FLASH
-#define PARA_START_ADDRESS          (uint32_t)0x00009000 //Need 1 kbytes free space before papa in MX1101
-#define PARA_END_ADDRESS            (uint32_t)0x00009FFF
+#define PARA_START_ADDRESS          (uint32_t)0x0000B000 //Need 1 kbytes free space before papa in MX1101
+#define PARA_END_ADDRESS            (uint32_t)0x0000BFFF
 #define PARA_FLASH_SIZE             (PARA_END_ADDRESS - PARA_START_ADDRESS + 1)  /* 4k bytes */
 
 #define MICO_FLASH_FOR_EX_PARA      MICO_SPI_FLASH
-#define EX_PARA_START_ADDRESS       (uint32_t)0x0000A000
-#define EX_PARA_END_ADDRESS         (uint32_t)0x0000AFFF
+#define EX_PARA_START_ADDRESS       (uint32_t)0x0000C000
+#define EX_PARA_END_ADDRESS         (uint32_t)0x0000CFFF
 #define EX_PARA_FLASH_SIZE          (EX_PARA_END_ADDRESS - EX_PARA_START_ADDRESS + 1)   /* 4k bytes */
 
+//#define MICO_FLASH_FOR_DRIVER       MICO_SPI_FLASH
+#define DRIVER_START_ADDRESS        (uint32_t)0x0000D000 
+#define DRIVER_END_ADDRESS          (uint32_t)0x0005AFFF
+#define DRIVER_FLASH_SIZE           (DRIVER_END_ADDRESS - DRIVER_START_ADDRESS + 1)  /* 312k bytes */
+
+#ifdef MICO_FLASH_FOR_DRIVER /* Has a predefined RF driver location */
 #define MICO_FLASH_FOR_APPLICATION  MICO_SPI_FLASH
-#define APPLICATION_START_ADDRESS   (uint32_t)0x0000B000
-#define APPLICATION_END_ADDRESS     (uint32_t)0x000CAFFF
+#define APPLICATION_START_ADDRESS   (uint32_t)0x0005B000
+#define APPLICATION_END_ADDRESS     (uint32_t)0x000DAFFF
+#define APPLICATION_FLASH_SIZE      (APPLICATION_END_ADDRESS - APPLICATION_START_ADDRESS + 1) /* 512k bytes */
+
+#define MICO_FLASH_FOR_UPDATE       MICO_SPI_FLASH /* Optional */
+#define UPDATE_START_ADDRESS        (uint32_t)0x000DB000  /* Optional */
+#define UPDATE_END_ADDRESS          (uint32_t)0x0015AFFF  /* Optional */
+#define UPDATE_FLASH_SIZE           (UPDATE_END_ADDRESS - UPDATE_START_ADDRESS + 1) /* 512k bytes, optional*/
+#else /* RF driver is build in application */
+#define MICO_FLASH_FOR_APPLICATION  MICO_SPI_FLASH
+#define APPLICATION_START_ADDRESS   (uint32_t)0x0000D000
+#define APPLICATION_END_ADDRESS     (uint32_t)0x000CCFFF
 #define APPLICATION_FLASH_SIZE      (APPLICATION_END_ADDRESS - APPLICATION_START_ADDRESS + 1) /* 768k bytes */
 
 #define MICO_FLASH_FOR_UPDATE       MICO_SPI_FLASH /* Optional */
-#define UPDATE_START_ADDRESS        (uint32_t)0x000CB000  /* Optional */
-#define UPDATE_END_ADDRESS          (uint32_t)0x0018AFFF  /* Optional */
+#define UPDATE_START_ADDRESS        (uint32_t)0x000CD000  /* Optional */
+#define UPDATE_END_ADDRESS          (uint32_t)0x0018CFFF  /* Optional */
 #define UPDATE_FLASH_SIZE           (UPDATE_END_ADDRESS - UPDATE_START_ADDRESS + 1) /* 768k bytes, optional*/
+#endif
 
-//#define MICO_FLASH_FOR_DRIVER       MICO_SPI_FLASH
-#define DRIVER_START_ADDRESS        (uint32_t)0x001A0000 
-#define DRIVER_END_ADDRESS          (uint32_t)0x001FFFFF
-#define DRIVER_FLASH_SIZE           (DRIVER_END_ADDRESS - DRIVER_START_ADDRESS + 1)  /* 384k bytes */
 /******************************************************
 *                   Enumerations
 ******************************************************/

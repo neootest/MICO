@@ -519,6 +519,48 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Bootloader/BootloaderEntrance.c",
+			"settings":
+			{
+				"buffer_size": 3797,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/STM32F4xx/peripherals/stm32f4xx_platform.c",
+			"settings":
+			{
+				"buffer_size": 18241,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/STM32F4xx/peripherals/MicoDriverUart.c",
+			"settings":
+			{
+				"buffer_size": 31389,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "Searching 1015 files for \"SpiFlashInfoInit\"\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/MX1101/peripherals/MicoDriverFlash.c:\n  419    require_action( flash == MICO_SPI_FLASH, exit, err = kUnsupportedErr);\n  420  \n  421:   SpiFlashInfoInit();\n  422  #ifdef  DEBUG_FLASH \n  423    SpiFlashGetInfo(&FlashInfo);\n\n/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/MX1101/peripherals/Libraries/inc/spi_flash.h:\n  177   *³õÊ¼»¯²¢»ñÈ¡Ïà¹ØÐÅÏ¢\n  178   **/\n  179: void SpiFlashInfoInit(void);\n  180  \n  181  /**\n\n2 matches across 2 files\n",
+			"settings":
+			{
+				"buffer_size": 564,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/MX1101/peripherals/Libraries/inc/spi_flash.h",
+			"settings":
+			{
+				"buffer_size": 7367,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -580,6 +622,9 @@
 	},
 	"file_history":
 	[
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/STM32F4xx/peripherals/stm32f4xx_platform.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/STM32F2xx/peripherals/stm32f2xx_platform.c",
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/MX1101/peripherals/MicoDriverCommon.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/EMW5062/platform_common_config.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-3161/platform_common_config.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-3088/platform_common_config.h",
@@ -601,7 +646,6 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/MX1101/RVMDK/startup_mx1101.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/STM32F2xx/RVMDK/startup_stm32f2xx_RVMDK.s",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/MX1101/RVMDK/startup_mx1101.s",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/MX1101/peripherals/MicoDriverCommon.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Cortex-M3/CMSIS/core_cmFunc.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Cortex-M3/hardfault.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Cortex-M3/CMSIS/core_cm3.h",
@@ -705,9 +749,7 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverI2c.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverPwm.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverRng.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverRtc.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverSpi.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverWdg.h"
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverRtc.h"
 	],
 	"find":
 	{
@@ -715,7 +757,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
 			"<open folders>",
@@ -734,6 +776,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"SpiFlashInfoInit",
 			"SFLASH_SUPPORT_MACRONIX_PART",
 			"SFLASH_SUPPORT_MACRONIX_PARTS",
 			"get_IPSR",
@@ -860,8 +903,7 @@
 			"host_platform_deinit",
 			"host_platform_init",
 			"//",
-			"thread_wakeup",
-			"mico_uart_t"
+			"thread_wakeup"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -881,8 +923,168 @@
 	"groups":
 	[
 		{
+			"selected": 4,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Bootloader/BootloaderEntrance.c",
+					"settings":
+					{
+						"buffer_size": 3797,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1647,
+								1647
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/STM32F4xx/peripherals/stm32f4xx_platform.c",
+					"settings":
+					{
+						"buffer_size": 18241,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2740.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/STM32F4xx/peripherals/MicoDriverUart.c",
+					"settings":
+					{
+						"buffer_size": 31389,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								18800,
+								18800
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 6341.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"settings":
+					{
+						"buffer_size": 564,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										244,
+										260
+									],
+									[
+										495,
+										511
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								505,
+								505
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/MX1101/peripherals/Libraries/inc/spi_flash.h",
+					"settings":
+					{
+						"buffer_size": 7367,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5678,
+								5694
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2203.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],

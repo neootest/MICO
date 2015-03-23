@@ -35,7 +35,13 @@
 #include "Common.h"
 
 #define mico_thread_sleep                 sleep
+
+#ifdef NO_MICO_RTOS
+#define mico_thread_msleep                mico_thread_msleep_no_os
+#else
 #define mico_thread_msleep                msleep
+#endif
+
 #define mico_rtos_suspend_all_thread      vTaskSuspendAll
 #define mico_rtos_resume_all_thread       xTaskResumeAll
 
@@ -193,7 +199,7 @@ bool mico_rtos_is_current_thread( mico_thread_t* thread );
   *
   * @return   None.
   */
-void mico_thread_sleep(int seconds);
+void mico_thread_sleep(uint32_t seconds);
 
 /** @brief    Suspend current thread for a specific time
  *
@@ -201,15 +207,8 @@ void mico_thread_sleep(int seconds);
  *
  * @return    None.
  */
-void mico_thread_msleep(int milliseconds);
+void mico_thread_msleep(uint32_t milliseconds);
 
-/** @brief    Inserts a delay time in no os.
- *
- * @param     timer : A time interval (Unit: millisecond)
- *
- * @return    None.
- */
-void mico_thread_msleep_no_os(volatile uint32_t  milliseconds);
 
 /**
   * @}

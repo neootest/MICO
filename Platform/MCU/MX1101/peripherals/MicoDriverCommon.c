@@ -524,7 +524,6 @@ void MicoMcuPowerSaveConfig( int enable )
 OSStatus stdio_hardfault( char* data, uint32_t size )
 {
 #ifndef MICO_DISABLE_STDIO
-  uint32_t idx;
   BuartIOctl(UART_IOCTL_TXINT_SET, 1);
 
   if(uart_mapping[STDIO_UART].uart == FUART){
@@ -537,17 +536,18 @@ OSStatus stdio_hardfault( char* data, uint32_t size )
     return kUnsupportedErr;
     
 #endif
- return kNoErr;
 }
 
 
 #ifdef NO_MICO_RTOS
 static volatile uint32_t no_os_tick = 0;
+extern volatile uint32_t gSysTick;
 
 void SysTick_Handler(void)
 {
   no_os_tick ++;
-  //IWDG_ReloadCounter();
+  gSysTick ++;
+  WdgFeed();
 }
 
 uint32_t mico_get_time_no_os(void)

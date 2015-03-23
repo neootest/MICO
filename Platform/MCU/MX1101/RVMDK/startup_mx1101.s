@@ -23,9 +23,7 @@
 ;* FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
 ;* CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
 ;*
-;* <h2><center>&copy; COPYRIGHT 2014 MXCHIP Inc.</center></h2>
 ;******************************************************************************
-;*/ 
 
 ; Amount of memory (in bytes) allocated for Stack
 ; Tailor this value to your application needs
@@ -44,7 +42,7 @@ __initial_sp
 ;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
 ; </h>
 
-Heap_Size       EQU     0x00011600
+Heap_Size       EQU     0x00013200
 
                 AREA    HEAP, NOINIT, READWRITE, ALIGN=3
 __heap_base
@@ -63,7 +61,6 @@ __heap_limit
                 IMPORT  vPortSVCHandler
                 IMPORT  xPortPendSVHandler
                 IMPORT  xPortSysTickHandler
-
 					
 __Vectors       DCD     __initial_sp               			; Top of Stack
                 DCD     Reset_Handler              			; Reset Handler
