@@ -604,6 +604,75 @@ void set_tcp_keepalive(int inMaxErrNum, int inSeconds);
  */
 void get_tcp_keepalive(int *outMaxErrNum, int *outSeconds);
 
+
+/* SSL */
+/** @brief      Used by the SSL server. Set the certificate and private key for a SSL server. 
+ *
+ * @details    This function is called on the server side to set it's certifact and private key.
+ *              It must be called before ssl_accept. These two arguments must be global
+ *              string buffer, library will not create a copy for them.
+ *
+ *  @param      _cert_pem: Point to the certificate string in PEM format.
+ *  @param      private_key_pem: Point to the private key string in PEM format.
+ *
+ *  @retval     void
+ */
+void ssl_set_cert(const char *_cert_pem, const char *private_key_pem);
+
+/** @brief      SSL client create a SSL connection.
+ *
+ * @details    This function is called on the client side and initiates an SSL/TLS handshake with a 
+ *              server.  When this function is called, the underlying communication channel has already 
+ *              been set up. This function is called after TCP 3-way handshak finished. 
+ *
+ *  @param      fd: The fd number for a connected TCP socket.
+ *  @param      calen: the string length of ca. 0=do not verify server's certificate.
+ *  @param      ca: pointer to the CA certificate string, used to verify server's certificate.
+ *  @param      errno: return the errno if ssl_connect return NULL.
+ *
+ *  @retval     return the SSL context pointer on success or NULL for fail.
+ */
+void* ssl_connect(int fd, int calen, char*ca, int *errno); 
+
+/** @brief      SSL Server accept a SSL connection
+ *
+ *  @param      fd: The fd number for a connected TCP socket.
+ *
+ *  @retval     return the SSL context pointer on success or NULL for fail.
+ */
+void* ssl_accept(int fd); 
+
+
+/** @brief      SSL send data
+ *
+ *  @param      ssl: Point to the SSL context.
+ *  @param      data: Point to send data.
+ *  @param      len: data length.
+ *
+ *  @retval     On success, these calls return the number of bytes sent.  On error,
+ *             -1 is returned,
+ */
+int ssl_send(void* ssl, char *data, int len);
+
+/** @brief      SSL receive data
+ *
+ *  @param      ssl: Point to the SSL context.
+ *  @param      data: Point to buffer to receive SSL data.
+ *  @param      len: max receive buffer length.
+ *
+ *  @retval     On success, these calls return the number of bytes received.  On error,
+ *             -1 is returned,
+ */
+int ssl_recv(void* ssl, char *data, int len);
+
+/** @brief      Close the SSL session, release resource.
+ *
+ *  @param      ssl: Point to the SSL context.
+ *
+ *  @retval     kNoerr or kGeneralErr
+ */
+int ssl_close(void* ssl);
+
 /**
   * @}
   */

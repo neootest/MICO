@@ -151,8 +151,6 @@ void remoteTcpClient_thread(void *inContext)
           socket_queue_delete(Context, &queue);
         }
         if(remoteTcpClient_fd != -1){
-        
-        
           SocketClose(&remoteTcpClient_fd);
         }
         sleep(CLOUD_RETRY);
