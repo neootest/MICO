@@ -798,6 +798,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"micoWlanEnablePowerSave",
 			"SFLASH_SUPPORT_WINBOND_PARTS",
 			"internalFlashErase",
 			"MicoFlashErase",
@@ -924,8 +925,7 @@
 			"init_clocks",
 			"PWR_CR_PDDS",
 			"__force_stores",
-			"RTC_SetWakeUpCounter",
-			"MicoSystemStandBy"
+			"RTC_SetWakeUpCounter"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -945,7 +945,7 @@
 	"groups":
 	[
 		{
-			"selected": 7,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -1165,7 +1165,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4192.0,
+						"translation.y": 3428.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
