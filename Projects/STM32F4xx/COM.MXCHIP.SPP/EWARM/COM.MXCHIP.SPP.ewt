@@ -170,6 +170,90 @@
       </data>
     </settings>
   </configuration>
+  <configuration>
+    <name>EMW5288</name>
+    <toolchain>
+      <name>ARM</name>
+    </toolchain>
+    <debug>0</debug>
+    <settings>
+      <name>RuntimeChecking</name>
+      <archiveVersion>0</archiveVersion>
+      <data>
+        <version>2</version>
+        <wantNonLocal>1</wantNonLocal>
+        <debug>0</debug>
+        <option>
+          <name>GenRtcDebugHeap</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcEnableBoundsChecking</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcCheckPtrsNonInstrMem</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>GenRtcTrackPointerBounds</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>GenRtcCheckAccesses</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>GenRtcGenerateEntries</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcNrTrackedPointers</name>
+          <state>1000</state>
+        </option>
+        <option>
+          <name>GenRtcIntOverflow</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcIncUnsigned</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcIntConversion</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcInclExplicit</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcIntShiftOverflow</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcInclUnsignedShiftOverflow</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcUnhandledCase</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcDivByZero</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcEnable</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GenRtcCheckPtrsNonInstrFunc</name>
+          <state>1</state>
+        </option>
+      </data>
+    </settings>
+  </configuration>
   <group>
     <name>Application</name>
     <file>
@@ -202,6 +286,21 @@
   </group>
   <group>
     <name>Board</name>
+    <group>
+      <name>EMW5288</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Board\EMW5288\platform.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Board\EMW5288\platform.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Board\EMW5288\platform_common_config.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Board\EMW5288\platform_spi_flash.c</name>
+      </file>
+    </group>
     <group>
       <name>MiCOKit-3165</name>
       <file>
@@ -401,16 +500,16 @@
   <group>
     <name>Library</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\MICOConfig.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\MICO\Library\MICOConfig.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\mxchipWNet_cm4f_8801.a</name>
+      <name>$PROJ_DIR$\..\..\..\..\MICO\Library\mxchipWNet_cm4f_8801.a</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\mxchipWNet_cm4f_sdio.a</name>
+      <name>$PROJ_DIR$\..\..\..\..\MICO\Library\mxchipWNet_cm4f_sdio.a</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\mxchipWNet_cm4f_spi.a</name>
+      <name>$PROJ_DIR$\..\..\..\..\MICO\Library\mxchipWNet_cm4f_spi.a</name>
     </file>
   </group>
   <group>
@@ -713,37 +812,37 @@
   <group>
     <name>Support</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\AESUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\AESUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\HTTPUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\HTTPUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\MDNSUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\MDNSUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\RingBufferUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\RingBufferUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\SecurityUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\SecurityUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\SHAUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\SHAUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\SocketUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\SocketUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\StringUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\StringUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\TimeUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\TimeUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\TLVUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\TLVUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\URLUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\URLUtils.c</name>
     </file>
   </group>
 </project>
