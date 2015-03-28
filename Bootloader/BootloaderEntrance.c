@@ -88,10 +88,8 @@ int main(void)
   update();
 #endif
   
-  /* BOOT_SEL = 1 => Normal start*/
   if(MicoShouldEnterBootloader() == false)
     startApplication();
-  /* BOOT_SEL = 0, MFG_SEL = 0 => Normal start, MICO will enter MFG mode when "MicoInit" is called*/
   else if(MicoShouldEnterMFGMode() == true)
     startApplication();
 

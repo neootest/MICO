@@ -432,7 +432,11 @@ void init_platform_bootloader( void )
   }
 
   printf("\r\n");
-  require_string( crcResult == targetCrcResult, exit, "Check-sum error" ); 
+  //require_string( crcResult == targetCrcResult, exit, "Check-sum error" ); 
+  if( crcResult != targetCrcResult ){
+    platform_log("Check-sum error");
+    while(1);
+  }
   /* Clear RF driver from temperary storage */
   platform_log("Bootloader start to clear RF driver temporary storage...");
 

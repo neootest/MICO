@@ -163,7 +163,7 @@ OSStatus update(void)
           require_noerr(err, exit);
           err = MicoFlashFinalize( MICO_FLASH_FOR_UPDATE );
           require_noerr(err, exit);
-          break;
+          goto exit;
         }
       }
     }
