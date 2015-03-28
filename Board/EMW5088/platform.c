@@ -112,8 +112,7 @@ const platform_pin_mapping_t gpio_mapping[] =
 //  /* Common GPIOs for internal use */
   [WL_GPIO1]                            = {GPIOA, 10},
   [WL_REG]                              = {GPIOB,  5},
-  [MICO_SYS_LED]                        = {GPIOA,  3}, 
-  [MICO_RF_LED]                         = {GPIOA,  4}, 
+  [MICO_SYS_LED]                        = {GPIOB, 31}, 
   [BOOT_SEL]                            = {GPIOB, 26},
   [EasyLink_BUTTON]                     = {GPIOA,  5}, 
   [STDIO_UART_RX]                       = {GPIOB,  6},
@@ -265,8 +264,6 @@ void init_platform( void )
 {
   MicoGpioInitialize( (mico_gpio_t)MICO_SYS_LED, OUTPUT_PUSH_PULL );
   MicoSysLed(false);
-  MicoGpioInitialize( (mico_gpio_t)MICO_RF_LED, OUTPUT_PUSH_PULL );
-  MicoRfLed(false);
   
   //  Initialise EasyLink buttons
   //MicoGpioInitialize( (mico_gpio_t)EasyLink_BUTTON, INPUT_PULL_UP );

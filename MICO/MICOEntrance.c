@@ -268,7 +268,7 @@ void _ConnectToAP( mico_Context_t * const inContext)
 static void _watchdog_reload_timer_handler( void* arg )
 {
   (void)(arg);
-  MICOUpdateSystemMonitor(&mico_monitor, APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000-100);
+  MICOUpdateSystemMonitor(&mico_monitor, APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000);
 }
 
 int application_start(void)

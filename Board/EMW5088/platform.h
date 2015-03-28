@@ -61,7 +61,6 @@ typedef enum
   WL_GPIO1,
   WL_REG,
   MICO_SYS_LED,
-  MICO_RF_LED,
   BOOT_SEL,
   MFG_SEL,
   EasyLink_BUTTON,
@@ -135,7 +134,7 @@ typedef enum
 /* Components connected to external I/Os*/
 #define WL_RESET            (MICO_GPIO_UNUSED)
 #define Standby_SEL         (MICO_GPIO_UNUSED)
-
+#define MICO_RF_LED         (MICO_GPIO_UNUSED)
 /* I/O connection <-> Peripheral Connections */
 #define MICO_I2C_CP         (MICO_I2C_1)
 
