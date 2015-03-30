@@ -37,7 +37,7 @@
 
 #include "platform.h"
 #include "platform_common_config.h"
-#include "stm32f2xx_platform.h"
+#include "platform_peripheral.h"
 #include "stm32f2xx.h"
 
 /******************************************************
@@ -218,6 +218,20 @@ uint32_t GetLSIFrequency(void)
   { /* PCLK1 prescaler different from 1 => TIMCLK = 2 * PCLK1 */
     return (((2 * RCC_ClockFreq.PCLK1_Frequency) / PeriodValue) * 8) ;
   }
+}
+
+bool platform_watchdog_check_last_reset( void )
+{
+#ifndef MICO_DISABLE_WATCHDOG
+    if ( RCC->CSR & RCC_CSR_WDGRSTF )
+    {
+        /* Clear the flag and return */
+        RCC->CSR |= RCC_CSR_RMVF;
+        return true;
+    }
+#endif
+
+    return false;
 }
 
 /**

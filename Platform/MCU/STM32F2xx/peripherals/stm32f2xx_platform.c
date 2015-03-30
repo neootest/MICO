@@ -31,7 +31,7 @@
 */ 
 
 
-#include "stm32f2xx_platform.h"
+#include "platform_peripheral.h"
 #include "platform.h"
 #include "platform_common_config.h"
 #include "MicoPlatform.h"
@@ -41,6 +41,7 @@
 #include "crt0.h"
 #include "MICODefaults.h"
 #include "MicoRTOS.h"
+#include "platform_init.h"
 
 #ifdef __GNUC__
 #include "../../GCC/stdio_newlib.h"
@@ -85,9 +86,6 @@
 *               Function Declarations
 ******************************************************/
 
-void MCU_CLOCKS_NEEDED    ( void );
-void MCU_CLOCKS_NOT_NEEDED( void );
-
 void wake_up_interrupt_notify( void );
 
 extern OSStatus host_platform_init( void );
@@ -95,6 +93,9 @@ extern OSStatus host_platform_init( void );
 /******************************************************
 *               Variables Definitions
 ******************************************************/
+extern platform_uart_t platform_uart_peripherals[];
+extern platform_uart_driver_t platform_uart_drivers[];
+  
 /* mico_cpu_clock_hz is used by MICO RTOS */
 const uint32_t  mico_cpu_clock_hz = 120000000;
 
@@ -189,7 +190,7 @@ void startApplication(void)
 * This brings up enough clocks to allow the processor to run quickly while initialising memory.
 * Other platform specific clock init can be done in init_platform() or init_architecture()
 */
-WEAK void init_clocks( void )
+void init_clocks( void )
 {
   //RCC_DeInit( ); /* if not commented then the LSE PA8 output will be disabled and never comes up again */
   
@@ -230,9 +231,6 @@ WEAK void init_memory( void )
   
 }
 
-  
-
-
 void init_architecture( void )
 {
   uint8_t i;
@@ -256,6 +254,11 @@ void init_architecture( void )
   }
   
   NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
+
+  platform_init_peripheral_irq_priorities();
+
+  /* Initialise GPIO IRQ manager */
+  platform_gpio_irq_manager_init();
   
 #ifndef MICO_DISABLE_STDIO
 #ifndef NO_MICO_RTOS
@@ -264,8 +267,9 @@ void init_architecture( void )
   mico_rtos_init_mutex( &stdio_rx_mutex );
   mico_rtos_unlock_mutex ( &stdio_rx_mutex );
 #endif
+
   ring_buffer_init  ( (ring_buffer_t*)&stdio_rx_buffer, (uint8_t*)stdio_rx_data, STDIO_BUFFER_SIZE );
-  MicoStdioUartInitialize( &stdio_uart_config, (ring_buffer_t*)&stdio_rx_buffer );
+  platform_uart_init( &platform_uart_drivers[STDIO_UART], &platform_uart_peripherals[STDIO_UART], &stdio_uart_config, (ring_buffer_t*)&stdio_rx_buffer );
 #endif
 
 #ifndef NO_MICO_RTOS 
@@ -276,18 +280,19 @@ void init_architecture( void )
   SysTick_Config(SystemCoreClock / 1000);
 #endif
   /* Disable MCU powersave at start-up. Application must explicitly enable MCU powersave if desired */
-  MCU_CLOCKS_NEEDED();
+  platform_mcu_powersave_disable();
   
   stm32_platform_inited = 1;  
 }
 
 OSStatus stdio_hardfault( char* data, uint32_t size )
 {
+  extern const platform_uart_t       platform_uart_peripherals[];
 #ifndef MICO_DISABLE_STDIO
   uint32_t idx;
   for(idx = 0; idx < size; idx++){
-    while ( ( uart_mapping[ STDIO_UART ].usart->SR & USART_SR_TXE ) == 0 );
-    uart_mapping[ STDIO_UART ].usart->DR = (data[idx] & (uint16_t)0x01FF);
+    while ( ( platform_uart_peripherals[ STDIO_UART ].port->SR & USART_SR_TXE ) == 0 );
+    platform_uart_peripherals[ STDIO_UART ].port->DR = (data[idx] & (uint16_t)0x01FF);
     
   }
 #endif
@@ -304,37 +309,43 @@ OSStatus stdio_hardfault( char* data, uint32_t size )
 static int stm32f2_clock_needed_counter = 0;
 #endif
 
-void MCU_CLOCKS_NEEDED( void )
+OSStatus platform_mcu_powersave_disable( void )
 {
 #ifndef MICO_DISABLE_MCU_POWERSAVE
-  DISABLE_INTERRUPTS;
-  if ( stm32f2_clock_needed_counter <= 0 )
-  {
-    SCB->SCR &= (~((unsigned long)SCB_SCR_SLEEPDEEP_Msk));
-    stm32f2_clock_needed_counter = 0;
-  }
-  stm32f2_clock_needed_counter++;
-  ENABLE_INTERRUPTS;
+    DISABLE_INTERRUPTS;
+    if ( stm32f2_clock_needed_counter <= 0 )
+    {
+        SCB->SCR &= (~((unsigned long)SCB_SCR_SLEEPDEEP_Msk));
+        stm32f2_clock_needed_counter = 0;
+    }
+    stm32f2_clock_needed_counter++;
+    ENABLE_INTERRUPTS;
+
+    return kNoErr;
 #else
-  return;
+    return kUnsupportedErr;
 #endif
 }
 
-void MCU_CLOCKS_NOT_NEEDED( void )
+OSStatus platform_mcu_powersave_enable( void )
 {
 #ifndef MICO_DISABLE_MCU_POWERSAVE
-  DISABLE_INTERRUPTS;
-  stm32f2_clock_needed_counter--;
-  if ( stm32f2_clock_needed_counter <= 0 )
-  {
-    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-    stm32f2_clock_needed_counter = 0;
-  }
-  ENABLE_INTERRUPTS;
+    DISABLE_INTERRUPTS;
+    stm32f2_clock_needed_counter--;
+    if ( stm32f2_clock_needed_counter <= 0 )
+    {
+        SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+        stm32f2_clock_needed_counter = 0;
+    }
+    ENABLE_INTERRUPTS;
+
+    return kNoErr;
 #else
-  return;
+    return kUnsupportedErr;
 #endif
 }
+
+
 
 #ifndef MICO_DISABLE_MCU_POWERSAVE
 
@@ -554,15 +565,6 @@ void MicoSystemStandBy(uint32_t secondsToWakeup)
 
   PWR_EnterSTANDBYMode();
 }
-
-void MicoMcuPowerSaveConfig( int enable )
-{
-  if (enable == 1)
-    MCU_CLOCKS_NOT_NEEDED();
-  else
-    MCU_CLOCKS_NEEDED();
-}
-
 
 
 #ifdef NO_MICO_RTOS

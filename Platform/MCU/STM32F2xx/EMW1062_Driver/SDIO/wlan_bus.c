@@ -32,14 +32,9 @@
 #include "MicoRtos.h"
 #include "misc.h"
 #include "string.h" /* For memcpy */
-#include "gpio_irq.h"
 #include "platform_common_config.h"
-#include "stm32f2xx_platform.h"
+#include "platform_peripheral.h"
 #include "PlatformLogging.h"
-
-/* Powersave functionality */
-extern void MCU_CLOCKS_NEEDED( void );
-extern void MCU_CLOCKS_NOT_NEEDED( void );
 
 /******************************************************
  *             Constants
@@ -275,7 +270,9 @@ OSStatus host_enable_oob_interrupt( void )
 
 uint8_t host_platform_get_oob_interrupt_pin( void )
 {
-    if ( ( gpio_mapping[ WL_GPIO1 ].bank == SDIO_OOB_IRQ_BANK ) && ( gpio_mapping[ WL_GPIO1 ].number == SDIO_OOB_IRQ_PIN ) )
+  extern const platform_gpio_t       platform_gpio_pins[];
+
+    if ( ( platform_gpio_pins[ WL_GPIO1 ].port == SDIO_OOB_IRQ_BANK ) && ( platform_gpio_pins[ WL_GPIO1 ].pin_number == SDIO_OOB_IRQ_PIN ) )
     {
         /* WLAN GPIO1 */
         return 1;
@@ -293,7 +290,7 @@ OSStatus host_platform_bus_init( void )
     NVIC_InitTypeDef nvic_init_structure;
     OSStatus result;
 
-    MCU_CLOCKS_NEEDED();
+    platform_mcu_powersave_disable();
 
     result = mico_rtos_init_semaphore( &sdio_transfer_finished_semaphore, 1 );
     if ( result != kNoErr )
@@ -374,7 +371,7 @@ OSStatus host_platform_bus_init( void )
     SDIO_SetSDIOReadWaitMode( SDIO_ReadWaitMode_CLK );
     SDIO_ClockCmd( ENABLE );
 
-    MCU_CLOCKS_NOT_NEEDED();
+    platform_mcu_powersave_enable();
 
     return kNoErr;
 }
@@ -419,7 +416,7 @@ OSStatus host_platform_bus_deinit( void )
 
     result = mico_rtos_deinit_semaphore( &sdio_transfer_finished_semaphore );
 
-    MCU_CLOCKS_NEEDED();
+    platform_mcu_powersave_disable();
 
     /* Disable SPI and SPI DMA */
     sdio_disable_bus_irq( );
@@ -454,7 +451,7 @@ OSStatus host_platform_bus_deinit( void )
     nvic_init_structure.NVIC_IRQChannelSubPriority        = 0;
     NVIC_Init( &nvic_init_structure );
 
-    MCU_CLOCKS_NOT_NEEDED();
+    platform_mcu_powersave_enable();
 
     return result;
 }
@@ -472,7 +469,7 @@ OSStatus host_platform_sdio_transfer( bus_transfer_direction_t direction, sdio_c
         *response = 0;
     }
 
-    MCU_CLOCKS_NEEDED();
+    platform_mcu_powersave_disable();
 
     /* Ensure the bus isn't stuck half way through transfer */
     DMA2_Stream3->CR   = 0;
@@ -583,7 +580,7 @@ restart:
     result = kNoErr;
 
 exit:
-    MCU_CLOCKS_NOT_NEEDED();
+    platform_mcu_powersave_enable();
     SDIO->MASK = SDIO_MASK_SDIOITIE;
     return result;
 }

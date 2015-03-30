@@ -31,7 +31,6 @@
 
 #include <stdint.h>
 #include "stm32f2xx.h"
-#include "gpio_irq.h"
 #include "platform.h"
 #include "platform_common_config.h"
 #include "MICOPlatform.h"

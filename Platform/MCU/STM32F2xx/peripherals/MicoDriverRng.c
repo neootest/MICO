@@ -32,11 +32,9 @@
 
 #include "MICOPlatform.h"
 #include "MICORTOS.h"
-#include "gpio_irq.h"
 
 #include "platform.h"
 #include "platform_common_config.h"
-#include "stm32f2xx_platform.h"
 #include "stm32f2xx.h"
 
 /******************************************************
@@ -65,7 +63,7 @@
  *               Function Declarations
  ******************************************************/
 
-OSStatus MicoRandomNumberRead( void *inBuffer, int inByteCount )
+OSStatus platform_random_number_read( void *inBuffer, int inByteCount )
 {
     // PLATFORM_TO_DO
     int idx;

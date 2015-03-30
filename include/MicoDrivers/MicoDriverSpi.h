@@ -35,7 +35,7 @@
 #pragma once
 #include "Common.h"
 #include "platform.h"
-
+#include "platform_peripheral.h"
 /** @addtogroup MICO_PLATFORM
 * @{
 */
@@ -73,12 +73,7 @@ typedef struct
     uint8_t      bits;
 } mico_spi_device_t;
 
-typedef struct
-{
-    const void* tx_buffer;
-    void*       rx_buffer;
-    uint32_t    length;
-} mico_spi_message_segment_t;
+typedef platform_spi_message_segment_t mico_spi_message_segment_t;
 
 /******************************************************
  *                     Variables

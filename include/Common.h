@@ -44,6 +44,61 @@
 #define USED __attribute__ ((used))
 #endif 
 
+/* Use this macro to define an RTOS-aware interrupt handler where RTOS
+ * primitives can be safely accessed
+ *
+ * @usage:
+ * WWD_RTOS_DEFINE_ISR( my_irq_handler )
+ * {
+ *     // Do something here
+ * }
+ */
+#if defined( __GNUC__ )
+
+#define MICO_RTOS_DEFINE_ISR( function ) \
+        void function( void ); \
+        __attribute__(( interrupt, used )) void function( void )
+//        __attribute__(( interrupt, used, section(IRQ_SECTION) )) void function( void )
+
+
+#elif defined ( __IAR_SYSTEMS_ICC__ )
+
+#define MICO_RTOS_DEFINE_ISR( function ) \
+        void function( void ); \
+        void function( void )
+
+#else
+
+#define MICO_RTOS_DEFINE_ISR( function ) \
+        void function( void );
+
+#endif
+
+
+/* Macro for mapping a function defined using WWD_RTOS_DEFINE_ISR
+ * to an interrupt handler declared in
+ * <platform/<Arch>/<Family>/platform_irq_handlers.h
+ *
+ * @usage:
+ * WWD_RTOS_MAP_ISR( my_irq, USART1_irq )
+ */
+#if defined( __GNUC__ )
+
+#define MICO_RTOS_MAP_ISR( function, isr ) \
+        extern void isr( void ); \
+        __attribute__(( alias( #function ))) void isr ( void );
+
+#elif defined ( __IAR_SYSTEMS_ICC__ )
+
+#define MICO_RTOS_MAP_ISR( function, isr ) \
+        extern void isr( void ); \
+        _Pragma( "weak isr=function" )
+#else
+
+#define WWD_RTOS_MAP_ISR( function, isr )
+
+#endif
+
 // ==== COMPATIBILITY TYPES
 typedef uint8_t         Boolean;
 

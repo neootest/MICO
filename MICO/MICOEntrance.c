@@ -304,6 +304,11 @@ int application_start(void)
   require_noerr( err, exit ); 
 
   /*wlan driver and tcpip init*/
+  while(1){
+    msleep(2000);
+    mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
+  }
+
   MicoInit();
 #ifdef MICO_CLI_ENABLE  
   MicoCliInit();

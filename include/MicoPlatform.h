@@ -38,22 +38,44 @@
 
 #include "MicoDefaults.h"
 #include "platform.h" /* This file is unique for each platform */
+#include "platform_peripheral.h"
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+
+
+
+
+
+typedef platform_rtc_time_t                     mico_rtc_time_t;
+
+typedef platform_spi_slave_config_t             mico_spi_slave_config_t;
+
+typedef platform_spi_slave_transfer_direction_t mico_spi_slave_transfer_direction_t;
+
+typedef platform_spi_slave_transfer_status_t    mico_spi_slave_transfer_status_t;
+
+typedef platform_spi_slave_command_t            mico_spi_slave_command_t;
+
+typedef platform_spi_slave_data_buffer_t        mico_spi_slave_data_buffer_t;
+
+
+
+#include "MicoDrivers/MICODriverI2c.h"
+#include "MicoDrivers/MICODriverSpi.h"
 #include "MicoDrivers/MICODriverUART.h"
 #include "MicoDrivers/MICODriverGpio.h"
 #include "MicoDrivers/MICODriverPwm.h"
-#include "MicoDrivers/MICODriverSpi.h"
-#include "MicoDrivers/MICODriverI2c.h"
 #include "MicoDrivers/MICODriverRtc.h"
 #include "MicoDrivers/MICODriverWdg.h"
 #include "MicoDrivers/MICODriverAdc.h"
 #include "MicoDrivers/MICODriverRng.h"
 #include "MicoDrivers/MICODriverFlash.h"
 #include "MicoDrivers/MICODriverMFiAuth.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #define mico_mcu_powersave_config MicoMcuPowerSaveConfig
 
@@ -113,6 +135,7 @@ void MicoRfLed(bool onoff);
 
 
 bool MicoShouldEnterMFGMode(void);
+
 
 bool MicoShouldEnterBootloader(void);
 

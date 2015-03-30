@@ -32,7 +32,7 @@
 
 
 
-#include "stm32f2xx_platform.h"
+#include "platform_peripheral.h"
 #include "PlatformLogging.h"
 
 #include "rtc.h"
@@ -268,9 +268,9 @@ static OSStatus stm32f2_rtc_change_clock( rtc_clock_state_t* current, rtc_clock_
     return kNoErr;
 }
 
-#ifdef WICED_ENABLE_MCU_RTC /* link this function only when powersave is enabled and RTC is enabled at the same time */
+#ifdef MICO_ENABLE_MCU_RTC /* link this function only when powersave is enabled and RTC is enabled at the same time */
 
-static void add_second_to_time( wiced_rtc_time_t* time )
+static void add_second_to_time( mico_rtc_time_t* time )
 {
     if ( time->sec == 59 )
     {
@@ -354,7 +354,7 @@ static void add_second_to_time( wiced_rtc_time_t* time )
     }
 }
 
-static void subtract_second_from_time( wiced_rtc_time_t* time )
+static void subtract_second_from_time( mico_rtc_time_t* time )
 {
     if ( time->sec == 0 )
     {
@@ -438,9 +438,9 @@ static void subtract_second_from_time( wiced_rtc_time_t* time )
     }
 }
 
-static wiced_result_t compensate_time_error( uint32_t sec, wiced_bool_t subtract )
+static bool compensate_time_error( uint32_t sec, bool subtract )
 {
-    if( subtract == WICED_FALSE )
+    if( subtract == false )
     {
         /* Adding seconds to time */
         for( sec=sec ; sec > 0; sec--)
@@ -456,7 +456,7 @@ static wiced_result_t compensate_time_error( uint32_t sec, wiced_bool_t subtract
             subtract_second_from_time(&saved_rtc_time);
         }
     }
-    return WICED_SUCCESS;
+    return kNoErr;
 }
 
 static int add_1p25ms_contribution( uint32_t units_1p25ms, uint32_t* seconds_contribution )
@@ -469,7 +469,7 @@ static int add_1p25ms_contribution( uint32_t units_1p25ms, uint32_t* seconds_con
     *seconds_contribution = (uint32_t)temp / 1000;
     if(*seconds_contribution)
     {
-        compensate_time_error(*seconds_contribution, WICED_FALSE);
+        compensate_time_error(*seconds_contribution, false);
     }
 
 
