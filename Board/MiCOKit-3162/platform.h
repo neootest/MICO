@@ -202,10 +202,14 @@ Notes
 3. STM32F2xx Ref Manual -> http://www.st.com/web/en/resource/technical/document/reference_manual/CD00225773.pdf
 */
 
-
 typedef enum
 {
-    MICO_GPIO_1 = MICO_COMMON_GPIO_MAX,
+    MICO_SYS_LED,
+    MICO_RF_LED,
+    BOOT_SEL,
+    MFG_SEL,
+    EasyLink_BUTTON,
+    MICO_GPIO_1 ,
     MICO_GPIO_2,
     //MICO_GPIO_3,
     MICO_GPIO_4,

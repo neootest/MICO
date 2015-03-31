@@ -63,8 +63,7 @@
 /******************************************************
  *               Function Declarations
  ******************************************************/
-
-static OSStatus host_platform_deinit_wlan_powersave_clock( void );
+OSStatus host_platform_deinit_wlan_powersave_clock( void );
 
 /******************************************************
  *               Variables Definitions
@@ -81,10 +80,10 @@ void host_platform_reset_wifi( bool reset_asserted )
 
 void host_platform_power_wifi( bool power_enabled )
 {
-#if  defined ( WICED_USE_WIFI_POWER_PIN_ACTIVE_HIGH )
+#if  defined ( MICO_USE_WIFI_POWER_PIN_ACTIVE_HIGH )
     ( power_enabled == true ) ? platform_gpio_output_high( &wifi_control_pins[EMW1062_PIN_POWER] ) : platform_gpio_output_low ( &wifi_control_pins[EMW1062_PIN_POWER] );
 #else
-    ( power_enabled == false ) ? platform_gpio_output_low ( &wifi_control_pins[EMW1062_PIN_POWER] ) : platform_gpio_output_high( &wifi_control_pins[EMW1062_PIN_POWER] );
+    ( power_enabled == true ) ? platform_gpio_output_low ( &wifi_control_pins[EMW1062_PIN_POWER] ) : platform_gpio_output_high( &wifi_control_pins[EMW1062_PIN_POWER] );
 #endif
 
 }
@@ -139,6 +138,7 @@ OSStatus host_platform_init_wlan_powersave_clock( void )
 
     /* enable LSE output on MCO1 */
     RCC_MCO1Config( RCC_MCO1Source_LSE, RCC_MCO1Div_1 );
+    return kNoErr;
 #else
 
     return platform_reset_wlan_powersave_clock( );

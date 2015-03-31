@@ -74,10 +74,13 @@
 static OSStatus i2c_address_device( const platform_i2c_t* i2c, const platform_i2c_config_t* config, int retries, uint8_t direction );
 static OSStatus i2c_wait_for_event( I2C_TypeDef* i2c, uint32_t event_id, uint32_t number_of_waits );
 static OSStatus i2c_transfer_message_no_dma( const platform_i2c_t* i2c, const platform_i2c_config_t* config, platform_i2c_message_t* message );
+#ifdef I2C_USE_DMA
 static OSStatus i2c_rx_with_dma( const platform_i2c_t* i2c, const platform_i2c_config_t* config, platform_i2c_message_t* message );
 static OSStatus i2c_tx_with_dma( const platform_i2c_t* i2c, const platform_i2c_config_t* config, platform_i2c_message_t* message );
+#else
 static OSStatus i2c_tx_no_dma( const platform_i2c_t* i2c, const platform_i2c_config_t* config, platform_i2c_message_t* message );
 static OSStatus i2c_rx_no_dma( const platform_i2c_t* i2c, const platform_i2c_config_t* config, platform_i2c_message_t* message );
+#endif
 
 /******************************************************
 *               Function Definitions
@@ -547,7 +550,7 @@ OSStatus platform_i2c_init_tx_message( platform_i2c_message_t* message, const vo
   message->tx_length = tx_buffer_length;
   
 exit:  
-  return kNoErr;
+  return err;
 }
 
 OSStatus platform_i2c_init_rx_message( platform_i2c_message_t* message, void* rx_buffer, uint16_t rx_buffer_length, uint16_t retries )
@@ -562,7 +565,7 @@ OSStatus platform_i2c_init_rx_message( platform_i2c_message_t* message, void* rx
   message->rx_length = rx_buffer_length;
   
 exit:
-  return kNoErr;
+  return err;
 }
 
 OSStatus platform_i2c_init_combined_message( platform_i2c_message_t* message, const void* tx_buffer, void* rx_buffer, uint16_t tx_buffer_length, uint16_t rx_buffer_length, uint16_t retries )
@@ -579,7 +582,7 @@ OSStatus platform_i2c_init_combined_message( platform_i2c_message_t* message, co
   message->rx_length = rx_buffer_length;
   
 exit:
-  return kNoErr;
+  return err;
 }
 
 OSStatus platform_i2c_transfer( const platform_i2c_t* i2c, const platform_i2c_config_t* config, platform_i2c_message_t* messages, uint16_t number_of_messages )
@@ -611,7 +614,6 @@ OSStatus platform_i2c_deinit( const platform_i2c_t* i2c, const platform_i2c_conf
 {
   UNUSED_PARAMETER( config );
   OSStatus err = kNoErr;
-  int      i   = 0;
   
   platform_mcu_powersave_disable();
 
@@ -622,9 +624,9 @@ OSStatus platform_i2c_deinit( const platform_i2c_t* i2c, const platform_i2c_conf
   
   /* Disable DMA */
 #ifdef I2C_USE_DMA
-  DMA_DeInit( i2c_mapping[device->port].rx_dma_stream );
-  DMA_DeInit( i2c_mapping[device->port].tx_dma_stream );
-  RCC_AHB1PeriphClockCmd( i2c_mapping[device->port].tx_dma_peripheral_clock, DISABLE );
+  DMA_DeInit( i2c->rx_dma_stream );
+  DMA_DeInit( i2c->tx_dma_stream );
+  RCC_AHB1PeriphClockCmd( i2c->tx_dma_peripheral_clock, DISABLE );
 #endif
   
 exit:

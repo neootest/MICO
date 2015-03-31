@@ -74,44 +74,31 @@
 #define SYSTICK_CLOCK_SOURCE    SysTick_CLKSource_HCLK   /* SysTick clock source = AHB clock     */
 #define INT_FLASH_WAIT_STATE    FLASH_Latency_3          /* Internal flash wait state = 3 cycles */
 
-#define SDIO_OOB_IRQ_BANK       GPIOB
-#define SDIO_CLK_BANK           GPIOC
-#define SDIO_CMD_BANK           GPIOD
-#define SDIO_D0_BANK            GPIOC
-#define SDIO_D1_BANK            GPIOC
-#define SDIO_D2_BANK            GPIOC
-#define SDIO_D3_BANK            GPIOC
-#define SDIO_OOB_IRQ_BANK_CLK   RCC_AHB1Periph_GPIOB
-#define SDIO_CLK_BANK_CLK       RCC_AHB1Periph_GPIOC
-#define SDIO_CMD_BANK_CLK       RCC_AHB1Periph_GPIOD
-#define SDIO_D0_BANK_CLK        RCC_AHB1Periph_GPIOC
-#define SDIO_D1_BANK_CLK        RCC_AHB1Periph_GPIOC
-#define SDIO_D2_BANK_CLK        RCC_AHB1Periph_GPIOC
-#define SDIO_D3_BANK_CLK        RCC_AHB1Periph_GPIOC
-#define SDIO_OOB_IRQ_PIN        13
-#define SDIO_CLK_PIN            12
-#define SDIO_CMD_PIN            2
-#define SDIO_D0_PIN             8
-#define SDIO_D1_PIN             9
-#define SDIO_D2_PIN             10
-#define SDIO_D3_PIN             11
 
-/* These are internal platform connections only */
-typedef enum
-{
-  MICO_GPIO_UNUSED = -1,
-  MICO_GPIO_WLAN_POWERSAVE_CLOCK = 0,
-  WL_GPIO0,
-  WL_GPIO1,
-  WL_REG,
-  WL_RESET,
-  MICO_SYS_LED,
-  MICO_RF_LED,
-  BOOT_SEL,
-  MFG_SEL,
-  EasyLink_BUTTON,
-  MICO_COMMON_GPIO_MAX,
-} mico_common_gpio_t;
+/******************************************************
+ *  Wi-Fi Options
+ ******************************************************/
+
+/*  Wi-Fi GPIO0 pin is used for out-of-band interrupt */
+#define MICO_WIFI_OOB_IRQ_GPIO_PIN  ( 0 )
+
+/* Wi-Fi power pin is active high */
+//#define MICO_USE_WIFI_POWER_PIN_ACTIVE_HIGH
+
+/*  WLAN Powersave Clock Source
+ *  The WLAN sleep clock can be driven from one of two sources:
+ *  1. MCO (MCU Clock Output) - default
+ *     NOTE: Versions of BCM943362WCD4 up to and including P200 require a hardware patch to enable this mode
+ *     - Connect STM32F205RGT6 pin 41 (PA8) to pin 44 (PA11)
+ *  2. WLAN 32K internal oscillator (30% inaccuracy)
+ *     - Comment the following directive : WICED_USE_WIFI_32K_CLOCK_MCO
+ */
+#define WICED_USE_WIFI_32K_CLOCK_MCO
+
+
+
+
+
 
 /* How the wlan's powersave clock is connected */
 typedef enum
@@ -120,28 +107,10 @@ typedef enum
   MICO_COMMON_PWM_MAX,
 } mico_common_pwm_t;
 
-/* WLAN Powersave Clock Source
- * The WLAN sleep clock can be driven from one of two sources:
- * 1. Timer/PWM (default)
- *    - With the PWM selected, the STM32 can *NOT* be put into MCU powersave mode or the PWM output will be disabled
- * 2. MCO (MCU Clock Output). 
- *    - Change the following directive to MICO_WLAN_POWERSAVE_CLOCK_IS_MCO
- */
-#define MICO_WLAN_POWERSAVE_CLOCK_SOURCE MICO_WLAN_POWERSAVE_CLOCK_IS_MCO
 
-#define MICO_WLAN_POWERSAVE_CLOCK_IS_NOT_EXIST  0
-#define MICO_WLAN_POWERSAVE_CLOCK_IS_PWM        1
-#define MICO_WLAN_POWERSAVE_CLOCK_IS_MCO        2
 
-#define WLAN_POWERSAVE_CLOCK_FREQUENCY 32768 /* 32768Hz        */
-#define WLAN_POWERSAVE_CLOCK_DUTY_CYCLE   50 /* 50% duty-cycle */
 
-#define WL_32K_OUT_BANK         GPIOA
-#define WL_32K_OUT_PIN          8
-#define WL_32K_OUT_BANK_CLK     RCC_AHB1Periph_GPIOA
 
-/* The number of UART interfaces this hardware platform has */
-#define NUMBER_OF_UART_INTERFACES  2
 
 #ifdef BOOTLOADER
 #define STDIO_UART       MICO_UART_1

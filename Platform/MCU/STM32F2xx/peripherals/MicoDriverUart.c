@@ -57,23 +57,6 @@
 *                    Structures
 ******************************************************/
 
-typedef struct
-{
-  uint32_t            rx_size;
-  ring_buffer_t*      rx_buffer;
-#ifndef NO_MICO_RTOS
-  mico_semaphore_t    rx_complete;
-  mico_semaphore_t    tx_complete;
-  mico_mutex_t        tx_mutex;
-#else
-  volatile bool       rx_complete;
-  volatile bool       tx_complete;
-#endif
-  mico_semaphore_t    sem_wakeup;
-  OSStatus            tx_dma_result;
-  OSStatus            rx_dma_result;
-} uart_interface_t;
-
 /******************************************************
 *               Variables Definitions
 ******************************************************/
@@ -153,6 +136,8 @@ OSStatus platform_uart_init( platform_uart_driver_t* driver, const platform_uart
 
   require_action_quiet( ( driver != NULL ) && ( peripheral != NULL ) && ( config != NULL ), exit, err = kParamErr);
   require_action_quiet( (optional_ring_buffer == NULL) || ((optional_ring_buffer->buffer != NULL ) && (optional_ring_buffer->size != 0)), exit, err = kParamErr);
+  
+  uart_number = platform_uart_get_port_number( peripheral->port );
   
   driver->rx_size              = 0;
   driver->tx_size              = 0;
@@ -285,7 +270,7 @@ OSStatus platform_uart_init( platform_uart_driver_t* driver, const platform_uart
   dma_init_structure.DMA_PeripheralBaseAddr = (uint32_t) &peripheral->port->DR;
   dma_init_structure.DMA_Memory0BaseAddr    = (uint32_t) 0;
   dma_init_structure.DMA_DIR                = DMA_DIR_MemoryToPeripheral;
-  dma_init_structure.DMA_BufferSize         = 0;                     // This parameter will be configured during communication
+  dma_init_structure.DMA_BufferSize         = 0xFFFF;                     // This parameter will be configured during communication
   dma_init_structure.DMA_Mode               = DMA_Mode_Normal;
   DMA_Init( peripheral->tx_dma_config.stream, &dma_init_structure );
 
@@ -293,7 +278,7 @@ OSStatus platform_uart_init( platform_uart_driver_t* driver, const platform_uart
   DMA_DeInit( peripheral->rx_dma_config.stream );
   dma_init_structure.DMA_Channel            = peripheral->rx_dma_config.channel;
   dma_init_structure.DMA_PeripheralBaseAddr = (uint32_t) &peripheral->port->DR;
-  dma_init_structure.DMA_Memory0BaseAddr    = 0;
+  dma_init_structure.DMA_Memory0BaseAddr    = (uint32_t) 0;
   dma_init_structure.DMA_DIR                = DMA_DIR_PeripheralToMemory;
   dma_init_structure.DMA_BufferSize         = 0xFFFF;                     // This parameter will be configured during communication
   dma_init_structure.DMA_Mode               = DMA_Mode_Normal;
@@ -312,7 +297,7 @@ OSStatus platform_uart_init( platform_uart_driver_t* driver, const platform_uart
 
   /* Enable USART interrupt vector in Cortex-M3 */
   NVIC_EnableIRQ( uart_irq_vectors[uart_number] );
-  USART_DMACmd( driver->peripheral->port, USART_DMAReq_Tx, ENABLE );
+  USART_DMACmd( driver->peripheral->port, USART_DMAReq_Tx, DISABLE );
 
   /* Enable USART */
   USART_Cmd( peripheral->port, ENABLE );
@@ -411,12 +396,12 @@ OSStatus platform_uart_transmit_bytes( platform_uart_driver_t* driver, const uin
   OSStatus err = kNoErr;
 
   platform_mcu_powersave_disable();
-
-  require_action_quiet( ( driver != NULL ) && ( data_out != NULL ) && ( size != 0 ), exit, err = kParamErr);
-
+  
 #ifndef NO_MICO_RTOS
   mico_rtos_lock_mutex( &driver->tx_mutex );
 #endif
+
+  require_action_quiet( ( driver != NULL ) && ( data_out != NULL ) && ( size != 0 ), exit, err = kParamErr);
 
   /* Clear interrupt status before enabling DMA otherwise error occurs immediately */
   clear_dma_interrupts( driver->peripheral->tx_dma_config.stream, driver->peripheral->tx_dma_config.complete_flags | driver->peripheral->tx_dma_config.error_flags );
@@ -427,6 +412,9 @@ OSStatus platform_uart_transmit_bytes( platform_uart_driver_t* driver, const uin
   driver->peripheral->tx_dma_config.stream->CR   &= ~(uint32_t) DMA_SxCR_CIRC;
   driver->peripheral->tx_dma_config.stream->NDTR  = size;
   driver->peripheral->tx_dma_config.stream->M0AR  = (uint32_t)data_out;
+  
+  USART_DMACmd( driver->peripheral->port, USART_DMAReq_Tx, ENABLE );
+  USART_ClearFlag( driver->peripheral->port, USART_FLAG_TC );
   driver->peripheral->tx_dma_config.stream->CR   |= DMA_SxCR_EN;
   
 /* Wait for transmission complete */
@@ -442,15 +430,16 @@ OSStatus platform_uart_transmit_bytes( platform_uart_driver_t* driver, const uin
   }
 
   /* Disable DMA and clean up */
-  //USART_DMACmd( driver->peripheral->port, USART_DMAReq_Tx, DISABLE );
+  USART_DMACmd( driver->peripheral->port, USART_DMAReq_Tx, DISABLE );
   driver->tx_size = 0;
+  err = driver->last_transmit_result;
 
 exit:  
-  platform_mcu_powersave_enable();
 #ifndef NO_MICO_RTOS  
   mico_rtos_unlock_mutex( &driver->tx_mutex );
 #endif
-  return driver->last_transmit_result;
+  platform_mcu_powersave_enable();
+  return err;
 }
 
 OSStatus platform_uart_receive_bytes( platform_uart_driver_t* driver, uint8_t* data_in, uint32_t expected_data_size, uint32_t timeout_ms )
@@ -480,7 +469,8 @@ OSStatus platform_uart_receive_bytes( platform_uart_driver_t* driver, uint8_t* d
         /* Reset rx_size to prevent semaphore being set while nothing waits for the data */
         driver->rx_size = 0;
 
-        require_noerr(err, exit);
+        if( err != kNoErr )
+          goto exit;
 #else
         driver->rx_complete = false;
         int delay_start = mico_get_time_no_os();
@@ -606,6 +596,38 @@ static uint32_t get_dma_irq_status( DMA_Stream_TypeDef* stream )
     else
     {
         return DMA2->HISR;
+    }
+}
+
+uint8_t platform_uart_get_port_number( USART_TypeDef* uart )
+{
+    if ( uart == USART1 )
+    {
+        return 0;
+    }
+    else if ( uart == USART2 )
+    {
+        return 1;
+    }
+    else if ( uart == USART3 )
+    {
+        return 2;
+    }
+    else if ( uart == UART4 )
+    {
+        return 3;
+    }
+    else if ( uart == UART5 )
+    {
+        return 4;
+    }
+    else if ( uart == USART6 )
+    {
+        return 5;
+    }
+    else
+    {
+        return 0xff;
     }
 }
 

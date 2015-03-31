@@ -304,11 +304,6 @@ int application_start(void)
   require_noerr( err, exit ); 
 
   /*wlan driver and tcpip init*/
-  while(1){
-    msleep(2000);
-    mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
-  }
-
   MicoInit();
 #ifdef MICO_CLI_ENABLE  
   MicoCliInit();
@@ -322,7 +317,7 @@ int application_start(void)
   mico_log("Wi-Fi driver version %s, mac %s", wifi_ver, context->micoStatus.mac);
  
   /*Start system monotor thread*/
-  err = MICOStartSystemMonitor(context);
+  //err = MICOStartSystemMonitor(context);
   require_noerr_action( err, exit, mico_log("ERROR: Unable to start the system monitor.") );
 
   err = MICORegisterSystemMonitor(&mico_monitor, APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000);

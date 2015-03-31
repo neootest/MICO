@@ -38,6 +38,7 @@
 #include "platform_common_config.h"
 #include "PlatformLogging.h"
 #include "MicoPlatform.h"
+#include "wlan_platform_common.h"
 
 /******************************************************
 *                      Macros
@@ -81,11 +82,6 @@ static mico_timer_t _button_EL_timer;
 const platform_gpio_t platform_gpio_pins[] =
 {
   /* Common GPIOs for internal use */
-  [MICO_GPIO_WLAN_POWERSAVE_CLOCK]    = { WL_32K_OUT_BANK, WL_32K_OUT_PIN },
-  [WL_GPIO0]                          = { GPIOB, 12 },
-  [WL_GPIO1]                          = { GPIOB, 13 },
-  [WL_REG]                            = { GPIOC,  1 },
-  [WL_RESET]                          = { GPIOC,  5 },
   [MICO_SYS_LED]                      = { GPIOB,  0 }, 
   [MICO_RF_LED]                       = { GPIOB,  1 }, //MICO_GPIO_16
   [BOOT_SEL]                          = { GPIOB,  1 }, //MICO_GPIO_16
@@ -129,12 +125,7 @@ const platform_adc_t platform_adc_peripherals[] =
 
 /* PWM mappings */
 const platform_pwm_t platform_pwm_peripherals[] =
-{
-#if ( MICO_WLAN_POWERSAVE_CLOCK_SOURCE == MICO_WLAN_POWERSAVE_CLOCK_IS_PWM )
-  /* Extended PWM for internal use */
-  [MICO_PWM_WLAN_POWERSAVE_CLOCK] = {TIM1, 4, RCC_APB2Periph_TIM1, GPIO_AF_TIM1, (platform_pin_mapping_t*)&gpio_mapping[MICO_GPIO_WLAN_POWERSAVE_CLOCK] }, /* or TIM2/Ch2                       */
-#endif
-  
+{  
   [MICO_PWM_1]  = {TIM4, 3, RCC_APB1Periph_TIM4, GPIO_AF_TIM4, &platform_gpio_pins[MICO_GPIO_10]},    /* or TIM10/Ch1                       */
   [MICO_PWM_2]  = {TIM12, 1, RCC_APB1Periph_TIM12, GPIO_AF_TIM12, &platform_gpio_pins[MICO_GPIO_13]}, /* or TIM1/Ch2N                       */
   [MICO_PWM_3]  = {TIM2, 4, RCC_APB1Periph_TIM2, GPIO_AF_TIM2, &platform_gpio_pins[MICO_GPIO_19]},    
@@ -203,7 +194,7 @@ const platform_uart_t platform_uart_peripherals[] =
   },
   [MICO_UART_2] =
   {
-    .port                        = USART6,
+    .port                         = USART6,
     .pin_tx                       = &platform_gpio_pins[MICO_GPIO_14],
     .pin_rx                       = &platform_gpio_pins[MICO_GPIO_4],
     .pin_cts                      = NULL,
@@ -249,52 +240,71 @@ const platform_i2c_t platform_i2c_peripherals[] =
     .gpio_af                 = GPIO_AF_I2C1
   },
 };
+
+/* Wi-Fi control pins. Used by WICED/platform/MCU/wlan_platform_common.c
+ * SDIO: EMW1062_PIN_BOOTSTRAP[1:0] = b'00
+ * gSPI: EMW1062_PIN_BOOTSTRAP[1:0] = b'01
+ */
+const platform_gpio_t wifi_control_pins[] =
+{
+    [EMW1062_PIN_POWER      ] = { GPIOC,  1 },
+    [EMW1062_PIN_RESET      ] = { GPIOC,  5 },
+#if defined ( WICED_USE_WIFI_32K_CLOCK_MCO )
+    [EMW1062_PIN_32K_CLK    ] = { GPIOA,  8 },
+#else
+    [EMW1062_PIN_32K_CLK    ] = NULL,
+#endif
+    [EMW1062_PIN_BOOTSTRAP_0] = { GPIOB, 12 },
+    [EMW1062_PIN_BOOTSTRAP_1] = { GPIOB, 13 },
+};
+
+/* Wi-Fi SDIO bus pins. Used by WICED/platform/STM32F2xx/WWD/wwd_SDIO.c */
+const platform_gpio_t wifi_sdio_pins[] =
+{
+    [EMW1062_PIN_SDIO_OOB_IRQ] = { GPIOB, 12 },
+    [EMW1062_PIN_SDIO_CLK    ] = { GPIOC, 12 },
+    [EMW1062_PIN_SDIO_CMD    ] = { GPIOD,  2 },
+    [EMW1062_PIN_SDIO_D0     ] = { GPIOC,  8 },
+    [EMW1062_PIN_SDIO_D1     ] = { GPIOC,  9 },
+    [EMW1062_PIN_SDIO_D2     ] = { GPIOC, 10 },
+    [EMW1062_PIN_SDIO_D3     ] = { GPIOC, 11 },
+};
+
+
+
 /******************************************************
  *           Interrupt Handler Definitions
  ******************************************************/
 
-MICO_RTOS_DEFINE_ISR( usart1_irq )
+MICO_RTOS_DEFINE_ISR( USART1_IRQHandler )
 {
     platform_uart_irq( &platform_uart_drivers[MICO_UART_1] );
 }
 
-MICO_RTOS_DEFINE_ISR( usart2_irq )
+MICO_RTOS_DEFINE_ISR( USART6_IRQHandler )
 {
     platform_uart_irq( &platform_uart_drivers[MICO_UART_2] );
 }
 
-MICO_RTOS_DEFINE_ISR( usart1_tx_dma_irq )
-//void DMA2_Stream7_IRQHandler(void)
+MICO_RTOS_DEFINE_ISR( DMA2_Stream7_IRQHandler )
 {
     platform_uart_tx_dma_irq( &platform_uart_drivers[MICO_UART_1] );
 }
 
-MICO_RTOS_DEFINE_ISR( usart2_tx_dma_irq )
+MICO_RTOS_DEFINE_ISR( DMA2_Stream6_IRQHandler )
 {
     platform_uart_tx_dma_irq( &platform_uart_drivers[MICO_UART_2] );
 }
 
-MICO_RTOS_DEFINE_ISR( usart1_rx_dma_irq )
+MICO_RTOS_DEFINE_ISR( DMA2_Stream2_IRQHandler )
 {
     platform_uart_rx_dma_irq( &platform_uart_drivers[MICO_UART_1] );
 }
 
-MICO_RTOS_DEFINE_ISR( usart2_rx_dma_irq )
+MICO_RTOS_DEFINE_ISR( DMA2_Stream1_IRQHandler )
 {
     platform_uart_rx_dma_irq( &platform_uart_drivers[MICO_UART_2] );
 }
-
-/******************************************************
- *            Interrupt Handlers Mapping
- ******************************************************/
-
-/* These DMA assignments can be found STM32F2xx datasheet DMA section */
-MICO_RTOS_MAP_ISR( usart1_irq       , USART1_IRQHandler       )
-MICO_RTOS_MAP_ISR( usart1_tx_dma_irq, DMA2_Stream7_IRQHandler )
-MICO_RTOS_MAP_ISR( usart1_rx_dma_irq, DMA2_Stream2_IRQHandler )
-MICO_RTOS_MAP_ISR( usart2_irq       , USART2_IRQHandler       )
-MICO_RTOS_MAP_ISR( usart2_tx_dma_irq, DMA1_Stream6_IRQHandler )
-MICO_RTOS_MAP_ISR( usart2_rx_dma_irq, DMA1_Stream5_IRQHandler )
 
 /******************************************************
 *               Function Definitions
@@ -395,29 +405,7 @@ void init_platform_bootloader( void )
 }
 
 
-void host_platform_reset_wifi( bool reset_asserted )
-{
-  if ( reset_asserted == true )
-  {
-    MicoGpioOutputLow( (mico_gpio_t)WL_RESET );  
-  }
-  else
-  {
-    MicoGpioOutputHigh( (mico_gpio_t)WL_RESET ); 
-  }
-}
 
-void host_platform_power_wifi( bool power_enabled )
-{
-  if ( power_enabled == true )
-  {
-    MicoGpioOutputLow( (mico_gpio_t)WL_REG );  
-  }
-  else
-  {
-    MicoGpioOutputHigh( (mico_gpio_t)WL_REG ); 
-  }
-}
 
 void MicoSysLed(bool onoff)
 {

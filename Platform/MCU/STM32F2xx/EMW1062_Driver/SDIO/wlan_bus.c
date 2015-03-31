@@ -35,6 +35,7 @@
 #include "platform_common_config.h"
 #include "platform_peripheral.h"
 #include "PlatformLogging.h"
+#include "wlan_platform_common.h"
 
 /******************************************************
  *             Constants
@@ -45,9 +46,25 @@
 #define SDIO_TX_RX_COMPLETE_TIMEOUT_LOOPS    (100000)
 #define SDIO_DMA_TIMEOUT_LOOPS               (1000000)
 #define MAX_TIMEOUTS                         (30)
+#define SDIO_ERROR_MASK                      ( SDIO_STA_CCRCFAIL | SDIO_STA_DCRCFAIL | SDIO_STA_CTIMEOUT | SDIO_STA_DTIMEOUT | SDIO_STA_TXUNDERR | SDIO_STA_RXOVERR | SDIO_STA_STBITERR )
+#define SDIO_IRQ_CHANNEL                     ((uint8_t)0x31)
+#define DMA2_3_IRQ_CHANNEL                   ((uint8_t)DMA2_Stream3_IRQn)
+#define BUS_LEVEL_MAX_RETRIES                (5)
+#define SDIO_ENUMERATION_TIMEOUT_MS          (500)
 
-#define SDIO_ERROR_MASK   ( SDIO_STA_CCRCFAIL | SDIO_STA_DCRCFAIL | SDIO_STA_CTIMEOUT | SDIO_STA_DTIMEOUT | SDIO_STA_TXUNDERR | SDIO_STA_RXOVERR | SDIO_STA_STBITERR )
+/******************************************************
+ *             Structures
+ ******************************************************/
 
+typedef struct
+{
+    /*@shared@*/ /*@null@*/ uint8_t* data;
+    uint16_t length;
+} sdio_dma_segment_t;
+
+/******************************************************
+ *             Enumerations
+ ******************************************************/
 /**
  * Transfer direction for the mico platform bus interface
  */
@@ -58,25 +75,14 @@ typedef enum
     BUS_WRITE
 } bus_transfer_direction_t;
 
-
+/******************************************************
+ *               Variables Definitions
+ ******************************************************/
 static const uint32_t bus_direction_mapping[] =
 {
     [BUS_READ]  = SDIO_TransferDir_ToSDIO,
     [BUS_WRITE] = SDIO_TransferDir_ToCard
 };
-
-#define SDIO_IRQ_CHANNEL       ((u8)0x31)
-#define DMA2_3_IRQ_CHANNEL     ((u8)DMA2_Stream3_IRQn)
-
-#define WL_GPIO_INTR_PIN_NUM   EXTI_PinSource0
-#define WL_GPIO_INTR_PORT_SRC  EXTI_PortSourceGPIOB
-#define WL_GPIO_INTR_ILINE     EXTI_Line0
-#define WL_GPIO_INTR_CHAN      0x06
-
-#define BUS_LEVEL_MAX_RETRIES   5
-
-#define SDIO_ENUMERATION_TIMEOUT_MS    (500)
-
 
 /******************************************************
  *                   Enumerations
@@ -124,32 +130,20 @@ typedef enum
     NO_RESPONSE
 } sdio_response_needed_t;
 
-/******************************************************
- *             Structures
- ******************************************************/
-
-typedef struct
-{
-    /*@shared@*/ /*@null@*/ uint8_t* data;
-    uint16_t length;
-} sdio_dma_segment_t;
 
 /******************************************************
  *             Variables
  ******************************************************/
 
-static uint8_t   temp_dma_buffer[2*1024];
-static uint8_t*  user_data;
-static uint32_t  user_data_size;
-static uint8_t*  dma_data_source;
-static uint32_t  dma_transfer_size;
-
-static mico_semaphore_t sdio_transfer_finished_semaphore;
-
-static bool             sdio_transfer_failed;
-static bus_transfer_direction_t current_transfer_direction;
-static uint32_t                 current_command;
-
+static uint8_t                      temp_dma_buffer[2*1024];
+static uint8_t*                     user_data;
+static uint32_t                     user_data_size;
+static uint8_t*                     dma_data_source;
+static uint32_t                     dma_transfer_size;
+static mico_semaphore_t             sdio_transfer_finished_semaphore;
+static bool                         sdio_transfer_failed;
+static bus_transfer_direction_t     current_transfer_direction;
+static uint32_t                     current_command;
 /******************************************************
  *             Function declarations
  ******************************************************/
@@ -171,6 +165,30 @@ static void sdio_oob_irq_handler( void* arg )
     UNUSED_PARAMETER(arg);
     wiced_platform_notify_irq( );
 }
+
+static void sdio_enable_bus_irq( void )
+{
+    SDIO->MASK = SDIO_MASK_SDIOITIE | SDIO_MASK_CMDRENDIE | SDIO_MASK_CMDSENTIE;
+}
+
+static void sdio_disable_bus_irq( void )
+{
+    SDIO->MASK = 0;
+}
+
+#ifndef MICO_DISABLE_MCU_POWERSAVE
+OSStatus host_enable_oob_interrupt( void )
+{
+    platform_gpio_init( &wifi_sdio_pins[EMW1062_PIN_SDIO_OOB_IRQ], INPUT_HIGH_IMPEDANCE );
+    platform_gpio_irq_enable( &wifi_sdio_pins[EMW1062_PIN_SDIO_OOB_IRQ], IRQ_TRIGGER_RISING_EDGE, sdio_oob_irq_handler, 0 );
+    return kNoErr;
+}
+
+uint8_t host_platform_get_oob_interrupt_pin( void )
+{
+    return MICO_WIFI_OOB_IRQ_GPIO_PIN;
+}
+#endif
 
 bool host_platform_is_sdio_int_asserted(void)
 {
@@ -249,46 +267,11 @@ void dma_irq( void )
 }
 /*@+exportheader@*/
 
-static void sdio_enable_bus_irq( void )
-{
-    SDIO->MASK = SDIO_MASK_SDIOITIE | SDIO_MASK_CMDRENDIE | SDIO_MASK_CMDSENTIE;
-}
-
-static void sdio_disable_bus_irq( void )
-{
-    SDIO->MASK = 0;
-}
-
-OSStatus host_enable_oob_interrupt( void )
-{
-   /* Set GPIO_B[1:0] to input. One of them will be re-purposed as OOB interrupt */
-  MicoGpioInitialize( (mico_gpio_t)WL_GPIO1, INPUT_HIGH_IMPEDANCE );
-  MicoGpioEnableIRQ( (mico_gpio_t)WL_GPIO1, IRQ_TRIGGER_RISING_EDGE, sdio_oob_irq_handler, 0 );
-  
-  return kNoErr;
-}
-
-uint8_t host_platform_get_oob_interrupt_pin( void )
-{
-  extern const platform_gpio_t       platform_gpio_pins[];
-
-    if ( ( platform_gpio_pins[ WL_GPIO1 ].port == SDIO_OOB_IRQ_BANK ) && ( platform_gpio_pins[ WL_GPIO1 ].pin_number == SDIO_OOB_IRQ_PIN ) )
-    {
-        /* WLAN GPIO1 */
-        return 1;
-    }
-    else
-    {
-        /* WLAN GPIO0 */
-        return 0;
-    }
-}
-
 OSStatus host_platform_bus_init( void )
 {
     SDIO_InitTypeDef sdio_init_structure;
-    NVIC_InitTypeDef nvic_init_structure;
-    OSStatus result;
+    OSStatus         result;
+    uint8_t          a;
 
     platform_mcu_powersave_disable();
 
@@ -300,71 +283,36 @@ OSStatus host_platform_bus_init( void )
 
     /* Turn on SDIO IRQ */
     SDIO->ICR = (uint32_t) 0xffffffff;
-    nvic_init_structure.NVIC_IRQChannel                   = SDIO_IRQ_CHANNEL;
+
     /* Must be lower priority than the value of configMAX_SYSCALL_INTERRUPT_PRIORITY */
     /* otherwise FreeRTOS will not be able to mask the interrupt */
     /* keep in mind that ARMCM3 interrupt priority logic is inverted, the highest value */
     /* is the lowest priority */
-    nvic_init_structure.NVIC_IRQChannelPreemptionPriority = (uint8_t) 0x2;
-    nvic_init_structure.NVIC_IRQChannelSubPriority        = 0x0;
-    nvic_init_structure.NVIC_IRQChannelCmd                = ENABLE;
-    NVIC_Init( &nvic_init_structure );
-
-    nvic_init_structure.NVIC_IRQChannel                   = DMA2_3_IRQ_CHANNEL;
-    nvic_init_structure.NVIC_IRQChannelPreemptionPriority = (uint8_t) 0x3;
-    nvic_init_structure.NVIC_IRQChannelSubPriority        = 0x0;
-    nvic_init_structure.NVIC_IRQChannelCmd                = ENABLE;
-    NVIC_Init( &nvic_init_structure );
-
-    RCC_AHB1PeriphClockCmd( SDIO_CMD_BANK_CLK | SDIO_CLK_BANK_CLK | SDIO_D0_BANK_CLK | SDIO_D1_BANK_CLK | SDIO_D2_BANK_CLK | SDIO_D3_BANK_CLK, ENABLE );
+    NVIC_EnableIRQ( SDIO_IRQ_CHANNEL );
+    NVIC_EnableIRQ( DMA2_3_IRQ_CHANNEL );
 
     /* Set GPIO_B[1:0] to 00 to put WLAN module into SDIO mode */
-    
-    MicoGpioInitialize( (mico_gpio_t)WL_GPIO0, OUTPUT_PUSH_PULL );
-    MicoGpioOutputLow( (mico_gpio_t)WL_GPIO0 );
-    
-    MicoGpioInitialize( (mico_gpio_t)WL_GPIO1, OUTPUT_PUSH_PULL );
-    MicoGpioOutputLow( (mico_gpio_t)WL_GPIO1 );
+    platform_gpio_init( &wifi_control_pins[EMW1062_PIN_BOOTSTRAP_0], OUTPUT_PUSH_PULL );
+    platform_gpio_output_low( &wifi_control_pins[EMW1062_PIN_BOOTSTRAP_0] );
+    platform_gpio_init( &wifi_control_pins[EMW1062_PIN_BOOTSTRAP_1], OUTPUT_PUSH_PULL );
+    platform_gpio_output_low( &wifi_control_pins[EMW1062_PIN_BOOTSTRAP_1] );
 
     /* Setup GPIO pins for SDIO data & clock */
-    SDIO_CMD_BANK->MODER |= (GPIO_Mode_AF << (2*SDIO_CMD_PIN));
-    SDIO_CLK_BANK->MODER |= (GPIO_Mode_AF << (2*SDIO_CLK_PIN));
-    SDIO_D0_BANK->MODER  |= (GPIO_Mode_AF << (2*SDIO_D0_PIN));
-     SDIO_D1_BANK->MODER  |= (GPIO_Mode_AF << (2*SDIO_D1_PIN));
-     SDIO_D2_BANK->MODER  |= (GPIO_Mode_AF << (2*SDIO_D2_PIN));
-     SDIO_D3_BANK->MODER  |= (GPIO_Mode_AF << (2*SDIO_D3_PIN));
-
-    SDIO_CMD_BANK->OSPEEDR |= (GPIO_Speed_50MHz << (2*SDIO_CMD_PIN));
-    SDIO_CLK_BANK->OSPEEDR |= (GPIO_Speed_50MHz << (2*SDIO_CLK_PIN));
-    SDIO_D0_BANK->OSPEEDR  |= (GPIO_Speed_50MHz << (2*SDIO_D0_PIN));
-     SDIO_D1_BANK->OSPEEDR  |= (GPIO_Speed_50MHz << (2*SDIO_D1_PIN));
-     SDIO_D2_BANK->OSPEEDR  |= (GPIO_Speed_50MHz << (2*SDIO_D2_PIN));
-     SDIO_D3_BANK->OSPEEDR  |= (GPIO_Speed_50MHz << (2*SDIO_D3_PIN));
-
-    SDIO_CMD_BANK->PUPDR |= (GPIO_PuPd_UP << (2*SDIO_CMD_PIN));
-    SDIO_CLK_BANK->PUPDR |= (GPIO_PuPd_UP << (2*SDIO_CLK_PIN));
-    SDIO_D0_BANK->PUPDR  |= (GPIO_PuPd_UP << (2*SDIO_D0_PIN));
-     SDIO_D1_BANK->PUPDR  |= (GPIO_PuPd_UP << (2*SDIO_D1_PIN));
-     SDIO_D2_BANK->PUPDR  |= (GPIO_PuPd_UP << (2*SDIO_D2_PIN));
-     SDIO_D3_BANK->PUPDR  |= (GPIO_PuPd_UP << (2*SDIO_D3_PIN));
-
-    SDIO_CMD_BANK->AFR[SDIO_CMD_PIN >> 0x03] |= (GPIO_AF_SDIO << (4*(SDIO_CMD_PIN & 0x07)));
-    SDIO_CLK_BANK->AFR[SDIO_CLK_PIN >> 0x03] |= (GPIO_AF_SDIO << (4*(SDIO_CLK_PIN & 0x07)));
-    SDIO_D0_BANK->AFR[SDIO_D0_PIN >> 0x03]   |= (GPIO_AF_SDIO << (4*(SDIO_D0_PIN & 0x07)));
-     SDIO_D1_BANK->AFR[SDIO_D1_PIN >> 0x03]   |= (GPIO_AF_SDIO << (4*(SDIO_D1_PIN & 0x07)));
-     SDIO_D2_BANK->AFR[SDIO_D2_PIN >> 0x03]   |= (GPIO_AF_SDIO << (4*(SDIO_D2_PIN & 0x07)));
-     SDIO_D3_BANK->AFR[SDIO_D3_PIN >> 0x03]   |= (GPIO_AF_SDIO << (4*(SDIO_D3_PIN & 0x07)));
+    for ( a = EMW1062_PIN_SDIO_CLK; a < EMW1062_PIN_SDIO_MAX; a++ )
+    {
+        platform_gpio_set_alternate_function( wifi_sdio_pins[ a ].port, wifi_sdio_pins[ a ].pin_number, GPIO_OType_PP, GPIO_PuPd_UP, GPIO_AF_SDIO );
+    }
 
     /*!< Enable the SDIO AHB Clock and the DMA2 Clock */
     RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_DMA2, ENABLE );
     RCC_APB2PeriphClockCmd( RCC_APB2Periph_SDIO, ENABLE );
 
     SDIO_DeInit( );
-    sdio_init_structure.SDIO_ClockDiv       = (uint8_t) 120; /* 0x78, clock is taken from the high speed APB bus ; */ /* About 400KHz */
-    sdio_init_structure.SDIO_ClockEdge      = SDIO_ClockEdge_Rising;
-    sdio_init_structure.SDIO_ClockBypass    = SDIO_ClockBypass_Disable;
-    sdio_init_structure.SDIO_ClockPowerSave = SDIO_ClockPowerSave_Enable;
-    sdio_init_structure.SDIO_BusWide        = SDIO_BusWide_1b;
+    sdio_init_structure.SDIO_ClockDiv            = (uint8_t) 120; /* 0x78, clock is taken from the high speed APB bus ; */ /* About 400KHz */
+    sdio_init_structure.SDIO_ClockEdge           = SDIO_ClockEdge_Rising;
+    sdio_init_structure.SDIO_ClockBypass         = SDIO_ClockBypass_Disable;
+    sdio_init_structure.SDIO_ClockPowerSave      = SDIO_ClockPowerSave_Enable;
+    sdio_init_structure.SDIO_BusWide             = SDIO_BusWide_1b;
     sdio_init_structure.SDIO_HardwareFlowControl = SDIO_HardwareFlowControl_Disable;
     SDIO_Init( &sdio_init_structure );
     SDIO_SetPowerState( SDIO_PowerState_ON );
@@ -399,8 +347,6 @@ OSStatus host_platform_sdio_enumerate( void )
             return kTimeoutErr;
         }
     } while ( ( result != kNoErr ) && ( mico_thread_msleep( (uint32_t) 1 ), ( 1 == 1 ) ) );
-    
-    printf("host_platform_sdio_enumerate");
     /* If you're stuck here, check the platform matches your hardware */
 
     /* Send CMD7 with the returned RCA to select the card */
@@ -411,8 +357,8 @@ OSStatus host_platform_sdio_enumerate( void )
 
 OSStatus host_platform_bus_deinit( void )
 {
-    NVIC_InitTypeDef nvic_init_structure;
-    OSStatus   result;
+    OSStatus result;
+    uint32_t     a;
 
     result = mico_rtos_deinit_semaphore( &sdio_transfer_finished_semaphore );
 
@@ -426,30 +372,19 @@ OSStatus host_platform_bus_deinit( void )
 //    RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_DMA2, DISABLE );
     RCC_APB2PeriphClockCmd( RCC_APB2Periph_SDIO, DISABLE );
 
-    /* Clear GPIO pins for SDIO data & clock */
-    SDIO_CMD_BANK->MODER  &= ((uint32_t) ~(3 << (2*SDIO_CMD_PIN)));
-    SDIO_CLK_BANK->MODER  &= ((uint32_t) ~(3 << (2*SDIO_CLK_PIN)));
-    SDIO_D0_BANK->MODER   &= ((uint32_t) ~(3 << (2*SDIO_D0_PIN )));
-    SDIO_D1_BANK->MODER   &= ((uint32_t) ~(3 << (2*SDIO_D1_PIN )));
-    SDIO_D2_BANK->MODER   &= ((uint32_t) ~(3 << (2*SDIO_D2_PIN )));
-    SDIO_D3_BANK->MODER   &= ((uint32_t) ~(3 << (2*SDIO_D3_PIN )));
-    SDIO_CMD_BANK->OTYPER &= ((uint32_t) ~(GPIO_OType_OD << SDIO_CMD_PIN));
-    SDIO_CLK_BANK->OTYPER &= ((uint32_t) ~(GPIO_OType_OD << SDIO_CLK_PIN));
-    SDIO_D0_BANK->OTYPER  &= ((uint32_t) ~(GPIO_OType_OD << SDIO_D0_PIN ));
-    SDIO_D1_BANK->OTYPER  &= ((uint32_t) ~(GPIO_OType_OD << SDIO_D1_PIN ));
-    SDIO_D2_BANK->OTYPER  &= ((uint32_t) ~(GPIO_OType_OD << SDIO_D2_PIN ));
-    SDIO_D3_BANK->OTYPER  &= ((uint32_t) ~(GPIO_OType_OD << SDIO_D3_PIN ));
+    for ( a = 0; a < EMW1062_PIN_SDIO_MAX; a++ )
+    {
+        platform_gpio_deinit( &wifi_sdio_pins[ a ] );
+    }
 
-    /* Clear GPIO_B[1:0] */
-    MicoGpioFinalize( (mico_gpio_t)WL_GPIO0 );
-    MicoGpioFinalize( (mico_gpio_t)WL_GPIO1 );
+#if defined ( WICED_WIFI_USE_GPIO_FOR_BOOTSTRAP )
+    platform_gpio_deinit( &wifi_control_pins[WWD_PIN_BOOTSTRAP_0] );
+    platform_gpio_deinit( &wifi_control_pins[WWD_PIN_BOOTSTRAP_1] );
+#endif
 
     /* Turn off SDIO IRQ */
-    nvic_init_structure.NVIC_IRQChannel                   = SDIO_IRQ_CHANNEL;
-    nvic_init_structure.NVIC_IRQChannelCmd                = DISABLE;
-    nvic_init_structure.NVIC_IRQChannelPreemptionPriority = 0x0;
-    nvic_init_structure.NVIC_IRQChannelSubPriority        = 0;
-    NVIC_Init( &nvic_init_structure );
+    NVIC_DisableIRQ( SDIO_IRQ_CHANNEL );
+    NVIC_DisableIRQ( DMA2_3_IRQ_CHANNEL );
 
     platform_mcu_powersave_enable();
 
@@ -491,13 +426,6 @@ restart:
     if ( command == SDIO_CMD_53 )
     {
         sdio_enable_bus_irq();
-      
-//      if ( direction == BUS_READ )
-//        {
-//            printf("R%d ", data_size);
-//        }else{
-//          printf("T%d ", data_size);
-//        }
 
         /* Dodgy STM32 hack to set the CMD53 byte mode size to be the same as the block size */
         if ( mode == SDIO_BYTE_MODE )

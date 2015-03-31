@@ -533,15 +533,40 @@ MICO_RTOS_DEFINE_ISR( gpio_irq )
 /******************************************************
  *               IRQ Handler Mapping
  ******************************************************/
-MICO_RTOS_MAP_ISR( gpio_irq , EXTI0_IRQHandler     )
-MICO_RTOS_MAP_ISR( gpio_irq , EXTI1_IRQHandler     )
-MICO_RTOS_MAP_ISR( gpio_irq , EXTI2_IRQHandler     )
-MICO_RTOS_MAP_ISR( gpio_irq , EXTI3_IRQHandler     )
-MICO_RTOS_MAP_ISR( gpio_irq , EXTI4_IRQHandler     )
-MICO_RTOS_MAP_ISR( gpio_irq , EXTI9_5_IRQHandler   )
-MICO_RTOS_MAP_ISR( gpio_irq , EXTI15_10_IRQHandler )
+MICO_RTOS_DEFINE_ISR( EXTI0_IRQHandler )
+{
+  gpio_irq();
+}
 
+MICO_RTOS_DEFINE_ISR( EXTI1_IRQHandler )
+{
+  gpio_irq();
+}
 
+MICO_RTOS_DEFINE_ISR( EXTI2_IRQHandler )
+{
+  gpio_irq();
+}
+
+MICO_RTOS_DEFINE_ISR( EXTI3_IRQHandler )
+{
+  gpio_irq();
+}
+
+MICO_RTOS_DEFINE_ISR( EXTI4_IRQHandler )
+{
+  gpio_irq();
+}
+
+MICO_RTOS_DEFINE_ISR( EXTI9_5_IRQHandler )
+{
+  gpio_irq();
+}
+
+MICO_RTOS_DEFINE_ISR( EXTI15_10_IRQHandler )
+{
+  gpio_irq();
+}
 
 
 

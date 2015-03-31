@@ -664,9 +664,6 @@
           <file>
             <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\read_wifi_firmware.c</name>
           </file>
-          <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\wlan_platform.c</name>
-          </file>
         </group>
         <group>
           <name>EWARM</name>
@@ -836,6 +833,9 @@
       </group>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\mico_platform_common.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\wlan_platform_common.c</name>
       </file>
     </group>
   </group>

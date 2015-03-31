@@ -1,10 +1,10 @@
 /**
 ******************************************************************************
-* @file    MicoDriverCommon.c 
+* @file    mico_platform_common.c 
 * @author  William Xu
 * @version V1.0.0
 * @date    20-March-2015
-* @brief   This file provide GPIO driver functions.
+* @brief   This file provide MICO driver functions.
 ******************************************************************************
 *
 *  The MIT License
@@ -86,11 +86,10 @@ bool i2c_initialized[MICO_I2C_MAX];
 OSStatus mico_platform_init( void )
 {
 #if defined(__CC_ARM)
-    platform_log("Build by Keil");
+    platform_log("Platform initialised, build by RVMDK");
 #elif defined (__IAR_SYSTEMS_ICC__)
-    platform_log("Build by IAR");
+    platform_log("Platform initialised, build by IAR");
 #endif
-    platform_log( "Platform initialised" );
   
     if ( true == platform_watchdog_check_last_reset() )
     {
@@ -170,7 +169,7 @@ OSStatus MicoI2cInitialize( mico_i2c_device_t* device )
     platform_i2c_config_t config;
     OSStatus result;
 
-    if (i2c_initialized[device->port] == kNoErr)
+    if (i2c_initialized[device->port] == true)
     {
         return kNoErr;
     }
@@ -183,7 +182,7 @@ OSStatus MicoI2cInitialize( mico_i2c_device_t* device )
     result = (OSStatus) platform_i2c_init( &platform_i2c_peripherals[device->port], &config );
     if (result == kNoErr)
     {
-        i2c_initialized[device->port] = kNoErr;
+        i2c_initialized[device->port] = true;
     }
     return result;
 }
