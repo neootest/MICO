@@ -96,7 +96,7 @@ const platform_pin_mapping_t gpio_mapping[] =
   [EasyLink_BUTTON]                   = {GPIOA,  1,  RCC_AHB1Periph_GPIOA}, 
   [STDIO_UART_RX]                     = {GPIOA,  3,  RCC_AHB1Periph_GPIOA},  
   [STDIO_UART_TX]                     = {GPIOA,  2,  RCC_AHB1Periph_GPIOA},  
-
+  
   /* GPIOs for external use */
   [MICO_GPIO_2]  = {GPIOB,  2,  RCC_AHB1Periph_GPIOB},
   [MICO_GPIO_8]  = {GPIOA , 2,  RCC_AHB1Periph_GPIOA},
@@ -126,9 +126,9 @@ const platform_pin_mapping_t gpio_mapping[] =
 const platform_adc_mapping_t adc_mapping[] =
 {
   [MICO_ADC_1] = NULL,
- // [MICO_ADC_1] = {ADC1, ADC_Channel_1, RCC_APB2Periph_ADC1, 1, (platform_pin_mapping_t*)&gpio_mapping[MICO_GPIO_2]},
- // [MICO_ADC_2] = {ADC1, ADC_Channel_2, RCC_APB2Periph_ADC1, 1, (platform_pin_mapping_t*)&gpio_mapping[MICO_GPIO_4]},
- // [MICO_ADC_3] = {ADC1, ADC_Channel_3, RCC_APB2Periph_ADC1, 1, (platform_pin_mapping_t*)&gpio_mapping[MICO_GPIO_5]},
+  // [MICO_ADC_1] = {ADC1, ADC_Channel_1, RCC_APB2Periph_ADC1, 1, (platform_pin_mapping_t*)&gpio_mapping[MICO_GPIO_2]},
+  // [MICO_ADC_2] = {ADC1, ADC_Channel_2, RCC_APB2Periph_ADC1, 1, (platform_pin_mapping_t*)&gpio_mapping[MICO_GPIO_4]},
+  // [MICO_ADC_3] = {ADC1, ADC_Channel_3, RCC_APB2Periph_ADC1, 1, (platform_pin_mapping_t*)&gpio_mapping[MICO_GPIO_5]},
 };
 
 
@@ -304,21 +304,24 @@ OSStatus mico_platform_init( void )
 
 void init_platform( void )
 {
-   MicoGpioInitialize( (mico_gpio_t)MICO_SYS_LED, OUTPUT_PUSH_PULL );
-   MicoGpioOutputLow( (mico_gpio_t)MICO_SYS_LED );
-   MicoGpioInitialize( (mico_gpio_t)MICO_RF_LED, OUTPUT_OPEN_DRAIN_NO_PULL );
-   MicoGpioOutputHigh( (mico_gpio_t)MICO_RF_LED );
+  MicoGpioInitialize( (mico_gpio_t)MICO_SYS_LED, OUTPUT_PUSH_PULL );
+  MicoGpioOutputLow( (mico_gpio_t)MICO_SYS_LED );
+  MicoGpioInitialize( (mico_gpio_t)MICO_RF_LED, OUTPUT_OPEN_DRAIN_NO_PULL );
+  MicoGpioOutputHigh( (mico_gpio_t)MICO_RF_LED );
   
-   //  Initialise EasyLink buttons
-   MicoGpioInitialize( (mico_gpio_t)EasyLink_BUTTON, INPUT_PULL_UP );
-   mico_init_timer(&_button_EL_timer, RestoreDefault_TimeOut, _button_EL_Timeout_handler, NULL);
-   MicoGpioEnableIRQ( (mico_gpio_t)EasyLink_BUTTON, IRQ_TRIGGER_BOTH_EDGES, _button_EL_irq_handler, NULL );
+  MicoGpioInitialize((mico_gpio_t)BOOT_SEL, INPUT_PULL_UP);
+  MicoGpioInitialize((mico_gpio_t)MFG_SEL, INPUT_PULL_UP);
   
-   //  Initialise Standby/wakeup switcher
-   MicoGpioInitialize( (mico_gpio_t)Standby_SEL, INPUT_PULL_UP );
-   MicoGpioEnableIRQ( (mico_gpio_t)Standby_SEL , IRQ_TRIGGER_FALLING_EDGE, _button_STANDBY_irq_handler, NULL);
-
-   MicoFlashInitialize( MICO_SPI_FLASH );
+  //  Initialise EasyLink buttons
+  MicoGpioInitialize( (mico_gpio_t)EasyLink_BUTTON, INPUT_PULL_UP );
+  mico_init_timer(&_button_EL_timer, RestoreDefault_TimeOut, _button_EL_Timeout_handler, NULL);
+  MicoGpioEnableIRQ( (mico_gpio_t)EasyLink_BUTTON, IRQ_TRIGGER_BOTH_EDGES, _button_EL_irq_handler, NULL );
+  
+  //  Initialise Standby/wakeup switcher
+  MicoGpioInitialize( (mico_gpio_t)Standby_SEL, INPUT_PULL_UP );
+  MicoGpioEnableIRQ( (mico_gpio_t)Standby_SEL , IRQ_TRIGGER_FALLING_EDGE, _button_STANDBY_irq_handler, NULL);
+  
+  MicoFlashInitialize( MICO_SPI_FLASH );
 }
 
 #ifdef BOOTLOADER
@@ -345,26 +348,26 @@ static uint8_t data[SizePerRW];
 
 uint8_t CRC8_Table(uint8_t crc8_ori, uint8_t *p, uint32_t counter)
 {
-    uint8_t crc8 = crc8_ori;
-    for( ; counter > 0; counter--){
-        crc8 = CRC8Table[crc8^*p];
-        p++;
-    }
-    return(crc8);
+  uint8_t crc8 = crc8_ori;
+  for( ; counter > 0; counter--){
+    crc8 = CRC8Table[crc8^*p];
+    p++;
+  }
+  return(crc8);
 }
 
 void init_platform_bootloader( void )
 {
   OSStatus err = kNoErr;
-
+  
   MicoGpioInitialize( (mico_gpio_t)MICO_SYS_LED, OUTPUT_PUSH_PULL );
   MicoGpioOutputLow( (mico_gpio_t)MICO_SYS_LED );
   MicoGpioInitialize( (mico_gpio_t)MICO_RF_LED, OUTPUT_OPEN_DRAIN_NO_PULL );
   MicoGpioOutputHigh( (mico_gpio_t)MICO_RF_LED );
   
   MicoGpioInitialize((mico_gpio_t)BOOT_SEL, INPUT_PULL_UP);
-  MicoGpioInitialize((mico_gpio_t)MFG_SEL, INPUT_HIGH_IMPEDANCE);
-
+  MicoGpioInitialize((mico_gpio_t)MFG_SEL, INPUT_PULL_UP);
+  
   /* Specific operations used in EMW3165 production */
 #define NEED_RF_DRIVER_COPY_BASE    ((uint32_t)0x08008000)
 #define TEMP_RF_DRIVER_BASE         ((uint32_t)0x08040000)
@@ -379,10 +382,10 @@ void init_platform_bootloader( void )
   uint32_t destStartAddress_tmp = DRIVER_START_ADDRESS;
   uint32_t sourceStartAddress_tmp = TEMP_RF_DRIVER_BASE;
   uint32_t i;
-
+  
   if ( isDriverNeedCopy != 0x0 )
     return;
-
+  
   platform_log( "Bootloader start to copy RF driver..." );
   /* Copy RF driver to SPI flash */
   err = MicoFlashInitialize( (mico_flash_t)MICO_FLASH_FOR_DRIVER );
@@ -408,7 +411,7 @@ void init_platform_bootloader( void )
     err = MicoFlashWrite( MICO_FLASH_FOR_DRIVER, &destStartAddress_tmp, data, copyLength);
     require_noerr(err, exit);
   }
-
+  
   printf("\r\n");
   /* Check CRC-8 check-sum */
   platform_log( "Bootloader start to verify RF driver..." );
@@ -427,10 +430,10 @@ void init_platform_bootloader( void )
     printf(".");
     err = MicoFlashRead( MICO_FLASH_FOR_DRIVER, &destStartAddress_tmp, data, copyLength );
     require_noerr( err, exit );
-
+    
     targetCrcResult = CRC8_Table(targetCrcResult, data, copyLength);
   }
-
+  
   printf("\r\n");
   //require_string( crcResult == targetCrcResult, exit, "Check-sum error" ); 
   if( crcResult != targetCrcResult ){
@@ -439,14 +442,14 @@ void init_platform_bootloader( void )
   }
   /* Clear RF driver from temperary storage */
   platform_log("Bootloader start to clear RF driver temporary storage...");
-
+  
   err = MicoFlashInitialize( (mico_flash_t)MICO_INTERNAL_FLASH );
   require_noerr(err, exit);  
   
   /* Clear copy tag */
   err = MicoFlashErase(MICO_INTERNAL_FLASH, NEED_RF_DRIVER_COPY_BASE, NEED_RF_DRIVER_COPY_BASE);
   require_noerr(err, exit);
-
+  
 exit:
   MicoFlashFinalize( MICO_INTERNAL_FLASH );
   MicoFlashFinalize( MICO_FLASH_FOR_DRIVER );
@@ -481,20 +484,20 @@ void host_platform_power_wifi( bool power_enabled )
 
 void MicoSysLed(bool onoff)
 {
-    if (onoff) {
-        MicoGpioOutputHigh( (mico_gpio_t)MICO_SYS_LED );
-    } else {
-        MicoGpioOutputLow( (mico_gpio_t)MICO_SYS_LED );
-    }
+  if (onoff) {
+    MicoGpioOutputHigh( (mico_gpio_t)MICO_SYS_LED );
+  } else {
+    MicoGpioOutputLow( (mico_gpio_t)MICO_SYS_LED );
+  }
 }
 
 void MicoRfLed(bool onoff)
 {
-    if (onoff) {
-        MicoGpioOutputLow( (mico_gpio_t)MICO_RF_LED );
-    } else {
-        MicoGpioOutputHigh( (mico_gpio_t)MICO_RF_LED );
-    }
+  if (onoff) {
+    MicoGpioOutputLow( (mico_gpio_t)MICO_RF_LED );
+  } else {
+    MicoGpioOutputHigh( (mico_gpio_t)MICO_RF_LED );
+  }
 }
 
 bool MicoShouldEnterMFGMode(void)
