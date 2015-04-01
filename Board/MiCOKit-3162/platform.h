@@ -29,7 +29,7 @@
 ******************************************************************************
 */ 
 
-#include "platform_common_config.h"
+
 
 #pragma once
 
@@ -257,7 +257,7 @@ typedef enum
 
 typedef enum
 {
-    MICO_PWM_1 = MICO_COMMON_PWM_MAX,
+    MICO_PWM_1,
     MICO_PWM_2,
     MICO_PWM_3,
     MICO_PWM_MAX, /* Denotes the total number of PWM port aliases. Not a valid PWM alias */
@@ -285,9 +285,17 @@ typedef enum
   MICO_FLASH_MAX,
 } mico_flash_t;
 
-#define STM32_UART_1 MICO_UART_1
-#define STM32_UART_2 NULL
-#define STM32_UART_6 MICO_UART_2
+#ifdef BOOTLOADER
+#define STDIO_UART       MICO_UART_1
+#define STDIO_UART_BAUDRATE (115200) 
+#else
+#define STDIO_UART       MICO_UART_1
+#define STDIO_UART_BAUDRATE (115200) 
+#endif
+
+#define UART_FOR_APP     MICO_UART_2
+#define MFG_TEST         MICO_UART_1
+#define CLI_UART         MICO_UART_1
 
 /* Components connected to external I/Os*/
 #define Standby_SEL         (MICO_GPIO_29)

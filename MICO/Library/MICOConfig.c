@@ -31,7 +31,7 @@
 
 #include "Common.h"
 #include "MicoDefaults.h"
-#include "platform_common_config.h"
+#include "platform_config.h"
 
 #ifdef MICO_DEFAULT_APPLICATION_STACK_SIZE
 uint32_t  app_stack_size = MICO_DEFAULT_APPLICATION_STACK_SIZE; 

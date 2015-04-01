@@ -1,14 +1,14 @@
 /**
 ******************************************************************************
-* @file    wlan_platform_common.h
+* @file    MicoDriverRng.c 
 * @author  William Xu
 * @version V1.0.0
-* @date    20-March-2015
-* @brief   This file provide wlan IO pin define.
+* @date    05-May-2014
+* @brief   This file provide RNG driver functions.
 ******************************************************************************
 *
 *  The MIT License
-*  Copyright (c) 2015 MXCHIP Inc.
+*  Copyright (c) 2014 MXCHIP Inc.
 *
 *  Permission is hereby granted, free of charge, to any person obtaining a copy 
 *  of this software and associated documentation files (the "Software"), to deal
@@ -30,21 +30,16 @@
 */ 
 
 
-#pragma once
+#include "MICOPlatform.h"
+#include "MICORTOS.h"
 
-#include "platform_peripheral.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include "platform.h"
+#include "stm32f2xx.h"
 
 /******************************************************
- *                      Macros
+ *                   Macros
  ******************************************************/
 
-/******************************************************
- *                    Constants
- ******************************************************/
 
 /******************************************************
  *                   Enumerations
@@ -54,71 +49,48 @@ extern "C" {
  *                 Type Definitions
  ******************************************************/
 
-/**
- * WLAN control pins
- */
-typedef enum
-{
-    EMW1062_PIN_POWER,
-    EMW1062_PIN_RESET,
-    EMW1062_PIN_32K_CLK,
-    EMW1062_PIN_BOOTSTRAP_0,
-    EMW1062_PIN_BOOTSTRAP_1,
-    EMW1062_PIN_CONTROL_MAX,
-} emw1062_control_pin_t;
-
-/**
- * WLAN SDIO pins
- */
-typedef enum
-{
-    EMW1062_PIN_SDIO_OOB_IRQ,
-    EMW1062_PIN_SDIO_CLK,
-    EMW1062_PIN_SDIO_CMD,
-    EMW1062_PIN_SDIO_D0,
-    EMW1062_PIN_SDIO_D1,
-    EMW1062_PIN_SDIO_D2,
-    EMW1062_PIN_SDIO_D3,
-    EMW1062_PIN_SDIO_MAX,
-} emw1062_sdio_pin_t;
-
-/**
- * WLAN SPI pins
- */
-typedef enum
-{
-    EMW1062_PIN_SPI_IRQ,
-    EMW1062_PIN_SPI_CS,
-    EMW1062_PIN_SPI_CLK,
-    EMW1062_PIN_SPI_MOSI,
-    EMW1062_PIN_SPI_MISO,
-    EMW1062_PIN_SPI_MAX,
-} emw1062_spi_pin_t;
-
-
-
-
-/******************************************************
+ /******************************************************
  *                    Structures
  ******************************************************/
 
-/******************************************************
- *                 Global Variables
- ******************************************************/
 
-/* Externed from <WICED-SDK>/platforms/<Platform>/platform.c */
-extern const platform_gpio_t wifi_control_pins[];
-extern const platform_gpio_t wifi_sdio_pins   [];
-extern const platform_gpio_t wifi_spi_pins    [];
-extern const platform_spi_t  wifi_spi;
+/******************************************************
+ *                     Variables
+ ******************************************************/
 
 /******************************************************
  *               Function Declarations
  ******************************************************/
 
-void platform_wifi_spi_rx_dma_irq( void );
+OSStatus platform_random_number_read( void *inBuffer, int inByteCount )
+{
+    // PLATFORM_TO_DO
+    int idx;
+    uint32_t *pWord = inBuffer;
+    uint32_t tempRDM;
+    uint8_t *pByte = NULL;
+    int inWordCount;
+    int remainByteCount;
 
+    inWordCount = inByteCount/4;
+    remainByteCount = inByteCount%4;
+    pByte = (uint8_t *)pWord+inWordCount*4;
 
-#ifdef __cplusplus
-} /*extern "C" */
-#endif
+    RNG_DeInit();
+    RCC_AHB2PeriphClockCmd(RCC_AHB2Periph_RNG, ENABLE);
+    RNG_Cmd(ENABLE);
+
+    for(idx = 0; idx<inWordCount; idx++, pWord++){
+        while(RNG_GetFlagStatus(RNG_FLAG_DRDY)!=SET);
+        *pWord = RNG_GetRandomNumber();
+    }
+
+    if(remainByteCount){
+        while(RNG_GetFlagStatus(RNG_FLAG_DRDY)!=SET);
+        tempRDM = RNG_GetRandomNumber();
+        memcpy(pByte, &tempRDM, (size_t)remainByteCount);
+    }
+    
+    RNG_DeInit();
+    return kNoErr;
+}

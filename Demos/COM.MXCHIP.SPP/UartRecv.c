@@ -23,6 +23,7 @@
 #include "MICODefine.h"
 #include "SppProtocol.h"
 #include "MicoPlatform.h"
+#include "platform_config.h"
 #include "MICONotificationCenter.h"
 
 #define uart_recv_log(M, ...) custom_log("UART RECV", M, ##__VA_ARGS__)

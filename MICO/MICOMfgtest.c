@@ -1,11 +1,10 @@
 #include "time.h"
 #include "MicoPlatform.h"
 #include "platform.h"
-#include "platform_common_config.h"
 #include "MICODefine.h"
 #include "MICOAppDefine.h"
 #include "MICONotificationCenter.h"
-
+#include "platform_config.h"
 
 
 #define MFG_FUNCTION             2

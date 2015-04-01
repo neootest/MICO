@@ -34,7 +34,6 @@
 #include "MICOPlatform.h"
 
 #include "platform.h"
-#include "platform_common_config.h"
 #include "platform_peripheral.h"
 #include "stm32f2xx.h"
 #include "debug.h"
@@ -104,10 +103,6 @@ static const IRQn_Type uart_irq_vectors[NUMBER_OF_UART_PORTS] =
     [5] = USART6_IRQn,
 };
 
-#ifndef NO_MICO_RTOS
-static mico_uart_t current_uart;
-#endif
-
 /******************************************************
 *        Static Function Declarations
 ******************************************************/
@@ -147,6 +142,7 @@ OSStatus platform_uart_init( platform_uart_driver_t* driver, const platform_uart
 #ifndef NO_MICO_RTOS
   mico_rtos_init_semaphore( &driver->tx_complete, 1 );
   mico_rtos_init_semaphore( &driver->rx_complete, 1 );
+  mico_rtos_init_semaphore( &driver->sem_wakeup,  1 );
   mico_rtos_init_mutex    ( &driver->tx_mutex );
 #else
   driver->tx_complete = false;
@@ -168,11 +164,10 @@ OSStatus platform_uart_init( platform_uart_driver_t* driver, const platform_uart
   }
   
 #ifndef NO_MICO_RTOS
-  // if(config->flags & UART_WAKEUP_ENABLE){
-  //   current_uart = uart;
-  //   mico_rtos_init_semaphore( &uart_interfaces[uart].sem_wakeup, 1 );
-  //   mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "UART_WAKEUP", thread_wakeup, 0x100, &current_uart);
-  // }
+  if(config->flags & UART_WAKEUP_ENABLE){
+    mico_rtos_init_semaphore( driver->sem_wakeup, 1 );
+    mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "UART_WAKEUP", thread_wakeup, 0x100, driver);
+  }
 #endif
   
 /* Enable UART peripheral clock */
@@ -421,8 +416,8 @@ OSStatus platform_uart_transmit_bytes( platform_uart_driver_t* driver, const uin
 #ifndef NO_MICO_RTOS
   mico_rtos_get_semaphore( &driver->tx_complete, MICO_NEVER_TIMEOUT );
 #else 
-  while(uart_interfaces[ uart ].tx_complete == false);
-  uart_interfaces[ uart ].tx_complete = false;
+  while( driver->tx_complete == false );
+  driver->tx_complete = false;
 #endif
 
   while ( ( driver->peripheral->port->SR & USART_SR_TC ) == 0 )
@@ -446,7 +441,7 @@ OSStatus platform_uart_receive_bytes( platform_uart_driver_t* driver, uint8_t* d
 {
   OSStatus err = kNoErr;
 
-  platform_mcu_powersave_disable();
+  //platform_mcu_powersave_disable();
 
   require_action_quiet( ( driver != NULL ) && ( data_in != NULL ) && ( expected_data_size != 0 ), exit, err = kParamErr);
 
@@ -475,7 +470,7 @@ OSStatus platform_uart_receive_bytes( platform_uart_driver_t* driver, uint8_t* d
         driver->rx_complete = false;
         int delay_start = mico_get_time_no_os();
         while(driver->rx_complete == false){
-          if(mico_get_time_no_os() >= delay_start + timeout && timeout != MICO_NEVER_TIMEOUT){
+          if(mico_get_time_no_os() >= delay_start + timeout_ms && timeout_ms != MICO_NEVER_TIMEOUT){
             driver->rx_size = 0;
             err = kTimeoutErr;
             goto exit;
@@ -507,7 +502,7 @@ OSStatus platform_uart_receive_bytes( platform_uart_driver_t* driver, uint8_t* d
     err = receive_bytes( driver, data_in, expected_data_size, timeout_ms );
   }
 exit:
-  platform_mcu_powersave_enable();
+  //platform_mcu_powersave_enable();
   return err;
 }
 
@@ -541,9 +536,9 @@ static OSStatus receive_bytes( platform_uart_driver_t* driver, void* data, uint3
 #ifndef NO_MICO_RTOS
     err = mico_rtos_get_semaphore( &driver->rx_complete, timeout );
 #else
-    uart_interfaces[uart].rx_complete = false;
+    driver->rx_complete = false;
     int delay_start = mico_get_time_no_os();
-    while(uart_interfaces[uart].rx_complete == false){
+    while( driver->rx_complete == false ){
       if(mico_get_time_no_os() >= delay_start + timeout && timeout != MICO_NEVER_TIMEOUT){
         err = kTimeoutErr;
         goto exit;
@@ -551,6 +546,7 @@ static OSStatus receive_bytes( platform_uart_driver_t* driver, void* data, uint3
     }    
 #endif
   }
+exit:
   return err;
 }
 
@@ -632,17 +628,18 @@ uint8_t platform_uart_get_port_number( USART_TypeDef* uart )
 }
 
 #ifndef NO_MICO_RTOS
-// static void thread_wakeup(void *arg)
-// {
-//   mico_uart_t uart = *(mico_uart_t *)arg;
+static void thread_wakeup(void *arg)
+{
+  platform_uart_driver_t* driver = arg;
   
-//   while(1){
-//     if(mico_rtos_get_semaphore(&uart_interfaces[ uart ].sem_wakeup, 1000) != kNoErr){
-//       gpio_irq_enable(uart_mapping[uart].pin_rx->bank, uart_mapping[uart].pin_rx->number, IRQ_TRIGGER_FALLING_EDGE, RX_PIN_WAKEUP_handler, &uart);
-//       MicoMcuPowerSaveConfig(true);
-//     }
-//   }
-// }
+  while(1){
+    if( mico_rtos_get_semaphore( driver->sem_wakeup, 1000) != kNoErr )
+    {
+      platform_gpio_irq_enable( driver->peripheral->pin_rx, IRQ_TRIGGER_FALLING_EDGE, RX_PIN_WAKEUP_handler, driver );
+      platform_mcu_powersave_enable( );
+    }
+  }
+}
 #endif
 
 /******************************************************
@@ -651,16 +648,30 @@ uint8_t platform_uart_get_port_number( USART_TypeDef* uart )
 #ifndef NO_MICO_RTOS
 void RX_PIN_WAKEUP_handler(void *arg)
 {
-  // (void)arg;
-  // mico_uart_t uart = *(mico_uart_t *)arg;
+  (void)arg;
+  platform_uart_driver_t* driver = arg;
+  uint32_t uart_number;
   
-  // RCC_AHB1PeriphClockCmd(uart_mapping[ uart ].pin_rx->peripheral_clock, ENABLE);
-  // uart_mapping[ uart ].usart_peripheral_clock_func ( uart_mapping[uart].usart_peripheral_clock,  ENABLE );
-  // uart_mapping[uart].rx_dma_peripheral_clock_func  ( uart_mapping[uart].rx_dma_peripheral_clock, ENABLE );
-  
-  // gpio_irq_disable(uart_mapping[uart].pin_rx->bank, uart_mapping[uart].pin_rx->number);
-  // MicoMcuPowerSaveConfig(false);
-  // mico_rtos_set_semaphore(&uart_interfaces[uart].sem_wakeup);
+  platform_gpio_enable_clock( driver->peripheral->pin_rx );
+
+  uart_number = platform_uart_get_port_number( driver->peripheral->port );
+
+  uart_peripheral_clock_functions[ uart_number ]( uart_peripheral_clocks[ uart_number ], ENABLE );
+
+  /* Enable DMA peripheral clock */
+  if ( driver->peripheral->tx_dma_config.controller == DMA1 )
+  {
+      RCC->AHB1ENR |= RCC_AHB1Periph_DMA1;
+  }
+  else
+  {
+      RCC->AHB1ENR |= RCC_AHB1Periph_DMA2;
+  }
+
+  platform_gpio_irq_disable( driver->peripheral->pin_rx );
+  platform_mcu_powersave_disable( );
+  mico_rtos_set_semaphore( &driver->sem_wakeup );
+
 }
 #endif
 
@@ -678,9 +689,17 @@ void platform_uart_irq( platform_uart_driver_t* driver )
   // Notify thread if sufficient data are available
   if ( ( driver->rx_size > 0 ) && ( ring_buffer_used_space( driver->rx_buffer ) >= driver->rx_size ) )
   {
+      #ifndef NO_MICO_RTOS
       mico_rtos_set_semaphore( &driver->rx_complete );
+      #else
+      driver->rx_complete = true;
+      #endif
       driver->rx_size = 0;
   }
+#ifndef NO_MICO_RTOS
+  if( driver->sem_wakeup )
+    mico_rtos_set_semaphore( &driver->sem_wakeup );
+#endif
 }
 
 void platform_uart_tx_dma_irq( platform_uart_driver_t* driver )
@@ -699,8 +718,12 @@ void platform_uart_tx_dma_irq( platform_uart_driver_t* driver )
 
     if ( driver->tx_size > 0 )
     {
+        #ifndef NO_MICO_RTOS
         /* Set semaphore regardless of result to prevent waiting thread from locking up */
         mico_rtos_set_semaphore( &driver->tx_complete );
+        #else
+        driver->tx_complete = true;
+        #endif
     }
 }
 
@@ -721,7 +744,11 @@ void platform_uart_rx_dma_irq( platform_uart_driver_t* driver )
     if ( driver->rx_size > 0 )
     {
         /* Set semaphore regardless of result to prevent waiting thread from locking up */
+        #ifndef NO_MICO_RTOS
         mico_rtos_set_semaphore( &driver->rx_complete );
+        #else
+        driver->rx_complete = true;
+        #endif
     }
 }
 

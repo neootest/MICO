@@ -34,38 +34,38 @@
 #include "Common.h"
 #include "platform_peripheral.h"
 #include "MicoPlatform.h"
-#include "platform_common_config.h"
+#include "platform_config.h"
 #include "platformLogging.h"
 
 /******************************************************
- *                      Macros
- ******************************************************/
+*                      Macros
+******************************************************/
 
 /******************************************************
- *                    Constants
- ******************************************************/
+*                    Constants
+******************************************************/
 
 /******************************************************
- *                   Enumerations
- ******************************************************/
+*                   Enumerations
+******************************************************/
 
 /******************************************************
- *                 Type Definitions
- ******************************************************/
+*                 Type Definitions
+******************************************************/
 
 /******************************************************
- *                    Structures
- ******************************************************/
+*                    Structures
+******************************************************/
 
 /******************************************************
- *               Static Function Declarations
- ******************************************************/
+*               Static Function Declarations
+******************************************************/
 
 extern OSStatus mico_platform_init      ( void );
 
 /******************************************************
- *               Variable Definitions
- ******************************************************/
+*               Variable Definitions
+******************************************************/
 
 /* Externed from platforms/<Platform>/platform.c */
 extern const platform_gpio_t       platform_gpio_pins[];
@@ -80,164 +80,164 @@ extern platform_spi_slave_driver_t platform_spi_slave_drivers[];
 bool i2c_initialized[MICO_I2C_MAX];
 
 /******************************************************
- *               Function Definitions
- ******************************************************/
+*               Function Definitions
+******************************************************/
 
 OSStatus mico_platform_init( void )
 {
 #if defined(__CC_ARM)
-    platform_log("Platform initialised, build by RVMDK");
+  platform_log("Platform initialised, build by RVMDK");
 #elif defined (__IAR_SYSTEMS_ICC__)
-    platform_log("Platform initialised, build by IAR");
+  platform_log("Platform initialised, build by IAR");
 #endif
   
-    if ( true == platform_watchdog_check_last_reset() )
-    {
-        platform_log( "WARNING: Watchdog reset occured previously. Please see platform_watchdog.c for debugging instructions." );
-    }
-
+  if ( true == platform_watchdog_check_last_reset() )
+  {
+    platform_log( "WARNING: Watchdog reset occured previously. Please see platform_watchdog.c for debugging instructions." );
+  }
+  
 #ifdef USES_RESOURCE_FILESYSTEM
-    platform_filesystem_init();
+  platform_filesystem_init();
 #endif
-    memset(i2c_initialized, 0, sizeof(i2c_initialized));
-
-    return kNoErr;
+  memset(i2c_initialized, 0, sizeof(i2c_initialized));
+  
+  return kNoErr;
 }
 
 OSStatus MicoAdcInitialize( mico_adc_t adc, uint32_t sampling_cycle )
 {
-    return (OSStatus) platform_adc_init( &platform_adc_peripherals[adc], sampling_cycle );
+  return (OSStatus) platform_adc_init( &platform_adc_peripherals[adc], sampling_cycle );
 }
 
 OSStatus  MicoAdcFinalize( mico_adc_t adc )
 {
-    return (OSStatus) platform_adc_deinit( &platform_adc_peripherals[adc] );
+  return (OSStatus) platform_adc_deinit( &platform_adc_peripherals[adc] );
 }
 
 OSStatus MicoAdcTakeSample( mico_adc_t adc, uint16_t* output )
 {
-    return (OSStatus) platform_adc_take_sample( &platform_adc_peripherals[adc], output );
+  return (OSStatus) platform_adc_take_sample( &platform_adc_peripherals[adc], output );
 }
 
 OSStatus MicoAdcTakeSampleStreram( mico_adc_t adc, void* buffer, uint16_t buffer_length )
 {
-    return (OSStatus) platform_adc_take_sample_stream( &platform_adc_peripherals[adc], buffer, buffer_length );
+  return (OSStatus) platform_adc_take_sample_stream( &platform_adc_peripherals[adc], buffer, buffer_length );
 }
 
 OSStatus MicoGpioInitialize( mico_gpio_t gpio, mico_gpio_config_t configuration )
 {
-    return (OSStatus) platform_gpio_init( &platform_gpio_pins[gpio], configuration );
+  return (OSStatus) platform_gpio_init( &platform_gpio_pins[gpio], configuration );
 }
 
 OSStatus MicoGpioOutputHigh( mico_gpio_t gpio )
 {
-    return (OSStatus) platform_gpio_output_high( &platform_gpio_pins[gpio] );
+  return (OSStatus) platform_gpio_output_high( &platform_gpio_pins[gpio] );
 }
 
 OSStatus MicoGpioOutputLow( mico_gpio_t gpio )
 {
-    return (OSStatus) platform_gpio_output_low( &platform_gpio_pins[gpio] );
+  return (OSStatus) platform_gpio_output_low( &platform_gpio_pins[gpio] );
 }
 
 OSStatus MicoGpioOutputTrigger( mico_gpio_t gpio )
 {
-    return (OSStatus) platform_gpio_output_trigger( &platform_gpio_pins[gpio] );
+  return (OSStatus) platform_gpio_output_trigger( &platform_gpio_pins[gpio] );
 }
 
 OSStatus MicoGpioFinalize( mico_gpio_t gpio )
 {
-    return (OSStatus) platform_gpio_deinit( &platform_gpio_pins[gpio] );
+  return (OSStatus) platform_gpio_deinit( &platform_gpio_pins[gpio] );
 }
 
 bool MicoGpioInputGet( mico_gpio_t gpio )
 {
-    return platform_gpio_input_get( &platform_gpio_pins[gpio] );
+  return platform_gpio_input_get( &platform_gpio_pins[gpio] );
 }
 
 OSStatus MicoGpioEnableIRQ( mico_gpio_t gpio, mico_gpio_irq_trigger_t trigger, mico_gpio_irq_handler_t handler, void* arg )
 {
-    return (OSStatus) platform_gpio_irq_enable( &platform_gpio_pins[gpio], trigger, handler, arg );
+  return (OSStatus) platform_gpio_irq_enable( &platform_gpio_pins[gpio], trigger, handler, arg );
 }
 
 OSStatus MicoGpioDisableIRQ( mico_gpio_t gpio )
 {
-    return (OSStatus) platform_gpio_irq_disable( &platform_gpio_pins[gpio] );
+  return (OSStatus) platform_gpio_irq_disable( &platform_gpio_pins[gpio] );
 }
 
 OSStatus MicoI2cInitialize( mico_i2c_device_t* device )
 {
-    platform_i2c_config_t config;
-    OSStatus result;
-
-    if (i2c_initialized[device->port] == true)
-    {
-        return kNoErr;
-    }
-
-    config.address       = device->address;
-    config.address_width = device->address_width;
-    config.flags         &= ~I2C_DEVICE_USE_DMA ;
-    config.speed_mode    = device->speed_mode;
-
-    result = (OSStatus) platform_i2c_init( &platform_i2c_peripherals[device->port], &config );
-    if (result == kNoErr)
-    {
-        i2c_initialized[device->port] = true;
-    }
-    return result;
+  platform_i2c_config_t config;
+  OSStatus result;
+  
+  if (i2c_initialized[device->port] == true)
+  {
+    return kNoErr;
+  }
+  
+  config.address       = device->address;
+  config.address_width = device->address_width;
+  config.flags         &= ~I2C_DEVICE_USE_DMA ;
+  config.speed_mode    = device->speed_mode;
+  
+  result = (OSStatus) platform_i2c_init( &platform_i2c_peripherals[device->port], &config );
+  if (result == kNoErr)
+  {
+    i2c_initialized[device->port] = true;
+  }
+  return result;
 }
 
 OSStatus MicoI2cFinalize( mico_i2c_device_t* device )
 {
-    platform_i2c_config_t config;
-
-    config.address       = device->address;
-    config.address_width = device->address_width;
-    config.flags         &= ~I2C_DEVICE_USE_DMA ;
-    config.speed_mode    = device->speed_mode;
-
-    i2c_initialized[device->port] = kGeneralErr;
-
-    return (OSStatus) platform_i2c_deinit( &platform_i2c_peripherals[device->port], &config );
+  platform_i2c_config_t config;
+  
+  config.address       = device->address;
+  config.address_width = device->address_width;
+  config.flags         &= ~I2C_DEVICE_USE_DMA ;
+  config.speed_mode    = device->speed_mode;
+  
+  i2c_initialized[device->port] = kGeneralErr;
+  
+  return (OSStatus) platform_i2c_deinit( &platform_i2c_peripherals[device->port], &config );
 }
 
 bool MicoI2cProbeDevice( mico_i2c_device_t* device, int retries )
 {
-    platform_i2c_config_t config;
-
-    config.address       = device->address;
-    config.address_width = device->address_width;
-    config.flags         &= ~I2C_DEVICE_USE_DMA ;
-    config.speed_mode    = device->speed_mode;
-
-    return platform_i2c_probe_device( &platform_i2c_peripherals[device->port], &config, retries );
+  platform_i2c_config_t config;
+  
+  config.address       = device->address;
+  config.address_width = device->address_width;
+  config.flags         &= ~I2C_DEVICE_USE_DMA ;
+  config.speed_mode    = device->speed_mode;
+  
+  return platform_i2c_probe_device( &platform_i2c_peripherals[device->port], &config, retries );
 }
 
 OSStatus MicoI2cBuildTxMessage( mico_i2c_message_t* message, const void* tx_buffer, uint16_t  tx_buffer_length, uint16_t retries )
 {
-    return (OSStatus) platform_i2c_init_tx_message( message, tx_buffer, tx_buffer_length, retries );
+  return (OSStatus) platform_i2c_init_tx_message( message, tx_buffer, tx_buffer_length, retries );
 }
 
 OSStatus MicoI2cBuildRxMessage( mico_i2c_message_t* message, void* rx_buffer, uint16_t rx_buffer_length, uint16_t retries )
 {
-    return (OSStatus) platform_i2c_init_rx_message( message, rx_buffer, rx_buffer_length, retries );
+  return (OSStatus) platform_i2c_init_rx_message( message, rx_buffer, rx_buffer_length, retries );
 }
 
 OSStatus MicoI2cBuildCombinedMessage( mico_i2c_message_t* message, const void* tx_buffer, void* rx_buffer, uint16_t tx_buffer_length, uint16_t rx_buffer_length, uint16_t retries )
 {
-    return (OSStatus) platform_i2c_init_combined_message( message, tx_buffer, rx_buffer, tx_buffer_length, rx_buffer_length, retries );
+  return (OSStatus) platform_i2c_init_combined_message( message, tx_buffer, rx_buffer, tx_buffer_length, rx_buffer_length, retries );
 }
 
 OSStatus MicoI2cTransfer( mico_i2c_device_t* device, mico_i2c_message_t* messages, uint16_t number_of_messages )
 {
-    platform_i2c_config_t config;
-
-    config.address       = device->address;
-    config.address_width = device->address_width;
-    config.flags         &= ~I2C_DEVICE_USE_DMA ;
-    config.speed_mode    = device->speed_mode;
-
-    return (OSStatus) platform_i2c_transfer( &platform_i2c_peripherals[device->port], &config, messages, number_of_messages );
+  platform_i2c_config_t config;
+  
+  config.address       = device->address;
+  config.address_width = device->address_width;
+  config.flags         &= ~I2C_DEVICE_USE_DMA ;
+  config.speed_mode    = device->speed_mode;
+  
+  return (OSStatus) platform_i2c_transfer( &platform_i2c_peripherals[device->port], &config, messages, number_of_messages );
 }
 
 void MicoMcuPowerSaveConfig( int enable )
@@ -248,143 +248,154 @@ void MicoMcuPowerSaveConfig( int enable )
     platform_mcu_powersave_disable( );
 }
 
+void MicoSystemStandBy( uint32_t secondsToWakeup )
+{
+  platform_mcu_enter_standby( secondsToWakeup );
+}
+
+
 OSStatus MicoPwmInitialize(mico_pwm_t pwm, uint32_t frequency, float duty_cycle)
 {
-    return (OSStatus) platform_pwm_init( &platform_pwm_peripherals[pwm], frequency, duty_cycle );
+  return (OSStatus) platform_pwm_init( &platform_pwm_peripherals[pwm], frequency, duty_cycle );
 }
 
 OSStatus MicoPwmStart( mico_pwm_t pwm )
 {
-    return (OSStatus) platform_pwm_start( &platform_pwm_peripherals[pwm] );
+  return (OSStatus) platform_pwm_start( &platform_pwm_peripherals[pwm] );
 }
 
 OSStatus MicoPwmStop( mico_pwm_t pwm )
 {
-    return (OSStatus) platform_pwm_stop( &platform_pwm_peripherals[pwm] );
+  return (OSStatus) platform_pwm_stop( &platform_pwm_peripherals[pwm] );
 }
 
-// OSStatus MicoRtcGetTime(mico_rtc_time_t* time)
-// {
-//     return (OSStatus) platform_rtc_get_time( time );
-// }
+OSStatus MicoRtcGetTime(mico_rtc_time_t* time)
+{
+  return (OSStatus) platform_rtc_get_time( time );
+}
 
-// OSStatus MicoRtcSetTime(mico_rtc_time_t* time)
-// {
-//     return (OSStatus) platform_rtc_set_time( time );
-// }
+OSStatus MicoRtcSetTime(mico_rtc_time_t* time)
+{
+  return (OSStatus) platform_rtc_set_time( time );
+}
 
 OSStatus MicoSpiInitialize( const mico_spi_device_t* spi )
 {
-    platform_spi_config_t config;
-
-    config.chip_select = &platform_gpio_pins[spi->chip_select];
-    config.speed       = spi->speed;
-    config.mode        = spi->mode;
-    config.bits        = spi->bits;
-
-    return (OSStatus) platform_spi_init( &platform_spi_peripherals[spi->port], &config );
+  platform_spi_config_t config;
+  
+  config.chip_select = &platform_gpio_pins[spi->chip_select];
+  config.speed       = spi->speed;
+  config.mode        = spi->mode;
+  config.bits        = spi->bits;
+  
+  return (OSStatus) platform_spi_init( &platform_spi_peripherals[spi->port], &config );
 }
 
 OSStatus MicoSpiFinalize( const mico_spi_device_t* spi )
 {
-    platform_spi_config_t config;
-
-    config.chip_select = &platform_gpio_pins[spi->chip_select];
-    config.speed       = spi->speed;
-    config.mode        = spi->mode;
-    config.bits        = spi->bits;
-
-    return (OSStatus) platform_spi_init( &platform_spi_peripherals[spi->port], &config );
+  platform_spi_config_t config;
+  
+  config.chip_select = &platform_gpio_pins[spi->chip_select];
+  config.speed       = spi->speed;
+  config.mode        = spi->mode;
+  config.bits        = spi->bits;
+  
+  return (OSStatus) platform_spi_init( &platform_spi_peripherals[spi->port], &config );
 }
 
 OSStatus MicoSpiTransfer( const mico_spi_device_t* spi, mico_spi_message_segment_t* segments, uint16_t number_of_segments )
 {
-    platform_spi_config_t config;
-
-    config.chip_select = &platform_gpio_pins[spi->chip_select];
-    config.speed       = spi->speed;
-    config.mode        = spi->mode;
-    config.bits        = spi->bits;
-
-    return (OSStatus) platform_spi_transfer( &platform_spi_peripherals[spi->port], &config, segments, number_of_segments );
+  platform_spi_config_t config;
+  
+  config.chip_select = &platform_gpio_pins[spi->chip_select];
+  config.speed       = spi->speed;
+  config.mode        = spi->mode;
+  config.bits        = spi->bits;
+  
+  return (OSStatus) platform_spi_transfer( &platform_spi_peripherals[spi->port], &config, segments, number_of_segments );
 }
 
 OSStatus MicoSpiSlaveInitialize( mico_spi_t spi, const mico_spi_slave_config_t* config )
 {
-    return (OSStatus) platform_spi_slave_init( &platform_spi_slave_drivers[spi], &platform_spi_peripherals[spi], config );
+  return (OSStatus) platform_spi_slave_init( &platform_spi_slave_drivers[spi], &platform_spi_peripherals[spi], config );
 }
 
 OSStatus MicoSpiSlaveFinalize( mico_spi_t spi )
 {
-    return (OSStatus) platform_spi_slave_deinit( &platform_spi_slave_drivers[spi] );
+  return (OSStatus) platform_spi_slave_deinit( &platform_spi_slave_drivers[spi] );
 }
 
 OSStatus  MicoSpiSlaveSendErrorStatus( mico_spi_t spi, mico_spi_slave_transfer_status_t error_status )
 {
-    return (OSStatus) platform_spi_slave_send_error_status( &platform_spi_slave_drivers[spi], error_status );
+  return (OSStatus) platform_spi_slave_send_error_status( &platform_spi_slave_drivers[spi], error_status );
 }
 
 OSStatus MicoSpiSlaveReceiveCommand( mico_spi_t spi, mico_spi_slave_command_t* command, uint32_t timeout_ms )
 {
-    return (OSStatus) platform_spi_slave_receive_command( &platform_spi_slave_drivers[spi], command, timeout_ms );
+  return (OSStatus) platform_spi_slave_receive_command( &platform_spi_slave_drivers[spi], command, timeout_ms );
 }
 
 OSStatus MicoSpiSlaveTransferData( mico_spi_t spi, mico_spi_slave_transfer_direction_t direction, mico_spi_slave_data_buffer_t* buffer, uint32_t timeout_ms )
 {
-    return (OSStatus) platform_spi_slave_transfer_data( &platform_spi_slave_drivers[spi], direction, buffer, timeout_ms );
+  return (OSStatus) platform_spi_slave_transfer_data( &platform_spi_slave_drivers[spi], direction, buffer, timeout_ms );
 }
 
 OSStatus MicoSpiSlaveGenerateInterrupt( mico_spi_t spi, uint32_t pulse_duration_ms )
 {
-    return (OSStatus) platform_spi_slave_generate_interrupt( &platform_spi_slave_drivers[spi], pulse_duration_ms );
+  return (OSStatus) platform_spi_slave_generate_interrupt( &platform_spi_slave_drivers[spi], pulse_duration_ms );
 }
 
 OSStatus MicoUartInitialize( mico_uart_t uart, const mico_uart_config_t* config, ring_buffer_t* optional_rx_buffer )
 {
 #ifndef WICED_DISABLE_STDIO
-    /* Interface is used by STDIO. Uncomment WICED_DISABLE_STDIO to overcome this */
-    if ( uart == STDIO_UART )
-    {
-        return kGeneralErr;
-    }
+  /* Interface is used by STDIO. Uncomment WICED_DISABLE_STDIO to overcome this */
+  if ( uart == STDIO_UART )
+  {
+    return kGeneralErr;
+  }
 #endif
-
-    return (OSStatus) platform_uart_init( &platform_uart_drivers[uart], &platform_uart_peripherals[uart], config, optional_rx_buffer );
+  
+  return (OSStatus) platform_uart_init( &platform_uart_drivers[uart], &platform_uart_peripherals[uart], config, optional_rx_buffer );
 }
 
 OSStatus MicoUartFinalize( mico_uart_t uart )
 {
-    return (OSStatus) platform_uart_deinit( &platform_uart_drivers[uart] );
+  return (OSStatus) platform_uart_deinit( &platform_uart_drivers[uart] );
 }
 
 OSStatus MicoUartSend( mico_uart_t uart, const void* data, uint32_t size )
 {
-    return (OSStatus) platform_uart_transmit_bytes( &platform_uart_drivers[uart], (const uint8_t*) data, size );
+  return (OSStatus) platform_uart_transmit_bytes( &platform_uart_drivers[uart], (const uint8_t*) data, size );
 }
 
 OSStatus MicoUartRecv( mico_uart_t uart, void* data, uint32_t size, uint32_t timeout )
 {
-    return (OSStatus) platform_uart_receive_bytes( &platform_uart_drivers[uart], (uint8_t*)data, size, timeout );
+  return (OSStatus) platform_uart_receive_bytes( &platform_uart_drivers[uart], (uint8_t*)data, size, timeout );
 }
 
 uint32_t MicoUartGetLengthInBuffer( mico_uart_t uart )
 {
-    return (OSStatus) platform_uart_get_length_in_buffer( &platform_uart_drivers[uart] );
+  return (OSStatus) platform_uart_get_length_in_buffer( &platform_uart_drivers[uart] );
 }
 
 OSStatus MicoRandomNumberRead( void *inBuffer, int inByteCount )
 {
-    return (OSStatus) platform_random_number_read( inBuffer, inByteCount );
+  return (OSStatus) platform_random_number_read( inBuffer, inByteCount );
 }
-// OSStatus MicoWdgInitialize( uint32_t timeout )
-// {
-//     return (OSStatus) platform_watchdog_init( );
-// }
 
-// void MicoWdgReload( void )
-// {
-//     platform_watchdog_reload( );
-// }
+void MicoSystemReboot( void )
+{
+  platform_mcu_reset();
+}
+OSStatus MicoWdgInitialize( uint32_t timeout )
+{
+    return (OSStatus) platform_watchdog_init( timeout );
+}
+
+void MicoWdgReload( void )
+{
+    platform_watchdog_kick( );
+}
 
 // uint64_t wiced_get_nanosecond_clock_value( void )
 // {

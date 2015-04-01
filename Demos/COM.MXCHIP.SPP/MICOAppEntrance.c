@@ -24,8 +24,8 @@
 
 #include "StringUtils.h"
 #include "SppProtocol.h"
-
 #include "MicoPlatform.h"
+#include "platform_config.h"
 
 #define app_log(M, ...) custom_log("APP", M, ##__VA_ARGS__)
 #define app_log_trace() custom_log_trace("APP")

@@ -294,10 +294,12 @@ OSStatus host_platform_bus_init( void )
     NVIC_EnableIRQ( DMA2_3_IRQ_CHANNEL );
 
     /* Set GPIO_B[1:0] to 00 to put WLAN module into SDIO mode */
+#if defined ( MICO_WIFI_USE_GPIO_FOR_BOOTSTRAP )
     platform_gpio_init( &wifi_control_pins[EMW1062_PIN_BOOTSTRAP_0], OUTPUT_PUSH_PULL );
     platform_gpio_output_low( &wifi_control_pins[EMW1062_PIN_BOOTSTRAP_0] );
     platform_gpio_init( &wifi_control_pins[EMW1062_PIN_BOOTSTRAP_1], OUTPUT_PUSH_PULL );
     platform_gpio_output_low( &wifi_control_pins[EMW1062_PIN_BOOTSTRAP_1] );
+#endif
 
     /* Setup GPIO pins for SDIO data & clock */
     for ( a = EMW1062_PIN_SDIO_CLK; a < EMW1062_PIN_SDIO_MAX; a++ )
@@ -379,7 +381,7 @@ OSStatus host_platform_bus_deinit( void )
         platform_gpio_deinit( &wifi_sdio_pins[ a ] );
     }
 
-#if defined ( WICED_WIFI_USE_GPIO_FOR_BOOTSTRAP )
+#if defined ( MICO_WIFI_USE_GPIO_FOR_BOOTSTRAP )
     platform_gpio_deinit( &wifi_control_pins[WWD_PIN_BOOTSTRAP_0] );
     platform_gpio_deinit( &wifi_control_pins[WWD_PIN_BOOTSTRAP_1] );
 #endif

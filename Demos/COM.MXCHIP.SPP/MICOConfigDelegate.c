@@ -24,7 +24,6 @@
 #include "debug.h"
 #include "MicoPlatform.h"
 #include "Platform.h"
-#include "Platform_common_config.h"
 
 #include "EasyLink/EasyLink.h"
 #include "JSON-C/json.h"

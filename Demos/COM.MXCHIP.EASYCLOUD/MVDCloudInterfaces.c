@@ -22,6 +22,7 @@
 */ 
 
 #include "MICODefine.h"
+#include "platform_config.h"
 
 #include "MVDCloudInterfaces.h"   
 #include "EasyCloudService.h"

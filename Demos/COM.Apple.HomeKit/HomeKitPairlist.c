@@ -22,7 +22,7 @@
 #include "HomeKitPairlist.h"
 #include "Debug.h"
 #include "MicoPlatform.h"
-#include "platform_common_config.h"
+#include "platform_config.h"
 
 /* Update seed number every time*/
 

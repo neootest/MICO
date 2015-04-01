@@ -34,7 +34,6 @@
 #include "MICORTOS.h"
 
 #include "platform.h"
-#include "platform_common_config.h"
 #include "platform_peripheral.h"
 #include "stm32f2xx.h"
 #include "PlatformLogging.h"
@@ -93,7 +92,7 @@ OSStatus platform_adc_init( const platform_adc_t* adc, uint32_t sample_cycle )
     require_action_quiet( adc != NULL, exit, err = kParamErr);
     
     /* Enable peripheral clock for this port */
-    err = platform_gpio_enable( adc->pin );
+    err = platform_gpio_enable_clock( adc->pin );
     require_noerr(err, exit);
 
     /* Initialize the associated GPIO */

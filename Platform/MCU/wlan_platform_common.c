@@ -32,7 +32,7 @@
 #include <stdint.h>
 #include "stm32f2xx.h"
 #include "platform.h"
-#include "platform_common_config.h"
+#include "platform_config.h"
 #include "wlan_platform_common.h"
 
 /******************************************************
@@ -133,7 +133,7 @@ bool host_platform_is_in_interrupt_context( void )
 OSStatus host_platform_init_wlan_powersave_clock( void )
 {
 
-#if defined ( WICED_USE_WIFI_32K_CLOCK_MCO )
+#if defined ( MICO_USE_WIFI_32K_CLOCK_MCO )
     platform_gpio_set_alternate_function( wifi_control_pins[EMW1062_PIN_32K_CLK].port, wifi_control_pins[EMW1062_PIN_32K_CLK].pin_number, GPIO_OType_PP, GPIO_PuPd_NOPULL, GPIO_AF_MCO );
 
     /* enable LSE output on MCO1 */

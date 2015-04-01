@@ -60,7 +60,6 @@ OSStatus MICOStartApplication( mico_Context_t * const inContext )
   else
     inContext->appStatus.useMFiAuth = false;
 
-
   /*Bonjour for service searching*/
   if(inContext->flashContentInRam.micoSystemConfig.bonjourEnable == true)
     MICOStartBonjourService( Station, inContext );

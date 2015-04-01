@@ -4,6 +4,7 @@
 #include "MICOAppDefine.h"
 #include "SocketUtils.h"
 #include "Platform.h"
+#include "platform_config.h"
 #include "MicoPlatform.h" 
 #include "HTTPUtils.h"
 #include "HomeKitTLV.h"
@@ -208,7 +209,6 @@ OSStatus HKPairSetupEngine( int inFd, HTTPHeader_t* inHeader, pairInfo_t** inInf
       err = _HandleState_WaitingForSRPStartRequest( inHeader, inInfo, inContext );
       require_noerr_action( err, exit, haPairSetupState = eState_M1_SRPStartRequest);
       err =  _HandleState_HandleSRPStartRespond( inFd , *inInfo, inContext );
-            err = -1;
       require_noerr_action( err, exit, haPairSetupState = eState_M1_SRPStartRequest);
       break;
 

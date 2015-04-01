@@ -12,7 +12,7 @@
 			"path": "../../../../Support"
 		},
 		{
-			"path": "../../../../Board/MiCOKit-3162"
+			"path": "../../../../Board/MiCOKit-F205"
 		},
 		{
 			"path": "../../../../Demos/COM.MXCHIP.SPP"
@@ -50,7 +50,7 @@
 			"-I/Users/william/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/",
 			"-I/Users/william/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/Libraries/",
 			"-I/Users/william/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/Libraries/STM32F2xx_StdPeriph_Driver/inc/",
-			"-I/Users/william/Develop/MiCO/Board/MiCOKit-3162/",
+			"-I/Users/william/Develop/MiCO/Board/MiCOKit-F205/",
 			"-I/Users/william/Develop/MiCO/include/",
 			"-I/Users/william/Develop/MiCO/MICO/",
 			"-I/Users/william/Develop/MiCO/Support/",

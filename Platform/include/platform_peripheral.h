@@ -67,6 +67,8 @@ Porting Notes
 #define I2C_DEVICE_NO_DMA        ( 0 << I2C_DEVICE_DMA_MASK_POSN )
 #define I2C_DEVICE_USE_DMA       ( 1 << I2C_DEVICE_DMA_MASK_POSN )
 
+#define USE_RTC_BKP 0x00BB32F2 // Use RTC BKP to initilize system time.
+
 /******************************************************
  *                   Enumerations
  ******************************************************/
@@ -200,7 +202,7 @@ typedef struct
     platform_uart_parity_t       parity;
     platform_uart_stop_bits_t    stop_bits;
     platform_uart_flow_control_t flow_control;
-    uint8_t                   flags;          /**< if set, UART can wake up MCU from stop mode, reference: @ref UART_WAKEUP_DISABLE and @ref UART_WAKEUP_ENABLE*/
+    uint8_t                      flags;          /**< if set, UART can wake up MCU from stop mode, reference: @ref UART_WAKEUP_DISABLE and @ref UART_WAKEUP_ENABLE*/
 } platform_uart_config_t;
 
 /**
@@ -406,6 +408,13 @@ OSStatus platform_mcu_powersave_enable( void );
  */
 OSStatus platform_mcu_powersave_disable( void );
 
+/**
+ * Enter standby mode, and wait a period to wakup
+ *
+ * @param[in] secondsToWakeup : seconds to wakeup
+ */
+void platform_mcu_enter_standby( uint32_t secondsToWakeup );
+
 
 /**
  * Notify the software stack that MCU has exited powersave mode due to interrupt
@@ -414,6 +423,8 @@ OSStatus platform_mcu_powersave_disable( void );
  */
 void platform_mcu_powersave_exit_notify( void );
 
+
+OSStatus platform_watchdog_init( uint32_t timeout_ms );
 
 /**
  * Refresh the watchdog

@@ -24,6 +24,7 @@
 #include <stdio.h>
 
 #include "MICODefine.h"
+#include "platform_config.h"
 #include "MICONotificationCenter.h"
 
 #include "MicoVirtualDevice.h"

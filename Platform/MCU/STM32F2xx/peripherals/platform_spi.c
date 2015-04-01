@@ -35,7 +35,7 @@
 
 #include "platform.h"
 #include "platform_common_config.h"
-#include "splatform_peripheral.h"
+#include "platform_peripheral.h"
 #include "stm32f2xx.h"
 #include "debug.h"
 

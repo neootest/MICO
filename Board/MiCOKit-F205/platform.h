@@ -32,8 +32,6 @@
 #ifndef __PLATFORM_H__
 #define __PLATFORM_H__
 
-#include "platform_common_config.h"
-
 #pragma once
 
 #ifdef __cplusplus
@@ -209,7 +207,18 @@ Notes
 
 typedef enum
 {
-    MICO_GPIO_0 = MICO_COMMON_GPIO_MAX,
+    MICO_SYS_LED,
+    MICO_RF_LED,
+    BOOT_SEL,
+    MFG_SEL,
+    Standby_SEL,
+    EasyLink_BUTTON,
+    STDIO_UART_RX,
+    STDIO_UART_TX,  
+    STDIO_UART_CTS,  
+    STDIO_UART_RTS,
+
+    MICO_GPIO_0,
     MICO_GPIO_1, 
     MICO_GPIO_2,
     MICO_GPIO_3,
@@ -258,7 +267,7 @@ typedef enum
 
 typedef enum
 {
-    MICO_PWM_1 = MICO_COMMON_PWM_MAX,
+    MICO_PWM_1,
     MICO_PWM_2,
     MICO_PWM_3,
     MICO_PWM_MAX, /* Denotes the total number of PWM port aliases. Not a valid PWM alias */
@@ -293,16 +302,26 @@ typedef enum
     MICO_FLASH_MAX,
 } mico_flash_t;
 
+
+#ifdef BOOTLOADER
+#define STDIO_UART       MICO_UART_1
+#define STDIO_UART_BAUDRATE (115200) 
+#else
+#define STDIO_UART       MICO_UART_1
+#define STDIO_UART_BAUDRATE (115200) 
+#endif
+
+#define UART_FOR_APP     MICO_UART_2
+#define MFG_TEST         MICO_UART_1
+#define CLI_UART         MICO_UART_1
+
+
 #define USE_MICO_SPI_FLASH
 //#define SFLASH_SUPPORT_MACRONIX_PARTS 
 //#define SFLASH_SUPPORT_SST_PARTS
 #define SFLASH_SUPPORT_WINBOND_PARTS
 
-/* #define MICO_PLATFORM_INCLUDES_SPI_FLASH */
-/* #define MICO_SPI_FLASH_CS  (MICO_GPIO_5) */
-/*      MICO_SPI_FLASH_MOSI MICO_GPIO_8 */
-/*      MICO_SPI_FLASH_MISO MICO_GPIO_7 */
-/*      MICO_SPI_FLASH_CLK  MICO_GPIO_6 */
+#define MICO_SPI_FLASH_CS ( MICO_GPIO_5 )
 
 /* I/O connection <-> Peripheral Connections */
 #define MICO_I2C_CP         (MICO_I2C_1)

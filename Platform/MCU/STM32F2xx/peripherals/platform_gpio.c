@@ -34,7 +34,6 @@
 #include "MICORTOS.h"
 
 #include "platform.h"
-#include "platform_common_config.h"
 #include "platform_peripheral.h"
 #include "stm32f2xx.h"
 #include "platformLogging.h"
@@ -425,7 +424,7 @@ uint8_t platform_gpio_get_port_number( platform_gpio_port_t* gpio_port )
     }
 }
 
-OSStatus platform_gpio_enable( const platform_gpio_t* gpio )
+OSStatus platform_gpio_enable_clock( const platform_gpio_t* gpio )
 {
   uint8_t     port_number;
   OSStatus    err = kNoErr;

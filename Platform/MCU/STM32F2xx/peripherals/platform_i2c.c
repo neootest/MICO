@@ -34,7 +34,6 @@
 #include "MICOPlatform.h"
 
 #include "platform.h"
-#include "platform_common_config.h"
 #include "platform_peripheral.h"
 #include "stm32f2xx.h"
 #include "PlatformLogging.h"
@@ -96,9 +95,9 @@ OSStatus platform_i2c_init( const platform_i2c_t* i2c, const platform_i2c_config
   
   // Init I2C GPIO clocks
   RCC_APB1PeriphClockCmd( i2c->peripheral_clock_reg, ENABLE );
-  err = platform_gpio_enable( i2c->pin_scl );
+  err = platform_gpio_enable_clock( i2c->pin_scl );
   require_noerr(err, exit);
-  err = platform_gpio_enable( i2c->pin_sda );
+  err = platform_gpio_enable_clock( i2c->pin_sda );
   require_noerr(err, exit);
   RCC_APB2PeriphClockCmd( RCC_APB2Periph_SYSCFG, ENABLE );
   

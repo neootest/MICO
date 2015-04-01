@@ -196,6 +196,7 @@ typedef struct
     mico_semaphore_t           rx_complete;
     mico_semaphore_t           tx_complete;
     mico_mutex_t               tx_mutex;
+    mico_semaphore_t           sem_wakeup;
 #else
     volatile bool              rx_complete;
     volatile bool              tx_complete;
@@ -217,10 +218,9 @@ typedef struct
  ******************************************************/
 OSStatus platform_gpio_irq_manager_init      ( void );
 uint8_t  platform_gpio_get_port_number       ( platform_gpio_port_t* gpio_port );
-OSStatus platform_gpio_enable                ( const platform_gpio_t* gpio );
+OSStatus platform_gpio_enable_clock          ( const platform_gpio_t* gpio );
 OSStatus platform_gpio_set_alternate_function( platform_gpio_port_t* gpio_port, uint8_t pin_number, GPIOOType_TypeDef output_type, GPIOPuPd_TypeDef pull_up_down_type, uint8_t alternation_function );
 
-OSStatus platform_watchdog_init              ( void );
 OSStatus platform_mcu_powersave_init         ( void );
 
 OSStatus platform_rtc_init                   ( void );

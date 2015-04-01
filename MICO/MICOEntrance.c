@@ -32,7 +32,6 @@
 #include "time.h"
 #include "MicoPlatform.h"
 #include "platform.h"
-#include "platform_common_config.h"
 #include "MICODefine.h"
 #include "MICOAppDefine.h"
 

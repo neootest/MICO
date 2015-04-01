@@ -33,8 +33,8 @@
 #include "PlatformLogging.h"
 #include "MicoPlatform.h"
 #include "platform.h"
-#include "Platform_common_config.h"
 #include "stm32f2xx.h"
+#include "platform_config.h"
 #include "stdio.h"
 #ifdef USE_MICO_SPI_FLASH
 #include "spi_flash.h"

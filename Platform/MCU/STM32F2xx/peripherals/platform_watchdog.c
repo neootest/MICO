@@ -32,11 +32,10 @@
 
 #include "MICOPlatform.h"
 #include "MICORTOS.h"
-#include "common.h"
+#include "Common.h"
 #include "debug.h"
 
 #include "platform.h"
-#include "platform_common_config.h"
 #include "platform_peripheral.h"
 #include "stm32f2xx.h"
 
@@ -62,7 +61,11 @@
 #ifndef MICO_DISABLE_WATCHDOG
 static __IO uint32_t LsiFreq = 0;
 static __IO uint32_t CaptureNumber = 0, PeriodValue = 0;
+#ifndef NO_MICO_RTOS
 static mico_semaphore_t  _measureLSIComplete_SEM = NULL;
+#else
+volatile static bool _measureLSIComplete_SEM = false;
+#endif
 uint16_t tmpCC4[2] = {0, 0};
 #endif
 
@@ -77,7 +80,7 @@ static uint32_t GetLSIFrequency(void);
  *               Function Definitions
  ******************************************************/
 
-OSStatus MicoWdgInitialize( uint32_t timeout_ms )
+OSStatus platform_watchdog_init( uint32_t timeout_ms )
 {
 // PLATFORM_TO_DO
 #ifndef MICO_DISABLE_WATCHDOG
@@ -120,12 +123,13 @@ OSStatus MicoWdgFinalize( void )
     return kNoErr;
 }
 
-void MicoWdgReload( void )
+OSStatus platform_watchdog_kick( void )
 {
 #ifndef MICO_DISABLE_WATCHDOG
   IWDG_ReloadCounter();
+  return kNoErr;
 #else
-  return;
+  return kUnsupportedErr;
 #endif
 }
 
@@ -142,7 +146,11 @@ uint32_t GetLSIFrequency(void)
   TIM_ICInitTypeDef  TIM_ICInitStructure;
   RCC_ClocksTypeDef  RCC_ClockFreq;
 
+#ifndef NO_MICO_RTOS
   mico_rtos_init_semaphore(&_measureLSIComplete_SEM, 1);
+#else
+  _measureLSIComplete_SEM = false;
+#endif
 
 
   /* Enable the LSI oscillator ************************************************/
@@ -191,9 +199,13 @@ uint32_t GetLSIFrequency(void)
   TIM_ITConfig(TIM5, TIM_IT_CC4, ENABLE);
 
   /* Wait until the TIM5 get 2 LSI edges (refer to TIM5_IRQHandler()) *********/
+#ifndef NO_MICO_RTOS
   mico_rtos_get_semaphore(&_measureLSIComplete_SEM, MICO_WAIT_FOREVER);
   mico_rtos_deinit_semaphore( &_measureLSIComplete_SEM );
   _measureLSIComplete_SEM = NULL;
+#else
+  while( _measureLSIComplete_SEM == false);
+#endif
 
   /* Deinitialize the TIM5 peripheral registers to their default reset values */
   TIM_ITConfig(TIM5, TIM_IT_CC4, DISABLE);
@@ -256,7 +268,11 @@ void TIM5_IRQHandler(void)
       /* Compute the period length */
       PeriodValue = (uint16_t)(0xFFFF - tmpCC4[0] + tmpCC4[1] + 1);
       if(_measureLSIComplete_SEM != NULL){
+#ifndef NO_MICO_RTOS
         mico_rtos_set_semaphore(&_measureLSIComplete_SEM);
+#else
+        _measureLSIComplete_SEM = true;
+#endif
       }
     }
   }

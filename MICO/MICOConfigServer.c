@@ -33,7 +33,6 @@
 #include "MICODefine.h"
 #include "SocketUtils.h"
 #include "Platform.h"
-#include "Platform_common_config.h"
 #include "HTTPUtils.h"
 #include "MICONotificationCenter.h"
 #include "StringUtils.h"

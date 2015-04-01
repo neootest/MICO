@@ -34,7 +34,6 @@
 #include "MICONotificationCenter.h"
 
 #include "MicoPlatform.h"
-#include "platform_common_config.h"
 #include "StringUtils.h"
 #include "HTTPUtils.h"
 #include "SocketUtils.h"
