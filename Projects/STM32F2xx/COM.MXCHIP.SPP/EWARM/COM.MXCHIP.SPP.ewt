@@ -322,7 +322,7 @@
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform_spi_flash.c</name>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform_config.h</name>
       </file>
     </group>
   </group>
@@ -595,6 +595,9 @@
         <name>SPI Flash</name>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash\spi_flash.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash\spi_flash_platform.c</name>
         </file>
       </group>
       <group>

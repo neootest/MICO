@@ -2942,9 +2942,6 @@
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform_common_config.h</name>
       </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform_spi_flash.c</name>
-      </file>
     </group>
   </group>
   <group>
@@ -3049,6 +3046,9 @@
         </excluded>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash\spi_flash.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash\spi_flash_platform.c</name>
         </file>
       </group>
     </group>
@@ -3215,7 +3215,6 @@
             <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_spi.c</name>
             <excluded>
               <configuration>MiCOKit-3162</configuration>
-              <configuration>MICOKit-F205</configuration>
             </excluded>
           </file>
           <file>

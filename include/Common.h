@@ -38,7 +38,7 @@
 #define USED __attribute__ ((used))
 #elif defined ( __ICCARM__ )
 #define WEAK __weak
-#define USED 
+#define USED __root
 #elif defined ( __CC_ARM ) //KEIL
 #define WEAK __attribute__ ((weak))
 #define USED __attribute__ ((used))

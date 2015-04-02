@@ -31,47 +31,29 @@
 */ 
 
 
-#include "stm32f4xx_platform.h"
+#include "platform_peripheral.h"
 #include "platform.h"
-#include "platform_common_config.h"
 #include "MicoPlatform.h"
 #include "PlatformLogging.h"
-#include "rtc.h"
 #include <string.h> // For memcmp
 #include "crt0.h"
 #include "MICODefaults.h"
 #include "MicoRTOS.h"
-
-#ifdef __GNUC__
-#include "../../GCC/stdio_newlib.h"
-#endif /* ifdef __GNUC__ */
-
-#ifdef __GNUC__
-#define WEAK __attribute__ ((weak))
-#elif defined ( __IAR_SYSTEMS_ICC__ )
-#define WEAK __weak
-#endif /* ifdef __GNUC__ */
+#include "platform_init.h"
 
 /******************************************************
 *                      Macros
 ******************************************************/
-#ifndef BOOTLOADER_MAGIC_NUMBER
-#define BOOTLOADER_MAGIC_NUMBER 0x4d435242
-#endif
 
 #define NUMBER_OF_LSE_TICKS_PER_MILLISECOND(scale_factor) ( 32768 / 1000 / scale_factor )
-#define CONVERT_FROM_TICKS_TO_MS(n,s) ( n / NUMBER_OF_LSE_TICKS_PER_MILLISECOND(s) )
+#define CONVERT_FROM_TICKS_TO_MS( n,s )                   ( n / NUMBER_OF_LSE_TICKS_PER_MILLISECOND(s) )
 
 /******************************************************
 *                    Constants
 ******************************************************/
 
-#ifndef STDIO_BUFFER_SIZE
-#define STDIO_BUFFER_SIZE   64
-#endif
-
-#define RTC_INTERRUPT_EXTI_LINE EXTI_Line22
-
+#define RTC_INTERRUPT_EXTI_LINE       EXTI_Line22
+#define WUT_COUNTER_MAX               0xFFFF
 #define CK_SPRE_CLOCK_SOURCE_SELECTED 0xFFFF
 
 /******************************************************
@@ -90,247 +72,172 @@
 *               Function Declarations
 ******************************************************/
 
-void MCU_CLOCKS_NEEDED    ( void );
-void MCU_CLOCKS_NOT_NEEDED( void );
+/* Default RTC time. Set to 12:20:30 08/04/2013 Monday */
+static const platform_rtc_time_t default_rtc_time =
+{
+   .sec     = 30,
+   .min     = 20,
+   .hr      = 12,
+   .weekday = 1,
+   .date    = 8,
+   .month   = 4,
+   .year    = 13,
+};
 
-void wake_up_interrupt_notify( void );
+#ifndef MICO_DISABLE_MCU_POWERSAVE
+static unsigned long  stop_mode_power_down_hook( unsigned long sleep_ms );
+static OSStatus       select_wut_prescaler_calculate_wakeup_time( unsigned long* wakeup_time, unsigned long sleep_ms, unsigned long* scale_factor );
+#else
+static unsigned long  idle_power_down_hook( unsigned long sleep_ms );
+#endif
+//void wake_up_interrupt_notify( void );
 
-extern OSStatus host_platform_init( void );
 
 /******************************************************
 *               Variables Definitions
 ******************************************************/
-/* mico_cpu_clock_hz is used by MICO RTOS */
-const uint32_t  mico_cpu_clock_hz = MCU_CLOCK_HZ;
-
-static char stm32_platform_inited = 0;
-
-#ifndef MICO_DISABLE_STDIO
-static const mico_uart_config_t stdio_uart_config =
-{
-  .baud_rate    = STDIO_UART_BAUDRATE,
-  .data_width   = DATA_WIDTH_8BIT,
-  .parity       = NO_PARITY,
-  .stop_bits    = STOP_BITS_1,
-  .flow_control = FLOW_CONTROL_DISABLED,
-};
-
-static volatile ring_buffer_t stdio_rx_buffer;
-static volatile uint8_t             stdio_rx_data[STDIO_BUFFER_SIZE];
-mico_mutex_t        stdio_rx_mutex;
-mico_mutex_t        stdio_tx_mutex;
-#endif /* #ifndef MICO_DISABLE_STDIO */
 
 #ifndef MICO_DISABLE_MCU_POWERSAVE
-static bool wake_up_interrupt_triggered  = false;
-static unsigned long rtc_timeout_start_time           = 0;
+static bool          wake_up_interrupt_triggered  = false;
+static unsigned long rtc_timeout_start_time       = 0;
+static int32_t       stm32f2_clock_needed_counter = 0;
 #endif /* #ifndef MICO_DISABLE_MCU_POWERSAVE */
 
 /******************************************************
-*               Function Definitions
-******************************************************/
-#if defined ( __ICCARM__ )
+ *               Function Definitions
+ ******************************************************/
 
-static inline void __jump_to( uint32_t addr )
+OSStatus platform_mcu_powersave_init(void)
 {
-  __asm( "MOV R1, #0x00000001" );
-  __asm( "ORR R0, R0, R1" );  /* Last bit of jump address indicates whether destination is Thumb or ARM code */
-  __asm( "BLX R0" );
-}
+#ifndef MICO_DISABLE_MCU_POWERSAVE
+  EXTI_InitTypeDef EXTI_InitStructure;
+  RTC_InitTypeDef RTC_InitStruct;
+  
+  //RTC_DeInit( );
 
-#elif defined ( __GNUC__ )
-
-__attribute__( ( always_inline ) ) static __INLINE void __jump_to( uint32_t addr )
-{
-  addr |= 0x00000001;  /* Last bit of jump address indicates whether destination is Thumb or ARM code */
-  __ASM volatile ("BX %0" : : "r" (addr) );
-}
-
-#endif
-
-/*Boot to mico application form APPLICATION_START_ADDRESS defined in platform_common_config.h */
-void startApplication(void)
-{
-  uint32_t text_addr = APPLICATION_START_ADDRESS;
+  RTC_InitStruct.RTC_HourFormat = RTC_HourFormat_24;
   
-  if(((*(volatile uint32_t*)text_addr) & 0x2FFE0000 ) != 0x20000000)
-    text_addr += 0x200;
-  /* Test if user code is programmed starting from address "ApplicationAddress" */
-  if (((*(volatile uint32_t*)text_addr) & 0x2FFE0000 ) == 0x20000000)
-  { 
-    uint32_t* stack_ptr;
-    uint32_t* start_ptr;
-    
-    __asm( "MOV LR,        #0xFFFFFFFF" );
-    __asm( "MOV R1,        #0x01000000" );
-    __asm( "MSR APSR_nzcvq,     R1" );
-    __asm( "MOV R1,        #0x00000000" );
-    __asm( "MSR PRIMASK,   R1" );
-    __asm( "MSR FAULTMASK, R1" );
-    __asm( "MSR BASEPRI,   R1" );
-    __asm( "MSR CONTROL,   R1" );
+  /* RTC ticks every second */
+  RTC_InitStruct.RTC_AsynchPrediv = 0x7F;
+  RTC_InitStruct.RTC_SynchPrediv = 0xFF;
   
-   SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk; 
-    
-    stack_ptr = (uint32_t*) text_addr;  /* Initial stack pointer is first 4 bytes of vector table */
-    start_ptr = ( stack_ptr + 1 );  /* Reset vector is second 4 bytes of vector table */
-    
-    __set_MSP( *stack_ptr );
-    __jump_to( *start_ptr );
-  }  
-}
-
-/* STM32F2 common clock initialisation function
-* This brings up enough clocks to allow the processor to run quickly while initialising memory.
-* Other platform specific clock init can be done in init_platform() or init_architecture()
-*/
-WEAK void init_clocks( void )
-{
-  //RCC_DeInit( ); /* if not commented then the LSE PA8 output will be disabled and never comes up again */
+  RTC_Init( &RTC_InitStruct );
   
-  /* Configure Clocks */
-  
-  RCC_HSEConfig( HSE_SOURCE );
-  RCC_WaitForHSEStartUp( );
-  
-  RCC_HCLKConfig( AHB_CLOCK_DIVIDER );
-  RCC_PCLK2Config( APB2_CLOCK_DIVIDER );
-  RCC_PCLK1Config( APB1_CLOCK_DIVIDER );
-  
-  /* Enable the PLL */
-  FLASH_SetLatency( INT_FLASH_WAIT_STATE );
-  FLASH_PrefetchBufferCmd( ENABLE );
-  
-  /* Use the clock configuration utility from ST to calculate these values
-  * http://www.st.com/st-web-ui/static/active/en/st_prod_software_internet/resource/technical/software/utility/stsw-stm32090.zip
-  */
-  RCC_PLLConfig( PLL_SOURCE, PLL_M_CONSTANT, PLL_N_CONSTANT, PLL_P_CONSTANT, PPL_Q_CONSTANT ); /* NOTE: The CPU Clock Frequency is independently defined in <WICED-SDK>/Wiced/Platform/<platform>/<platform>.mk */
-  RCC_PLLCmd( ENABLE );
-  
-  while ( RCC_GetFlagStatus( RCC_FLAG_PLLRDY ) == RESET )
-  {
-  }
-  RCC_SYSCLKConfig( SYSTEM_CLOCK_SOURCE );
-  
-  while ( RCC_GetSYSCLKSource( ) != 0x08 )
-  {
-  }
-  
-  /* Configure HCLK clock as SysTick clock source. */
-  SysTick_CLKSourceConfig( SYSTICK_CLOCK_SOURCE );
-}
-
-WEAK void init_memory( void )
-{
-  
-}
-
-void init_architecture( void )
-{
-  uint8_t i;
-  
+  /* Enable the PWR clock */
   RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
   
-   /*STM32 wakeup by watchdog in standby mode, re-enter standby mode in this situation*/
-  if ( (PWR_GetFlagStatus(PWR_FLAG_SB) != RESET) && RCC_GetFlagStatus(RCC_FLAG_IWDGRST) != RESET){
-     RCC_ClearFlag();
-     MicoSystemStandBy(MICO_WAIT_FOREVER);
-   }
-  PWR_ClearFlag(PWR_FLAG_SB);
+  /* RTC clock source configuration ------------------------------------------*/
+  /* Allow access to BKP Domain */
+  PWR_BackupAccessCmd(ENABLE);
+  PWR_BackupRegulatorCmd(ENABLE);
   
-  if ( stm32_platform_inited == 1 )
-    return;
-  
-  /* Initialise the interrupt priorities to a priority lower than 0 so that the BASEPRI register can mask them */
-  for ( i = 0; i < 81; i++ )
+  /* Enable the LSE OSC */
+  RCC_LSEConfig(RCC_LSE_ON);
+  /* Wait till LSE is ready */
+  while(RCC_GetFlagStatus(RCC_FLAG_LSERDY) == RESET)
   {
-    NVIC ->IP[i] = 0xff;
   }
   
-  NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
+  /* Select the RTC Clock Source */
+  RCC_RTCCLKConfig(RCC_RTCCLKSource_LSE);
   
-#ifndef MICO_DISABLE_STDIO
-#ifndef NO_MICO_RTOS
-  mico_rtos_init_mutex( &stdio_tx_mutex );
-  mico_rtos_unlock_mutex ( &stdio_tx_mutex );
-  mico_rtos_init_mutex( &stdio_rx_mutex );
-  mico_rtos_unlock_mutex ( &stdio_rx_mutex );
-#endif
-  ring_buffer_init  ( (ring_buffer_t*)&stdio_rx_buffer, (uint8_t*)stdio_rx_data, STDIO_BUFFER_SIZE );
-  MicoStdioUartInitialize( &stdio_uart_config, (ring_buffer_t*)&stdio_rx_buffer );
-#endif
+  /* Enable the RTC Clock */
+  RCC_RTCCLKCmd(ENABLE);
   
-#ifndef NO_MICO_RTOS 
-  /* Ensure 802.11 device is in reset. */
-  host_platform_init( );
-  MicoRtcInitialize();  
-#else //Bootloader
-  SysTick_Config(SystemCoreClock / 1000);
-#endif
-  /* Disable MCU powersave at start-up. Application must explicitly enable MCU powersave if desired */
-  MCU_CLOCKS_NEEDED();
   
-  stm32_platform_inited = 1;    
-}
+  /* RTC configuration -------------------------------------------------------*/
+  /* Wait for RTC APB registers synchronisation */
+  RTC_WaitForSynchro();
+  
+  RTC_WakeUpCmd( DISABLE );
+  EXTI_ClearITPendingBit( RTC_INTERRUPT_EXTI_LINE );
+  PWR_ClearFlag(PWR_FLAG_WU);
+  RTC_ClearFlag(RTC_FLAG_WUTF);
+  
+  RTC_WakeUpClockConfig(RTC_WakeUpClock_RTCCLK_Div2);
+  
+  EXTI_ClearITPendingBit( RTC_INTERRUPT_EXTI_LINE );
+  EXTI_InitStructure.EXTI_Line = RTC_INTERRUPT_EXTI_LINE;
+  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;
+  EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+  EXTI_Init(&EXTI_InitStructure);
+  
+  NVIC_EnableIRQ( RTC_WKUP_IRQn );
 
-OSStatus stdio_hardfault( char* data, uint32_t size )
-{
-#ifndef MICO_DISABLE_STDIO
-  uint32_t idx;
-  for(idx = 0; idx < size; idx++){
-    while ( ( uart_mapping[ STDIO_UART ].usart->SR & USART_SR_TXE ) == 0 );
-    uart_mapping[ STDIO_UART ].usart->DR = (data[idx] & (uint16_t)0x01FF);
-    
+  RTC_ITConfig(RTC_IT_WUT, DISABLE);
+  
+  /* Prepare Stop-Mode but leave disabled */
+  //PWR_ClearFlag(PWR_FLAG_WU);
+  PWR->CR  |= PWR_CR_LPDS;
+  PWR->CR  &= (unsigned long)(~(PWR_CR_PDDS));
+  SCB->SCR |= ((unsigned long)SCB_SCR_SLEEPDEEP_Msk);
+  
+#ifdef USE_RTC_BKP
+  if (RTC_ReadBackupRegister(RTC_BKP_DR0) != USE_RTC_BKP) {
+    /* set it to 12:20:30 08/04/2013 monday */
+    platform_rtc_set_time(&default_rtc_time);
+    RTC_WriteBackupRegister(RTC_BKP_DR0, USE_RTC_BKP);
   }
+#else
+  //#ifdef RTC_ENABLED
+  /* application must have wiced_application_default_time structure declared somewhere, otherwise it wont compile */
+  /* write default application time inside rtc */
+  platform_rtc_set_time( &default_rtc_time );
+  //#endif /* RTC_ENABLED */
 #endif
   return kNoErr;
+#else
+  return kUnsupportedErr;
+#endif
 }
 
-/******************************************************
-*            Interrupt Service Routines
-******************************************************/
-
-#ifndef MICO_DISABLE_MCU_POWERSAVE
-static int stm32f2_clock_needed_counter = 0;
-#endif
-
-void MCU_CLOCKS_NEEDED( void )
+OSStatus platform_mcu_powersave_disable( void )
 {
 #ifndef MICO_DISABLE_MCU_POWERSAVE
-  DISABLE_INTERRUPTS;
-  if ( stm32f2_clock_needed_counter <= 0 )
-  {
-    SCB->SCR &= (~((unsigned long)SCB_SCR_SLEEPDEEP_Msk));
-    stm32f2_clock_needed_counter = 0;
-  }
-  stm32f2_clock_needed_counter++;
-  ENABLE_INTERRUPTS;
+    DISABLE_INTERRUPTS;
+    if ( stm32f2_clock_needed_counter <= 0 )
+    {
+        SCB->SCR &= (~((unsigned long)SCB_SCR_SLEEPDEEP_Msk));
+        stm32f2_clock_needed_counter = 0;
+    }
+    stm32f2_clock_needed_counter++;
+    ENABLE_INTERRUPTS;
+
+    return kNoErr;
 #else
-  return;
+    return kUnsupportedErr;
 #endif
 }
 
-void MCU_CLOCKS_NOT_NEEDED( void )
+OSStatus platform_mcu_powersave_enable( void )
 {
 #ifndef MICO_DISABLE_MCU_POWERSAVE
-  DISABLE_INTERRUPTS;
-  stm32f2_clock_needed_counter--;
-  if ( stm32f2_clock_needed_counter <= 0 )
-  {
-    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-    stm32f2_clock_needed_counter = 0;
-  }
-  ENABLE_INTERRUPTS;
+    DISABLE_INTERRUPTS;
+    stm32f2_clock_needed_counter--;
+    if ( stm32f2_clock_needed_counter <= 0 )
+    {
+        SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+        stm32f2_clock_needed_counter = 0;
+    }
+    ENABLE_INTERRUPTS;
+
+    return kNoErr;
 #else
-  return;
+    return kUnsupportedErr;
 #endif
 }
 
+void platform_mcu_powersave_exit_notify( void )
+{
 #ifndef MICO_DISABLE_MCU_POWERSAVE
+    wake_up_interrupt_triggered = true;
+#endif
+}
 
-#define WUT_COUNTER_MAX  0xFFFF
 
-static OSStatus select_wut_prescaler_calculate_wakeup_time( unsigned long* wakeup_time, unsigned long delay_ms, unsigned long* scale_factor )
+#ifndef MICO_DISABLE_MCU_POWERSAVE
+static OSStatus select_wut_prescaler_calculate_wakeup_time( unsigned long* wakeup_time, unsigned long sleep_ms, unsigned long* scale_factor )
 {
   unsigned long temp;
   bool scale_factor_is_found = false;
@@ -345,7 +252,7 @@ static OSStatus select_wut_prescaler_calculate_wakeup_time( unsigned long* wakeu
   };
   static unsigned long scale_factor_values[] = { 2, 4, 8, 16 };
   
-  if ( delay_ms == 0xFFFFFFFF )
+  if ( sleep_ms == 0xFFFFFFFF )
   {
     /* wake up in a 100ms, since currently there may be no tasks to run, but after a few milliseconds */
     /* some of them can get unblocked( for example a task is blocked on mutex with unspecified ) */
@@ -357,7 +264,7 @@ static OSStatus select_wut_prescaler_calculate_wakeup_time( unsigned long* wakeu
   {
     for ( i = 0; i < 4; i++ )
     {
-      temp = NUMBER_OF_LSE_TICKS_PER_MILLISECOND( scale_factor_values[i] ) * delay_ms;
+      temp = NUMBER_OF_LSE_TICKS_PER_MILLISECOND( scale_factor_values[i] ) * sleep_ms;
       if ( temp < WUT_COUNTER_MAX )
       {
         scale_factor_is_found = true;
@@ -378,7 +285,7 @@ static OSStatus select_wut_prescaler_calculate_wakeup_time( unsigned long* wakeu
       RTC_WakeUpClockConfig( RTC_WakeUpClock_CK_SPRE_16bits );
       
       /* with 1Hz ck_spre clock source the resolution changes to seconds  */
-      *wakeup_time = ( delay_ms / 1000 ) + 1;
+      *wakeup_time = ( sleep_ms / 1000 ) + 1;
       *scale_factor = CK_SPRE_CLOCK_SOURCE_SELECTED;
       
       return kGeneralErr;
@@ -387,23 +294,51 @@ static OSStatus select_wut_prescaler_calculate_wakeup_time( unsigned long* wakeu
   
   return kNoErr;
 }
+#endif
 
-void wake_up_interrupt_notify( void )
+
+/******************************************************
+ *               RTOS Powersave Hooks
+ ******************************************************/
+
+void platform_idle_hook( void )
 {
-  wake_up_interrupt_triggered = true;
+    __asm("wfi");
 }
 
+uint32_t platform_power_down_hook( uint32_t sleep_ms )
+{
+#ifdef MICO_DISABLE_MCU_POWERSAVE
+    /* If MCU powersave feature is disabled, enter idle mode when powerdown hook is called by the RTOS */
+    return idle_power_down_hook( sleep_ms );
 
-static unsigned long stop_mode_power_down_hook( unsigned long delay_ms )
+#else
+    /* If MCU powersave feature is enabled, enter STOP mode when powerdown hook is called by the RTOS */
+    return stop_mode_power_down_hook( sleep_ms );
+
+#endif
+}
+
+#ifdef MICO_DISABLE_MCU_POWERSAVE
+/* MCU Powersave is disabled */
+static unsigned long idle_power_down_hook( unsigned long sleep_ms  )
+{
+    UNUSED_PARAMETER( sleep_ms );
+    WICED_ENABLE_INTERRUPTS( );
+    __asm("wfi");
+    return 0;
+}
+#else
+static unsigned long stop_mode_power_down_hook( unsigned long sleep_ms )
 {
   unsigned long retval;
   unsigned long wut_ticks_passed;
   unsigned long scale_factor = 0;
-  UNUSED_PARAMETER(delay_ms);
+  UNUSED_PARAMETER(sleep_ms);
   UNUSED_PARAMETER(rtc_timeout_start_time);
   UNUSED_PARAMETER(scale_factor);
   
-  if ( ( ( SCB->SCR & (unsigned long)SCB_SCR_SLEEPDEEP_Msk) != 0) && delay_ms < 5 ){
+  if ( ( ( SCB->SCR & (unsigned long)SCB_SCR_SLEEPDEEP_Msk) != 0) && sleep_ms < 5 ){
     SCB->SCR &= (~((unsigned long)SCB_SCR_SLEEPDEEP_Msk));
     __asm("wfi");
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
@@ -415,7 +350,8 @@ static unsigned long stop_mode_power_down_hook( unsigned long delay_ms )
   if ( ( ( SCB->SCR & (unsigned long)SCB_SCR_SLEEPDEEP_Msk) ) != 0 )
   {
     /* pick up the appropriate prescaler for a requested delay */
-    select_wut_prescaler_calculate_wakeup_time(&rtc_timeout_start_time, delay_ms, &scale_factor );
+    select_wut_prescaler_calculate_wakeup_time(&rtc_timeout_start_time, sleep_ms, &scale_factor );
+
     DISABLE_INTERRUPTS;
     
     SysTick->CTRL &= (~(SysTick_CTRL_TICKINT_Msk|SysTick_CTRL_ENABLE_Msk)); /* systick IRQ off */
@@ -427,7 +363,7 @@ static unsigned long stop_mode_power_down_hook( unsigned long delay_ms )
     
     RTC_SetWakeUpCounter( rtc_timeout_start_time );
     RTC_WakeUpCmd( ENABLE );
-    rtc_sleep_entry();
+    platform_rtc_enter_powersave();
     
     DBGMCU->CR |= 0x03; /* Enable debug in stop mode */
     
@@ -455,7 +391,7 @@ static unsigned long stop_mode_power_down_hook( unsigned long delay_ms )
     /* Get the time of how long the sleep lasted */
     wut_ticks_passed = rtc_timeout_start_time - RTC_GetWakeUpCounter();
     UNUSED_VARIABLE(wut_ticks_passed);
-    rtc_sleep_exit( delay_ms, &retval );
+    platform_rtc_exit_powersave( sleep_ms, (uint32_t *)&retval );
     /* as soon as interrupts are enabled, we will go and execute the interrupt handler */
     /* which triggered a wake up event */
     ENABLE_INTERRUPTS;
@@ -472,44 +408,10 @@ static unsigned long stop_mode_power_down_hook( unsigned long delay_ms )
     return 0;
   }
 }
-
-#else /* MICO_DISABLE_MCU_POWERSAVE */
-static unsigned long idle_power_down_hook( unsigned long delay_ms  )
-{
-  UNUSED_PARAMETER( delay_ms );
-  ENABLE_INTERRUPTS;
-  __asm("wfi");
-  return 0;
-}
-
 #endif /* MICO_DISABLE_MCU_POWERSAVE */
 
 
-unsigned long platform_power_down_hook( unsigned long delay_ms )
-{
-#ifndef MICO_DISABLE_MCU_POWERSAVE
-  return stop_mode_power_down_hook( delay_ms );
-#else
-  return idle_power_down_hook( delay_ms );
-#endif
-}
-
-void RTC_WKUP_irq( void )
-{
-  EXTI_ClearITPendingBit( RTC_INTERRUPT_EXTI_LINE );
-}
-
-void platform_idle_hook( void )
-{
-  __asm("wfi");
-}
-
-void MicoSystemReboot(void)
-{ 
-  NVIC_SystemReset();
-}
-
-void MicoSystemStandBy(uint32_t secondsToWakeup)
+void platform_mcu_enter_standby(uint32_t secondsToWakeup)
 { 
   mico_rtc_time_t time;
   uint32_t currentSecond;
@@ -552,34 +454,15 @@ void MicoSystemStandBy(uint32_t secondsToWakeup)
   PWR_EnterSTANDBYMode();
 }
 
-void MicoMcuPowerSaveConfig( int enable )
+
+/******************************************************
+ *         IRQ Handlers Definition & Mapping
+ ******************************************************/
+
+#ifndef WICED_DISABLE_MCU_POWERSAVE
+MICO_RTOS_DEFINE_ISR( RTC_WKUP_irq )
 {
-  if (enable == 1)
-    MCU_CLOCKS_NOT_NEEDED();
-  else
-    MCU_CLOCKS_NEEDED();
-}
-
-
-
-#ifdef NO_MICO_RTOS
-static volatile uint32_t no_os_tick = 0;
-
-void SysTick_Handler(void)
-{
-  no_os_tick ++;
-  IWDG_ReloadCounter();
-}
-
-uint32_t mico_get_time_no_os(void)
-{
-  return no_os_tick;
-}
-
-void mico_thread_msleep_no_os(uint32_t milliseconds)
-{
-  int tick_delay_start = mico_get_time_no_os();
-  while(mico_get_time_no_os() < tick_delay_start+milliseconds);  
+    EXTI_ClearITPendingBit( RTC_INTERRUPT_EXTI_LINE );
 }
 #endif
 

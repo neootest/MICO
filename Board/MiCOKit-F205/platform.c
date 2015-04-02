@@ -38,6 +38,7 @@
 #include "PlatformLogging.h"
 #include "MicoPlatform.h"
 #include "wlan_platform_common.h"
+#include "spi_flash_platform_interface.h"
 
 /******************************************************
 *                      Macros
@@ -255,11 +256,50 @@ const platform_i2c_t platform_i2c_peripherals[] =
 };
 
 #if defined ( USE_MICO_SPI_FLASH )
+
+/* spi flash bus pins. Used by platform/drivers/spi_flash/spi_flash_platform.c */
+const platform_gpio_t spi_flash_spi_pins[] =
+{
+  [FLASH_PIN_SPI_CS  ] = { GPIOA,  4 },
+  [FLASH_PIN_SPI_CLK ] = { GPIOA,  5 },
+  [FLASH_PIN_SPI_MOSI] = { GPIOA,  7 },
+  [FLASH_PIN_SPI_MISO] = { GPIOA,  6 },
+};
+
+const platform_spi_t spi_flash_spi =
+{
+  .port                         = SPI1,
+  .gpio_af                      = GPIO_AF_SPI1,
+  .peripheral_clock_reg         = RCC_APB2Periph_SPI1,
+  .peripheral_clock_func        = RCC_APB2PeriphClockCmd,
+  .pin_mosi                     = &spi_flash_spi_pins[FLASH_PIN_SPI_MOSI],
+  .pin_miso                     = &spi_flash_spi_pins[FLASH_PIN_SPI_MISO],
+  .pin_clock                    = &spi_flash_spi_pins[FLASH_PIN_SPI_CLK],
+  .tx_dma =
+  {
+    .controller                 = DMA1,
+    .stream                     = DMA1_Stream4,
+    .channel                    = DMA_Channel_0,
+    .irq_vector                 = DMA1_Stream4_IRQn,
+    .complete_flags             = DMA_HISR_TCIF4,
+    .error_flags                = ( DMA_HISR_TEIF4 | DMA_HISR_FEIF4 ),
+  },
+  .rx_dma =
+  {
+    .controller                 = DMA1,
+    .stream                     = DMA1_Stream3,
+    .channel                    = DMA_Channel_0,
+    .irq_vector                 = DMA1_Stream3_IRQn,
+    .complete_flags             = DMA_LISR_TCIF3,
+    .error_flags                = ( DMA_LISR_TEIF3 | DMA_LISR_FEIF3 | DMA_LISR_DMEIF3 ),
+  },
+};
+
 const mico_spi_device_t mico_spi_flash =
 {
-    .port        = MICO_SPI_1,
-    .chip_select = MICO_SPI_FLASH_CS,
-    .speed       = 5000000,
+    .port        = (mico_spi_t)0, //Not used here, we use spi_flash_spi in spi flash driver
+    .chip_select = (mico_gpio_t)FLASH_PIN_SPI_CS,
+    .speed       = 40000000,
     .mode        = (SPI_CLOCK_RISING_EDGE | SPI_CLOCK_IDLE_HIGH | SPI_NO_DMA | SPI_MSB_FIRST),
     .bits        = 8
 };
@@ -283,7 +323,7 @@ const platform_gpio_t wifi_control_pins[] =
   [EMW1062_PIN_BOOTSTRAP_1] = { GPIOA,  2 },
 };
 
-/* Wi-Fi gSPI bus pins. Used by platform/STM32F2xx/EMW1062_driver/wlan_spi.c */
+/* Wi-Fi gSPI bus pins. Used by platform/MCU/STM32F2xx/EMW1062_driver/wlan_spi.c */
 const platform_gpio_t wifi_spi_pins[] =
 {
     [EMW1062_PIN_SPI_IRQ ] = { GPIOA,  1 },
@@ -438,7 +478,9 @@ void init_platform( void )
   MicoGpioInitialize( (mico_gpio_t)Standby_SEL, INPUT_PULL_UP );
   MicoGpioEnableIRQ( (mico_gpio_t)Standby_SEL , IRQ_TRIGGER_FALLING_EDGE, _button_STANDBY_irq_handler, NULL);
 
+#if defined ( USE_MICO_SPI_FLASH )
   MicoFlashInitialize( MICO_SPI_FLASH );
+#endif
 }
 
 void init_platform_bootloader( void )

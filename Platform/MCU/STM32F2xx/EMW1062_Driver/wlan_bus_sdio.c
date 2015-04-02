@@ -48,8 +48,8 @@
 #define SDIO_DMA_TIMEOUT_LOOPS               (1000000)
 #define MAX_TIMEOUTS                         (30)
 #define SDIO_ERROR_MASK                      ( SDIO_STA_CCRCFAIL | SDIO_STA_DCRCFAIL | SDIO_STA_CTIMEOUT | SDIO_STA_DTIMEOUT | SDIO_STA_TXUNDERR | SDIO_STA_RXOVERR | SDIO_STA_STBITERR )
-#define SDIO_IRQ_CHANNEL                     (0x31)
-#define DMA2_3_IRQ_CHANNEL                   (DMA2_Stream3_IRQn)
+#define SDIO_IRQ_CHANNEL                     ((IRQn_Type)0x31)
+#define DMA2_3_IRQ_CHANNEL                   ((IRQn_Type)DMA2_Stream3_IRQn)
 #define BUS_LEVEL_MAX_RETRIES                (5)
 #define SDIO_ENUMERATION_TIMEOUT_MS          (500)
 
@@ -382,8 +382,8 @@ OSStatus host_platform_bus_deinit( void )
     }
 
 #if defined ( MICO_WIFI_USE_GPIO_FOR_BOOTSTRAP )
-    platform_gpio_deinit( &wifi_control_pins[WWD_PIN_BOOTSTRAP_0] );
-    platform_gpio_deinit( &wifi_control_pins[WWD_PIN_BOOTSTRAP_1] );
+    platform_gpio_deinit( &wifi_control_pins[EMW1062_PIN_BOOTSTRAP_0] );
+    platform_gpio_deinit( &wifi_control_pins[EMW1062_PIN_BOOTSTRAP_1] );
 #endif
 
     /* Turn off SDIO IRQ */

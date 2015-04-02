@@ -12,13 +12,13 @@
 			"path": "../../../../Support"
 		},
 		{
+			"path": "../../../../Board/MiCOKit-3165"
+		},
+		{
 			"path": "../../../../Demos/COM.MXCHIP.SPP"
 		},
 		{
 			"path": "../../../../External"
-		},
-		{
-			"path": "../../../../Board"
 		},
 		{
 			"path": "../../../../MICO"
@@ -40,16 +40,21 @@
 			"-D__value_in_regs=__attribute__(())",
 			"-DUSE_STDPERIPH_DRIVER",
 			"-DDEBUG",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/External/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/include/",
-			"-I/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Cortex-M3/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/STM32F4xx/peripherals/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MCU/STM32F4xx/peripherals/Libraries/inc",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Board/MiCOKit-3165/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/MICO/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/",
+			"-I/Users/william/Develop/MiCO/Demos/COM.MXCHIP.SPP/",
+			"-I/Users/william/Develop/MiCO/External/",
+			"-I/Users/william/Develop/MiCO/Platform/",
+			"-I/Users/william/Develop/MiCO/Platform/include/",
+			"-I/Users/William/Develop/MiCO/Platform/Cortex-M3/",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/",
+			"-I/Users/william/Develop/MiCO/Platform/drivers/spi_flash/",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/Libraries/",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/Libraries/STM32F4xx_StdPeriph_Driver/inc/",
+			"-I/Users/william/Develop/MiCO/Board/MiCOKit-3165/",
+			"-I/Users/william/Develop/MiCO/include/",
+			"-I/Users/william/Develop/MiCO/MICO/",
+			"-I/Users/william/Develop/MiCO/Support/",
 			"-I/Users/william/Develop/Clang_lib/Include/",
 			"-I/Users/william/Develop/Clang_lib/ARMCC/include/"
 		]

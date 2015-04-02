@@ -130,7 +130,7 @@
 #define BOOT_END_ADDRESS            (uint32_t)0x08007FFF
 #define BOOT_FLASH_SIZE             (BOOT_END_ADDRESS - BOOT_START_ADDRESS + 1) /* 32k bytes*/
 
-//#define MICO_FLASH_FOR_DRIVER       MICO_SPI_FLASH
+#define MICO_FLASH_FOR_DRIVER       MICO_SPI_FLASH
 #define DRIVER_START_ADDRESS        (uint32_t)0x00002000
 #define DRIVER_END_ADDRESS          (uint32_t)0x0004FFFF
 #define DRIVER_FLASH_SIZE           (DRIVER_END_ADDRESS - DRIVER_START_ADDRESS + 1) /* 312k bytes*/

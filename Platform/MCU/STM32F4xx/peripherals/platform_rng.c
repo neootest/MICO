@@ -1,11 +1,10 @@
 /**
 ******************************************************************************
-* @file    gpio_irq.h 
+* @file    MicoDriverRng.c 
 * @author  William Xu
 * @version V1.0.0
 * @date    05-May-2014
-* @brief   This file provides all the headers of GPIO external interrupt 
-*          operation functions.
+* @brief   This file provide RNG driver functions.
 ******************************************************************************
 *
 *  The MIT License
@@ -30,19 +29,17 @@
 ******************************************************************************
 */ 
 
-#pragma once
 
-#include <stdint.h>
-#include "stm32f4xx.h"
 #include "MICOPlatform.h"
+#include "MICORTOS.h"
+
+#include "platform.h"
+#include "stm32f2xx.h"
 
 /******************************************************
- *                      Macros
+ *                   Macros
  ******************************************************/
 
-/******************************************************
- *                    Constants
- ******************************************************/
 
 /******************************************************
  *                   Enumerations
@@ -52,26 +49,48 @@
  *                 Type Definitions
  ******************************************************/
 
-typedef GPIO_TypeDef             gpio_port_t;
-typedef uint8_t                  gpio_pin_number_t;
-typedef mico_gpio_irq_trigger_t gpio_irq_trigger_t;
-typedef mico_gpio_irq_handler_t gpio_irq_handler_t;
-
-/******************************************************
+ /******************************************************
  *                    Structures
  ******************************************************/
 
+
 /******************************************************
- *                 Global Variables
+ *                     Variables
  ******************************************************/
 
 /******************************************************
  *               Function Declarations
  ******************************************************/
 
-/* Global GPIO interrupt handler */
-void gpio_irq( void );
+OSStatus platform_random_number_read( void *inBuffer, int inByteCount )
+{
+    // PLATFORM_TO_DO
+    int idx;
+    uint32_t *pWord = inBuffer;
+    uint32_t tempRDM;
+    uint8_t *pByte = NULL;
+    int inWordCount;
+    int remainByteCount;
 
-/* GPIO Interrupt API */
-OSStatus gpio_irq_enable ( gpio_port_t* gpio_port, gpio_pin_number_t gpio_pin_number, gpio_irq_trigger_t trigger, gpio_irq_handler_t handler, void* arg );
-OSStatus gpio_irq_disable( gpio_port_t* gpio_port, gpio_pin_number_t gpio_pin_number );
+    inWordCount = inByteCount/4;
+    remainByteCount = inByteCount%4;
+    pByte = (uint8_t *)pWord+inWordCount*4;
+
+    RNG_DeInit();
+    RCC_AHB2PeriphClockCmd(RCC_AHB2Periph_RNG, ENABLE);
+    RNG_Cmd(ENABLE);
+
+    for(idx = 0; idx<inWordCount; idx++, pWord++){
+        while(RNG_GetFlagStatus(RNG_FLAG_DRDY)!=SET);
+        *pWord = RNG_GetRandomNumber();
+    }
+
+    if(remainByteCount){
+        while(RNG_GetFlagStatus(RNG_FLAG_DRDY)!=SET);
+        tempRDM = RNG_GetRandomNumber();
+        memcpy(pByte, &tempRDM, (size_t)remainByteCount);
+    }
+    
+    RNG_DeInit();
+    return kNoErr;
+}

@@ -46,6 +46,7 @@
 			"-I/Users/william/Develop/MiCO/Platform/include/",
 			"-I/Users/William/Develop/MiCO/Platform/Cortex-M3/",
 			"-I/Users/william/Develop/MiCO/Platform/MCU/",
+			"-I/Users/william/Develop/MiCO/Platform/drivers/spi_flash/",
 			"-I/Users/william/Develop/MiCO/Platform/MCU/STM32F2xx/",
 			"-I/Users/william/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/",
 			"-I/Users/william/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/Libraries/",

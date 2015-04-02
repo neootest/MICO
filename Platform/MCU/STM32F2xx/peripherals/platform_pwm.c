@@ -69,7 +69,6 @@ OSStatus platform_pwm_init( const platform_pwm_t* pwm, uint32_t frequency, float
 {
   TIM_TimeBaseInitTypeDef tim_time_base_structure;
   TIM_OCInitTypeDef       tim_oc_init_structure;
-  GPIO_InitTypeDef        gpio_init_structure;
   RCC_ClocksTypeDef       rcc_clock_frequencies;
   uint16_t                period              = 0;
   float                   adjusted_duty_cycle = ( ( duty_cycle > 100.0f ) ? 100.0f : duty_cycle );

@@ -95,9 +95,6 @@ typedef enum
     EMW1062_PIN_SPI_MAX,
 } emw1062_spi_pin_t;
 
-
-
-
 /******************************************************
  *                    Structures
  ******************************************************/
@@ -116,7 +113,7 @@ extern const platform_spi_t  wifi_spi;
  *               Function Declarations
  ******************************************************/
 
-void platform_wifi_spi_rx_dma_irq( void );
+extern WEAK void platform_wifi_spi_rx_dma_irq( void );
 
 
 #ifdef __cplusplus

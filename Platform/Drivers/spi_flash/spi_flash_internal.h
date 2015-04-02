@@ -59,29 +59,31 @@ typedef enum
 
 } sflash_command_t;
 
-
 #define SFLASH_DUMMY_BYTE ( 0xA5 )
-
-
 
 #define SFLASH_MANUFACTURER( id ) ( ( (id) & 0x00ff0000 ) >> 16 )
 
-#define SFLASH_MANUFACTURER_SST        ( 0xBF )
-#define SFLASH_MANUFACTURER_MACRONIX   ( 0xC2 )
-#define SFLASH_MANUFACTURER_WINBOND    ( 0xEF )
+#define SFLASH_MANUFACTURER_SST        ( (uint8_t) 0xBF )
+#define SFLASH_MANUFACTURER_MACRONIX   ( (uint8_t) 0xC2 )
+#define SFLASH_MANUFACTURER_EON        ( (uint8_t) 0x1C )
+#define SFLASH_MANUFACTURER_WINBOND    ( (uint8_t) 0xEF )
 
-#define SFLASH_ID_W25X80AVSIG          ( 0xEF3014 )
-#define SFLASH_ID_MX25L8006E           ( 0xC22014 )
-#define SFLASH_ID_SST25VF080B          ( 0xBF258E )
+#define SFLASH_ID_MX25L8006E           ( (uint32_t) 0xC22014 )
+#define SFLASH_ID_MX25L1606E           ( (uint32_t) 0xC22015 )
+#define SFLASH_ID_SST25VF080B          ( (uint32_t) 0xBF258E )
+#define SFLASH_ID_EN25QH16             ( (uint32_t) 0x1C3015 )
+#define SFLASH_ID_W25X80AVSIG          ( (uint32_t) 0xEF3014 )
+
+
+typedef struct
+{
+  unsigned char id[3];
+} device_id_t;
 
 int sflash_read_ID              ( const sflash_handle_t* handle, void* data_addr );
 int sflash_read_status_register ( const sflash_handle_t* handle, void* dest_addr );
 int sflash_write_status_register( const sflash_handle_t* handle, char value );
-int generic_sflash_command      ( const sflash_handle_t* handle, sflash_command_t cmd, unsigned int num_initial_parameter_bytes, const void* parameter_bytes, int num_data_bytes, const void* const data_MOSI, void* const data_MISO );
-
-
-
-
+int generic_sflash_command      ( const sflash_handle_t* handle, sflash_command_t cmd, unsigned long num_initial_parameter_bytes, /*@null@*/ /*@observer@*/ const void* parameter_bytes, unsigned long num_data_bytes, /*@null@*/ /*@observer@*/ const void* const data_MOSI, /*@null@*/ /*@out@*/ /*@dependent@*/ void* const data_MISO );
 
 
 #ifdef __cplusplus

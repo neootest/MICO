@@ -303,7 +303,7 @@ OSStatus MicoSpiFinalize( const mico_spi_device_t* spi )
   return (OSStatus) platform_spi_init( &platform_spi_peripherals[spi->port], &config );
 }
 
-OSStatus MicoSpiTransfer( const mico_spi_device_t* spi, mico_spi_message_segment_t* segments, uint16_t number_of_segments )
+OSStatus MicoSpiTransfer( const mico_spi_device_t* spi, const mico_spi_message_segment_t* segments, uint16_t number_of_segments )
 {
   platform_spi_config_t config;
   

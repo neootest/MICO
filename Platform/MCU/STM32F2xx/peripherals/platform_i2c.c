@@ -665,7 +665,8 @@ static OSStatus i2c_address_device( const platform_i2c_t* i2c, const platform_i2
 
     /* wait till start condition is generated and the bus becomes free */
     err = i2c_wait_for_event( i2c->port, I2C_EVENT_MASTER_MODE_SELECT, I2C_FLAG_CHECK_TIMEOUT );
-    require_noerr(err, exit);
+    if(err != kNoErr)
+      continue;
 
     if ( config->address_width == I2C_ADDRESS_WIDTH_7BIT )
     {

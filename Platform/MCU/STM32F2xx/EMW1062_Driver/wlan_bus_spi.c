@@ -274,7 +274,7 @@ OSStatus host_platform_spi_transfer( bus_transfer_direction_t dir, uint8_t* buff
     {
         wifi_spi.rx_dma.stream->NDTR = buffer_length;
         wifi_spi.rx_dma.stream->M0AR = (uint32_t) buffer;
-        wifi_spi.rx_dma.stream->CR |= DMA_MemoryInc_Enable  | ( 1 << 4);
+        wifi_spi.rx_dma.stream->CR  |= DMA_MemoryInc_Enable  | ( 1 << 4);
     }
     else
     {

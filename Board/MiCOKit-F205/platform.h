@@ -316,6 +316,7 @@ typedef enum
 #define CLI_UART         MICO_UART_1
 
 
+
 #define USE_MICO_SPI_FLASH
 //#define SFLASH_SUPPORT_MACRONIX_PARTS 
 //#define SFLASH_SUPPORT_SST_PARTS

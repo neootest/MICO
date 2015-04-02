@@ -33,8 +33,8 @@
 #include "PlatformLogging.h"
 #include "MicoPlatform.h"
 #include "platform.h"
-#include "Platform_common_config.h"
-#include "stm32f4xx.h"
+#include "stm32f2xx.h"
+#include "platform_config.h"
 #include "stdio.h"
 #ifdef USE_MICO_SPI_FLASH
 #include "spi_flash.h"
@@ -225,12 +225,6 @@ OSStatus spiFlashErase(uint32_t StartAddress, uint32_t EndAddress)
   platform_log_trace();
   OSStatus err = kNoErr;
   uint32_t StartSector, EndSector, i = 0;
-  
-  if( StartAddress == SPI_FLASH_START_ADDRESS && EndAddress == SPI_FLASH_END_ADDRESS ){
-    platform_log("Excute full chip erase");
-    require_action(sflash_chip_erase(&sflash_handle) == kNoErr, exit, err = kWriteErr);
-    goto exit;
-  }
   
   /* Get the sector where start the user flash area */
   StartSector = StartAddress>>12;
@@ -432,6 +426,7 @@ static uint32_t _GetSector(uint32_t Address)
   return sector;
 }
 
+
 /**
 * @brief  Gets the address of a given sector
 * @param  Sector: The sector of a given address
@@ -505,3 +500,4 @@ static OSStatus _GetAddress(uint32_t sector, uint32_t *startAddress, uint32_t *e
   
   return err;
 }
+

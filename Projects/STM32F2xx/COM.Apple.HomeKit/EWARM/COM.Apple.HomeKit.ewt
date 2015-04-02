@@ -180,6 +180,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\Demos\COM.Apple.HomeKit\HomeKitPairProtocol.c</name>
+      <configuration>
+        <name>MiCOKit-3162</name>
+      </configuration>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\Demos\COM.Apple.HomeKit\HomekitProfiles.c</name>
@@ -222,9 +225,6 @@
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\platform_common_config.h</name>
       </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\platform_spi_flash.c</name>
-      </file>
     </group>
     <group>
       <name>MiCOKit-F205</name>
@@ -236,9 +236,6 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform_common_config.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform_spi_flash.c</name>
       </file>
     </group>
   </group>
@@ -506,6 +503,9 @@
         <file>
           <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash\spi_flash.c</name>
         </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash\spi_flash_platform.c</name>
+        </file>
       </group>
       <group>
         <name>STM32_USB_Host_Library</name>
@@ -560,7 +560,7 @@
             <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\wlan_bus_sdio.c</name>
           </file>
           <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\wwd_bus_spi.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\wlan_bus_spi.c</name>
           </file>
         </group>
         <group>

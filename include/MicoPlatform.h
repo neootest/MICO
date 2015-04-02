@@ -51,7 +51,6 @@ extern "C" {
 
 
 
-typedef platform_rtc_time_t                     mico_rtc_time_t;
 
 typedef platform_spi_slave_config_t             mico_spi_slave_config_t;
 

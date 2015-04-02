@@ -248,7 +248,7 @@ const platform_gpio_t wifi_control_pins[] =
 {
   [EMW1062_PIN_POWER      ] = { GPIOC,  1 },
   [EMW1062_PIN_RESET      ] = { GPIOC,  5 },
-#if defined ( WICED_USE_WIFI_32K_CLOCK_MCO )
+#if defined ( MICO_USE_WIFI_32K_CLOCK_MCO )
   [EMW1062_PIN_32K_CLK    ] = { GPIOA,  8 },
 #else
   [EMW1062_PIN_32K_CLK    ] = NULL,
