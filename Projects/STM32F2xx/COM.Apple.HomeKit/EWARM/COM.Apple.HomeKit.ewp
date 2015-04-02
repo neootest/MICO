@@ -2248,9 +2248,6 @@
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\platform.h</name>
       </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\platform_common_config.h</name>
-      </file>
     </group>
     <group>
       <name>MiCOKit-F205</name>
@@ -2262,9 +2259,6 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform_common_config.h</name>
       </file>
     </group>
   </group>

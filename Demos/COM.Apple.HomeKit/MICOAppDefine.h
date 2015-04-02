@@ -37,8 +37,8 @@
 #define CONFIGURATION_VERSION    0x00010002 // if changed default configuration, add this num
 
 /* Wi-Fi configuration mode */
-//#define MICO_CONFIG_MODE CONFIG_MODE_EASYLINK_WITH_SOFTAP
-#define MICO_CONFIG_MODE CONFIG_MODE_WAC
+#define MICO_CONFIG_MODE CONFIG_MODE_EASYLINK_WITH_SOFTAP
+//#define MICO_CONFIG_MODE CONFIG_MODE_WAC
 
 /*User provided application configurations*/
 #define MAX_Local_Client_Num                8

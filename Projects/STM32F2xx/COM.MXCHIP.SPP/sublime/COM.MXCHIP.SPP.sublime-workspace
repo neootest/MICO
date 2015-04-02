@@ -523,39 +523,7 @@
 			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.c",
 			"settings":
 			{
-				"buffer_size": 19613,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform_spi_flash.c",
-			"settings":
-			{
-				"buffer_size": 5238,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_spi.c",
-			"settings":
-			{
-				"buffer_size": 13588,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/EMW1062_Driver/wlan_bus_sdio.c",
-			"settings":
-			{
-				"buffer_size": 22000,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/EMW1062_Driver/wlan_bus_spi.c",
-			"settings":
-			{
-				"buffer_size": 10989,
+				"buffer_size": 19593,
 				"line_ending": "Windows"
 			}
 		}
@@ -620,37 +588,38 @@
 	},
 	"file_history":
 	[
+		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_spi.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/EMW1062_Driver/wlan_bus_sdio.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/EMW1062_Driver/wlan_bus_spi.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.h",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform_config.h",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform_config.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/mico_platform_common.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/wlan_platform_common.c",
+		"/Users/William/Develop/MiCO/Platform/include/wlan_platform_common.h",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.c",
 		"/Users/william/Develop/MiCO/Platform/drivers/spi_flash/spi_flash_platform_interface.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform_spi_flash.c",
+		"/Users/William/Develop/MiCO/Projects/STM32F2xx/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
 		"/Users/William/Develop/MiCO/Platform/Drivers/spi_flash/spi_flash_platform.c",
-		"/Users/William/Develop/MiCO/Platform/MCU/mico_platform_common.c",
 		"/Users/William/Develop/MiCO/Platform/Drivers/spi_flash/spi_flash_platform_interface.h",
 		"/Users/William/Develop/MiCO/include/MicoDrivers/MicoDriverSpi.h",
 		"/Users/william/Develop/MiCO/Platform/include/platform_peripheral.h",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.c",
-		"/Users/William/Develop/MiCO/Projects/STM32F2xx/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
 		"/Users/William/Develop/MiCO/Platform/Drivers/spi_flash/spi_flash.c",
 		"/Users/william/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_mcu_peripheral.h",
-		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_spi.c",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.h",
 		"/Users/William/Develop/MiCO/include/MicoPlatform.h",
 		"/Users/William/Develop/MiCO/include/MicoDrivers/MicoDriverRtc.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_flash.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_gpio.c",
-		"/Users/William/Develop/MiCO/Platform/MCU/wlan_platform_common.c",
-		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/EMW1062_Driver/wlan_bus_spi.c",
 		"/Users/william/Develop/MiCO/include/MicoDrivers/MICODriverSpi.h",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform_config.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/Libraries/STM32F2xx_StdPeriph_Driver/src/stm32f2xx_dma.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/Libraries/STM32F2xx_StdPeriph_Driver/inc/stm32f2xx_dma.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/wlan_platform_common.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_uart.c",
 		"/Users/william/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/Libraries/STM32F2xx_StdPeriph_Driver/inc/stm32f2xx.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/EMW1062_Driver/SPI/wwd_bus.c",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.c",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform_config.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/EMW1062_Driver/read_wifi_firmware.c",
-		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/EMW1062_Driver/wlan_bus_sdio.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_rng.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/MicoDriverUart.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/MicoDriverWdg.c",
@@ -746,8 +715,7 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoWlan.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICONotificationCenter.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/include/platform_sleep.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverFlash.c"
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/include/platform_sleep.h"
 	],
 	"find":
 	{
@@ -755,7 +723,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 93.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"<open folders>",
@@ -774,6 +742,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"platform_reset_wlan_powersave_clock",
+			"host_platform_deinit_wlan_powersave_clock",
 			"host_platform_sdio_transfer",
 			"MicoSpiTransfer",
 			"MICO_SPI_FLASH_CS",
@@ -899,9 +869,7 @@
 			"onClear",
 			"flashStorageAddress",
 			"  /* For MXCHIP OTA function, store extra data to OTA data temporary */\n//   err = HTTPGetHeaderField( inHeader->buf, inHeader->len, \"Content-Type\", NULL, NULL, &value, &valueSize, NULL );\n\n//   if(err == kNoErr && strnicmpx( value, valueSize, kMIMEType_MXCHIP_OTA ) == 0){\n// #ifdef MICO_FLASH_FOR_UPDATE  \n//     http_utils_log(\"Receive OTA data!\");    \n//     flashStorageAddress = UPDATE_START_ADDRESS;\n//     err = MicoFlashInitialize( MICO_FLASH_FOR_UPDATE );\n//     require_noerr(err, exit);\n//     err = MicoFlashErase(MICO_FLASH_FOR_UPDATE, UPDATE_START_ADDRESS, UPDATE_END_ADDRESS);\n//     require_noerr(err, exit);\n//     err = MicoFlashWrite(MICO_FLASH_FOR_UPDATE, &flashStorageAddress, (uint8_t *)end, inHeader->extraDataLen);\n//     require_noerr(err, exit);\n// #else\n//     http_utils_log(\"OTA flash memory is not existed!\");\n//     err = kUnsupportedErr;\n// #endif\n//     goto exit;\n//   }",
-			"HTTPHeaderClear\nHTTPHeaderClear",
-			"HTTPHeaderClear",
-			"dataEndedbyClose"
+			"HTTPHeaderClear\nHTTPHeaderClear"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -922,7 +890,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -930,15 +898,15 @@
 					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.c",
 					"settings":
 					{
-						"buffer_size": 19613,
+						"buffer_size": 19593,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								18463,
-								18463
+								9788,
+								9788
 							]
 						],
 						"settings":
@@ -948,119 +916,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 6356.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform_spi_flash.c",
-					"settings":
-					{
-						"buffer_size": 5238,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_spi.c",
-					"settings":
-					{
-						"buffer_size": 13588,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4484,
-								4484
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1154.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/EMW1062_Driver/wlan_bus_sdio.c",
-					"settings":
-					{
-						"buffer_size": 22000,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								14463,
-								14490
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 5121.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/EMW1062_Driver/wlan_bus_spi.c",
-					"settings":
-					{
-						"buffer_size": 10989,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2431,
-								2431
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3150.0,
+						"translation.y": 1638.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

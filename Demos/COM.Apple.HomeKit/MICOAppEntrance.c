@@ -55,9 +55,11 @@ OSStatus MICOStartApplication( mico_Context_t * const inContext )
   require_action(inContext, exit, err = kParamErr);
 
   inContext->appStatus.statusNumber = 0x01;
+#ifdef MICO_I2C_CP
   if( MicoMFiAuthInitialize( MICO_I2C_CP ) == kNoErr )
     inContext->appStatus.useMFiAuth = true;
   else
+#endif
     inContext->appStatus.useMFiAuth = false;
 
   /*Bonjour for service searching*/

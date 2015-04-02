@@ -35,7 +35,6 @@
 
 #include "platform.h"
 #include "platform_peripheral.h"
-#include "stm32f2xx.h"
 #include "debug.h"
 
 /******************************************************
@@ -93,6 +92,17 @@ static const uint32_t uart_peripheral_clocks[NUMBER_OF_UART_PORTS] =
 };
 
 /* UART interrupt vectors */
+#if defined (STM32F401xx) || defined (STM32F411xE)
+static const IRQn_Type uart_irq_vectors[NUMBER_OF_UART_PORTS] =
+{
+    [0] = USART1_IRQn,
+    [1] = USART2_IRQn,
+    [2] = (IRQn_Type)0xFF,
+    [3] = (IRQn_Type)0xFF,
+    [4] = (IRQn_Type)0xFF,
+    [5] = USART6_IRQn,
+};
+#else
 static const IRQn_Type uart_irq_vectors[NUMBER_OF_UART_PORTS] =
 {
     [0] = USART1_IRQn,
@@ -102,6 +112,7 @@ static const IRQn_Type uart_irq_vectors[NUMBER_OF_UART_PORTS] =
     [4] = UART5_IRQn,
     [5] = USART6_IRQn,
 };
+#endif
 
 /******************************************************
 *        Static Function Declarations

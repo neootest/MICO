@@ -31,15 +31,15 @@
 
 #pragma once
 
-#include "stm32f2xx.h"
-#include "stm32f2xx_dma.h"
-#include "stm32f2xx_adc.h"
-#include "stm32f2xx_rcc.h"
-#include "stm32f2xx_gpio.h"
-#include "stm32f2xx_tim.h"
-#include "stm32f2xx_rtc.h"
-#include "stm32f2xx_pwr.h"
-#include "stm32f2xx_rng.h"
+#include "stm32f4xx.h"
+#include "stm32f4xx_dma.h"
+#include "stm32f4xx_adc.h"
+#include "stm32f4xx_rcc.h"
+#include "stm32f4xx_gpio.h"
+#include "stm32f4xx_tim.h"
+#include "stm32f4xx_rtc.h"
+#include "stm32f4xx_pwr.h"
+#include "stm32f4xx_rng.h"
 
 #include "MicoRtos.h"
 #include "RingBufferUtils.h"

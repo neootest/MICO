@@ -195,12 +195,10 @@ EMW3162 on EMB-380-S platform pin definitions ...
 +---------------+----+--------------------+--------------+----------------+
 | MICO_SYS_LED  |    | B  0 | GPIO        |              |                |
 +---------------+----+--------------------+--------------+----------------+
-
-Notes
-1. These mappings are defined in <MICO-SDK>/Platform/BCM943362WCD4/platform.c
-2. STM32F2xx Datasheet  -> http://www.st.com/web/en/resource/technical/document/datasheet/CD00237391.pdf
-3. STM32F2xx Ref Manual -> http://www.st.com/web/en/resource/technical/document/reference_manual/CD00225773.pdf
+*
 */
+  
+#define MICO_UNUSED 0xFF
 
 typedef enum
 {

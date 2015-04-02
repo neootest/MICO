@@ -3,7 +3,7 @@
 <project>
   <fileVersion>2</fileVersion>
   <configuration>
-    <name>MiCOKit-3165</name>
+    <name>MiCOKit-3162</name>
     <toolchain>
       <name>ARM</name>
     </toolchain>
@@ -45,7 +45,7 @@
         </option>
         <option>
           <name>MemFile</name>
-          <state>$TOOLKIT_DIR$\CONFIG\debugger\ST\STM32F411CE.ddf</state>
+          <state>$TOOLKIT_DIR$\CONFIG\debugger\ST\STM32F205ZG.ddf</state>
         </option>
         <option>
           <name>RunToEnable</name>
@@ -53,7 +53,7 @@
         </option>
         <option>
           <name>RunToName</name>
-          <state>main</state>
+          <state>MICOStartApplication</state>
         </option>
         <option>
           <name>CExtraOptionsCheck</name>
@@ -85,7 +85,7 @@
         </option>
         <option>
           <name>OCDynDriverList</name>
-          <state>STLINK_ID</state>
+          <state>JLINK_ID</state>
         </option>
         <option>
           <name>OCLastSavedByProductVersion</name>
@@ -117,7 +117,7 @@
         </option>
         <option>
           <name>FlashLoadersV3</name>
-          <state>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32F411xE.board</state>
+          <state>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32F205xG.board</state>
         </option>
         <option>
           <name>OCImagesSuppressCheck1</name>
@@ -830,7 +830,7 @@
         </option>
         <option>
           <name>CCJLinkInterfaceRadio</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>OCJLinkAttachSlave</name>
@@ -1005,7 +1005,7 @@
         <option>
           <name>CEmuCommPort</name>
           <version>0</version>
-          <state>4</state>
+          <state>0</state>
         </option>
         <option>
           <name>jtago</name>
@@ -1072,7 +1072,7 @@
         </option>
         <option>
           <name>CCPEMicroJtagSpeed</name>
-          <state>5000</state>
+          <state>#UNINITIALIZED#</state>
         </option>
         <option>
           <name>CCJPEMicroShowSettings</name>
@@ -1127,7 +1127,7 @@
         <debug>0</debug>
         <option>
           <name>CRDIDriverDll</name>
-          <state>Browse to your RDI driver</state>
+          <state>###Uninitialized###</state>
         </option>
         <option>
           <name>CRDILogFileCheck</name>
@@ -1188,7 +1188,7 @@
         </option>
         <option>
           <name>CCSTLinkInterfaceRadio</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CCSTLinkInterfaceCmdLine</name>
@@ -1352,7 +1352,7 @@
     </debuggerPlugins>
   </configuration>
   <configuration>
-    <name>MiCOKit-3288</name>
+    <name>MiCOKit-F205</name>
     <toolchain>
       <name>ARM</name>
     </toolchain>
@@ -1394,7 +1394,7 @@
         </option>
         <option>
           <name>MemFile</name>
-          <state>$TOOLKIT_DIR$\CONFIG\debugger\ST\STM32F411CE.ddf</state>
+          <state>$TOOLKIT_DIR$\CONFIG\debugger\ST\STM32F205ZG.ddf</state>
         </option>
         <option>
           <name>RunToEnable</name>
@@ -1402,7 +1402,7 @@
         </option>
         <option>
           <name>RunToName</name>
-          <state>application_start</state>
+          <state>MICOStartApplication</state>
         </option>
         <option>
           <name>CExtraOptionsCheck</name>
@@ -1434,7 +1434,7 @@
         </option>
         <option>
           <name>OCDynDriverList</name>
-          <state>STLINK_ID</state>
+          <state>JLINK_ID</state>
         </option>
         <option>
           <name>OCLastSavedByProductVersion</name>
@@ -1466,7 +1466,7 @@
         </option>
         <option>
           <name>FlashLoadersV3</name>
-          <state>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32F411xE.board</state>
+          <state>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32F205xG.board</state>
         </option>
         <option>
           <name>OCImagesSuppressCheck1</name>
@@ -2179,7 +2179,7 @@
         </option>
         <option>
           <name>CCJLinkInterfaceRadio</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>OCJLinkAttachSlave</name>
@@ -2354,7 +2354,7 @@
         <option>
           <name>CEmuCommPort</name>
           <version>0</version>
-          <state>4</state>
+          <state>0</state>
         </option>
         <option>
           <name>jtago</name>
@@ -2421,7 +2421,7 @@
         </option>
         <option>
           <name>CCPEMicroJtagSpeed</name>
-          <state>5000</state>
+          <state>#UNINITIALIZED#</state>
         </option>
         <option>
           <name>CCJPEMicroShowSettings</name>
@@ -2476,7 +2476,7 @@
         <debug>0</debug>
         <option>
           <name>CRDIDriverDll</name>
-          <state>Browse to your RDI driver</state>
+          <state>###Uninitialized###</state>
         </option>
         <option>
           <name>CRDILogFileCheck</name>
@@ -2537,7 +2537,7 @@
         </option>
         <option>
           <name>CCSTLinkInterfaceRadio</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CCSTLinkInterfaceCmdLine</name>

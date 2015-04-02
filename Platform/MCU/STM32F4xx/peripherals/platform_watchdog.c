@@ -37,7 +37,6 @@
 
 #include "platform.h"
 #include "platform_peripheral.h"
-#include "stm32f2xx.h"
 
 /******************************************************
  *                    Constants

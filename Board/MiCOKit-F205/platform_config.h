@@ -89,6 +89,15 @@
 /*  Wi-Fi GPIO0 pin is used for out-of-band interrupt */
 #define MICO_WIFI_OOB_IRQ_GPIO_PIN  ( 0 )
 
+ /*  Wi-Fi power pin is present */
+#define MICO_USE_WIFI_POWER_PIN
+
+/*  Wi-Fi reset pin is present */
+#define MICO_USE_WIFI_RESET_PIN
+
+/*  Wi-Fi 32K pin is present */
+#define MICO_USE_WIFI_32K_PIN
+
 /*  USE SDIO 1bit mode */
 //#define SDIO_1_BIT
 

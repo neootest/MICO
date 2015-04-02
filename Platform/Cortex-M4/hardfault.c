@@ -32,7 +32,7 @@
 #include "stdio.h"
 #include "MicoRTOS.h"
 #include "MicoPlatform.h"
-#include "platform_common_config.h"
+#include "platform_config.h"
 
 extern OSStatus stdio_hardfault( char* data, uint32_t size );
 

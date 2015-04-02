@@ -59,13 +59,13 @@ extern "C" {
  */
 typedef enum
 {
-    EMW1062_PIN_POWER,
-    EMW1062_PIN_RESET,
-    EMW1062_PIN_32K_CLK,
-    EMW1062_PIN_BOOTSTRAP_0,
-    EMW1062_PIN_BOOTSTRAP_1,
-    EMW1062_PIN_CONTROL_MAX,
-} emw1062_control_pin_t;
+    WIFI_PIN_POWER,
+    WIFI_PIN_RESET,
+    WIFI_PIN_32K_CLK,
+    WIFI_PIN_BOOTSTRAP_0,
+    WIFI_PIN_BOOTSTRAP_1,
+    WIFI_PIN_CONTROL_MAX,
+} wifi_control_pin_t;
 
 /**
  * WLAN SDIO pins

@@ -30,7 +30,6 @@
 */ 
 
 #include <stdint.h>
-#include "stm32f2xx.h"
 #include "platform.h"
 #include "platform_config.h"
 #include "wlan_platform_common.h"
@@ -75,39 +74,52 @@ OSStatus host_platform_deinit_wlan_powersave_clock( void );
 
 void host_platform_reset_wifi( bool reset_asserted )
 {
- ( reset_asserted == true) ? platform_gpio_output_low( &wifi_control_pins[ EMW1062_PIN_RESET ] ) : platform_gpio_output_high( &wifi_control_pins[ EMW1062_PIN_RESET ] );
+#if defined (MICO_USE_WIFI_RESET_PIN )
+    ( reset_asserted == true ) ? platform_gpio_output_low( &wifi_control_pins[ WIFI_PIN_RESET ] ) : platform_gpio_output_high( &wifi_control_pins[ WIFI_PIN_RESET ] );
+#else
+    UNUSED_PARAMETER( reset_asserted );
+#endif
 }
 
 void host_platform_power_wifi( bool power_enabled )
 {
-#if  defined ( MICO_USE_WIFI_POWER_PIN_ACTIVE_HIGH )
-    ( power_enabled == true ) ? platform_gpio_output_high( &wifi_control_pins[EMW1062_PIN_POWER] ) : platform_gpio_output_low ( &wifi_control_pins[EMW1062_PIN_POWER] );
+#if   defined ( MICO_USE_WIFI_POWER_PIN ) && defined ( MICO_USE_WIFI_POWER_PIN_ACTIVE_HIGH )
+    ( power_enabled == true ) ? platform_gpio_output_high( &wifi_control_pins[WIFI_PIN_POWER] ) : platform_gpio_output_low ( &wifi_control_pins[WIFI_PIN_POWER] );
+#elif defined ( MICO_USE_WIFI_POWER_PIN )
+    ( power_enabled == true ) ? platform_gpio_output_low ( &wifi_control_pins[WIFI_PIN_POWER] ) : platform_gpio_output_high( &wifi_control_pins[WIFI_PIN_POWER] );
 #else
-    ( power_enabled == true ) ? platform_gpio_output_low ( &wifi_control_pins[EMW1062_PIN_POWER] ) : platform_gpio_output_high( &wifi_control_pins[EMW1062_PIN_POWER] );
+    UNUSED_PARAMETER( power_enabled );
 #endif
-
 }
 
 OSStatus host_platform_init( void )
 {
     host_platform_deinit_wlan_powersave_clock( );
 
-    platform_gpio_init( &wifi_control_pins[EMW1062_PIN_RESET], OUTPUT_PUSH_PULL );
+#if defined ( MICO_USE_WIFI_RESET_PIN )
+    platform_gpio_init( &wifi_control_pins[WIFI_PIN_RESET], OUTPUT_PUSH_PULL );
     host_platform_reset_wifi( true );  /* Start wifi chip in reset */
+#endif
     
-    platform_gpio_init( &wifi_control_pins[EMW1062_PIN_POWER], OUTPUT_PUSH_PULL );
+#if defined ( MICO_USE_WIFI_POWER_PIN )
+    platform_gpio_init( &wifi_control_pins[WIFI_PIN_POWER], OUTPUT_PUSH_PULL );
     host_platform_power_wifi( false ); /* Start wifi chip with regulators off */
+#endif
 
     return kNoErr;
 }
 
 OSStatus host_platform_deinit( void )
 {
-    platform_gpio_init( &wifi_control_pins[EMW1062_PIN_RESET], OUTPUT_PUSH_PULL );
+#if defined ( MICO_USE_WIFI_RESET_PIN )
+    platform_gpio_init( &wifi_control_pins[WIFI_PIN_RESET], OUTPUT_PUSH_PULL );
     host_platform_reset_wifi( true );  /* Start wifi chip in reset */
+#endif
     
-    platform_gpio_init( &wifi_control_pins[EMW1062_PIN_POWER], OUTPUT_PUSH_PULL );
+#if defined ( MICO_USE_WIFI_POWER_PIN )
+    platform_gpio_init( &wifi_control_pins[WIFI_PIN_POWER], OUTPUT_PUSH_PULL );
     host_platform_power_wifi( false ); /* Start wifi chip with regulators off */
+#endif
 
     host_platform_deinit_wlan_powersave_clock( );
 
@@ -132,24 +144,28 @@ bool host_platform_is_in_interrupt_context( void )
 
 OSStatus host_platform_init_wlan_powersave_clock( void )
 {
-
-#if defined ( MICO_USE_WIFI_32K_CLOCK_MCO )
-    platform_gpio_set_alternate_function( wifi_control_pins[EMW1062_PIN_32K_CLK].port, wifi_control_pins[EMW1062_PIN_32K_CLK].pin_number, GPIO_OType_PP, GPIO_PuPd_NOPULL, GPIO_AF_MCO );
+#if defined ( MICO_USE_WIFI_32K_CLOCK_MCO ) && defined ( MICO_USE_WIFI_32K_PIN )
+    platform_gpio_set_alternate_function( wifi_control_pins[WIFI_PIN_32K_CLK].port, wifi_control_pins[WIFI_PIN_32K_CLK].pin_number, GPIO_OType_PP, GPIO_PuPd_NOPULL, GPIO_AF_MCO );
 
     /* enable LSE output on MCO1 */
     RCC_MCO1Config( RCC_MCO1Source_LSE, RCC_MCO1Div_1 );
     return kNoErr;
+#elif defined ( MICO_USE_WIFI_32K_PIN )
+    return host_platform_deinit_wlan_powersave_clock( );
 #else
-
-    return platform_reset_wlan_powersave_clock( );
-
+    return kNoErr;
 #endif
 }
 
 OSStatus host_platform_deinit_wlan_powersave_clock( void )
 {
-    /* Tie the pin to ground */
-    platform_gpio_init( &wifi_control_pins[EMW1062_PIN_32K_CLK], OUTPUT_PUSH_PULL );
-    platform_gpio_output_low( &wifi_control_pins[EMW1062_PIN_32K_CLK] );
+
+#ifndef MICO_USE_WIFI_32K_PIN
     return kNoErr;
+#else
+    /* Tie the pin to ground */
+    platform_gpio_init( &wifi_control_pins[WIFI_PIN_32K_CLK], OUTPUT_PUSH_PULL );
+    platform_gpio_output_low( &wifi_control_pins[WIFI_PIN_32K_CLK] );
+    return kNoErr;
+#endif
 }

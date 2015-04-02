@@ -34,7 +34,6 @@
 #include "MICORTOS.h"
 
 #include "platform.h"
-#include "stm32f2xx.h"
 
 /******************************************************
  *                   Macros
@@ -65,6 +64,7 @@
 OSStatus platform_random_number_read( void *inBuffer, int inByteCount )
 {
     // PLATFORM_TO_DO
+     // PLATFORM_TO_DO
     int idx;
     uint32_t *pWord = inBuffer;
     uint32_t tempRDM;
@@ -76,21 +76,16 @@ OSStatus platform_random_number_read( void *inBuffer, int inByteCount )
     remainByteCount = inByteCount%4;
     pByte = (uint8_t *)pWord+inWordCount*4;
 
-    RNG_DeInit();
-    RCC_AHB2PeriphClockCmd(RCC_AHB2Periph_RNG, ENABLE);
-    RNG_Cmd(ENABLE);
-
     for(idx = 0; idx<inWordCount; idx++, pWord++){
-        while(RNG_GetFlagStatus(RNG_FLAG_DRDY)!=SET);
-        *pWord = RNG_GetRandomNumber();
+        srand(mico_get_time());
+        *pWord = rand();
     }
 
     if(remainByteCount){
-        while(RNG_GetFlagStatus(RNG_FLAG_DRDY)!=SET);
-        tempRDM = RNG_GetRandomNumber();
+        srand(mico_get_time());
+        tempRDM = rand();
         memcpy(pByte, &tempRDM, (size_t)remainByteCount);
     }
     
-    RNG_DeInit();
     return kNoErr;
 }

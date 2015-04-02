@@ -140,7 +140,6 @@ const platform_adc_t platform_adc_peripherals[] =
 /* PWM mappings */
 const platform_pwm_t platform_pwm_peripherals[] =
 {
-
   [MICO_PWM_1]  = {TIM3, 4, RCC_APB1Periph_TIM3, GPIO_AF_TIM3, &platform_gpio_pins[MICO_GPIO_3]},    
   /* TODO: fill in the other options here ... */
 };
@@ -312,25 +311,25 @@ const mico_spi_device_t mico_spi_flash =
 */
 const platform_gpio_t wifi_control_pins[] =
 {
-  [EMW1062_PIN_POWER      ] = NULL,
-  [EMW1062_PIN_RESET      ] = { GPIOA,  3 },
+  [WIFI_PIN_POWER      ] = NULL,
+  [WIFI_PIN_RESET      ] = { GPIOA,  3 },
 #if defined ( MICO_USE_WIFI_32K_CLOCK_MCO )
-  [EMW1062_PIN_32K_CLK    ] = { GPIOA,  8 },
+  [WIFI_PIN_32K_CLK    ] = { GPIOA,  8 },
 #else
-  [EMW1062_PIN_32K_CLK    ] = NULL,
+  [WIFI_PIN_32K_CLK    ] = { GPIOA,  8 },
 #endif
-  [EMW1062_PIN_BOOTSTRAP_0] = { GPIOB,  5 },
-  [EMW1062_PIN_BOOTSTRAP_1] = { GPIOA,  2 },
+  [WIFI_PIN_BOOTSTRAP_0] = { GPIOB,  5 },
+  [WIFI_PIN_BOOTSTRAP_1] = { GPIOA,  2 },
 };
 
 /* Wi-Fi gSPI bus pins. Used by platform/MCU/STM32F2xx/EMW1062_driver/wlan_spi.c */
 const platform_gpio_t wifi_spi_pins[] =
 {
-    [EMW1062_PIN_SPI_IRQ ] = { GPIOA,  1 },
-    [EMW1062_PIN_SPI_CS  ] = { GPIOB, 12 },
-    [EMW1062_PIN_SPI_CLK ] = { GPIOB, 13 },
-    [EMW1062_PIN_SPI_MOSI] = { GPIOB, 15 },
-    [EMW1062_PIN_SPI_MISO] = { GPIOB, 14 },
+  [EMW1062_PIN_SPI_IRQ ] = { GPIOA,  1 },
+  [EMW1062_PIN_SPI_CS  ] = { GPIOB, 12 },
+  [EMW1062_PIN_SPI_CLK ] = { GPIOB, 13 },
+  [EMW1062_PIN_SPI_MOSI] = { GPIOB, 15 },
+  [EMW1062_PIN_SPI_MISO] = { GPIOB, 14 },
 };
 
 const platform_spi_t wifi_spi =

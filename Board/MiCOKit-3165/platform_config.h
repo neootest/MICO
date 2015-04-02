@@ -74,95 +74,64 @@
 #define SYSTICK_CLOCK_SOURCE    SysTick_CLKSource_HCLK   /* SysTick clock source = AHB clock     */
 #define INT_FLASH_WAIT_STATE    FLASH_Latency_3          /* Internal flash wait state = 3 cycles */
 
-/************************************************************************
- * Used for EMW1062 RF SDIO driver */
-#define SDIO_OOB_IRQ_BANK       GPIOA
-#define SDIO_CLK_BANK           GPIOB
-#define SDIO_CMD_BANK           GPIOA
-#define SDIO_D0_BANK            GPIOB
-#define SDIO_D1_BANK            GPIOA
-#define SDIO_D2_BANK            GPIOA
-#define SDIO_D3_BANK            GPIOB
-#define SDIO_OOB_IRQ_BANK_CLK   RCC_AHB1Periph_GPIOA
-#define SDIO_CLK_BANK_CLK       RCC_AHB1Periph_GPIOB
-#define SDIO_CMD_BANK_CLK       RCC_AHB1Periph_GPIOA
-#define SDIO_D0_BANK_CLK        RCC_AHB1Periph_GPIOB
-#define SDIO_D1_BANK_CLK        RCC_AHB1Periph_GPIOA
-#define SDIO_D2_BANK_CLK        RCC_AHB1Periph_GPIOA
-#define SDIO_D3_BANK_CLK        RCC_AHB1Periph_GPIOB
-#define SDIO_OOB_IRQ_PIN        0
-#define SDIO_CLK_PIN            15
-#define SDIO_CMD_PIN            6
-#define SDIO_D0_PIN             7
-#define SDIO_D1_PIN             8
-#define SDIO_D2_PIN             9
-#define SDIO_D3_PIN             5
 
 
+// /************************************************************************
+//  * Used for EMW1062 RF SDIO driver */
+// #define SDIO_OOB_IRQ_BANK       GPIOA
+// #define SDIO_CLK_BANK           GPIOB
+// #define SDIO_CMD_BANK           GPIOA
+// #define SDIO_D0_BANK            GPIOB
+// #define SDIO_D1_BANK            GPIOA
+// #define SDIO_D2_BANK            GPIOA
+// #define SDIO_D3_BANK            GPIOB
+// #define SDIO_OOB_IRQ_BANK_CLK   RCC_AHB1Periph_GPIOA
+// #define SDIO_CLK_BANK_CLK       RCC_AHB1Periph_GPIOB
+// #define SDIO_CMD_BANK_CLK       RCC_AHB1Periph_GPIOA
+// #define SDIO_D0_BANK_CLK        RCC_AHB1Periph_GPIOB
+// #define SDIO_D1_BANK_CLK        RCC_AHB1Periph_GPIOA
+// #define SDIO_D2_BANK_CLK        RCC_AHB1Periph_GPIOA
+// #define SDIO_D3_BANK_CLK        RCC_AHB1Periph_GPIOB
+// #define SDIO_OOB_IRQ_PIN        0
+// #define SDIO_CLK_PIN            15
+// #define SDIO_CMD_PIN            6
+// #define SDIO_D0_PIN             7
+// #define SDIO_D1_PIN             8
+// #define SDIO_D2_PIN             9
+// #define SDIO_D3_PIN             5
 
-/* These are internal platform connections only */
-typedef enum
-{
-  MICO_GPIO_UNUSED = -1,
-  WL_GPIO1 = 0,
-  WL_RESET,
-  MICO_SYS_LED,
-  MICO_RF_LED,
-  BOOT_SEL,
-  MFG_SEL,
-  EasyLink_BUTTON,
-  STDIO_UART_RX,  
-  STDIO_UART_TX,  
-  MICO_COMMON_GPIO_MAX,
-} mico_common_gpio_t;
 
-#define MICO_GPIO_WLAN_POWERSAVE_CLOCK MICO_GPIO_UNUSED
-#define WL_REG                         MICO_GPIO_UNUSED
-#define WL_GPIO0                       MICO_GPIO_UNUSED
-#define Standby_SEL                    MICO_GPIO_UNUSED
+/******************************************************
+ *  EMW1062 Options
+ ******************************************************/
 
-/* How the wlan's powersave clock is connected */
-typedef enum
-{
-  MICO_PWM_WLAN_POWERSAVE_CLOCK,
-  MICO_COMMON_PWM_MAX,
-} mico_common_pwm_t;
+/*  GPIO pins are used to bootstrap Wi-Fi to SDIO or gSPI mode */
+//#define MICO_WIFI_USE_GPIO_FOR_BOOTSTRAP
 
-/* WLAN Powersave Clock Source
- * The WLAN sleep clock can be driven from one of two sources:
- * 1. Timer/PWM (default)
- *    - With the PWM selected, the STM32 can *NOT* be put into MCU powersave mode or the PWM output will be disabled
- * 2. MCO (MCU Clock Output). 
- *    - Change the following directive to MICO_WLAN_POWERSAVE_CLOCK_IS_MCO
+/*  Wi-Fi GPIO0 pin is used for out-of-band interrupt */
+#define MICO_WIFI_OOB_IRQ_GPIO_PIN  ( 0 )
+
+/*  Wi-Fi power pin is present */
+//#define MICO_USE_WIFI_POWER_PIN
+
+/*  Wi-Fi reset pin is present */
+#define MICO_USE_WIFI_RESET_PIN
+
+/*  Wi-Fi 32K pin is present */
+//#define MICO_USE_WIFI_32K_PIN
+
+/*  USE SDIO 1bit mode */
+//#define SDIO_1_BIT
+
+/* Wi-Fi power pin is active high */
+//#define MICO_USE_WIFI_POWER_PIN_ACTIVE_HIGH
+
+/*  WLAN Powersave Clock Source
+ *  The WLAN sleep clock can be driven from one of two sources:
+ *  1. MCO (MCU Clock Output) - default
+ *  2. WLAN 32K internal oscillator (30% inaccuracy)
  */
-#define MICO_WLAN_POWERSAVE_CLOCK_SOURCE MICO_WLAN_POWERSAVE_CLOCK_IS_NOT_EXIST
-
-#define MICO_WLAN_POWERSAVE_CLOCK_IS_NOT_EXIST  0
-#define MICO_WLAN_POWERSAVE_CLOCK_IS_PWM        1
-#define MICO_WLAN_POWERSAVE_CLOCK_IS_MCO        2
-
-
-#define WLAN_POWERSAVE_CLOCK_FREQUENCY 32768 /* 32768Hz        */
-#define WLAN_POWERSAVE_CLOCK_DUTY_CYCLE   50 /* 50% duty-cycle */
-
-#define WL_32K_OUT_BANK         GPIOA
-#define WL_32K_OUT_PIN          0
-#define WL_32K_OUT_BANK_CLK     RCC_AHB1Periph_GPIOA
-
-/* The number of UART interfaces this hardware platform has */
-#define NUMBER_OF_UART_INTERFACES  2
-
-#ifdef BOOTLOADER
-#define STDIO_UART       MICO_UART_1
-#define STDIO_UART_BAUDRATE (921600) 
-#else
-#define STDIO_UART       MICO_UART_1
-#define STDIO_UART_BAUDRATE (115200) 
-#endif
-
-#define UART_FOR_APP     MICO_UART_2
-#define MFG_TEST         MICO_UART_1
-#define CLI_UART         MICO_UART_1
+#define MICO_USE_WIFI_32K_CLOCK_MCO
 
 /* Memory map */
 #define INTERNAL_FLASH_START_ADDRESS    (uint32_t)0x08000000

@@ -295,10 +295,10 @@ OSStatus host_platform_bus_init( void )
 
     /* Set GPIO_B[1:0] to 00 to put WLAN module into SDIO mode */
 #if defined ( MICO_WIFI_USE_GPIO_FOR_BOOTSTRAP )
-    platform_gpio_init( &wifi_control_pins[EMW1062_PIN_BOOTSTRAP_0], OUTPUT_PUSH_PULL );
-    platform_gpio_output_low( &wifi_control_pins[EMW1062_PIN_BOOTSTRAP_0] );
-    platform_gpio_init( &wifi_control_pins[EMW1062_PIN_BOOTSTRAP_1], OUTPUT_PUSH_PULL );
-    platform_gpio_output_low( &wifi_control_pins[EMW1062_PIN_BOOTSTRAP_1] );
+    platform_gpio_init( &wifi_control_pins[WIFI_PIN_BOOTSTRAP_0], OUTPUT_PUSH_PULL );
+    platform_gpio_output_low( &wifi_control_pins[WIFI_PIN_BOOTSTRAP_0] );
+    platform_gpio_init( &wifi_control_pins[WIFI_PIN_BOOTSTRAP_1], OUTPUT_PUSH_PULL );
+    platform_gpio_output_low( &wifi_control_pins[WIFI_PIN_BOOTSTRAP_1] );
 #endif
 
     /* Setup GPIO pins for SDIO data & clock */
@@ -382,8 +382,8 @@ OSStatus host_platform_bus_deinit( void )
     }
 
 #if defined ( MICO_WIFI_USE_GPIO_FOR_BOOTSTRAP )
-    platform_gpio_deinit( &wifi_control_pins[EMW1062_PIN_BOOTSTRAP_0] );
-    platform_gpio_deinit( &wifi_control_pins[EMW1062_PIN_BOOTSTRAP_1] );
+    platform_gpio_deinit( &wifi_control_pins[WIFI_PIN_BOOTSTRAP_0] );
+    platform_gpio_deinit( &wifi_control_pins[WIFI_PIN_BOOTSTRAP_1] );
 #endif
 
     /* Turn off SDIO IRQ */

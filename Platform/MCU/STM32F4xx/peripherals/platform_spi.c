@@ -36,7 +36,6 @@
 #include "platform.h"
 #include "platform_config.h"
 #include "platform_peripheral.h"
-#include "stm32f2xx.h"
 #include "debug.h"
 
 /******************************************************

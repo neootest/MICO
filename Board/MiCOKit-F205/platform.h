@@ -197,13 +197,8 @@ extern "C"
 |               | 31 |  -   |             |              |                |
 |-------------------------------------------------------------------------|
 
-
-Notes
-1. These mappings are defined in <MICO-SDK>/Platform/BCM943362WCD4/platform.c
-2. STM32F2xx Datasheet  -> http://www.st.com/web/en/resource/technical/document/datasheet/CD00237391.pdf
-3. STM32F2xx Ref Manual -> http://www.st.com/web/en/resource/technical/document/reference_manual/CD00225773.pdf
 */
-
+#define MICO_UNUSED 0xFF
 
 typedef enum
 {
@@ -321,8 +316,6 @@ typedef enum
 //#define SFLASH_SUPPORT_MACRONIX_PARTS 
 //#define SFLASH_SUPPORT_SST_PARTS
 #define SFLASH_SUPPORT_WINBOND_PARTS
-
-#define MICO_SPI_FLASH_CS ( MICO_GPIO_5 )
 
 /* I/O connection <-> Peripheral Connections */
 #define MICO_I2C_CP         (MICO_I2C_1)
