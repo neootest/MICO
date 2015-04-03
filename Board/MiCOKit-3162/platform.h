@@ -45,11 +45,6 @@ extern "C"
 /******************************************************
  *                    Constants
  ******************************************************/
-  
-#define HARDWARE_REVISION   "3162"
-#define DEFAULT_NAME        "EMW3162 Module"
-#define MODEL               "EMW3162"
-
    
 /******************************************************
  *                   Enumerations
@@ -237,20 +232,22 @@ typedef enum
     //MICO_GPIO_28,
     MICO_GPIO_29,
     //MICO_GPIO_30,
-
     MICO_GPIO_MAX, /* Denotes the total number of GPIO port aliases. Not a valid GPIO alias */
+    MICO_GPIO_NONE,
 } mico_gpio_t;
 
 typedef enum
 {
     MICO_SPI_1,
     MICO_SPI_MAX, /* Denotes the total number of SPI port aliases. Not a valid SPI alias */
+    MICO_SPI_NONE,
 } mico_spi_t;
 
 typedef enum
 {
     MICO_I2C_1,
     MICO_I2C_MAX, /* Denotes the total number of I2C port aliases. Not a valid I2C alias */
+    MICO_I2C_NONE,
 } mico_i2c_t;
 
 typedef enum
@@ -259,6 +256,7 @@ typedef enum
     MICO_PWM_2,
     MICO_PWM_3,
     MICO_PWM_MAX, /* Denotes the total number of PWM port aliases. Not a valid PWM alias */
+    MICO_PWM_NONE,
 } mico_pwm_t;
 
 typedef enum
@@ -267,6 +265,7 @@ typedef enum
     MICO_ADC_2,
     MICO_ADC_3,
     MICO_ADC_MAX, /* Denotes the total number of ADC port aliases. Not a valid ADC alias */
+    MICO_ADC_NONE,
 } mico_adc_t;
 
 typedef enum
@@ -274,6 +273,7 @@ typedef enum
     MICO_UART_1,
     MICO_UART_2,
     MICO_UART_MAX, /* Denotes the total number of UART port aliases. Not a valid UART alias */
+    MICO_UART_NONE,
 } mico_uart_t;
 
 typedef enum
@@ -284,10 +284,10 @@ typedef enum
 } mico_flash_t;
 
 #ifdef BOOTLOADER
-#define STDIO_UART       MICO_UART_1
+#define STDIO_UART          MICO_UART_1
 #define STDIO_UART_BAUDRATE (115200) 
 #else
-#define STDIO_UART       MICO_UART_1
+#define STDIO_UART          MICO_UART_1
 #define STDIO_UART_BAUDRATE (115200) 
 #endif
 
@@ -296,10 +296,10 @@ typedef enum
 #define CLI_UART         MICO_UART_1
 
 /* Components connected to external I/Os*/
-#define Standby_SEL         (MICO_GPIO_29)
+#define Standby_SEL      (MICO_GPIO_29)
 
 /* I/O connection <-> Peripheral Connections */
-#define MICO_I2C_CP         (MICO_I2C_1)
+#define MICO_I2C_CP      (MICO_I2C_1)
 
 #define RestoreDefault_TimeOut          3000  /**< Restore default and start easylink after 
                                                    press down EasyLink button for 3 seconds. */

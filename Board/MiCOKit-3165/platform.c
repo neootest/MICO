@@ -30,11 +30,9 @@
 ******************************************************************************
 */ 
 
-#include "stdio.h"
-#include "string.h"
-
 #include "MICOPlatform.h"
 #include "platform.h"
+#include "platform_config.h"
 #include "platform_peripheral.h"
 #include "platform_config.h"
 #include "PlatformLogging.h"

@@ -34,6 +34,7 @@
 #include "string.h"
 
 #include "platform.h"
+#include "platform_config.h"
 #include "platform_peripheral.h"
 #include "PlatformLogging.h"
 #include "MicoPlatform.h"

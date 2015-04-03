@@ -46,10 +46,6 @@ extern "C"
 /******************************************************
  *                    Constants
  ******************************************************/
-  
-#define HARDWARE_REVISION   "MKF205_1"
-#define DEFAULT_NAME        "MiCOKit F205"
-#define MODEL               "MiCOKit-205"
    
 /******************************************************
  *                   Enumerations
@@ -198,7 +194,6 @@ extern "C"
 |-------------------------------------------------------------------------|
 
 */
-#define MICO_UNUSED 0xFF
 
 typedef enum
 {
@@ -246,18 +241,21 @@ typedef enum
 //    MICO_GPIO_30,
 //    MICO_GPIO_31,
     MICO_GPIO_MAX, /* Denotes the total number of GPIO port aliases. Not a valid GPIO alias */
+    MICO_GPIO_NONE,
 } mico_gpio_t;
 
 typedef enum
 {
     MICO_SPI_1,
     MICO_SPI_MAX, /* Denotes the total number of SPI port aliases. Not a valid SPI alias */
+    MICO_SPI_NONE,
 } mico_spi_t;
 
 typedef enum
 {
     MICO_I2C_1,
     MICO_I2C_MAX, /* Denotes the total number of I2C port aliases. Not a valid I2C alias */
+    MICO_I2C_NONE,
 } mico_i2c_t;
 
 typedef enum
@@ -266,6 +264,7 @@ typedef enum
     MICO_PWM_2,
     MICO_PWM_3,
     MICO_PWM_MAX, /* Denotes the total number of PWM port aliases. Not a valid PWM alias */
+    MICO_PWM_NONE,
 } mico_pwm_t;
 
 typedef enum
@@ -277,6 +276,7 @@ typedef enum
     MICO_ADC_5,
     MICO_ADC_6,
     MICO_ADC_MAX, /* Denotes the total number of ADC port aliases. Not a valid ADC alias */
+    MICO_ADC_NONE,
 } mico_adc_t;
 
 typedef enum
@@ -284,11 +284,8 @@ typedef enum
     MICO_UART_1,
     MICO_UART_2,
     MICO_UART_MAX, /* Denotes the total number of UART port aliases. Not a valid UART alias */
+    MICO_UART_NONE,
 } mico_uart_t;
-
-#define STM32_UART_1 MICO_UART_1
-#define STM32_UART_2 NULL
-#define STM32_UART_6 MICO_UART_2
 
 typedef enum
 {
@@ -310,18 +307,14 @@ typedef enum
 #define MFG_TEST         MICO_UART_1
 #define CLI_UART         MICO_UART_1
 
-
-
 #define USE_MICO_SPI_FLASH
 //#define SFLASH_SUPPORT_MACRONIX_PARTS 
 //#define SFLASH_SUPPORT_SST_PARTS
 #define SFLASH_SUPPORT_WINBOND_PARTS
 
 /* I/O connection <-> Peripheral Connections */
-#define MICO_I2C_CP         (MICO_I2C_1)
+#define MICO_I2C_CP      (MICO_I2C_1)
 
-#define RestoreDefault_TimeOut          3000  /**< Restore default and start easylink after 
-                                                   press down EasyLink button for 3 seconds. */
 
 #ifdef __cplusplus
 } /*extern "C" */

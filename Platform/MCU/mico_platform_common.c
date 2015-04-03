@@ -106,84 +106,84 @@ OSStatus mico_platform_init( void )
 
 OSStatus MicoAdcInitialize( mico_adc_t adc, uint32_t sampling_cycle )
 {
-  if ( adc == MICO_UNUSED )
+  if ( adc >= MICO_ADC_NONE )
     return kUnsupportedErr;
   return (OSStatus) platform_adc_init( &platform_adc_peripherals[adc], sampling_cycle );
 }
 
 OSStatus  MicoAdcFinalize( mico_adc_t adc )
 {
-  if ( adc == MICO_UNUSED )
+  if ( adc >= MICO_ADC_NONE )
     return kUnsupportedErr;
   return (OSStatus) platform_adc_deinit( &platform_adc_peripherals[adc] );
 }
 
 OSStatus MicoAdcTakeSample( mico_adc_t adc, uint16_t* output )
 {
-  if ( adc == MICO_UNUSED )
+  if ( adc >= MICO_ADC_NONE )
     return kUnsupportedErr;
   return (OSStatus) platform_adc_take_sample( &platform_adc_peripherals[adc], output );
 }
 
 OSStatus MicoAdcTakeSampleStreram( mico_adc_t adc, void* buffer, uint16_t buffer_length )
 {
-  if ( adc == MICO_UNUSED )
+  if ( adc >= MICO_ADC_NONE )
     return kUnsupportedErr;
   return (OSStatus) platform_adc_take_sample_stream( &platform_adc_peripherals[adc], buffer, buffer_length );
 }
 
 OSStatus MicoGpioInitialize( mico_gpio_t gpio, mico_gpio_config_t configuration )
 {
-  if ( gpio == MICO_UNUSED )
+  if ( gpio >= MICO_GPIO_NONE )
     return kUnsupportedErr;
   return (OSStatus) platform_gpio_init( &platform_gpio_pins[gpio], configuration );
 }
 
 OSStatus MicoGpioOutputHigh( mico_gpio_t gpio )
 {
-  if ( gpio == MICO_UNUSED )
+  if ( gpio >= MICO_GPIO_NONE )
     return kUnsupportedErr;
   return (OSStatus) platform_gpio_output_high( &platform_gpio_pins[gpio] );
 }
 
 OSStatus MicoGpioOutputLow( mico_gpio_t gpio )
 {
-  if ( gpio == MICO_UNUSED )
+  if ( gpio >= MICO_GPIO_NONE )
     return kUnsupportedErr;
   return (OSStatus) platform_gpio_output_low( &platform_gpio_pins[gpio] );
 }
 
 OSStatus MicoGpioOutputTrigger( mico_gpio_t gpio )
 {
-  if ( gpio == MICO_UNUSED )
+  if ( gpio >= MICO_GPIO_NONE )
     return kUnsupportedErr;
   return (OSStatus) platform_gpio_output_trigger( &platform_gpio_pins[gpio] );
 }
 
 OSStatus MicoGpioFinalize( mico_gpio_t gpio )
 {
-  if ( gpio == MICO_UNUSED )
+  if ( gpio >= MICO_GPIO_NONE )
     return kUnsupportedErr;
   return (OSStatus) platform_gpio_deinit( &platform_gpio_pins[gpio] );
 }
 
 bool MicoGpioInputGet( mico_gpio_t gpio )
 {
-  if ( gpio == MICO_UNUSED )
+  if ( gpio >= MICO_GPIO_NONE )
     return kUnsupportedErr;
   return platform_gpio_input_get( &platform_gpio_pins[gpio] );
 }
 
 OSStatus MicoGpioEnableIRQ( mico_gpio_t gpio, mico_gpio_irq_trigger_t trigger, mico_gpio_irq_handler_t handler, void* arg )
 {
-  if ( gpio == MICO_UNUSED )
+  if ( gpio >= MICO_GPIO_NONE )
     return kUnsupportedErr;
   return (OSStatus) platform_gpio_irq_enable( &platform_gpio_pins[gpio], trigger, handler, arg );
 }
 
 OSStatus MicoGpioDisableIRQ( mico_gpio_t gpio )
 {
-  if ( gpio == MICO_UNUSED )
+  if ( gpio >= MICO_GPIO_NONE )
     return kUnsupportedErr;
   return (OSStatus) platform_gpio_irq_disable( &platform_gpio_pins[gpio] );
 }
@@ -193,7 +193,7 @@ OSStatus MicoI2cInitialize( mico_i2c_device_t* device )
   platform_i2c_config_t config;
   OSStatus result;
 
-  if ( device->port == MICO_UNUSED )
+  if ( device->port >= MICO_I2C_NONE )
     return kUnsupportedErr;
   
   if (i2c_initialized[device->port] == true)
@@ -218,7 +218,7 @@ OSStatus MicoI2cFinalize( mico_i2c_device_t* device )
 {
   platform_i2c_config_t config;
 
-  if ( device->port == MICO_UNUSED )
+  if ( device->port >= MICO_I2C_NONE )
     return kUnsupportedErr;
   
   config.address       = device->address;
@@ -235,7 +235,7 @@ bool MicoI2cProbeDevice( mico_i2c_device_t* device, int retries )
 {
   platform_i2c_config_t config;
 
-  if ( device->port == MICO_UNUSED )
+  if ( device->port >= MICO_I2C_NONE )
     return kUnsupportedErr;
   
   config.address       = device->address;
@@ -265,7 +265,7 @@ OSStatus MicoI2cTransfer( mico_i2c_device_t* device, mico_i2c_message_t* message
 {
   platform_i2c_config_t config;
   
-  if ( device->port == MICO_UNUSED )
+  if ( device->port >= MICO_I2C_NONE )
     return kUnsupportedErr;
 
   config.address       = device->address;
@@ -292,21 +292,21 @@ void MicoSystemStandBy( uint32_t secondsToWakeup )
 
 OSStatus MicoPwmInitialize(mico_pwm_t pwm, uint32_t frequency, float duty_cycle)
 {
-  if ( pwm == MICO_UNUSED )
+  if ( pwm >= MICO_PWM_NONE )
     return kUnsupportedErr;
   return (OSStatus) platform_pwm_init( &platform_pwm_peripherals[pwm], frequency, duty_cycle );
 }
 
 OSStatus MicoPwmStart( mico_pwm_t pwm )
 {
-  if ( pwm == MICO_UNUSED )
+  if ( pwm >= MICO_PWM_NONE )
     return kUnsupportedErr;
   return (OSStatus) platform_pwm_start( &platform_pwm_peripherals[pwm] );
 }
 
 OSStatus MicoPwmStop( mico_pwm_t pwm )
 {
-  if ( pwm == MICO_UNUSED )
+  if ( pwm >= MICO_PWM_NONE )
     return kUnsupportedErr;
   return (OSStatus) platform_pwm_stop( &platform_pwm_peripherals[pwm] );
 }
@@ -325,7 +325,7 @@ OSStatus MicoSpiInitialize( const mico_spi_device_t* spi )
 {
   platform_spi_config_t config;
 
-  if ( spi->port == MICO_UNUSED )
+  if ( spi->port >= MICO_SPI_NONE )
     return kUnsupportedErr;
   
   config.chip_select = &platform_gpio_pins[spi->chip_select];
@@ -340,7 +340,7 @@ OSStatus MicoSpiFinalize( const mico_spi_device_t* spi )
 {
   platform_spi_config_t config;
 
-  if ( spi->port == MICO_UNUSED )
+  if ( spi->port >= MICO_SPI_NONE )
     return kUnsupportedErr;
   
   config.chip_select = &platform_gpio_pins[spi->chip_select];
@@ -355,7 +355,7 @@ OSStatus MicoSpiTransfer( const mico_spi_device_t* spi, const mico_spi_message_s
 {
   platform_spi_config_t config;
 
-  if ( spi->port == MICO_UNUSED )
+  if ( spi->port >= MICO_SPI_NONE )
     return kUnsupportedErr;
   
   config.chip_select = &platform_gpio_pins[spi->chip_select];
@@ -368,7 +368,7 @@ OSStatus MicoSpiTransfer( const mico_spi_device_t* spi, const mico_spi_message_s
 
 OSStatus MicoSpiSlaveInitialize( mico_spi_t spi, const mico_spi_slave_config_t* config )
 {
-  if ( spi == MICO_UNUSED )
+  if ( spi >= MICO_SPI_NONE )
     return kUnsupportedErr;
 
   return (OSStatus) platform_spi_slave_init( &platform_spi_slave_drivers[spi], &platform_spi_peripherals[spi], config );
@@ -376,7 +376,7 @@ OSStatus MicoSpiSlaveInitialize( mico_spi_t spi, const mico_spi_slave_config_t* 
 
 OSStatus MicoSpiSlaveFinalize( mico_spi_t spi )
 {
-  if ( spi == MICO_UNUSED )
+  if ( spi >= MICO_SPI_NONE )
     return kUnsupportedErr;
 
   return (OSStatus) platform_spi_slave_deinit( &platform_spi_slave_drivers[spi] );
@@ -384,7 +384,7 @@ OSStatus MicoSpiSlaveFinalize( mico_spi_t spi )
 
 OSStatus  MicoSpiSlaveSendErrorStatus( mico_spi_t spi, mico_spi_slave_transfer_status_t error_status )
 {
-  if ( spi == MICO_UNUSED )
+  if ( spi >= MICO_SPI_NONE )
     return kUnsupportedErr;
 
   return (OSStatus) platform_spi_slave_send_error_status( &platform_spi_slave_drivers[spi], error_status );
@@ -392,7 +392,7 @@ OSStatus  MicoSpiSlaveSendErrorStatus( mico_spi_t spi, mico_spi_slave_transfer_s
 
 OSStatus MicoSpiSlaveReceiveCommand( mico_spi_t spi, mico_spi_slave_command_t* command, uint32_t timeout_ms )
 {
-  if ( spi == MICO_UNUSED )
+  if ( spi >= MICO_SPI_NONE )
     return kUnsupportedErr;  
 
   return (OSStatus) platform_spi_slave_receive_command( &platform_spi_slave_drivers[spi], command, timeout_ms );
@@ -400,7 +400,7 @@ OSStatus MicoSpiSlaveReceiveCommand( mico_spi_t spi, mico_spi_slave_command_t* c
 
 OSStatus MicoSpiSlaveTransferData( mico_spi_t spi, mico_spi_slave_transfer_direction_t direction, mico_spi_slave_data_buffer_t* buffer, uint32_t timeout_ms )
 {
-  if ( spi == MICO_UNUSED )
+  if ( spi >= MICO_SPI_NONE )
     return kUnsupportedErr;  
 
   return (OSStatus) platform_spi_slave_transfer_data( &platform_spi_slave_drivers[spi], direction, buffer, timeout_ms );
@@ -408,7 +408,7 @@ OSStatus MicoSpiSlaveTransferData( mico_spi_t spi, mico_spi_slave_transfer_direc
 
 OSStatus MicoSpiSlaveGenerateInterrupt( mico_spi_t spi, uint32_t pulse_duration_ms )
 {
-  if ( spi == MICO_UNUSED )
+  if ( spi >= MICO_SPI_NONE )
     return kUnsupportedErr;
 
   return (OSStatus) platform_spi_slave_generate_interrupt( &platform_spi_slave_drivers[spi], pulse_duration_ms );
@@ -416,7 +416,7 @@ OSStatus MicoSpiSlaveGenerateInterrupt( mico_spi_t spi, uint32_t pulse_duration_
 
 OSStatus MicoUartInitialize( mico_uart_t uart, const mico_uart_config_t* config, ring_buffer_t* optional_rx_buffer )
 {
-  if ( uart == MICO_UNUSED )
+  if ( uart >= MICO_UART_NONE )
     return kUnsupportedErr;
 
 #ifndef MICO_DISABLE_STDIO
@@ -432,7 +432,7 @@ OSStatus MicoUartInitialize( mico_uart_t uart, const mico_uart_config_t* config,
 
 OSStatus MicoUartFinalize( mico_uart_t uart )
 {
-  if ( uart == MICO_UNUSED )
+  if ( uart >= MICO_UART_NONE )
     return kUnsupportedErr;
 
   return (OSStatus) platform_uart_deinit( &platform_uart_drivers[uart] );
@@ -440,7 +440,7 @@ OSStatus MicoUartFinalize( mico_uart_t uart )
 
 OSStatus MicoUartSend( mico_uart_t uart, const void* data, uint32_t size )
 {
-  if ( uart == MICO_UNUSED )
+  if ( uart >= MICO_UART_NONE )
     return kUnsupportedErr;
 
   return (OSStatus) platform_uart_transmit_bytes( &platform_uart_drivers[uart], (const uint8_t*) data, size );
@@ -448,7 +448,7 @@ OSStatus MicoUartSend( mico_uart_t uart, const void* data, uint32_t size )
 
 OSStatus MicoUartRecv( mico_uart_t uart, void* data, uint32_t size, uint32_t timeout )
 {
-  if ( uart == MICO_UNUSED )
+  if ( uart >= MICO_UART_NONE )
     return kUnsupportedErr;
 
   return (OSStatus) platform_uart_receive_bytes( &platform_uart_drivers[uart], (uint8_t*)data, size, timeout );
@@ -456,7 +456,7 @@ OSStatus MicoUartRecv( mico_uart_t uart, void* data, uint32_t size, uint32_t tim
 
 uint32_t MicoUartGetLengthInBuffer( mico_uart_t uart )
 {
-  if ( uart == MICO_UNUSED )
+  if ( uart >= MICO_UART_NONE )
     return 0;
   
   return (OSStatus) platform_uart_get_length_in_buffer( &platform_uart_drivers[uart] );

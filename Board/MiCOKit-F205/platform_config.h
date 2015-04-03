@@ -42,6 +42,10 @@
 *                    Constants
 ******************************************************/
 
+#define HARDWARE_REVISION   "MKF205_1"
+#define DEFAULT_NAME        "MiCOKit F205"
+#define MODEL               "MiCOKit-205"
+
 /* MICO RTOS tick rate in Hz */
 #define MICO_DEFAULT_TICK_RATE_HZ                   (1000) 
 
@@ -62,8 +66,8 @@
 #define MICO_ENABLE_MCU_RTC
 
 /************************************************************************
- * Uncomment to able USB_FS API functions */
-//#define USE_USB_FS
+ * Restore default and start easylink after press down EasyLink button for 3 seconds. */
+#define RestoreDefault_TimeOut                      (3000)
 
 #define HSE_SOURCE              RCC_HSE_ON               /* Use external crystal                 */
 #define AHB_CLOCK_DIVIDER       RCC_SYSCLK_Div1          /* AHB clock = System clock             */

@@ -40,6 +40,10 @@
 *                    Constants
 ******************************************************/
 
+#define HARDWARE_REVISION   "3162"
+#define DEFAULT_NAME        "EMW3162 Module"
+#define MODEL               "EMW3162"
+
 /* MICO RTOS tick rate in Hz */
 #define MICO_DEFAULT_TICK_RATE_HZ                   (1000) 
 
@@ -58,6 +62,10 @@
 /************************************************************************
  * Uncomment to enable MCU real time clock */
 #define MICO_ENABLE_MCU_RTC
+
+/************************************************************************
+ * Restore default and start easylink after press down EasyLink button for 3 seconds. */
+#define RestoreDefault_TimeOut                      (3000)
 
 
 /******************************************************

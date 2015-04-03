@@ -39,6 +39,11 @@
 *                    Constants
 ******************************************************/
 
+#define HARDWARE_REVISION   "MK3165_1"
+#define DEFAULT_NAME        "MiCOKit 3165"
+#define MODEL               "MiCOKit-3165"
+#define Bootloader_REVISION "V 0.1"
+
 /* MICO RTOS tick rate in Hz */
 #define MICO_DEFAULT_TICK_RATE_HZ                   (1000) 
 
@@ -58,6 +63,10 @@
  * Uncomment to enable MCU real time clock */
 #define MICO_ENABLE_MCU_RTC
 
+/************************************************************************
+ * Restore default and start easylink after press down EasyLink button for 3 seconds. */
+#define RestoreDefault_TimeOut                      (3000)
+
 
 #define MCU_CLOCK_HZ            100000000
 
@@ -73,32 +82,6 @@
 #define SYSTEM_CLOCK_SOURCE     RCC_SYSCLKSource_PLLCLK  /* System clock source = PLL clock      */
 #define SYSTICK_CLOCK_SOURCE    SysTick_CLKSource_HCLK   /* SysTick clock source = AHB clock     */
 #define INT_FLASH_WAIT_STATE    FLASH_Latency_3          /* Internal flash wait state = 3 cycles */
-
-
-
-// /************************************************************************
-//  * Used for EMW1062 RF SDIO driver */
-// #define SDIO_OOB_IRQ_BANK       GPIOA
-// #define SDIO_CLK_BANK           GPIOB
-// #define SDIO_CMD_BANK           GPIOA
-// #define SDIO_D0_BANK            GPIOB
-// #define SDIO_D1_BANK            GPIOA
-// #define SDIO_D2_BANK            GPIOA
-// #define SDIO_D3_BANK            GPIOB
-// #define SDIO_OOB_IRQ_BANK_CLK   RCC_AHB1Periph_GPIOA
-// #define SDIO_CLK_BANK_CLK       RCC_AHB1Periph_GPIOB
-// #define SDIO_CMD_BANK_CLK       RCC_AHB1Periph_GPIOA
-// #define SDIO_D0_BANK_CLK        RCC_AHB1Periph_GPIOB
-// #define SDIO_D1_BANK_CLK        RCC_AHB1Periph_GPIOA
-// #define SDIO_D2_BANK_CLK        RCC_AHB1Periph_GPIOA
-// #define SDIO_D3_BANK_CLK        RCC_AHB1Periph_GPIOB
-// #define SDIO_OOB_IRQ_PIN        0
-// #define SDIO_CLK_PIN            15
-// #define SDIO_CMD_PIN            6
-// #define SDIO_D0_PIN             7
-// #define SDIO_D1_PIN             8
-// #define SDIO_D2_PIN             9
-// #define SDIO_D3_PIN             5
 
 
 /******************************************************
@@ -173,22 +156,3 @@
 #define DRIVER_FLASH_SIZE           (DRIVER_END_ADDRESS - DRIVER_START_ADDRESS + 1) /* 248k bytes*/
 
 
-/******************************************************
-*                   Enumerations
-******************************************************/
-
-/******************************************************
-*                 Type Definitions
-******************************************************/
-
-/******************************************************
-*                    Structures
-******************************************************/
-
-/******************************************************
-*                 Global Variables
-******************************************************/
-
-/******************************************************
-*               Function Declarations
-******************************************************/

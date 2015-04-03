@@ -519,14 +519,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.c",
-			"settings":
-			{
-				"buffer_size": 19593,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -588,17 +580,18 @@
 	},
 	"file_history":
 	[
-		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_spi.c",
-		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/EMW1062_Driver/wlan_bus_sdio.c",
-		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/EMW1062_Driver/wlan_bus_spi.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform_config.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform_config.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_spi.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/EMW1062_Driver/wlan_bus_sdio.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/EMW1062_Driver/wlan_bus_spi.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/mico_platform_common.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/wlan_platform_common.c",
 		"/Users/William/Develop/MiCO/Platform/include/wlan_platform_common.h",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.c",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.c",
 		"/Users/william/Develop/MiCO/Platform/drivers/spi_flash/spi_flash_platform_interface.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform_spi_flash.c",
 		"/Users/William/Develop/MiCO/Projects/STM32F2xx/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
@@ -626,7 +619,6 @@
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/MicoDriverUart.c",
 		"/Users/William/Develop/MiCO/Platform/include/platform_peripheral.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_mcu_peripheral.h",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/platform_init.c",
 		"/Users/William/Develop/MiCO/include/Common.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_mcu_powersave.c",
@@ -742,6 +734,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Standby_SEL",
 			"platform_reset_wlan_powersave_clock",
 			"host_platform_deinit_wlan_powersave_clock",
 			"host_platform_sdio_transfer",
@@ -868,8 +861,7 @@
 			"dataEndedbyClose",
 			"onClear",
 			"flashStorageAddress",
-			"  /* For MXCHIP OTA function, store extra data to OTA data temporary */\n//   err = HTTPGetHeaderField( inHeader->buf, inHeader->len, \"Content-Type\", NULL, NULL, &value, &valueSize, NULL );\n\n//   if(err == kNoErr && strnicmpx( value, valueSize, kMIMEType_MXCHIP_OTA ) == 0){\n// #ifdef MICO_FLASH_FOR_UPDATE  \n//     http_utils_log(\"Receive OTA data!\");    \n//     flashStorageAddress = UPDATE_START_ADDRESS;\n//     err = MicoFlashInitialize( MICO_FLASH_FOR_UPDATE );\n//     require_noerr(err, exit);\n//     err = MicoFlashErase(MICO_FLASH_FOR_UPDATE, UPDATE_START_ADDRESS, UPDATE_END_ADDRESS);\n//     require_noerr(err, exit);\n//     err = MicoFlashWrite(MICO_FLASH_FOR_UPDATE, &flashStorageAddress, (uint8_t *)end, inHeader->extraDataLen);\n//     require_noerr(err, exit);\n// #else\n//     http_utils_log(\"OTA flash memory is not existed!\");\n//     err = kUnsupportedErr;\n// #endif\n//     goto exit;\n//   }",
-			"HTTPHeaderClear\nHTTPHeaderClear"
+			"  /* For MXCHIP OTA function, store extra data to OTA data temporary */\n//   err = HTTPGetHeaderField( inHeader->buf, inHeader->len, \"Content-Type\", NULL, NULL, &value, &valueSize, NULL );\n\n//   if(err == kNoErr && strnicmpx( value, valueSize, kMIMEType_MXCHIP_OTA ) == 0){\n// #ifdef MICO_FLASH_FOR_UPDATE  \n//     http_utils_log(\"Receive OTA data!\");    \n//     flashStorageAddress = UPDATE_START_ADDRESS;\n//     err = MicoFlashInitialize( MICO_FLASH_FOR_UPDATE );\n//     require_noerr(err, exit);\n//     err = MicoFlashErase(MICO_FLASH_FOR_UPDATE, UPDATE_START_ADDRESS, UPDATE_END_ADDRESS);\n//     require_noerr(err, exit);\n//     err = MicoFlashWrite(MICO_FLASH_FOR_UPDATE, &flashStorageAddress, (uint8_t *)end, inHeader->extraDataLen);\n//     require_noerr(err, exit);\n// #else\n//     http_utils_log(\"OTA flash memory is not existed!\");\n//     err = kUnsupportedErr;\n// #endif\n//     goto exit;\n//   }"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -890,37 +882,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.c",
-					"settings":
-					{
-						"buffer_size": 19593,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								9788,
-								9788
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1638.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],
