@@ -209,21 +209,26 @@ const mico_spi_device_t mico_spi_flash =
 
 
 /* Wi-Fi control pins. Used by platform/MCU/wlan_platform_common.c
-* SDIO: EMW1062_PIN_BOOTSTRAP[1:0] = b'00
-* gSPI: EMW1062_PIN_BOOTSTRAP[1:0] = b'01
 */
 const platform_gpio_t wifi_control_pins[] =
 {
-  [WIFI_PIN_POWER]           = { GPIOA, 11 },
+  [WIFI_PIN_POWER         ]  = { GPIOA, 11 },
 };
 
 /* Wi-Fi SDIO bus pins. Used by platform/MCU/STM32F2xx/EMW1062_driver/wlan_SDIO.c */
 const platform_gpio_t wifi_sdio_pins[] =
 {
+#ifdef SDIO_1_BIT
   [EMW1088_PIN_SDIO_IRQ    ] = { GPIOA,  8 },
+#endif
   [EMW1088_PIN_SDIO_CLK    ] = { GPIOB, 15 },
   [EMW1088_PIN_SDIO_CMD    ] = { GPIOA,  6 },
   [EMW1088_PIN_SDIO_D0     ] = { GPIOB,  7 },
+#ifndef SDIO_1_BIT
+  [EMW1088_PIN_SDIO_D1     ] = { GPIOA,  8 },
+  [EMW1088_PIN_SDIO_D2     ] = { GPIOA,  9 },
+  [EMW1088_PIN_SDIO_D3     ] = { GPIOB,  5 },
+#endif
 };
 
 
@@ -348,37 +353,6 @@ void init_platform_bootloader( void )
   MicoGpioInitialize((mico_gpio_t)BOOT_SEL, INPUT_PULL_UP);
   MicoGpioInitialize((mico_gpio_t)MFG_SEL, INPUT_HIGH_IMPEDANCE);
 }
-
-
-// void host_platform_reset_wifi( bool reset_asserted )
-// {
-//   if ( reset_asserted == true )
-//   {
-//     MicoGpioOutputLow( (mico_gpio_t)WL_RESET );  
-//   }
-//   else
-//   {
-//     MicoGpioOutputHigh( (mico_gpio_t)WL_RESET ); 
-//   }
-// }
-
-// void host_platform_power_wifi_init(void)
-// {
-//     MicoGpioInitialize((mico_gpio_t)WL_REG, OUTPUT_PUSH_PULL);
-//     MicoGpioOutputLow( (mico_gpio_t)WL_REG );
-// }
-
-// void host_platform_power_wifi( bool power_enabled )
-// {
-//   if ( power_enabled == true )
-//   {
-//     MicoGpioOutputLow( (mico_gpio_t)WL_REG );  
-//   }
-//   else
-//   {
-//     MicoGpioOutputHigh( (mico_gpio_t)WL_REG ); 
-//   }
-// }
 
 void MicoSysLed(bool onoff)
 {

@@ -33,6 +33,7 @@
 #pragma once
 
 #include "platform_peripheral.h"
+#include "platform_config.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -76,19 +77,29 @@ typedef enum
     EMW1062_PIN_SDIO_CLK,
     EMW1062_PIN_SDIO_CMD,
     EMW1062_PIN_SDIO_D0,
+#ifdef SDIO_1_BIT
+    EMW1062_PIN_SDIO_IRQ,
+#else
     EMW1062_PIN_SDIO_D1,
     EMW1062_PIN_SDIO_D2,
     EMW1062_PIN_SDIO_D3,
+#endif
     EMW1062_PIN_SDIO_MAX,
 } emw1062_sdio_pin_t;
 
 typedef enum
 {
-    EMW1088_PIN_SDIO_OOB_IRQ,
+#ifdef SDIO_1_BIT
     EMW1088_PIN_SDIO_IRQ,
+#endif
     EMW1088_PIN_SDIO_CLK,
     EMW1088_PIN_SDIO_CMD,
     EMW1088_PIN_SDIO_D0,
+#ifndef SDIO_1_BIT
+    EMW1088_PIN_SDIO_D1,
+    EMW1088_PIN_SDIO_D2,
+    EMW1088_PIN_SDIO_D3,
+#endif
     EMW1088_PIN_SDIO_MAX,
 } emw1088_sdio_pin_t;
 

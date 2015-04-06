@@ -88,29 +88,6 @@ extern "C"
 #define SYSTICK_CLOCK_SOURCE    SysTick_CLKSource_HCLK   /* SysTick clock source = AHB clock     */
 #define INT_FLASH_WAIT_STATE    FLASH_Latency_3          /* Internal flash wait state = 3 cycles */
 
-/************************************************************************
- * Used for EMW1088 RF SDIO driver */
-#define SDIO_OOB_IRQ_BANK       GPIOB
-#define SDIO_CLK_BANK           GPIOB
-#define SDIO_CMD_BANK           GPIOA
-#define SDIO_D0_BANK            GPIOB
-#define SDIO_D1_BANK            GPIOA
-#define SDIO_D2_BANK            GPIOA
-#define SDIO_D3_BANK            GPIOB
-#define SDIO_OOB_IRQ_BANK_CLK   RCC_AHB1Periph_GPIOB
-#define SDIO_CLK_BANK_CLK       RCC_AHB1Periph_GPIOB
-#define SDIO_CMD_BANK_CLK       RCC_AHB1Periph_GPIOA
-#define SDIO_D0_BANK_CLK        RCC_AHB1Periph_GPIOB
-#define SDIO_D1_BANK_CLK        RCC_AHB1Periph_GPIOA
-#define SDIO_D2_BANK_CLK        RCC_AHB1Periph_GPIOA
-#define SDIO_D3_BANK_CLK        RCC_AHB1Periph_GPIOB
-#define SDIO_OOB_IRQ_PIN        6
-#define SDIO_CLK_PIN            15
-#define SDIO_CMD_PIN            6
-#define SDIO_D0_PIN             7
-#define SDIO_D1_PIN             8
-#define SDIO_D2_PIN             9
-#define SDIO_D3_PIN             5
 
 /******************************************************
  *  EMW1088 Options
