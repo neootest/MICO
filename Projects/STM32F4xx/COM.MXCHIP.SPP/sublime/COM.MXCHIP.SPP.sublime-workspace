@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"MICO_I2",
+				"MICO_I2C_NONE	mico_i2c_t"
+			],
+			[
+				"MICO_AD",
+				"MICO_ADC_NONE	mico_adc_t"
+			],
+			[
 				"MICO",
 				"MICO_ADC_MAX	mico_adc_t"
 			],
@@ -506,14 +514,6 @@
 			[
 				"su",
 				"Support_AirPrint	uint8_t"
-			],
-			[
-				"ui",
-				"uint8_t	typedef"
-			],
-			[
-				"sto",
-				"stopBits	const int [3]"
 			]
 		]
 	},
@@ -580,14 +580,14 @@
 	},
 	"file_history":
 	[
-		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform_config.h",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform_config.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/mico_platform_common.c",
 		"/Users/william/Develop/MiCO/Platform/include/wlan_platform_common.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform_spi_flash.c",
 		"/Users/William/Develop/MiCO/Projects/STM32F4xx/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
 		"/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_mcu_peripheral.h",
-		"/Users/William/Develop/MiCO/Platform/MCU/mico_platform_common.c",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOConfigDelegate.c",

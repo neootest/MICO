@@ -2931,7 +2931,7 @@
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3165\platform.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3165\platform_common_config.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3165\platform_config.h</name>
       </file>
     </group>
     <group>
@@ -2947,10 +2947,7 @@
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3288\platform.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3288\platform_common_config.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3288\platform_spi_flash.c</name>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3288\platform_config.h</name>
       </file>
     </group>
   </group>
@@ -3296,9 +3293,6 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\EMW1088_Driver\wlan_bus.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\EMW1088_Driver\wlan_platform.c</name>
         </file>
       </group>
       <group>

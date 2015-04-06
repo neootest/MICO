@@ -161,12 +161,14 @@ extern void wiced_platform_notify_irq( void );
  *             Function definitions
  ******************************************************/
 
+#ifndef MICO_DISABLE_MCU_POWERSAVE
 static void sdio_oob_irq_handler( void* arg )
 {
     UNUSED_PARAMETER(arg);
     platform_mcu_powersave_exit_notify( );
     wiced_platform_notify_irq( );
 }
+#endif
 
 static void sdio_enable_bus_irq( void )
 {
@@ -178,19 +180,25 @@ static void sdio_disable_bus_irq( void )
     SDIO->MASK = 0;
 }
 
-#ifndef MICO_DISABLE_MCU_POWERSAVE
+
 OSStatus host_enable_oob_interrupt( void )
 {
+#ifndef MICO_DISABLE_MCU_POWERSAVE
     platform_gpio_init( &wifi_sdio_pins[EMW1062_PIN_SDIO_OOB_IRQ], INPUT_HIGH_IMPEDANCE );
     platform_gpio_irq_enable( &wifi_sdio_pins[EMW1062_PIN_SDIO_OOB_IRQ], IRQ_TRIGGER_RISING_EDGE, sdio_oob_irq_handler, 0 );
+#endif
     return kNoErr;
 }
 
 uint8_t host_platform_get_oob_interrupt_pin( void )
 {
+#ifndef MICO_DISABLE_MCU_POWERSAVE
     return MICO_WIFI_OOB_IRQ_GPIO_PIN;
-}
+#else
+    return 0;
 #endif
+}
+
 
 bool host_platform_is_sdio_int_asserted(void)
 {

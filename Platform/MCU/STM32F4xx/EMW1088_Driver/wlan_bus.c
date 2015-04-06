@@ -32,21 +32,13 @@
 #include "MicoRtos.h"
 #include "misc.h"
 #include "string.h" /* For memcpy */
-#include "gpio_irq.h"
-#include "platform_common_config.h"
-#include "stm32f4xx_platform.h"
+#include "platform.h"
+#include "platform_config.h"
+#include "platform_peripheral.h"
 #include "PlatformLogging.h"
+#include "wlan_platform_common.h"
 
-/* Powersave functionality */
-extern void MCU_CLOCKS_NEEDED( void );
-extern void MCU_CLOCKS_NOT_NEEDED( void );
 
-#ifndef MICO_DISABLE_MCU_POWERSAVE
-extern void wake_up_interrupt_notify( void );
-#define MCU_NOTIFY_WAKE_UP()        wake_up_interrupt_notify()
-#else
-#define MCU_NOTIFY_WAKE_UP()
-#endif /* ifndef MICO_DISABLE_MCU_POWERSAVE */
 
 /******************************************************
  *             Constants
@@ -184,9 +176,17 @@ void sdio_disable_it_irq(void);
 static void sdio_oob_irq_handler( void* arg )
 {
     UNUSED_PARAMETER(arg);
-    MCU_NOTIFY_WAKE_UP( );
+    platform_mcu_powersave_exit_notify( );
     wiced_platform_notify_irq( );
 }
+
+static void sdio_int_pin_irq_handler( void* arg )
+{
+    UNUSED_PARAMETER(arg);
+    platform_mcu_powersave_exit_notify( );
+    wiced_platform_notify_irq( );
+}
+
 
 void sdio_irq( void )
 {
@@ -232,13 +232,13 @@ void sdio_irq( void )
         }
     }
     /* Check whether the external interrupt was triggered */
-    if ( ( intstatus & SDIO_STA_SDIOIT ) != 0 )
-    {
-        /* Clear the interrupt and then inform WICED thread */
-        SDIO->ICR = SDIO_ICR_SDIOITC;
-        sdio_disable_it_irq();
-        wiced_platform_notify_irq( );
-    }
+//    if ( ( intstatus & SDIO_STA_SDIOIT ) != 0 )
+//    {
+//        /* Clear the interrupt and then inform WICED thread */
+//        SDIO->ICR = SDIO_ICR_SDIOITC;
+//        platform_mcu_powersave_exit_notify( );
+//        wiced_platform_notify_irq( );
+//    }
 }
 
 /*@-exportheader@*/ /* Function picked up by linker script */
@@ -282,33 +282,15 @@ void sdio_disable_it_irq(void)
 
 OSStatus host_enable_oob_interrupt( void )
 {
-  MicoGpioInitialize( (mico_gpio_t)WL_GPIO1, INPUT_PULL_UP );
-  MicoGpioEnableIRQ( (mico_gpio_t)WL_GPIO1, IRQ_TRIGGER_FALLING_EDGE, sdio_oob_irq_handler, 0 );
-  
   return kNoErr;
 }
 
 bool host_platform_is_sdio_int_asserted(void)
 {
-    if (MicoGpioInputGet((mico_gpio_t)WL_GPIO1) == true)//SDIO D1 is high
+    if ( platform_gpio_input_get( &wifi_sdio_pins[EMW1088_PIN_SDIO_IRQ] ) == true) //SDIO INT pin is high
         return false;
     else
         return true; // SDIO D1 is low, data need read
-}
-
-
-uint8_t host_platform_get_oob_interrupt_pin( void )
-{
-    if ( ( gpio_mapping[ WL_GPIO1 ].bank == SDIO_OOB_IRQ_BANK ) && ( gpio_mapping[ WL_GPIO1 ].number == SDIO_OOB_IRQ_PIN ) )
-    {
-        /* WLAN GPIO1 */
-        return 1;
-    }
-    else
-    {
-        /* WLAN GPIO0 */
-        return 0;
-    }
 }
 
 static void sdio_gpio_deinit(void)
@@ -334,7 +316,7 @@ OSStatus host_platform_bus_init( void )
     NVIC_InitTypeDef nvic_init_structure;
     OSStatus result;
 
-    MCU_CLOCKS_NEEDED();
+    platform_mcu_powersave_disable();
 
     result = mico_rtos_init_semaphore( &sdio_transfer_finished_semaphore, 1 );
     if ( result != kNoErr )
@@ -363,12 +345,6 @@ OSStatus host_platform_bus_init( void )
     RCC_AHB1PeriphClockCmd( SDIO_CMD_BANK_CLK | SDIO_CLK_BANK_CLK | SDIO_D0_BANK_CLK | SDIO_D1_BANK_CLK | SDIO_D2_BANK_CLK | SDIO_D3_BANK_CLK, ENABLE );
 
     /* Set GPIO_B[1:0] to 00 to put WLAN module into SDIO mode */
-    
-    MicoGpioInitialize( (mico_gpio_t)WL_GPIO0, OUTPUT_PUSH_PULL );
-    MicoGpioOutputLow( (mico_gpio_t)WL_GPIO0 );
-    
-    MicoGpioInitialize( (mico_gpio_t)WL_GPIO1, OUTPUT_PUSH_PULL );
-    MicoGpioOutputLow( (mico_gpio_t)WL_GPIO1 );
 
     sdio_gpio_deinit();
     
@@ -376,7 +352,8 @@ OSStatus host_platform_bus_init( void )
     SDIO_CMD_BANK->MODER |= (GPIO_Mode_AF << (2*SDIO_CMD_PIN));
     SDIO_CLK_BANK->MODER |= (GPIO_Mode_AF << (2*SDIO_CLK_PIN));
     SDIO_D0_BANK->MODER  |= (GPIO_Mode_AF << (2*SDIO_D0_PIN));
-#ifndef SDIO_1_BIT    
+   
+#ifndef SDIO_1_BIT 
     SDIO_D1_BANK->MODER  |= (GPIO_Mode_AF << (2*SDIO_D1_PIN));
     SDIO_D2_BANK->MODER  |= (GPIO_Mode_AF << (2*SDIO_D2_PIN));
     SDIO_D3_BANK->MODER  |= (GPIO_Mode_AF << (2*SDIO_D3_PIN));
@@ -385,9 +362,9 @@ OSStatus host_platform_bus_init( void )
     SDIO_CMD_BANK->OSPEEDR |= (GPIO_Speed_50MHz << (2*SDIO_CMD_PIN));
     SDIO_CLK_BANK->OSPEEDR |= (GPIO_Speed_50MHz << (2*SDIO_CLK_PIN));
     SDIO_D0_BANK->OSPEEDR  |= (GPIO_Speed_50MHz << (2*SDIO_D0_PIN));
-#ifndef SDIO_1_BIT  
 
-    SDIO_D1_BANK->OSPEEDR  |= (GPIO_Speed_50MHz << (2*SDIO_D1_PIN));
+#ifndef SDIO_1_BIT 
+    SDIO_D1_BANK->OSPEEDR  |= (GPIO_Speed_50MHz << (2*SDIO_D1_PIN)); 
     SDIO_D2_BANK->OSPEEDR  |= (GPIO_Speed_50MHz << (2*SDIO_D2_PIN));
     SDIO_D3_BANK->OSPEEDR  |= (GPIO_Speed_50MHz << (2*SDIO_D3_PIN));
 #endif
@@ -401,8 +378,8 @@ OSStatus host_platform_bus_init( void )
     SDIO_CMD_BANK->AFR[SDIO_CMD_PIN >> 0x03] |= (GPIO_AF_SDIO << (4*(SDIO_CMD_PIN & 0x07)));
     SDIO_CLK_BANK->AFR[SDIO_CLK_PIN >> 0x03] |= (GPIO_AF_SDIO << (4*(SDIO_CLK_PIN & 0x07)));
     SDIO_D0_BANK->AFR[SDIO_D0_PIN >> 0x03]   |= (GPIO_AF_SDIO << (4*(SDIO_D0_PIN & 0x07)));
-#ifndef SDIO_1_BIT  
 
+#ifndef SDIO_1_BIT  
     SDIO_D1_BANK->AFR[SDIO_D1_PIN >> 0x03]   |= (GPIO_AF_SDIO << (4*(SDIO_D1_PIN & 0x07)));
     SDIO_D2_BANK->AFR[SDIO_D2_PIN >> 0x03]   |= (GPIO_AF_SDIO << (4*(SDIO_D2_PIN & 0x07)));
     SDIO_D3_BANK->AFR[SDIO_D3_PIN >> 0x03]   |= (GPIO_AF_SDIO << (4*(SDIO_D3_PIN & 0x07)));
@@ -423,7 +400,10 @@ OSStatus host_platform_bus_init( void )
     SDIO_SetSDIOReadWaitMode( SDIO_ReadWaitMode_CLK );
     SDIO_ClockCmd( ENABLE );
 
-    MCU_CLOCKS_NOT_NEEDED();
+    platform_gpio_init( &wifi_sdio_pins[EMW1088_PIN_SDIO_IRQ], INPUT_PULL_UP );
+    platform_gpio_irq_enable( &wifi_sdio_pins[EMW1088_PIN_SDIO_IRQ], IRQ_TRIGGER_FALLING_EDGE, sdio_int_pin_irq_handler, 0 );
+
+    platform_mcu_powersave_enable();
 
     return kNoErr;
 }
@@ -466,7 +446,7 @@ OSStatus host_platform_bus_deinit( void )
 
     result = mico_rtos_deinit_semaphore( &sdio_transfer_finished_semaphore );
 
-    MCU_CLOCKS_NEEDED();
+    platform_mcu_powersave_disable();
 
     /* Disable SPI and SPI DMA */
     sdio_disable_bus_irq( );
@@ -477,9 +457,9 @@ OSStatus host_platform_bus_deinit( void )
     RCC_APB2PeriphClockCmd( RCC_APB2Periph_SDIO, DISABLE );
 
     sdio_gpio_deinit();
-    /* Clear GPIO_B[1:0] */
-    MicoGpioFinalize( (mico_gpio_t)WL_GPIO0 );
-    MicoGpioFinalize( (mico_gpio_t)WL_GPIO1 );
+
+    platform_gpio_deinit( &wifi_sdio_pins[EMW1088_PIN_SDIO_IRQ] );
+
     /* Turn off SDIO IRQ */
     nvic_init_structure.NVIC_IRQChannel                   = SDIO_IRQ_CHANNEL;
     nvic_init_structure.NVIC_IRQChannelCmd                = DISABLE;
@@ -487,7 +467,7 @@ OSStatus host_platform_bus_deinit( void )
     nvic_init_structure.NVIC_IRQChannelSubPriority        = 0;
     NVIC_Init( &nvic_init_structure );
 
-    MCU_CLOCKS_NOT_NEEDED();
+    platform_mcu_powersave_enable();
 
     return result;
 }
@@ -505,7 +485,7 @@ OSStatus host_platform_sdio_transfer( bus_transfer_direction_t direction, sdio_c
         *response = 0;
     }
 
-    MCU_CLOCKS_NEEDED();
+    platform_mcu_powersave_disable();
 
     /* Ensure the bus isn't stuck half way through transfer */
     DMA2_Stream3->CR   = 0;
@@ -605,7 +585,7 @@ restart:
     result = kNoErr;
 
 exit:
-    MCU_CLOCKS_NOT_NEEDED();
+    platform_mcu_powersave_enable();
     SDIO->MASK = SDIO_MASK_SDIOITIE;
     return result;
 }

@@ -82,6 +82,16 @@ typedef enum
     EMW1062_PIN_SDIO_MAX,
 } emw1062_sdio_pin_t;
 
+typedef enum
+{
+    EMW1088_PIN_SDIO_OOB_IRQ,
+    EMW1088_PIN_SDIO_IRQ,
+    EMW1088_PIN_SDIO_CLK,
+    EMW1088_PIN_SDIO_CMD,
+    EMW1088_PIN_SDIO_D0,
+    EMW1088_PIN_SDIO_MAX,
+} emw1088_sdio_pin_t;
+
 /**
  * WLAN SPI pins
  */

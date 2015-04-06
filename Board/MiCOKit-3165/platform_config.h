@@ -31,6 +31,12 @@
 
 #pragma once
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+
 /******************************************************
 *                      Macros
 ******************************************************/
@@ -57,7 +63,7 @@
 
 /************************************************************************
  * Uncomment to disable MCU powersave API functions */
-//#define MICO_DISABLE_MCU_POWERSAVE
+#define MICO_DISABLE_MCU_POWERSAVE
 
 /************************************************************************
  * Uncomment to enable MCU real time clock */
@@ -155,4 +161,8 @@
 #define DRIVER_END_ADDRESS          (uint32_t)0x0003FFFF
 #define DRIVER_FLASH_SIZE           (DRIVER_END_ADDRESS - DRIVER_START_ADDRESS + 1) /* 248k bytes*/
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif
 
+ 

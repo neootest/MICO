@@ -31,6 +31,11 @@
 
 #pragma once
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 /******************************************************
 *                      Macros
 ******************************************************/
@@ -38,6 +43,11 @@
 /******************************************************
 *                    Constants
 ******************************************************/
+
+#define HARDWARE_REVISION   "MK3288_1"
+#define DEFAULT_NAME        "MiCOKit 3288"
+#define MODEL               "MiCOKit-3288"
+#define Bootloader_VISION   "V 0.1"
 
 /* MICO RTOS tick rate in Hz */
 #define MICO_DEFAULT_TICK_RATE_HZ                   (1000) 
@@ -52,11 +62,15 @@
 
 /************************************************************************
  * Uncomment to disable MCU powersave API functions */
-//#define MICO_DISABLE_MCU_POWERSAVE
+#define MICO_DISABLE_MCU_POWERSAVE
 
 /************************************************************************
  * Uncomment to enable MCU real time clock */
-#define MICO_ENABLE_MCU_RTC
+//#define MICO_ENABLE_MCU_RTC
+
+/************************************************************************
+ * Restore default and start easylink after press down EasyLink button for 3 seconds. */
+#define RestoreDefault_TimeOut                      (3000)
 
 
 #define MCU_CLOCK_HZ            100000000
@@ -98,76 +112,19 @@
 #define SDIO_D2_PIN             9
 #define SDIO_D3_PIN             5
 
+/******************************************************
+ *  EMW1088 Options
+ ******************************************************/
+
+/*  Wi-Fi power pin is present */
+#define MICO_USE_WIFI_POWER_PIN
+
+/*  USE SDIO 1bit mode */
 #define SDIO_1_BIT
 
+/* Wi-Fi power pin is active high */
+//#define MICO_USE_WIFI_POWER_PIN_ACTIVE_HIGH
 
-/* These are internal platform connections only */
-typedef enum
-{
-  MICO_GPIO_UNUSED = -1,
-
-  WL_GPIO0 = 0,
-  WL_GPIO1,
-
-  MICO_SYS_LED,
-  MICO_RF_LED,
-  BOOT_SEL,
-  MFG_SEL,
-  Standby_SEL,
-  EasyLink_BUTTON,
-  STDIO_UART_RX,  
-  STDIO_UART_TX,  
-  MICO_COMMON_GPIO_MAX,
-} mico_common_gpio_t;
-
-#define MICO_GPIO_WLAN_POWERSAVE_CLOCK MICO_GPIO_UNUSED
-#define WL_REG MICO_GPIO_2
-#define WL_RESET MICO_GPIO_UNUSED
-//#define MICO_SYS_LED MICO_GPIO_UNUSED
-//#define MICO_RF_LED MICO_GPIO_UNUSED
-
-/* How the wlan's powersave clock is connected */
-typedef enum
-{
-  MICO_PWM_WLAN_POWERSAVE_CLOCK,
-  MICO_COMMON_PWM_MAX,
-} mico_common_pwm_t;
-
-/* WLAN Powersave Clock Source
- * The WLAN sleep clock can be driven from one of two sources:
- * 1. Timer/PWM (default)
- *    - With the PWM selected, the STM32 can *NOT* be put into MCU powersave mode or the PWM output will be disabled
- * 2. MCO (MCU Clock Output). 
- *    - Change the following directive to MICO_WLAN_POWERSAVE_CLOCK_IS_MCO
- */
-#define MICO_WLAN_POWERSAVE_CLOCK_SOURCE MICO_WLAN_POWERSAVE_CLOCK_IS_NOT_EXIST
-
-#define MICO_WLAN_POWERSAVE_CLOCK_IS_NOT_EXIST  0
-#define MICO_WLAN_POWERSAVE_CLOCK_IS_PWM        1
-#define MICO_WLAN_POWERSAVE_CLOCK_IS_MCO        2
-
-
-#define WLAN_POWERSAVE_CLOCK_FREQUENCY 32768 /* 32768Hz        */
-#define WLAN_POWERSAVE_CLOCK_DUTY_CYCLE   50 /* 50% duty-cycle */
-
-#define WL_32K_OUT_BANK         GPIOA
-#define WL_32K_OUT_PIN          0
-#define WL_32K_OUT_BANK_CLK     RCC_AHB1Periph_GPIOA
-
-/* The number of UART interfaces this hardware platform has */
-#define NUMBER_OF_UART_INTERFACES  2
-
-#ifdef BOOTLOADER
-#define STDIO_UART       MICO_UART_1
-#define STDIO_UART_BAUDRATE (921600)   
-#else
-#define STDIO_UART       MICO_UART_1
-#define STDIO_UART_BAUDRATE (115200)   
-#endif
-   
-#define UART_FOR_APP     MICO_UART_2
-#define MFG_TEST         MICO_UART_1
-#define CLI_UART         MICO_UART_1
 
 /* Memory map */
 #define INTERNAL_FLASH_START_ADDRESS    (uint32_t)0x08000000
@@ -227,3 +184,9 @@ typedef enum
 /******************************************************
 *               Function Declarations
 ******************************************************/
+
+#ifdef __cplusplus
+} /*extern "C" */
+#endif
+
+
