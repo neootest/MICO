@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"platform_gpio_",
+				"platform_gpio_irq_enable(const platform_gpio_t *gpio, platform_gpio_irq_trigger_t trigger, platform_gpio_irq_callback_t handler, void *arg)	OSStatus"
+			],
+			[
 				"MICO_I2",
 				"MICO_I2C_NONE	mico_i2c_t"
 			],
@@ -510,15 +514,19 @@
 			[
 				"El",
 				"ElementsLength	uint16_t"
-			],
-			[
-				"su",
-				"Support_AirPrint	uint8_t"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.c",
+			"settings":
+			{
+				"buffer_size": 14180,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -580,13 +588,25 @@
 	},
 	"file_history":
 	[
-		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform.h",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform.c",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform_config.h",
-		"/Users/William/Develop/MiCO/Platform/MCU/mico_platform_common.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/wlan_platform_common.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform_config.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/EMW1088_Driver/wlan_bus.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/EMW1062_Driver/wlan_bus_sdio.c",
+		"/Users/William/Develop/MiCO/Platform/include/wlan_platform_common.h",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform_spi_flash.c",
+		"/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/Libraries/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_gpio.h",
+		"/Users/William/Develop/MiCO/MICO/MICOEntrance.c",
 		"/Users/william/Develop/MiCO/Platform/include/wlan_platform_common.h",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform_spi_flash.c",
+		"/Users/william/Develop/MiCO/Platform/include/platform_peripheral.h",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform_config.h",
 		"/Users/William/Develop/MiCO/Projects/STM32F4xx/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/mico_platform_common.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform_spi_flash.c",
 		"/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_mcu_peripheral.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.c",
@@ -695,19 +715,7 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/WPS/WPS.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/STM32F2xx_StdPeriph_Driver/src/stm32f2xx_rtc.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/WAC/WAC.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformUartxx.c",
-		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOSystemMonitor.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/Debug.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverSpi.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/gpio_irq.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/gpio_irq.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/hardfault.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverAdc.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverPwm.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverRng.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverWdg.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/stm32f2xx_platform.h"
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformUartxx.c"
 	],
 	"find":
 	{
@@ -715,7 +723,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
 			"<open folders>",
@@ -734,6 +742,17 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"bootloader_start",
+			"sdio_int_pin_irq_handler",
+			"sdio_oob_irq_handler",
+			"sdio_enable_it_irq",
+			"sdio_enable_bus_irq",
+			"host_enable_oob_interrupt",
+			"FLASH_PIN_SPI_CS",
+			"wiced_platform_notify_irq",
+			"sdio_oob_irq_handler",
+			"WL_GPIO1",
+			"sdio_irq",
 			"MICO_I2C_1",
 			"MICO_UNUSED",
 			"platform_i2c_peripherals",
@@ -850,21 +869,10 @@
 			"MCU_CLOCKS_NOT_NEEDED",
 			"MicoMcuPowerSaveConfig",
 			"MicoUartGetLengthInBuffer",
-			"platform_uart_receive_bytes",
-			"optional_rx_buffer",
-			"sdio_oob_irq_handler",
-			"MCU_NOTIFY_WAKE_UP",
-			"wake_up_interrupt_notify",
-			"wake_up_interrupt_triggered",
-			"init_clocks",
-			"PWR_CR_PDDS",
-			"__force_stores",
-			"RTC_SetWakeUpCounter",
-			"MicoSystemStandBy",
-			"host_platform_init_wlan_powersave_clock"
+			"platform_uart_receive_bytes"
 		],
 		"highlight": true,
-		"in_selection": true,
+		"in_selection": false,
 		"preserve_case": false,
 		"regex": false,
 		"replace_history":
@@ -881,8 +889,37 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.c",
+					"settings":
+					{
+						"buffer_size": 14180,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2894,
+								2894
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4640.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],

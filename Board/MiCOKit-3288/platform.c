@@ -68,7 +68,6 @@
 extern WEAK void PlatformEasyLinkButtonClickedCallback(void);
 extern WEAK void PlatformStandbyButtonClickedCallback(void);
 extern WEAK void PlatformEasyLinkButtonLongPressedCallback(void);
-extern WEAK void bootloader_start(void);
 
 /******************************************************
 *               Variables Definitions
@@ -236,7 +235,7 @@ const platform_gpio_t wifi_sdio_pins[] =
 *           Interrupt Handler Definitions
 ******************************************************/
 
-MICO_RTOS_DEFINE_ISR( USART1_IRQHandler )
+MICO_RTOS_DEFINE_ISR( USART2_IRQHandler )
 {
   platform_uart_irq( &platform_uart_drivers[MICO_UART_1] );
 }
