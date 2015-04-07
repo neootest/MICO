@@ -1,6 +1,8 @@
+
 #include "HomeKitProfiles.h"
 #include "Common.h"
 #include "MICODefine.h"
+#include "platform_config.h"
 
 const struct _hapAccessory_t hapObjects[NumberofAccessories] = 
 {

@@ -36,7 +36,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "common.h"
 #include "ymodem.h"
-#include "platform_common_config.h"
+#include "platform_config.h"
 #include "platformInternal.h"
 #include "StringUtils.h"
 #include "MicoRtos.h"

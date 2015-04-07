@@ -38,11 +38,47 @@
 #define USED __attribute__ ((used))
 #elif defined ( __ICCARM__ )
 #define WEAK __weak
-#define USED 
+#define USED __root
 #elif defined ( __CC_ARM ) //KEIL
 #define WEAK __attribute__ ((weak))
 #define USED __attribute__ ((used))
 #endif 
+
+/* Use this macro to define an RTOS-aware interrupt handler where RTOS
+ * primitives can be safely accessed
+ *
+ * @usage:
+ * WWD_RTOS_DEFINE_ISR( my_irq_handler )
+ * {
+ *     // Do something here
+ * }
+ */
+#if defined( __GNUC__ )
+
+#define MICO_RTOS_DEFINE_ISR( function ) \
+        void function( void ); \
+        __attribute__(( interrupt, used, section(IRQ_SECTION) )) void function( void )
+
+
+#elif defined ( __IAR_SYSTEMS_ICC__ )
+
+#define MICO_RTOS_DEFINE_ISR( function ) \
+        __irq __root void function( void ); \
+        __irq __root void function( void )
+
+#elif defined ( __CC_ARM ) //KEIL    
+
+#define MICO_RTOS_DEFINE_ISR( function ) \
+        void function( void ); \
+        __attribute__(( used )) void function( void )   
+        
+#else
+
+#define MICO_RTOS_DEFINE_ISR( function ) \
+        void function( void );
+
+#endif
+
 
 // ==== COMPATIBILITY TYPES
 typedef uint8_t         Boolean;

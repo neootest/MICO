@@ -32,7 +32,6 @@
 #include "time.h"
 #include "MicoPlatform.h"
 #include "platform.h"
-#include "platform_common_config.h"
 #include "MICODefine.h"
 #include "MICOAppDefine.h"
 
@@ -317,7 +316,7 @@ int application_start(void)
   mico_log("Wi-Fi driver version %s, mac %s", wifi_ver, context->micoStatus.mac);
  
   /*Start system monotor thread*/
-  err = MICOStartSystemMonitor(context);
+  //err = MICOStartSystemMonitor(context);
   require_noerr_action( err, exit, mico_log("ERROR: Unable to start the system monitor.") );
 
   err = MICORegisterSystemMonitor(&mico_monitor, APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000);
@@ -392,7 +391,7 @@ int application_start(void)
   free(WAC_Params);
   require_noerr( err, exit );
 #else
-  #error "Wi-Fi configuration mode is not defined"?
+  #error "Wi-Fi configuration mode is not defined"
 #endif
   }
 #ifdef MFG_MODE_AUTO

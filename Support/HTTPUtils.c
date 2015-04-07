@@ -24,7 +24,7 @@
 #include "StringUtils.h"
 #include "HTTPUtils.h"
 #include "MicoPlatform.h"
-#include "platform_common_config.h"
+#include "platform.h"
 
 #include <errno.h>
 #include <stdarg.h>

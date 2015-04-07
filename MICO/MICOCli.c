@@ -2,6 +2,7 @@
 #include "MICODefine.h"
 #include "MICOCli.h"
 #include "stdarg.h"
+#include "platform_config.h"
 
 #ifdef MICO_CLI_ENABLE
 int cli_printf(const char *msg, ...);

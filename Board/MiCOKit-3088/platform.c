@@ -35,9 +35,10 @@
 
 #include "MICOPlatform.h"
 #include "platform.h"
-#include "MicoDriverMapping.h"
-#include "platform_common_config.h"
+#include "platform_peripheral.h"
+#include "platform_config.h"
 #include "PlatformLogging.h"
+#include "wlan_platform_common.h"
 #include "sd_card.h"
 #include "nvm.h"
 
@@ -94,7 +95,6 @@
 extern WEAK void PlatformEasyLinkButtonClickedCallback(void);
 extern WEAK void PlatformStandbyButtonClickedCallback(void);
 extern WEAK void PlatformEasyLinkButtonLongPressedCallback(void);
-extern WEAK void bootloader_start(void);
 
 /******************************************************
 *               Variables Definitions
@@ -107,108 +107,92 @@ extern WEAK void bootloader_start(void);
 static uint32_t _default_start_time = 0;
 static mico_timer_t _button_EL_timer;
 
-const platform_pin_mapping_t gpio_mapping[] =
+const platform_gpio_t platform_gpio_pins[] =
 {
 //  /* Common GPIOs for internal use */
-//  [MICO_GPIO_WLAN_POWERSAVE_CLOCK]    = {WL_32K_OUT_BANK, WL_32K_OUT_PIN, WL_32K_OUT_BANK_CLK},
-//  [WL_GPIO0]                          = {GPIOB, 12,  RCC_AHB1Periph_GPIOB},
-  [WL_GPIO1]                            = {GPIOA,  10},
-//  [WL_REG]                            = {GPIOC,  1,  RCC_AHB1Periph_GPIOC},
-  [WL_REG]                            = {GPIOB,  20},
   [MICO_SYS_LED]                        = {GPIOA,  3 }, 
   [MICO_RF_LED]                         = {GPIOA,  4 }, 
-//  [BOOT_SEL]                          = {GPIOB,  1,  RCC_AHB1Periph_GPIOB}, 
-//  [MFG_SEL]                           = {GPIOB,  9,  RCC_AHB1Periph_GPIOB}, 
   [EasyLink_BUTTON]                     = {GPIOA,  5}, 
   [STDIO_UART_RX]                       = {GPIOB,  6},
   [STDIO_UART_TX]                       = {GPIOB,  7},
-  [SDIO_INT]                            = {GPIOA,  24},
   [USB_DETECT]                          = {GPIOA,  22},
 
 //  /* GPIOs for external use */
   [APP_UART_RX]                         = {GPIOB, 29},
   [APP_UART_TX]                         = {GPIOB, 28},  
-//  [MICO_GPIO_4]  = {GPIOC,  7,  RCC_AHB1Periph_GPIOC},
-//  [MICO_GPIO_5]  = {GPIOA,  4,  RCC_AHB1Periph_GPIOA},
-//  [MICO_GPIO_6]  = {GPIOA,  4,  RCC_AHB1Periph_GPIOA},
-//  [MICO_GPIO_7]  = {GPIOB,  3,  RCC_AHB1Periph_GPIOB},
-//  [MICO_GPIO_8]  = {GPIOB , 4,  RCC_AHB1Periph_GPIOB},
-//  [MICO_GPIO_9]  = {GPIOB,  5,  RCC_AHB1Periph_GPIOB},
-//  [MICO_GPIO_10] = {GPIOB,  8,  RCC_AHB1Periph_GPIOB},
-//  [MICO_GPIO_12] = {GPIOC,  2,  RCC_AHB1Periph_GPIOC},
-//  [MICO_GPIO_13] = {GPIOB, 14,  RCC_AHB1Periph_GPIOB},
-//  [MICO_GPIO_14] = {GPIOC,  6,  RCC_AHB1Periph_GPIOC},
-//  [MICO_GPIO_18] = {GPIOA, 15,  RCC_AHB1Periph_GPIOA},
-//  [MICO_GPIO_19] = {GPIOB, 11,  RCC_AHB1Periph_GPIOB},
-//  [MICO_GPIO_20] = {GPIOA, 12,  RCC_AHB1Periph_GPIOA},
-//  [MICO_GPIO_21] = {GPIOA, 11,  RCC_AHB1Periph_GPIOA},
-//  [MICO_GPIO_22] = {GPIOA,  9,  RCC_AHB1Periph_GPIOA},
-//  [MICO_GPIO_23] = {GPIOA, 10,  RCC_AHB1Periph_GPIOA},
-//  [MICO_GPIO_29] = {GPIOA,  0,  RCC_AHB1Periph_GPIOA},  
-};
-
-/*
-* Possible compile time inputs:
-* - Set which ADC peripheral to use for each ADC. All on one ADC allows sequential conversion on all inputs. All on separate ADCs allows concurrent conversion.
-*/
-/* TODO : These need fixing */
-const platform_adc_mapping_t adc_mapping[] =
-{
-  [MICO_ADC_1] = {1},
-  [MICO_ADC_2] = {1},
-  [MICO_ADC_3] = {1},
 };
 
 
-/* PWM mappings */
-const platform_pwm_mapping_t pwm_mappings[] =
-{
-#if ( MICO_WLAN_POWERSAVE_CLOCK_SOURCE == MICO_WLAN_POWERSAVE_CLOCK_IS_PWM )
-  /* Extended PWM for internal use */
-  [MICO_PWM_WLAN_POWERSAVE_CLOCK] = {TIM1, 4, RCC_APB2Periph_TIM1, GPIO_AF_TIM1, (platform_pin_mapping_t*)&gpio_mapping[MICO_GPIO_WLAN_POWERSAVE_CLOCK] }, /* or TIM2/Ch2                       */
-#endif
-  
-  [MICO_PWM_1]  = {1},    /* or TIM10/Ch1                       */
-  [MICO_PWM_2]  = {1}, /* or TIM1/Ch2N                       */
-  [MICO_PWM_3]  = {1},    
-  /* TODO: fill in the other options here ... */
-};
+const platform_adc_t *platform_adc_peripherals = NULL;
 
-const platform_spi_mapping_t spi_mapping[] =
-{
-  [MICO_SPI_1]  =
-  {
-    1
-  }
-};
+const platform_pwm_t *platform_pwm_peripherals = NULL;
 
-const platform_uart_mapping_t uart_mapping[] =
+const platform_spi_t *platform_spi_peripherals = NULL;
+
+const platform_spi_slave_driver_t *platform_spi_slave_drivers = NULL;
+
+const platform_uart_t platform_uart_peripherals[] =
 {
 [MICO_UART_1] =
   {
     .uart                            = FUART,
-    .pin_tx                          = &gpio_mapping[STDIO_UART_TX],
-    .pin_rx                          = &gpio_mapping[STDIO_UART_RX],
+    .pin_tx                          = &platform_gpio_pins[STDIO_UART_TX],
+    .pin_rx                          = &platform_gpio_pins[STDIO_UART_RX],
     .pin_cts                         = NULL,
     .pin_rts                         = NULL,
   },
   [MICO_UART_2] =
   {
     .uart                            = BUART,
-    .pin_tx                          = &gpio_mapping[APP_UART_TX],
-    .pin_rx                          = &gpio_mapping[APP_UART_RX],
+    .pin_tx                          = &platform_gpio_pins[APP_UART_TX],
+    .pin_rx                          = &platform_gpio_pins[APP_UART_RX],
     .pin_cts                         = NULL,
     .pin_rts                         = NULL,
   },
 };
 
-const platform_i2c_mapping_t i2c_mapping[] =
+platform_uart_driver_t platform_uart_drivers[MICO_UART_MAX];
+
+
+const platform_i2c_t *platform_i2c_peripherals = NULL;
+
+
+/* Wi-Fi control pins. Used by platform/MCU/wlan_platform_common.c
+*/
+const platform_gpio_t wifi_control_pins[] =
 {
-  [MICO_I2C_1] =
-  {
-    1,
-  },
+  [WIFI_PIN_POWER         ]  = { GPIOB, 20 },
 };
+
+/* Wi-Fi SDIO bus pins. Used by platform/MCU/STM32F2xx/EMW1062_driver/wlan_SDIO.c */
+const platform_gpio_t wifi_sdio_pins[] =
+{
+#ifdef SDIO_1_BIT
+  [EMW1088_PIN_SDIO_IRQ    ] = { GPIOA, 24 },
+#endif
+  [EMW1088_PIN_SDIO_CLK    ] = { GPIOA, 20 },
+  [EMW1088_PIN_SDIO_CMD    ] = { GPIOA, 21 },
+  [EMW1088_PIN_SDIO_D0     ] = { GPIOB, 19 },
+#ifndef SDIO_1_BIT
+  [EMW1088_PIN_SDIO_D1     ] = { GPIOA,  8 },
+  [EMW1088_PIN_SDIO_D2     ] = { GPIOA,  9 },
+  [EMW1088_PIN_SDIO_D3     ] = { GPIOB,  5 },
+#endif
+};
+
+/******************************************************
+*           Interrupt Handler Definitions
+******************************************************/
+
+MICO_RTOS_DEFINE_ISR( FuartInterrupt )
+{
+  platform_uart_irq( &platform_uart_drivers[MICO_UART_1] );
+}
+
+MICO_RTOS_DEFINE_ISR( BuartInterrupt )
+{
+  platform_uart_irq( &platform_uart_drivers[MICO_UART_2] );
+}
 
 /******************************************************
 *               Function Definitions
@@ -257,36 +241,6 @@ static void _button_EL_Timeout_handler( void* arg )
   mico_stop_timer(&_button_EL_timer);
 }
 
-bool watchdog_check_last_reset( void )
-{
-//  if ( RCC->CSR & RCC_CSR_WDGRSTF )
-//  {
-//    /* Clear the flag and return */
-//    RCC->CSR |= RCC_CSR_RMVF;
-//    return true;
-//  }
-//  
-  return false;
-}
-
-OSStatus mico_platform_init( void )
-{
-#ifdef DEBUG
-  #if defined(__CC_ARM)
-    platform_log("Build by Keil");
-  #elif defined (__IAR_SYSTEMS_ICC__)
-    platform_log("Build by IAR");
-  #endif
-#endif
- platform_log( "Mico platform initialised" );
- if ( true == watchdog_check_last_reset() )
- {
-   platform_log( "WARNING: Watchdog reset occured previously. Please see watchdog.c for debugging instructions." );
- }
-  
-  return kNoErr;
-}
-
 void init_platform( void )
 {
   MicoGpioInitialize( (mico_gpio_t)MICO_SYS_LED, OUTPUT_PUSH_PULL );
@@ -310,6 +264,17 @@ void init_platform( void )
 #include "fat_file.h" 
 #include "host_hcd.h"
 #include "dir.h"
+
+#define FUNC_USB_EN					   
+//#define FUNC_CARD_EN					
+
+#ifdef FUNC_USB_EN
+  #define UDISK_PORT_NUM		        2		// USB端口定义
+#endif
+
+#ifdef FUNC_CARD_EN
+  #define	SD_PORT_NUM                 1		// SD卡端口定义
+#endif
 
 static bool HardwareInit(DEV_ID DevId);
 static FOLDER	 RootFolder;
@@ -492,32 +457,6 @@ static void FileBrowse(FS_CONTEXT* FsContext)
 }
 
 #endif
-
-
-
-void host_platform_reset_wifi( bool reset_asserted )
-{
-  if ( reset_asserted == true )
-  {
-    MicoGpioOutputLow( (mico_gpio_t)WL_RESET );  
-  }
-  else
-  {
-    MicoGpioOutputHigh( (mico_gpio_t)WL_RESET ); 
-  }
-}
-
-void host_platform_power_wifi( bool power_enabled )
-{
-  if ( power_enabled == true )
-  {
-    MicoGpioOutputLow( (mico_gpio_t)WL_REG );  
-  }
-  else
-  {
-    MicoGpioOutputHigh( (mico_gpio_t)WL_REG ); 
-  }
-}
 
 void MicoSysLed(bool onoff)
 {

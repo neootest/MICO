@@ -29,7 +29,8 @@
 */ 
 #include <stdlib.h>
 #include <yfuns.h>
-#include "platform_common_config.h"
+#include "platform.h"
+#include "platform_config.h"
 #include "MicoPlatform.h"
 
 

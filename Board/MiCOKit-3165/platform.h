@@ -29,8 +29,6 @@
 ******************************************************************************
 */ 
 
-#include "platform_common_config.h"
-
 #pragma once
 
 #ifdef __cplusplus
@@ -46,10 +44,7 @@ extern "C"
  *                    Constants
  ******************************************************/
   
-#define HARDWARE_REVISION   "MK3165_1"
-#define DEFAULT_NAME        "MiCOKit 3165"
-#define MODEL               "MiCOKit-3165"
-#define Bootloader_REVISION "V 0.1"
+
    
 /******************************************************
  *                   Enumerations
@@ -210,89 +205,67 @@ Notes
 3. STM32F2xx Ref Manual -> http://www.st.com/web/en/resource/technical/document/reference_manual/CD00225773.pdf
 */
 
-
 typedef enum
 {
-    MICO_GPIO_0 = MICO_COMMON_GPIO_MAX,
-    MICO_GPIO_1,
+    MICO_SYS_LED, 
+    MICO_RF_LED, 
+    BOOT_SEL, 
+    MFG_SEL, 
+    EasyLink_BUTTON, 
+    STDIO_UART_RX,  
+    STDIO_UART_TX,  
     MICO_GPIO_2,
-    MICO_GPIO_3,
-    MICO_GPIO_4,
-    MICO_GPIO_5,
-    MICO_GPIO_6,
-    MICO_GPIO_7,
     MICO_GPIO_8,
     MICO_GPIO_9,
-    MICO_GPIO_10,
-    MICO_GPIO_11,
     MICO_GPIO_12,
-    MICO_GPIO_13,
-    MICO_GPIO_14,
-    MICO_GPIO_15,
     MICO_GPIO_16,
     MICO_GPIO_17,
     MICO_GPIO_18,
     MICO_GPIO_19,
-    MICO_GPIO_20,
-    MICO_GPIO_21,
-    MICO_GPIO_22,
-    MICO_GPIO_23,
-    MICO_GPIO_24,
-    MICO_GPIO_25,
-    MICO_GPIO_26,
-    MICO_GPIO_27,
-    MICO_GPIO_28,
+    MICO_GPIO_27,  
     MICO_GPIO_29,
     MICO_GPIO_30,
     MICO_GPIO_31,
-    MICO_GPIO_32,
     MICO_GPIO_33,
     MICO_GPIO_34,
     MICO_GPIO_35,
     MICO_GPIO_36,
     MICO_GPIO_37,
     MICO_GPIO_38,
-    MICO_GPIO_39,
-    MICO_GPIO_40,
-
     MICO_GPIO_MAX, /* Denotes the total number of GPIO port aliases. Not a valid GPIO alias */
+    MICO_GPIO_NONE,
 } mico_gpio_t;
 
 typedef enum
 {
-    MICO_SPI_1,
     MICO_SPI_MAX, /* Denotes the total number of SPI port aliases. Not a valid SPI alias */
+    MICO_SPI_NONE,
 } mico_spi_t;
 
 typedef enum
 {
-    MICO_I2C_UNUSED = -1,
-    MICO_I2C_1,
     MICO_I2C_MAX, /* Denotes the total number of I2C port aliases. Not a valid I2C alias */
+    MICO_I2C_NONE,
 } mico_i2c_t;
 
 typedef enum
 {
-    MICO_PWM_1 = MICO_COMMON_PWM_MAX,
-    MICO_PWM_2,
-    MICO_PWM_3,
     MICO_PWM_MAX, /* Denotes the total number of PWM port aliases. Not a valid PWM alias */
+    MICO_PWM_NONE,
 } mico_pwm_t;
 
 typedef enum
 {
-    MICO_ADC_1,
-    MICO_ADC_2,
-    MICO_ADC_3,
     MICO_ADC_MAX, /* Denotes the total number of ADC port aliases. Not a valid ADC alias */
+    MICO_ADC_NONE,
 } mico_adc_t;
 
 typedef enum
 {
-    MICO_UART_UNUSED = -1,
     MICO_UART_1,
     MICO_UART_2,
     MICO_UART_MAX, /* Denotes the total number of UART port aliases. Not a valid UART alias */
+    MICO_UART_NONE,
 } mico_uart_t;
 
 typedef enum
@@ -302,25 +275,26 @@ typedef enum
   MICO_FLASH_MAX,
 } mico_flash_t;
 
+#ifdef BOOTLOADER
+#define STDIO_UART       (MICO_UART_1)
+#define STDIO_UART_BAUDRATE (921600) 
+#else
+#define STDIO_UART       (MICO_UART_1)
+#define STDIO_UART_BAUDRATE (115200) 
+#endif
+
+#define UART_FOR_APP     (MICO_UART_2)
+#define MFG_TEST         (MICO_UART_1)
+#define CLI_UART         (MICO_UART_1)
+
+/* Components connected to external I/Os*/
 #define USE_MICO_SPI_FLASH
 #define SFLASH_SUPPORT_MACRONIX_PARTS 
 //#define SFLASH_SUPPORT_SST_PARTS
 //#define SFLASH_SUPPORT_WINBOND_PARTS
 
-#define STM32_UART_1 MICO_UART_2  /*Not used here, define to avoid warning*/
-#define STM32_UART_2 MICO_UART_1
-#define STM32_UART_6 NULL
+#define MICO_I2C_CP      (MICO_I2C_NONE)
 
-/* Components connected to external I/Os*/
-
-
-/* I/O connection <-> Peripheral Connections */
-#define MICO_I2C_CP         (MICO_I2C_UNUSED)
-
-
-
-#define RestoreDefault_TimeOut          3000  /**< Restore default and start easylink after 
-                                                   press down EasyLink button for 3 seconds. */
 
 #ifdef __cplusplus
 } /*extern "C" */

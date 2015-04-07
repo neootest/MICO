@@ -2931,10 +2931,7 @@
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3165\platform.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3165\platform_common_config.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3165\platform_spi_flash.c</name>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3165\platform_config.h</name>
       </file>
     </group>
     <group>
@@ -2950,10 +2947,7 @@
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3288\platform.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3288\platform_common_config.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3288\platform_spi_flash.c</name>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3288\platform_config.h</name>
       </file>
     </group>
   </group>
@@ -3257,6 +3251,9 @@
         <file>
           <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash\spi_flash.c</name>
         </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash\spi_flash_platform.c</name>
+        </file>
       </group>
     </group>
     <group>
@@ -3273,28 +3270,17 @@
           <configuration>MiCOKit-3288</configuration>
           <configuration>EMW5288</configuration>
         </excluded>
-        <group>
-          <name>SDIO</name>
-          <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\EMW1062_Driver\SDIO\wlan_bus.c</name>
-          </file>
-        </group>
-        <group>
-          <name>SPI</name>
-          <excluded>
-            <configuration>MiCOKit-3165</configuration>
-            <configuration>MiCOKit-3288</configuration>
-            <configuration>EMW5288</configuration>
-          </excluded>
-          <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\EMW1062_Driver\SPI\wwd_bus.c</name>
-          </file>
-        </group>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\EMW1062_Driver\read_wifi_firmware.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\EMW1062_Driver\wlan_platform.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\EMW1062_Driver\wlan_bus_sdio.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\EMW1062_Driver\wlan_bus_spi.c</name>
+          <excluded>
+            <configuration>MiCOKit-3165</configuration>
+          </excluded>
         </file>
       </group>
       <group>
@@ -3307,9 +3293,6 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\EMW1088_Driver\wlan_bus.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\EMW1088_Driver\wlan_platform.c</name>
         </file>
       </group>
       <group>
@@ -3432,46 +3415,49 @@
           </file>
         </group>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\gpio_irq.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\paltform_rtc.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\MicoDriverAdc.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\platform_adc.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\MicoDriverFlash.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\platform_flash.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\MicoDriverGpio.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\platform_gpio.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\MicoDriverI2c.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\platform_i2c.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\MicoDriverPwm.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\platform_mcu_powersave.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\MicoDriverRng.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\platform_pwm.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\MicoDriverRtc.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\platform_rng.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\MicoDriverSpi.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\platform_spi.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\MicoDriverUart.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\platform_uart.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\MicoDriverWdg.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\rtc.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\stm32f4xx_platform.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\platform_watchdog.c</name>
         </file>
       </group>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\platform_init.c</name>
+      </file>
     </group>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\mico_platform_common.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\wlan_platform_common.c</name>
+    </file>
   </group>
   <group>
     <name>Support</name>

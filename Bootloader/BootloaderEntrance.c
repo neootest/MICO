@@ -34,7 +34,7 @@
 #include "MicoPlatform.h"
 #include "platform.h"
 #include "platformInternal.h"
-#include "platform_common_config.h"
+#include "platform_config.h"
 
 #define boot_log(M, ...) custom_log("BOOT", M, ##__VA_ARGS__)
 #define boot_log_trace() custom_log_trace("BOOT")

@@ -32,7 +32,7 @@
 
 #include "Common.h"
 #include "MicoPlatform.h"
-#include "platform_common_config.h"
+#include "platform_config.h"
 
 #ifndef MICO_FLASH_FOR_DRIVER
 const unsigned char wifi_firmware_image[] = {

@@ -30,17 +30,12 @@ typedef struct
     sflash_write_allowed_t write_allowed;
 } sflash_handle_t;
 
-
-
-int init_sflash         (       sflash_handle_t* const handle, int peripheral_id, sflash_write_allowed_t write_allowed );
-int sflash_write_enable2( const sflash_handle_t* handle, bool write_enable );
-int sflash_read         ( const sflash_handle_t* const handle, unsigned long device_address, void* const data_addr, unsigned int size );
-int sflash_write        ( const sflash_handle_t* const handle, unsigned long device_address, const void* const data_addr, int size );
+int init_sflash         ( /*@out@*/ sflash_handle_t* const handle, /*@shared@*/ void* peripheral_id, sflash_write_allowed_t write_allowed_in );
+int sflash_read         ( const sflash_handle_t* const handle, unsigned long device_address, /*@out@*/  /*@dependent@*/ void* const data_addr, unsigned int size );
+int sflash_write        ( const sflash_handle_t* const handle, unsigned long device_address,  /*@observer@*/ const void* const data_addr, unsigned int size );
 int sflash_chip_erase   ( const sflash_handle_t* const handle );
 int sflash_sector_erase ( const sflash_handle_t* const handle, unsigned long device_address );
-int sflash_get_size     ( const sflash_handle_t* const handle, unsigned long* size );
-
-
+int sflash_get_size     ( const sflash_handle_t* const handle, /*@out@*/ unsigned long* size );
 
 
 

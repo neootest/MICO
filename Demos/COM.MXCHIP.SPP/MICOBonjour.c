@@ -20,7 +20,7 @@
   */ 
 
 #include "MicoDefine.h"
-#include "platform.h"
+#include "platform_config.h"
 #include "MICONotificationCenter.h"
 
 #include "MDNSUtils.h"

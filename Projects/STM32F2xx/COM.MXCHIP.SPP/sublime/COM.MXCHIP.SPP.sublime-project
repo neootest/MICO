@@ -3,22 +3,25 @@
 	"folders":
 	[
 		{
-			"path": "../../../include"
+			"path": "../../../../include"
 		},
 		{
-			"path": "../../../Platform"
+			"path": "../../../../Platform"
 		},
 		{
-			"path": "../../../Library"
+			"path": "../../../../Support"
 		},
 		{
-			"path": "../../../Demos/COM.MXCHIP.SPP"
+			"path": "../../../../Board/MiCOKit-F205"
 		},
 		{
-			"path": "../../../External"
+			"path": "../../../../Demos/COM.MXCHIP.SPP"
 		},
 		{
-			"path": "../../../MICO"
+			"path": "../../../../External"
+		},
+		{
+			"path": "../../../../MICO"
 		}
 	],
 	"settings":
@@ -37,18 +40,21 @@
 			"-D__value_in_regs=__attribute__(())",
 			"-DUSE_STDPERIPH_DRIVER",
 			"-DDEBUG",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/External/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/include/",
-			"-I/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2XX/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2XX/STM32F2XX_Drv/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2XX/STM32F2XX_Drv/STM32F2xx_StdPeriph_Driver/inc/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/MICO/",
-			"-I/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/",
+			"-I/Users/william/Develop/MiCO/Demos/COM.MXCHIP.SPP/",
+			"-I/Users/william/Develop/MiCO/External/",
+			"-I/Users/william/Develop/MiCO/Platform/",
+			"-I/Users/william/Develop/MiCO/Platform/include/",
+			"-I/Users/William/Develop/MiCO/Platform/Cortex-M3/",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/",
+			"-I/Users/william/Develop/MiCO/Platform/drivers/spi_flash/",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/STM32F2xx/",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/Libraries/",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/Libraries/STM32F2xx_StdPeriph_Driver/inc/",
+			"-I/Users/william/Develop/MiCO/Board/MiCOKit-F205/",
+			"-I/Users/william/Develop/MiCO/include/",
+			"-I/Users/william/Develop/MiCO/MICO/",
+			"-I/Users/william/Develop/MiCO/Support/",
 			"-I/Users/william/Develop/Clang_lib/Include/",
 			"-I/Users/william/Develop/Clang_lib/ARMCC/include/"
 		]

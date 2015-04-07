@@ -180,7 +180,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;2&gt;..\..\..\..\MICO\MICOEntrance.c</Filename>
+          <Filename>..\..\..\..\MICO\MICOEntrance.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\COM_MXCHIP_SPP\../../../../MICO/MICOEntrance.c\240</Expression>
         </Bp>
@@ -196,7 +196,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;2&gt;..\..\..\..\MICO\MICOEntrance.c</Filename>
+          <Filename>..\..\..\..\MICO\MICOEntrance.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\COM_MXCHIP_SPP\../../../../MICO/MICOEntrance.c\240</Expression>
         </Bp>
@@ -212,7 +212,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;2&gt;..\..\..\..\MICO\MICOEntrance.c</Filename>
+          <Filename>..\..\..\..\MICO\MICOEntrance.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\COM_MXCHIP_SPP\../../../../MICO/MICOEntrance.c\265</Expression>
         </Bp>
@@ -475,7 +475,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>0</BreakIfRCount>
-          <Filename>&lt;2&gt;..\..\..\..\MICO\MICOEntrance.c</Filename>
+          <Filename>..\..\..\..\MICO\MICOEntrance.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>
@@ -491,7 +491,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>0</BreakIfRCount>
-          <Filename>&lt;2&gt;..\..\..\..\MICO\MICOEntrance.c</Filename>
+          <Filename>..\..\..\..\MICO\MICOEntrance.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>

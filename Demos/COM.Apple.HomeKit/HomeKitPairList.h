@@ -19,7 +19,8 @@
   ******************************************************************************
   */ 
 #include "Common.h"
-#include "Platform.h"
+#include "platform.h"
+#include "platform_config.h"
 
 #define MaxControllerNameLen  64
 #define MAXPairNumber         (EX_PARA_FLASH_SIZE-64)/(MaxControllerNameLen+32+4)

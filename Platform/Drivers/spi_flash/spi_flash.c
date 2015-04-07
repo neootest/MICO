@@ -107,32 +107,68 @@ int sflash_read( const sflash_handle_t* const handle, unsigned long device_addre
 }
 
 
-int sflash_get_size( const sflash_handle_t* const handle, unsigned long* const size )
+// int sflash_get_size( const sflash_handle_t* const handle, unsigned long* const size )
+// {
+//     *size = 0; /* Unknown size to start with */
+
+// #ifdef SFLASH_SUPPORT_MACRONIX_PARTS
+//     if ( handle->device_id == SFLASH_ID_MX25L8006E )
+//     {
+//         *size = 0x100000; /* 1MByte */
+//     }
+// #endif /* ifdef SFLASH_SUPPORT_MACRONIX_PARTS */
+
+// #ifdef SFLASH_SUPPORT_WINBOND_PARTS
+//     if ( handle->device_id == SFLASH_ID_W25X80AVSIG )
+//     {
+//         *size = 0x100000; /* 1MByte */
+//     }
+// #endif /* ifdef SFLASH_SUPPORT_MACRONIX_PARTS */
+
+// #ifdef SFLASH_SUPPORT_SST_PARTS
+//     if ( handle->device_id == SFLASH_ID_SST25VF080B )
+//     {
+//         *size = 0x100000; /* 1MByte */
+//     }
+// #endif /* ifdef SFLASH_SUPPORT_SST_PARTS */
+//     return 0;
+// }
+
+int sflash_get_size( const sflash_handle_t* const handle, /*@out@*/ unsigned long* const size )
 {
     *size = 0; /* Unknown size to start with */
 
 #ifdef SFLASH_SUPPORT_MACRONIX_PARTS
     if ( handle->device_id == SFLASH_ID_MX25L8006E )
     {
-        *size = 0x100000; /* 1MByte */
+        *size = (unsigned long) 0x100000; /* 1MByte */
     }
-#endif /* ifdef SFLASH_SUPPORT_MACRONIX_PARTS */
-
-#ifdef SFLASH_SUPPORT_WINBOND_PARTS
-    if ( handle->device_id == SFLASH_ID_W25X80AVSIG )
+    else if ( handle->device_id == SFLASH_ID_MX25L1606E )
     {
-        *size = 0x100000; /* 1MByte */
+        *size = (unsigned long) 0x200000; /* 2MByte */
     }
 #endif /* ifdef SFLASH_SUPPORT_MACRONIX_PARTS */
-
 #ifdef SFLASH_SUPPORT_SST_PARTS
     if ( handle->device_id == SFLASH_ID_SST25VF080B )
     {
-        *size = 0x100000; /* 1MByte */
+        *size = (unsigned long) 0x100000; /* 1MByte */
     }
 #endif /* ifdef SFLASH_SUPPORT_SST_PARTS */
+#ifdef SFLASH_SUPPORT_EON_PARTS
+    if ( handle->device_id == SFLASH_ID_EN25QH16 )
+    {
+        *size = (unsigned long) 0x200000; /* 2MByte */
+    }
+#endif /* ifdef SFLASH_SUPPORT_EON_PARTS */
+#ifdef SFLASH_SUPPORT_WINBOND_PARTS
+    if ( handle->device_id == SFLASH_ID_W25X80AVSIG )
+    {
+        *size = (unsigned long) 0x100000; /* 1MByte */
+    }
+#endif /* ifdef SFLASH_SUPPORT_WINBOND_PARTS */
     return 0;
 }
+
 
 int sflash_write_page( const sflash_handle_t* const handle, unsigned long device_address, const void* const data_addr, int size )
 {
@@ -176,6 +212,13 @@ int sflash_write_page( const sflash_handle_t* const handle, unsigned long device
         enable_before_every_write = 1;
     }
 #endif /* ifdef SFLASH_SUPPORT_SST_PARTS */
+#ifdef SFLASH_SUPPORT_EON_PARTS
+    if ( SFLASH_MANUFACTURER( handle->device_id ) == SFLASH_MANUFACTURER_EON )
+    {
+        max_write_size = (unsigned int) 1;
+        enable_before_every_write = 1;
+    }
+#endif /* ifdef SFLASH_SUPPORT_EON_PARTS */
 
 
     if ( ( enable_before_every_write == 0 ) &&
@@ -222,7 +265,7 @@ int sflash_write_page( const sflash_handle_t* const handle, unsigned long device
   * @param  NumByteToWrite: number of bytes to write to the FLASH.
   * @retval None
   */
-int sflash_write( const sflash_handle_t* const handle, unsigned long device_address, const void* const data_addr, int size )
+int sflash_write( const sflash_handle_t* const handle, unsigned long device_address, const void* const data_addr, unsigned int size )
 {
   int status;
   uint8_t NumOfPage = 0, NumOfSingle = 0, Addr = 0, count = 0, temp = 0;
@@ -302,10 +345,6 @@ int sflash_write( const sflash_handle_t* const handle, unsigned long device_addr
   return status;
 }
 
-
-
-
-
 int sflash_write_status_register( const sflash_handle_t* const handle, char value )
 {
     char status_register_val = value;
@@ -324,27 +363,30 @@ int sflash_write_status_register( const sflash_handle_t* const handle, char valu
     return generic_sflash_command( handle, SFLASH_WRITE_STATUS_REGISTER, 0, NULL, 1, &status_register_val, NULL );
 }
 
-
-int init_sflash( sflash_handle_t* const handle, int peripheral_id, sflash_write_allowed_t write_allowed_in )
+int init_sflash( /*@out@*/ sflash_handle_t* const handle, /*@shared@*/ void* peripheral_id, sflash_write_allowed_t write_allowed_in )
 {
-    int status;
-    unsigned char tmp_device_id[3];
+   int status;
+    device_id_t tmp_device_id;
 
-    if ( 0 != ( status = sflash_platform_init( peripheral_id, &handle->platform_peripheral ) ) )
+    status = sflash_platform_init( peripheral_id, &handle->platform_peripheral );
+    if ( status != 0 )
     {
         return status;
     }
 
-    if (0 != ( status = sflash_read_ID( handle, tmp_device_id ) ) )
-    {
-        return status;
-    }
-
-    
-    handle->device_id = ( ((uint32_t) tmp_device_id[0]) << 16 ) +
-                        ( ((uint32_t) tmp_device_id[1]) <<  8 ) +
-                        ( ((uint32_t) tmp_device_id[2]) <<  0 );
     handle->write_allowed = write_allowed_in;
+    handle->device_id     = 0;
+
+    status = sflash_read_ID( handle, &tmp_device_id );
+    if ( status != 0 )
+    {
+        return status;
+    }
+
+    handle->device_id = ( ((uint32_t) tmp_device_id.id[0]) << 16 ) +
+                        ( ((uint32_t) tmp_device_id.id[1]) <<  8 ) +
+                        ( ((uint32_t) tmp_device_id.id[2]) <<  0 );
+
 
     if ( write_allowed_in == SFLASH_WRITE_ALLOWED )
     {
@@ -358,79 +400,66 @@ int init_sflash( sflash_handle_t* const handle, int peripheral_id, sflash_write_
     return 0;
 }
 
+static inline int is_write_command( sflash_command_t cmd )
+{
+    return ( ( cmd == SFLASH_WRITE             ) ||
+             ( cmd == SFLASH_CHIP_ERASE1       ) ||
+             ( cmd == SFLASH_CHIP_ERASE2       ) ||
+             ( cmd == SFLASH_SECTOR_ERASE      ) ||
+             ( cmd == SFLASH_BLOCK_ERASE_MID   ) ||
+             ( cmd == SFLASH_BLOCK_ERASE_LARGE ) )? 1 : 0;
+}
 
 
-
-int generic_sflash_command( const sflash_handle_t* const handle, sflash_command_t cmd, unsigned int num_initial_parameter_bytes, const void* const parameter_bytes, int num_data_bytes, const void* const data_MOSI, void* const data_MISO )
+int generic_sflash_command(                                      const sflash_handle_t* const handle,
+                                                                 sflash_command_t             cmd,
+                                                                 unsigned long                num_initial_parameter_bytes,
+                            /*@null@*/ /*@observer@*/            const void* const            parameter_bytes,
+                                                                 unsigned long                num_data_bytes,
+                            /*@null@*/ /*@observer@*/            const void* const            data_MOSI,
+                            /*@null@*/ /*@out@*/ /*@dependent@*/ void* const                  data_MISO )
 {
     int status;
-    unsigned char* data_MISO_ptr = (unsigned char*) data_MISO;
-    unsigned char* data_MOSI_ptr = (unsigned char*) data_MOSI;
-    unsigned char* parameter_bytes_ptr = (unsigned char*) parameter_bytes;
-    char is_write_command = ( ( cmd == SFLASH_WRITE ) ||
-            ( cmd == SFLASH_CHIP_ERASE1 ) ||
-            ( cmd == SFLASH_CHIP_ERASE2 ) ||
-            ( cmd == SFLASH_SECTOR_ERASE ) ||
-            ( cmd == SFLASH_BLOCK_ERASE_MID ) ||
-            ( cmd == SFLASH_BLOCK_ERASE_LARGE ) );
-
-    sflash_platform_chip_select( handle->platform_peripheral );
-
-    if ( 0 != ( status = sflash_platform_send_recv_byte( handle->platform_peripheral, cmd, NULL ) ) )
+    
+    sflash_platform_message_segment_t segments[3] =
     {
+            { &cmd,            NULL,       (unsigned long) 1 },
+            { parameter_bytes, NULL,       num_initial_parameter_bytes },
+            /*@-compdef@*/ /* Lint: Tell lint that it is OK that data_MISO is not completely defined */
+            { data_MOSI,       data_MISO,  num_data_bytes }
+            /*@+compdef@*/
+    };
+
+
+    status = sflash_platform_send_recv( handle->platform_peripheral, segments, (unsigned int) 3  );
+
+    if ( status != 0 )
+    {
+        /*@-mustdefine@*/ /* Lint: do not need to define data_MISO due to failure */
         return status;
+        /*@+mustdefine@*/
     }
 
-    while ( ( parameter_bytes != NULL ) &&
-            ( num_initial_parameter_bytes > 0 ) )
-    {
-        if ( 0 != ( status = sflash_platform_send_recv_byte( handle->platform_peripheral, *parameter_bytes_ptr, NULL ) ) )
-        {
-            return status;
-        }
-        parameter_bytes_ptr++;
-        num_initial_parameter_bytes--;
-    }
-
-
-    while ( num_data_bytes > 0 )
-    {
-        unsigned char dummy_dest;
-        if ( 0 != ( status = sflash_platform_send_recv_byte( handle->platform_peripheral, ( data_MOSI == NULL )? SFLASH_DUMMY_BYTE : *data_MOSI_ptr, ( data_MISO == NULL )? &dummy_dest : data_MISO_ptr ) ) )
-        {
-            return status;
-        }
-        if ( data_MOSI != NULL )
-        {
-            data_MOSI_ptr++;
-        }
-        if ( data_MISO != NULL )
-        {
-            data_MISO_ptr++;
-        }
-        num_data_bytes--;
-    }
-
-
-    sflash_platform_chip_deselect( handle->platform_peripheral );
-
-    if ( is_write_command )
+    if ( is_write_command( cmd ) == 1 )
     {
         unsigned char status_register;
         /* write commands require waiting until chip is finished writing */
 
         do
         {
-            if ( 0 != ( status = sflash_read_status_register( handle, &status_register ) ) )
+            status = sflash_read_status_register( handle, &status_register );
+            if ( status != 0 )
             {
+                /*@-mustdefine@*/ /* Lint: do not need to define data_MISO due to failure */
                 return status;
+                /*@+mustdefine@*/
             }
-
-            
-        } while( ( status_register & SFLASH_STATUS_REGISTER_BUSY ) != 0 );
+        } while( ( status_register & SFLASH_STATUS_REGISTER_BUSY ) != (unsigned char) 0 );
 
     }
 
+    /*@-mustdefine@*/ /* Lint: lint does not realise data_MISO was set by sflash_platform_send_recv */
     return 0;
+    /*@+mustdefine@*/
 }
 

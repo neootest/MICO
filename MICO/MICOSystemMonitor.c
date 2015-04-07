@@ -51,7 +51,7 @@ OSStatus MICOStartSystemMonitor (mico_Context_t * const inContext)
   require_noerr(MicoWdgInitialize(  DEFAULT_SYSTEM_MONITOR_PERIOD + 500 ), exit);
   memset(system_monitors, 0, sizeof(system_monitors));
 
-  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "SYS MONITOR", mico_system_monitor_thread_main, STACK_SIZE_MICO_SYSTEM_MONITOR_THREAD, (void*)inContext );
+  err = mico_rtos_create_thread(NULL, 0, "SYS MONITOR", mico_system_monitor_thread_main, STACK_SIZE_MICO_SYSTEM_MONITOR_THREAD, (void*)inContext );
   require_noerr(err, exit);
 exit:
   return err;

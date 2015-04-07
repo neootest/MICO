@@ -32,7 +32,7 @@
 
 #include "MICODefine.h"
 #include "MICO.h"
-#include "platform_common_config.h"
+#include "platform_config.h"
 #include "MicoPlatform.h"
 
 /* Update seed number every time*/

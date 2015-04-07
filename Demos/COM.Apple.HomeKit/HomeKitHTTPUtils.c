@@ -26,7 +26,7 @@
 #include "HTTPUtils.h"
 #include "MicoPlatform.h"
 #include "MICOSocket.h"
-#include "platform_common_config.h"
+#include "platform_config.h"
 #include "SocketUtils.h"
 #include "MICOCrypto/crypto_aead_chacha20poly1305.h"
 

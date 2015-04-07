@@ -32,17 +32,17 @@
 #include "stdio.h"
 #include "MicoRTOS.h"
 #include "MicoPlatform.h"
-#include "platform_common_config.h"
+#include "platform.h"
 
 extern OSStatus stdio_hardfault( char* data, uint32_t size );
 
 #if   defined ( __CC_ARM )
 
-static __inline uint32_t __get_IPSR(void)
-{
-  register uint32_t __regIPSR          __asm("ipsr");
-  return(__regIPSR);
-}
+//static __inline uint32_t __get_IPSR(void)
+//{
+//  register uint32_t __regIPSR          __asm("ipsr");
+//  return(__regIPSR);
+//}
 
 #elif defined ( __ICCARM__ ) /*------------------ ICC Compiler -------------------*/
 /* IAR iccarm specific functions */

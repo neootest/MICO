@@ -35,6 +35,7 @@
 #pragma once
 #include "Common.h"
 #include "platform.h"
+#include "platform_peripheral.h"
 
 /** @addtogroup MICO_PLATFORM
 * @{
@@ -52,33 +53,11 @@
  *                 Type Definitions
  ******************************************************/
 
+typedef platform_rtc_time_t           mico_rtc_time_t;
+
  /******************************************************
  *                    Structures
  ******************************************************/
-
-typedef struct
-{
-    uint8_t sec;  /*!< Specifies the RTC Time Seconds.
-                       This parameter must be set to a value in the 0-59 range. */
-
-    uint8_t min;  /*!< Specifies the RTC Time Minutes.
-                       This parameter must be set to a value in the 0-59 range. */
-
-    uint8_t hr;   /*!< Specifies the RTC Time Hour.
-                       This parameter must be set to a value in the 0-23 range. */
-
-    uint8_t weekday;  /*!< Specifies the RTC Date WeekDay.
-                           This parameter can be a value of @ref RTC_WeekDay_Definitions */
-
-    uint8_t date;     /*!< Specifies the RTC Date.
-                           This parameter must be set to a value in the 1-31 range. */
-
-    uint8_t month;    /*!< Specifies the RTC Date Month (in BCD format).
-                           This parameter can be a value of @ref RTC_Month_Date_Definitions */
-
-    uint8_t year;     /*!< Specifies the RTC Date Year.
-                        This parameter must be set to a value in the 0-99 range. */
-}mico_rtc_time_t;
 
 /******************************************************
  *                     Variables
