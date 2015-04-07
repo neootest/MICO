@@ -39,6 +39,9 @@
 /******************************************************
 *                    Constants
 ******************************************************/
+#define HARDWARE_REVISION   "MiCOKit_3088_1"
+#define DEFAULT_NAME        "MiCOKit 3088"
+#define MODEL               "MiCOKit-3088"
 
 /* MICO RTOS tick rate in Hz */
 #define MICO_DEFAULT_TICK_RATE_HZ                   (1000) 
@@ -60,100 +63,25 @@
 //#define MICO_ENABLE_MCU_RTC
 
 /************************************************************************
- * Uncomment to enable SDIO 1bit mode */
+ * Restore default and start easylink after press down EasyLink button for 3 seconds. */
+#define RestoreDefault_TimeOut                      (3000)
+
+/******************************************************
+ *  EMW1088 Options
+ ******************************************************/
+
+/*  Wi-Fi power pin is present */
+#define MICO_USE_WIFI_POWER_PIN
+
+/*  USE SDIO 1bit mode */
 #define SDIO_1_BIT
 
-#define HSE_SOURCE              RCC_HSE_ON               /* Use external crystal                 */
-#define AHB_CLOCK_DIVIDER       RCC_SYSCLK_Div1          /* AHB clock = System clock             */
-#define APB1_CLOCK_DIVIDER      RCC_HCLK_Div4            /* APB1 clock = AHB clock / 4           */
-#define APB2_CLOCK_DIVIDER      RCC_HCLK_Div2            /* APB2 clock = AHB clock / 2           */
-#define PLL_SOURCE              RCC_PLLSource_HSE        /* PLL source = external crystal        */
-#define PLL_M_CONSTANT          26                       /* PLLM = 26                            */
-#define PLL_N_CONSTANT          240                      /* PLLN = 240                           */
-#define PLL_P_CONSTANT          2                        /* PLLP = 2                             */
-#define PPL_Q_CONSTANT          5                        /* PLLQ = 5                             */
-#define SYSTEM_CLOCK_SOURCE     RCC_SYSCLKSource_PLLCLK  /* System clock source = PLL clock      */
-#define SYSTICK_CLOCK_SOURCE    SysTick_CLKSource_HCLK   /* SysTick clock source = AHB clock     */
-#define INT_FLASH_WAIT_STATE    FLASH_Latency_3          /* Internal flash wait state = 3 cycles */
+/* Wi-Fi power pin is active high */
+//#define MICO_USE_WIFI_POWER_PIN_ACTIVE_HIGH
 
-#define FUNC_USB_EN					   
-//#define FUNC_CARD_EN					
-
-#ifdef FUNC_USB_EN
-  #define UDISK_PORT_NUM		        2		// USB端口定义
-#endif
-
-#ifdef FUNC_CARD_EN
-  #define	SD_PORT_NUM                 1		// SD卡端口定义
-#endif
-
-
-/* These are internal platform connections only */
-typedef enum
-{
-  MICO_GPIO_UNUSED = -1,
-  WL_GPIO1 = 0,
-  WL_REG,
-  MICO_SYS_LED,
-  MICO_RF_LED,
-  BOOT_SEL,
-  MFG_SEL,
-  EasyLink_BUTTON,
-  STDIO_UART_RX,
-  STDIO_UART_TX,
-  SDIO_INT,
-  USB_DETECT,
-  MICO_COMMON_GPIO_MAX,
-} mico_common_gpio_t;
-
-#define MICO_GPIO_WLAN_POWERSAVE_CLOCK MICO_GPIO_UNUSED
-#define WL_RESET MICO_GPIO_UNUSED
-#define WL_GPIO0 MICO_GPIO_UNUSED
-
-/* How the wlan's powersave clock is connected */
-typedef enum
-{
-  MICO_PWM_WLAN_POWERSAVE_CLOCK,
-  MICO_COMMON_PWM_MAX,
-} mico_common_pwm_t;
-
-/* WLAN Powersave Clock Source
- * The WLAN sleep clock can be driven from one of two sources:
- * 1. Timer/PWM (default)
- *    - With the PWM selected, the STM32 can *NOT* be put into MCU powersave mode or the PWM output will be disabled
- * 2. MCO (MCU Clock Output). 
- *    - Change the following directive to MICO_WLAN_POWERSAVE_CLOCK_IS_MCO
- */
-#define MICO_WLAN_POWERSAVE_CLOCK_SOURCE MICO_WLAN_POWERSAVE_CLOCK_IS_NOT_EXIST
-
-#define MICO_WLAN_POWERSAVE_CLOCK_IS_NOT_EXIST  0
-#define MICO_WLAN_POWERSAVE_CLOCK_IS_PWM        1
-#define MICO_WLAN_POWERSAVE_CLOCK_IS_MCO        2
-
-#define WLAN_POWERSAVE_CLOCK_FREQUENCY 32768 /* 32768Hz        */
-#define WLAN_POWERSAVE_CLOCK_DUTY_CYCLE   50 /* 50% duty-cycle */
-
-#define WL_32K_OUT_BANK         GPIOA
-#define WL_32K_OUT_PIN          8
-#define WL_32K_OUT_BANK_CLK     RCC_AHB1Periph_GPIOA
-
-/* The number of UART interfaces this hardware platform has */
-#define NUMBER_OF_UART_INTERFACES  2
-
-#ifdef BOOTLOADER
-#define STDIO_UART       MICO_UART_1
-#define STDIO_UART_BAUDRATE (115200) 
-#else
-#define STDIO_UART       MICO_UART_1
-#define STDIO_UART_BAUDRATE (115200) 
-#endif
-
-#define UART_FOR_APP     MICO_UART_2
-#define MFG_TEST         MICO_UART_1
-#define CLI_UART         MICO_UART_1
-
-#define USE_MICO_SPI_FLASH
-
+/******************************************************
+ *  Memory mapping
+ ******************************************************/
 #define INTERNAL_FLASH_START_ADDRESS   (uint32_t)0x00000000
 #define INTERNAL_FLASH_END_ADDRESS     (uint32_t)0x00000000
 #define INTERNAL_FLASH_SIZE            (INTERNAL_FLASH_END_ADDRESS - INTERNAL_FLASH_START_ADDRESS + 1)

@@ -1,10 +1,10 @@
 /**
 ******************************************************************************
-* @file    MicoDriverRtc.h 
+* @file    MicoDriverRng.c 
 * @author  William Xu
 * @version V1.0.0
-* @date    16-Sep-2014
-* @brief   This file provides all the headers of RTC operation functions.
+* @date    05-May-2014
+* @brief   This file provide RNG driver functions.
 ******************************************************************************
 *
 *  The MIT License
@@ -29,21 +29,14 @@
 ******************************************************************************
 */ 
 
-#ifndef __MICODRIVERRTC_H__
-#define __MICODRIVERRTC_H__
 
-#pragma once
-#include "Common.h"
 #include "platform.h"
 #include "platform_peripheral.h"
 
-/** @addtogroup MICO_PLATFORM
-* @{
-*/
-
 /******************************************************
  *                   Macros
- ******************************************************/  
+ ******************************************************/
+
 
 /******************************************************
  *                   Enumerations
@@ -53,61 +46,44 @@
  *                 Type Definitions
  ******************************************************/
 
-typedef platform_rtc_time_t           mico_rtc_time_t;
-
  /******************************************************
  *                    Structures
  ******************************************************/
+
 
 /******************************************************
  *                     Variables
  ******************************************************/
 
 /******************************************************
-                Function Declarations
+ *               Function Declarations
  ******************************************************/
 
-/** @defgroup MICO_RTC MICO RTC Driver
-* @brief  Real-time clock (RTC) Functions
-* @{
-*/
+OSStatus platform_random_number_read( void *inBuffer, int inByteCount )
+{
+    // PLATFORM_TO_DO
+     // PLATFORM_TO_DO
+    int idx;
+    uint32_t *pWord = inBuffer;
+    uint32_t tempRDM;
+    uint8_t *pByte = NULL;
+    int inWordCount;
+    int remainByteCount;
 
-/**
- * This function will initialize the on board CPU real time clock
- *
- * @note  This function should be called by MICO system when initializing clocks, so
- *        It is not needed to be called by application
- *
- * @return    kNoErr        : on success.
- * @return    kGeneralErr   : if an error occurred with any step
- */
-void MicoRtcInitialize(void);
+    inWordCount = inByteCount/4;
+    remainByteCount = inByteCount%4;
+    pByte = (uint8_t *)pWord+inWordCount*4;
 
-/**
- * This function will return the value of time read from the on board CPU real time clock. Time value must be given in the format of
- * the structure wiced_rtc_time_t
- *
- * @param time        : pointer to a time structure
- *
- * @return    kNoErr        : on success.
- * @return    kGeneralErr   : if an error occurred with any step
- */
-OSStatus MicoRtcGetTime(mico_rtc_time_t* time);
+    for(idx = 0; idx<inWordCount; idx++, pWord++){
+        srand(mico_get_time());
+        *pWord = rand();
+    }
 
-/**
- * This function will set MCU RTC time to a new value. Time value must be given in the format of
- * the structure wiced_rtc_time_t
- *
- * @param time        : pointer to a time structure
- *
- * @return    kNoErr        : on success.
- * @return    kGeneralErr   : if an error occurred with any step
- */
-OSStatus MicoRtcSetTime(mico_rtc_time_t* time);
-
-/** @} */
-/** @} */
-
-#endif
-
-
+    if(remainByteCount){
+        srand(mico_get_time());
+        tempRDM = rand();
+        memcpy(pByte, &tempRDM, (size_t)remainByteCount);
+    }
+    
+    return kNoErr;
+}

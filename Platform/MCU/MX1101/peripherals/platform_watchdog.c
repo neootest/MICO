@@ -1,10 +1,10 @@
 /**
 ******************************************************************************
-* @file    MicoDriverRtc.h 
+* @file    MicoDriverWdg.c 
 * @author  William Xu
 * @version V1.0.0
-* @date    16-Sep-2014
-* @brief   This file provides all the headers of RTC operation functions.
+* @date    05-May-2014
+* @brief   This file provide WDG driver functions.
 ******************************************************************************
 *
 *  The MIT License
@@ -29,21 +29,19 @@
 ******************************************************************************
 */ 
 
-#ifndef __MICODRIVERRTC_H__
-#define __MICODRIVERRTC_H__
 
-#pragma once
-#include "Common.h"
+#include "MICOPlatform.h"
+#include "MICORTOS.h"
+#include "common.h"
+#include "Debug.h"
+#include "watchdog.h"
+
 #include "platform.h"
-#include "platform_peripheral.h"
-
-/** @addtogroup MICO_PLATFORM
-* @{
-*/
+#include "platform_config.h"
 
 /******************************************************
- *                   Macros
- ******************************************************/  
+ *                    Constants
+ ******************************************************/
 
 /******************************************************
  *                   Enumerations
@@ -53,61 +51,63 @@
  *                 Type Definitions
  ******************************************************/
 
-typedef platform_rtc_time_t           mico_rtc_time_t;
-
- /******************************************************
+/******************************************************
  *                    Structures
  ******************************************************/
 
 /******************************************************
- *                     Variables
+ *               Variables Definitions
  ******************************************************/
 
 /******************************************************
-                Function Declarations
+ *               Function Declarations
  ******************************************************/
 
-/** @defgroup MICO_RTC MICO RTC Driver
-* @brief  Real-time clock (RTC) Functions
-* @{
-*/
+/******************************************************
+ *               Function Definitions
+ ******************************************************/
 
-/**
- * This function will initialize the on board CPU real time clock
- *
- * @note  This function should be called by MICO system when initializing clocks, so
- *        It is not needed to be called by application
- *
- * @return    kNoErr        : on success.
- * @return    kGeneralErr   : if an error occurred with any step
- */
-void MicoRtcInitialize(void);
+OSStatus platform_watchdog_init( uint32_t timeout_ms )
+{
+// PLATFORM_TO_DO
+#ifdef MICO_DISABLE_WATCHDOG
+  return kUnsupportedErr;
+#else
+  OSStatus err = kNoErr;
+  require_action( timeout_ms < 4000 && timeout_ms > 0, exit, err = kParamErr );
 
-/**
- * This function will return the value of time read from the on board CPU real time clock. Time value must be given in the format of
- * the structure wiced_rtc_time_t
- *
- * @param time        : pointer to a time structure
- *
- * @return    kNoErr        : on success.
- * @return    kGeneralErr   : if an error occurred with any step
- */
-OSStatus MicoRtcGetTime(mico_rtc_time_t* time);
+  if ( timeout_ms > 3000 )
+  	WdgEn(WDG_STEP_4S);
+  else if ( timeout_ms > 1000 )
+  	WdgEn(WDG_STEP_3S);
+  else
+  	WdgEn(WDG_STEP_1S);
 
-/**
- * This function will set MCU RTC time to a new value. Time value must be given in the format of
- * the structure wiced_rtc_time_t
- *
- * @param time        : pointer to a time structure
- *
- * @return    kNoErr        : on success.
- * @return    kGeneralErr   : if an error occurred with any step
- */
-OSStatus MicoRtcSetTime(mico_rtc_time_t* time);
-
-/** @} */
-/** @} */
-
+exit:
+	return err;
 #endif
+}
+
+OSStatus platform_watchdog_deinit( void )
+{
+    // PLATFORM_TO_DO
+    WdgDis();
+    return kNoErr;
+}
+
+bool platform_watchdog_check_last_reset( void )
+{
+    return false;
+}
+
+OSStatus platform_watchdog_kick( void )
+{
+#ifndef MICO_DISABLE_WATCHDOG
+	WdgFeed();
+	return kNoErr;
+#else
+	return kNoErr;
+#endif
+}
 
 

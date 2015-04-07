@@ -12,6 +12,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "MicoPlatform.h"
+#include "platform.h"
 #include "Common.h"
 #include "MicoRTOS.h"
 

@@ -324,7 +324,7 @@ uint32_t platform_power_down_hook( uint32_t sleep_ms )
 static unsigned long idle_power_down_hook( unsigned long sleep_ms  )
 {
     UNUSED_PARAMETER( sleep_ms );
-    WICED_ENABLE_INTERRUPTS( );
+    ENABLE_INTERRUPTS;
     __asm("wfi");
     return 0;
 }

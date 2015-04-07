@@ -111,8 +111,6 @@ const platform_gpio_t platform_gpio_pins[] =
   [MICO_GPIO_38]                      = { GPIOA,  4 },
 };
 
-
-
 /* PWM mappings */
 const platform_pwm_t platform_pwm_peripherals[] =
 {

@@ -535,7 +535,9 @@ restart:
 
 exit:
     platform_mcu_powersave_enable();
+#ifndef SDIO_1_BIT
     SDIO->MASK = SDIO_MASK_SDIOITIE;
+#endif
     return result;
 }
 

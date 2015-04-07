@@ -99,7 +99,7 @@ static void     subtract_second_from_time                  ( mico_rtc_time_t* ti
 *               Variables Definitions
 ******************************************************/
 
-mico_rtc_time_t default_rtc_time =
+platform_rtc_time_t default_rtc_time =
 {
   /* set it to 12:20:30 08/04/2013 monday */
   .sec   = 30,
@@ -237,7 +237,7 @@ OSStatus platform_rtc_get_time( platform_rtc_time_t* time)
 * @return    WICED_SUCCESS : on success.
 * @return    WICED_ERROR   : if an error occurred with any step
 */
-OSStatus platform_rtc_set_time( const mico_rtc_time_t* time )
+OSStatus platform_rtc_set_time( const platform_rtc_time_t* time )
 {
 #ifdef MICO_ENABLE_MCU_RTC
   RTC_TimeTypeDef rtc_write_time;

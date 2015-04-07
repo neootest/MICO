@@ -66,6 +66,12 @@
         __irq __root void function( void ); \
         __irq __root void function( void )
 
+#elif defined ( __CC_ARM ) //KEIL    
+
+#define MICO_RTOS_DEFINE_ISR( function ) \
+        void function( void ); \
+        __attribute__(( used )) void function( void )   
+        
 #else
 
 #define MICO_RTOS_DEFINE_ISR( function ) \

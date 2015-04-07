@@ -29,8 +29,6 @@
 ******************************************************************************
 */ 
 
-
-#include "MICOPlatform.h"
 #include "MICORTOS.h"
 
 #include "platform.h"

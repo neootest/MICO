@@ -116,7 +116,7 @@ exit:
 #endif
 }
 
-OSStatus MicoWdgFinalize( void )
+OSStatus platform_watchdog_deinit( void )
 {
     // PLATFORM_TO_DO
     return kNoErr;

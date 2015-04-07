@@ -45,13 +45,6 @@
 extern "C" {
 #endif
 
-
-
-
-
-
-
-
 typedef platform_spi_slave_config_t             mico_spi_slave_config_t;
 
 typedef platform_spi_slave_transfer_direction_t mico_spi_slave_transfer_direction_t;

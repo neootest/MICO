@@ -723,7 +723,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 93.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"<open folders>",
@@ -904,8 +904,8 @@
 						"selection":
 						[
 							[
-								2894,
-								2894
+								13426,
+								13426
 							]
 						],
 						"settings":
@@ -915,7 +915,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4640.0,
+						"translation.y": 4509.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

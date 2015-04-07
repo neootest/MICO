@@ -1,10 +1,10 @@
 /**
 ******************************************************************************
-* @file    MicoDriverWdg.c 
+* @file    MicoDriverAdc.c 
 * @author  William Xu
 * @version V1.0.0
 * @date    05-May-2014
-* @brief   This file provide WDG driver functions.
+* @brief   This file provide ADC driver functions.
 ******************************************************************************
 *
 *  The MIT License
@@ -29,15 +29,9 @@
 ******************************************************************************
 */ 
 
-
-#include "MICOPlatform.h"
-#include "MICORTOS.h"
-#include "common.h"
-#include "Debug.h"
-#include "watchdog.h"
-
 #include "platform.h"
-#include "platform_common_config.h"
+#include "platform_peripheral.h"
+
 
 /******************************************************
  *                    Constants
@@ -63,46 +57,40 @@
  *               Function Declarations
  ******************************************************/
 
+
 /******************************************************
  *               Function Definitions
  ******************************************************/
 
-OSStatus MicoWdgInitialize( uint32_t timeout_ms )
+
+
+OSStatus platform_adc_init( const platform_adc_t* adc, uint32_t sample_cycle )
 {
-// PLATFORM_TO_DO
-#ifdef MICO_DISABLE_WATCHDOG
+  UNUSED_PARAMETER(adc);
+  UNUSED_PARAMETER(sample_cycle);
+  platform_log("unimplemented");
   return kUnsupportedErr;
-#else
-  OSStatus err = kNoErr;
-  require_action( timeout_ms < 4000 && timeout_ms > 0, exit, err = kParamErr );
-
-  if ( timeout_ms > 3000 )
-  	WdgEn(WDG_STEP_4S);
-  else if ( timeout_ms > 1000 )
-  	WdgEn(WDG_STEP_3S);
-  else
-  	WdgEn(WDG_STEP_1S);
-
-exit:
-	return err;
-#endif
 }
 
-OSStatus MicoWdgFinalize( void )
+OSStatus platform_adc_take_sample( const platform_adc_t* adc, uint16_t* output )
 {
-    // PLATFORM_TO_DO
-    WdgDis();
-    return kNoErr;
+  UNUSED_PARAMETER(output);
+  platform_log("unimplemented");
+  return kUnsupportedErr;
 }
 
-void MicoWdgReload( void )
+OSStatus platform_adc_take_sample_stream( const platform_adc_t* adc, void* buffer, uint16_t buffer_length )
 {
-#ifndef MICO_DISABLE_WATCHDOG
-	WdgFeed();
-	return;
-#else
-	return;
-#endif
+  UNUSED_PARAMETER(adc);
+  UNUSED_PARAMETER(buffer);
+  UNUSED_PARAMETER(buffer_length);
+  platform_log("unimplemented");
+  return kUnsupportedErr;
 }
 
-
+OSStatus platform_adc_deinit( const platform_adc_t* adc )
+{
+  UNUSED_PARAMETER(adc);
+  platform_log("unimplemented");
+  return kUnsupportedErr;
+}

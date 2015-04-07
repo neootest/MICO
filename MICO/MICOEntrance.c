@@ -391,7 +391,7 @@ int application_start(void)
   free(WAC_Params);
   require_noerr( err, exit );
 #else
-  #error "Wi-Fi configuration mode is not defined"?
+  #error "Wi-Fi configuration mode is not defined"
 #endif
   }
 #ifdef MFG_MODE_AUTO
