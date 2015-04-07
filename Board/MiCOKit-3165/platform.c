@@ -82,18 +82,6 @@ static mico_timer_t _button_EL_timer;
 const platform_gpio_t platform_gpio_pins[] =
 {
   /* Common GPIOs for internal use */
-<<<<<<< HEAD
-  [WL_GPIO1]                          = {GPIOA,  0,  RCC_AHB1Periph_GPIOA},
-  [WL_RESET]                          = {GPIOB,  14, RCC_AHB1Periph_GPIOB},
-  [MICO_SYS_LED]                      = {GPIOB,  10, RCC_AHB1Periph_GPIOB}, 
-  [MICO_RF_LED]                       = {GPIOA,  4,  RCC_AHB1Periph_GPIOA}, 
-  [BOOT_SEL]                          = {GPIOB,  1,  RCC_AHB1Periph_GPIOB}, 
-  [MFG_SEL]                           = {GPIOB,  0,  RCC_AHB1Periph_GPIOB}, 
-  [EasyLink_BUTTON]                   = {GPIOA,  1,  RCC_AHB1Periph_GPIOA}, 
-  [STDIO_UART_RX]                     = {GPIOA,  3,  RCC_AHB1Periph_GPIOA},  
-  [STDIO_UART_TX]                     = {GPIOA,  2,  RCC_AHB1Periph_GPIOA},  
-  
-=======
   [MICO_SYS_LED]                      = { GPIOB,  10 }, 
   [MICO_RF_LED]                       = { GPIOA,  4 }, 
   [BOOT_SEL]                          = { GPIOB,  1 }, 
@@ -102,7 +90,6 @@ const platform_gpio_t platform_gpio_pins[] =
   [STDIO_UART_RX]                     = { GPIOA,  3 },  
   [STDIO_UART_TX]                     = { GPIOA,  2 },  
 
->>>>>>> platform-update
   /* GPIOs for external use */
   [MICO_GPIO_2]                       = { GPIOB,  2 },
   [MICO_GPIO_8]                       = { GPIOA , 2 },
@@ -353,25 +340,12 @@ void init_platform( void )
   MicoGpioInitialize((mico_gpio_t)BOOT_SEL, INPUT_PULL_UP);
   MicoGpioInitialize((mico_gpio_t)MFG_SEL, INPUT_PULL_UP);
   
-<<<<<<< HEAD
   //  Initialise EasyLink buttons
   MicoGpioInitialize( (mico_gpio_t)EasyLink_BUTTON, INPUT_PULL_UP );
   mico_init_timer(&_button_EL_timer, RestoreDefault_TimeOut, _button_EL_Timeout_handler, NULL);
   MicoGpioEnableIRQ( (mico_gpio_t)EasyLink_BUTTON, IRQ_TRIGGER_BOTH_EDGES, _button_EL_irq_handler, NULL );
-  
-  //  Initialise Standby/wakeup switcher
-  MicoGpioInitialize( (mico_gpio_t)Standby_SEL, INPUT_PULL_UP );
-  MicoGpioEnableIRQ( (mico_gpio_t)Standby_SEL , IRQ_TRIGGER_FALLING_EDGE, _button_STANDBY_irq_handler, NULL);
-  
-  MicoFlashInitialize( MICO_SPI_FLASH );
-=======
-   //  Initialise EasyLink buttons
-   MicoGpioInitialize( (mico_gpio_t)EasyLink_BUTTON, INPUT_PULL_UP );
-   mico_init_timer(&_button_EL_timer, RestoreDefault_TimeOut, _button_EL_Timeout_handler, NULL);
-   MicoGpioEnableIRQ( (mico_gpio_t)EasyLink_BUTTON, IRQ_TRIGGER_BOTH_EDGES, _button_EL_irq_handler, NULL );
 
-   MicoFlashInitialize( MICO_SPI_FLASH );
->>>>>>> platform-update
+  MicoFlashInitialize( MICO_SPI_FLASH );
 }
 
 #ifdef BOOTLOADER
