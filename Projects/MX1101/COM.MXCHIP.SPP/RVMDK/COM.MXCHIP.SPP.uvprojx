@@ -1134,9 +1134,9 @@
               <FilePath>..\..\..\..\Board\EMW5088\platform.h</FilePath>
             </File>
             <File>
-              <FileName>platform_common_config.h</FileName>
+              <FileName>platform_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Board\EMW5088\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5088\platform_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2251,9 +2251,9 @@
               <FilePath>..\..\..\..\Board\EMW5088\platform.h</FilePath>
             </File>
             <File>
-              <FileName>platform_common_config.h</FileName>
+              <FileName>platform_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Board\EMW5088\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5088\platform_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3447,9 +3447,9 @@
               <FilePath>..\..\..\..\Board\EMW5088\platform.h</FilePath>
             </File>
             <File>
-              <FileName>platform_common_config.h</FileName>
+              <FileName>platform_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Board\EMW5088\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5088\platform_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3596,7 +3596,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>1</TargetSelection>
+          <TargetSelection>7</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -3610,7 +3610,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver>BIN\UL2CM3.DLL</Driver>
+            <Driver>Segger\JL2CM3.dll</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -4643,9 +4643,9 @@
               <FilePath>..\..\..\..\Board\EMW5088\platform.h</FilePath>
             </File>
             <File>
-              <FileName>platform_common_config.h</FileName>
+              <FileName>platform_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Board\EMW5088\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5088\platform_config.h</FilePath>
             </File>
           </Files>
         </Group>

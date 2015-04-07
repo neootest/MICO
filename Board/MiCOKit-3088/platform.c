@@ -95,7 +95,6 @@
 extern WEAK void PlatformEasyLinkButtonClickedCallback(void);
 extern WEAK void PlatformStandbyButtonClickedCallback(void);
 extern WEAK void PlatformEasyLinkButtonLongPressedCallback(void);
-extern WEAK void bootloader_start(void);
 
 /******************************************************
 *               Variables Definitions
@@ -123,15 +122,9 @@ const platform_gpio_t platform_gpio_pins[] =
   [APP_UART_TX]                         = {GPIOB, 28},  
 };
 
-/*
-* Possible compile time inputs:
-* - Set which ADC peripheral to use for each ADC. All on one ADC allows sequential conversion on all inputs. All on separate ADCs allows concurrent conversion.
-*/
-/* TODO : These need fixing */
+
 const platform_adc_t *platform_adc_peripherals = NULL;
 
-
-/* PWM mappings */
 const platform_pwm_t *platform_pwm_peripherals = NULL;
 
 const platform_spi_t *platform_spi_peripherals = NULL;

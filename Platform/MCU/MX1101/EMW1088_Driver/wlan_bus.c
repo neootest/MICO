@@ -286,50 +286,7 @@ OSStatus host_platform_sdio_enumerate( void )
 
 OSStatus host_platform_bus_deinit( void )
 {
-//    NVIC_InitTypeDef nvic_init_structure;
-//    OSStatus   result = kNoErr;
-
-//    result = mico_rtos_deinit_semaphore( &sdio_transfer_finished_semaphore );
-
-//    MCU_CLOCKS_NEEDED();
-
-
-//    /* Disable SPI and SPI DMA */
-//    sdio_disable_bus_irq( );
-//    SDIO_ClockCmd( DISABLE );
-//    SDIO_SetPowerState( SDIO_PowerState_OFF );
-//    SDIO_DeInit( );
-////    RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_DMA2, DISABLE );
-//    RCC_APB2PeriphClockCmd( RCC_APB2Periph_SDIO, DISABLE );
-
-//    /* Clear GPIO pins for SDIO data & clock */
-//    SDIO_CMD_BANK->MODER  &= ((uint32_t) ~(3 << (2*SDIO_CMD_PIN)));
-//    SDIO_CLK_BANK->MODER  &= ((uint32_t) ~(3 << (2*SDIO_CLK_PIN)));
-//    SDIO_D0_BANK->MODER   &= ((uint32_t) ~(3 << (2*SDIO_D0_PIN )));
-//    SDIO_D1_BANK->MODER   &= ((uint32_t) ~(3 << (2*SDIO_D1_PIN )));
-//    SDIO_D2_BANK->MODER   &= ((uint32_t) ~(3 << (2*SDIO_D2_PIN )));
-//    SDIO_D3_BANK->MODER   &= ((uint32_t) ~(3 << (2*SDIO_D3_PIN )));
-//    SDIO_CMD_BANK->OTYPER &= ((uint32_t) ~(GPIO_OType_OD << SDIO_CMD_PIN));
-//    SDIO_CLK_BANK->OTYPER &= ((uint32_t) ~(GPIO_OType_OD << SDIO_CLK_PIN));
-//    SDIO_D0_BANK->OTYPER  &= ((uint32_t) ~(GPIO_OType_OD << SDIO_D0_PIN ));
-//    SDIO_D1_BANK->OTYPER  &= ((uint32_t) ~(GPIO_OType_OD << SDIO_D1_PIN ));
-//    SDIO_D2_BANK->OTYPER  &= ((uint32_t) ~(GPIO_OType_OD << SDIO_D2_PIN ));
-//    SDIO_D3_BANK->OTYPER  &= ((uint32_t) ~(GPIO_OType_OD << SDIO_D3_PIN ));
-
-//    /* Clear GPIO_B[1:0] */
-//    MicoGpioFinalize( (mico_gpio_t)WL_GPIO0 );
-//    MicoGpioFinalize( (mico_gpio_t)WL_GPIO1 );
-
-//    /* Turn off SDIO IRQ */
-//    nvic_init_structure.NVIC_IRQChannel                   = SDIO_IRQ_CHANNEL;
-//    nvic_init_structure.NVIC_IRQChannelCmd                = DISABLE;
-//    nvic_init_structure.NVIC_IRQChannelPreemptionPriority = 0x0;
-//    nvic_init_structure.NVIC_IRQChannelSubPriority        = 0;
-//    NVIC_Init( &nvic_init_structure );
-
-//    MCU_CLOCKS_NOT_NEEDED();
-
-    return 0;
+    return kNoErr;
 }
 
 OSStatus host_platform_sdio_transfer( bus_transfer_direction_t direction, sdio_command_t command, sdio_transfer_mode_t mode, sdio_block_size_t block_size, uint32_t argument, /*@null@*/ uint32_t* data, uint16_t data_size, sdio_response_needed_t response_expected, /*@out@*/ /*@null@*/ uint32_t* response )
@@ -352,7 +309,6 @@ OSStatus host_platform_sdio_transfer( bus_transfer_direction_t direction, sdio_c
 
 
 restart:
-//    SDIO->ICR = (uint32_t) 0xFFFFFFFF;
     ++attempts;
 
     /* Check if we've tried too many times */
@@ -479,30 +435,9 @@ exit:
 }
 
 
-
-
-
 void host_platform_enable_high_speed_sdio( void )
 {
-//    SDIO_InitTypeDef sdio_init_structure;
 
-//    sdio_init_structure.SDIO_ClockDiv       = (uint8_t) 0; /* 0 = 24MHz if SDIO clock = 48MHz */
-//    sdio_init_structure.SDIO_ClockEdge      = SDIO_ClockEdge_Rising;
-//    sdio_init_structure.SDIO_ClockBypass    = SDIO_ClockBypass_Disable;
-//    sdio_init_structure.SDIO_ClockPowerSave = SDIO_ClockPowerSave_Disable;
-//#ifndef SDIO_1_BIT
-//    sdio_init_structure.SDIO_BusWide = SDIO_BusWide_4b;
-//#else
-//    sdio_init_structure.SDIO_BusWide = SDIO_BusWide_1b;
-//#endif
-//    sdio_init_structure.SDIO_HardwareFlowControl = SDIO_HardwareFlowControl_Disable;
-
-//    SDIO_DeInit( );
-//    SDIO_Init( &sdio_init_structure );
-//    SDIO_SetPowerState( SDIO_PowerState_ON );
-//    SDIO_ClockCmd( ENABLE );
-//    sdio_enable_bus_irq( );
-    //SdioSetClk(0);
 }
 
 

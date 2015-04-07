@@ -189,7 +189,7 @@ void init_clocks( void )
   //Disable Watchdog
   WdgDis();
 #ifdef NO_MICO_RTOS  
-  SysTick_Config( SystemCoreClock / 1000 );
+  SysTick_Config( mico_cpu_clock_hz / 1000 );
 #endif
 }
 
@@ -201,8 +201,8 @@ WEAK void init_memory( void )
 void init_architecture( void )
 { 
   NVIC_SetPriorityGrouping(__NVIC_PRIO_BITS + 1);
+  
   /* Initialise the interrupt priorities to a priority lower than 0 so that the BASEPRI register can mask them */
-
   NVIC_SetPriority(MMFLT_IRQn,  MMFLT_IRQn_PRIO);
   NVIC_SetPriority(BUSFLT_IRQn, BUSFLT_IRQn_PRIO);
   NVIC_SetPriority(USGFLT_IRQn, USGFLT_IRQn_PRIO);
@@ -210,6 +210,7 @@ void init_architecture( void )
   NVIC_SetPriority(DBGMON_IRQn, DBGMON_IRQn_PRIO);
   NVIC_SetPriority(PENDSV_IRQn, PENDSV_IRQn_PRIO);
   NVIC_SetPriority(SysTick_IRQn,SYSTICK_IRQn_PRIO);
+  
   /*
    * enable 3 exception interrupt
    */

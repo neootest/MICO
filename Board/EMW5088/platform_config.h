@@ -39,6 +39,10 @@
 /******************************************************
 *                    Constants
 ******************************************************/
+  
+#define HARDWARE_REVISION   "EMW5088_1"
+#define DEFAULT_NAME        "EMW5088"
+#define MODEL               "EMW5088"
 
 /* MICO RTOS tick rate in Hz */
 #define MICO_DEFAULT_TICK_RATE_HZ                   (1000) 
@@ -60,13 +64,25 @@
 //#define MICO_ENABLE_MCU_RTC
 
 /************************************************************************
- * Uncomment to enable SDIO 1bit mode */
+ * Restore default and start easylink after press down EasyLink button for 3 seconds. */
+#define RestoreDefault_TimeOut                      (3000)
+
+/******************************************************
+ *  EMW1088 Options
+ ******************************************************/
+
+/*  Wi-Fi power pin is present */
+#define MICO_USE_WIFI_POWER_PIN
+
+/*  USE SDIO 1bit mode */
 #define SDIO_1_BIT
 
-/* Memory mapping */
+/* Wi-Fi power pin is active high */
+//#define MICO_USE_WIFI_POWER_PIN_ACTIVE_HIGH
 
-#define USE_MICO_SPI_FLASH
-
+/******************************************************
+ *  Memory mapping
+ ******************************************************/
 #define INTERNAL_FLASH_START_ADDRESS   (uint32_t)0x00000000
 #define INTERNAL_FLASH_END_ADDRESS     (uint32_t)0x00000000
 #define INTERNAL_FLASH_SIZE            (INTERNAL_FLASH_END_ADDRESS - INTERNAL_FLASH_START_ADDRESS + 1)
