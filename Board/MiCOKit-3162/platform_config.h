@@ -92,6 +92,8 @@
 /******************************************************
  *  EMW1062 Options
  ******************************************************/
+/*  Wi-Fi chip module */
+#define EMW1062
 
 /*  GPIO pins are used to bootstrap Wi-Fi to SDIO or gSPI mode */
 #define MICO_WIFI_USE_GPIO_FOR_BOOTSTRAP

@@ -233,13 +233,13 @@ const platform_gpio_t wifi_control_pins[] =
 /* Wi-Fi SDIO bus pins. Used by platform/MCU/STM32F2xx/EMW1062_driver/wlan_SDIO.c */
 const platform_gpio_t wifi_sdio_pins[] =
 {
-  [EMW1062_PIN_SDIO_OOB_IRQ] = { GPIOA,  0 },
-  [EMW1062_PIN_SDIO_CLK    ] = { GPIOB, 15 },
-  [EMW1062_PIN_SDIO_CMD    ] = { GPIOA,  6 },
-  [EMW1062_PIN_SDIO_D0     ] = { GPIOB,  7 },
-  [EMW1062_PIN_SDIO_D1     ] = { GPIOA,  8 },
-  [EMW1062_PIN_SDIO_D2     ] = { GPIOA,  9 },
-  [EMW1062_PIN_SDIO_D3     ] = { GPIOB,  5 },
+  [WIFI_PIN_SDIO_OOB_IRQ] = { GPIOA,  0 },
+  [WIFI_PIN_SDIO_CLK    ] = { GPIOB, 15 },
+  [WIFI_PIN_SDIO_CMD    ] = { GPIOA,  6 },
+  [WIFI_PIN_SDIO_D0     ] = { GPIOB,  7 },
+  [WIFI_PIN_SDIO_D1     ] = { GPIOA,  8 },
+  [WIFI_PIN_SDIO_D2     ] = { GPIOA,  9 },
+  [WIFI_PIN_SDIO_D3     ] = { GPIOB,  5 },
 };
 
 

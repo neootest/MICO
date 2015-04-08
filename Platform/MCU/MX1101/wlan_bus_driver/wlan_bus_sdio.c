@@ -189,7 +189,7 @@ static void sdio_int_pin_irq_handler( void* arg )
 
 bool host_platform_is_sdio_int_asserted(void)
 {
-    if ( platform_gpio_input_get( &wifi_sdio_pins[EMW1088_PIN_SDIO_IRQ] ) == true) //SDIO INT pin is high
+    if ( platform_gpio_input_get( &wifi_sdio_pins[WIFI_PIN_SDIO_IRQ] ) == true) //SDIO INT pin is high
         return false;
     else
         return true; // SDIO D1 is low, data need read
@@ -239,8 +239,8 @@ OSStatus host_platform_bus_init( void )
    GpioSdIoConfig(1);
     
 #ifdef SDIO_1_BIT
-    platform_gpio_init( &wifi_sdio_pins[EMW1088_PIN_SDIO_IRQ], INPUT_PULL_UP );
-    platform_gpio_irq_enable( &wifi_sdio_pins[EMW1088_PIN_SDIO_IRQ], IRQ_TRIGGER_FALLING_EDGE, sdio_int_pin_irq_handler, 0 );
+    platform_gpio_init( &wifi_sdio_pins[WIFI_PIN_SDIO_IRQ], INPUT_PULL_UP );
+    platform_gpio_irq_enable( &wifi_sdio_pins[WIFI_PIN_SDIO_IRQ], IRQ_TRIGGER_FALLING_EDGE, sdio_int_pin_irq_handler, 0 );
 #endif    
     
    SdioControllerInit();

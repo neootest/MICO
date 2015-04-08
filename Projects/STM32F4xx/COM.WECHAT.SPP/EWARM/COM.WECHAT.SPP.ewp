@@ -2175,6 +2175,9 @@
         <configuration>MiCOKit-3288</configuration>
       </excluded>
     </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\MICO\Library\RF driver\wlan_firmware.c</name>
+    </file>
   </group>
   <group>
     <name>MICO</name>
@@ -2288,36 +2291,6 @@
       <name>MCU</name>
       <group>
         <name>STM32F4xx</name>
-        <group>
-          <name>EMW1062</name>
-          <excluded>
-            <configuration>MiCOKit-3288</configuration>
-          </excluded>
-          <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\EMW1062_Driver\read_wifi_firmware.c</name>
-          </file>
-          <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\EMW1062_Driver\wlan_bus_sdio.c</name>
-          </file>
-          <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\EMW1062_Driver\wlan_bus_spi.c</name>
-            <excluded>
-              <configuration>MiCOKit-3165</configuration>
-            </excluded>
-          </file>
-        </group>
-        <group>
-          <name>EMW1088</name>
-          <excluded>
-            <configuration>MiCOKit-3165</configuration>
-          </excluded>
-          <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\EMW1088_Driver\read_wifi_firmware.c</name>
-          </file>
-          <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\EMW1088_Driver\wlan_bus.c</name>
-          </file>
-        </group>
         <group>
           <name>EWARM</name>
           <file>
@@ -2469,6 +2442,22 @@
           </file>
           <file>
             <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\platform_watchdog.c</name>
+          </file>
+        </group>
+        <group>
+          <name>Wi-Fi_Bus_Driver</name>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\Wi-Fi_Bus_Driver\read_wifi_firmware.c</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\Wi-Fi_Bus_Driver\wlan_bus_sdio.c</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\Wi-Fi_Bus_Driver\wlan_bus_spi.c</name>
+            <excluded>
+              <configuration>MiCOKit-3165</configuration>
+              <configuration>MiCOKit-3288</configuration>
+            </excluded>
           </file>
         </group>
         <file>

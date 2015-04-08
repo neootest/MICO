@@ -69,6 +69,8 @@
 /******************************************************
  *  EMW1088 Options
  ******************************************************/
+/*  Wi-Fi chip module */
+#define EMW1088
 
 /*  Wi-Fi power pin is present */
 #define MICO_USE_WIFI_POWER_PIN

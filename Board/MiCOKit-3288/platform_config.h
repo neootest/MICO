@@ -62,7 +62,7 @@ extern "C"
 
 /************************************************************************
  * Uncomment to disable MCU powersave API functions */
-//#define MICO_DISABLE_MCU_POWERSAVE
+#define MICO_DISABLE_MCU_POWERSAVE
 
 /************************************************************************
  * Uncomment to enable MCU real time clock */
@@ -92,7 +92,9 @@ extern "C"
 /******************************************************
  *  EMW1088 Options
  ******************************************************/
-
+/*  Wi-Fi chip module */
+#define EMW1088
+  
 /*  Wi-Fi power pin is present */
 #define MICO_USE_WIFI_POWER_PIN
 

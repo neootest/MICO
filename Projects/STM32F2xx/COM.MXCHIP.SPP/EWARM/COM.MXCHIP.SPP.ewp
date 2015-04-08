@@ -2885,15 +2885,6 @@
   <group>
     <name>Application</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\cfunctions.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\cfunctions.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\cppfunctions.h</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\LocalTcpServer.c</name>
     </file>
     <file>
@@ -2916,9 +2907,6 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\SppProtocol.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\test.cpp</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\UartRecv.c</name>
@@ -3196,6 +3184,9 @@
           <configuration>MiCOKit-3161</configuration>
         </excluded>
       </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\MICO\Library\RF driver\wlan_firmware.c</name>
+      </file>
     </group>
     <group>
       <name>WAC</name>
@@ -3320,24 +3311,6 @@
       <name>MCU</name>
       <group>
         <name>STM32F2xx</name>
-        <group>
-          <name>EMW1062</name>
-          <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\read_wifi_firmware.c</name>
-          </file>
-          <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\wlan_bus_sdio.c</name>
-            <excluded>
-              <configuration>MiCOKit-F205</configuration>
-            </excluded>
-          </file>
-          <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\wlan_bus_spi.c</name>
-            <excluded>
-              <configuration>MiCOKit-3162</configuration>
-            </excluded>
-          </file>
-        </group>
         <group>
           <name>EWARM</name>
           <file>
@@ -3489,6 +3462,24 @@
           </file>
           <file>
             <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_watchdog.c</name>
+          </file>
+        </group>
+        <group>
+          <name>wlan_bus_driver</name>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\wlan_bus_driver\read_wifi_firmware.c</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\wlan_bus_driver\wlan_bus_sdio.c</name>
+            <excluded>
+              <configuration>MiCOKit-F205</configuration>
+            </excluded>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\wlan_bus_driver\wlan_bus_spi.c</name>
+            <excluded>
+              <configuration>MiCOKit-3162</configuration>
+            </excluded>
           </file>
         </group>
         <file>

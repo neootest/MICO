@@ -71,49 +71,36 @@ typedef enum
 /**
  * WLAN SDIO pins
  */
-typedef enum
-{
-    EMW1062_PIN_SDIO_OOB_IRQ,
-    EMW1062_PIN_SDIO_CLK,
-    EMW1062_PIN_SDIO_CMD,
-    EMW1062_PIN_SDIO_D0,
-#ifdef SDIO_1_BIT
-    EMW1062_PIN_SDIO_IRQ,
-#else
-    EMW1062_PIN_SDIO_D1,
-    EMW1062_PIN_SDIO_D2,
-    EMW1062_PIN_SDIO_D3,
-#endif
-    EMW1062_PIN_SDIO_MAX,
-} emw1062_sdio_pin_t;
 
 typedef enum
 {
 #ifdef SDIO_1_BIT
-    EMW1088_PIN_SDIO_IRQ,
+    WIFI_PIN_SDIO_IRQ,
+#else
+    WIFI_PIN_SDIO_OOB_IRQ,
 #endif
-    EMW1088_PIN_SDIO_CLK,
-    EMW1088_PIN_SDIO_CMD,
-    EMW1088_PIN_SDIO_D0,
+    WIFI_PIN_SDIO_CLK,
+    WIFI_PIN_SDIO_CMD,
+    WIFI_PIN_SDIO_D0,
 #ifndef SDIO_1_BIT
-    EMW1088_PIN_SDIO_D1,
-    EMW1088_PIN_SDIO_D2,
-    EMW1088_PIN_SDIO_D3,
+    WIFI_PIN_SDIO_D1,
+    WIFI_PIN_SDIO_D2,
+    WIFI_PIN_SDIO_D3,
 #endif
-    EMW1088_PIN_SDIO_MAX,
-} emw1088_sdio_pin_t;
+    WIFI_PIN_SDIO_MAX,
+} wifi_sdio_pin_t;
 
 /**
  * WLAN SPI pins
  */
 typedef enum
 {
-    EMW1062_PIN_SPI_IRQ,
-    EMW1062_PIN_SPI_CS,
-    EMW1062_PIN_SPI_CLK,
-    EMW1062_PIN_SPI_MOSI,
-    EMW1062_PIN_SPI_MISO,
-    EMW1062_PIN_SPI_MAX,
+    WIFI_PIN_SPI_IRQ,
+    WIFI_PIN_SPI_CS,
+    WIFI_PIN_SPI_CLK,
+    WIFI_PIN_SPI_MOSI,
+    WIFI_PIN_SPI_MISO,
+    WIFI_PIN_SPI_MAX,
 } emw1062_spi_pin_t;
 
 /******************************************************

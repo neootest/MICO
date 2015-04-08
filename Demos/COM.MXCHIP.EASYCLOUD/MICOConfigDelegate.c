@@ -23,6 +23,7 @@
 #include "Common.h"
 #include "debug.h"
 #include "MicoPlatform.h"
+#include "platform_config.h"
 
 #include "EasyLink/EasyLink.h"
 #include "JSON-C/json.h"

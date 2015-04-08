@@ -312,7 +312,6 @@ const mico_spi_device_t mico_spi_flash =
 */
 const platform_gpio_t wifi_control_pins[] =
 {
-  [WIFI_PIN_POWER      ] = NULL,
   [WIFI_PIN_RESET      ] = { GPIOA,  3 },
 #if defined ( MICO_USE_WIFI_32K_CLOCK_MCO )
   [WIFI_PIN_32K_CLK    ] = { GPIOA,  8 },
@@ -326,11 +325,11 @@ const platform_gpio_t wifi_control_pins[] =
 /* Wi-Fi gSPI bus pins. Used by platform/MCU/STM32F2xx/EMW1062_driver/wlan_spi.c */
 const platform_gpio_t wifi_spi_pins[] =
 {
-  [EMW1062_PIN_SPI_IRQ ] = { GPIOA,  1 },
-  [EMW1062_PIN_SPI_CS  ] = { GPIOB, 12 },
-  [EMW1062_PIN_SPI_CLK ] = { GPIOB, 13 },
-  [EMW1062_PIN_SPI_MOSI] = { GPIOB, 15 },
-  [EMW1062_PIN_SPI_MISO] = { GPIOB, 14 },
+  [WIFI_PIN_SPI_IRQ ] = { GPIOA,  1 },
+  [WIFI_PIN_SPI_CS  ] = { GPIOB, 12 },
+  [WIFI_PIN_SPI_CLK ] = { GPIOB, 13 },
+  [WIFI_PIN_SPI_MOSI] = { GPIOB, 15 },
+  [WIFI_PIN_SPI_MISO] = { GPIOB, 14 },
 };
 
 const platform_spi_t wifi_spi =
@@ -339,9 +338,9 @@ const platform_spi_t wifi_spi =
   .gpio_af                      = GPIO_AF_SPI2,
   .peripheral_clock_reg         = RCC_APB1Periph_SPI2,
   .peripheral_clock_func        = RCC_APB1PeriphClockCmd,
-  .pin_mosi                     = &wifi_spi_pins[EMW1062_PIN_SPI_MOSI],
-  .pin_miso                     = &wifi_spi_pins[EMW1062_PIN_SPI_MISO],
-  .pin_clock                    = &wifi_spi_pins[EMW1062_PIN_SPI_CLK],
+  .pin_mosi                     = &wifi_spi_pins[WIFI_PIN_SPI_MOSI],
+  .pin_miso                     = &wifi_spi_pins[WIFI_PIN_SPI_MISO],
+  .pin_clock                    = &wifi_spi_pins[WIFI_PIN_SPI_CLK],
   .tx_dma =
   {
     .controller                 = DMA1,

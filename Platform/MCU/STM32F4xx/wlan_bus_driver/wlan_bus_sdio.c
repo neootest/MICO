@@ -161,12 +161,61 @@ extern void wiced_platform_notify_irq( void );
  *             Function definitions
  ******************************************************/
 
+#if !(defined (MICO_DISABLE_MCU_POWERSAVE)) && !(defined (SDIO_1_BIT)) //SDIO 4 Bit mode and enable MCU powersave, need an OOB interrupt
 static void sdio_oob_irq_handler( void* arg )
 {
     UNUSED_PARAMETER(arg);
     platform_mcu_powersave_exit_notify( );
     wiced_platform_notify_irq( );
 }
+
+OSStatus host_enable_oob_interrupt( void )
+{
+    platform_gpio_init( &wifi_sdio_pins[WIFI_PIN_SDIO_OOB_IRQ], INPUT_HIGH_IMPEDANCE );
+    platform_gpio_irq_enable( &wifi_sdio_pins[WIFI_PIN_SDIO_OOB_IRQ], IRQ_TRIGGER_RISING_EDGE, sdio_oob_irq_handler, 0 );
+    return kNoErr;
+}
+
+uint8_t host_platform_get_oob_interrupt_pin( void )
+{
+    return MICO_WIFI_OOB_IRQ_GPIO_PIN;
+}
+
+#elif defined (MICO_DISABLE_MCU_POWERSAVE) && !(defined (SDIO_1_BIT)) //SDIO 4 Bit mode and disable MCU powersave, do not need OOB interrupt 
+
+OSStatus host_enable_oob_interrupt( void )
+{
+    return kNoErr;
+}
+
+uint8_t host_platform_get_oob_interrupt_pin( void )
+{
+    return 0;
+}
+#endif
+
+#ifdef SDIO_1_BIT
+static void sdio_int_pin_irq_handler( void* arg ) //SDIO 1 Bit mode
+{
+    UNUSED_PARAMETER(arg);
+    platform_mcu_powersave_exit_notify( );
+    wiced_platform_notify_irq( );
+}
+
+bool host_platform_is_sdio_int_asserted(void)
+{
+    if ( platform_gpio_input_get( &wifi_sdio_pins[WIFI_PIN_SDIO_IRQ] ) == true) //SDIO INT pin is high
+        return false;
+    else
+        return true; // SDIO D1 is low, data need read
+}
+
+OSStatus host_enable_oob_interrupt( void )
+{
+    return kNoErr;
+}
+
+#endif
 
 static void sdio_enable_bus_irq( void )
 {
@@ -178,24 +227,6 @@ static void sdio_disable_bus_irq( void )
     SDIO->MASK = 0;
 }
 
-#ifndef MICO_DISABLE_MCU_POWERSAVE
-OSStatus host_enable_oob_interrupt( void )
-{
-    platform_gpio_init( &wifi_sdio_pins[EMW1062_PIN_SDIO_OOB_IRQ], INPUT_HIGH_IMPEDANCE );
-    platform_gpio_irq_enable( &wifi_sdio_pins[EMW1062_PIN_SDIO_OOB_IRQ], IRQ_TRIGGER_RISING_EDGE, sdio_oob_irq_handler, 0 );
-    return kNoErr;
-}
-
-uint8_t host_platform_get_oob_interrupt_pin( void )
-{
-    return MICO_WIFI_OOB_IRQ_GPIO_PIN;
-}
-#endif
-
-bool host_platform_is_sdio_int_asserted(void)
-{
-    return false;
-}
 
 void sdio_irq( void )
 {
@@ -239,15 +270,18 @@ void sdio_irq( void )
             /* Clear all command/response interrupts */
             SDIO->ICR = (SDIO_STA_CMDREND | SDIO_STA_CMDSENT);
         }
-
-        /* Check whether the external interrupt was triggered */
-        if ( ( intstatus & SDIO_STA_SDIOIT ) != 0 )
-        {
-            /* Clear the interrupt and then inform WICED thread */
-            SDIO->ICR = SDIO_ICR_SDIOITC;
-            wiced_platform_notify_irq( );
-        }
     }
+
+#ifndef SDIO_1_BIT
+    /* Check whether the external interrupt was triggered */
+    if ( ( intstatus & SDIO_STA_SDIOIT ) != 0 )
+    {
+        /* Clear the interrupt and then inform WICED thread */
+        SDIO->ICR = SDIO_ICR_SDIOITC;
+        platform_mcu_powersave_exit_notify( );
+        wiced_platform_notify_irq( );
+    }
+#endif
 }
 
 /*@-exportheader@*/ /* Function picked up by linker script */
@@ -292,7 +326,7 @@ OSStatus host_platform_bus_init( void )
     /* is the lowest priority */
     NVIC_EnableIRQ( SDIO_IRQ_CHANNEL );
     NVIC_EnableIRQ( DMA2_3_IRQ_CHANNEL );
-
+    
     /* Set GPIO_B[1:0] to 00 to put WLAN module into SDIO mode */
 #if defined ( MICO_WIFI_USE_GPIO_FOR_BOOTSTRAP )
     platform_gpio_init( &wifi_control_pins[WIFI_PIN_BOOTSTRAP_0], OUTPUT_PUSH_PULL );
@@ -302,10 +336,15 @@ OSStatus host_platform_bus_init( void )
 #endif
 
     /* Setup GPIO pins for SDIO data & clock */
-    for ( a = EMW1062_PIN_SDIO_CLK; a < EMW1062_PIN_SDIO_MAX; a++ )
+    for ( a = WIFI_PIN_SDIO_CLK; a < WIFI_PIN_SDIO_MAX; a++ )
     {
         platform_gpio_set_alternate_function( wifi_sdio_pins[ a ].port, wifi_sdio_pins[ a ].pin_number, GPIO_OType_PP, GPIO_PuPd_UP, GPIO_AF_SDIO );
     }
+
+#ifdef SDIO_1_BIT
+    platform_gpio_init( &wifi_sdio_pins[WIFI_PIN_SDIO_IRQ], INPUT_PULL_UP );
+    platform_gpio_irq_enable( &wifi_sdio_pins[WIFI_PIN_SDIO_IRQ], IRQ_TRIGGER_FALLING_EDGE, sdio_int_pin_irq_handler, 0 );
+#endif
 
     /*!< Enable the SDIO AHB Clock and the DMA2 Clock */
     RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_DMA2, ENABLE );
@@ -373,10 +412,14 @@ OSStatus host_platform_bus_deinit( void )
     SDIO_ClockCmd( DISABLE );
     SDIO_SetPowerState( SDIO_PowerState_OFF );
     SDIO_DeInit( );
-//    RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_DMA2, DISABLE );
     RCC_APB2PeriphClockCmd( RCC_APB2Periph_SDIO, DISABLE );
 
-    for ( a = 0; a < EMW1062_PIN_SDIO_MAX; a++ )
+#ifdef SDIO_1_BIT
+    platform_gpio_deinit( &wifi_sdio_pins[WIFI_PIN_SDIO_IRQ] );
+    platform_gpio_irq_disable( &wifi_sdio_pins[WIFI_PIN_SDIO_IRQ] );
+#endif
+
+    for ( a = 0; a < WIFI_PIN_SDIO_MAX; a++ )
     {
         platform_gpio_deinit( &wifi_sdio_pins[ a ] );
     }
@@ -513,7 +556,9 @@ restart:
 
 exit:
     platform_mcu_powersave_enable();
+#ifndef SDIO_1_BIT
     SDIO->MASK = SDIO_MASK_SDIOITIE;
+#endif
     return result;
 }
 
@@ -546,6 +591,8 @@ static void sdio_prepare_data_transfer( bus_transfer_direction_t direction, sdio
     DMA2_Stream3->M0AR = (uint32_t) dma_data_source;
     DMA2_Stream3->NDTR = dma_transfer_size/4;
 }
+
+
 
 void host_platform_enable_high_speed_sdio( void )
 {

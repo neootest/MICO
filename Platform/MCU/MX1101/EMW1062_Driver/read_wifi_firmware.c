@@ -32,7 +32,7 @@
 
 #include "Common.h"
 #include "MicoPlatform.h"
-#include "platform_common_config.h"
+#include "platform_config.h"
 
 #ifndef MICO_FLASH_FOR_DRIVER
 const unsigned char wifi_firmware_image[] = {
@@ -13090,6 +13090,7 @@ uint32_t platform_get_wifi_image(unsigned char* buffer, uint32_t size, uint32_t 
     buffer_size = MIN(size, (sizeof(wifi_firmware_image) - offset));
     
     memcpy(buffer, &wifi_firmware_image[offset], buffer_size);
+    printf("asdfgasfasdfasd33,%d,%d,%d,%d,\r\n", size, sizeof(wifi_firmware_image), offset, buffer_size);
 
     return buffer_size;
 }

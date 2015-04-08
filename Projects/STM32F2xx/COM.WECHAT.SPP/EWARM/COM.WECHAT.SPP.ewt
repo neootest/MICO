@@ -217,7 +217,7 @@
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform_common_config.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform_config.h</name>
       </file>
     </group>
   </group>
@@ -435,6 +435,9 @@
       <file>
         <name>$PROJ_DIR$\..\..\..\..\MICO\Library\mxchipWNet_cm3_spi.a</name>
       </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\MICO\Library\RF driver\wlan_firmware.c</name>
+      </file>
     </group>
     <group>
       <name>WAC</name>
@@ -554,18 +557,6 @@
       <name>MCU</name>
       <group>
         <name>STM32F2xx</name>
-        <group>
-          <name>EMW1062</name>
-          <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\read_wifi_firmware.c</name>
-          </file>
-          <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\wlan_bus_sdio.c</name>
-          </file>
-          <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\wlan_bus_spi.c</name>
-          </file>
-        </group>
         <group>
           <name>EWARM</name>
           <file>
@@ -723,6 +714,18 @@
           </file>
           <file>
             <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_watchdog.c</name>
+          </file>
+        </group>
+        <group>
+          <name>wlan_bus_driver</name>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\wlan_bus_driver\read_wifi_firmware.c</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\wlan_bus_driver\wlan_bus_sdio.c</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\wlan_bus_driver\wlan_bus_spi.c</name>
           </file>
         </group>
         <file>

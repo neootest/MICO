@@ -158,16 +158,16 @@ const platform_i2c_t *platform_i2c_peripherals = NULL;
 */
 const platform_gpio_t wifi_control_pins[] =
 {
-  [WIFI_PIN_POWER          ] = { GPIOB,  5 },
+  [WIFI_PIN_POWER       ] = { GPIOB,  5 },
 };
 
 /* Wi-Fi SDIO bus pins. Used by platform/MCU/MX1101/EMW1088_driver/wlan_bus.c */
 const platform_gpio_t wifi_sdio_pins[] =
 {
-  [EMW1088_PIN_SDIO_IRQ    ] = { GPIOA, 22 },
-  [EMW1088_PIN_SDIO_CLK    ] = { GPIOA, 20 },
-  [EMW1088_PIN_SDIO_CMD    ] = { GPIOA, 21 },
-  [EMW1088_PIN_SDIO_D0     ] = { GPIOB, 19 },
+  [WIFI_PIN_SDIO_IRQ    ] = { GPIOA, 22 },
+  [WIFI_PIN_SDIO_CLK    ] = { GPIOA, 20 },
+  [WIFI_PIN_SDIO_CMD    ] = { GPIOA, 21 },
+  [WIFI_PIN_SDIO_D0     ] = { GPIOB, 19 },
 };
 
 /******************************************************

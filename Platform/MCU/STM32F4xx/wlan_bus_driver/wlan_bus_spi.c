@@ -131,15 +131,15 @@ OSStatus host_platform_bus_init( void )
 
 
     /* Setup the interrupt input for WLAN_IRQ */
-    platform_gpio_init( &wifi_spi_pins[EMW1062_PIN_SPI_IRQ], INPUT_HIGH_IMPEDANCE );
-    platform_gpio_irq_enable( &wifi_spi_pins[EMW1062_PIN_SPI_IRQ], IRQ_TRIGGER_RISING_EDGE, spi_irq_handler, 0 );
+    platform_gpio_init( &wifi_spi_pins[WIFI_PIN_SPI_IRQ], INPUT_HIGH_IMPEDANCE );
+    platform_gpio_irq_enable( &wifi_spi_pins[WIFI_PIN_SPI_IRQ], IRQ_TRIGGER_RISING_EDGE, spi_irq_handler, 0 );
 
     /* Setup SPI slave select GPIOs */
-    platform_gpio_init( &wifi_spi_pins[EMW1062_PIN_SPI_CS], OUTPUT_PUSH_PULL );
-    platform_gpio_output_high( &wifi_spi_pins[EMW1062_PIN_SPI_CS] );
+    platform_gpio_init( &wifi_spi_pins[WIFI_PIN_SPI_CS], OUTPUT_PUSH_PULL );
+    platform_gpio_output_high( &wifi_spi_pins[WIFI_PIN_SPI_CS] );
 
     /* Setup the SPI lines */
-    for ( a = EMW1062_PIN_SPI_CLK; a < EMW1062_PIN_SPI_MAX; a++ )
+    for ( a = WIFI_PIN_SPI_CLK; a < WIFI_PIN_SPI_MAX; a++ )
     {
         platform_gpio_set_alternate_function( wifi_spi_pins[ a ].port, wifi_spi_pins[ a ].pin_number, GPIO_OType_PP, GPIO_PuPd_NOPULL, wifi_spi.gpio_af );
     }
@@ -239,16 +239,16 @@ OSStatus host_platform_bus_deinit( void )
 #endif
 
     /* Clear SPI slave select GPIOs */
-    platform_gpio_init( &wifi_spi_pins[EMW1062_PIN_SPI_CS], INPUT_HIGH_IMPEDANCE );
+    platform_gpio_init( &wifi_spi_pins[WIFI_PIN_SPI_CS], INPUT_HIGH_IMPEDANCE );
 
     /* Clear the SPI lines */
-    for ( a = EMW1062_PIN_SPI_CLK; a < EMW1062_PIN_SPI_MAX; a++ )
+    for ( a = WIFI_PIN_SPI_CLK; a < WIFI_PIN_SPI_MAX; a++ )
     {
         platform_gpio_init( &wifi_spi_pins[ a ], INPUT_HIGH_IMPEDANCE );
     }
 
-    platform_gpio_irq_disable( &wifi_spi_pins[EMW1062_PIN_SPI_IRQ] );
-    platform_gpio_init( &wifi_spi_pins[EMW1062_PIN_SPI_IRQ], INPUT_HIGH_IMPEDANCE );
+    platform_gpio_irq_disable( &wifi_spi_pins[WIFI_PIN_SPI_IRQ] );
+    platform_gpio_init( &wifi_spi_pins[WIFI_PIN_SPI_IRQ], INPUT_HIGH_IMPEDANCE );
 
     /* Disable SPI_SLAVE Periph clock and DMA1 clock */
     (wifi_spi.peripheral_clock_func)( wifi_spi.peripheral_clock_reg, DISABLE );
@@ -283,7 +283,7 @@ OSStatus host_platform_spi_transfer( bus_transfer_direction_t dir, uint8_t* buff
         wifi_spi.rx_dma.stream->CR &= ( ~DMA_MemoryInc_Enable ) | ( 1 << 4);
     }
 
-    platform_gpio_output_low( &wifi_spi_pins[EMW1062_PIN_SPI_CS] );
+    platform_gpio_output_low( &wifi_spi_pins[WIFI_PIN_SPI_CS] );
     DMA_Cmd( wifi_spi.rx_dma.stream, ENABLE );
     DMA_Cmd( wifi_spi.tx_dma.stream, ENABLE );
 
@@ -299,7 +299,7 @@ OSStatus host_platform_spi_transfer( bus_transfer_direction_t dir, uint8_t* buff
     DMA_Cmd( wifi_spi.tx_dma.stream, DISABLE );
 
     /* Clear the CS pin and the DMA status flag */
-    platform_gpio_output_high( &wifi_spi_pins[EMW1062_PIN_SPI_CS] ); /* CS high (to deselect) */
+    platform_gpio_output_high( &wifi_spi_pins[WIFI_PIN_SPI_CS] ); /* CS high (to deselect) */
     clear_dma_interrupts( wifi_spi.rx_dma.stream, wifi_spi.rx_dma.complete_flags );
     clear_dma_interrupts( wifi_spi.tx_dma.stream, wifi_spi.tx_dma.complete_flags );
 
