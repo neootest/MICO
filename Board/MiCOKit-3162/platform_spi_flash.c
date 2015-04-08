@@ -10,7 +10,7 @@
 #include "spi_flash_platform_interface.h"
 #include "stm32f2xx.h"
 
-int sflash_platform_init( int peripheral_id, void** platform_peripheral_out )
+int sflash_platform_init( /*@shared@*/ void* peripheral_id, /*@out@*/ void** platform_peripheral_out )
 {
     return -1;
 }

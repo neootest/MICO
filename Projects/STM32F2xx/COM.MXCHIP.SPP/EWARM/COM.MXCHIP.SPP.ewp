@@ -376,7 +376,7 @@
         </option>
         <option>
           <name>IccLang</name>
-          <state>0</state>
+          <state>2</state>
         </option>
         <option>
           <name>IccCDialect</name>
@@ -2885,6 +2885,15 @@
   <group>
     <name>Application</name>
     <file>
+      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\cfunctions.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\cfunctions.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\cppfunctions.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\LocalTcpServer.c</name>
     </file>
     <file>
@@ -2907,6 +2916,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\SppProtocol.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\test.cpp</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\UartRecv.c</name>
@@ -2944,9 +2956,6 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\platform.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\platform_spi_flash.c</name>
       </file>
     </group>
     <group>
@@ -3324,6 +3333,9 @@
           </file>
           <file>
             <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\wlan_bus_spi.c</name>
+            <excluded>
+              <configuration>MiCOKit-3162</configuration>
+            </excluded>
           </file>
         </group>
         <group>
@@ -3471,9 +3483,6 @@
           </file>
           <file>
             <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_spi.c</name>
-            <excluded>
-              <configuration>MiCOKit-3162</configuration>
-            </excluded>
           </file>
           <file>
             <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_uart.c</name>

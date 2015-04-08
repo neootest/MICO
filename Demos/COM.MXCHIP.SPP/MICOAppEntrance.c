@@ -26,6 +26,8 @@
 #include "SppProtocol.h"
 #include "MicoPlatform.h"
 #include "platform_config.h"
+#include "cfunctions.h"
+#include "cppfunctions.h"
 
 #define app_log(M, ...) custom_log("APP", M, ##__VA_ARGS__)
 #define app_log_trace() custom_log_trace("APP")
@@ -52,7 +54,11 @@ OSStatus MICOStartApplication( mico_Context_t * const inContext )
   mico_uart_config_t uart_config;
   
   require_action(inContext, exit, err = kParamErr);
-  
+
+#ifdef MICO_C_CPP_MIXING_DEMO  
+  cpp_main();
+#endif
+
   sppProtocolInit( inContext );
 
   /*Bonjour for service searching*/

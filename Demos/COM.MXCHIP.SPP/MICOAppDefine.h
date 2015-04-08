@@ -37,6 +37,9 @@
 /* Wi-Fi configuration mode */
 #define MICO_CONFIG_MODE CONFIG_MODE_EASYLINK_WITH_SOFTAP
 
+/* Demo C function call C++ function and C++ function call C function */
+//#define MICO_C_CPP_MIXING_DEMO
+
 /*User provided configurations*/
 #define CONFIGURATION_VERSION               0x00000002 // if default configuration is changed, update this number
 #define MAX_QUEUE_NUM                       6  // 1 remote client, 5 local server

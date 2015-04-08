@@ -257,6 +257,15 @@
   <group>
     <name>Application</name>
     <file>
+      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\cfunctions.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\cfunctions.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\cppfunctions.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\LocalTcpServer.c</name>
     </file>
     <file>
@@ -279,6 +288,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\SppProtocol.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\test.cpp</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.SPP\UartRecv.c</name>
@@ -308,9 +320,6 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\platform.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\platform_spi_flash.c</name>
       </file>
     </group>
     <group>
