@@ -574,6 +574,31 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Platform/MCU</GroupName>
+          <Files>
+            <File>
+              <FileName>mico_platform_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\mico_platform_common.c</FilePath>
+            </File>
+            <File>
+              <FileName>wlan_platform_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\wlan_platform_common.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/MCU/MX1101</GroupName>
+          <Files>
+            <File>
+              <FileName>platform_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\platform_init.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Platform/MCU/MX1101/RVMDK</GroupName>
           <Files>
             <File>
@@ -612,24 +637,64 @@
           <GroupName>Platform/MCU/MX1101/peripherals</GroupName>
           <Files>
             <File>
-              <FileName>MicoDriverCommon.c</FileName>
+              <FileName>platform_adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverCommon.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_adc.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverFlash.c</FileName>
+              <FileName>platform_flash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverFlash.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_flash.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverGpio.c</FileName>
+              <FileName>platform_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverGpio.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverUart.c</FileName>
+              <FileName>platform_i2c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverUart.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mcu_powersave.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_mcu_powersave.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_rng.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_rng.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_rtc.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_spi_slave.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_spi_slave.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_watchdog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_watchdog.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -837,9 +902,9 @@
               <FilePath>..\..\..\..\Board\EMW5088\platform.h</FilePath>
             </File>
             <File>
-              <FileName>platform_common_config.h</FileName>
+              <FileName>platform_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Board\EMW5088\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5088\platform_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1413,6 +1478,31 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Platform/MCU</GroupName>
+          <Files>
+            <File>
+              <FileName>mico_platform_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\mico_platform_common.c</FilePath>
+            </File>
+            <File>
+              <FileName>wlan_platform_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\wlan_platform_common.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/MCU/MX1101</GroupName>
+          <Files>
+            <File>
+              <FileName>platform_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\platform_init.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Platform/MCU/MX1101/RVMDK</GroupName>
           <Files>
             <File>
@@ -1451,24 +1541,64 @@
           <GroupName>Platform/MCU/MX1101/peripherals</GroupName>
           <Files>
             <File>
-              <FileName>MicoDriverCommon.c</FileName>
+              <FileName>platform_adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverCommon.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_adc.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverFlash.c</FileName>
+              <FileName>platform_flash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverFlash.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_flash.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverGpio.c</FileName>
+              <FileName>platform_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverGpio.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverUart.c</FileName>
+              <FileName>platform_i2c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverUart.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mcu_powersave.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_mcu_powersave.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_rng.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_rng.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_rtc.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_spi_slave.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_spi_slave.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_watchdog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_watchdog.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1676,9 +1806,9 @@
               <FilePath>..\..\..\..\Board\EMW5088\platform.h</FilePath>
             </File>
             <File>
-              <FileName>platform_common_config.h</FileName>
+              <FileName>platform_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Board\EMW5088\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5088\platform_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2209,6 +2339,31 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Platform/MCU</GroupName>
+          <Files>
+            <File>
+              <FileName>mico_platform_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\mico_platform_common.c</FilePath>
+            </File>
+            <File>
+              <FileName>wlan_platform_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\wlan_platform_common.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/MCU/MX1101</GroupName>
+          <Files>
+            <File>
+              <FileName>platform_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\platform_init.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Platform/MCU/MX1101/RVMDK</GroupName>
           <Files>
             <File>
@@ -2266,24 +2421,64 @@
           <GroupName>Platform/MCU/MX1101/peripherals</GroupName>
           <Files>
             <File>
-              <FileName>MicoDriverCommon.c</FileName>
+              <FileName>platform_adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverCommon.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_adc.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverFlash.c</FileName>
+              <FileName>platform_flash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverFlash.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_flash.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverGpio.c</FileName>
+              <FileName>platform_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverGpio.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverUart.c</FileName>
+              <FileName>platform_i2c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverUart.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mcu_powersave.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_mcu_powersave.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_rng.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_rng.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_rtc.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_spi_slave.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_spi_slave.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_watchdog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_watchdog.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2551,9 +2746,9 @@
               <FilePath>..\..\..\..\Board\EMW5088\platform.h</FilePath>
             </File>
             <File>
-              <FileName>platform_common_config.h</FileName>
+              <FileName>platform_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Board\EMW5088\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5088\platform_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2700,7 +2895,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>1</TargetSelection>
+          <TargetSelection>7</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -2714,7 +2909,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver>BIN\UL2CM3.DLL</Driver>
+            <Driver>Segger\JL2CM3.dll</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -3084,6 +3279,31 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Platform/MCU</GroupName>
+          <Files>
+            <File>
+              <FileName>mico_platform_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\mico_platform_common.c</FilePath>
+            </File>
+            <File>
+              <FileName>wlan_platform_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\wlan_platform_common.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/MCU/MX1101</GroupName>
+          <Files>
+            <File>
+              <FileName>platform_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\platform_init.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Platform/MCU/MX1101/RVMDK</GroupName>
           <Files>
             <File>
@@ -3141,24 +3361,64 @@
           <GroupName>Platform/MCU/MX1101/peripherals</GroupName>
           <Files>
             <File>
-              <FileName>MicoDriverCommon.c</FileName>
+              <FileName>platform_adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverCommon.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_adc.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverFlash.c</FileName>
+              <FileName>platform_flash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverFlash.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_flash.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverGpio.c</FileName>
+              <FileName>platform_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverGpio.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverUart.c</FileName>
+              <FileName>platform_i2c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\MicoDriverUart.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mcu_powersave.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_mcu_powersave.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_rng.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_rng.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_rtc.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_spi_slave.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_spi_slave.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_watchdog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\peripherals\platform_watchdog.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3426,9 +3686,9 @@
               <FilePath>..\..\..\..\Board\EMW5088\platform.h</FilePath>
             </File>
             <File>
-              <FileName>platform_common_config.h</FileName>
+              <FileName>platform_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Board\EMW5088\platform_common_config.h</FilePath>
+              <FilePath>..\..\..\..\Board\EMW5088\platform_config.h</FilePath>
             </File>
           </Files>
         </Group>
