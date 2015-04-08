@@ -34,6 +34,10 @@
 
 #include "Common.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define micoWlanStart             StartNetwork
 #define micoWlanStartAdv          StartAdvNetwork
 #define micoWlanGetIPStatus       getNetPara
@@ -489,6 +493,9 @@ void wifimgr_debug_enable(bool enable);
 /**
   * @}
   */
+#ifdef __cplusplus
+    }
+#endif
 
 #endif //__MICOWLAN_H__
 

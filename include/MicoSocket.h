@@ -34,6 +34,10 @@
 
 #include "Common.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /** @addtogroup MICO_Core_APIs
 * @{
 */
@@ -684,6 +688,9 @@ int ssl_close(void* ssl);
 /**
   * @}
   */
+#ifdef __cplusplus
+}
+#endif
 
 #endif /*__MICO_SOCKET_H__*/
 

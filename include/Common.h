@@ -30,6 +30,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define TARGET_RT_LITTLE_ENDIAN
 
@@ -635,6 +638,9 @@ typedef __PTRDIFF_TYPE__        ptrdiff_t;
 /* Suppress unused variable warning occurring due to an assert which is disabled in release mode */
 #ifndef REFERENCE_DEBUG_ONLY_VARIABLE
 #define REFERENCE_DEBUG_ONLY_VARIABLE(x) ( (void)(x) )
+#endif
+#ifdef __cplusplus
+}
 #endif
 
 
