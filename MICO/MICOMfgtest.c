@@ -7,7 +7,7 @@
 #include "platform_config.h"
 
 
-#define MFG_FUNCTION             2
+#define MFG_FUNCTION             1
 
 
 
@@ -128,6 +128,20 @@ void mico_mfg_test(mico_Context_t *inContex)
   char mac[6];
   char *ssid;
   UNUSED_PARAMETER(inContex);
+  mico_uart_config_t uart_config;
+  volatile ring_buffer_t  rx_buffer;
+  volatile uint8_t *       rx_data;
+  
+  /* Initialize UART interface */
+  uart_config.baud_rate    = 115200;
+  uart_config.data_width   = DATA_WIDTH_8BIT;
+  uart_config.parity       = NO_PARITY;
+  uart_config.stop_bits    = STOP_BITS_1;
+  uart_config.flow_control = FLOW_CONTROL_DISABLED;
+  uart_config.flags = UART_WAKEUP_DISABLE;
+  
+  ring_buffer_init  ( (ring_buffer_t *)&rx_buffer, (uint8_t *)rx_data, 50 );
+  MicoUartInitialize( MFG_TEST, &uart_config, (ring_buffer_t *)&rx_buffer );  
   
   sprintf(str, "Library Version: %s\r\n", system_lib_version());
   mf_printf(str);
