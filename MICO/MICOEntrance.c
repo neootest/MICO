@@ -325,7 +325,7 @@ int application_start(void)
   mico_start_timer(&_watchdog_reload_timer);
 
   /* Enter test mode, call a build-in test function amd output on MFG UART */
-  if(MicoShouldEnterMFGMode()==false){
+  if(MicoShouldEnterMFGMode()==true){
     mico_log( "Enter MFG mode by MFG button" );
     mico_mfg_test(context);
   }
