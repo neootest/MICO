@@ -215,7 +215,8 @@ OSStatus platform_flash_write( platform_flash_driver_t *driver, volatile uint32_
   mico_rtos_lock_mutex( &driver->flash_mutex );
 #endif
   if( driver->peripheral->flash_type == FLASH_TYPE_INTERNAL ){
-    return internalFlashWrite(FlashAddress, (uint32_t *)Data, DataLength); 
+    err = internalFlashWrite(FlashAddress, (uint32_t *)Data, DataLength); 
+    require_noerr(err, exit_with_mutex);
   }
 #ifdef USE_MICO_SPI_FLASH
   else if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){
