@@ -76,6 +76,14 @@ extern "C"
 /******************************************************
  *                   Enumerations
  ******************************************************/
+ /**
+ * SPI slave transfer direction
+ */
+typedef enum
+{
+    FLASH_TYPE_INTERNAL, 
+    FLASH_TYPE_SPI,   
+} platform_flash_type_t;
 
 /******************************************************
  *                 Type Definitions
@@ -209,6 +217,22 @@ typedef struct
     volatile OSStatus          last_receive_result;
     volatile OSStatus          last_transmit_result;
 } platform_uart_driver_t;
+
+typedef struct
+{
+    platform_flash_type_t      flash_type;
+    uint32_t                   flash_start_addr;
+    uint32_t                   flash_length;
+} platform_flash_t;
+
+typedef struct
+{
+    platform_flash_t*          peripheral;
+    bool                       initialized;
+#ifndef NO_MICO_RTOS
+    mico_mutex_t               flash_mutex;
+#endif
+} platform_flash_driver_t;
 
 
 /******************************************************

@@ -291,12 +291,6 @@
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3288\platform.h</name>
       </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3288\platform_common_config.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3288\platform_spi_flash.c</name>
-      </file>
     </group>
   </group>
   <group>

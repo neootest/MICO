@@ -30,6 +30,7 @@
 */
 
 #include "MICO.h"
+#include "platform_config.h"
 #include "MICODefine.h"
 #include "SocketUtils.h"
 #include "Platform.h"

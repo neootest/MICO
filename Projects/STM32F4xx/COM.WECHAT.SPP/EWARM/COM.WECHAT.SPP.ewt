@@ -671,13 +671,13 @@
         <group>
           <name>Wi-Fi_Bus_Driver</name>
           <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\Wi-Fi_Bus_Driver\read_wifi_firmware.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\wlan_bus_driver\read_wifi_firmware.c</name>
           </file>
           <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\Wi-Fi_Bus_Driver\wlan_bus_sdio.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\wlan_bus_driver\wlan_bus_sdio.c</name>
           </file>
           <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\Wi-Fi_Bus_Driver\wlan_bus_spi.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\wlan_bus_driver\wlan_bus_spi.c</name>
           </file>
         </group>
         <file>

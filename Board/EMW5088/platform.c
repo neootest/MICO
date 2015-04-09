@@ -111,6 +111,7 @@ const platform_gpio_t platform_gpio_pins[] =
 {
 //  /* Common GPIOs for internal use */
   [MICO_SYS_LED]                        = {GPIOB, 31}, 
+  [MFG_SEL]                             = {GPIOB, 25}, 
   [BOOT_SEL]                            = {GPIOB, 26},
   [EasyLink_BUTTON]                     = {GPIOA,  5}, 
   [STDIO_UART_RX]                       = {GPIOB,  6},
@@ -153,6 +154,18 @@ const platform_uart_t platform_uart_peripherals[] =
 platform_uart_driver_t platform_uart_drivers[MICO_UART_MAX];
 
 const platform_i2c_t *platform_i2c_peripherals = NULL;
+
+const platform_flash_t platform_flash_peripherals[] =
+{
+  [MICO_SPI_FLASH] =
+  {
+    .flash_type                   = FLASH_TYPE_SPI,
+    .flash_start_addr             = 0x000000,
+    .flash_length                 = 0x200000,
+  },
+};
+
+platform_flash_driver_t platform_flash_drivers[MICO_FLASH_MAX];
 
 /* Wi-Fi control pins. Used by platform/MCU/wlan_platform_common.c
 */
@@ -233,8 +246,10 @@ static void _button_EL_Timeout_handler( void* arg )
 
 void init_platform( void )
 {
-  MicoGpioInitialize( (mico_gpio_t)MICO_SYS_LED, OUTPUT_PUSH_PULL );
+  MicoGpioInitialize( MICO_SYS_LED, OUTPUT_PUSH_PULL );
   MicoSysLed(false);
+  
+  MicoGpioInitialize( MFG_SEL, INPUT_PULL_UP );
   
   //  Initialise EasyLink buttons
   //MicoGpioInitialize( (mico_gpio_t)EasyLink_BUTTON, INPUT_PULL_UP );
@@ -275,6 +290,7 @@ void init_platform_bootloader( void )
   OSStatus err;
   
   MicoGpioInitialize( BOOT_SEL, INPUT_PULL_UP );
+  MicoGpioInitialize( MFG_SEL, INPUT_PULL_UP );
   return;
   
   /* Check USB-HOST is inserted */
@@ -471,15 +487,15 @@ void MicoRfLed(bool onoff)
 
 bool MicoShouldEnterMFGMode(void)
 {
-//  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==false)
-//    return true;
-//  else
+  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==false)
+    return true;
+  else
     return false;
 }
 
 bool MicoShouldEnterBootloader(void)
 {
-  if(MicoGpioInputGet(BOOT_SEL)==false)
+  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==true)
     return true;
   else
     return false;

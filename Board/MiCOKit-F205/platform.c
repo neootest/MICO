@@ -255,6 +255,24 @@ const platform_i2c_t platform_i2c_peripherals[] =
   },
 };
 
+const platform_flash_t platform_flash_peripherals[] =
+{
+  [MICO_SPI_FLASH] =
+  {
+    .flash_type                   = FLASH_TYPE_SPI,
+    .flash_start_addr             = 0x000000,
+    .flash_length                 = 0x200000,
+  },
+  [MICO_INTERNAL_FLASH] =
+  {
+    .flash_type                   = FLASH_TYPE_INTERNAL,
+    .flash_start_addr             = 0x08000000,
+    .flash_length                 = 0x100000,
+  },
+};
+
+platform_flash_driver_t platform_flash_drivers[MICO_FLASH_MAX];
+
 #if defined ( USE_MICO_SPI_FLASH )
 
 /* spi flash bus pins. Used by platform/drivers/spi_flash/spi_flash_platform.c */
@@ -489,8 +507,8 @@ void init_platform_bootloader( void )
   MicoGpioInitialize( (mico_gpio_t)MICO_RF_LED, OUTPUT_OPEN_DRAIN_NO_PULL );
   MicoGpioOutputHigh( (mico_gpio_t)MICO_RF_LED );
   
-  MicoGpioInitialize((mico_gpio_t)BOOT_SEL, INPUT_PULL_UP);
-  MicoGpioInitialize((mico_gpio_t)MFG_SEL, INPUT_HIGH_IMPEDANCE);
+  MicoGpioInitialize(BOOT_SEL, INPUT_PULL_UP);
+  MicoGpioInitialize(MFG_SEL, INPUT_PULL_UP);
 }
 
 void MicoSysLed(bool onoff)

@@ -12,7 +12,7 @@
 			"path": "../../../../Support"
 		},
 		{
-			"path": "../../../../Board/MiCOKit-3288"
+			"path": "../../../../Board/MiCOKit-3165"
 		},
 		{
 			"path": "../../../../Demos/COM.MXCHIP.SPP"
@@ -51,7 +51,7 @@
 			"-I/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/",
 			"-I/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/Libraries/",
 			"-I/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/Libraries/STM32F4xx_StdPeriph_Driver/inc/",
-			"-I/Users/william/Develop/MiCO/Board/MiCOKit-3288/",
+			"-I/Users/william/Develop/MiCO/Board/MiCOKit-3165/",
 			"-I/Users/william/Develop/MiCO/include/",
 			"-I/Users/william/Develop/MiCO/MICO/",
 			"-I/Users/william/Develop/MiCO/Support/",

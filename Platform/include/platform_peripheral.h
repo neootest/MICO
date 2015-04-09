@@ -802,6 +802,39 @@ void platform_init_nanosecond_clock( void );
  */
 OSStatus platform_random_number_read( void *inBuffer, int inByteCount );
 
+/**
+ * Init flash 
+ *
+ */
+OSStatus platform_flash_init( platform_flash_driver_t *driver, const platform_flash_t *peripheral );
+
+
+/**
+ * Erase flash 
+ *
+ */
+OSStatus platform_flash_erase( platform_flash_driver_t *driver, uint32_t StartAddress, uint32_t EndAddress  );
+
+/**
+ * Write flash 
+ *
+ */
+OSStatus platform_flash_write( platform_flash_driver_t *driver, volatile uint32_t* FlashAddress, uint8_t* Data ,uint32_t DataLength  );
+
+/**
+ * Read flash 
+ *
+ */
+OSStatus platform_flash_read( platform_flash_driver_t *driver, volatile uint32_t* FlashAddress, uint8_t* Data ,uint32_t DataLength  );
+
+
+/**
+ * Deinit flash 
+ *
+ */
+OSStatus platform_flash_deinit( platform_flash_driver_t *driver);
+
+
 
 #ifdef __cplusplus
 } /*"C" */

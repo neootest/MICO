@@ -241,6 +241,18 @@ const platform_i2c_t platform_i2c_peripherals[] =
   },
 };
 
+const platform_flash_t platform_flash_peripherals[] =
+{
+  [MICO_INTERNAL_FLASH] =
+  {
+    .flash_type                   = FLASH_TYPE_INTERNAL,
+    .flash_start_addr             = 0x08000000,
+    .flash_length                 = 0x100000,
+  },
+};
+
+platform_flash_driver_t platform_flash_drivers[MICO_FLASH_MAX];
+
 /* Wi-Fi control pins. Used by platform/MCU/wlan_platform_common.c
 * SDIO: EMW1062_PIN_BOOTSTRAP[1:0] = b'00
 * gSPI: EMW1062_PIN_BOOTSTRAP[1:0] = b'01

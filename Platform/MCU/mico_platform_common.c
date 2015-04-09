@@ -76,8 +76,18 @@ extern const platform_spi_t        platform_spi_peripherals[];
 extern const platform_uart_t       platform_uart_peripherals[];
 extern platform_uart_driver_t      platform_uart_drivers[];
 extern platform_spi_slave_driver_t platform_spi_slave_drivers[];
+extern const platform_flash_t      platform_flash_peripherals[];
+extern platform_flash_driver_t     platform_flash_drivers[];
 
 bool i2c_initialized[MICO_I2C_MAX+1]; // Bypass compile err when MICO_I2C_MAX = 0
+
+const char* flash_name[] =
+{ 
+#ifdef USE_MICO_SPI_FLASH
+  [MICO_SPI_FLASH] = "SPI", 
+#endif
+  [MICO_INTERNAL_FLASH] = "Internal",
+};
 
 /******************************************************
 *               Function Definitions
@@ -480,6 +490,32 @@ void MicoWdgReload( void )
 {
     platform_watchdog_kick( );
 }
+
+OSStatus MicoFlashInitialize( mico_flash_t flash )
+{
+  return (OSStatus) platform_flash_init( &platform_flash_drivers[flash], &platform_flash_peripherals[flash] );
+}
+
+OSStatus MicoFlashErase( mico_flash_t flash, uint32_t StartAddress, uint32_t EndAddress )
+{
+  return (OSStatus) platform_flash_erase( &platform_flash_drivers[flash], StartAddress, EndAddress );
+}
+
+OSStatus MicoFlashWrite(mico_flash_t flash, volatile uint32_t* FlashAddress, uint8_t* Data ,uint32_t DataLength)
+{
+  return (OSStatus) platform_flash_write( &platform_flash_drivers[flash], FlashAddress, Data, DataLength );
+}
+
+OSStatus MicoFlashRead(mico_flash_t flash, volatile uint32_t* FlashAddress, uint8_t* Data ,uint32_t DataLength)
+{
+  return (OSStatus) platform_flash_read( &platform_flash_drivers[flash], FlashAddress, Data, DataLength );
+}
+
+OSStatus MicoFlashFinalize( mico_flash_t flash )
+{
+  return (OSStatus) platform_flash_deinit( &platform_flash_drivers[flash] );
+}
+
 
 // uint64_t wiced_get_nanosecond_clock_value( void )
 // {

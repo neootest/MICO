@@ -33,7 +33,7 @@
 #include "PlatformLogging.h"
 #include "MicoPlatform.h"
 #include "platform.h"
-#include "platform_config.h"
+//#include "platform_config.h"
 #include "stdio.h"
 #ifdef USE_MICO_SPI_FLASH
 #include "spi_flash.h"
@@ -76,108 +76,269 @@ static OSStatus internalFlashFinalize( void );
 static OSStatus spiFlashErase(uint32_t StartAddress, uint32_t EndAddress);
 #endif
 
+// OSStatus MicoFlashInitialize( mico_flash_t flash )
+// { 
+//   platform_log_trace();
+//   if(flash == MICO_INTERNAL_FLASH){
+//     return internalFlashInitialize();    
+//   }
+// #ifdef USE_MICO_SPI_FLASH
+//   else if(flash == MICO_SPI_FLASH){
+//     if(sflash_handle.device_id)
+//       return kNoErr;
+//     else
+//       return init_sflash( &sflash_handle, 0, SFLASH_WRITE_ALLOWED );
+//   }
+// #endif
+//   else
+//     return kUnsupportedErr;
+// }
 
-const char* flash_name[] =
-{ 
-#ifdef USE_MICO_SPI_FLASH
-  [MICO_SPI_FLASH] = "SPI", 
-#endif
-  [MICO_INTERNAL_FLASH] = "Internal",
-};
-
-OSStatus MicoFlashInitialize( mico_flash_t flash )
-{ 
-  platform_log_trace();
-  if(flash == MICO_INTERNAL_FLASH){
-    return internalFlashInitialize();    
-  }
-#ifdef USE_MICO_SPI_FLASH
-  else if(flash == MICO_SPI_FLASH){
-    if(sflash_handle.device_id)
-      return kNoErr;
-    else
-      return init_sflash( &sflash_handle, 0, SFLASH_WRITE_ALLOWED );
-  }
-#endif
-  else
-    return kUnsupportedErr;
-}
-
-OSStatus MicoFlashErase( mico_flash_t flash, uint32_t StartAddress, uint32_t EndAddress )
-{ 
-  platform_log_trace();
-  if(flash == MICO_INTERNAL_FLASH){
-    if(StartAddress<INTERNAL_FLASH_START_ADDRESS || EndAddress > INTERNAL_FLASH_END_ADDRESS)
-      return kParamErr;
-    return internalFlashErase(StartAddress, EndAddress);    
-  }
-#ifdef USE_MICO_SPI_FLASH
-  else if(flash == MICO_SPI_FLASH){
-    if(StartAddress>=EndAddress || EndAddress > SPI_FLASH_END_ADDRESS)
-      return kParamErr;
-    return spiFlashErase(StartAddress, EndAddress); 
-  }
-#endif
-  else
-    return kUnsupportedErr;
-}
-
-OSStatus MicoFlashWrite(mico_flash_t flash, volatile uint32_t* FlashAddress, uint8_t* Data ,uint32_t DataLength)
+OSStatus platform_flash_init( platform_flash_driver_t *driver, const platform_flash_t *peripheral )
 {
-  if(flash == MICO_INTERNAL_FLASH){
-    if( *FlashAddress<INTERNAL_FLASH_START_ADDRESS || *FlashAddress + DataLength > INTERNAL_FLASH_END_ADDRESS + 1)
-      return kParamErr;
-    return internalFlashWrite(FlashAddress, (uint32_t *)Data, DataLength);    
+  OSStatus err = kNoErr;
+
+  require_action_quiet( driver != NULL && peripheral != NULL, exit, err = kParamErr);
+  require_action_quiet( driver->initialized == false, exit, err = kNoErr);
+
+  driver->peripheral = (platform_flash_t *)peripheral;
+
+  if( driver->peripheral->flash_type == FLASH_TYPE_INTERNAL ){
+    err = internalFlashInitialize();
+    require_noerr(err, exit);
   }
 #ifdef USE_MICO_SPI_FLASH
-  else if(flash == MICO_SPI_FLASH){
-    if( *FlashAddress + DataLength > SPI_FLASH_END_ADDRESS + 1)
-      return kParamErr;
-    int returnVal = sflash_write( &sflash_handle, *FlashAddress, Data, DataLength );
+  else if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){
+    err = init_sflash( &sflash_handle, 0, SFLASH_WRITE_ALLOWED );
+    require_noerr(err, exit);
+  }
+#endif
+  else{
+    err = kTypeErr;
+    goto exit;
+  }
+#ifndef NO_MICO_RTOS 
+  err = mico_rtos_init_mutex( &driver->flash_mutex );
+#endif
+  require_noerr(err, exit);
+  driver->initialized = true;
+
+exit:
+  return err;
+}
+
+// OSStatus MicoFlashErase( mico_flash_t flash, uint32_t StartAddress, uint32_t EndAddress )
+// { 
+//   platform_log_trace();
+//   if(flash == MICO_INTERNAL_FLASH){
+//     if(StartAddress<INTERNAL_FLASH_START_ADDRESS || EndAddress > INTERNAL_FLASH_END_ADDRESS)
+//       return kParamErr;
+//     return internalFlashErase(StartAddress, EndAddress);    
+//   }
+// #ifdef USE_MICO_SPI_FLASH
+//   else if(flash == MICO_SPI_FLASH){
+//     if(StartAddress>=EndAddress || EndAddress > SPI_FLASH_END_ADDRESS)
+//       return kParamErr;
+//     return spiFlashErase(StartAddress, EndAddress); 
+//   }
+// #endif
+//   else
+//     return kUnsupportedErr;
+// }
+
+OSStatus platform_flash_erase( platform_flash_driver_t *driver, uint32_t StartAddress, uint32_t EndAddress  )
+{
+  OSStatus err = kNoErr;
+
+  require_action_quiet( driver != NULL, exit, err = kParamErr);
+  require_action_quiet( driver->initialized != false, exit, err = kNotInitializedErr);
+  require_action( StartAddress >= driver->peripheral->flash_start_addr 
+               && EndAddress   <= driver->peripheral->flash_start_addr + driver->peripheral->flash_length - 1, exit, err = kParamErr);
+#ifndef NO_MICO_RTOS 
+  mico_rtos_lock_mutex( &driver->flash_mutex );
+#endif
+  if( driver->peripheral->flash_type == FLASH_TYPE_INTERNAL ){
+    err = internalFlashErase(StartAddress, EndAddress);    
+    require_noerr(err, exit_with_mutex);
+  }
+#ifdef USE_MICO_SPI_FLASH
+  else if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){
+    err = spiFlashErase(StartAddress, EndAddress);
+    require_noerr(err, exit_with_mutex);
+  }
+#endif
+  else{
+    err = kTypeErr;
+    goto exit_with_mutex;
+  }
+
+exit_with_mutex: 
+#ifndef NO_MICO_RTOS 
+  mico_rtos_unlock_mutex( &driver->flash_mutex );
+#endif
+exit:
+  return err;
+}
+
+
+
+// OSStatus MicoFlashWrite(mico_flash_t flash, volatile uint32_t* FlashAddress, uint8_t* Data ,uint32_t DataLength)
+// {
+//   if(flash == MICO_INTERNAL_FLASH){
+//     if( *FlashAddress<INTERNAL_FLASH_START_ADDRESS || *FlashAddress + DataLength > INTERNAL_FLASH_END_ADDRESS + 1)
+//       return kParamErr;
+//     return internalFlashWrite(FlashAddress, (uint32_t *)Data, DataLength);    
+//   }
+// #ifdef USE_MICO_SPI_FLASH
+//   else if(flash == MICO_SPI_FLASH){
+//     if( *FlashAddress + DataLength > SPI_FLASH_END_ADDRESS + 1)
+//       return kParamErr;
+//     int returnVal = sflash_write( &sflash_handle, *FlashAddress, Data, DataLength );
+//     *FlashAddress += DataLength;
+//     return returnVal;
+//   }
+// #endif
+//   else
+//     return kUnsupportedErr;
+// }
+
+
+OSStatus platform_flash_write( platform_flash_driver_t *driver, volatile uint32_t* FlashAddress, uint8_t* Data ,uint32_t DataLength  )
+{
+  OSStatus err = kNoErr;
+
+  require_action_quiet( driver != NULL, exit, err = kParamErr);
+  require_action_quiet( driver->initialized != false, exit, err = kNotInitializedErr);
+  require_action( *FlashAddress >= driver->peripheral->flash_start_addr 
+               && *FlashAddress + DataLength <= driver->peripheral->flash_start_addr + driver->peripheral->flash_length, exit, err = kParamErr);
+#ifndef NO_MICO_RTOS 
+  mico_rtos_lock_mutex( &driver->flash_mutex );
+#endif
+  if( driver->peripheral->flash_type == FLASH_TYPE_INTERNAL ){
+    return internalFlashWrite(FlashAddress, (uint32_t *)Data, DataLength); 
+  }
+#ifdef USE_MICO_SPI_FLASH
+  else if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){
+    err = sflash_write( &sflash_handle, *FlashAddress, Data, DataLength );
+    require_noerr(err, exit_with_mutex);
     *FlashAddress += DataLength;
-    return returnVal;
   }
 #endif
-  else
-    return kUnsupportedErr;
+  else{
+    err = kTypeErr;
+    goto exit_with_mutex;
+  }
+
+exit_with_mutex: 
+#ifndef NO_MICO_RTOS 
+  mico_rtos_unlock_mutex( &driver->flash_mutex );
+#endif
+
+exit:
+  return err;
 }
 
-OSStatus MicoFlashRead(mico_flash_t flash, volatile uint32_t* FlashAddress, uint8_t* Data ,uint32_t DataLength)
-{
+
+// OSStatus MicoFlashRead(mico_flash_t flash, volatile uint32_t* FlashAddress, uint8_t* Data ,uint32_t DataLength)
+// {
   
-  if(flash == MICO_INTERNAL_FLASH){
-    if( *FlashAddress<INTERNAL_FLASH_START_ADDRESS || *FlashAddress + DataLength > INTERNAL_FLASH_END_ADDRESS + 1)
-      return kParamErr;
+//   if(flash == MICO_INTERNAL_FLASH){
+//     if( *FlashAddress<INTERNAL_FLASH_START_ADDRESS || *FlashAddress + DataLength > INTERNAL_FLASH_END_ADDRESS + 1)
+//       return kParamErr;
+//     memcpy(Data, (void *)(*FlashAddress), DataLength);
+//     *FlashAddress += DataLength;
+//     return kNoErr;
+//   }
+// #ifdef USE_MICO_SPI_FLASH
+//   else if(flash == MICO_SPI_FLASH){
+//     if( *FlashAddress + DataLength > SPI_FLASH_END_ADDRESS + 1)
+//       return kParamErr;
+//     int returnVal = sflash_read( &sflash_handle, *FlashAddress, Data, DataLength );
+//     *FlashAddress += DataLength;
+//     return returnVal;
+//   }
+// #endif
+//   else
+//     return kUnsupportedErr;
+// }
+
+OSStatus platform_flash_read( platform_flash_driver_t *driver, volatile uint32_t* FlashAddress, uint8_t* Data ,uint32_t DataLength  )
+{
+  OSStatus err = kNoErr;
+
+  require_action_quiet( driver != NULL, exit, err = kParamErr);
+  require_action_quiet( driver->initialized != false, exit, err = kNotInitializedErr);
+  require_action( *FlashAddress >= driver->peripheral->flash_start_addr 
+               && *FlashAddress + DataLength <= driver->peripheral->flash_start_addr + driver->peripheral->flash_length, exit, err = kParamErr);
+#ifndef NO_MICO_RTOS 
+  mico_rtos_lock_mutex( &driver->flash_mutex );
+#endif
+  if( driver->peripheral->flash_type == FLASH_TYPE_INTERNAL ){
     memcpy(Data, (void *)(*FlashAddress), DataLength);
     *FlashAddress += DataLength;
-    return kNoErr;
   }
 #ifdef USE_MICO_SPI_FLASH
-  else if(flash == MICO_SPI_FLASH){
-    if( *FlashAddress + DataLength > SPI_FLASH_END_ADDRESS + 1)
-      return kParamErr;
-    int returnVal = sflash_read( &sflash_handle, *FlashAddress, Data, DataLength );
+  else if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){
+    err = sflash_read( &sflash_handle, *FlashAddress, Data, DataLength );
+    require_noerr(err, exit_with_mutex);
     *FlashAddress += DataLength;
-    return returnVal;
   }
 #endif
-  else
-    return kUnsupportedErr;
+  else{
+    err = kTypeErr;
+    goto exit_with_mutex;
+  }
+
+exit_with_mutex: 
+#ifndef NO_MICO_RTOS 
+  mico_rtos_unlock_mutex( &driver->flash_mutex );
+#endif
+exit:
+  return err;
 }
 
-OSStatus MicoFlashFinalize( mico_flash_t flash )
+// OSStatus MicoFlashFinalize( mico_flash_t flash )
+// {
+//   if(flash == MICO_INTERNAL_FLASH){
+//     return internalFlashFinalize();    
+//   }
+// #ifdef USE_MICO_SPI_FLASH
+//   else if(flash == MICO_SPI_FLASH){
+//     sflash_handle.device_id = 0x0;
+//     return kNoErr;
+//   }
+// #endif
+//   else
+//     return kUnsupportedErr;
+// }
+
+OSStatus platform_flash_deinit( platform_flash_driver_t *driver)
 {
-  if(flash == MICO_INTERNAL_FLASH){
-    return internalFlashFinalize();    
+  OSStatus err = kNoErr;
+
+  require_action_quiet( driver != NULL, exit, err = kParamErr);
+
+  driver->initialized = false;
+#ifndef NO_MICO_RTOS 
+  mico_rtos_deinit_mutex( &driver->flash_mutex );
+#endif
+
+  if( driver->peripheral->flash_type == FLASH_TYPE_INTERNAL){
+    err = internalFlashFinalize();   
+    require_noerr(err, exit); 
   }
 #ifdef USE_MICO_SPI_FLASH
-  else if(flash == MICO_SPI_FLASH){
+  else if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){
     sflash_handle.device_id = 0x0;
-    return kNoErr;
   }
 #endif
   else
     return kUnsupportedErr;
+
+  
+exit:
+  
+  return err;
 }
 
 OSStatus internalFlashInitialize( void )
@@ -306,63 +467,6 @@ OSStatus internalFlashByteWrite(__IO uint32_t* FlashAddress, uint8_t* Data ,uint
   
 exit:
   return err;
-}
-
-/**
-* @brief  Returns the write protection status of user flash area.
-* @param  None
-* @retval 0: No write protected sectors inside the user flash area
-*         1: Some sectors inside the user flash area are write protected
-*/
-uint16_t _PlatformFlashGetWriteProtectionStatus(void)
-{
-  uint32_t UserStartSector = FLASH_Sector_1;
-  
-  /* Get the sector where start the user flash area */
-  UserStartSector = _GetSector(APPLICATION_START_ADDRESS);
-  
-  /* Check if there are write protected sectors inside the user flash area */
-  if ((FLASH_OB_GetWRP() >> (UserStartSector/8)) == (0xFFF >> (UserStartSector/8)))
-  { /* No write protected sectors inside the user flash area */
-    return 1;
-  }
-  else
-  { /* Some sectors inside the user flash area are write protected */
-    return 0;
-  }
-}
-
-/**
-* @brief  Disables the write protection of user flash area.
-* @param  None
-* @retval 1: Write Protection successfully disabled
-*         2: Error: Flash write unprotection failed
-*/
-uint32_t _PlatformFlashDisableWriteProtection(void)
-{
-  __IO uint32_t UserStartSector = FLASH_Sector_1, UserWrpSectors = OB_WRP_Sector_1;
-  
-  /* Get the sector where start the user flash area */
-  UserStartSector = _GetSector(APPLICATION_START_ADDRESS);
-  
-  /* Mark all sectors inside the user flash area as non protected */  
-  UserWrpSectors = 0xFFF-((1 << (UserStartSector/8))-1);
-  
-  /* Unlock the Option Bytes */
-  FLASH_OB_Unlock();
-  
-  /* Disable the write protection for all sectors inside the user flash area */
-  FLASH_OB_WRPConfig(UserWrpSectors, DISABLE);
-  
-  /* Start the Option Bytes programming process. */  
-  if (FLASH_OB_Launch() != FLASH_COMPLETE)
-  {
-    /* Error: Flash write unprotection failed */
-    return (2);
-  }
-  
-  /* Write Protection successfully disabled */
-  return (1);
 }
 
 /**

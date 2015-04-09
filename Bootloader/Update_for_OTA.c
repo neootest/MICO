@@ -31,6 +31,7 @@
 */
 
 #include "MicoPlatform.h"
+#include "platform_config.h"
 #include "debug.h"
 
 typedef int Log_Status;					

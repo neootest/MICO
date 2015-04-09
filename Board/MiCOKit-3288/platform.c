@@ -154,6 +154,24 @@ const platform_uart_t platform_uart_peripherals[] =
 
 platform_uart_driver_t platform_uart_drivers[MICO_UART_MAX];
 
+const platform_flash_t platform_flash_peripherals[] =
+{
+  [MICO_SPI_FLASH] =
+  {
+    .flash_type                   = FLASH_TYPE_SPI,
+    .flash_start_addr             = 0x000000,
+    .flash_length                 = 0x200000,
+  },
+  [MICO_INTERNAL_FLASH] =
+  {
+    .flash_type                   = FLASH_TYPE_INTERNAL,
+    .flash_start_addr             = 0x08000000,
+    .flash_length                 = 0x80000,
+  },
+};
+
+platform_flash_driver_t platform_flash_drivers[MICO_FLASH_MAX];
+
 #if defined ( USE_MICO_SPI_FLASH )
 
 /* spi flash bus pins. Used by platform/drivers/spi_flash/spi_flash_platform.c */

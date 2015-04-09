@@ -131,6 +131,18 @@ const platform_spi_t *platform_spi_peripherals = NULL;
 
 const platform_spi_slave_driver_t *platform_spi_slave_drivers = NULL;
 
+const platform_flash_t platform_flash_peripherals[] =
+{
+  [MICO_SPI_FLASH] =
+  {
+    .flash_type                   = FLASH_TYPE_SPI,
+    .flash_start_addr             = 0x000000,
+    .flash_length                 = 0x200000,
+  },
+};
+
+platform_flash_driver_t platform_flash_drivers[MICO_FLASH_MAX];
+
 const platform_uart_t platform_uart_peripherals[] =
 {
 [MICO_UART_1] =
