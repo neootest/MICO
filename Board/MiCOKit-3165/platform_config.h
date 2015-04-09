@@ -136,6 +136,7 @@ extern "C"
 #define MICO_FLASH_FOR_BOOT         MICO_INTERNAL_FLASH
 #define BOOT_START_ADDRESS          (uint32_t)0x08000000
 #define BOOT_END_ADDRESS            (uint32_t)0x08007FFF
+#define BOOT_VER_ADDRESS            0x08007FE0
 #define BOOT_FLASH_SIZE             (BOOT_END_ADDRESS - BOOT_START_ADDRESS + 1) /* 32k bytes*/
 
 #define MICO_FLASH_FOR_PARA         MICO_SPI_FLASH

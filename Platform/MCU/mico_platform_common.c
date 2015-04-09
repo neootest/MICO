@@ -79,6 +79,7 @@ extern platform_spi_slave_driver_t platform_spi_slave_drivers[];
 
 bool i2c_initialized[MICO_I2C_MAX+1]; // Bypass compile err when MICO_I2C_MAX = 0
 
+
 /******************************************************
 *               Function Definitions
 ******************************************************/
@@ -500,3 +501,35 @@ void MicoWdgReload( void )
 // {
 //     platform_init_nanosecond_clock( );
 // }
+
+char *mico_get_bootloader_ver(void)
+{
+    static char ver[33];
+    uint32_t flashaddr = BOOT_VER_ADDRESS;
+
+    memset(ver, 0, sizeof(ver));
+    MicoFlashRead(MICO_FLASH_FOR_BOOT, &flashaddr, ver , 32);
+    return ver;
+}
+
+#ifdef BOOTLOADER 
+void mico_set_bootload_ver(void)
+{
+    char ver[33];
+    uint32_t flashaddr = BOOT_VER_ADDRESS;
+    int i;
+
+    MicoFlashInitialize(MICO_FLASH_FOR_BOOT);
+    memset(ver, 0, sizeof(ver));
+    MicoFlashRead(MICO_FLASH_FOR_BOOT, &flashaddr, ver , 32);
+    for(i=0;i<32;i++) {
+        if (ver[i] != 0xFF)
+            return;
+    }
+    snprintf(ver, 33, "%s%s", MODEL, Bootloader_REVISION );
+    flashaddr = BOOT_VER_ADDRESS;
+    MicoFlashWrite(MICO_FLASH_FOR_BOOT, &flashaddr, ver , 32);
+    MicoFlashFinalize(MICO_FLASH_FOR_BOOT);
+}
+
+#endif

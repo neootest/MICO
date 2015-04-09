@@ -84,6 +84,8 @@ int main(void)
   init_architecture();
   init_platform_bootloader();
 
+  mico_set_bootload_ver();
+  
 #ifdef MICO_FLASH_FOR_UPDATE
   update();
 #endif
