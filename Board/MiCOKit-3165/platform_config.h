@@ -81,7 +81,7 @@ extern "C"
 #define APB1_CLOCK_DIVIDER      RCC_HCLK_Div2            /* APB1 clock = AHB clock / 2           */
 #define APB2_CLOCK_DIVIDER      RCC_HCLK_Div1            /* APB2 clock = AHB clock / 1           */
 #define PLL_SOURCE              RCC_PLLSource_HSE        /* PLL source = external crystal        */
-#define PLL_M_CONSTANT          26                        /* PLLM = 16                            */
+#define PLL_M_CONSTANT          26                       /* PLLM = 16                            */
 #define PLL_N_CONSTANT          400                      /* PLLN = 400                           */
 #define PLL_P_CONSTANT          4                        /* PLLP = 4                             */
 #define PPL_Q_CONSTANT          7                        /* PLLQ = 7                             */

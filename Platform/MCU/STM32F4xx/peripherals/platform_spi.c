@@ -108,6 +108,46 @@ uint8_t platform_spi_get_port_number( platform_spi_port_t* spi )
   }
 }
 
+static void clear_dma_interrupts( DMA_Stream_TypeDef* stream, uint32_t flags )
+{
+    if ( stream <= DMA1_Stream3 )
+    {
+        DMA1->LIFCR |= flags;
+    }
+    else if ( stream <= DMA1_Stream7 )
+    {
+        DMA1->HIFCR |= flags;
+    }
+    else if ( stream <= DMA2_Stream3 )
+    {
+        DMA2->LIFCR |= flags;
+    }
+    else
+    {
+        DMA2->HIFCR |= flags;
+    }
+}
+
+static uint32_t get_dma_irq_status( DMA_Stream_TypeDef* stream )
+{
+    if ( stream <= DMA1_Stream3 )
+    {
+        return DMA1->LISR;
+    }
+    else if ( stream <= DMA1_Stream7 )
+    {
+        return DMA1->HISR;
+    }
+    else if ( stream <= DMA2_Stream3 )
+    {
+        return DMA2->LISR;
+    }
+    else
+    {
+        return DMA2->HISR;
+    }
+}
+
 OSStatus platform_spi_init( const platform_spi_t* spi, const platform_spi_config_t* config )
 {
   SPI_InitTypeDef   spi_init;
@@ -120,7 +160,7 @@ OSStatus platform_spi_init( const platform_spi_t* spi, const platform_spi_config
   /* Init SPI GPIOs */
   platform_gpio_set_alternate_function( spi->pin_clock->port, spi->pin_clock->pin_number, GPIO_OType_PP, GPIO_PuPd_NOPULL, spi->gpio_af );
   platform_gpio_set_alternate_function( spi->pin_mosi->port,  spi->pin_mosi->pin_number,  GPIO_OType_PP, GPIO_PuPd_NOPULL, spi->gpio_af );
-  platform_gpio_set_alternate_function( spi->pin_miso->port,  spi->pin_miso->pin_number,  GPIO_OType_PP, GPIO_PuPd_NOPULL, spi->gpio_af );
+  platform_gpio_set_alternate_function( spi->pin_miso->port,  spi->pin_miso->pin_number,  GPIO_OType_PP, GPIO_PuPd_UP, spi->gpio_af );
   
   /* Init the chip select GPIO */
   platform_gpio_init( config->chip_select, OUTPUT_PUSH_PULL );
@@ -188,6 +228,28 @@ OSStatus platform_spi_init( const platform_spi_t* spi, const platform_spi_config
   SPI_Init( spi->port, &spi_init );
   SPI_Cmd ( spi->port, ENABLE );
   
+  if ( config->mode & SPI_USE_DMA ){
+    if ( spi->tx_dma.controller == DMA1 )
+    {
+      RCC->AHB1ENR |= RCC_AHB1Periph_DMA1;
+    }
+    else
+    {
+      RCC->AHB1ENR |= RCC_AHB1Periph_DMA2;
+    }
+    
+     if ( spi->rx_dma.controller == DMA1 )
+    {
+      RCC->AHB1ENR |= RCC_AHB1Periph_DMA1;
+    }
+    else
+    {
+      RCC->AHB1ENR |= RCC_AHB1Periph_DMA2;
+    }
+    SPI_I2S_DMACmd( spi->port, SPI_I2S_DMAReq_Rx, DISABLE );
+    SPI_I2S_DMACmd( spi->port, SPI_I2S_DMAReq_Tx, DISABLE );
+  }
+
 exit:
   platform_mcu_powersave_enable();
   return err;
@@ -209,6 +271,7 @@ OSStatus platform_spi_transfer( const platform_spi_t* spi, const platform_spi_co
   uint32_t count  = 0;
   uint16_t i;
   
+  
   platform_mcu_powersave_disable();
   
   require_action_quiet( ( spi != NULL ) && ( config != NULL ) && ( segments != NULL ) && ( number_of_segments != 0 ), exit, err = kParamErr);
@@ -221,10 +284,12 @@ OSStatus platform_spi_transfer( const platform_spi_t* spi, const platform_spi_co
     /* Check if we are using DMA */
     if ( config->mode & SPI_USE_DMA )
     {
-      spi_dma_config( spi, &segments[ i ] );
+      if( segments[ i ].length != 0){
+        spi_dma_config( spi, &segments[ i ] );
       
-      err = spi_dma_transfer( spi, config );
-      require_noerr(err, cleanup_transfer);
+        err = spi_dma_transfer( spi, config );
+        require_noerr(err, cleanup_transfer);
+      }
     }
     else
     {
@@ -339,24 +404,27 @@ static OSStatus spi_dma_transfer( const platform_spi_t* spi, const platform_spi_
   uint32_t loop_count;
   
   /* Enable dma channels that have just been configured */
-  DMA_Cmd( spi->tx_dma.stream, ENABLE );
+  SPI_I2S_DMACmd( spi->port, SPI_I2S_DMAReq_Rx, ENABLE );
+  SPI_I2S_DMACmd( spi->port, SPI_I2S_DMAReq_Tx, ENABLE );
   DMA_Cmd( spi->rx_dma.stream, ENABLE );
+  DMA_Cmd( spi->tx_dma.stream, ENABLE );
   
   /* Wait for DMA to complete */
   /* TODO: This should wait on a semaphore that is triggered from an IRQ */
   loop_count = 0;
-  while ( ( DMA_GetFlagStatus( spi->tx_dma.stream, spi->tx_dma.complete_flags ) == RESET ) )
+  
+  while ( ( get_dma_irq_status( spi->tx_dma.stream ) & spi->tx_dma.complete_flags ) == 0  )
   {
     loop_count++;
     /* Check if we've run out of time */
     if ( loop_count >= (uint32_t) SPI_DMA_TIMEOUT_LOOPS )
     {
-      platform_gpio_output_high( config->chip_select );
       return kTimeoutErr;
     }
   }
-  
-  platform_gpio_output_high( config->chip_select );
+
+  SPI_I2S_DMACmd( spi->port, SPI_I2S_DMAReq_Rx, DISABLE );
+  SPI_I2S_DMACmd( spi->port, SPI_I2S_DMAReq_Tx, DISABLE );
   return kNoErr;
 }
 
@@ -370,7 +438,7 @@ static void spi_dma_config( const platform_spi_t* spi, const platform_spi_messag
   
   /* Setup DMA stream for TX */
   dma_init.DMA_Channel            = spi->tx_dma.channel;
-  dma_init.DMA_PeripheralBaseAddr = ( uint32_t )spi->port->DR;
+  dma_init.DMA_PeripheralBaseAddr = ( uint32_t )&spi->port->DR;
   dma_init.DMA_DIR                = DMA_DIR_MemoryToPeripheral;
   dma_init.DMA_PeripheralInc      = DMA_PeripheralInc_Disable;
   dma_init.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
@@ -397,7 +465,7 @@ static void spi_dma_config( const platform_spi_t* spi, const platform_spi_messag
   DMA_Init( spi->tx_dma.stream, &dma_init );
   
   /* Activate SPI DMA mode for transmission */
-  SPI_I2S_DMACmd( spi->port, SPI_I2S_DMAReq_Tx, ENABLE );
+  
   
   /* TODO: Init TX DMA finished semaphore  */
   
@@ -428,8 +496,8 @@ static void spi_dma_config( const platform_spi_t* spi, const platform_spi_messag
   }
   
   /* Init and activate RX DMA channel */
-  DMA_Init( spi->tx_dma.stream, &dma_init );
-  SPI_I2S_DMACmd( spi->port, SPI_I2S_DMAReq_Rx, ENABLE );
+  DMA_Init( spi->rx_dma.stream, &dma_init );
+  
   
   /* TODO: Init RX DMA finish semaphore */
 }

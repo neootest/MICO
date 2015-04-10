@@ -211,21 +211,21 @@ const platform_spi_t spi_flash_spi =
   .pin_clock                    = &spi_flash_spi_pins[FLASH_PIN_SPI_CLK],
   .tx_dma =
   {
-    .controller                 = DMA1,
-    .stream                     = DMA1_Stream4,
-    .channel                    = DMA_Channel_0,
-    .irq_vector                 = DMA1_Stream4_IRQn,
-    .complete_flags             = DMA_HISR_TCIF4,
-    .error_flags                = ( DMA_HISR_TEIF4 | DMA_HISR_FEIF4 ),
+    .controller                 = DMA2,
+    .stream                     = DMA2_Stream5,
+    .channel                    = DMA_Channel_3,
+    .irq_vector                 = DMA2_Stream5_IRQn,
+    .complete_flags             = DMA_HISR_TCIF5,
+    .error_flags                = ( DMA_HISR_TEIF5 | DMA_HISR_FEIF5 ),
   },
   .rx_dma =
   {
-    .controller                 = DMA1,
-    .stream                     = DMA1_Stream3,
-    .channel                    = DMA_Channel_0,
-    .irq_vector                 = DMA1_Stream3_IRQn,
-    .complete_flags             = DMA_LISR_TCIF3,
-    .error_flags                = ( DMA_LISR_TEIF3 | DMA_LISR_FEIF3 | DMA_LISR_DMEIF3 ),
+    .controller                 = DMA2,
+    .stream                     = DMA2_Stream0,
+    .channel                    = DMA_Channel_3,
+    .irq_vector                 = DMA2_Stream0_IRQn,
+    .complete_flags             = DMA_LISR_TCIF0,
+    .error_flags                = ( DMA_LISR_TEIF0 | DMA_LISR_FEIF0 | DMA_LISR_DMEIF0 ),
   },
 };
 
@@ -234,7 +234,7 @@ const mico_spi_device_t mico_spi_flash =
     .port        = (mico_spi_t)0, //Not used here, we use spi_flash_spi in spi flash driver
     .chip_select = (mico_gpio_t)FLASH_PIN_SPI_CS, //Do not change this 
     .speed       = 40000000,
-    .mode        = (SPI_CLOCK_RISING_EDGE | SPI_CLOCK_IDLE_HIGH | SPI_NO_DMA | SPI_MSB_FIRST),
+    .mode        = (SPI_CLOCK_RISING_EDGE | SPI_CLOCK_IDLE_HIGH | SPI_USE_DMA | SPI_MSB_FIRST),
     .bits        = 8
 };
 #endif
