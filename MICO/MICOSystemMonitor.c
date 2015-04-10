@@ -36,7 +36,7 @@
 
 
 
-#define DEFAULT_SYSTEM_MONITOR_PERIOD   (3000)
+#define DEFAULT_SYSTEM_MONITOR_PERIOD   (2000)
 
 #ifndef MAXIMUM_NUMBER_OF_SYSTEM_MONITORS
 #define MAXIMUM_NUMBER_OF_SYSTEM_MONITORS    (5)
@@ -45,10 +45,10 @@
 static mico_system_monitor_t* system_monitors[MAXIMUM_NUMBER_OF_SYSTEM_MONITORS];
 void mico_system_monitor_thread_main( void* arg );
 
-OSStatus MICOStartSystemMonitor (mico_Context_t * const inContext)
+OSStatus MICOStartSystemMonitor ( mico_Context_t * const inContext )
 {
   OSStatus err = kNoErr;
-  require_noerr(MicoWdgInitialize(  DEFAULT_SYSTEM_MONITOR_PERIOD + 500 ), exit);
+  require_noerr(MicoWdgInitialize( DEFAULT_SYSTEM_MONITOR_PERIOD + 1000 ), exit);
   memset(system_monitors, 0, sizeof(system_monitors));
 
   err = mico_rtos_create_thread(NULL, 0, "SYS MONITOR", mico_system_monitor_thread_main, STACK_SIZE_MICO_SYSTEM_MONITOR_THREAD, (void*)inContext );

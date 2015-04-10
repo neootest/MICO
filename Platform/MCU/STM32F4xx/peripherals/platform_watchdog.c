@@ -36,6 +36,7 @@
 #include "debug.h"
 
 #include "platform.h"
+#include "platform_config.h"
 #include "platform_peripheral.h"
 
 /******************************************************
@@ -84,15 +85,15 @@ OSStatus platform_watchdog_init( uint32_t timeout_ms )
 // PLATFORM_TO_DO
 #ifndef MICO_DISABLE_WATCHDOG
   OSStatus err = kNoErr;
-  uint16_t reloadTick;
+  uint32_t reloadTick;
   /* Get the LSI frequency:  TIM5 is used to measure the LSI frequency */
   LsiFreq = GetLSIFrequency();
   
-  /* Set counter reload value to obtain 250ms IWDG TimeOut.
-     Counter Reload Value = timeout_ms /IWDG counter clock period
+  /* Set counter reload value to obtain timeout_ms IWDG TimeOut.
+     Counter Reload Value = timeout_s /IWDG counter clock period
                           = timeout_ms * (LSI/256) / 1000
    */
-  reloadTick = LsiFreq*timeout_ms/256000;
+  reloadTick = (LsiFreq*timeout_ms)/256000; 
   require_action( reloadTick <= 0xFFF, exit, err = kParamErr );
 
   IWDG_WriteAccessCmd(IWDG_WriteAccess_Enable);
@@ -158,7 +159,7 @@ uint32_t GetLSIFrequency(void)
   /* Wait till LSI is ready */
   while (RCC_GetFlagStatus(RCC_FLAG_LSIRDY) == RESET)
   {}
-
+  
   /* TIM5 configuration *******************************************************/ 
   /* Enable TIM5 clock */
   RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM5, ENABLE);
@@ -183,8 +184,7 @@ uint32_t GetLSIFrequency(void)
   
   /* Enable TIM5 Interrupt channel */
   NVIC_InitStructure.NVIC_IRQChannel = TIM5_IRQn;
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 5;
-  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 8;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   NVIC_Init(&NVIC_InitStructure);
 
