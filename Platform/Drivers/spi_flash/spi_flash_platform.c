@@ -8,11 +8,10 @@
  * written permission of Broadcom Corporation.
  */
 #include "spi_flash_platform_interface.h"
-#include "MicoPlatform.h"
 
 #if defined ( USE_MICO_SPI_FLASH )
 
-extern const mico_spi_device_t  mico_spi_flash;
+extern const spi_flash_device_t spi_flash_device
 extern const platform_spi_t     spi_flash_spi;
 extern const platform_gpio_t    spi_flash_spi_pins[];
 
@@ -22,10 +21,10 @@ int sflash_platform_init ( /*@shared@*/ void* peripheral_id, /*@out@*/ void** pl
 
     platform_spi_config_t config;
 
-    config.chip_select = &spi_flash_spi_pins[mico_spi_flash.chip_select];
-    config.speed       = mico_spi_flash.speed;
-    config.mode        = mico_spi_flash.mode;
-    config.bits        = mico_spi_flash.bits;
+    config.chip_select = &spi_flash_spi_pins[FLASH_PIN_SPI_CS];
+    config.speed       = spi_flash_device.speed;
+    config.mode        = spi_flash_device.mode;
+    config.bits        = spi_flash_device.bits;
   
     if ( kNoErr != platform_spi_init( &spi_flash_spi, &config ) )
     {
@@ -46,10 +45,10 @@ extern int sflash_platform_send_recv ( const void* platform_peripheral, /*@in@*/
 
     platform_spi_config_t config;
 
-    config.chip_select = &spi_flash_spi_pins[mico_spi_flash.chip_select];
-    config.speed       = mico_spi_flash.speed;
-    config.mode        = mico_spi_flash.mode;
-    config.bits        = mico_spi_flash.bits;
+    config.chip_select = &spi_flash_spi_pins[FLASH_PIN_SPI_CS];
+    config.speed       = spi_flash_device.speed;
+    config.mode        = spi_flash_device.mode;
+    config.bits        = spi_flash_device.bits;
 
     if ( kNoErr != platform_spi_transfer( &spi_flash_spi, &config, (mico_spi_message_segment_t*)segments, num_segments  ) )
     {

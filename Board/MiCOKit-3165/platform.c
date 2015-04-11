@@ -229,10 +229,8 @@ const platform_spi_t spi_flash_spi =
   },
 };
 
-const mico_spi_device_t mico_spi_flash =
+const spi_flash_device_t spi_flash_device =
 {
-    .port        = (mico_spi_t)0, //Not used here, we use spi_flash_spi in spi flash driver
-    .chip_select = (mico_gpio_t)FLASH_PIN_SPI_CS, //Do not change this 
     .speed       = 40000000,
     .mode        = (SPI_CLOCK_RISING_EDGE | SPI_CLOCK_IDLE_HIGH | SPI_USE_DMA | SPI_MSB_FIRST),
     .bits        = 8

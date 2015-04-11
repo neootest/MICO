@@ -33,6 +33,8 @@
 #ifndef INCLUDED_SPI_FLASH_PLATFORM_INTERFACE_H
 #define INCLUDED_SPI_FLASH_PLATFORM_INTERFACE_H
 
+#include "Common.h"
+
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -45,6 +47,12 @@
                                 unsigned long length;
  } sflash_platform_message_segment_t;
 
+typedef struct
+{
+    uint32_t     speed;
+    uint8_t      mode;
+    uint8_t      bits;
+} spi_flash_device_t;
 
 /**
 * WLAN SPI pins

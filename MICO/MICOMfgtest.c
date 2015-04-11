@@ -130,7 +130,10 @@ void mico_mfg_test(mico_Context_t *inContex)
   UNUSED_PARAMETER(inContex);
   mico_uart_config_t uart_config;
   volatile ring_buffer_t  rx_buffer;
-  volatile uint8_t *       rx_data;
+  volatile uint8_t *      rx_data;
+  
+  rx_data = malloc(50);
+  require(rx_data, exit);
   
   /* Initialize UART interface */
   uart_config.baud_rate    = 115200;
@@ -165,6 +168,7 @@ void mico_mfg_test(mico_Context_t *inContex)
   ssid = ssid_get();
   mfg_connect(ssid);
   
+exit:
   mico_thread_sleep(MICO_NEVER_TIMEOUT);
 }
 #elif (MFG_FUNCTION == 2)
