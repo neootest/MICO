@@ -427,8 +427,8 @@ void platform_buart_irq( platform_uart_driver_t* driver )
     BuartIOctl(UART_IOCTL_RXINT_CLR,0);
 
   // Notify thread if sufficient data are available
-    if ( ( driver->rx_size > 0 ) &&
-        ( (uint32_t)BuartIOctl(BUART_IOCTL_RXFIFO_DATLEN_GET, 0)  >= driver->rx_size ) )
+   // if ( ( driver->rx_size > 0 ) &&
+   //     ( (uint32_t)BuartIOctl(BUART_IOCTL_RXFIFO_DATLEN_GET, 0)  >= driver->rx_size ) )
     {
   #ifndef NO_MICO_RTOS
       mico_rtos_set_semaphore( &driver->rx_complete );

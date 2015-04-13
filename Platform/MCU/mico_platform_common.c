@@ -540,7 +540,7 @@ OSStatus MicoFlashFinalize( mico_flash_t flash )
 char *mico_get_bootloader_ver(void)
 {
     static char ver[33];
-    uint32_t flashaddr = BOOT_VER_ADDRESS;
+    uint32_t flashaddr = BOOT_END_ADDRESS + 1 - 0x20;
 
     memset(ver, 0, sizeof(ver));
     MicoFlashRead(MICO_FLASH_FOR_BOOT, &flashaddr, (uint8_t *)ver , 32);
@@ -551,7 +551,7 @@ char *mico_get_bootloader_ver(void)
 void mico_set_bootload_ver(void)
 {
     char ver[33];
-    uint32_t flashaddr = BOOT_VER_ADDRESS;
+    uint32_t flashaddr = BOOT_END_ADDRESS + 1 - 0x20;
     int i;
 
     MicoFlashInitialize(MICO_FLASH_FOR_BOOT);
@@ -562,7 +562,7 @@ void mico_set_bootload_ver(void)
             return;
     }
     snprintf(ver, 33, "%s%s", MODEL, Bootloader_REVISION );
-    flashaddr = BOOT_VER_ADDRESS;
+    flashaddr = BOOT_END_ADDRESS + 1 - 0x20;
     MicoFlashWrite(MICO_FLASH_FOR_BOOT, &flashaddr, (uint8_t *)ver , 32);
     MicoFlashFinalize(MICO_FLASH_FOR_BOOT);
 }

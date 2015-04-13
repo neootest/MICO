@@ -270,6 +270,11 @@ static void _watchdog_reload_timer_handler( void* arg )
   MICOUpdateSystemMonitor(&mico_monitor, APPLICATION_WATCHDOG_TIMEOUT_SECONDS*1000);
 }
 
+mico_Context_t *getGlobalContext(void)
+{
+  return context;
+}
+
 int application_start(void)
 {
   OSStatus err = kNoErr;

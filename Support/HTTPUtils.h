@@ -61,7 +61,7 @@
 #define kStatusAccept               202
 #define kStatusOK                   200
 #define kStatusNoConetnt            204
-#define kStatusPartialContent       207
+#define kStatusPartialContent       206
 #define kStatusBadRequest           400
 #define kStatusNotFound             404
 #define kStatusMethodNotAllowed     405
@@ -80,7 +80,7 @@
 #define kMIMEType_TLV8                  "application/x-tlv8" // 8-bit type, 8-bit length, N-byte value.
 #define kMIMEType_Pairing_TLV8          "application/pairing+tlv8" // 8-bit type, 8-bit length, N-byte value.
 #define kMIMEType_MXCHIP_OTA            "application/ota-stream"
-
+#define kMIMEType_Stream                "application/octet-stream"
 #define kTransferrEncodingType_CHUNKED  "chunked"
 
 #define OTA_Data_Length_per_read        1024

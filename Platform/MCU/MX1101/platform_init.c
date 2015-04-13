@@ -286,6 +286,17 @@ OSStatus stdio_hardfault( char* data, uint32_t size )
 #endif
 }
 
+static char global_cid[25] = { 0 };
+const char *mico_generate_cid(void)
+{
+  uint8_t *chipid = (uint8_t*)(0x7C0000 + 0x7FDA);
+  
+  sprintf(global_cid, "%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X",
+          0, 0, 0, 0, 0, 0, 
+          chipid[0], chipid[1], chipid[2], chipid[3], chipid[4], chipid[5]);
+  return global_cid;
+}
+
 /******************************************************
 *            NO-OS Functions
 ******************************************************/
