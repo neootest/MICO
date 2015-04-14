@@ -495,6 +495,7 @@ OSStatus platform_flash_read( platform_flash_driver_t *driver, volatile uint32_t
   OSStatus err = kNoErr;
 
   require_action_quiet( driver != NULL, exit, err = kParamErr);
+  require_action_quiet( DataLength != 0, exit, err = kNoErr);
   require_action_quiet( driver->initialized != false, exit, err = kNotInitializedErr);
   require_action( *FlashAddress >= driver->peripheral->flash_start_addr 
                && *FlashAddress + DataLength <= driver->peripheral->flash_start_addr + driver->peripheral->flash_length, exit, err = kParamErr);

@@ -43,6 +43,7 @@
 #define HARDWARE_REVISION   "EMW5088_1"
 #define DEFAULT_NAME        "EMW5088"
 #define MODEL               "EMW5088"
+#define Bootloader_REVISION "V 0.1"
 
 /* MICO RTOS tick rate in Hz */
 #define MICO_DEFAULT_TICK_RATE_HZ                   (1000) 
@@ -96,6 +97,7 @@
 #define MICO_FLASH_FOR_BOOT         MICO_SPI_FLASH
 #define BOOT_START_ADDRESS          (uint32_t)0x00000000 
 #define BOOT_END_ADDRESS            (uint32_t)0x00009FFF 
+#define BOOT_VER_ADDRESS            (uint32_t)0x00009FE0 
 #define BOOT_FLASH_SIZE             (BOOT_END_ADDRESS - BOOT_START_ADDRESS + 1)   /* 36k bytes */
 
 #define MICO_FLASH_FOR_PARA         MICO_SPI_FLASH

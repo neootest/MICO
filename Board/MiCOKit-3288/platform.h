@@ -55,18 +55,18 @@ extern "C"
 
 typedef enum
 {
-  MICO_SYS_LED,
-  MICO_RF_LED,
-  BOOT_SEL,
-  MFG_SEL,
-  Standby_SEL,
-  EasyLink_BUTTON,
-  STDIO_UART_RX,  
-  STDIO_UART_TX,  
+    MICO_SYS_LED,
+    MICO_RF_LED,
+    BOOT_SEL,
+    MFG_SEL,
+    Standby_SEL,
+    EasyLink_BUTTON,
+    STDIO_UART_RX,  
+    STDIO_UART_TX,  
 
 
     MICO_GPIO_1,
-    MICO_GPIO_2,   //WL_REG
+    MICO_GPIO_2,   
     MICO_GPIO_3,
     MICO_GPIO_4,
     MICO_GPIO_5,
@@ -119,7 +119,6 @@ typedef enum
 
 typedef enum
 {
-    MICO_I2C_UNUSED = -1,
     MICO_I2C_1,
     MICO_I2C_MAX, /* Denotes the total number of I2C port aliases. Not a valid I2C alias */
     MICO_I2C_NONE,
@@ -145,7 +144,6 @@ typedef enum
 
 typedef enum
 {
-    MICO_UART_UNUSED = -1,
     MICO_UART_1,
     MICO_UART_2,
     MICO_UART_MAX, /* Denotes the total number of UART port aliases. Not a valid UART alias */
