@@ -48,6 +48,8 @@
 #define CMD_STRING_SIZE       128
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+extern platform_flash_t platform_flash_peripherals[];
+
 uint8_t tab_1024[1024] =
   {
     0
@@ -362,12 +364,14 @@ void Main_Menu(void)
 
       if(inputFlashArea != true){
         if(targetFlash == MICO_INTERNAL_FLASH){
-          startAddress = INTERNAL_FLASH_START_ADDRESS;
-          endAddress = INTERNAL_FLASH_END_ADDRESS;
+          startAddress = platform_flash_peripherals[MICO_INTERNAL_FLASH].flash_start_addr ;
+          endAddress = platform_flash_peripherals[MICO_INTERNAL_FLASH].flash_start_addr 
+                     + platform_flash_peripherals[MICO_INTERNAL_FLASH].flash_length - 1;
         }else{
 #ifdef USE_MICO_SPI_FLASH        
-          startAddress = SPI_FLASH_START_ADDRESS;
-          endAddress = SPI_FLASH_END_ADDRESS;
+          startAddress = platform_flash_peripherals[MICO_SPI_FLASH].flash_start_addr ;
+          endAddress = platform_flash_peripherals[MICO_SPI_FLASH].flash_start_addr 
+                     + platform_flash_peripherals[MICO_SPI_FLASH].flash_length - 1;
 #else
           printf ("\n\rSPI Flash not exist\n\r");
           continue;
