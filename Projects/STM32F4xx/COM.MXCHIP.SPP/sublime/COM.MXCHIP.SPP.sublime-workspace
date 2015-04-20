@@ -520,76 +520,44 @@
 	"buffers":
 	[
 		{
-			"file": "/Users/William/Develop/MiCO/Platform/Drivers/spi_flash/spi_flash.c",
+			"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/platform_init.c",
 			"settings":
 			{
-				"buffer_size": 15377,
+				"buffer_size": 10516,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.h",
+			"contents": "Searching 1436 files for \"MMFLT_IRQn_PRIO\" (whole word)\n\n/Users/William/Develop/MiCO/Platform/MCU/MX1101/platform_init.c:\n  204    \n  205    /* Initialise the interrupt priorities to a priority lower than 0 so that the BASEPRI register can mask them */\n  206:   NVIC_SetPriority(MMFLT_IRQn,  MMFLT_IRQn_PRIO);\n  207    NVIC_SetPriority(BUSFLT_IRQn, BUSFLT_IRQn_PRIO);\n  208    NVIC_SetPriority(USGFLT_IRQn, USGFLT_IRQn_PRIO);\n\n/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/Libraries/inc/irqs.h:\n   75      NMI_IRQn_PRIO		= -2,\n   76      HARDFLT_IRQn_PRIO	= -1,\n   77:     MMFLT_IRQn_PRIO		= 0,\n   78      BUSFLT_IRQn_PRIO	= 0,\n   79      USGFLT_IRQn_PRIO	= 0,\n\n2 matches across 2 files\n\n\nSearching 1436 files for \"max_syscall_int_prio\" (whole word)\n\n0 matches across 0 files\n",
 			"settings":
 			{
-				"buffer_size": 4637,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "Searching 1042 files for \"USE_MICO_SPI_FLASH\" (whole word)\n\n/Users/William/Develop/MiCO/Platform/BoardConfig/FRDM_K64/platform.h:\n  283  } mico_flash_t;\n  284  \n  285: #define USE_MICO_SPI_FLASH\n  286  //#define SFLASH_SUPPORT_MACRONIX_PART \n  287  //#define SFLASH_SUPPORT_SST_PARTS\n\n/Users/William/Develop/MiCO/Platform/BoardConfig/LPCXpresso54102/platform.h:\n  160  #define GPIO_EASYLINK_PIN       18\n  161  #define GPIO_EASYLINK_INDEX	PININTSELECT7	/* PININT index used for GPIO mapping */\n  162: #define USE_MICO_SPI_FLASH\n  163  \n  164  //#define SFLASH_SUPPORT_MACRONIX_PART \n\n/Users/William/Develop/MiCO/Platform/BoardConfig/SampleBoard01/platform.h:\n  177  } mico_flash_t;\n  178  \n  179: #define USE_MICO_SPI_FLASH              //Use Mico driver of spi_flash. In Common/Drivers/spi_flash/\n  180  //#define SFLASH_SUPPORT_MACRONIX_PART \n  181  //#define SFLASH_SUPPORT_SST_PARTS\n\n/Users/William/Develop/MiCO/Platform/Drivers/spi_flash/spi_flash_platform.c:\n   10  #include \"spi_flash_platform_interface.h\"\n   11  \n   12: #if defined ( USE_MICO_SPI_FLASH )\n   13  \n   14  extern const spi_flash_device_t spi_flash_device\n\n/Users/William/Develop/MiCO/Platform/MCU/mico_platform_common.c:\n   84  const char* flash_name[] =\n   85  { \n   86: #ifdef USE_MICO_SPI_FLASH\n   87    [MICO_SPI_FLASH] = \"SPI\", \n   88  #endif\n\n/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_flash.c:\n   36  //#include \"platform_config.h\"\n   37  #include \"stdio.h\"\n   38: #ifdef USE_MICO_SPI_FLASH\n   39  #include \"spi_flash.h\"\n   40  #endif\n   ..\n   62  /* Private macro -------------------------------------------------------------*/\n   63  /* Private variables ---------------------------------------------------------*/\n   64: #ifdef USE_MICO_SPI_FLASH\n   65  static sflash_handle_t sflash_handle = {0x0, 0x0, SFLASH_WRITE_NOT_ALLOWED};\n   66  #endif\n   ..\n   73  static OSStatus internalFlashByteWrite( volatile uint32_t* FlashAddress, uint8_t* Data ,uint32_t DataLength );\n   74  static OSStatus internalFlashFinalize( void );\n   75: #ifdef USE_MICO_SPI_FLASH\n   76  static OSStatus spiFlashErase(uint32_t StartAddress, uint32_t EndAddress);\n   77  #endif\n   ..\n   83  //     return internalFlashInitialize();    \n   84  //   }\n   85: // #ifdef USE_MICO_SPI_FLASH\n   86  //   else if(flash == MICO_SPI_FLASH){\n   87  //     if(sflash_handle.device_id)\n   ..\n  108      require_noerr(err, exit);\n  109    }\n  110: #ifdef USE_MICO_SPI_FLASH\n  111    else if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){\n  112      err = init_sflash( &sflash_handle, 0, SFLASH_WRITE_ALLOWED );\n  ...\n  136  //     return internalFlashErase(StartAddress, EndAddress);    \n  137  //   }\n  138: // #ifdef USE_MICO_SPI_FLASH\n  139  //   else if(flash == MICO_SPI_FLASH){\n  140  //     if(StartAddress>=EndAddress || EndAddress > SPI_FLASH_END_ADDRESS)\n  ...\n  162      require_noerr(err, exit_with_mutex);\n  163    }\n  164: #ifdef USE_MICO_SPI_FLASH\n  165    else if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){\n  166      err = spiFlashErase(StartAddress, EndAddress);\n  ...\n  190  //     return internalFlashWrite(FlashAddress, (uint32_t *)Data, DataLength);    \n  191  //   }\n  192: // #ifdef USE_MICO_SPI_FLASH\n  193  //   else if(flash == MICO_SPI_FLASH){\n  194  //     if( *FlashAddress + DataLength > SPI_FLASH_END_ADDRESS + 1)\n  ...\n  219      require_noerr(err, exit_with_mutex);\n  220    }\n  221: #ifdef USE_MICO_SPI_FLASH\n  222    else if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){\n  223      err = sflash_write( &sflash_handle, *FlashAddress, Data, DataLength );\n  ...\n  251  //     return kNoErr;\n  252  //   }\n  253: // #ifdef USE_MICO_SPI_FLASH\n  254  //   else if(flash == MICO_SPI_FLASH){\n  255  //     if( *FlashAddress + DataLength > SPI_FLASH_END_ADDRESS + 1)\n  ...\n  279      *FlashAddress += DataLength;\n  280    }\n  281: #ifdef USE_MICO_SPI_FLASH\n  282    else if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){\n  283      err = sflash_read( &sflash_handle, *FlashAddress, Data, DataLength );\n  ...\n  304  //     return internalFlashFinalize();    \n  305  //   }\n  306: // #ifdef USE_MICO_SPI_FLASH\n  307  //   else if(flash == MICO_SPI_FLASH){\n  308  //     sflash_handle.device_id = 0x0;\n  ...\n  329      require_noerr(err, exit); \n  330    }\n  331: #ifdef USE_MICO_SPI_FLASH\n  332    else if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){\n  333      sflash_handle.device_id = 0x0;\n  ...\n  381  }\n  382  \n  383: #ifdef USE_MICO_SPI_FLASH\n  384  OSStatus spiFlashErase(uint32_t StartAddress, uint32_t EndAddress)\n  385  {\n\n/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_flash.c:\n   36  //#include \"platform_config.h\"\n   37  #include \"stdio.h\"\n   38: #ifdef USE_MICO_SPI_FLASH\n   39  #include \"spi_flash.h\"\n   40  #endif\n   ..\n   62  /* Private macro -------------------------------------------------------------*/\n   63  /* Private variables ---------------------------------------------------------*/\n   64: #ifdef USE_MICO_SPI_FLASH\n   65  static sflash_handle_t sflash_handle = {0x0, 0x0, SFLASH_WRITE_NOT_ALLOWED};\n   66  #endif\n   ..\n   73  static OSStatus internalFlashByteWrite( volatile uint32_t* FlashAddress, uint8_t* Data ,uint32_t DataLength );\n   74  static OSStatus internalFlashFinalize( void );\n   75: #ifdef USE_MICO_SPI_FLASH\n   76  static OSStatus spiFlashErase(uint32_t StartAddress, uint32_t EndAddress);\n   77  #endif\n   ..\n   83  //     return internalFlashInitialize();    \n   84  //   }\n   85: // #ifdef USE_MICO_SPI_FLASH\n   86  //   else if(flash == MICO_SPI_FLASH){\n   87  //     if(sflash_handle.device_id)\n   ..\n  108      require_noerr(err, exit);\n  109    }\n  110: #ifdef USE_MICO_SPI_FLASH\n  111    else if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){\n  112      err = init_sflash( &sflash_handle, 0, SFLASH_WRITE_ALLOWED );\n  ...\n  136  //     return internalFlashErase(StartAddress, EndAddress);    \n  137  //   }\n  138: // #ifdef USE_MICO_SPI_FLASH\n  139  //   else if(flash == MICO_SPI_FLASH){\n  140  //     if(StartAddress>=EndAddress || EndAddress > SPI_FLASH_END_ADDRESS)\n  ...\n  162      require_noerr(err, exit_with_mutex);\n  163    }\n  164: #ifdef USE_MICO_SPI_FLASH\n  165    else if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){\n  166      err = spiFlashErase(StartAddress, EndAddress);\n  ...\n  190  //     return internalFlashWrite(FlashAddress, (uint32_t *)Data, DataLength);    \n  191  //   }\n  192: // #ifdef USE_MICO_SPI_FLASH\n  193  //   else if(flash == MICO_SPI_FLASH){\n  194  //     if( *FlashAddress + DataLength > SPI_FLASH_END_ADDRESS + 1)\n  ...\n  218      return internalFlashWrite(FlashAddress, (uint32_t *)Data, DataLength); \n  219    }\n  220: #ifdef USE_MICO_SPI_FLASH\n  221    else if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){\n  222      err = sflash_write( &sflash_handle, *FlashAddress, Data, DataLength );\n  ...\n  250  //     return kNoErr;\n  251  //   }\n  252: // #ifdef USE_MICO_SPI_FLASH\n  253  //   else if(flash == MICO_SPI_FLASH){\n  254  //     if( *FlashAddress + DataLength > SPI_FLASH_END_ADDRESS + 1)\n  ...\n  278      *FlashAddress += DataLength;\n  279    }\n  280: #ifdef USE_MICO_SPI_FLASH\n  281    else if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){\n  282      err = sflash_read( &sflash_handle, *FlashAddress, Data, DataLength );\n  ...\n  303  //     return internalFlashFinalize();    \n  304  //   }\n  305: // #ifdef USE_MICO_SPI_FLASH\n  306  //   else if(flash == MICO_SPI_FLASH){\n  307  //     sflash_handle.device_id = 0x0;\n  ...\n  328      require_noerr(err, exit); \n  329    }\n  330: #ifdef USE_MICO_SPI_FLASH\n  331    else if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){\n  332      sflash_handle.device_id = 0x0;\n  ...\n  380  }\n  381  \n  382: #ifdef USE_MICO_SPI_FLASH\n  383  OSStatus spiFlashErase(uint32_t StartAddress, uint32_t EndAddress)\n  384  {\n\n/Users/William/Develop/MiCO/Platform/vendor/Freescale/MK64FxxL12/MicoDriverFlash.c:\n   36  #include \"Platform_common_config.h\"\n   37  #include \"stdio.h\"\n   38: #ifdef USE_MICO_SPI_FLASH\n   39  #include \"spi_flash.h\"\n   40  #endif\n   ..\n   47  const char* flash_name[] =\n   48  { \n   49: #ifdef USE_MICO_SPI_FLASH\n   50    [MICO_SPI_FLASH] = \"SPI\", \n   51  #endif\n   ..\n  124  }\n  125  \n  126: #ifdef USE_MICO_SPI_FLASH\n  127  OSStatus spiFlashErase(uint32_t StartAddress, uint32_t EndAddress)\n  128  {\n\n/Users/William/Develop/MiCO/Platform/vendor/nxp/LPC54xx/MicoDriverFlash.c:\n   36  #include \"Platform_common_config.h\"\n   37  #include \"stdio.h\"\n   38: #ifdef USE_MICO_SPI_FLASH\n   39  #include \"spi_flash.h\"\n   40  #endif\n   ..\n   63  /* Private macro -------------------------------------------------------------*/\n   64  /* Private variables ---------------------------------------------------------*/\n   65: #ifdef USE_MICO_SPI_FLASH\n   66  static sflash_handle_t sflash_handle = {0x0, 0x0, SFLASH_WRITE_NOT_ALLOWED};\n   67  #endif\n   ..\n   73  static OSStatus internalFlashByteWrite( uint32_t* FlashAddress, uint8_t* Data ,uint32_t DataLength );\n   74  static OSStatus internalFlashFinalize( void );\n   75: #ifdef USE_MICO_SPI_FLASH\n   76  static OSStatus spiFlashErase(uint32_t StartAddress, uint32_t EndAddress);\n   77  #endif\n   ..\n   87  \n   88    }\n   89: #ifdef USE_MICO_SPI_FLASH\n   90    else if(flash == MICO_SPI_FLASH){\n   91      if(sflash_handle.device_id) {\n   ..\n  111    \n  112    if(flash_spi_flag == 0) {\n  113: #ifdef USE_MICO_SPI_FLASH\n  114      MicoFlashInitialize(MICO_SPI_FLASH);\n  115  #endif\n  ...\n  119  \n  120    }\n  121: #ifdef USE_MICO_SPI_FLASH\n  122    else if(flash == MICO_SPI_FLASH){\n  123      if(StartAddress>=EndAddress || EndAddress > SPI_FLASH_END_ADDRESS)\n  ...\n  139    \n  140    if(flash_spi_flag == 0) {\n  141: #ifdef USE_MICO_SPI_FLASH\n  142      MicoFlashInitialize(MICO_SPI_FLASH);\n  143  #endif\n  ...\n  146      return internalFlashWrite(FlashAddress, (uint32_t *)Data, DataLength);    \n  147    }\n  148: #ifdef USE_MICO_SPI_FLASH\n  149    else if(flash == MICO_SPI_FLASH){\n  150      int returnVal = sflash_write( &sflash_handle, *FlashAddress, Data, DataLength );\n  ...\n  166    \n  167    if(flash_spi_flag == 0) {\n  168: #ifdef USE_MICO_SPI_FLASH\n  169      MicoFlashInitialize(MICO_SPI_FLASH);\n  170  #endif\n  ...\n  177      return kNoErr;\n  178    }\n  179: #ifdef USE_MICO_SPI_FLASH\n  180    else if(flash == MICO_SPI_FLASH){\n  181      \n  ...\n  201  \n  202    }\n  203: #ifdef USE_MICO_SPI_FLASH\n  204    else if(flash == MICO_SPI_FLASH){\n  205      sflash_handle.device_id = 0x0;\n  ...\n  227  }\n  228  \n  229: #ifdef USE_MICO_SPI_FLASH\n  230  OSStatus spiFlashErase(uint32_t StartAddress, uint32_t EndAddress)\n  231  {\n  ...\n  233    \n  234    if(flash_spi_flag == 0) {\n  235: #ifdef USE_MICO_SPI_FLASH\n  236      MicoFlashInitialize(MICO_SPI_FLASH);\n  237  #endif\n\n/Users/William/Develop/MiCO/Platform/vendor/Sample/Sample01/MicoDriverFlash.c:\n   36  #include \"Platform_common_config.h\"\n   37  #include \"stdio.h\"\n   38: #ifdef USE_MICO_SPI_FLASH\n   39  #include \"spi_flash.h\"\n   40  #endif\n   ..\n   47  const char* flash_name[] =\n   48  { \n   49: #ifdef USE_MICO_SPI_FLASH\n   50    [MICO_SPI_FLASH] = \"SPI\", \n   51  #endif\n   ..\n  124  }\n  125  \n  126: #ifdef USE_MICO_SPI_FLASH\n  127  OSStatus spiFlashErase(uint32_t StartAddress, uint32_t EndAddress)\n  128  {\n\n/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform.c:\n  190  platform_flash_driver_t platform_flash_drivers[MICO_FLASH_MAX];\n  191  \n  192: #if defined ( USE_MICO_SPI_FLASH )\n  193  \n  194  /* spi flash bus pins. Used by platform/drivers/spi_flash/spi_flash_platform.c */\n\n/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform.h:\n  289  \n  290  /* Components connected to external I/Os*/\n  291: #define USE_MICO_SPI_FLASH\n  292  #define SFLASH_SUPPORT_MACRONIX_PARTS \n  293  //#define SFLASH_SUPPORT_SST_PARTS\n\n54 matches across 12 files\n",
-			"settings":
-			{
-				"buffer_size": 11817,
+				"buffer_size": 790,
 				"line_ending": "Unix",
 				"name": "Find Results",
 				"scratch": true
 			}
 		},
 		{
+			"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/Libraries/inc/irqs.h",
+			"settings":
+			{
+				"buffer_size": 5085,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform_config.h",
 			"settings":
 			{
-				"buffer_size": 6983,
+				"buffer_size": 6936,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform.c",
+			"file": "/Users/William/Develop/MiCO/include/Debug.h",
 			"settings":
 			{
-				"buffer_size": 19375,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.c",
-			"settings":
-			{
-				"buffer_size": 14477,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.c",
-			"settings":
-			{
-				"buffer_size": 19878,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.c",
-			"settings":
-			{
-				"buffer_size": 15947,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_mcu_peripheral.h",
-			"settings":
-			{
-				"buffer_size": 8543,
+				"buffer_size": 30641,
 				"line_ending": "Windows"
 			}
 		}
@@ -654,37 +622,46 @@
 	},
 	"file_history":
 	[
+		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_i2c.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_mcu_powersave.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_pwm.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_rng.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_spi.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_adc.c",
+		"/Users/William/Develop/MiCO/Platform/include/platform_peripheral.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_mcu_peripheral.h",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform_config.h",
+		"/Users/William/Develop/MiCO/Platform/Drivers/spi_flash/spi_flash.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.h",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.c",
+		"/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_mcu_peripheral.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/mico_platform_common.c",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform.h",
 		"/Users/william/Develop/MiCO/Platform/drivers/spi_flash/spi_flash.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_mcu_peripheral.h",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_flash.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_uart.c",
-		"/Users/William/Develop/MiCO/Platform/include/platform_peripheral.h",
-		"/Users/William/Develop/MiCO/Platform/MCU/mico_platform_common.c",
 		"/Users/William/Develop/MiCO/Projects/STM32F4xx/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
 		"/Users/William/Develop/MiCO/MICO/MICOMfgtest.c",
 		"/Users/william/Develop/MiCO/Board/MiCOKit-3288/platform.h",
 		"/Users/William/Develop/MiCO/MICO/MICOEntrance.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_flash.c",
 		"/Users/william/Develop/MiCO/include/MicoDrivers/MICODriverI2c.h",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform_config.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/wlan_platform_common.c",
 		"/Users/William/Develop/MiCO/Platform/include/wlan_platform_common.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/EMW1062_Driver/wlan_bus_sdio.c",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/EMW1088_Driver/wlan_bus.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/Wi-Fi_Bus_Driver/wlan_bus_sdio.c",
 		"/Users/william/Develop/MiCO/Platform/include/wlan_platform_common.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/Wi-Fi_Bus_Driver/read_wifi_firmware.c",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform_config.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform_spi_flash.c",
 		"/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/Libraries/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_gpio.h",
 		"/Users/william/Develop/MiCO/Platform/include/platform_peripheral.h",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.c",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform_spi_flash.c",
-		"/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_mcu_peripheral.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOConfigDelegate.c",
@@ -772,16 +749,7 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/EMW1062_platform.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverAdc.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverGpio.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverI2c.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverPwm.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverRng.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverRtc.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverSpi.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverUart.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverWdg.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MICO.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/PlatformFlash.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/WAC/WAC.c"
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverI2c.h"
 	],
 	"find":
 	{
@@ -789,7 +757,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 93.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"<open folders>",
@@ -808,6 +776,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"max_syscall_int_prio",
+			"MMFLT_IRQn_PRIO",
 			"USE_MICO_SPI_FLASH",
 			"EMW1062",
 			"MICO_DEFAULT_TICK_RATE_HZ",
@@ -933,9 +903,7 @@
 			"sdio_prepare_data_transfer",
 			"WL_GPIO0_BANK",
 			"host_platform_init",
-			"host_platform_bus_init",
-			"WL_GPIO0_BANK",
-			"SPI_IRQ_BANK"
+			"host_platform_bus_init"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -955,23 +923,23 @@
 	"groups":
 	[
 		{
-			"selected": 6,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/Users/William/Develop/MiCO/Platform/Drivers/spi_flash/spi_flash.c",
+					"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/platform_init.c",
 					"settings":
 					{
-						"buffer_size": 15377,
+						"buffer_size": 10516,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								865,
-								865
+								7317,
+								6670
 							]
 						],
 						"settings":
@@ -981,25 +949,72 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1347.0,
+						"translation.y": 3745.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.h",
 					"settings":
 					{
-						"buffer_size": 4637,
+						"buffer_size": 790,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										292,
+										307
+									],
+									[
+										587,
+										602
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								703,
+								703
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"output_tag": 2,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 361.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/Libraries/inc/irqs.h",
+					"settings":
+					{
+						"buffer_size": 5085,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4039,
-								4013
+								1520,
+								1551
 							]
 						],
 						"settings":
@@ -1009,262 +1024,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1857.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"settings":
-					{
-						"buffer_size": 11817,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										176,
-										194
-									],
-									[
-										509,
-										527
-									],
-									[
-										705,
-										723
-									],
-									[
-										1043,
-										1061
-									],
-									[
-										1252,
-										1270
-									],
-									[
-										1481,
-										1499
-									],
-									[
-										1740,
-										1758
-									],
-									[
-										2049,
-										2067
-									],
-									[
-										2253,
-										2271
-									],
-									[
-										2428,
-										2446
-									],
-									[
-										2698,
-										2716
-									],
-									[
-										2923,
-										2941
-									],
-									[
-										3196,
-										3214
-									],
-									[
-										3414,
-										3432
-									],
-									[
-										3651,
-										3669
-									],
-									[
-										3861,
-										3879
-									],
-									[
-										4118,
-										4136
-									],
-									[
-										4297,
-										4315
-									],
-									[
-										4465,
-										4483
-									],
-									[
-										4727,
-										4745
-									],
-									[
-										4986,
-										5004
-									],
-									[
-										5295,
-										5313
-									],
-									[
-										5499,
-										5517
-									],
-									[
-										5674,
-										5692
-									],
-									[
-										5944,
-										5962
-									],
-									[
-										6169,
-										6187
-									],
-									[
-										6442,
-										6460
-									],
-									[
-										6695,
-										6713
-									],
-									[
-										6932,
-										6950
-									],
-									[
-										7142,
-										7160
-									],
-									[
-										7399,
-										7417
-									],
-									[
-										7578,
-										7596
-									],
-									[
-										7746,
-										7764
-									],
-									[
-										8016,
-										8034
-									],
-									[
-										8143,
-										8161
-									],
-									[
-										8249,
-										8267
-									],
-									[
-										8510,
-										8528
-									],
-									[
-										8769,
-										8787
-									],
-									[
-										9069,
-										9087
-									],
-									[
-										9223,
-										9241
-									],
-									[
-										9391,
-										9409
-									],
-									[
-										9511,
-										9529
-									],
-									[
-										9716,
-										9734
-									],
-									[
-										9914,
-										9932
-									],
-									[
-										10133,
-										10151
-									],
-									[
-										10271,
-										10289
-									],
-									[
-										10384,
-										10402
-									],
-									[
-										10525,
-										10543
-									],
-									[
-										10692,
-										10710
-									],
-									[
-										10936,
-										10954
-									],
-									[
-										11063,
-										11081
-									],
-									[
-										11169,
-										11187
-									],
-									[
-										11431,
-										11449
-									],
-									[
-										11682,
-										11700
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								11137,
-								11137
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"output_tag": 1,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 4340.0,
+						"translation.y": 540.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1274,15 +1034,15 @@
 					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform_config.h",
 					"settings":
 					{
-						"buffer_size": 6983,
+						"buffer_size": 6936,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5205,
-								5205
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1290,137 +1050,25 @@
 							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1126.0,
+						"translation.y": 2167.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform.c",
+					"file": "/Users/William/Develop/MiCO/include/Debug.h",
 					"settings":
 					{
-						"buffer_size": 19375,
+						"buffer_size": 30641,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								9889,
-								9361
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3100.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.c",
-					"settings":
-					{
-						"buffer_size": 14477,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8552,
-								8552
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2781.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.c",
-					"settings":
-					{
-						"buffer_size": 19878,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								13466,
-								13227
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4204.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.c",
-					"settings":
-					{
-						"buffer_size": 15947,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								10669,
-								10323
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3168.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_mcu_peripheral.h",
-					"settings":
-					{
-						"buffer_size": 8543,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5843,
-								5843
+								1762,
+								1762
 							]
 						],
 						"settings":
@@ -1430,7 +1078,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 332.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

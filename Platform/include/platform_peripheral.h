@@ -14,6 +14,7 @@
  */
 #pragma once
 #include "stdint.h"
+#include "PlatformLogging.h"
 #include "platform_mcu_peripheral.h" /* Include MCU-specific types */
 #include "RingBufferUtils.h"
 

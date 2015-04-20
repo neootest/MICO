@@ -8,10 +8,12 @@
  * written permission of Broadcom Corporation.
  */
 #include "spi_flash_platform_interface.h"
+#include "platform.h"
+#include "platform_peripheral.h"
 
 #if defined ( USE_MICO_SPI_FLASH )
 
-extern const spi_flash_device_t spi_flash_device
+extern const spi_flash_device_t spi_flash_device;
 extern const platform_spi_t     spi_flash_spi;
 extern const platform_gpio_t    spi_flash_spi_pins[];
 
@@ -50,7 +52,7 @@ extern int sflash_platform_send_recv ( const void* platform_peripheral, /*@in@*/
     config.mode        = spi_flash_device.mode;
     config.bits        = spi_flash_device.bits;
 
-    if ( kNoErr != platform_spi_transfer( &spi_flash_spi, &config, (mico_spi_message_segment_t*)segments, num_segments  ) )
+    if ( kNoErr != platform_spi_transfer( &spi_flash_spi, &config, (platform_spi_message_segment_t*)segments, num_segments  ) )
     {
         return -1;
     }

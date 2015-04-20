@@ -503,7 +503,7 @@
       <name>$PROJ_DIR$\..\..\..\..\MICO\Library\mxchipWNet_cm4f_sdio.a</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\MICO\Library\mxchipWNet_cm4f_spi.a</name>
+      <name>$PROJ_DIR$\..\..\..\..\..\WICED-SDK\mxchipWNet_cm4f_sdio.a</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\MICO\Library\RF driver\wlan_firmware.c</name>

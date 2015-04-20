@@ -35,8 +35,7 @@
 
 #include "platform.h"
 #include "platform_peripheral.h"
-#include "stm32f2xx.h"
-#include "debug.h"
+#include "PlatformLogging.h"
 /******************************************************
 *                    Constants
 ******************************************************/

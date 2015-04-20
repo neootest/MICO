@@ -1,0 +1,78 @@
+{
+	
+	"folders":
+	[
+		{
+			"path": "../../../../include"
+		},
+		{
+			"path": "../../../../Platform"
+		},
+		{
+			"path": "../../../../Support"
+		},
+		{
+			"path": "../../../../Board/MiCOKit-G55"
+		},
+		{
+			"path": "../../../../Demos/COM.MXCHIP.SPP"
+		},
+		{
+			"path": "../../../../External"
+		},
+		{
+			"path": "../../../../MICO"
+		}
+	],
+	"settings":
+	{
+		"sublimeclang_options":
+		[
+			"-Wno-typedef-redefinition",
+			"-Wno-unused-parameter",
+			"-Wno-empty-body",
+			"-Wno-attributes",
+			"-ferror-limit=0",
+			"-W",
+			"-c",
+			"-D__int64=long long",
+			"-D__pure=__attribute__((const))",
+			"-D__value_in_regs=__attribute__(())",
+			"-D__SAMG55J19__",
+			"-DARM_MATH_CM4=true",
+			"-DBOARD=SAMG55_XPLAINED_PRO",
+			"-DUSE_STDPERIPH_DRIVER",
+			"-DDEBUG",
+			"-I/Users/william/Develop/MiCO/Demos/COM.MXCHIP.SPP/",
+			"-I/Users/william/Develop/MiCO/External/",
+			"-I/Users/william/Develop/MiCO/Platform/",
+			"-I/Users/william/Develop/MiCO/Platform/include/",
+			"-I/Users/William/Develop/MiCO/Platform/Cortex-M3/",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/",
+			"-I/Users/william/Develop/MiCO/Platform/drivers/spi_flash/",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/services/flash_efc",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/drivers/inc",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/utils",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/utils/fpu",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/utils/preprocessor",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/utils/header_files",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg55/include",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/common/utils",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/common/services/clock",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/common/services/sleepmgr",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/common/services/delay",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/common/services/ioport",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/common/boards",
+			"-I/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/common/services/serial",
+			"-I/Users/william/Develop/MiCO/Board/MiCOKit-G55/",
+			"-I/Users/william/Develop/MiCO/include/",
+			"-I/Users/william/Develop/MiCO/MICO/",
+			"-I/Users/william/Develop/MiCO/Support/",
+			"-I/Users/william/Develop/Clang_lib/Include/",
+			"-I/Users/william/Develop/Clang_lib/ARMCC/include/"
+		]
+	}
+}

@@ -480,18 +480,23 @@ typedef int32_t         OSStatus;
 #endif
 
 // Unconditional endian swaps
+#if !defined (Swap16)
 #define Swap16( X ) \
     ( (uint16_t)( \
         ( ( ( (uint16_t)(X) ) << 8 ) & UINT16_C( 0xFF00 ) ) | \
         ( ( ( (uint16_t)(X) ) >> 8 ) & UINT16_C( 0x00FF ) ) ) )
+#endif
 
+#if !defined (Swap32)
 #define Swap32( X ) \
     ( (uint32_t)( \
         ( ( ( (uint32_t)(X) ) << 24 ) & UINT32_C( 0xFF000000 ) ) | \
         ( ( ( (uint32_t)(X) ) <<  8 ) & UINT32_C( 0x00FF0000 ) ) | \
         ( ( ( (uint32_t)(X) ) >>  8 ) & UINT32_C( 0x0000FF00 ) ) | \
         ( ( ( (uint32_t)(X) ) >> 24 ) & UINT32_C( 0x000000FF ) ) ) )
+#endif
 
+#if !defined (Swap64)
 #define Swap64( X ) \
     ( (uint64_t)( \
         ( ( ( (uint64_t)(X) ) << 56 ) & UINT64_C( 0xFF00000000000000 ) ) | \
@@ -502,6 +507,7 @@ typedef int32_t         OSStatus;
         ( ( ( (uint64_t)(X) ) >> 24 ) & UINT64_C( 0x0000000000FF0000 ) ) | \
         ( ( ( (uint64_t)(X) ) >> 40 ) & UINT64_C( 0x000000000000FF00 ) ) | \
         ( ( ( (uint64_t)(X) ) >> 56 ) & UINT64_C( 0x00000000000000FF ) ) ) )
+#endif
 
 // Host<->Network/Big endian swaps
 #if( TARGET_RT_BIG_ENDIAN )

@@ -1216,7 +1216,7 @@
         <LExpSel>0</LExpSel>
       </OPTXL>
       <OPTFL>
-        <tvExp>0</tvExp>
+        <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
         <IsCurrentTarget>1</IsCurrentTarget>
       </OPTFL>
@@ -1294,48 +1294,41 @@
         </SetRegEntry>
       </TargetDriverDllRegistry>
       <Breakpoint/>
-      <WatchWindow1>
-        <Ww>
-          <count>0</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>*FlashAddress</ItemText>
-        </Ww>
-      </WatchWindow1>
       <WatchWindow2>
         <Ww>
           <count>0</count>
           <WinNumber>2</WinNumber>
-          <ItemText>driver-&gt;peripheral-&gt;flash_type</ItemText>
+          <ItemText>*FlashAddress</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>2</WinNumber>
-          <ItemText>FsContext-&gt;gCurrentEntry</ItemText>
+          <ItemText>driver-&gt;peripheral-&gt;flash_type</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>2</WinNumber>
-          <ItemText>FsContext</ItemText>
+          <ItemText>FsContext-&gt;gCurrentEntry</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>2</WinNumber>
-          <ItemText>usart_init_structure</ItemText>
+          <ItemText>FsContext</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>2</WinNumber>
-          <ItemText>config</ItemText>
+          <ItemText>usart_init_structure</ItemText>
         </Ww>
         <Ww>
           <count>5</count>
           <WinNumber>2</WinNumber>
-          <ItemText>newData</ItemText>
+          <ItemText>config</ItemText>
         </Ww>
         <Ww>
           <count>6</count>
           <WinNumber>2</WinNumber>
-          <ItemText>rfVersion</ItemText>
+          <ItemText>newData</ItemText>
         </Ww>
         <Ww>
           <count>7</count>
@@ -1345,15 +1338,20 @@
         <Ww>
           <count>8</count>
           <WinNumber>2</WinNumber>
-          <ItemText>gpio_number</ItemText>
+          <ItemText>rfVersion</ItemText>
         </Ww>
         <Ww>
           <count>9</count>
           <WinNumber>2</WinNumber>
-          <ItemText>Image$$ER_IROM1$$Base</ItemText>
+          <ItemText>gpio_number</ItemText>
         </Ww>
         <Ww>
           <count>10</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>Image$$ER_IROM1$$Base</ItemText>
+        </Ww>
+        <Ww>
+          <count>11</count>
           <WinNumber>2</WinNumber>
           <ItemText>Image$$ER_IROM1$$Base</ItemText>
         </Ww>
@@ -1410,7 +1408,7 @@
 
   <Group>
     <GroupName>Bootloader</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1744,7 +1742,7 @@
 
   <Group>
     <GroupName>Platform/MCU/MX1101</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1846,7 +1844,7 @@
 
   <Group>
     <GroupName>Platform/MCU/MX1101/peripherals</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

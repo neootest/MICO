@@ -9,11 +9,11 @@
 
   <project>
     <PathAndName>.\bootloader\RVMDK\bootloader.uvprojx</PathAndName>
-    <NodeIsActive>1</NodeIsActive>
   </project>
 
   <project>
     <PathAndName>.\COM.MXCHIP.SPP\RVMDK\COM.MXCHIP.SPP.uvprojx</PathAndName>
+    <NodeIsActive>1</NodeIsActive>
     <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
