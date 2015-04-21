@@ -46,7 +46,7 @@
 //#define MICO_CONFIG_MODE CONFIG_MODE_AIRKISS
 
 /*User provided configurations*/
-#define CONFIGURATION_VERSION               0x00000001 // if default configuration is changed, update this number
+#define CONFIGURATION_VERSION               0x00000002 // if default configuration is changed, update this number
 #define LOCAL_PORT                          8080
 #define BONJOUR_SERVICE                     "_easylink._tcp.local."
 
@@ -54,6 +54,7 @@
 #define DEFAULT_PRODUCT_ID                  "0465f9df"
 #define DEFAULT_PRODUCT_KEY                 "b23a1fc4-e352-471f-af1f-accf332cdf1d"
 #define DEFAULT_ROM_VERSION                 "v0.0.1"
+#define DEFAULT_DEVICE_NAME                 "EasyCloud"
 
 /*Application's configuration stores in flash*/
 typedef struct

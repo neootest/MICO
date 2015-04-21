@@ -49,6 +49,7 @@
 #define DEFAULT_PRODUCT_ID                  "2bed1355"
 #define DEFAULT_PRODUCT_KEY                 "d98963de-97c9-11e4-ae3a-f23c9150064b"
 #define DEFAULT_ROM_VERSION                 "v0.0.1"
+#define DEFAULT_DEVICE_NAME                 "Wechat spp"
 
 /*Application's configuration stores in flash*/
 typedef struct

@@ -191,6 +191,10 @@ OSStatus ECS_CreateHTTPMessageWithRange( const char *methold, const char * host,
 
 OSStatus ECS_CreateSimpleHTTPFailedMessage( uint8_t **outMessage, 
                                        size_t *outMessageSize );
+OSStatus ECS_CreateHTTPFailedMessage(const uint8_t *errCode, const uint8_t *errMsg,
+                                     const char *contentType, size_t contentLen,
+                                     uint8_t *errData, size_t errDataLen, 
+                                     uint8_t **outMessage, size_t *outMessageSize );
 int ECS_SocketReadHTTPHeaderEx( int inSock, ECS_HTTPHeader_t *inHeader );
 OSStatus ECS_SocketReadHTTPBodyEx( int inSock, ECS_HTTPHeader_t *inHeader );
 

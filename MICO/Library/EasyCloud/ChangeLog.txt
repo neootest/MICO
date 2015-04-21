@@ -1,4 +1,39 @@
 ================================================================================
+¡¾2015.04.21¡¿
+[Name]   : MicoEasyCloudService
+[version]: v0.3.6
+
+[Changlog]:
+    1. add macro to build for no loopback socket£»
+    2. set max MQTT payload size to 2048 byte.
+
+================================================================================
+¡¾2015.03.23¡¿
+[Name]   : MicoEasyCloudService
+[version]: v0.3.6[test]
+
+[Changlog]:
+    1. build for CC3200, use socket in different thread, no loopback socket£»
+    2. set max MQTT payload size to 4096 byte.
+
+================================================================================
+¡¾2015.03.20¡¿
+[Name]   : MicoEasyCloudService
+[version]: v0.3.5[test]
+
+[Changlog]:
+    1. build for CC3200, use socket in different thread, no loopback socket.
+
+================================================================================
+¡¾2015.03.17¡¿
+[Name]   : MicoEasyCloudService
+[version]: v0.3.5
+
+[Changlog]:
+    1. add param device_name when activate;
+    2. fix bug for high CPU utilization.
+
+================================================================================
 ¡¾2015.03.03¡¿
 [Name]   : MicoEasyCloudService
 [version]: v0.3.4

@@ -24,7 +24,6 @@
 #ifndef __EASYEASYCLOUD_SERVICE_DEF_H_
 #define __EASYEASYCLOUD_SERVICE_DEF_H_
 
-
 #include "Common.h"
 
 /*******************************************************************************
@@ -48,6 +47,8 @@
 #define MAX_SIZE_DEVICE_ID              37
 #define MAX_SIZE_DEVICE_KEY             37
 
+#define MAX_SIZE_DEVICE_NAME            32
+
 #define MAX_SIZE_FW_VERSION             32
 #define MAX_SIZE_FILE_PATH              256
 #define MAX_SIZE_FILE_MD5               64
@@ -63,7 +64,7 @@
 #define DEFAULT_MQTT_SERVER             "api.easylink.io"
 #define DEFAULT_MQTT_PORT               1883
 #define DEFAULT_MQTT_PORT_SSL           8883
-// in seconds, here set 60s
+// in seconds, here set 30s
 #define DEFAULT_MQTT_CLLIENT_KEEPALIVE_INTERVAL    15
 
  /*******************************************************************************
@@ -89,6 +90,8 @@ typedef struct _easycloud_service_status_t {
   char                    bin_file[MAX_SIZE_FILE_PATH];
   char                    bin_md5[MAX_SIZE_FILE_MD5];
   uint64_t                bin_file_size;
+  
+  char                    device_name[MAX_SIZE_DEVICE_NAME];
 } easycloud_service_status_t;
  
 //message recived callback function prototype

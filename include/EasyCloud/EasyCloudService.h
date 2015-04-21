@@ -23,7 +23,6 @@
 #ifndef __EASYCLOUD_SERVICE_H_
 #define __EASYCLOUD_SERVICE_H_
 
-//#include "MICODefine.h"
 #include "EasyCloudServiceDef.h"
 #include "EasyCloudUtils.h"
 
