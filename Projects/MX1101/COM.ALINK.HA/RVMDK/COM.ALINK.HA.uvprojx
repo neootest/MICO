@@ -593,6 +593,11 @@
                 <FileArmAds/>
               </FileOption>
             </File>
+            <File>
+              <FileName>wlan_firmware.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\..\..\..\..\MICO\Library\RF driver\wlan_firmware.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -791,7 +796,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/MCU/MX1101/EMW1088</GroupName>
+          <GroupName>Platform/MCU/MX1101/wlan_bus_driver</GroupName>
           <GroupOption>
             <CommonProperty>
               <UseCPPCompiler>0</UseCPPCompiler>
@@ -856,12 +861,12 @@
             <File>
               <FileName>read_wifi_firmware.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\EMW1088_Driver\read_wifi_firmware.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\wlan_bus_driver\read_wifi_firmware.c</FilePath>
             </File>
             <File>
-              <FileName>wlan_bus.c</FileName>
+              <FileName>wlan_bus_sdio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\EMW1088_Driver\wlan_bus.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\wlan_bus_driver\wlan_bus_sdio.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1735,6 +1740,11 @@
               <FileType>4</FileType>
               <FilePath>..\..\..\..\MICO\Library\mxchipWNet_cm3_8801.a</FilePath>
             </File>
+            <File>
+              <FileName>wlan_firmware.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\..\..\..\..\MICO\Library\RF driver\wlan_firmware.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1933,7 +1943,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/MCU/MX1101/EMW1088</GroupName>
+          <GroupName>Platform/MCU/MX1101/wlan_bus_driver</GroupName>
           <GroupOption>
             <CommonProperty>
               <UseCPPCompiler>0</UseCPPCompiler>
@@ -1998,12 +2008,12 @@
             <File>
               <FileName>read_wifi_firmware.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\EMW1088_Driver\read_wifi_firmware.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\wlan_bus_driver\read_wifi_firmware.c</FilePath>
             </File>
             <File>
-              <FileName>wlan_bus.c</FileName>
+              <FileName>wlan_bus_sdio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\EMW1088_Driver\wlan_bus.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\wlan_bus_driver\wlan_bus_sdio.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2896,6 +2906,11 @@
               <FileType>4</FileType>
               <FilePath>..\..\..\..\MICO\Library\mxchipWNet_cm3_8801.a</FilePath>
             </File>
+            <File>
+              <FileName>wlan_firmware.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\..\..\..\..\MICO\Library\RF driver\wlan_firmware.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3154,17 +3169,17 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/MCU/MX1101/EMW1088</GroupName>
+          <GroupName>Platform/MCU/MX1101/wlan_bus_driver</GroupName>
           <Files>
             <File>
               <FileName>read_wifi_firmware.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\EMW1088_Driver\read_wifi_firmware.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\wlan_bus_driver\read_wifi_firmware.c</FilePath>
             </File>
             <File>
-              <FileName>wlan_bus.c</FileName>
+              <FileName>wlan_bus_sdio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\EMW1088_Driver\wlan_bus.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\wlan_bus_driver\wlan_bus_sdio.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4117,6 +4132,11 @@
               <FileType>4</FileType>
               <FilePath>..\..\..\..\MICO\Library\mxchipWNet_cm3_8801.a</FilePath>
             </File>
+            <File>
+              <FileName>wlan_firmware.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\..\..\..\..\MICO\Library\RF driver\wlan_firmware.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4375,17 +4395,17 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/MCU/MX1101/EMW1088</GroupName>
+          <GroupName>Platform/MCU/MX1101/wlan_bus_driver</GroupName>
           <Files>
             <File>
               <FileName>read_wifi_firmware.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\EMW1088_Driver\read_wifi_firmware.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\wlan_bus_driver\read_wifi_firmware.c</FilePath>
             </File>
             <File>
-              <FileName>wlan_bus.c</FileName>
+              <FileName>wlan_bus_sdio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\MX1101\EMW1088_Driver\wlan_bus.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\wlan_bus_driver\wlan_bus_sdio.c</FilePath>
             </File>
           </Files>
         </Group>

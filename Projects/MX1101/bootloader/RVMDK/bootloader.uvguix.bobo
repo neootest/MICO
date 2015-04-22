@@ -16,12 +16,12 @@
     <View>
       <WinId>346</WinId>
       <ViewName>Code Coverage</ViewName>
-      <TableColWidths>670 596</TableColWidths>
+      <TableColWidths>850 160</TableColWidths>
     </View>
     <View>
       <WinId>204</WinId>
       <ViewName>Performance Analyzer</ViewName>
-      <TableColWidths>830 124 124 188</TableColWidths>
+      <TableColWidths>1010</TableColWidths>
     </View>
   </SECTreeCtrl>
 
@@ -48,7 +48,7 @@
       <WinId>1935</WinId>
       <ViewName>Call Stack + Locals</ViewName>
       <UserString></UserString>
-      <TableColWidths>180 133 133</TableColWidths>
+      <TableColWidths>133 133 133</TableColWidths>
     </View>
     <View>
       <WinId>2506</WinId>
@@ -75,25 +75,25 @@
       <flags>2</flags>
       <showCmd>3</showCmd>
       <MinPosition>
-        <xPos>-1</xPos>
-        <yPos>-1</yPos>
+        <xPos>-32000</xPos>
+        <yPos>-32000</yPos>
       </MinPosition>
       <MaxPosition>
         <xPos>-1</xPos>
         <yPos>-1</yPos>
       </MaxPosition>
       <NormalPosition>
-        <Top>262</Top>
-        <Left>233</Left>
-        <Right>1257</Right>
-        <Bottom>983</Bottom>
+        <Top>0</Top>
+        <Left>2</Left>
+        <Right>800</Right>
+        <Bottom>560</Bottom>
       </NormalPosition>
     </WindowPosition>
     <MDIClientArea>
       <RegID>0</RegID>
       <MDITabState>
-        <Len>60</Len>
-        <Data>010000000400000001000000010000000100000001000000000000000200000000000000010000000100000000000000280000002800000000000000</Data>
+        <Len>375</Len>
+        <Data>01000000040000000100000001000000010000000100000000000000020000000000000001000000010000000000000028000000280000000100000002000000000000000100000039443A5C676974687562303331375C4D49434F5C4D49434F5C4C6962726172795C5246206472697665725C776C616E5F6669726D776172652E63000000000F776C616E5F6669726D776172652E6300000000BECEA100FFFFFFFF4B443A5C676974687562303331375C4D49434F5C506C6174666F726D5C4D43555C4D58313130315C776C616E5F6275735F6472697665725C726561645F776966695F6669726D776172652E630000000014726561645F776966695F6669726D776172652E6300000000FFDC7800FFFFFFFF0100000010000000C5D4F200FFDC7800BECEA100F0A0A100BCA8E1009CC1B600F7B88600D9ADC200A5C2D700B3A6BE00EAD6A300F6FA7D00B5E99D005FC3CF00C1838300CACAD5000100000000000000020000009401000065000000800700001E030000</Data>
       </MDITabState>
     </MDIClientArea>
   </WinLayoutEx>
