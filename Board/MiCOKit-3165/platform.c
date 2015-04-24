@@ -232,7 +232,7 @@ const platform_spi_t spi_flash_spi =
 const spi_flash_device_t spi_flash_device =
 {
     .speed       = 40000000,
-    .mode        = (SPI_CLOCK_RISING_EDGE | SPI_CLOCK_IDLE_HIGH | SPI_USE_DMA | SPI_MSB_FIRST),
+    .mode        = (SPI_CLOCK_RISING_EDGE | SPI_CLOCK_IDLE_HIGH | SPI_USE_DMA | SPI_MSB_FIRST ),
     .bits        = 8
 };
 #endif

@@ -45,6 +45,7 @@
 #define HARDWARE_REVISION   "MKF205_1"
 #define DEFAULT_NAME        "MiCOKit F205"
 #define MODEL               "MiCOKit-205"
+#define Bootloader_REVISION "V 0.1"
 
 /* MICO RTOS tick rate in Hz */
 #define MICO_DEFAULT_TICK_RATE_HZ                   (1000) 

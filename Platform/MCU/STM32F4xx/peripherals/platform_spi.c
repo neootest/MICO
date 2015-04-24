@@ -42,7 +42,6 @@
 *                    Constants
 ******************************************************/
 #define MAX_NUM_SPI_PRESCALERS     (8)
-#define SPI_DMA_TIMEOUT_LOOPS      (10000)
 
 /******************************************************
 *                   Enumerations
@@ -170,6 +169,7 @@ OSStatus platform_spi_init( const platform_spi_t* spi, const platform_spi_config
   err = calculate_prescaler( config->speed, &spi_init.SPI_BaudRatePrescaler );
   require_noerr(err, exit);
   
+      
   /* Configure data-width */
   if ( config->bits == 8 )
   {
@@ -217,6 +217,9 @@ OSStatus platform_spi_init( const platform_spi_t* spi, const platform_spi_config
   
   /* Enable SPI peripheral clock */
   (spi->peripheral_clock_func)( spi->peripheral_clock_reg, ENABLE );
+  (spi->peripheral_clock_func)( spi->peripheral_clock_reg, ENABLE );
+  
+  SPI_I2S_DeInit( spi->port );
   
   spi_init.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
   spi_init.SPI_Mode      = SPI_Mode_Master;
@@ -229,6 +232,9 @@ OSStatus platform_spi_init( const platform_spi_t* spi, const platform_spi_config
   SPI_Cmd ( spi->port, ENABLE );
   
   if ( config->mode & SPI_USE_DMA ){
+    DMA_DeInit( spi->rx_dma.stream );
+    DMA_DeInit( spi->tx_dma.stream );
+    
     if ( spi->tx_dma.controller == DMA1 )
     {
       RCC->AHB1ENR |= RCC_AHB1Periph_DMA1;
@@ -246,10 +252,11 @@ OSStatus platform_spi_init( const platform_spi_t* spi, const platform_spi_config
     {
       RCC->AHB1ENR |= RCC_AHB1Periph_DMA2;
     }
-    SPI_I2S_DMACmd( spi->port, SPI_I2S_DMAReq_Rx, DISABLE );
-    SPI_I2S_DMACmd( spi->port, SPI_I2S_DMAReq_Tx, DISABLE );
+    SPI_I2S_DMACmd( spi->port, SPI_I2S_DMAReq_Rx, ENABLE );
+    SPI_I2S_DMACmd( spi->port, SPI_I2S_DMAReq_Tx, ENABLE );
   }
 
+  
 exit:
   platform_mcu_powersave_enable();
   return err;
@@ -388,7 +395,7 @@ static OSStatus calculate_prescaler( uint32_t speed, uint16_t* prescaler )
   
   for( i = 0 ; i < MAX_NUM_SPI_PRESCALERS ; i++ )
   {
-    if( ( 60000000 / spi_baudrate_prescalers[i].factor ) <= speed )
+    if( ( 100000000 / spi_baudrate_prescalers[i].factor ) <= speed )
     {
       *prescaler = spi_baudrate_prescalers[i].prescaler_value;
       goto exit;
@@ -400,31 +407,17 @@ exit:
 }
 
 static OSStatus spi_dma_transfer( const platform_spi_t* spi, const platform_spi_config_t* config )
-{
-  uint32_t loop_count;
-  
+{  
   /* Enable dma channels that have just been configured */
-  SPI_I2S_DMACmd( spi->port, SPI_I2S_DMAReq_Rx, ENABLE );
-  SPI_I2S_DMACmd( spi->port, SPI_I2S_DMAReq_Tx, ENABLE );
   DMA_Cmd( spi->rx_dma.stream, ENABLE );
   DMA_Cmd( spi->tx_dma.stream, ENABLE );
   
   /* Wait for DMA to complete */
-  /* TODO: This should wait on a semaphore that is triggered from an IRQ */
-  loop_count = 0;
-  
-  while ( ( get_dma_irq_status( spi->tx_dma.stream ) & spi->tx_dma.complete_flags ) == 0  )
+  /* TODO: This should wait on a semaphore that is triggered from an IRQ */  
+  while ( ( get_dma_irq_status( spi->rx_dma.stream ) & spi->rx_dma.complete_flags ) == 0  )
   {
-    loop_count++;
-    /* Check if we've run out of time */
-    if ( loop_count >= (uint32_t) SPI_DMA_TIMEOUT_LOOPS )
-    {
-      return kTimeoutErr;
-    }
   }
 
-  SPI_I2S_DMACmd( spi->port, SPI_I2S_DMAReq_Rx, DISABLE );
-  SPI_I2S_DMACmd( spi->port, SPI_I2S_DMAReq_Tx, DISABLE );
   return kNoErr;
 }
 
