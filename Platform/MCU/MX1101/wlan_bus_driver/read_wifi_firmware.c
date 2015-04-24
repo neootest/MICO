@@ -59,18 +59,32 @@ static uint32_t image_size = DRIVER_FLASH_SIZE;
 
 uint32_t platform_get_wifi_image_size(void)
 {
-    uint32_t FlashAddress = DRIVER_START_ADDRESS + DRIVER_FLASH_SIZE - 0x4;
+#define READ_LEN 2048
+    uint32_t FlashAddress = DRIVER_START_ADDRESS + DRIVER_FLASH_SIZE;
     uint32_t imageTail;
+    uint32_t *p;
+    uint32_t *buf = (uint32_t *)malloc(READ_LEN);
 
-    MicoFlashRead(MICO_FLASH_FOR_DRIVER, &FlashAddress, (uint8_t *)&imageTail, 4);
-    while(imageTail == 0xFFFFFFFF) {
-        image_size-= 4;
-        FlashAddress -=8;
-        MicoFlashRead(MICO_FLASH_FOR_DRIVER, &FlashAddress, (uint8_t *)&imageTail, 4);
-    }
-    
+    image_size = DRIVER_FLASH_SIZE;
+    do {
+        FlashAddress -= READ_LEN; // Next block
+        MicoFlashRead(MICO_FLASH_FOR_DRIVER, &FlashAddress, (uint8_t *)buf, READ_LEN);
+        FlashAddress -= READ_LEN; // MicoFlashRead will increase FlashAddress READ_LEN, move back.
+        p = buf + (READ_LEN - 4)/sizeof(uint32_t);
+        while(p >= buf) {
+            if (*p != 0xFFFFFFFF) {
+                goto EXIT;
+            }
+            p--;
+            image_size -= 4;
+        }
+    } while (FlashAddress > DRIVER_START_ADDRESS);
+
+EXIT:
+    free(buf);
     return image_size;
 }
+
 
 uint32_t platform_get_wifi_image(unsigned char* buffer, uint32_t size, uint32_t offset)
 {
