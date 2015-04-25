@@ -498,22 +498,62 @@ OSStatus MicoFlashInitialize( mico_flash_t flash )
 
 OSStatus MicoFlashErase( mico_flash_t flash, uint32_t StartAddress, uint32_t EndAddress )
 {
-  return (OSStatus) platform_flash_erase( &platform_flash_drivers[flash], StartAddress, EndAddress );
+  OSStatus err = kNoErr;
+  
+  if( platform_flash_drivers->initialized == false )
+  {
+    err =  platform_flash_init( &platform_flash_drivers[flash], &platform_flash_peripherals[flash] );
+    require_noerr( err, exit );
+  }
+  err = platform_flash_erase( &platform_flash_drivers[flash], StartAddress, EndAddress );
+
+exit:
+  return err;
 }
 
 OSStatus MicoFlashWrite(mico_flash_t flash, volatile uint32_t* FlashAddress, uint8_t* Data ,uint32_t DataLength)
 {
-  return (OSStatus) platform_flash_write( &platform_flash_drivers[flash], FlashAddress, Data, DataLength );
+  OSStatus err = kNoErr;
+  
+  if( platform_flash_drivers->initialized == false )
+  {
+    err =  platform_flash_init( &platform_flash_drivers[flash], &platform_flash_peripherals[flash] );
+    require_noerr( err, exit );
+  }
+  err = platform_flash_write( &platform_flash_drivers[flash], FlashAddress, Data, DataLength );
+  
+exit:
+  return err;
 }
 
 OSStatus MicoFlashRead(mico_flash_t flash, volatile uint32_t* FlashAddress, uint8_t* Data ,uint32_t DataLength)
 {
-  return (OSStatus) platform_flash_read( &platform_flash_drivers[flash], FlashAddress, Data, DataLength );
+  OSStatus err = kNoErr;
+  
+  if( platform_flash_drivers->initialized == false )
+  {
+    err =  platform_flash_init( &platform_flash_drivers[flash], &platform_flash_peripherals[flash] );
+    require_noerr( err, exit );
+  }
+  err = platform_flash_read( &platform_flash_drivers[flash], FlashAddress, Data, DataLength );
+  
+exit:
+  return err;
 }
 
 OSStatus MicoFlashFinalize( mico_flash_t flash )
 {
-  return (OSStatus) platform_flash_deinit( &platform_flash_drivers[flash] );
+  OSStatus err = kNoErr;
+  
+  if( platform_flash_drivers->initialized == false )
+  {
+    err =  platform_flash_init( &platform_flash_drivers[flash], &platform_flash_peripherals[flash] );
+    require_noerr( err, exit );
+  }
+  err = platform_flash_deinit( &platform_flash_drivers[flash] );
+  
+exit:
+  return err;
 }
 
 

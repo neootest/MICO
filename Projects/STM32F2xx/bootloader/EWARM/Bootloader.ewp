@@ -173,6 +173,7 @@
         <option>
           <name>CCDefines</name>
           <state>USE_STDPERIPH_DRIVER</state>
+          <state>SIZE_OPTIMIZE</state>
           <state>DEBUG</state>
           <state>BOOTLOADER</state>
           <state>NO_MICO_RTOS</state>
