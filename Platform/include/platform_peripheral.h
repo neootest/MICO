@@ -17,6 +17,7 @@
 #include "PlatformLogging.h"
 #include "platform_mcu_peripheral.h" /* Include MCU-specific types */
 #include "RingBufferUtils.h"
+#include "platform_config.h"
 
 #ifdef __cplusplus
 extern "C" {
