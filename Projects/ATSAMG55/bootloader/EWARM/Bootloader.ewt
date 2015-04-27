@@ -3,175 +3,7 @@
 <project>
   <fileVersion>2</fileVersion>
   <configuration>
-    <name>MiCOKit-3162</name>
-    <toolchain>
-      <name>ARM</name>
-    </toolchain>
-    <debug>0</debug>
-    <settings>
-      <name>RuntimeChecking</name>
-      <archiveVersion>0</archiveVersion>
-      <data>
-        <version>2</version>
-        <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
-        <option>
-          <name>GenRtcDebugHeap</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcEnableBoundsChecking</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcCheckPtrsNonInstrMem</name>
-          <state>1</state>
-        </option>
-        <option>
-          <name>GenRtcTrackPointerBounds</name>
-          <state>1</state>
-        </option>
-        <option>
-          <name>GenRtcCheckAccesses</name>
-          <state>1</state>
-        </option>
-        <option>
-          <name>GenRtcGenerateEntries</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcNrTrackedPointers</name>
-          <state>1000</state>
-        </option>
-        <option>
-          <name>GenRtcIntOverflow</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcIncUnsigned</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcIntConversion</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcInclExplicit</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcIntShiftOverflow</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcInclUnsignedShiftOverflow</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcUnhandledCase</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcDivByZero</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcEnable</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcCheckPtrsNonInstrFunc</name>
-          <state>1</state>
-        </option>
-      </data>
-    </settings>
-  </configuration>
-  <configuration>
-    <name>MICOKit-F205</name>
-    <toolchain>
-      <name>ARM</name>
-    </toolchain>
-    <debug>0</debug>
-    <settings>
-      <name>RuntimeChecking</name>
-      <archiveVersion>0</archiveVersion>
-      <data>
-        <version>2</version>
-        <wantNonLocal>1</wantNonLocal>
-        <debug>0</debug>
-        <option>
-          <name>GenRtcDebugHeap</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcEnableBoundsChecking</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcCheckPtrsNonInstrMem</name>
-          <state>1</state>
-        </option>
-        <option>
-          <name>GenRtcTrackPointerBounds</name>
-          <state>1</state>
-        </option>
-        <option>
-          <name>GenRtcCheckAccesses</name>
-          <state>1</state>
-        </option>
-        <option>
-          <name>GenRtcGenerateEntries</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcNrTrackedPointers</name>
-          <state>1000</state>
-        </option>
-        <option>
-          <name>GenRtcIntOverflow</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcIncUnsigned</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcIntConversion</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcInclExplicit</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcIntShiftOverflow</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcInclUnsignedShiftOverflow</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcUnhandledCase</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcDivByZero</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcEnable</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>GenRtcCheckPtrsNonInstrFunc</name>
-          <state>1</state>
-        </option>
-      </data>
-    </settings>
-  </configuration>
-  <configuration>
-    <name>MiCOKit-3161</name>
+    <name>MiCOKit-G55</name>
     <toolchain>
       <name>ARM</name>
     </toolchain>
@@ -257,39 +89,15 @@
   <group>
     <name>Board</name>
     <group>
-      <name>MiCOKit-3161</name>
+      <name>MiCOKit-G55</name>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3161\platform.c</name>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-G55\platform.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3161\platform.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-G55\platform.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3161\platform_common_config.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3161\platform_spi_flash.c</name>
-      </file>
-    </group>
-    <group>
-      <name>MiCOKit-3162</name>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\platform.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3162\platform.h</name>
-      </file>
-    </group>
-    <group>
-      <name>MICOKit-F205</name>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F205\platform_common_config.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-G55\platform_config.h</name>
       </file>
     </group>
   </group>
@@ -377,12 +185,12 @@
   <group>
     <name>Platform</name>
     <group>
-      <name>Cortex-M3</name>
+      <name>Cortex-M4</name>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\Platform\Cortex-M3\crt0_EWARM.c</name>
+        <name>$PROJ_DIR$\..\..\..\..\Platform\Cortex-M4\crt0_EWARM.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\Platform\Cortex-M3\hardfault.c</name>
+        <name>$PROJ_DIR$\..\..\..\..\Platform\Cortex-M4\hardfault.c</name>
       </file>
     </group>
     <group>
@@ -406,11 +214,11 @@
     <group>
       <name>MCU</name>
       <group>
-        <name>STM32F2xx</name>
+        <name>STSAMG55</name>
         <group>
           <name>EWARM</name>
           <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\EWARM\startup_stm32f2xx_bootloader_EWARM.s</name>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\EWARM\startup_ATSAMG55_bootloader_EWARM.s</name>
           </file>
         </group>
         <group>
@@ -418,156 +226,159 @@
           <group>
             <name>Libraries</name>
             <group>
-              <name>STM32F2xx_HAL_Driver</name>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_hcd.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_usb.c</name>
-              </file>
+              <name>asf-3.22.0</name>
+              <group>
+                <name>common</name>
+                <group>
+                  <name>services</name>
+                  <group>
+                    <name>sleepmgr</name>
+                    <file>
+                      <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\Libraries\asf-3.22.0\common\services\sleepmgr\sam\sleepmgr.c</name>
+                    </file>
+                  </group>
+                  <group>
+                    <name>clock</name>
+                    <file>
+                      <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\Libraries\asf-3.22.0\common\services\clock\samg\sysclk.c</name>
+                    </file>
+                  </group>
+                </group>
+                <group>
+                  <name>utils</name>
+                  <group>
+                    <name>interrupt</name>
+                    <file>
+                      <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\Libraries\asf-3.22.0\common\utils\interrupt\interrupt_sam_nvic.c</name>
+                    </file>
+                  </group>
+                </group>
+                <file>
+                  <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\Libraries\common\utils\interrupt\interrupt_sam_nvic.c</name>
+                </file>
+              </group>
+              <group>
+                <name>sam</name>
+                <group>
+                  <name>drivers</name>
+                  <group>
+                    <name>adc</name>
+                    <file>
+                      <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\Libraries\asf-3.22.0\sam\drivers\adc\adc2.c</name>
+                    </file>
+                  </group>
+                  <group>
+                    <name>efc</name>
+                    <file>
+                      <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\Libraries\asf-3.22.0\sam\drivers\efc\efc.c</name>
+                    </file>
+                  </group>
+                  <group>
+                    <name>flexcom</name>
+                    <file>
+                      <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\Libraries\asf-3.22.0\sam\drivers\flexcom\flexcom.c</name>
+                    </file>
+                  </group>
+                  <group>
+                    <name>pdc</name>
+                    <file>
+                      <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\Libraries\asf-3.22.0\sam\drivers\pdc\pdc.c</name>
+                    </file>
+                  </group>
+                  <group>
+                    <name>pio</name>
+                    <file>
+                      <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\Libraries\asf-3.22.0\sam\drivers\pio\pio.c</name>
+                    </file>
+                  </group>
+                  <group>
+                    <name>pmc</name>
+                    <file>
+                      <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\Libraries\asf-3.22.0\sam\drivers\pmc\pmc.c</name>
+                    </file>
+                    <file>
+                      <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\Libraries\asf-3.22.0\sam\drivers\pmc\sleep.c</name>
+                    </file>
+                  </group>
+                  <group>
+                    <name>spi</name>
+                    <file>
+                      <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\Libraries\asf-3.22.0\sam\drivers\spi\spi.c</name>
+                    </file>
+                  </group>
+                  <group>
+                    <name>usart</name>
+                    <file>
+                      <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\Libraries\asf-3.22.0\sam\drivers\usart\usart.c</name>
+                    </file>
+                  </group>
+                  <group>
+                    <name>wdt</name>
+                    <file>
+                      <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\Libraries\asf-3.22.0\sam\drivers\wdt\wdt.c</name>
+                    </file>
+                  </group>
+                </group>
+                <group>
+                  <name>services</name>
+                  <group>
+                    <name>flash_efc</name>
+                    <file>
+                      <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\Libraries\asf-3.22.0\sam\services\flash_efc\flash_efc.c</name>
+                    </file>
+                  </group>
+                </group>
+                <group>
+                  <name>utils</name>
+                  <group>
+                    <name>cmsis</name>
+                    <file>
+                      <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\Libraries\asf-3.22.0\sam\utils\cmsis\samg\samg55\source\templates\system_samg55.c</name>
+                    </file>
+                  </group>
+                </group>
+              </group>
             </group>
-            <group>
-              <name>STM32F2xx_StdPeriph_Driver</name>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\misc.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_adc.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_can.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_crc.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_aes.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_des.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_tdes.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dac.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dbgmcu.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dcmi.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dma.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_exti.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_flash.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_fsmc.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_gpio.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash_md5.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash_sha1.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_i2c.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_iwdg.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_pwr.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rcc.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rng.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rtc.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_sdio.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_spi.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_syscfg.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_tim.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_usart.c</name>
-              </file>
-              <file>
-                <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_wwdg.c</name>
-              </file>
-            </group>
-            <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\stm32f2xx_conf.h</name>
-            </file>
-            <file>
-              <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\Libraries\system_stm32f2xx.c</name>
-            </file>
           </group>
           <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\paltform_rtc.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\paltform_rtc.c</name>
           </file>
           <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_adc.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\platform_adc.c</name>
           </file>
           <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_flash.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\platform_flash.c</name>
           </file>
           <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_gpio.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\platform_gpio.c</name>
           </file>
           <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_i2c.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\platform_i2c.c</name>
           </file>
           <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_mcu_powersave.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\platform_mcu_peripheral.h</name>
           </file>
           <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_pwm.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\platform_mcu_powersave.c</name>
           </file>
           <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_rng.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\platform_pwm.c</name>
           </file>
           <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_spi.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\platform_rng.c</name>
           </file>
           <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_uart.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\platform_spi.c</name>
           </file>
           <file>
-            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_watchdog.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\platform_uart.c</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\platform_watchdog.c</name>
           </file>
         </group>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\platform_init.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\platform_init.c</name>
         </file>
       </group>
       <file>

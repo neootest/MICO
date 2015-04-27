@@ -58,7 +58,8 @@
 /******************************************************
 *               Variables Definitions
 ******************************************************/
-int platform_uarts_irq_numbers[] =
+
+static IRQn_Type platform_flexcom_irq_numbers[] =
 {
   [0]  = FLEXCOM0_IRQn,
   [1]  = FLEXCOM1_IRQn,
@@ -70,7 +71,7 @@ int platform_uarts_irq_numbers[] =
   [7]  = FLEXCOM7_IRQn,
 };
 
-Flexcom  *flexcom_base[] = 
+static Flexcom  *flexcom_base[] = 
 {
   [0]  = FLEXCOM0,
   [1]  = FLEXCOM1,
@@ -140,11 +141,11 @@ OSStatus platform_uart_init( platform_uart_driver_t* driver, const platform_uart
   flexcom_set_opmode( flexcom_base[ peripheral->uart_id ], FLEXCOM_USART );
 
   /* Enable the receiver and transmitter. */
-  usart_reset_tx( peripheral->peripheral );
-  usart_reset_rx( peripheral->peripheral );
+  usart_reset_tx( peripheral->port );
+  usart_reset_rx( peripheral->port );
 
   /* Disable all the interrupts. */
-  usart_disable_interrupt( peripheral->peripheral, 0xffffffff );
+  usart_disable_interrupt( peripheral->port, 0xffffffff );
 
   switch ( config->parity ) {
   case NO_PARITY:
@@ -186,33 +187,33 @@ OSStatus platform_uart_init( platform_uart_driver_t* driver, const platform_uart
 
   /* Configure USART in serial mode. */  
   if (!hardware_shaking) {
-    usart_init_rs232( peripheral->peripheral, &settings, sysclk_get_peripheral_hz());
+    usart_init_rs232( peripheral->port, &settings, sysclk_get_peripheral_hz());
   } else {
-    usart_init_hw_handshaking( peripheral->peripheral, &settings, sysclk_get_peripheral_hz());
+    usart_init_hw_handshaking( peripheral->port, &settings, sysclk_get_peripheral_hz());
   }
 
   /* Enable uart interrupt */
-  NVIC_SetPriority( platform_uarts_irq_numbers[peripheral->uart_id], 0x06 );
-  NVIC_EnableIRQ( platform_uarts_irq_numbers[peripheral->uart_id] );
+  NVIC_SetPriority( platform_flexcom_irq_numbers[peripheral->uart_id], 0x06 );
+  NVIC_EnableIRQ( platform_flexcom_irq_numbers[peripheral->uart_id] );
 
   /* Enable PDC transmit */
-  pdc_enable_transfer( usart_get_pdc_base( peripheral->peripheral ), PERIPH_PTCR_TXTEN | PERIPH_PTCR_RXTEN );
-  pdc_disable_transfer( usart_get_pdc_base( driver->peripheral->peripheral ), PERIPH_PTCR_TXTDIS );
+  pdc_enable_transfer( usart_get_pdc_base( peripheral->port ), PERIPH_PTCR_TXTEN | PERIPH_PTCR_RXTEN );
+  pdc_disable_transfer( usart_get_pdc_base( driver->peripheral->port ), PERIPH_PTCR_TXTDIS );
 
   pdc_uart_packet.ul_addr = (uint32_t)driver->rx_ring_buffer->buffer;
   pdc_uart_packet.ul_size = (uint32_t)driver->rx_ring_buffer->size;
-  pdc_rx_init( usart_get_pdc_base( peripheral->peripheral ), &pdc_uart_packet, &pdc_uart_packet );
+  pdc_rx_init( usart_get_pdc_base( peripheral->port ), &pdc_uart_packet, &pdc_uart_packet );
 
   pdc_uart_tx_packet.ul_addr = (uint32_t)0;
   pdc_uart_tx_packet.ul_size = (uint32_t)1;
 
-  pdc_tx_init( usart_get_pdc_base( driver->peripheral->peripheral ), &pdc_uart_packet, NULL );
+  pdc_tx_init( usart_get_pdc_base( driver->peripheral->port ), &pdc_uart_tx_packet, NULL );
 
-  usart_enable_interrupt( peripheral->peripheral, US_IER_ENDRX | US_IER_RXBUFF | US_IER_RXRDY | US_IER_ENDTX );
+  usart_enable_interrupt( peripheral->port, US_IER_ENDRX | US_IER_RXBUFF | US_IER_RXRDY | US_IER_ENDTX );
 
   /* Enable the receiver and transmitter. */
-  usart_enable_tx( peripheral->peripheral );
-  usart_enable_rx( peripheral->peripheral );
+  usart_enable_tx( peripheral->port );
+  usart_enable_rx( peripheral->port );
   
 exit:
   MicoMcuPowerSaveConfig(true);
@@ -221,20 +222,19 @@ exit:
 
 OSStatus platform_uart_deinit( platform_uart_driver_t* driver )
 {
-  uint8_t          uart_number;
   OSStatus          err = kNoErr;
   
   platform_mcu_powersave_disable();
   require_action_quiet( ( driver != NULL ), exit, err = kParamErr);
   
-  usart_disable_interrupt( driver->peripheral->peripheral, 0xffffffff );
+  usart_disable_interrupt( driver->peripheral->port, 0xffffffff );
 
-  NVIC_DisableIRQ( platform_uarts_irq_numbers[driver->peripheral->uart_id] );
+  NVIC_DisableIRQ( platform_flexcom_irq_numbers[driver->peripheral->uart_id] );
 
-  pdc_disable_transfer( usart_get_pdc_base( driver->peripheral->peripheral ), PERIPH_PTCR_TXTDIS | PERIPH_PTCR_RXTDIS );
+  pdc_disable_transfer( usart_get_pdc_base( driver->peripheral->port ), PERIPH_PTCR_TXTDIS | PERIPH_PTCR_RXTDIS );
 
-  usart_disable_tx( driver->peripheral->peripheral );
-  usart_disable_rx( driver->peripheral->peripheral );
+  usart_disable_tx( driver->peripheral->port );
+  usart_disable_rx( driver->peripheral->port );
 
   sysclk_disable_peripheral_clock( driver->peripheral->peripheral_id );
 
@@ -251,7 +251,7 @@ OSStatus platform_uart_deinit( platform_uart_driver_t* driver )
     platform_gpio_deinit( driver->peripheral->rts_pin );
   }
 
-#ifndef UART_NO_OS
+#ifndef NO_MICO_RTOS
   mico_rtos_deinit_semaphore(&driver->rx_complete);
   mico_rtos_deinit_semaphore(&driver->tx_complete);
 #endif
@@ -283,16 +283,16 @@ OSStatus platform_uart_transmit_bytes( platform_uart_driver_t* driver, const uin
   
   pdc_uart_packet.ul_addr = (uint32_t) data_out;
   pdc_uart_packet.ul_size = size;
-  pdc_tx_init( usart_get_pdc_base( driver->peripheral->peripheral ), &pdc_uart_packet, NULL);
+  pdc_tx_init( usart_get_pdc_base( driver->peripheral->port ), &pdc_uart_packet, NULL);
 
   /* Enable Tx DMA transmission */
-  pdc_enable_transfer( usart_get_pdc_base( driver->peripheral->peripheral ), PERIPH_PTCR_TXTEN );
+  pdc_enable_transfer( usart_get_pdc_base( driver->peripheral->port ), PERIPH_PTCR_TXTEN );
   
-#ifndef UART_NO_OS
+#ifndef NO_MICO_RTOS
   mico_rtos_get_semaphore( &driver->tx_complete, MICO_NEVER_TIMEOUT );
 #else 
-  while( driver->last_transmit_result == false);
-  driver->last_transmit_result = false;
+  while( driver->tx_complete == false);
+  driver->tx_complete = false;
 #endif
   
 exit:  
@@ -306,15 +306,16 @@ exit:
 OSStatus platform_uart_receive_bytes( platform_uart_driver_t* driver, uint8_t* data_in, uint32_t expected_data_size, uint32_t timeout_ms )
 {
   OSStatus err = kNoErr;
+  uint32_t transfer_size;
 
-  platform_mcu_powersave_disable();
+  //platform_mcu_powersave_disable();
 
   require_action_quiet( ( driver != NULL ) && ( data_in != NULL ) && ( expected_data_size != 0 ), exit, err = kParamErr);
   require_action_quiet( driver->rx_ring_buffer != NULL , exit, err = kUnsupportedErr);
 
   while ( expected_data_size != 0 )
   {
-    uint32_t transfer_size = MIN(driver->rx_ring_buffer->size / 2, expected_data_size);
+    transfer_size = MIN(driver->rx_ring_buffer->size / 2, expected_data_size);
 
     /* Check if ring buffer already contains the required amount of data. */
     if ( transfer_size > ring_buffer_used_space( driver->rx_ring_buffer ) )
@@ -322,6 +323,7 @@ OSStatus platform_uart_receive_bytes( platform_uart_driver_t* driver, uint8_t* d
       /* Set rx_size and wait in rx_complete semaphore until data reaches rx_size or timeout occurs */
       driver->rx_size = transfer_size;
 
+#ifndef NO_MICO_RTOS
       if ( mico_rtos_get_semaphore( &driver->rx_complete, timeout_ms ) != kNoErr )
       {
         driver->rx_size = 0;
@@ -331,8 +333,19 @@ OSStatus platform_uart_receive_bytes( platform_uart_driver_t* driver, uint8_t* d
 
       /* Reset rx_size to prevent semaphore being set while nothing waits for the data */
       driver->rx_size = 0;
+#else
+      driver->rx_complete = false;
+      int delay_start = mico_get_time_no_os();
+      while(driver->rx_complete == false){
+        if(mico_get_time_no_os() >= delay_start + timeout_ms && timeout_ms != MICO_NEVER_TIMEOUT){
+          driver->rx_size = 0;
+          err = kTimeoutErr;
+          goto exit;
+        }
+      }
+    driver->rx_size = 0;
+#endif
     }
-
     expected_data_size -= transfer_size;
 
     // Grab data from the buffer
@@ -354,9 +367,8 @@ OSStatus platform_uart_receive_bytes( platform_uart_driver_t* driver, uint8_t* d
   require_action( expected_data_size == 0, exit, err = kReadErr);
 
 exit:
-  platform_mcu_powersave_enable();
+  //platform_mcu_powersave_enable();
   return err;
-
 }
 
 OSStatus platform_uart_get_length_in_buffer( platform_uart_driver_t* driver )
@@ -370,9 +382,9 @@ OSStatus platform_uart_get_length_in_buffer( platform_uart_driver_t* driver )
 
 void platform_uart_irq( platform_uart_driver_t* driver )
 {
-  uint32_t status = usart_get_status( driver->peripheral->peripheral );
-  uint32_t mask = usart_get_interrupt_mask( driver->peripheral->peripheral );
-  Pdc* pdc_register = usart_get_pdc_base( driver->peripheral->peripheral );
+  uint32_t status = usart_get_status( driver->peripheral->port );
+  uint32_t mask = usart_get_interrupt_mask( driver->peripheral->port );
+  Pdc* pdc_register = usart_get_pdc_base( driver->peripheral->port );
 
   /* ENDTX flag is set when Tx DMA transfer is done */
   if ( ( mask & US_IMR_ENDTX ) && ( status & US_CSR_ENDTX ) )
@@ -383,15 +395,19 @@ void platform_uart_irq( platform_uart_driver_t* driver )
      * starts another Tx DMA transaction. To work around this, disable Tx before
      * performing a dummy Tx init.
      */
-    pdc_disable_transfer( usart_get_pdc_base( driver->peripheral->peripheral ), PERIPH_PTCR_TXTDIS );
+    pdc_disable_transfer( usart_get_pdc_base( driver->peripheral->port ), PERIPH_PTCR_TXTDIS );
 
     dma_packet.ul_addr = (uint32_t)0;
     dma_packet.ul_size = (uint32_t)1;
 
-    pdc_tx_init( usart_get_pdc_base( driver->peripheral->peripheral ), &dma_packet, NULL );
+    pdc_tx_init( usart_get_pdc_base( driver->peripheral->port ), &dma_packet, NULL );
 
     /* Notifies waiting thread that Tx DMA transfer is complete */
+#ifndef NO_MICO_RTOS
     mico_rtos_set_semaphore( &driver->tx_complete );
+#else
+    driver->tx_complete = true;
+#endif
   }
 
   /* ENDRX flag is set when RCR is 0. RNPR and RNCR values are then copied into
@@ -410,14 +426,18 @@ void platform_uart_irq( platform_uart_driver_t* driver )
    * is no longer asserted. The code below updates the ring buffer parameters
    * to keep them current
    */
-  if ( mask & US_CSR_RXRDY )
+  if ( ( mask & US_IMR_RXRDY )  )
   {
     driver->rx_ring_buffer->tail = driver->rx_ring_buffer->size - pdc_register->PERIPH_RCR;
 
     // Notify thread if sufficient data are available
     if ( ( driver->rx_size > 0 ) && ( ring_buffer_used_space( driver->rx_ring_buffer ) >= driver->rx_size ) )
     {
+#ifndef NO_MICO_RTOS
       mico_rtos_set_semaphore( &driver->rx_complete );
+#else
+      driver->rx_complete = true;
+#endif
       driver->rx_size = 0;
     }
   }

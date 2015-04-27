@@ -308,12 +308,13 @@ int application_start(void)
   require_noerr( err, exit ); 
 
   /*wlan driver and tcpip init*/
+  mico_log( "MiCO starting..." );
   MicoInit();
-#ifdef MICO_CLI_ENABLE  
+#ifdef MICO_CLI_ENABLE
   MicoCliInit();
 #endif
   MicoSysLed(true);
-  mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
+  mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory); 
   micoWlanGetIPStatus(&para, Station);
   formatMACAddr(context->micoStatus.mac, (char *)&para.mac);
   MicoGetRfVer(wifi_ver, sizeof(wifi_ver));

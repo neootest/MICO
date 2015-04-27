@@ -776,6 +776,9 @@
         <file>
           <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\wlan_bus_driver\wlan_bus_spi.c</name>
         </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\wlan_bus_driver\wlan_platform.c</name>
+        </file>
       </group>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\platform_init.c</name>

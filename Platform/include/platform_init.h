@@ -41,6 +41,7 @@ int main( void );
  * \li Weakly defined in platforms/MCU/<MCU>/platform_init.c. Users may override it as desired
  */
 extern void platform_init_system_clocks( void );
+extern void init_clocks( void );
 
 /**
  * Initialise memory subsystem

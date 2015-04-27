@@ -86,11 +86,14 @@ const platform_gpio_t platform_gpio_pins[] =
   /* Common GPIOs for internal use */
   [STDIO_UART_TX]                       = { IOPORT_CREATE_PIN( PIOA, 28 ),  false, 0, 0  },
   [STDIO_UART_RX]                       = { IOPORT_CREATE_PIN( PIOA, 29 ),  false, 0, 0 },  
+ 
 
   /* GPIOs for external use */
   [WL_GPIO0]                          = { IOPORT_CREATE_PIN( PIOA, 26 ),  false, 0, 0 },
   [MICO_GPIO_0]                       = { IOPORT_CREATE_PIN( PIOA,  6 ),  false, 0, 0  },
   [MICO_GPIO_1]                       = { IOPORT_CREATE_PIN( PIOA,  2 ),  true,  2, IOPORT_SENSE_FALLING },
+  [MICO_GPIO_2]                       = { IOPORT_CREATE_PIN( PIOB,  0 ),  false, 0, 0  },
+  [MICO_GPIO_3]                       = { IOPORT_CREATE_PIN( PIOB,  1 ),  false, 0, 0 }, 
 
 };
 
@@ -107,7 +110,7 @@ const platform_uart_t platform_uart_peripherals[] =
   [MICO_UART_1] =
   {
   .uart_id          = 7,
-  .peripheral       = USART7,
+  .port             = USART7,
   .peripheral_id    = ID_FLEXCOM7,
   .tx_pin           = &platform_gpio_pins[STDIO_UART_TX],
   .tx_pin_mux_mode  = IOPORT_MODE_MUX_B,
@@ -117,32 +120,21 @@ const platform_uart_t platform_uart_peripherals[] =
   .cts_pin_mux_mode = IOPORT_MODE_MUX_B,
   .rts_pin          = NULL, /* flow control isn't supported */
   .rts_pin_mux_mode = IOPORT_MODE_MUX_B,
-    // .usart               = USART7,
-    // .mux_mode            = IOPORT_MODE_MUX_B,
-    // .gpio_bank           = IOPORT_PIOA,
-    // .pin_tx              = PIO_PA28B_TXD7, //1 << 28,
-    // .pin_rx              = PIO_PA27B_RXD7, //1 << 27,
-    // .pin_cts             = NULL,
-    // .pin_rts             = NULL,
-    // .flexcom_base        = FLEXCOM7,
-    // .id_peripheral_clock = ID_FLEXCOM7,
-    // .usart_irq           = FLEXCOM7_IRQn,
-    // .dma_base            = PDC_USART7,
   },
-//  [MICO_UART_2] =
-//  {
-//    .usart               = USART0,
-//    .mux_mode            = IOPORT_MODE_MUX_A,
-//    .gpio_bank           = IOPORT_PIOA,
-//    .pin_tx              = PIO_PA10A_TXD0, //1 << 10,
-//    .pin_rx              = PIO_PA9A_RXD0, //1 << 9 ,
-//    .pin_cts             = NULL,
-//    .pin_rts             = NULL,
-//    .flexcom_base        = FLEXCOM0,
-//    .id_peripheral_clock = ID_FLEXCOM0,
-//    .usart_irq           = FLEXCOM0_IRQn,
-//    .dma_base            = PDC_USART0,
-//  },
+  [MICO_UART_2] =
+  {
+  .uart_id          = 6,
+  .port             = USART6,
+  .peripheral_id    = ID_FLEXCOM6,
+  .tx_pin           = &platform_gpio_pins[MICO_GPIO_2],
+  .tx_pin_mux_mode  = IOPORT_MODE_MUX_B,
+  .rx_pin           = &platform_gpio_pins[MICO_GPIO_3],
+  .rx_pin_mux_mode  = IOPORT_MODE_MUX_B,
+  .cts_pin          = NULL, /* flow control isn't supported */
+  .cts_pin_mux_mode = IOPORT_MODE_MUX_B,
+  .rts_pin          = NULL, /* flow control isn't supported */
+  .rts_pin_mux_mode = IOPORT_MODE_MUX_B,
+  },
 };
 
 platform_uart_driver_t platform_uart_drivers[MICO_UART_MAX];
@@ -152,6 +144,12 @@ const platform_i2c_t *platform_i2c_peripherals = NULL;
 
 const platform_flash_t platform_flash_peripherals[] =
 {
+  [MICO_SPI_FLASH] =
+  {
+    .flash_type                   = FLASH_TYPE_SPI,
+    .flash_start_addr             = 0x000000,
+    .flash_length                 = 0x200000,
+  },
   [MICO_INTERNAL_FLASH] =
   {
     .flash_type                   = FLASH_TYPE_INTERNAL,
@@ -168,22 +166,65 @@ platform_flash_driver_t platform_flash_drivers[MICO_FLASH_MAX];
 */
 const platform_gpio_t wifi_control_pins[] =
 {
-  [WIFI_PIN_RESET      ] = { PORTA, 25 },
-  [WIFI_PIN_BOOTSTRAP_0] = { PORTA, 26 },
+  [WIFI_PIN_RESET      ] = { IOPORT_CREATE_PIN( PIOA, 25 ),  false, 0, 0 },
+  [WIFI_PIN_BOOTSTRAP_0] = { IOPORT_CREATE_PIN( PIOA, 26 ),  false, 0, 0 },
+  [WIFI_PIN_BOOTSTRAP_1] = { IOPORT_CREATE_PIN( PIOA, 18 ),  false, 0, 0 },
 };
 
 /* Wi-Fi gSPI bus pins. Used by platform/MCU/STM32F2xx/EMW1062_driver/wlan_spi.c */
 const platform_gpio_t wifi_spi_pins[] =
 {
-  [WIFI_PIN_SPI_IRQ ] = { PORTA,  1 },
-  [WIFI_PIN_SPI_CS  ] = { PORTB, 12 },
-  [WIFI_PIN_SPI_CLK ] = { PORTB, 13 },
-  [WIFI_PIN_SPI_MOSI] = { PORTB, 15 },
-  [WIFI_PIN_SPI_MISO] = { PORTB, 14 },
+  [WIFI_PIN_SPI_IRQ ] = { IOPORT_CREATE_PIN( PIOA, 24 ),  true, 11, IOPORT_SENSE_RISING },
+  [WIFI_PIN_SPI_CS  ] = { IOPORT_CREATE_PIN( PIOA, 11 ),  false, 0, 0 },
+  [WIFI_PIN_SPI_CLK ] = { IOPORT_CREATE_PIN( PIOA, 14 ),  false, 0, 0 },
+  [WIFI_PIN_SPI_MOSI] = { IOPORT_CREATE_PIN( PIOA, 13 ),  false, 0, 0 },
+  [WIFI_PIN_SPI_MISO] = { IOPORT_CREATE_PIN( PIOA, 12 ),  false, 0, 0 },
 };
 
-const platform_spi_t wifi_spi;
+const platform_spi_t wifi_spi =
+{
+  .spi_id                       = 5,
+  .port                         = SPI5,
+  .peripheral_id                = ID_FLEXCOM5,
+  .mosi_pin                     = &wifi_spi_pins[WIFI_PIN_SPI_MOSI],
+  .mosi_pin_mux_mode            = IOPORT_MODE_MUX_A,
+  .miso_pin                     = &wifi_spi_pins[WIFI_PIN_SPI_MISO],
+  .miso_pin_mux_mode            = IOPORT_MODE_MUX_A,
+  .clock_pin                    = &wifi_spi_pins[WIFI_PIN_SPI_CLK],
+  .clock_pin_mux_mode           = IOPORT_MODE_MUX_A,
+};
 
+#if defined ( USE_MICO_SPI_FLASH )
+
+/* spi flash bus pins. Used by platform/drivers/spi_flash/spi_flash_platform.c */
+const platform_gpio_t spi_flash_spi_pins[] =
+{
+  [FLASH_PIN_SPI_CS  ] = { IOPORT_CREATE_PIN( PIOA, 19 ),  false, 0, 0 }, 
+  [FLASH_PIN_SPI_CLK ] = { IOPORT_CREATE_PIN( PIOB, 13 ),  false, 0, 0 },
+  [FLASH_PIN_SPI_MOSI] = { IOPORT_CREATE_PIN( PIOA,  3 ),  false, 0, 0 },
+  [FLASH_PIN_SPI_MISO] = { IOPORT_CREATE_PIN( PIOA,  4 ),  false, 0, 0 },
+};
+
+const platform_spi_t spi_flash_spi =
+{
+  .spi_id                       = 3,
+  .port                         = SPI3,
+  .peripheral_id                = ID_FLEXCOM3,
+  .mosi_pin                     = &spi_flash_spi_pins[FLASH_PIN_SPI_MOSI],
+  .mosi_pin_mux_mode            = IOPORT_MODE_MUX_A,
+  .miso_pin                     = &spi_flash_spi_pins[FLASH_PIN_SPI_MISO],
+  .miso_pin_mux_mode            = IOPORT_MODE_MUX_A,
+  .clock_pin                    = &spi_flash_spi_pins[FLASH_PIN_SPI_CLK],
+  .clock_pin_mux_mode           = IOPORT_MODE_MUX_A,
+};
+
+const spi_flash_device_t spi_flash_device =
+{
+  .speed       = 40000000,
+  .mode        = (SPI_CLOCK_RISING_EDGE | SPI_CLOCK_IDLE_HIGH | SPI_NO_DMA | SPI_MSB_FIRST),
+  .bits        = 8,
+};
+#endif
 
 
 /******************************************************
@@ -195,11 +236,15 @@ MICO_RTOS_DEFINE_ISR( FLEXCOM7_Handler )
     platform_uart_irq( &platform_uart_drivers[MICO_UART_1] );
 }
 
-MICO_RTOS_DEFINE_ISR( FLEXCOM0_Handler )
+MICO_RTOS_DEFINE_ISR( FLEXCOM6_Handler )
 {
     platform_uart_irq( &platform_uart_drivers[MICO_UART_2] );
 }
 
+MICO_RTOS_DEFINE_ISR( FLEXCOM5_Handler )
+{
+    platform_wifi_spi_rx_dma_irq( );
+}
 
 
 /******************************************************
@@ -242,7 +287,9 @@ void platform_init_peripheral_irq_priorities( void )
 {
   NVIC_SetPriority  ( PIOA_IRQn,      14 );
   NVIC_SetPriority  ( PIOB_IRQn,      14 );
-  NVIC_SetPriority  ( FLEXCOM7_IRQn,   6 );  /* STDIO  UART  */
+  NVIC_SetPriority  ( FLEXCOM7_IRQn,   6 );  /* STDIO UART  */
+  NVIC_SetPriority  ( FLEXCOM5_IRQn,   3 );  /* WLAN SPI    */
+  NVIC_SetPriority  ( RTT_IRQn,        1 );  /* RTT Wake-up event */
 //  NVIC_SetPriority( RTC_WKUP_IRQn    ,  1 ); /* RTC Wake-up event   */
 //  NVIC_SetPriority( SDIO_IRQn        ,  2 ); /* WLAN SDIO           */
 //  NVIC_SetPriority( DMA2_Stream3_IRQn,  3 ); /* WLAN SDIO DMA       */
@@ -292,6 +339,10 @@ void init_platform_bootloader( void )
   
   MicoGpioInitialize(BOOT_SEL, INPUT_PULL_UP);
   MicoGpioInitialize(MFG_SEL, INPUT_PULL_UP);
+  
+#if defined ( USE_MICO_SPI_FLASH )
+  MicoFlashInitialize( MICO_SPI_FLASH );
+#endif
 }
 
 void MicoSysLed(bool onoff)
@@ -322,10 +373,10 @@ bool MicoShouldEnterMFGMode(void)
 
 bool MicoShouldEnterBootloader(void)
 {
-  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==true)
+//  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==true)
     return true;
-  else
-    return false;
+//  else
+//   return false;
 }
 
 

@@ -67,9 +67,37 @@
 
 OSStatus platform_adc_init( const platform_adc_t* adc, uint32_t sample_cycle )
 {
-  UNUSED_PARAMETER(adc);
-  UNUSED_PARAMETER(sample_cycle);
-  platform_log("unimplemented");
+//    UNUSED_PARAMETER(adc);
+//    UNUSED_PARAMETER(sample_cycle);
+//
+//    platform_mcu_powersave_disable();
+//
+//    sysclk_enable_peripheral_clock( adc->peripheral_id );
+//    ioport_set_pin_mode( adc->adc_pin->pin, 0 );
+//    ioport_set_pin_dir ( adc->adc_pin->pin, IOPORT_DIR_INPUT );
+//
+//    adc_init( adc->peripheral, CPU_CLOCK_HZ, adc->adc_clock_hz, 8 );
+//
+//    /* Maximum track time is 16 cycles */
+//    if ( sample_cycle > 16 )
+//    {
+//        sample_cycle = 16;
+//    }
+//
+//    /* Tracking time = TRACKTIM + 1 */
+//    sample_cycle--;
+//    adc_configure_timing( adc->peripheral, sample_cycle, adc->settling_time, 1 );
+//
+//    adc_set_resolution( adc->peripheral, adc->resolution );
+//
+//    adc_enable_channel( adc->peripheral, adc->channel );
+//
+//    adc_configure_trigger( adc->peripheral, adc->trigger, 0 );
+//
+//    platform_mcu_powersave_enable();
+//
+//
+//    return PLATFORM_SUCCESS;
   return kUnsupportedErr;
 }
 

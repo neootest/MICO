@@ -70,17 +70,24 @@
 		cpu_irq_enable();         \
 	} while (0)
           
+typedef enum
+{
+    SAMG55_FLASH_ERASE_4_PAGES = 0x04,
+    SAMG55_FLASH_ERASE_8_PAGES = 0x08,
+    SAMG55_FLASH_ERASE_16_PAGES = 0x10,
+    SAMG55_FLASH_ERASE_32_PAGES = 0x20,
+} samg55_flash_erase_page_amount_t;
+
+
+
 /* Private variables ---------------------------------------------------------*/
 #ifdef USE_MICO_SPI_FLASH
 static sflash_handle_t sflash_handle = {0x0, 0x0, SFLASH_WRITE_NOT_ALLOWED};
 #endif
 /* Private function prototypes -----------------------------------------------*/
-static uint32_t _GetSector( uint32_t Address );
-static OSStatus _GetAddress(uint32_t sector, uint32_t *startAddress, uint32_t *endAddress);
 static OSStatus internalFlashInitialize( void );
 static OSStatus internalFlashErase(uint32_t StartAddress, uint32_t EndAddress);
 static OSStatus internalFlashWrite(volatile uint32_t* FlashAddress, uint32_t* Data ,uint32_t DataLength);
-static OSStatus internalFlashByteWrite( volatile uint32_t* FlashAddress, uint8_t* Data ,uint32_t DataLength );
 static OSStatus internalFlashFinalize( void );
 #ifdef USE_MICO_SPI_FLASH
 static OSStatus spiFlashErase(uint32_t StartAddress, uint32_t EndAddress);
@@ -253,42 +260,45 @@ exit:
   return err;
 }
 
-OSStatus internalFlashInitialize( void )
+static OSStatus internalFlashInitialize( void )
 { 
   platform_log_trace();
-  uint32_t ul_rc;
+  OSStatus err = kNoErr;
+  platform_mcu_powersave_disable();
+
+  require_action( flash_init(FLASH_ACCESS_MODE_128, 6) == FLASH_RC_OK, exit, err = kGeneralErr );
   
-  ul_rc = flash_init(FLASH_ACCESS_MODE_128, 6);//TBD! 3-4 wait in 128bit, 1 in 64bit
-  if (ul_rc != FLASH_RC_OK) {
-    platform_log("flash err:%d",ul_rc);
-    return kGeneralErr;
-    }
-  
-  return kNoErr; 
+exit:
+  platform_mcu_powersave_enable();
+  return err; 
 }
+
 
 OSStatus internalFlashErase(uint32_t start_address, uint32_t end_address)
 {
   platform_log_trace();
+  uint32_t i;
   OSStatus err = kNoErr;
-	uint32_t page_addr = start_address;
-	uint32_t page_off  = page_addr % (IFLASH_PAGE_SIZE*16);
-	uint32_t rc, erased = 0;
-    uint32_t size = end_address - start_address;
-	if (page_off) {
-		platform_log("flash: erase address must be 16 page aligned");
-		page_addr = page_addr - page_off;
-		platform_log("flash: erase from %x", (unsigned)page_addr);
-	}
-	for (erased = 0; erased < size;) {
-		rc = flash_erase_page((uint32_t)page_addr, IFLASH_ERASE_PAGES_16);
-		erased    += IFLASH_PAGE_SIZE*16;
-		page_addr += IFLASH_PAGE_SIZE*16;
-		if (rc != FLASH_RC_OK) {
-			platform_log("flash: %x erase error", (unsigned)page_addr);
-			return kGeneralErr;
-		}
-	}
+  uint32_t page_start_address, page_end_address;
+  uint32_t page_start_number, page_end_number;
+
+  platform_mcu_powersave_disable();
+
+  require_action( flash_unlock( start_address, end_address, &page_start_address, &page_end_address ) == FLASH_RC_OK, exit, err = kGeneralErr );
+
+  page_start_number = page_start_address/512;
+  page_end_number   = page_end_address/512;
+  require_action( page_end_number >= page_start_number + 16, exit, err = kUnsupportedErr);
+
+  for ( i = page_start_number; i <= page_end_number; i+=16 )
+  {
+    require_action( flash_erase_page( i * 512, IFLASH_ERASE_PAGES_16) == FLASH_RC_OK, exit, err = kGeneralErr );
+  }
+
+  require_action( flash_lock( start_address, end_address, NULL, NULL ) == FLASH_RC_OK, exit, err = kGeneralErr );
+
+exit:
+  platform_mcu_powersave_enable();
   return err;
 }
 
@@ -298,21 +308,21 @@ OSStatus internalFlashWrite(volatile uint32_t* flash_address, uint32_t* data ,ui
 {
   platform_log_trace();
   OSStatus err = kNoErr;
-  //page write length IFLASH_PAGE_SIZE
-    uint32_t rc ;
-    mem_flash_op_enter();
-#if SAMG55
-    rc = flash_write((*flash_address), data, data_length, false);
-#else 
-    rc = flash_write((*flash_address), data, data_length, true);
-#endif
-    mem_flash_op_exit();
-    if (rc != FLASH_RC_OK) {
-        platform_log("flash err: %d",rc);
-        return kGeneralErr;
-    }
-    *flash_address += data_length;
+  uint32_t start_address = * flash_address;
+
+  platform_mcu_powersave_disable();
+
+  //mem_flash_op_enter();
+  require_action( flash_unlock( start_address, start_address + data_length - 1, NULL, NULL ) == FLASH_RC_OK, exit, err = kGeneralErr );
+
+  require_action( flash_write((*flash_address), data, data_length, false) == FLASH_RC_OK, exit, err = kGeneralErr );
+  *flash_address += data_length;
+
+  require_action( flash_lock( start_address, start_address + data_length - 1, NULL, NULL ) == FLASH_RC_OK, exit, err = kGeneralErr );
+  //mem_flash_op_exit();
+
 exit:
+  platform_mcu_powersave_enable();
   return err;
 }
 
@@ -320,3 +330,24 @@ OSStatus internalFlashFinalize( void )
 {
   return kNoErr;
 }
+
+#ifdef USE_MICO_SPI_FLASH
+OSStatus spiFlashErase(uint32_t StartAddress, uint32_t EndAddress)
+{
+  platform_log_trace();
+  OSStatus err = kNoErr;
+  uint32_t StartSector, EndSector, i = 0;
+  
+  /* Get the sector where start the user flash area */
+  StartSector = StartAddress>>12;
+  EndSector = EndAddress>>12;
+  
+  for(i = StartSector; i <= EndSector; i += 1)
+  {
+    require_action(sflash_sector_erase(&sflash_handle, i<<12) == kNoErr, exit, err = kWriteErr); 
+  }
+  
+exit:
+  return err;
+}
+#endif

@@ -32,70 +32,18 @@
 #pragma once
 
 #include "samg55.h"
+#include "ioport.h"
+#include "usart.h"
+#include "spi.h"
+#include "efc.h"
+#include "pdc.h"
+#include "flexcom.h"
+#include "rtt.h"
+#include "supc.h"
+#include "matrix.h"
 
 #include "MicoRtos.h"
 #include "RingBufferUtils.h"
-  
-// From module: Common SAM compiler driver
-#include <compiler.h>
-#include <status_codes.h>
-
-// From module: Delay routines
-#include <delay.h>
-
-// From module: EEFC - Enhanced Embedded Flash Controller
-#include <efc.h>
-
-// From module: FLEXCOM - Flexible Serial Communication Controller
-#include <flexcom.h>
-// From module: Generic board support
-#include <board.h>
-
-// From module: IOPORT - General purpose I/O service
-#include <ioport.h>
-
-#include <pio.h>
-
-// From module: Interrupt management - SAM implementation
-#include <interrupt.h>
-
-// From module: PDC - Peripheral DMA Controller Example
-#include <pdc.h>
-
-// From module: PMC - Power Management Controller
-#include <pmc.h>
-#include <sleep.h>
-
-// From module: Part identification macros
-#include <parts.h>
-
-// From module: SAM FPU driver
-#include <fpu.h>
-
-// From module: SPI - Serial Peripheral Interface
-#include <spi.h>
-
-// From module: SUPC - Supply Controller
-#include <supc.h>
-
-// From module: Sleep manager - SAM implementation
-#include <sam/sleepmgr.h>
-#include <sleepmgr.h>
-
-// From module: System Clock Control - SAMG implementation
-#include <sysclk.h>
-
-// From module: USART - Serial interface - SAM implementation for devices with only USART
-#include <serial.h>
-#ifndef USE_OWN_SPI_DRV
-#include <spi_master_vec.h>
-#endif
-// From module: USART - Univ. Syn Async Rec/Trans
-#include <usart.h>
-  
-#include <rtc.h>
-
-#include "wdt.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -167,10 +115,15 @@ typedef enum
     FLASH_TYPE_SPI,   
 } platform_flash_type_t;
 
+
+
 /******************************************************
  *                 Type Definitions
  ******************************************************/
 
+/* SPI port */
+typedef Spi     platform_spi_port_t;
+typedef Adc     platform_adc_port_t;
 
 
 /******************************************************
@@ -185,6 +138,18 @@ typedef struct
     uint8_t         trigger;           /* wakeup trigger: IOPORT_SENSE_FALLING or RISING */
 
 } platform_gpio_t;
+
+typedef struct
+{
+    platform_adc_port_t*     port;
+    uint8_t                  peripheral_id;
+    const platform_gpio_t*   adc_pin;
+    uint32_t                 adc_clock_hz;
+ //   enum adc_channel_num_t   channel;
+ //   enum adc_settling_time_t settling_time;
+ //   enum adc_resolution_t    resolution;
+ //   enum adc_trigger_t       trigger;
+} platform_adc_t;
 
 // typedef struct {
 //     Usart                         *usart;
@@ -202,7 +167,7 @@ typedef struct
 
 typedef struct {
     uint8_t                uart_id;
-    void*                  peripheral;       /* Usart* or Uart*  */
+    void*                  port;             /* Usart* or Uart*  */
     uint8_t                peripheral_id;    /* Peripheral ID    */
     const platform_gpio_t* tx_pin;           /* Tx pin           */
     ioport_mode_t          tx_pin_mux_mode;  /* Tx pin mux mode  */
@@ -252,7 +217,15 @@ typedef struct
 
 typedef struct
 {
-    uint8_t unimplemented;
+    uint8_t                spi_id;
+    platform_spi_port_t*   port;                /* Peripheral         */
+    uint8_t                peripheral_id;       /* Peripheral ID      */
+    const platform_gpio_t* mosi_pin;            /* MOSI pin           */
+    ioport_mode_t          mosi_pin_mux_mode;   /* MOSI pin mux mode  */
+    const platform_gpio_t* miso_pin;            /* MISO pin           */
+    ioport_mode_t          miso_pin_mux_mode;   /* MISO pin mux mode  */
+    const platform_gpio_t* clock_pin;           /* CLOCK pin          */
+    ioport_mode_t          clock_pin_mux_mode;  /* CLOCK pin mux mode */
 } platform_spi_t;
 
 typedef struct
@@ -260,10 +233,6 @@ typedef struct
     uint8_t unimplemented;
 } platform_spi_slave_driver_t;
 
-typedef struct
-{
-    uint8_t unimplemented;
-} platform_adc_t;
 
 typedef struct
 {
@@ -284,6 +253,8 @@ typedef struct
  *               Function Declarations
  ******************************************************/
 OSStatus platform_gpio_irq_manager_init      ( void );
+OSStatus platform_powersave_enable_wakeup_pin( const platform_gpio_t* gpio );
+
 
 OSStatus platform_mcu_powersave_init         ( void );
 

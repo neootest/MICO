@@ -271,10 +271,10 @@ OSStatus platform_gpio_irq_enable( const platform_gpio_t* gpio, platform_gpio_ir
       goto exit;
   }
 
-  // if( gpio->is_wakeup_pin == true )
-  // {
-  //   platform_powersave_enable_wakeup_pin( gpio->wakeup_pin_config );
-  // }
+  if( gpio->is_wakeup_pin == true )
+  {
+    platform_powersave_enable_wakeup_pin( gpio );
+  }
 
   if ( samg5x_irq_trigger == IOPORT_SENSE_RISING || samg5x_irq_trigger == IOPORT_SENSE_BOTHEDGES )
   {
