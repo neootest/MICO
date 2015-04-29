@@ -113,10 +113,10 @@ const platform_gpio_t platform_gpio_pins[] =
   [MICO_SYS_LED]                        = {GPIOB, 31}, 
   [MFG_SEL]                             = {GPIOB, 25}, 
   [BOOT_SEL]                            = {GPIOB, 26},
-  [EasyLink_BUTTON]                     = {GPIOA,  5}, 
+  [EasyLink_BUTTON]                     = {GPIOA, 25}, 
   [STDIO_UART_RX]                       = {GPIOB,  6},
   [STDIO_UART_TX]                       = {GPIOB,  7},
-  [USB_DETECT]                          = {GPIOA, 29},
+  [USB_DETECT]                          = {GPIOA, 22},
 
 //  /* GPIOs for external use */
   [APP_UART_RX]                         = {GPIOB, 29},
@@ -177,7 +177,7 @@ const platform_gpio_t wifi_control_pins[] =
 /* Wi-Fi SDIO bus pins. Used by platform/MCU/MX1101/EMW1088_driver/wlan_bus.c */
 const platform_gpio_t wifi_sdio_pins[] =
 {
-  [WIFI_PIN_SDIO_IRQ    ] = { GPIOA, 22 },
+  [WIFI_PIN_SDIO_IRQ    ] = { GPIOA, 24 },
   [WIFI_PIN_SDIO_CLK    ] = { GPIOA, 20 },
   [WIFI_PIN_SDIO_CMD    ] = { GPIOA, 21 },
   [WIFI_PIN_SDIO_D0     ] = { GPIOB, 19 },
