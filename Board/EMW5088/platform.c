@@ -252,9 +252,9 @@ void init_platform( void )
   MicoGpioInitialize( MFG_SEL, INPUT_PULL_UP );
   
   //  Initialise EasyLink buttons
-  //MicoGpioInitialize( (mico_gpio_t)EasyLink_BUTTON, INPUT_PULL_UP );
-  //mico_init_timer(&_button_EL_timer, RestoreDefault_TimeOut, _button_EL_Timeout_handler, NULL);
-  //MicoGpioEnableIRQ( (mico_gpio_t)EasyLink_BUTTON, IRQ_TRIGGER_FALLING_EDGE, _button_EL_irq_handler, NULL );
+  MicoGpioInitialize( (mico_gpio_t)EasyLink_BUTTON, INPUT_PULL_UP );
+  mico_init_timer(&_button_EL_timer, RestoreDefault_TimeOut, _button_EL_Timeout_handler, NULL);
+  MicoGpioEnableIRQ( (mico_gpio_t)EasyLink_BUTTON, IRQ_TRIGGER_FALLING_EDGE, _button_EL_irq_handler, NULL );
 //  
 //  //  Initialise Standby/wakeup switcher
 //  MicoGpioInitialize( Standby_SEL, INPUT_PULL_UP );
