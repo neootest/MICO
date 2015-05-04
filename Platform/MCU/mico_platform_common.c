@@ -84,7 +84,7 @@ bool i2c_initialized[MICO_I2C_MAX+1]; // Bypass compile err when MICO_I2C_MAX = 
 const char* flash_name[] =
 { 
 #ifdef USE_MICO_SPI_FLASH
-  [MICO_SPI_FLASH] = "SPI", 
+  [MICO_SPI_FLASH] = "SPI Flash", 
 #endif
   [MICO_INTERNAL_FLASH] = "Internal",
 };

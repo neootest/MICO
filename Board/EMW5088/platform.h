@@ -118,6 +118,12 @@ typedef enum
 #define MFG_TEST         MICO_UART_2
 #define CLI_UART         MICO_UART_1
 
+#define USE_MICO_SPI_FLASH
+//#define SFLASH_SUPPORT_MACRONIX_PARTS 
+//#define SFLASH_SUPPORT_SST_PARTS
+//#define SFLASH_SUPPORT_WINBOND_PARTS
+#define SFLASH_SUPPORT_GD_PARTS
+
 /* Components connected to external I/Os*/
 /* I/O connection <-> Peripheral Connections */
 #define MICO_I2C_CP         (MICO_I2C_NONE)
