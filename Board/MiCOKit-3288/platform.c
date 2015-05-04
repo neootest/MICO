@@ -225,7 +225,7 @@ const spi_flash_device_t spi_flash_device =
 */
 const platform_gpio_t wifi_control_pins[] =
 {
-  [WIFI_PIN_POWER       ] = { GPIOA, 11 },
+  [WIFI_PIN_POWER       ] = { GPIOB, 6 },
 };
 
 /* Wi-Fi SDIO bus pins. Used by platform/MCU/STM32F2xx/EMW1062_driver/wlan_SDIO.c */
