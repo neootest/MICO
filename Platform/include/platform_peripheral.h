@@ -519,7 +519,7 @@ OSStatus platform_spi_transfer( const platform_spi_t* spi, const platform_spi_co
  *
  * @return @ref OSStatus
  */
-OSStatus platform_spi_slave_init( platform_spi_slave_driver_t* driver, const platform_spi_t* peripheral, const platform_spi_slave_config_t* config );
+WEAK OSStatus platform_spi_slave_init( platform_spi_slave_driver_t* driver, const platform_spi_t* peripheral, const platform_spi_slave_config_t* config );
 
 
 /** De-initialises a SPI slave interface
@@ -529,7 +529,7 @@ OSStatus platform_spi_slave_init( platform_spi_slave_driver_t* driver, const pla
  * @return @ref OSStatus
  */
 
-OSStatus platform_spi_slave_deinit( platform_spi_slave_driver_t* driver );
+WEAK OSStatus platform_spi_slave_deinit( platform_spi_slave_driver_t* driver );
 
 
 /** Receive command from the remote SPI master
@@ -540,7 +540,7 @@ OSStatus platform_spi_slave_deinit( platform_spi_slave_driver_t* driver );
  *
  * @return @ref OSStatus
  */
-OSStatus platform_spi_slave_receive_command( platform_spi_slave_driver_t* driver, platform_spi_slave_command_t* command, uint32_t timeout_ms );
+WEAK OSStatus platform_spi_slave_receive_command( platform_spi_slave_driver_t* driver, platform_spi_slave_command_t* command, uint32_t timeout_ms );
 
 
 /** Transfer data to/from the remote SPI master
@@ -552,7 +552,7 @@ OSStatus platform_spi_slave_receive_command( platform_spi_slave_driver_t* driver
  *
  * @return @ref OSStatus
  */
-OSStatus platform_spi_slave_transfer_data( platform_spi_slave_driver_t* driver, platform_spi_slave_transfer_direction_t direction, platform_spi_slave_data_buffer_t* buffer, uint32_t timeout_ms );
+WEAK OSStatus platform_spi_slave_transfer_data( platform_spi_slave_driver_t* driver, platform_spi_slave_transfer_direction_t direction, platform_spi_slave_data_buffer_t* buffer, uint32_t timeout_ms );
 
 
 /** Send an error status over the SPI slave interface
@@ -562,7 +562,7 @@ OSStatus platform_spi_slave_transfer_data( platform_spi_slave_driver_t* driver, 
  *
  * @return @ref OSStatus
  */
-OSStatus platform_spi_slave_send_error_status( platform_spi_slave_driver_t* driver, platform_spi_slave_transfer_status_t error_status );
+WEAK OSStatus platform_spi_slave_send_error_status( platform_spi_slave_driver_t* driver, platform_spi_slave_transfer_status_t error_status );
 
 
 /** Generate an interrupt on the SPI slave interface
@@ -572,7 +572,7 @@ OSStatus platform_spi_slave_send_error_status( platform_spi_slave_driver_t* driv
  *
  * @return @ref OSStatus
  */
-OSStatus platform_spi_slave_generate_interrupt( platform_spi_slave_driver_t* driver, uint32_t pulse_duration_ms );
+WEAK OSStatus platform_spi_slave_generate_interrupt( platform_spi_slave_driver_t* driver, uint32_t pulse_duration_ms );
 
 
 /**

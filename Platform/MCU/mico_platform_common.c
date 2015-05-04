@@ -75,7 +75,7 @@ extern const platform_pwm_t        platform_pwm_peripherals[];
 extern const platform_spi_t        platform_spi_peripherals[];
 extern const platform_uart_t       platform_uart_peripherals[];
 extern platform_uart_driver_t      platform_uart_drivers[];
-extern platform_spi_slave_driver_t platform_spi_slave_drivers[];
+extern WEAK platform_spi_slave_driver_t platform_spi_slave_drivers[];
 extern const platform_flash_t      platform_flash_peripherals[];
 extern platform_flash_driver_t     platform_flash_drivers[];
 

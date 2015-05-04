@@ -14,7 +14,7 @@
         <TargetCommonOption>
           <Device>STM32F205RGTx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F2xx_DFP.2.1.0</PackID>
+          <PackID>Keil.STM32F2xx_DFP.2.2.0</PackID>
           <PackURL>http://www.keil.com/pack</PackURL>
           <Cpu>IROM(0x08000000,0x100000) IRAM(0x20000000,0x20000) CPUTYPE("Cortex-M3") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -147,7 +147,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -499,14 +499,9 @@
               <FilePath>..\..\..\..\Board\MiCOKit-3162\platform.h</FilePath>
             </File>
             <File>
-              <FileName>platform_common_config.h</FileName>
+              <FileName>platform_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Board\MiCOKit-3162\platform_common_config.h</FilePath>
-            </File>
-            <File>
-              <FileName>platform_spi_flash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Board\MiCOKit-3162\platform_spi_flash.c</FilePath>
+              <FilePath>..\..\..\..\Board\MiCOKit-3165\platform_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -584,14 +579,9 @@
               <FilePath>..\..\..\..\Board\MiCOKit-F205\platform.h</FilePath>
             </File>
             <File>
-              <FileName>platform_common_config.h</FileName>
+              <FileName>platform_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Board\MiCOKit-F205\platform_common_config.h</FilePath>
-            </File>
-            <File>
-              <FileName>platform_spi_flash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Board\MiCOKit-F205\platform_spi_flash.c</FilePath>
+              <FilePath>..\..\..\..\Board\MiCOKit-F205\platform_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -969,71 +959,41 @@
         </Group>
         <Group>
           <GroupName>Platform/Drivers/SPI_Flash</GroupName>
-          <GroupOption>
-            <CommonProperty>
-              <UseCPPCompiler>0</UseCPPCompiler>
-              <RVCTCodeConst>0</RVCTCodeConst>
-              <RVCTZI>0</RVCTZI>
-              <RVCTOtherData>0</RVCTOtherData>
-              <ModuleSelection>0</ModuleSelection>
-              <IncludeInBuild>0</IncludeInBuild>
-              <AlwaysBuild>2</AlwaysBuild>
-              <GenerateAssemblyFile>2</GenerateAssemblyFile>
-              <AssembleAssemblyFile>2</AssembleAssemblyFile>
-              <PublicsOnly>2</PublicsOnly>
-              <StopOnExitCode>11</StopOnExitCode>
-              <CustomArgument></CustomArgument>
-              <IncludeLibraryModules></IncludeLibraryModules>
-              <ComprImg>1</ComprImg>
-            </CommonProperty>
-            <GroupArmAds>
-              <Cads>
-                <interw>2</interw>
-                <Optim>0</Optim>
-                <oTime>2</oTime>
-                <SplitLS>2</SplitLS>
-                <OneElfS>2</OneElfS>
-                <Strict>2</Strict>
-                <EnumInt>2</EnumInt>
-                <PlainCh>2</PlainCh>
-                <Ropi>2</Ropi>
-                <Rwpi>2</Rwpi>
-                <wLevel>2</wLevel>
-                <uThumb>2</uThumb>
-                <uSurpInc>2</uSurpInc>
-                <uC99>2</uC99>
-                <useXO>2</useXO>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </Cads>
-              <Aads>
-                <interw>2</interw>
-                <Ropi>2</Ropi>
-                <Rwpi>2</Rwpi>
-                <thumb>2</thumb>
-                <SplitLS>2</SplitLS>
-                <SwStkChk>2</SwStkChk>
-                <NoWarn>2</NoWarn>
-                <uSurpInc>2</uSurpInc>
-                <useXO>2</useXO>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </Aads>
-            </GroupArmAds>
-          </GroupOption>
           <Files>
             <File>
               <FileName>spi_flash.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\Drivers\spi_flash\spi_flash.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi_flash_platform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\Drivers\spi_flash\spi_flash_platform.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/MCU</GroupName>
+          <Files>
+            <File>
+              <FileName>mico_platform_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\mico_platform_common.c</FilePath>
+            </File>
+            <File>
+              <FileName>wlan_platform_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\wlan_platform_common.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/MCU/STM32F2xx</GroupName>
+          <Files>
+            <File>
+              <FileName>platform_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\platform_init.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1048,27 +1008,22 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/MCU/STM32F2xx/EMW1062</GroupName>
+          <GroupName>Platform/MCU/STM32F2xx/wlan_bus_driver</GroupName>
           <Files>
             <File>
               <FileName>read_wifi_firmware.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\read_wifi_firmware.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\wlan_bus_driver\read_wifi_firmware.c</FilePath>
             </File>
             <File>
-              <FileName>wlan_platform.c</FileName>
+              <FileName>wlan_bus_sdio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\wlan_platform.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\wlan_bus_driver\wlan_bus_sdio.c</FilePath>
             </File>
             <File>
-              <FileName>wlan_bus.c</FileName>
+              <FileName>wlan_bus_spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\SDIO\wlan_bus.c</FilePath>
-            </File>
-            <File>
-              <FileName>wwd_bus.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\SPI\wwd_bus.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\wlan_bus_driver\wlan_bus_spi.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -1112,6 +1067,11 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
+            </File>
+            <File>
+              <FileName>wlan_platform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\wlan_bus_driver\wlan_platform.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1284,74 +1244,59 @@
           <GroupName>Platform/MCU/STM32F2xx/peripherals</GroupName>
           <Files>
             <File>
-              <FileName>gpio_irq.c</FileName>
+              <FileName>paltform_rtc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\gpio_irq.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\paltform_rtc.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverAdc.c</FileName>
+              <FileName>platform_adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverAdc.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_adc.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverFlash.c</FileName>
+              <FileName>platform_flash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverFlash.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_flash.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverGpio.c</FileName>
+              <FileName>platform_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverGpio.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverI2c.c</FileName>
+              <FileName>platform_i2c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverI2c.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_i2c.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverPwm.c</FileName>
+              <FileName>platform_mcu_powersave.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverPwm.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_mcu_powersave.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverRng.c</FileName>
+              <FileName>platform_pwm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverRng.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_pwm.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverRtc.c</FileName>
+              <FileName>platform_rng.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverRtc.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_rng.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverSpi.c</FileName>
+              <FileName>platform_spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverSpi.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_spi.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverUart.c</FileName>
+              <FileName>platform_uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverUart.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_uart.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverWdg.c</FileName>
+              <FileName>platform_watchdog.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverWdg.c</FilePath>
-            </File>
-            <File>
-              <FileName>rtc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\rtc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_platform.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\stm32f2xx_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbh_conf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\usbh_conf.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_watchdog.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1365,7 +1310,7 @@
         <TargetCommonOption>
           <Device>STM32F205RGTx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F2xx_DFP.2.1.0</PackID>
+          <PackID>Keil.STM32F2xx_DFP.2.2.0</PackID>
           <PackURL>http://www.keil.com/pack</PackURL>
           <Cpu>IROM(0x08000000,0x100000) IRAM(0x20000000,0x20000) CPUTYPE("Cortex-M3") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -1498,7 +1443,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -1910,14 +1855,9 @@
               <FilePath>..\..\..\..\Board\MiCOKit-3162\platform.h</FilePath>
             </File>
             <File>
-              <FileName>platform_common_config.h</FileName>
+              <FileName>platform_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Board\MiCOKit-3162\platform_common_config.h</FilePath>
-            </File>
-            <File>
-              <FileName>platform_spi_flash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Board\MiCOKit-3162\platform_spi_flash.c</FilePath>
+              <FilePath>..\..\..\..\Board\MiCOKit-3165\platform_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1935,14 +1875,9 @@
               <FilePath>..\..\..\..\Board\MiCOKit-F205\platform.h</FilePath>
             </File>
             <File>
-              <FileName>platform_common_config.h</FileName>
+              <FileName>platform_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\Board\MiCOKit-F205\platform_common_config.h</FilePath>
-            </File>
-            <File>
-              <FileName>platform_spi_flash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Board\MiCOKit-F205\platform_spi_flash.c</FilePath>
+              <FilePath>..\..\..\..\Board\MiCOKit-F205\platform_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2326,6 +2261,36 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Platform\Drivers\spi_flash\spi_flash.c</FilePath>
             </File>
+            <File>
+              <FileName>spi_flash_platform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\Drivers\spi_flash\spi_flash_platform.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/MCU</GroupName>
+          <Files>
+            <File>
+              <FileName>mico_platform_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\mico_platform_common.c</FilePath>
+            </File>
+            <File>
+              <FileName>wlan_platform_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\wlan_platform_common.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/MCU/STM32F2xx</GroupName>
+          <Files>
+            <File>
+              <FileName>platform_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\platform_init.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2339,22 +2304,17 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Platform/MCU/STM32F2xx/EMW1062</GroupName>
+          <GroupName>Platform/MCU/STM32F2xx/wlan_bus_driver</GroupName>
           <Files>
             <File>
               <FileName>read_wifi_firmware.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\read_wifi_firmware.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\wlan_bus_driver\read_wifi_firmware.c</FilePath>
             </File>
             <File>
-              <FileName>wlan_platform.c</FileName>
+              <FileName>wlan_bus_sdio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\wlan_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>wlan_bus.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\SDIO\wlan_bus.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\wlan_bus_driver\wlan_bus_sdio.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -2400,9 +2360,14 @@
               </FileOption>
             </File>
             <File>
-              <FileName>wwd_bus.c</FileName>
+              <FileName>wlan_bus_spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\EMW1062_Driver\SPI\wwd_bus.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\wlan_bus_driver\wlan_bus_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>wlan_platform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\wlan_bus_driver\wlan_platform.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2575,74 +2540,59 @@
           <GroupName>Platform/MCU/STM32F2xx/peripherals</GroupName>
           <Files>
             <File>
-              <FileName>gpio_irq.c</FileName>
+              <FileName>paltform_rtc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\gpio_irq.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\paltform_rtc.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverAdc.c</FileName>
+              <FileName>platform_adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverAdc.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_adc.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverFlash.c</FileName>
+              <FileName>platform_flash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverFlash.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_flash.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverGpio.c</FileName>
+              <FileName>platform_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverGpio.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverI2c.c</FileName>
+              <FileName>platform_i2c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverI2c.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_i2c.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverPwm.c</FileName>
+              <FileName>platform_mcu_powersave.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverPwm.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_mcu_powersave.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverRng.c</FileName>
+              <FileName>platform_pwm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverRng.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_pwm.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverRtc.c</FileName>
+              <FileName>platform_rng.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverRtc.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_rng.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverSpi.c</FileName>
+              <FileName>platform_spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverSpi.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_spi.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverUart.c</FileName>
+              <FileName>platform_uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverUart.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_uart.c</FilePath>
             </File>
             <File>
-              <FileName>MicoDriverWdg.c</FileName>
+              <FileName>platform_watchdog.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\MicoDriverWdg.c</FilePath>
-            </File>
-            <File>
-              <FileName>rtc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\rtc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_platform.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\stm32f2xx_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbh_conf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\usbh_conf.c</FilePath>
+              <FilePath>..\..\..\..\Platform\MCU\STM32F2xx\peripherals\platform_watchdog.c</FilePath>
             </File>
           </Files>
         </Group>

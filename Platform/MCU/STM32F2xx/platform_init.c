@@ -278,7 +278,6 @@ void init_architecture( void )
 
 OSStatus stdio_hardfault( char* data, uint32_t size )
 {
-  extern const platform_uart_t       platform_uart_peripherals[];
 #ifndef MICO_DISABLE_STDIO
   uint32_t idx;
   for(idx = 0; idx < size; idx++){

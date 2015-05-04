@@ -121,7 +121,7 @@ extern const platform_spi_t  wifi_spi;
  *               Function Declarations
  ******************************************************/
 
-extern WEAK void platform_wifi_spi_rx_dma_irq( void );
+extern void platform_wifi_spi_rx_dma_irq( void );
 
 
 #ifdef __cplusplus
