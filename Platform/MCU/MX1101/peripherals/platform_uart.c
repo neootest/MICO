@@ -154,7 +154,6 @@ OSStatus platform_uart_init( platform_uart_driver_t* driver, const platform_uart
     err = BuartInit(config->baud_rate, config->data_width + 5, config->parity, config->stop_bits + 1);
     require_noerr(err, exit);
     
-    BuartIOctl(UART_IOCTL_RXINT_SET, 1);
     BuartIOctl(UART_IOCTL_TXINT_SET, 1);
 
   }else
@@ -280,15 +279,16 @@ static OSStatus BUartRecv( platform_uart_driver_t* driver, void* data, uint32_t 
     {
       /* Set rx_size and wait in rx_complete semaphore until data reaches rx_size or timeout occurs */
       driver->rx_size = transfer_size;
-      
+
       BuartIOctl(BUART_IOCTL_RXFIFO_TRGR_DEPTH_SET, driver->rx_size-1);
+      BuartIOctl(UART_IOCTL_RXINT_CLR, 0);
       BuartIOctl(UART_IOCTL_RXINT_SET, 1);
       
 #ifndef NO_MICO_RTOS
       if ( mico_rtos_get_semaphore( &driver->rx_complete, timeout) != kNoErr )
       {
-        //BuartIOctl(UART_IOCTL_RXINT_SET, 0);
         driver->rx_size = 0;
+        BuartIOctl(UART_IOCTL_RXINT_SET, 0);
         return kTimeoutErr;
       }
 #else
@@ -297,6 +297,7 @@ static OSStatus BUartRecv( platform_uart_driver_t* driver, void* data, uint32_t 
       while(driver->rx_complete == false){
         if(mico_get_time_no_os() >= delay_start + timeout && timeout != MICO_NEVER_TIMEOUT){
           driver->rx_size = 0;
+          BuartIOctl(UART_IOCTL_RXINT_SET, 0);
           return kTimeoutErr;
         }
       }
@@ -424,12 +425,13 @@ void platform_buart_irq( platform_uart_driver_t* driver )
   if(status & 0x01)
   { 
     BuartIOctl(UART_IOCTL_RXINT_SET, 0);
-    BuartIOctl(UART_IOCTL_RXINT_CLR,0);
+    BuartIOctl(UART_IOCTL_RXINT_CLR, 0);
 
-  // Notify thread if sufficient data are available
-   // if ( ( driver->rx_size > 0 ) &&
-   //     ( (uint32_t)BuartIOctl(BUART_IOCTL_RXFIFO_DATLEN_GET, 0)  >= driver->rx_size ) )
+    // Notify thread if sufficient data are available
+   if ( ( driver->rx_size > 0 ) &&
+      ( (uint32_t)BuartIOctl(BUART_IOCTL_RXFIFO_DATLEN_GET, 0)  >= driver->rx_size ) )
     {
+     
   #ifndef NO_MICO_RTOS
       mico_rtos_set_semaphore( &driver->rx_complete );
   #else
