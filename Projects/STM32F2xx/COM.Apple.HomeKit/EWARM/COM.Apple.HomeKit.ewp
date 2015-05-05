@@ -2383,34 +2383,34 @@
     <group>
       <name>MicoDriver</name>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MicoDriverAdc.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverAdc.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MicoDriverGpio.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverGpio.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MicoDriverI2c.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverI2c.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MicoDriverMFiAuth.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverMFiAuth.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MicoDriverPwm.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverPwm.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MicoDriverRng.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverRng.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MicoDriverRtc.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverRtc.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MicoDriverSpi.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverSpi.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MicoDriverUart.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverUART.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MicoDriverWdg.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverWdg.h</name>
       </file>
     </group>
     <file>
@@ -2432,7 +2432,7 @@
       <name>$PROJ_DIR$\..\..\..\..\include\MicoSocket.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\include\MicoSRPServer.h</name>
+      <name>$PROJ_DIR$\..\..\..\..\include\MICOSRPServer.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\include\MicoWlan.h</name>
@@ -3040,6 +3040,9 @@
             <excluded>
               <configuration>MiCOKit-3162</configuration>
             </excluded>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F2xx\wlan_bus_driver\wlan_platform.c</name>
           </file>
         </group>
         <file>
