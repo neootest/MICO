@@ -291,6 +291,9 @@
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3288\platform.h</name>
       </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-3288\platform_config.h</name>
+      </file>
     </group>
   </group>
   <group>

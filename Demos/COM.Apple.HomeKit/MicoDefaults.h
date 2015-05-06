@@ -38,7 +38,7 @@ extern "C"
 #endif
 
  /* Application thread stack size */
-#define MICO_DEFAULT_APPLICATION_STACK_SIZE         (1600)
+#define MICO_DEFAULT_APPLICATION_STACK_SIZE         (2500)
 
 #ifdef __cplusplus
 } /*extern "C" */

@@ -106,6 +106,8 @@ OSStatus MICOStartBonjourService( WiFi_Interface interface, mico_Context_t * con
   sprintf(temp_txt, "%ss#=%d.", temp_txt, inContext->appStatus.statusNumber);
 
   sprintf(temp_txt, "%ssf=%d.", temp_txt, 0x05);
+  
+  sprintf(temp_txt, "%sci=%d.", temp_txt, CATEGORY_IDENTIFIER );
 
   temp_txt2 = __strdup_trans_dot(HA_SV);
   sprintf(temp_txt, "%ssv=%s.", temp_txt, temp_txt2);
@@ -159,6 +161,8 @@ void HKBonjourUpdateStateNumber( mico_Context_t * const inContext )
   sprintf(temp_txt, "%ss#=%d.", temp_txt, ++(inContext->appStatus.statusNumber));
 
   sprintf(temp_txt, "%ssf=%d.", temp_txt, 0x05);
+  
+  sprintf( temp_txt, "%sci=%d.", temp_txt, CATEGORY_IDENTIFIER );
 
   temp_txt2 = __strdup_trans_dot(HA_SV);
   sprintf(temp_txt, "%ssv=%s.", temp_txt, temp_txt2);

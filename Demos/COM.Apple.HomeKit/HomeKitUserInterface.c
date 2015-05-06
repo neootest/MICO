@@ -3,6 +3,7 @@
 #include "HomeKitProfiles.h"
 #include "StringUtils.h"
 #include "MDNSUtils.h"
+#include "rgb_led.h"
 
 extern void HKBonjourUpdateStateNumber( mico_Context_t * const inContext );
 
@@ -53,29 +54,6 @@ HkStatus HKReadCharacteristicValue(int accessoryID, int serviceID, int character
         err = kNoErr;
         break;
     }
-      // case 2:
-      //   (*value).intValue = inContext->appStatus.service.brightness;  
-      //   *event = inContext->appStatus.service.brightness_event;  
-      //   err = inContext->appStatus.service.brightness_status;
-      //   break;
-
-      // case 3:
-      //   (*value).floatValue = inContext->appStatus.service.hue; 
-      //   *event = inContext->appStatus.service.hue_event;
-      //   err = inContext->appStatus.service.hue_status;
-      //   break;
-           
-      // case 4:
-      //   (*value).floatValue = inContext->appStatus.service.saturation;    
-      //   *event = inContext->appStatus.service.saturation_event;
-      //   err = inContext->appStatus.service.saturation_status;
-      //   break;
-
-      // case 5:
-      //   (*value).stringValue = inContext->appStatus.service.name;
-      //   err = inContext->appStatus.service.name_status;
-      //   break;
-      // }
   }
   else if(serviceID == 2){
 #ifdef lightbulb
@@ -269,6 +247,11 @@ void HKWriteCharacteristicValue(int accessoryID, int serviceID, int characterist
       inContext->appStatus.service.saturation = inContext->appStatus.service.saturation_new;
       inContext->appStatus.service.saturation_status = kNoErr;
     }
+    
+    if( inContext->appStatus.service.on == false)
+      hsb_led_open( inContext->appStatus.service.hue, inContext->appStatus.service.saturation, 0 );
+    else
+      hsb_led_open( inContext->appStatus.service.hue, inContext->appStatus.service.saturation, inContext->appStatus.service.brightness );
 #endif
 
 #ifdef thermostat
@@ -320,6 +303,8 @@ void HKCharacteristicInit(mico_Context_t * const inContext)
   inContext->appStatus.service.hue                              = 180;
   inContext->appStatus.service.saturation                       = 80;
   strncpy(inContext->appStatus.service.name,                    "Wiliam's lightbulb", 64);
+  
+  hsb_led_open( inContext->appStatus.service.hue, inContext->appStatus.service.saturation, inContext->appStatus.service.brightness );
 #endif  
 
 #ifdef thermostat

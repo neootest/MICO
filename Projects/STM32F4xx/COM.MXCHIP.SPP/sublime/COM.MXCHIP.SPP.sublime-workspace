@@ -520,44 +520,50 @@
 	"buffers":
 	[
 		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/platform_init.c",
+			"file": "COM.MXCHIP.SPP.sublime-project",
 			"settings":
 			{
-				"buffer_size": 10516,
+				"buffer_size": 1687,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.c",
+			"settings":
+			{
+				"buffer_size": 14423,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "Searching 1436 files for \"MMFLT_IRQn_PRIO\" (whole word)\n\n/Users/William/Develop/MiCO/Platform/MCU/MX1101/platform_init.c:\n  204    \n  205    /* Initialise the interrupt priorities to a priority lower than 0 so that the BASEPRI register can mask them */\n  206:   NVIC_SetPriority(MMFLT_IRQn,  MMFLT_IRQn_PRIO);\n  207    NVIC_SetPriority(BUSFLT_IRQn, BUSFLT_IRQn_PRIO);\n  208    NVIC_SetPriority(USGFLT_IRQn, USGFLT_IRQn_PRIO);\n\n/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/Libraries/inc/irqs.h:\n   75      NMI_IRQn_PRIO		= -2,\n   76      HARDFLT_IRQn_PRIO	= -1,\n   77:     MMFLT_IRQn_PRIO		= 0,\n   78      BUSFLT_IRQn_PRIO	= 0,\n   79      USGFLT_IRQn_PRIO	= 0,\n\n2 matches across 2 files\n\n\nSearching 1436 files for \"max_syscall_int_prio\" (whole word)\n\n0 matches across 0 files\n",
+			"file": "/Users/william/Develop/MiCO/Platform/include/platform_peripheral.h",
 			"settings":
 			{
-				"buffer_size": 790,
-				"line_ending": "Unix",
-				"name": "Find Results",
-				"scratch": true
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/Libraries/inc/irqs.h",
-			"settings":
-			{
-				"buffer_size": 5085,
+				"buffer_size": 23154,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform_config.h",
+			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.h",
 			"settings":
 			{
-				"buffer_size": 6936,
+				"buffer_size": 4856,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/MiCO/include/Debug.h",
+			"file": "/Users/William/Develop/MiCO/Demos/COM.APPLE.HOMEKIT/HomeKitServer.c",
 			"settings":
 			{
-				"buffer_size": 30641,
+				"buffer_size": 49342,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/MiCO/Demos/COM.APPLE.HOMEKIT/HomeKitUserInterface.c",
+			"settings":
+			{
+				"buffer_size": 12177,
 				"line_ending": "Windows"
 			}
 		}
@@ -622,6 +628,14 @@
 	},
 	"file_history":
 	[
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform_config.h",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.c",
+		"/Users/William/Develop/MiCO/Board/EMW5088/platform.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/Libraries/inc/irqs.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/platform_init.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform_config.h",
+		"/Users/William/Develop/MiCO/include/Debug.h",
+		"/Users/William/Develop/MiCO/Projects/STM32F4xx/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
 		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_i2c.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_mcu_powersave.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_pwm.c",
@@ -630,12 +644,10 @@
 		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_adc.c",
 		"/Users/William/Develop/MiCO/Platform/include/platform_peripheral.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_mcu_peripheral.h",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform_config.h",
 		"/Users/William/Develop/MiCO/Platform/Drivers/spi_flash/spi_flash.c",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform.c",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.c",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.c",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.c",
 		"/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_mcu_peripheral.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/mico_platform_common.c",
@@ -644,7 +656,6 @@
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_mcu_peripheral.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_flash.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_uart.c",
-		"/Users/William/Develop/MiCO/Projects/STM32F4xx/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
 		"/Users/William/Develop/MiCO/MICO/MICOMfgtest.c",
 		"/Users/william/Develop/MiCO/Board/MiCOKit-3288/platform.h",
 		"/Users/William/Develop/MiCO/MICO/MICOEntrance.c",
@@ -744,12 +755,7 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/SDIO/wlan_bus.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoAES.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverI2c.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverGpio.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverFlash.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/EMW1062_platform.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverAdc.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverGpio.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverI2c.h"
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/MicoDriverGpio.c"
 	],
 	"find":
 	{
@@ -776,6 +782,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"_button_EL_irq_handler",
+			"USB_DETECT",
 			"max_syscall_int_prio",
 			"MMFLT_IRQn_PRIO",
 			"USE_MICO_SPI_FLASH",
@@ -901,9 +909,7 @@
 			"find_optimal_block_size",
 			"host_platform_enable_high_speed_sdio",
 			"sdio_prepare_data_transfer",
-			"WL_GPIO0_BANK",
-			"host_platform_init",
-			"host_platform_bus_init"
+			"WL_GPIO0_BANK"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -923,22 +929,50 @@
 	"groups":
 	[
 		{
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/platform_init.c",
+					"file": "COM.MXCHIP.SPP.sublime-project",
 					"settings":
 					{
-						"buffer_size": 10516,
+						"buffer_size": 1687,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7317,
-								6670
+								887,
+								887
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.c",
+					"settings":
+					{
+						"buffer_size": 14423,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5496,
+								5496
 							]
 						],
 						"settings":
@@ -948,72 +982,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3745.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"settings":
-					{
-						"buffer_size": 790,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										292,
-										307
-									],
-									[
-										587,
-										602
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								703,
-								703
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"output_tag": 2,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 361.0,
+						"translation.y": 1464.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/Libraries/inc/irqs.h",
+					"file": "/Users/william/Develop/MiCO/Platform/include/platform_peripheral.h",
 					"settings":
 					{
-						"buffer_size": 5085,
+						"buffer_size": 23154,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1520,
-								1551
+								3540,
+								3560
 							]
 						],
 						"settings":
@@ -1023,17 +1010,45 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 540.0,
+						"translation.y": 1001.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform_config.h",
+					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.h",
 					"settings":
 					{
-						"buffer_size": 6936,
+						"buffer_size": 4856,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4254,
+								4254
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2529.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Users/William/Develop/MiCO/Demos/COM.APPLE.HOMEKIT/HomeKitServer.c",
+					"settings":
+					{
+						"buffer_size": 49342,
 						"regions":
 						{
 						},
@@ -1046,38 +1061,40 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage"
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2167.0,
+						"translation.y": 691.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "/Users/William/Develop/MiCO/include/Debug.h",
+					"buffer": 5,
+					"file": "/Users/William/Develop/MiCO/Demos/COM.APPLE.HOMEKIT/HomeKitUserInterface.c",
 					"settings":
 					{
-						"buffer_size": 30641,
+						"buffer_size": 12177,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1762,
-								1762
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 332.0,
+						"translation.y": 1064.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

@@ -50,41 +50,16 @@ extern "C"
  *                   Enumerations
  ******************************************************/
 
-
-
-
 typedef enum
 {
-    MICO_SYS_LED,
-    MICO_RF_LED,
-    BOOT_SEL,
-    MFG_SEL,
-    Standby_SEL,
-    EasyLink_BUTTON,
-    STDIO_UART_RX,  
-    STDIO_UART_TX,  
-
-
-    MICO_GPIO_1,
-    MICO_GPIO_2,   
-    MICO_GPIO_3,
     MICO_GPIO_4,
     MICO_GPIO_5,
     MICO_GPIO_6,
     MICO_GPIO_7,
-    MICO_GPIO_8,
     MICO_GPIO_9,
     MICO_GPIO_10,
     MICO_GPIO_11,
-    MICO_GPIO_12,
-    MICO_GPIO_13,
-    MICO_GPIO_14,
-    MICO_GPIO_15,
-    MICO_GPIO_16,
-    MICO_GPIO_17,
-    MICO_GPIO_18,
-    MICO_GPIO_19,
-    MICO_GPIO_20,
+    MICO_GPIO_14, 
     MICO_GPIO_21,
     MICO_GPIO_22,
     MICO_GPIO_23,
@@ -98,14 +73,6 @@ typedef enum
     MICO_GPIO_31,
     MICO_GPIO_32,
     MICO_GPIO_33,
-    MICO_GPIO_34,
-    MICO_GPIO_35,
-    MICO_GPIO_36,
-    MICO_GPIO_37,
-    MICO_GPIO_38,
-    MICO_GPIO_39,
-    MICO_GPIO_40,
-
     MICO_GPIO_MAX, /* Denotes the total number of GPIO port aliases. Not a valid GPIO alias */
     MICO_GPIO_NONE,
 } mico_gpio_t;
@@ -162,10 +129,9 @@ typedef enum
 //#define SFLASH_SUPPORT_SST_PARTS
 #define SFLASH_SUPPORT_WINBOND_PARTS
 
-
 #ifdef BOOTLOADER
 #define STDIO_UART       MICO_UART_1
-#define STDIO_UART_BAUDRATE (921600)   
+#define STDIO_UART_BAUDRATE (115200)   
 #else
 #define STDIO_UART       MICO_UART_1
 #define STDIO_UART_BAUDRATE (115200)   
@@ -175,11 +141,60 @@ typedef enum
 #define MFG_TEST         MICO_UART_1
 #define CLI_UART         MICO_UART_1
 
-/* Components connected to external I/Os*/
-
-
 /* I/O connection <-> Peripheral Connections */
+/* Mother board connection */
+#define BOOT_SEL            (MICO_GPIO_30)
+#define MFG_SEL             (MICO_GPIO_33)
+#define MICO_SYS_LED        (MICO_GPIO_32)
+#define MICO_RF_LED         (MICO_GPIO_NONE)
+#define EasyLink_BUTTON     (MICO_GPIO_23)
+
+/* Arduino extention connector */
+#define Arduino_RXD         (MICO_GPIO_5)
+#define Arduino_TXD         (MICO_GPIO_4)
+#define Arduino_D2          (MICO_GPIO_5)
+#define Arduino_D3          (MICO_GPIO_4)
+#define Arduino_D4          (MICO_GPIO_31) 
+#define Arduino_D5          (MICO_GPIO_29)  
+#define Arduino_D6          (MICO_GPIO_24) 
+#define Arduino_D7          (MICO_GPIO_NONE)
+
+#define Arduino_D8          (MICO_GPIO_6)
+#define Arduino_D9          (MICO_GPIO_7)
+#define Arduino_CS          (MICO_GPIO_14)
+#define Arduino_SI          (MICO_GPIO_28)
+#define Arduino_SO          (MICO_GPIO_27)
+#define Arduino_SCK         (MICO_GPIO_25)
+#define Arduino_SDA         (MICO_GPIO_11)
+#define Arduino_SCL         (MICO_GPIO_10)
+
+#define USE_MiCOKit_EXT
+
+#ifdef USE_MiCOKit_EXT
 #define MICO_I2C_CP         (MICO_I2C_1)
+#define MICO_DC_MOTOR       (Arduino_D9)
+
+#define USE_RGB_LED_DRIVER_P9813
+#define RGB_LED_P9813_CIN   (MICO_GPIO_10)
+#define RGB_LED_P9813_DIN   (MICO_GPIO_11)
+
+
+#else
+#define MICO_I2C_CP         (MICO_I2C_NONE)
+#define MICO_DC_MOTOR       (MICO_GPIO_NONE)
+
+#define USE_RGB_LED_DRIVER_PWM
+#define RGB_LED_R           (MICO_GPIO_NONE)
+#define RGB_LED_G           (MICO_GPIO_NONE)
+#define RGB_LED_B           (MICO_GPIO_NONE)
+
+
+#endif //USE_MiCOKit_EXT
+
+
+#define P9813_CIN              MICO_GPIO_10    // CLK
+#define P9813_DIN              MICO_GPIO_11    // DIN
+
 
 
 

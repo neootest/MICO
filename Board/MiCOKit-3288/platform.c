@@ -40,6 +40,7 @@
 #include "PlatformLogging.h"
 #include "spi_flash_platform_interface.h"
 #include "wlan_platform_common.h"
+#include "rgb_led.h"
 
 
 /******************************************************
@@ -82,53 +83,59 @@ static mico_timer_t _button_EL_timer;
 
 const platform_gpio_t platform_gpio_pins[] =
 {
-  /* Common GPIOs for internal use */
-  [MICO_SYS_LED]                      = { GPIOB, 12 }, 
-  [MICO_RF_LED]                       = { GPIOB, 13 },
-  [BOOT_SEL]                          = { GPIOB,  2 }, 
-  [MFG_SEL]                           = { GPIOA,  4 }, 
-  [EasyLink_BUTTON]                   = { GPIOB, 14 }, 
-  [STDIO_UART_RX]                     = { GPIOA,  3 },  
-  [STDIO_UART_TX]                     = { GPIOA,  2 },  
-
   /* GPIOs for external use */
-  [MICO_GPIO_2]                       = { GPIOA, 11 },
-  [MICO_GPIO_4]                       = { GPIOA,  7 },
-  [MICO_GPIO_8]                       = { GPIOA,  2 },
-  [MICO_GPIO_9]                       = { GPIOA,  1 },
-  [MICO_GPIO_12]                      = { GPIOA,  3 },
-  [MICO_GPIO_16]                      = { GPIOC, 13 },
-  [MICO_GPIO_17]                      = { GPIOB, 10 },
-  [MICO_GPIO_18]                      = { GPIOB,  9 },
-  [MICO_GPIO_27]                      = { GPIOA, 12 },  
-  [MICO_GPIO_29]                      = { GPIOA, 10 },
-  [MICO_GPIO_30]                      = { GPIOB,  6 },
-  [MICO_GPIO_31]                      = { GPIOB,  8 },
-  [MICO_GPIO_34]                      = { GPIOA,  5 },
-  [MICO_GPIO_35]                      = { GPIOA, 10 },
-  [MICO_GPIO_36]                      = { GPIOB,  1 },
-  [MICO_GPIO_37]                      = { GPIOB,  0, },
-  [MICO_GPIO_38]                      = { GPIOA,  4 },
+  [MICO_GPIO_4]                       = { GPIOA, 15 },   
+  [MICO_GPIO_5]                       = { GPIOB,  3 },   
+  [MICO_GPIO_6]                       = { GPIOA, 11 },
+  [MICO_GPIO_7]                       = { GPIOB,  4 },
+  [MICO_GPIO_9]                       = { GPIOA,  4 },
+  [MICO_GPIO_10]                      = { GPIOB,  8 },
+  [MICO_GPIO_11]                      = { GPIOB,  9 },
+  [MICO_GPIO_14]                      = { GPIOC, 13 },
+  [MICO_GPIO_21]                      = { GPIOA,  2 }, //UART1_TX_DEBUG
+  [MICO_GPIO_22]                      = { GPIOA,  3 }, //UART1_RX_DEBUG
+  [MICO_GPIO_23]                      = { GPIOA,  0 }, //EasyLink_BUTTON
+  [MICO_GPIO_24]                      = { GPIOA,  1 },
+  [MICO_GPIO_25]                      = { GPIOB,  0 }, //spi_flash_spi_pins
+  [MICO_GPIO_26]                      = { GPIOB,  1 }, //spi_flash_spi_pins
+  [MICO_GPIO_27]                      = { GPIOA, 12 }, //spi_flash_spi_pins
+  [MICO_GPIO_28]                      = { GPIOA, 10 }, //spi_flash_spi_pins
+  [MICO_GPIO_29]                      = { GPIOA,  5 }, 
+  [MICO_GPIO_30]                      = { GPIOB,  2 }, //BOOT
+  [MICO_GPIO_31]                      = { GPIOA,  7 },
+  [MICO_GPIO_32]                      = { GPIOB, 12 }, //MICO_SYS_LED
+  [MICO_GPIO_33]                      = { GPIOB, 13 }, //MFG
 };
 
-/* PWM mappings */
-const platform_pwm_t platform_pwm_peripherals[] =
+const platform_pwm_t *platform_pwm_peripherals = NULL;
+
+const platform_i2c_t platform_i2c_peripherals[] =
 {
-  [MICO_PWM_G]  = {TIM2, 2, RCC_APB1Periph_TIM2, GPIO_AF_TIM2, &platform_gpio_pins[MICO_GPIO_9]},    
-  [MICO_PWM_B]  = {TIM2, 1, RCC_APB1Periph_TIM2, GPIO_AF_TIM2, &platform_gpio_pins[MICO_GPIO_34]}, 
-  [MICO_PWM_R]  = {TIM3, 2, RCC_APB1Periph_TIM3, GPIO_AF_TIM3, &platform_gpio_pins[MICO_GPIO_4]},    
-  /* TODO: fill in the other options here ... */
+  [MICO_I2C_1] =
+  {
+    .port                         = I2C1,
+    .pin_scl                      = &platform_gpio_pins[MICO_GPIO_10],
+    .pin_sda                      = &platform_gpio_pins[MICO_GPIO_11],
+    .peripheral_clock_reg         = RCC_APB1Periph_I2C1,
+    .tx_dma                       = DMA1,
+    .tx_dma_peripheral_clock      = RCC_AHB1Periph_DMA1,
+    .tx_dma_stream                = DMA1_Stream7,
+    .rx_dma_stream                = DMA1_Stream5,
+    .tx_dma_stream_id             = 7,
+    .rx_dma_stream_id             = 5,
+    .tx_dma_channel               = DMA_Channel_1,
+    .rx_dma_channel               = DMA_Channel_1,
+    .gpio_af                      = GPIO_AF_I2C1
+  },
 };
-
-const platform_i2c_t *platform_i2c_peripherals = NULL;
 
 const platform_uart_t platform_uart_peripherals[] =
 {
   [MICO_UART_1] =
   {
     .port                         = USART2,
-    .pin_tx                       = &platform_gpio_pins[STDIO_UART_TX],
-    .pin_rx                       = &platform_gpio_pins[STDIO_UART_RX],
+    .pin_tx                       = &platform_gpio_pins[MICO_GPIO_21],
+    .pin_rx                       = &platform_gpio_pins[MICO_GPIO_22],
     .pin_cts                      = NULL,
     .pin_rts                      = NULL,
     .tx_dma_config =
@@ -254,30 +261,15 @@ MICO_RTOS_DEFINE_ISR( USART2_IRQHandler )
   platform_uart_irq( &platform_uart_drivers[MICO_UART_1] );
 }
 
-// MICO_RTOS_DEFINE_ISR( USART1_IRQHandler )
-// {
-//   platform_uart_irq( &platform_uart_drivers[MICO_UART_2] );
-// }
-
 MICO_RTOS_DEFINE_ISR( DMA1_Stream6_IRQHandler )
 {
   platform_uart_tx_dma_irq( &platform_uart_drivers[MICO_UART_1] );
 }
 
-// MICO_RTOS_DEFINE_ISR( DMA2_Stream7_IRQHandler )
-// {
-//   platform_uart_tx_dma_irq( &platform_uart_drivers[MICO_UART_2] );
-// }
-
 MICO_RTOS_DEFINE_ISR( DMA1_Stream5_IRQHandler )
 {
   platform_uart_rx_dma_irq( &platform_uart_drivers[MICO_UART_1] );
 }
-
-// MICO_RTOS_DEFINE_ISR( DMA2_Stream2_IRQHandler )
-// {
-//   platform_uart_rx_dma_irq( &platform_uart_drivers[MICO_UART_2] );
-// }
 
 void platform_init_peripheral_irq_priorities( void )
 {
@@ -310,7 +302,7 @@ static void _button_EL_irq_handler( void* arg )
   (void)(arg);
   int interval = -1;
   
-  if ( MicoGpioInputGet( (mico_gpio_t)EasyLink_BUTTON ) == 0 ) {
+  if ( MicoGpioInputGet( (mico_gpio_t)EasyLink_BUTTON ) == 1 ) {
     _default_start_time = mico_get_time()+1;
     mico_start_timer(&_button_EL_timer);
   } else {
@@ -322,12 +314,6 @@ static void _button_EL_irq_handler( void* arg )
     mico_stop_timer(&_button_EL_timer);
     _default_start_time = 0;
   }
-}
-
-static void _button_STANDBY_irq_handler( void* arg )
-{
-  (void)(arg);
-  PlatformStandbyButtonClickedCallback();
 }
 
 static void _button_EL_Timeout_handler( void* arg )
@@ -345,13 +331,17 @@ void init_platform( void )
    MicoGpioOutputHigh( (mico_gpio_t)MICO_RF_LED );
   
    //  Initialise EasyLink buttons
-   MicoGpioInitialize( (mico_gpio_t)EasyLink_BUTTON, INPUT_PULL_UP );
+   MicoGpioInitialize( (mico_gpio_t)EasyLink_BUTTON, INPUT_HIGH_IMPEDANCE );
    mico_init_timer(&_button_EL_timer, RestoreDefault_TimeOut, _button_EL_Timeout_handler, NULL);
    MicoGpioEnableIRQ( (mico_gpio_t)EasyLink_BUTTON, IRQ_TRIGGER_BOTH_EDGES, _button_EL_irq_handler, NULL );
+   
+#ifdef USE_MiCOKit_EXT
+  MicoGpioInitialize( Arduino_D9, OUTPUT_PUSH_PULL );
+  MicoGpioOutputLow( Arduino_D9 );
   
-   //  Initialise Standby/wakeup switcher
-   MicoGpioInitialize( (mico_gpio_t)Standby_SEL, INPUT_PULL_UP );
-   MicoGpioEnableIRQ( (mico_gpio_t)Standby_SEL , IRQ_TRIGGER_FALLING_EDGE, _button_STANDBY_irq_handler, NULL);
+  hsb_led_open( 0, 0, 0 );
+
+#endif
 
    MicoFlashInitialize( MICO_SPI_FLASH );
 }
@@ -365,6 +355,11 @@ void init_platform_bootloader( void )
   
   MicoGpioInitialize((mico_gpio_t)BOOT_SEL, INPUT_PULL_UP);
   MicoGpioInitialize((mico_gpio_t)MFG_SEL, INPUT_HIGH_IMPEDANCE);
+  
+#ifdef USE_MiCOKit_EXT
+  MicoGpioInitialize( Arduino_D9, OUTPUT_PUSH_PULL );
+  MicoGpioOutputLow( Arduino_D9 );
+#endif
 }
 
 void MicoSysLed(bool onoff)

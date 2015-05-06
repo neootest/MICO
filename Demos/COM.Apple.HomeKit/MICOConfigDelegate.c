@@ -271,43 +271,6 @@ json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
     err = MICOAddStringCellToSector(sector, "DNS Server",  inContext->micoStatus.dnsServer, "RW", NULL);
     require_noerr(err, exit);
 
-  /*Sector 4*/
-  sector = json_object_new_array();
-  require( sector, exit );
-  err = MICOAddSector(sectors, "SPP Remote Server",           sector);
-  require_noerr(err, exit);
-
-
-    // SPP protocol remote server connection enable
-    err = MICOAddSwitchCellToSector(sector, "Connect SPP Server",   inContext->flashContentInRam.appConfig.remoteServerEnable,   "RW");
-    require_noerr(err, exit);
-
-    //Seerver address cell
-    err = MICOAddStringCellToSector(sector, "SPP Server",           inContext->flashContentInRam.appConfig.remoteServerDomain,   "RW", NULL);
-    require_noerr(err, exit);
-
-    //Seerver port cell
-    err = MICOAddNumberCellToSector(sector, "SPP Server Port",      inContext->flashContentInRam.appConfig.remoteServerPort,   "RW", NULL);
-    require_noerr(err, exit);
-
-  /*Sector 5*/
-  sector = json_object_new_array();
-  require( sector, exit );
-  err = MICOAddSector(sectors, "MCU IOs",            sector);
-  require_noerr(err, exit);
-
-    /*UART Baurdrate cell*/
-    json_object *selectArray;
-    selectArray = json_object_new_array();
-    require( selectArray, exit );
-    json_object_array_add(selectArray, json_object_new_int(9600));
-    json_object_array_add(selectArray, json_object_new_int(19200));
-    json_object_array_add(selectArray, json_object_new_int(38400));
-    json_object_array_add(selectArray, json_object_new_int(57600));
-    json_object_array_add(selectArray, json_object_new_int(115200));
-    err = MICOAddNumberCellToSector(sector, "Baurdrate", 115200, "RW", selectArray);
-    require_noerr(err, exit);
-
   mico_rtos_unlock_mutex(&inContext->flashContentInRam_mutex);
   
 exit:
@@ -360,14 +323,6 @@ OSStatus ConfigIncommingJsonMessage( const char *input, mico_Context_t * const i
       strncpy(inContext->flashContentInRam.micoSystemConfig.gateWay, json_object_get_string(val), maxIpLen);
     }else if(!strcmp(key, "DNS Server")){
       strncpy(inContext->flashContentInRam.micoSystemConfig.dnsServer, json_object_get_string(val), maxIpLen);
-    }else if(!strcmp(key, "Connect SPP Server")){
-      inContext->flashContentInRam.appConfig.remoteServerEnable = json_object_get_boolean(val);
-    }else if(!strcmp(key, "SPP Server")){
-      strncpy(inContext->flashContentInRam.appConfig.remoteServerDomain, json_object_get_string(val), 64);
-    }else if(!strcmp(key, "SPP Server Port")){
-      inContext->flashContentInRam.appConfig.remoteServerPort = json_object_get_int(val);
-    }else if(!strcmp(key, "Baurdrate")){
-      inContext->flashContentInRam.appConfig.USART_BaudRate = json_object_get_int(val);
     }
   }
   json_object_put(new_obj);

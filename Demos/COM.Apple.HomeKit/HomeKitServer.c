@@ -511,30 +511,32 @@ static HkStatus HKCreateHAPAttriDataBase( struct _hapAccessory_t inHapObject[], 
 
           HKReadCharacteristicValue(accessoryIndex+1, serviceIndex+1, characteristicIndex+1, &value, inContext);
           /*Value*/
-          if(pCharacteristic.hasStaticValue)
-            value = pCharacteristic.value;
+          if( pCharacteristic.secureRead == true ){
+            if(pCharacteristic.hasStaticValue)
+              value = pCharacteristic.value;
 
-          switch(pCharacteristic.valueType){
-            case ValueType_bool:
-              json_object_object_add( characteristic, "value", json_object_new_boolean(value.boolValue));
-              break;
-            case ValueType_int:
-              json_object_object_add( characteristic, "value", json_object_new_int(value.intValue));
-              break;
-            case ValueType_float:
-              json_object_object_add( characteristic, "value", json_object_new_double(value.floatValue));
-              break;
-            case ValueType_string:
-              json_object_object_add( characteristic, "value", json_object_new_string(value.stringValue));
-              break;
-            case ValueType_date:
-              json_object_object_add( characteristic, "value", json_object_new_string(value.dateValue));
-              break;
-            case ValueType_null:
-              json_object_object_add( characteristic, "value", NULL);
-              break;
-            default:
-              break;
+            switch(pCharacteristic.valueType){
+              case ValueType_bool:
+                json_object_object_add( characteristic, "value", json_object_new_boolean(value.boolValue));
+                break;
+              case ValueType_int:
+                json_object_object_add( characteristic, "value", json_object_new_int(value.intValue));
+                break;
+              case ValueType_float:
+                json_object_object_add( characteristic, "value", json_object_new_double(value.floatValue));
+                break;
+              case ValueType_string:
+                json_object_object_add( characteristic, "value", json_object_new_string(value.stringValue));
+                break;
+              case ValueType_date:
+                json_object_object_add( characteristic, "value", json_object_new_string(value.dateValue));
+                break;
+              case ValueType_null:
+                json_object_object_add( characteristic, "value", NULL);
+                break;
+              default:
+                break;
+            }
           }
 
           properties = json_object_new_array();

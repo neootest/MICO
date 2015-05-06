@@ -46,6 +46,7 @@ const struct _hapAccessory_t hapObjects[NumberofAccessories] =
             .valueType = ValueType_null,
             .hasStaticValue = true,
             .value = NULL,
+            .secureRead = false,
             .secureWrite = true,
             .hasEvents = false,
           }	

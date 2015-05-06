@@ -28,6 +28,19 @@ typedef int32_t         HkStatus;
 #define kHKNotExistErr                -70409   //! Resource does not exist.
 #define kHKInvalidErr                 -70410   //! Accessory received an invalid value in a write request.
 
+// CATEGORY_IDENTIFIER value
+#define CI_ORHER                        1  
+#define CI_BRIDGE                       2   
+#define CI_FAN                          3   
+#define CI_GARAGE_DOOR_OPENER           4        
+#define CI_LIGHTBULB                    5   
+#define CI_DOOR_LOCK                    6  
+#define CI_OUTLET                       7   
+#define CI_SWITCH                       8   
+#define CI_THERMOSTAT                   9  
+#define CI_RESERVED                     10 
+
+
 typedef enum _valueType{
   ValueType_bool,
   ValueType_int,
@@ -44,7 +57,7 @@ typedef enum _valueType{
 typedef union {
     bool        boolValue;
     int         intValue;
-    float       floatValue;
+    double      floatValue;
     char        *stringValue;
     char        *dateValue;
     json_object *array;

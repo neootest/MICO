@@ -79,8 +79,6 @@ extern WEAK platform_spi_slave_driver_t platform_spi_slave_drivers[];
 extern const platform_flash_t      platform_flash_peripherals[];
 extern platform_flash_driver_t     platform_flash_drivers[];
 
-bool i2c_initialized[MICO_I2C_MAX+1]; // Bypass compile err when MICO_I2C_MAX = 0
-
 const char* flash_name[] =
 { 
 #ifdef USE_MICO_SPI_FLASH
@@ -109,7 +107,6 @@ OSStatus mico_platform_init( void )
 #ifdef USES_RESOURCE_FILESYSTEM
   platform_filesystem_init();
 #endif
-  memset(i2c_initialized, 0, sizeof(i2c_initialized));
   
   return kNoErr;
 }
@@ -205,22 +202,14 @@ OSStatus MicoI2cInitialize( mico_i2c_device_t* device )
 
   if ( device->port >= MICO_I2C_NONE )
     return kUnsupportedErr;
-  
-  if (i2c_initialized[device->port] == true)
-  {
-    return kNoErr;
-  }
-  
+ 
   config.address       = device->address;
   config.address_width = device->address_width;
   config.flags         &= ~I2C_DEVICE_USE_DMA ;
   config.speed_mode    = device->speed_mode;
   
   result = (OSStatus) platform_i2c_init( &platform_i2c_peripherals[device->port], &config );
-  if (result == kNoErr)
-  {
-    i2c_initialized[device->port] = true;
-  }
+
   return result;
 }
 
@@ -235,9 +224,7 @@ OSStatus MicoI2cFinalize( mico_i2c_device_t* device )
   config.address_width = device->address_width;
   config.flags         &= ~I2C_DEVICE_USE_DMA ;
   config.speed_mode    = device->speed_mode;
-  
-  i2c_initialized[device->port] = kGeneralErr;
-  
+    
   return (OSStatus) platform_i2c_deinit( &platform_i2c_peripherals[device->port], &config );
 }
 

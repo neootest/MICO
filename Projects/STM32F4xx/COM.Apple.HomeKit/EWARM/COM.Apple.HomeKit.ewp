@@ -995,20 +995,20 @@
         <option>
           <name>Input variant</name>
           <version>3</version>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>Input description</name>
-          <state>Full formatting.</state>
+          <state>Automatic choice of formatter.</state>
         </option>
         <option>
           <name>Output variant</name>
           <version>2</version>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>Output description</name>
-          <state>Full formatting.</state>
+          <state>Automatic choice of formatter.</state>
         </option>
         <option>
           <name>GOutputBinary</name>
@@ -1017,7 +1017,7 @@
         <option>
           <name>FPU</name>
           <version>2</version>
-          <state>5</state>
+          <state>0</state>
         </option>
         <option>
           <name>OGCoreOrChip</name>
@@ -1107,7 +1107,7 @@
         </option>
         <option>
           <name>OGUseCmsisDspLib</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>GRuntimeLibThreads</name>
@@ -1131,6 +1131,7 @@
           <state>USE_STDPERIPH_DRIVER</state>
           <state>DEBUG</state>
           <state>HSE_VALUE=16000000</state>
+          <state>_DLIB_PRINTF_SPECIFIER_FLOAT</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -1273,6 +1274,7 @@
           <state>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries</state>
           <state>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash</state>
           <state>$PROJ_DIR$\..\..\..\..\Library\LibTinySRP</state>
+          <state>$PROJ_DIR$\..\..\..\..\Platform\Drivers\rgb_led</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1363,7 +1365,7 @@
         </option>
         <option>
           <name>IccFloatSemantics</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCNoLiteralPool</name>
@@ -1917,13 +1919,22 @@
   <group>
     <name>Application</name>
     <file>
+      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.Apple.HomeKit\HomeKitHTTPUtils.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\..\Demos\COM.Apple.HomeKit\HomeKitPairlist.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.Apple.HomeKit\HomeKitPairProtocol.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\Demos\COM.Apple.HomeKit\HomekitProfiles.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\Demos\COM.Apple.HomeKit\HomeKitSecurity_Debug.a</name>
+      <excluded>
+        <configuration>MiCOKit-3288</configuration>
+      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\Demos\COM.Apple.HomeKit\HomeKitSecurity_Release.a</name>
@@ -2295,6 +2306,15 @@
             <configuration>MiCOKit-3165</configuration>
             <configuration>MiCOKit-3288</configuration>
           </excluded>
+        </file>
+      </group>
+      <group>
+        <name>RGB LED</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\rgb_led\rgb_led.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\rgb_led\rgb_led_platform.c</name>
         </file>
       </group>
       <group>

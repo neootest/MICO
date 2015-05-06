@@ -37,27 +37,15 @@
 #define CONFIGURATION_VERSION    0x00010002 // if changed default configuration, add this num
 
 /* Wi-Fi configuration mode */
-#define MICO_CONFIG_MODE CONFIG_MODE_EASYLINK_WITH_SOFTAP
-//#define MICO_CONFIG_MODE CONFIG_MODE_WAC
-
-/*User provided application configurations*/
-#define MAX_Local_Client_Num                8
-#define DEAFULT_REMOTE_SERVER               "192.168.2.254"
-#define DEFAULT_REMOTE_SERVER_PORT          8080
-#define UART_RECV_TIMEOUT                   500
-#define UART_ONE_PACKAGE_LENGTH             1024
-#define wlanBufferLen                       1024
-
-#define LOCAL_TCP_SERVER_LOOPBACK_PORT      1000
-#define REMOTE_TCP_CLIENT_LOOPBACK_PORT     1002
-#define RECVED_UART_DATA_LOOPBACK_PORT      1003
-
-#define BONJOUR_SERVICE         "_hap._tcp.local."
+//#define MICO_CONFIG_MODE CONFIG_MODE_EASYLINK_WITH_SOFTAP
+#define MICO_CONFIG_MODE CONFIG_MODE_WAC
 
 /*HomeKit definition*/
-#define HA_PV               "1.0"
-#define HA_SV               "1.0"
-#define HA_SERVER_PORT      1200  
+#define HA_PV                   "1.0"
+#define HA_SV                   "1.0"
+#define HA_SERVER_PORT          1200  
+#define BONJOUR_SERVICE         "_hap._tcp.local."
+#define CATEGORY_IDENTIFIER     CI_LIGHTBULB
 
 typedef enum
 {
@@ -73,20 +61,11 @@ typedef enum
 typedef struct
 {
   uint32_t          configDataVer;
-  uint32_t          localServerPort;
-
-  /*local services*/
-  bool              localServerEnable;
-  bool              remoteServerEnable;
-  char              remoteServerDomain[64];
-  int               remoteServerPort;
-
+  
   /*Homekit*/
   bool              haPairSetupFinished;
   uint8_t           LTSK[64]; 
 
-  /*IO settings*/
-  uint32_t          USART_BaudRate;
 } application_config_t;
 
 
@@ -168,17 +147,8 @@ typedef struct _current_app_status_t {
   /* Homekit application */
   HKServiceStatus   service;
 
-
-#ifdef thermostat
-  
-  
-#endif 
 } current_app_status_t;
 
-
-void localTcpServer_thread(void *inContext);
-void remoteTcpClient_thread(void *inContext);
-void uartRecv_thread(void *inContext);
 void homeKitListener_thread(void *inContext);
 
 #endif

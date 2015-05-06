@@ -173,7 +173,13 @@
   <group>
     <name>Application</name>
     <file>
+      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.Apple.HomeKit\HomeKitHTTPUtils.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\..\Demos\COM.Apple.HomeKit\HomeKitPairlist.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.Apple.HomeKit\HomeKitPairProtocol.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\Demos\COM.Apple.HomeKit\HomekitProfiles.c</name>
@@ -511,6 +517,15 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\MicoDriverMFiAuth\MicoDriverMFiAuth.c</name>
+        </file>
+      </group>
+      <group>
+        <name>RGB LED</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\rgb_led\rgb_led.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\rgb_led\rgb_led_platform.c</name>
         </file>
       </group>
       <group>
