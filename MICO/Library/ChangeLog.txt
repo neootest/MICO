@@ -1,9 +1,39 @@
+版本号：31620002.030
+日期：2015-05-06
+1. 修正了M4中printf,sprintf函数无法处理浮点数的问题。
+2. 用户可以通过实现函数uint32_t host_platform_memory_wifi_nvram_size( void )，uint8_t* host_platform_read_wifi_nvram_image(int offset) 来自定义1062的wifi nvram值。不定义该函数就使用系统默认。
+3. 修改了API：wifi_reboot_event定义：void wifi_reboot_event(int type)。其中type包含：
+	 enum {
+    WIFI_ERROR_INIT = 1,       //WIFI初始化失败
+    WIFI_ERROR_NOGW,           //ARP无法访问到网关，网络可能发生异常
+    WIFI_ERROR_NOBUS_CREDIT,   //wifi底层驱动发生异常，无法发送数据。
+   };
+
+版本号：31620002.029
+日期：2015-04-17
+1. 修正了WIFI做StartAdvNetwork连接时AP连接成功但是DHCP失败的情况下，模块无法重新尝试连接的问题。
+2. 修正了IAR下printf函数调用到OS相关API可能出现异常的问题。重现方法：在_write函数中执行mico_rtos_get_semphore, 而其他地方都不set semphore，OS会出现异常。
+3. 增加了报告信息到Fog的功能。
+
+版本号：31620002.028
+日期：2015-04-14
+1. Easylink同时支持EasyLink模式和扫描抓取ssid模式。使用OpenEasylink的API，可以同时支持。
+2. Library去掉所有对OTP的判断。
+3. tasklist这个CLI现在打印出来的prio同MICO定义的优先级保持一致。
+4. Added API：mico_rtos_resume_thread.
+
+版本号：31620002.027
+日期：2015-03-25
+1. 修正了StartAdvNetwork连接非加密的AP是不会产生connected_ap_info的回调的问题。
+
 版本号：31620002.026
 日期：2015-03-17
 1. Fix Select max FD size can't support OS event FD. 之前最大的FD size是17，而OS event的fd从是16到23.
 2. Changed: TCP write return immediately and set errno to ENOMEM when memory low. 之前在内存不足的时候write会卡住，直到TCP_MAXRTX重试超时才能退出，需要较长时间。
 3. Change TX_POOL_SIZE from 7 to 2. 由于TX_POOL仅用于UDP发送和WIFI命令的发送，不需要如此多的memory，可以节省空间。
 4. Change TCP_MAXRTX from 12 to 5. 加快当TCP无法发送数据而返回错误的速度。
+5. Change Ali OUI to "\xD8\x96\xE0"
+6. 修正gethostbyname被多个task同时调用会返回失败的问题。
 		
 版本号：31620002.025
 日期：2015-03-11
