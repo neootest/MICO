@@ -1275,6 +1275,7 @@
           <state>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\inc</state>
           <state>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries</state>
           <state>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash</state>
+          <state>$PROJ_DIR$\..\..\..\..\Platform\Drivers\rgb_led</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>

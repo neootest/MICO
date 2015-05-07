@@ -47,25 +47,6 @@
                                 unsigned long length;
  } sflash_platform_message_segment_t;
 
-typedef struct
-{
-    uint32_t     speed;
-    uint8_t      mode;
-    uint8_t      bits;
-} spi_flash_device_t;
-
-/**
-* WLAN SPI pins
-*/
-typedef enum
-{
-    FLASH_PIN_SPI_CS,
-    FLASH_PIN_SPI_CLK,
-    FLASH_PIN_SPI_MOSI,
-    FLASH_PIN_SPI_MISO,
-    FLASH_PIN_SPI_MAX,
-} spi_flash_spi_pin_t;
-
 extern int sflash_platform_init      ( /*@shared@*/ void* peripheral_id, /*@out@*/ void** platform_peripheral_out );
 extern int sflash_platform_send_recv ( const void* platform_peripheral, /*@in@*/ /*@out@*/ sflash_platform_message_segment_t* segments, unsigned int num_segments  );
 

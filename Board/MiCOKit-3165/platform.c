@@ -172,6 +172,7 @@ const platform_uart_t platform_uart_peripherals[] =
     },
   },
 };
+platform_uart_driver_t platform_uart_drivers[MICO_UART_MAX];
 
 const platform_spi_t platform_spi_peripherals[] =
 {
@@ -205,7 +206,7 @@ const platform_spi_t platform_spi_peripherals[] =
   }
 };
 
-platform_uart_driver_t platform_uart_drivers[MICO_UART_MAX];
+platform_spi_driver_t platform_spi_drivers[MICO_SPI_MAX];
 
 const platform_flash_t platform_flash_peripherals[] =
 {
@@ -360,7 +361,7 @@ void init_platform( void )
   mico_init_timer(&_button_EL_timer, RestoreDefault_TimeOut, _button_EL_Timeout_handler, NULL);
   MicoGpioEnableIRQ( (mico_gpio_t)EasyLink_BUTTON, IRQ_TRIGGER_BOTH_EDGES, _button_EL_irq_handler, NULL );
 
-  MicoFlashInitialize( MICO_SPI_FLASH );
+  //MicoFlashInitialize( MICO_SPI_FLASH );
 }
 
 #ifdef BOOTLOADER

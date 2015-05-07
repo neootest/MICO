@@ -147,28 +147,23 @@ static uint32_t get_dma_irq_status( DMA_Stream_TypeDef* stream )
     }
 }
 
-OSStatus platform_spi_init( const platform_spi_t* spi, const platform_spi_config_t* config )
+OSStatus platform_spi_init( platform_spi_driver_t* driver, const platform_spi_t* peripheral, const platform_spi_config_t* config )
 {
   SPI_InitTypeDef   spi_init;
   OSStatus          err;
   
   platform_mcu_powersave_disable();
   
-  require_action_quiet( ( spi != NULL ) && ( config != NULL ), exit, err = kParamErr);
-    
-  /* Init SPI GPIOs */
-  platform_gpio_set_alternate_function( spi->pin_clock->port, spi->pin_clock->pin_number, GPIO_OType_PP, GPIO_PuPd_NOPULL, spi->gpio_af );
-  platform_gpio_set_alternate_function( spi->pin_mosi->port,  spi->pin_mosi->pin_number,  GPIO_OType_PP, GPIO_PuPd_NOPULL, spi->gpio_af );
-  platform_gpio_set_alternate_function( spi->pin_miso->port,  spi->pin_miso->pin_number,  GPIO_OType_PP, GPIO_PuPd_UP, spi->gpio_af );
-  
-  /* Init the chip select GPIO */
-  platform_gpio_init( config->chip_select, OUTPUT_PUSH_PULL );
-  platform_gpio_output_high( config->chip_select );
-  
-  /* Calculate prescaler */
+  require_action_quiet( ( driver != NULL ) && ( peripheral != NULL ) && ( config != NULL ), exit, err = kParamErr);
+
+#ifndef NO_MICO_RTOS
+  if( driver->spi_mutex == NULL)
+    mico_rtos_init_mutex( &driver->spi_mutex );
+#endif
+
+/* Calculate prescaler */
   err = calculate_prescaler( config->speed, &spi_init.SPI_BaudRatePrescaler );
   require_noerr(err, exit);
-  
       
   /* Configure data-width */
   if ( config->bits == 8 )
@@ -214,28 +209,46 @@ OSStatus platform_spi_init( const platform_spi_t* spi, const platform_spi_config
   {
     spi_init.SPI_CPHA = ( config->mode & SPI_CLOCK_IDLE_HIGH ) ? SPI_CPHA_1Edge : SPI_CPHA_2Edge;
   }
+
+
+  /* Operate hardware, request a lock */
+#ifndef NO_MICO_RTOS
+  mico_rtos_lock_mutex( &driver->spi_mutex );
+#endif
+
+  driver->peripheral = (platform_spi_t *)peripheral;
+    
+  /* Init SPI GPIOs */
+  platform_gpio_set_alternate_function( peripheral->pin_clock->port, peripheral->pin_clock->pin_number, GPIO_OType_PP, GPIO_PuPd_NOPULL, peripheral->gpio_af );
+  platform_gpio_set_alternate_function( peripheral->pin_mosi->port,  peripheral->pin_mosi->pin_number,  GPIO_OType_PP, GPIO_PuPd_NOPULL, peripheral->gpio_af );
+  platform_gpio_set_alternate_function( peripheral->pin_miso->port,  peripheral->pin_miso->pin_number,  GPIO_OType_PP, GPIO_PuPd_UP, peripheral->gpio_af );
+  
+  /* Init the chip select GPIO */
+  platform_gpio_init( config->chip_select, OUTPUT_PUSH_PULL );
+  platform_gpio_output_high( config->chip_select );
+  
   
   /* Enable SPI peripheral clock */
-  (spi->peripheral_clock_func)( spi->peripheral_clock_reg, ENABLE );
-  (spi->peripheral_clock_func)( spi->peripheral_clock_reg, ENABLE );
+  (peripheral->peripheral_clock_func)( peripheral->peripheral_clock_reg, ENABLE );
+  (peripheral->peripheral_clock_func)( peripheral->peripheral_clock_reg, ENABLE );
   
-  SPI_I2S_DeInit( spi->port );
+  SPI_I2S_DeInit( peripheral->port );
   
   spi_init.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
   spi_init.SPI_Mode      = SPI_Mode_Master;
   spi_init.SPI_NSS       = SPI_NSS_Soft;
   spi_init.SPI_CRCPolynomial = 0x7; /* reset value */
-  SPI_CalculateCRC( spi->port, DISABLE );
+  SPI_CalculateCRC( peripheral->port, DISABLE );
   
   /* Init and enable SPI */
-  SPI_Init( spi->port, &spi_init );
-  SPI_Cmd ( spi->port, ENABLE );
+  SPI_Init( peripheral->port, &spi_init );
+  SPI_Cmd ( peripheral->port, ENABLE );
   
   if ( config->mode & SPI_USE_DMA ){
-    DMA_DeInit( spi->rx_dma.stream );
-    DMA_DeInit( spi->tx_dma.stream );
+    DMA_DeInit( peripheral->rx_dma.stream );
+    DMA_DeInit( peripheral->tx_dma.stream );
     
-    if ( spi->tx_dma.controller == DMA1 )
+    if ( peripheral->tx_dma.controller == DMA1 )
     {
       RCC->AHB1ENR |= RCC_AHB1Periph_DMA1;
     }
@@ -244,7 +257,7 @@ OSStatus platform_spi_init( const platform_spi_t* spi, const platform_spi_config
       RCC->AHB1ENR |= RCC_AHB1Periph_DMA2;
     }
     
-     if ( spi->rx_dma.controller == DMA1 )
+     if ( peripheral->rx_dma.controller == DMA1 )
     {
       RCC->AHB1ENR |= RCC_AHB1Periph_DMA1;
     }
@@ -252,11 +265,14 @@ OSStatus platform_spi_init( const platform_spi_t* spi, const platform_spi_config
     {
       RCC->AHB1ENR |= RCC_AHB1Periph_DMA2;
     }
-    SPI_I2S_DMACmd( spi->port, SPI_I2S_DMAReq_Rx, ENABLE );
-    SPI_I2S_DMACmd( spi->port, SPI_I2S_DMAReq_Tx, ENABLE );
+    SPI_I2S_DMACmd( peripheral->port, SPI_I2S_DMAReq_Rx, ENABLE );
+    SPI_I2S_DMACmd( peripheral->port, SPI_I2S_DMAReq_Tx, ENABLE );
   }
 
-  
+#ifndef NO_MICO_RTOS
+  mico_rtos_unlock_mutex( &driver->spi_mutex );
+#endif
+
 exit:
   platform_mcu_powersave_enable();
   return err;
@@ -264,24 +280,27 @@ exit:
 
 
 
-OSStatus platform_spi_deinit( const platform_spi_t* spi )
+OSStatus platform_spi_deinit( platform_spi_driver_t* driver )
 {
-  UNUSED_PARAMETER( spi );
+  UNUSED_PARAMETER( driver );
   /* TODO: unimplemented */
   return kUnsupportedErr;
 }
 
 
-OSStatus platform_spi_transfer( const platform_spi_t* spi, const platform_spi_config_t* config, const platform_spi_message_segment_t* segments, uint16_t number_of_segments )
+OSStatus platform_spi_transfer( platform_spi_driver_t* driver, const platform_spi_config_t* config, const platform_spi_message_segment_t* segments, uint16_t number_of_segments )
 {
   OSStatus err    = kNoErr;
   uint32_t count  = 0;
   uint16_t i;
   
-  
   platform_mcu_powersave_disable();
+
+#ifndef NO_MICO_RTOS
+  mico_rtos_lock_mutex( &driver->spi_mutex );
+#endif
   
-  require_action_quiet( ( spi != NULL ) && ( config != NULL ) && ( segments != NULL ) && ( number_of_segments != 0 ), exit, err = kParamErr);
+  require_action_quiet( ( driver != NULL ) && ( config != NULL ) && ( segments != NULL ) && ( number_of_segments != 0 ), exit, err = kParamErr);
   
   /* Activate chip select */
   platform_gpio_output_low( config->chip_select );
@@ -292,9 +311,9 @@ OSStatus platform_spi_transfer( const platform_spi_t* spi, const platform_spi_co
     if ( config->mode & SPI_USE_DMA )
     {
       if( segments[ i ].length != 0){
-        spi_dma_config( spi, &segments[ i ] );
+        spi_dma_config( driver->peripheral, &segments[ i ] );
       
-        err = spi_dma_transfer( spi, config );
+        err = spi_dma_transfer( driver->peripheral, config );
         require_noerr(err, cleanup_transfer);
       }
     }
@@ -317,7 +336,7 @@ OSStatus platform_spi_transfer( const platform_spi_t* spi, const platform_spi_co
             data = *send_ptr++;
           }
           
-          data = spi_transfer( spi, data );
+          data = spi_transfer( driver->peripheral, data );
           
           if ( rcv_ptr != NULL )
           {
@@ -344,7 +363,7 @@ OSStatus platform_spi_transfer( const platform_spi_t* spi, const platform_spi_co
             data = *send_ptr++;
           }
           
-          data = spi_transfer( spi, data );
+          data = spi_transfer( driver->peripheral, data );
           
           if ( rcv_ptr != NULL )
           {
@@ -362,6 +381,9 @@ cleanup_transfer:
   platform_gpio_output_high( config->chip_select );
   
 exit:
+#ifndef NO_MICO_RTOS
+  mico_rtos_unlock_mutex( &driver->spi_mutex );
+#endif
   platform_mcu_powersave_enable( );
   return err;
 }

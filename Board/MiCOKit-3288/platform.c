@@ -187,6 +187,8 @@ const platform_uart_t platform_uart_peripherals[] =
   },
 };
 
+platform_uart_driver_t platform_uart_drivers[MICO_UART_MAX];
+
 const platform_spi_t platform_spi_peripherals[] =
 {
   [MICO_SPI_1]  =
@@ -200,26 +202,28 @@ const platform_spi_t platform_spi_peripherals[] =
     .pin_clock                    = &platform_gpio_pins[MICO_GPIO_25],
     .tx_dma = 
     {
-      .controller                 = DMA1,
-      .stream                     = DMA1_Stream4,
-      .channel                    = DMA_Channel_0,
-      .irq_vector                 = DMA1_Stream4_IRQn,
-      .complete_flags             = DMA_HISR_TCIF4,
-      .error_flags                = ( DMA_HISR_TEIF4 | DMA_HISR_FEIF4 ),
+      .controller                 = DMA2,
+      .stream                     = DMA2_Stream6,
+      .channel                    = DMA_Channel_7,
+      .irq_vector                 = DMA2_Stream6_IRQn,
+      .complete_flags             = DMA_HISR_TCIF6,
+      .error_flags                = ( DMA_HISR_TEIF6 | DMA_HISR_FEIF6 ),
     },
     .rx_dma = 
     {
-      .controller                 = DMA1,
-      .stream                     = DMA1_Stream3,
-      .channel                    = DMA_Channel_0,
-      .irq_vector                 = DMA1_Stream3_IRQn,
-      .complete_flags             = DMA_LISR_TCIF3,
-      .error_flags                = ( DMA_LISR_TEIF3 | DMA_LISR_FEIF3 | DMA_LISR_DMEIF3 ),
+      .controller                 = DMA2,
+      .stream                     = DMA2_Stream5,
+      .channel                    = DMA_Channel_7,
+      .irq_vector                 = DMA2_Stream5_IRQn,
+      .complete_flags             = DMA_HISR_TCIF5,
+      .error_flags                = ( DMA_HISR_TEIF5 | DMA_HISR_FEIF5 | DMA_HISR_DMEIF5 ),
     },
   }
 };
 
-platform_uart_driver_t platform_uart_drivers[MICO_UART_MAX];
+platform_spi_driver_t platform_spi_drivers[MICO_SPI_MAX];
+
+
 
 const platform_flash_t platform_flash_peripherals[] =
 {
@@ -247,7 +251,7 @@ const mico_spi_device_t mico_spi_flash =
     .port        = MICO_SPI_1,
     .chip_select = MICO_GPIO_26,
     .speed       = 40000000,
-    .mode        = (SPI_CLOCK_RISING_EDGE | SPI_CLOCK_IDLE_HIGH | SPI_NO_DMA | SPI_MSB_FIRST),
+    .mode        = (SPI_CLOCK_RISING_EDGE | SPI_CLOCK_IDLE_HIGH | SPI_USE_DMA | SPI_MSB_FIRST),
     .bits        = 8
 };
 #endif

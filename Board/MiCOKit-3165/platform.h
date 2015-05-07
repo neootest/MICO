@@ -214,6 +214,11 @@ typedef enum
     EasyLink_BUTTON, 
     STDIO_UART_RX,  
     STDIO_UART_TX,  
+    FLASH_PIN_SPI_CS,
+    FLASH_PIN_SPI_CLK,
+    FLASH_PIN_SPI_MOSI,
+    FLASH_PIN_SPI_MISO,
+    
     MICO_GPIO_2,
     MICO_GPIO_8,
     MICO_GPIO_9,

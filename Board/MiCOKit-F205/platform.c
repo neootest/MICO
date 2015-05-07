@@ -94,7 +94,11 @@ const platform_gpio_t platform_gpio_pins[] =
   [STDIO_UART_TX]                     = { GPIOA, 10 },
   [STDIO_UART_CTS]                    = { GPIOA, 12 },  
   [STDIO_UART_RTS]                    = { GPIOA, 11 },
-
+  [FLASH_PIN_SPI_CS  ]                = { GPIOA,  4 },
+  [FLASH_PIN_SPI_CLK ]                = { GPIOA,  5 },
+  [FLASH_PIN_SPI_MOSI]                = { GPIOA,  7 },
+  [FLASH_PIN_SPI_MISO]                = { GPIOA,  6 },
+  
   /* GPIOs for external use */
   [MICO_GPIO_0]                       = { GPIOC,  6 },
   [MICO_GPIO_1]                       = { GPIOC,  7 },
@@ -105,12 +109,12 @@ const platform_gpio_t platform_gpio_pins[] =
   [MICO_GPIO_6]                       = { GPIOC, 10 },
   [MICO_GPIO_7]                       = { GPIOC, 11 },
   [MICO_GPIO_8]                       = { GPIOD,  2 },
-//  [MICO_GPIO_9]
+  //  [MICO_GPIO_9]
   [MICO_GPIO_10]                      = { GPIOA,  4 },
   [MICO_GPIO_11]                      = { GPIOA,  7 },
   [MICO_GPIO_12]                      = { GPIOA,  6 },
   [MICO_GPIO_13]                      = { GPIOA,  5 },
-//  [MICO_GPIO_14]
+  //  [MICO_GPIO_14]
   [MICO_GPIO_15]                      = { GPIOB,  2 },
   [MICO_GPIO_16]                      = { GPIOB, 10 },
   [MICO_GPIO_17]                      = { GPIOB, 11 },
@@ -147,34 +151,62 @@ const platform_pwm_t platform_pwm_peripherals[] =
 
 const platform_spi_t platform_spi_peripherals[] =
 {
-    [MICO_SPI_1]  =
+  [MICO_SPI_1]  =
+  {
+    .port                  = SPI1,
+    .gpio_af               = GPIO_AF_SPI1,
+    .peripheral_clock_reg  = RCC_APB2Periph_SPI1,
+    .peripheral_clock_func = RCC_APB2PeriphClockCmd,
+    .pin_mosi              = &platform_gpio_pins[MICO_GPIO_8],
+    .pin_miso              = &platform_gpio_pins[MICO_GPIO_7],
+    .pin_clock             = &platform_gpio_pins[MICO_GPIO_6],
+    .tx_dma =
     {
-        .port                  = SPI1,
-        .gpio_af               = GPIO_AF_SPI1,
-        .peripheral_clock_reg  = RCC_APB2Periph_SPI1,
-        .peripheral_clock_func = RCC_APB2PeriphClockCmd,
-        .pin_mosi              = &platform_gpio_pins[MICO_GPIO_8],
-        .pin_miso              = &platform_gpio_pins[MICO_GPIO_7],
-        .pin_clock             = &platform_gpio_pins[MICO_GPIO_6],
-        .tx_dma =
-        {
-            .controller        = DMA2,
-            .stream            = DMA2_Stream5,
-            .channel           = DMA_Channel_3,
-            .irq_vector        = DMA2_Stream5_IRQn,
-            .complete_flags    = DMA_HISR_TCIF5,
-            .error_flags       = ( DMA_HISR_TEIF5 | DMA_HISR_FEIF5 | DMA_HISR_DMEIF5 ),
-        },
-        .rx_dma =
-        {
-            .controller        = DMA2,
-            .stream            = DMA2_Stream0,
-            .channel           = DMA_Channel_3,
-            .irq_vector        = DMA2_Stream0_IRQn,
-            .complete_flags    = DMA_LISR_TCIF0,
-            .error_flags       = ( DMA_LISR_TEIF0 | DMA_LISR_FEIF0 | DMA_LISR_DMEIF0 ),
-        },
-    }
+      .controller        = DMA2,
+      .stream            = DMA2_Stream5,
+      .channel           = DMA_Channel_3,
+      .irq_vector        = DMA2_Stream5_IRQn,
+      .complete_flags    = DMA_HISR_TCIF5,
+      .error_flags       = ( DMA_HISR_TEIF5 | DMA_HISR_FEIF5 | DMA_HISR_DMEIF5 ),
+    },
+    .rx_dma =
+    {
+      .controller        = DMA2,
+      .stream            = DMA2_Stream0,
+      .channel           = DMA_Channel_3,
+      .irq_vector        = DMA2_Stream0_IRQn,
+      .complete_flags    = DMA_LISR_TCIF0,
+      .error_flags       = ( DMA_LISR_TEIF0 | DMA_LISR_FEIF0 | DMA_LISR_DMEIF0 ),
+    },
+  },
+  [MICO_SPI_2]  =
+  {
+    .port                         = SPI1,
+    .gpio_af                      = GPIO_AF_SPI1,
+    .peripheral_clock_reg         = RCC_APB2Periph_SPI1,
+    .peripheral_clock_func        = RCC_APB2PeriphClockCmd,
+    .pin_mosi                     = &platform_gpio_pins[FLASH_PIN_SPI_MOSI],
+    .pin_miso                     = &platform_gpio_pins[FLASH_PIN_SPI_MISO],
+    .pin_clock                    = &platform_gpio_pins[FLASH_PIN_SPI_CLK],
+    .tx_dma =
+    {
+      .controller                 = DMA1,
+      .stream                     = DMA1_Stream4,
+      .channel                    = DMA_Channel_0,
+      .irq_vector                 = DMA1_Stream4_IRQn,
+      .complete_flags             = DMA_HISR_TCIF4,
+      .error_flags                = ( DMA_HISR_TEIF4 | DMA_HISR_FEIF4 ),
+    },
+    .rx_dma =
+    {
+      .controller                 = DMA1,
+      .stream                     = DMA1_Stream3,
+      .channel                    = DMA_Channel_0,
+      .irq_vector                 = DMA1_Stream3_IRQn,
+      .complete_flags             = DMA_LISR_TCIF3,
+      .error_flags                = ( DMA_LISR_TEIF3 | DMA_LISR_FEIF3 | DMA_LISR_DMEIF3 ),
+    },
+  }
 };
 
 const platform_uart_t platform_uart_peripherals[] =
@@ -255,6 +287,10 @@ const platform_i2c_t platform_i2c_peripherals[] =
   },
 };
 
+
+platform_spi_driver_t platform_spi_drivers[MICO_SPI_MAX];
+
+
 const platform_flash_t platform_flash_peripherals[] =
 {
   [MICO_SPI_FLASH] =
@@ -274,50 +310,13 @@ const platform_flash_t platform_flash_peripherals[] =
 platform_flash_driver_t platform_flash_drivers[MICO_FLASH_MAX];
 
 #if defined ( USE_MICO_SPI_FLASH )
-
-/* spi flash bus pins. Used by platform/drivers/spi_flash/spi_flash_platform.c */
-const platform_gpio_t spi_flash_spi_pins[] =
+const mico_spi_device_t mico_spi_flash =
 {
-  [FLASH_PIN_SPI_CS  ] = { GPIOA,  4 },
-  [FLASH_PIN_SPI_CLK ] = { GPIOA,  5 },
-  [FLASH_PIN_SPI_MOSI] = { GPIOA,  7 },
-  [FLASH_PIN_SPI_MISO] = { GPIOA,  6 },
-};
-
-const platform_spi_t spi_flash_spi =
-{
-  .port                         = SPI1,
-  .gpio_af                      = GPIO_AF_SPI1,
-  .peripheral_clock_reg         = RCC_APB2Periph_SPI1,
-  .peripheral_clock_func        = RCC_APB2PeriphClockCmd,
-  .pin_mosi                     = &spi_flash_spi_pins[FLASH_PIN_SPI_MOSI],
-  .pin_miso                     = &spi_flash_spi_pins[FLASH_PIN_SPI_MISO],
-  .pin_clock                    = &spi_flash_spi_pins[FLASH_PIN_SPI_CLK],
-  .tx_dma =
-  {
-    .controller                 = DMA1,
-    .stream                     = DMA1_Stream4,
-    .channel                    = DMA_Channel_0,
-    .irq_vector                 = DMA1_Stream4_IRQn,
-    .complete_flags             = DMA_HISR_TCIF4,
-    .error_flags                = ( DMA_HISR_TEIF4 | DMA_HISR_FEIF4 ),
-  },
-  .rx_dma =
-  {
-    .controller                 = DMA1,
-    .stream                     = DMA1_Stream3,
-    .channel                    = DMA_Channel_0,
-    .irq_vector                 = DMA1_Stream3_IRQn,
-    .complete_flags             = DMA_LISR_TCIF3,
-    .error_flags                = ( DMA_LISR_TEIF3 | DMA_LISR_FEIF3 | DMA_LISR_DMEIF3 ),
-  },
-};
-
-const spi_flash_device_t spi_flash_device =
-{
-    .speed       = 40000000,
-    .mode        = (SPI_CLOCK_RISING_EDGE | SPI_CLOCK_IDLE_HIGH | SPI_NO_DMA | SPI_MSB_FIRST),
-    .bits        = 8
+  .port        = MICO_SPI_2,
+  .chip_select = FLASH_PIN_SPI_CS,
+  .speed       = 40000000,
+  .mode        = (SPI_CLOCK_RISING_EDGE | SPI_CLOCK_IDLE_HIGH | SPI_NO_DMA | SPI_MSB_FIRST),
+  .bits        = 8
 };
 #endif
 
@@ -382,11 +381,12 @@ const platform_spi_t wifi_spi =
 /******************************************************
 *           Interrupt Handler Definitions
 ******************************************************/
-
+#ifndef BOOTLOADER
 MICO_RTOS_DEFINE_ISR( DMA1_Stream3_IRQHandler )
 {
   platform_wifi_spi_rx_dma_irq( );
 }
+#endif
 
 MICO_RTOS_DEFINE_ISR( USART1_IRQHandler )
 {
@@ -492,7 +492,7 @@ void init_platform( void )
   //  Initialise Standby/wakeup switcher
   MicoGpioInitialize( (mico_gpio_t)Standby_SEL, INPUT_PULL_UP );
   MicoGpioEnableIRQ( (mico_gpio_t)Standby_SEL , IRQ_TRIGGER_FALLING_EDGE, _button_STANDBY_irq_handler, NULL);
-
+  
 #if defined ( USE_MICO_SPI_FLASH )
   MicoFlashInitialize( MICO_SPI_FLASH );
 #endif
@@ -511,20 +511,20 @@ void init_platform_bootloader( void )
 
 void MicoSysLed(bool onoff)
 {
-    if (onoff) {
-        MicoGpioOutputLow( (mico_gpio_t)MICO_SYS_LED );
-    } else {
-        MicoGpioOutputHigh( (mico_gpio_t)MICO_SYS_LED );
-    }
+  if (onoff) {
+    MicoGpioOutputLow( (mico_gpio_t)MICO_SYS_LED );
+  } else {
+    MicoGpioOutputHigh( (mico_gpio_t)MICO_SYS_LED );
+  }
 }
 
 void MicoRfLed(bool onoff)
 {
-    if (onoff) {
-        MicoGpioOutputLow( (mico_gpio_t)MICO_RF_LED );
-    } else {
-        MicoGpioOutputHigh( (mico_gpio_t)MICO_RF_LED );
-    }
+  if (onoff) {
+    MicoGpioOutputLow( (mico_gpio_t)MICO_RF_LED );
+  } else {
+    MicoGpioOutputHigh( (mico_gpio_t)MICO_RF_LED );
+  }
 }
 
 bool MicoShouldEnterMFGMode(void)

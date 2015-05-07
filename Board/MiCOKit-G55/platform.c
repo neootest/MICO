@@ -86,10 +86,14 @@ const platform_gpio_t platform_gpio_pins[] =
   /* Common GPIOs for internal use */
   [STDIO_UART_TX]                       = { IOPORT_CREATE_PIN( PIOA, 28 ),  false, 0, 0  },
   [STDIO_UART_RX]                       = { IOPORT_CREATE_PIN( PIOA, 29 ),  false, 0, 0 },  
+
+  [FLASH_PIN_SPI_CS  ]                  = { IOPORT_CREATE_PIN( PIOA, 19 ),  false, 0, 0 }, 
+  [FLASH_PIN_SPI_CLK ]                  = { IOPORT_CREATE_PIN( PIOB, 13 ),  false, 0, 0 },
+  [FLASH_PIN_SPI_MOSI]                  = { IOPORT_CREATE_PIN( PIOA,  3 ),  false, 0, 0 },
+  [FLASH_PIN_SPI_MISO]                  = { IOPORT_CREATE_PIN( PIOA,  4 ),  false, 0, 0 },
  
 
   /* GPIOs for external use */
-  [WL_GPIO0]                          = { IOPORT_CREATE_PIN( PIOA, 26 ),  false, 0, 0 },
   [MICO_GPIO_0]                       = { IOPORT_CREATE_PIN( PIOA,  6 ),  false, 0, 0  },
   [MICO_GPIO_1]                       = { IOPORT_CREATE_PIN( PIOA,  2 ),  true,  2, IOPORT_SENSE_FALLING },
   [MICO_GPIO_2]                       = { IOPORT_CREATE_PIN( PIOB,  0 ),  false, 0, 0  },
@@ -103,7 +107,24 @@ const platform_adc_t *platform_adc_peripherals = NULL;
 /* PWM mappings */
 const platform_pwm_t *platform_pwm_peripherals = NULL;
 
-const platform_spi_t *platform_spi_peripherals = NULL;
+const platform_spi_t platform_spi_peripherals [] =  
+{
+  [MICO_SPI_1] =
+  {
+    .spi_id                       = 3,
+    .port                         = SPI3,
+    .peripheral_id                = ID_FLEXCOM3,
+    .mosi_pin                     = &platform_gpio_pins[FLASH_PIN_SPI_MOSI],
+    .mosi_pin_mux_mode            = IOPORT_MODE_MUX_A,
+    .miso_pin                     = &platform_gpio_pins[FLASH_PIN_SPI_MISO],
+    .miso_pin_mux_mode            = IOPORT_MODE_MUX_A,
+    .clock_pin                    = &platform_gpio_pins[FLASH_PIN_SPI_CLK],
+    .clock_pin_mux_mode           = IOPORT_MODE_MUX_A,
+  },
+};
+
+
+platform_spi_driver_t *platform_spi_drivers = NULL ;
 
 const platform_uart_t platform_uart_peripherals[] =
 {
@@ -195,31 +216,10 @@ const platform_spi_t wifi_spi =
 };
 
 #if defined ( USE_MICO_SPI_FLASH )
-
-/* spi flash bus pins. Used by platform/drivers/spi_flash/spi_flash_platform.c */
-const platform_gpio_t spi_flash_spi_pins[] =
+const mico_spi_device_t mico_spi_flash =
 {
-  [FLASH_PIN_SPI_CS  ] = { IOPORT_CREATE_PIN( PIOA, 19 ),  false, 0, 0 }, 
-  [FLASH_PIN_SPI_CLK ] = { IOPORT_CREATE_PIN( PIOB, 13 ),  false, 0, 0 },
-  [FLASH_PIN_SPI_MOSI] = { IOPORT_CREATE_PIN( PIOA,  3 ),  false, 0, 0 },
-  [FLASH_PIN_SPI_MISO] = { IOPORT_CREATE_PIN( PIOA,  4 ),  false, 0, 0 },
-};
-
-const platform_spi_t spi_flash_spi =
-{
-  .spi_id                       = 3,
-  .port                         = SPI3,
-  .peripheral_id                = ID_FLEXCOM3,
-  .mosi_pin                     = &spi_flash_spi_pins[FLASH_PIN_SPI_MOSI],
-  .mosi_pin_mux_mode            = IOPORT_MODE_MUX_A,
-  .miso_pin                     = &spi_flash_spi_pins[FLASH_PIN_SPI_MISO],
-  .miso_pin_mux_mode            = IOPORT_MODE_MUX_A,
-  .clock_pin                    = &spi_flash_spi_pins[FLASH_PIN_SPI_CLK],
-  .clock_pin_mux_mode           = IOPORT_MODE_MUX_A,
-};
-
-const spi_flash_device_t spi_flash_device =
-{
+  .port        = MICO_SPI_1,
+  .chip_select = FLASH_PIN_SPI_CS,
   .speed       = 40000000,
   .mode        = (SPI_CLOCK_RISING_EDGE | SPI_CLOCK_IDLE_HIGH | SPI_NO_DMA | SPI_MSB_FIRST),
   .bits        = 8,
@@ -270,11 +270,6 @@ static void _button_EL_irq_handler( void* arg )
   }
 }
 
-static void _button_STANDBY_irq_handler( void* arg )
-{
-  (void)(arg);
-  PlatformStandbyButtonClickedCallback();
-}
 
 static void _button_EL_Timeout_handler( void* arg )
 {
@@ -320,10 +315,6 @@ void init_platform( void )
   MicoGpioInitialize( (mico_gpio_t)EasyLink_BUTTON, INPUT_PULL_UP );
   mico_init_timer(&_button_EL_timer, RestoreDefault_TimeOut, _button_EL_Timeout_handler, NULL);
   MicoGpioEnableIRQ( (mico_gpio_t)EasyLink_BUTTON, IRQ_TRIGGER_BOTH_EDGES, _button_EL_irq_handler, NULL );
-//  
-//  //  Initialise Standby/wakeup switcher
-//  MicoGpioInitialize( (mico_gpio_t)Standby_SEL, INPUT_PULL_UP );
-//  MicoGpioEnableIRQ( (mico_gpio_t)Standby_SEL , IRQ_TRIGGER_FALLING_EDGE, _button_STANDBY_irq_handler, NULL);
 
 #if defined ( USE_MICO_SPI_FLASH )
   MicoFlashInitialize( MICO_SPI_FLASH );

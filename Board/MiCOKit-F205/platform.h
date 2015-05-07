@@ -207,6 +207,10 @@ typedef enum
     STDIO_UART_TX,  
     STDIO_UART_CTS,  
     STDIO_UART_RTS,
+    FLASH_PIN_SPI_CS,
+    FLASH_PIN_SPI_CLK,
+    FLASH_PIN_SPI_MOSI,
+    FLASH_PIN_SPI_MISO,
 
     MICO_GPIO_0,
     MICO_GPIO_1, 
@@ -247,6 +251,7 @@ typedef enum
 typedef enum
 {
     MICO_SPI_1,
+    MICO_SPI_2,
     MICO_SPI_MAX, /* Denotes the total number of SPI port aliases. Not a valid SPI alias */
     MICO_SPI_NONE,
 } mico_spi_t;

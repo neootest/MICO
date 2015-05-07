@@ -165,6 +165,12 @@ typedef struct
 
 typedef struct
 {
+    platform_spi_t*           peripheral;
+    mico_mutex_t              spi_mutex;
+} platform_spi_driver_t;
+
+typedef struct
+{
     uint8_t unimplemented;
 } platform_spi_slave_driver_t;
 

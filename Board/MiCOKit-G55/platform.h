@@ -199,7 +199,10 @@ typedef enum
 {
     STDIO_UART_TX,
     STDIO_UART_RX,
-    WL_GPIO0,
+    FLASH_PIN_SPI_CS,
+    FLASH_PIN_SPI_CLK,
+    FLASH_PIN_SPI_MOSI,
+    FLASH_PIN_SPI_MISO,
 
     MICO_GPIO_0,
     MICO_GPIO_1, 

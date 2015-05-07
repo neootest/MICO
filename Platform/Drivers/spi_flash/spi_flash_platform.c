@@ -31,6 +31,10 @@ int sflash_platform_init ( /*@shared@*/ void* peripheral_id, /*@out@*/ void** pl
 extern int sflash_platform_send_recv ( const void* platform_peripheral, /*@in@*/ /*@out@*/ sflash_platform_message_segment_t* segments, unsigned int num_segments  )
 {
     UNUSED_PARAMETER( platform_peripheral );
+    if ( 0 != sflash_platform_init( NULL, NULL ) )
+    {
+        return -1;
+    }
 
     if ( kNoErr != MicoSpiTransfer( &mico_spi_flash, (mico_spi_message_segment_t*) segments, (uint16_t) num_segments ) )
     {

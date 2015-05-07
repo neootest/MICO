@@ -72,28 +72,42 @@ static Flexcom  *flexcom_base[] =
 *               Function Definitions
 ******************************************************/
 
-OSStatus platform_spi_init( const platform_spi_t* spi, const platform_spi_config_t* config )
+OSStatus platform_spi_init( platform_spi_driver_t* driver, const platform_spi_t* peripheral, const platform_spi_config_t* config )
 {
-  UNUSED_PARAMETER(spi);
-  UNUSED_PARAMETER(config);
   pdc_packet_t  pdc_spi_packet;
+  OSStatus      err;
 
   platform_mcu_powersave_disable( );
 
-  Pdc* spi_pdc = spi_get_pdc_base( spi->port );
+  require_action_quiet( ( driver != NULL ) && ( peripheral != NULL ) && ( config != NULL ), exit, err = kParamErr);
+
+#ifndef NO_MICO_RTOS
+  if( driver->spi_mutex == NULL)
+    mico_rtos_init_mutex( &driver->spi_mutex );
+#endif
+
+  driver->peripheral = (platform_spi_t *)peripheral;
+
+  /* Operate hardware, request a lock */
+#ifndef NO_MICO_RTOS
+  mico_rtos_lock_mutex( &driver->spi_mutex );
+#endif
+
+
+  Pdc* spi_pdc = spi_get_pdc_base( peripheral->port );
 
   /* Setup chip select pin */
   platform_gpio_init( config->chip_select, OUTPUT_PUSH_PULL );
   platform_gpio_output_high( config->chip_select );
 
   /* Setup other pins */
-  platform_gpio_peripheral_pin_init( spi->mosi_pin,   ( spi->mosi_pin_mux_mode | IOPORT_MODE_PULLUP ) );
-  platform_gpio_peripheral_pin_init( spi->miso_pin,   ( spi->miso_pin_mux_mode | IOPORT_MODE_PULLUP ) );
-  platform_gpio_peripheral_pin_init( spi->clock_pin,  ( spi->clock_pin_mux_mode | IOPORT_MODE_PULLUP ) );
+  platform_gpio_peripheral_pin_init( peripheral->mosi_pin,   ( peripheral->mosi_pin_mux_mode | IOPORT_MODE_PULLUP ) );
+  platform_gpio_peripheral_pin_init( peripheral->miso_pin,   ( peripheral->miso_pin_mux_mode | IOPORT_MODE_PULLUP ) );
+  platform_gpio_peripheral_pin_init( peripheral->clock_pin,  ( peripheral->clock_pin_mux_mode | IOPORT_MODE_PULLUP ) );
 
   /* Enable the peripheral and set SPI mode. */
-  flexcom_enable( flexcom_base[ spi->spi_id ] );
-  flexcom_set_opmode( flexcom_base[ spi->spi_id ], FLEXCOM_SPI );
+  flexcom_enable( flexcom_base[ peripheral->spi_id ] );
+  flexcom_set_opmode( flexcom_base[ peripheral->spi_id ], FLEXCOM_SPI );
 
   /* Init pdc, and clear RX TX. */
   pdc_spi_packet.ul_addr = 0;
@@ -102,34 +116,43 @@ OSStatus platform_spi_init( const platform_spi_t* spi, const platform_spi_config
   pdc_rx_init( spi_pdc, &pdc_spi_packet, NULL );
 
   /* Configure an SPI peripheral. */
-  spi_disable( spi->port );
-  spi_reset( spi->port );
-  spi_set_lastxfer( spi->port );
-  spi_set_master_mode( spi->port );
-  spi_disable_mode_fault_detect( spi->port );
-  spi_set_peripheral_chip_select_value( spi->port, 0 );
+  spi_disable( peripheral->port );
+  spi_reset( peripheral->port );
+  spi_set_lastxfer( peripheral->port );
+  spi_set_master_mode( peripheral->port );
+  spi_disable_mode_fault_detect( peripheral->port );
+  spi_set_peripheral_chip_select_value( peripheral->port, 0 );
 
-  spi_set_clock_polarity( spi->port, 0, ( ( config->mode & SPI_CLOCK_IDLE_HIGH )   ? (1) : (0) ) );
-  spi_set_clock_phase( spi->port, 0,    ( ( config->mode & SPI_CLOCK_FALLING_EDGE ) ? (1) : (0) ) );
+  spi_set_clock_polarity( peripheral->port, 0, ( ( config->mode & SPI_CLOCK_IDLE_HIGH )   ? (1) : (0) ) );
+  spi_set_clock_phase( peripheral->port, 0,    ( ( config->mode & SPI_CLOCK_FALLING_EDGE ) ? (1) : (0) ) );
 
-  spi_set_bits_per_transfer( spi->port, 0, SPI_CSR_BITS_8_BIT );
-  spi_set_baudrate_div( spi->port, 0, (uint8_t)( sysclk_get_cpu_hz()  / config->speed ) );
-  spi_set_transfer_delay( spi->port, 0, 0, 0 );
-  spi_enable( spi->port );
+  spi_set_bits_per_transfer( peripheral->port, 0, SPI_CSR_BITS_8_BIT );
+  spi_set_baudrate_div( peripheral->port, 0, (uint8_t)( sysclk_get_cpu_hz()  / config->speed ) );
+  spi_set_transfer_delay( peripheral->port, 0, 0, 0 );
+  spi_enable( peripheral->port );
   pdc_disable_transfer( spi_pdc, PERIPH_PTCR_RXTDIS | PERIPH_PTCR_TXTDIS );
 
-  platform_mcu_powersave_enable( );
+#ifndef NO_MICO_RTOS
+  mico_rtos_unlock_mutex( &driver->spi_mutex );
+#endif
 
+exit:
+  platform_mcu_powersave_enable( );
   return kNoErr;
 }
 
-OSStatus platform_spi_deinit( const platform_spi_t* spi )
+OSStatus platform_spi_deinit( platform_spi_driver_t* driver )
 {
-  UNUSED_PARAMETER(spi);
-
+#ifndef NO_MICO_RTOS
+  mico_rtos_lock_mutex( &driver->spi_mutex );
+#endif
   /* Disable the RX and TX PDC transfer requests */
-  spi_disable( spi->port );
-  spi_reset( spi->port );
+  spi_disable( driver->peripheral->port );
+  spi_reset( driver->peripheral->port );
+
+#ifndef NO_MICO_RTOS
+  mico_rtos_unlock_mutex( &driver->spi_mutex );
+#endif
   return kNoErr;
 }
 
@@ -223,17 +246,21 @@ OSStatus samg5x_spi_transfer_internal( const platform_spi_t* spi, const uint8_t*
 }
 
 
-OSStatus platform_spi_transfer( const platform_spi_t* spi, const platform_spi_config_t* config, const platform_spi_message_segment_t* segments, uint16_t number_of_segments )
+OSStatus platform_spi_transfer( platform_spi_driver_t* driver, const platform_spi_config_t* config, const platform_spi_message_segment_t* segments, uint16_t number_of_segments )
 {
   int i = 0;
   OSStatus result;
   platform_mcu_powersave_disable( );
 
+#ifndef NO_MICO_RTOS
+  mico_rtos_lock_mutex( &driver->spi_mutex );
+#endif
+
   platform_gpio_output_low( config->chip_select );
 
   for ( i = 0; i < number_of_segments; i++ )
   {
-    result = samg5x_spi_transfer_internal( spi, segments[i].tx_buffer, segments[i].rx_buffer, segments[i].length );
+    result = samg5x_spi_transfer_internal( driver->peripheral, segments[i].tx_buffer, segments[i].rx_buffer, segments[i].length );
 
     if ( result != kNoErr )
     {
@@ -242,6 +269,10 @@ OSStatus platform_spi_transfer( const platform_spi_t* spi, const platform_spi_co
   }
 
   platform_gpio_output_high( config->chip_select );
+
+#ifndef NO_MICO_RTOS
+  mico_rtos_unlock_mutex( &driver->spi_mutex );
+#endif
 
   platform_mcu_powersave_enable( );
 
