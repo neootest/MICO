@@ -75,14 +75,12 @@ void micoNotify_ReadAppInfoHandler(char *str, int len, mico_Context_t * const in
   snprintf( str, len, "%s, build at %s %s", APP_INFO, __TIME__, __DATE__);
 }
 
-
+bool needsUpdate = false;
 
 USED void PlatformEasyLinkButtonClickedCallback(void)
 {
   mico_log_trace();
-  bool needsUpdate = false;
-  mico_log("PlatformEasyLinkButtonClickedCallback");
-  
+    
   if(context->flashContentInRam.micoSystemConfig.easyLinkByPass != EASYLINK_BYPASS_NO){
     context->flashContentInRam.micoSystemConfig.easyLinkByPass = EASYLINK_BYPASS_NO;
     needsUpdate = true;
@@ -92,10 +90,7 @@ USED void PlatformEasyLinkButtonClickedCallback(void)
     context->flashContentInRam.micoSystemConfig.configured = wLanUnConfigured;
     needsUpdate = true;
   }
-  
-  if(needsUpdate == true)
-    MICOUpdateConfiguration(context);
-  
+ 
   context->micoStatus.sys_state = eState_Software_Reset;
   require(context->micoStatus.sys_state_change_sem, exit);
   mico_rtos_set_semaphore(&context->micoStatus.sys_state_change_sem);
@@ -445,6 +440,10 @@ int application_start(void)
   
   /*System status changed*/
   while(mico_rtos_get_semaphore(&context->micoStatus.sys_state_change_sem, MICO_WAIT_FOREVER)==kNoErr){
+    
+    if(needsUpdate == true)
+      MICOUpdateConfiguration(context);
+    
     switch(context->micoStatus.sys_state){
       case eState_Normal:
         break;
