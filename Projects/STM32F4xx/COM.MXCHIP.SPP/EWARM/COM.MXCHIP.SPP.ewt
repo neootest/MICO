@@ -595,6 +595,15 @@
         </file>
       </group>
       <group>
+        <name>RGB LED</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\rgb_led\rgb_led.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\rgb_led\rgb_led_platform.c</name>
+        </file>
+      </group>
+      <group>
         <name>SPI Flash</name>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash\spi_flash.c</name>

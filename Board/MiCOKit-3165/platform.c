@@ -89,6 +89,10 @@ const platform_gpio_t platform_gpio_pins[] =
   [EasyLink_BUTTON]                   = { GPIOA,  1 }, 
   [STDIO_UART_RX]                     = { GPIOA,  3 },  
   [STDIO_UART_TX]                     = { GPIOA,  2 },  
+  [FLASH_PIN_SPI_CS  ]                = { GPIOA, 15 },
+  [FLASH_PIN_SPI_CLK ]                = { GPIOB,  3 },
+  [FLASH_PIN_SPI_MOSI]                = { GPIOA,  7 },
+  [FLASH_PIN_SPI_MISO]                = { GPIOB,  4 },
 
   /* GPIOs for external use */
   [MICO_GPIO_2]                       = { GPIOB,  2 },
@@ -169,6 +173,38 @@ const platform_uart_t platform_uart_peripherals[] =
   },
 };
 
+const platform_spi_t platform_spi_peripherals[] =
+{
+  [MICO_SPI_1]  =
+  {
+    .port                         = SPI1,
+    .gpio_af                      = GPIO_AF_SPI1,
+    .peripheral_clock_reg         = RCC_APB2Periph_SPI1,
+    .peripheral_clock_func        = RCC_APB2PeriphClockCmd,
+    .pin_mosi                     = &platform_gpio_pins[FLASH_PIN_SPI_MOSI],
+    .pin_miso                     = &platform_gpio_pins[FLASH_PIN_SPI_MISO],
+    .pin_clock                    = &platform_gpio_pins[FLASH_PIN_SPI_CLK],
+    .tx_dma =
+    {
+      .controller                 = DMA2,
+      .stream                     = DMA2_Stream5,
+      .channel                    = DMA_Channel_3,
+      .irq_vector                 = DMA2_Stream5_IRQn,
+      .complete_flags             = DMA_HISR_TCIF5,
+      .error_flags                = ( DMA_HISR_TEIF5 | DMA_HISR_FEIF5 ),
+    },
+    .rx_dma =
+    {
+      .controller                 = DMA2,
+      .stream                     = DMA2_Stream0,
+      .channel                    = DMA_Channel_3,
+      .irq_vector                 = DMA2_Stream0_IRQn,
+      .complete_flags             = DMA_LISR_TCIF0,
+      .error_flags                = ( DMA_LISR_TEIF0 | DMA_LISR_FEIF0 | DMA_LISR_DMEIF0 ),
+    },
+  }
+};
+
 platform_uart_driver_t platform_uart_drivers[MICO_UART_MAX];
 
 const platform_flash_t platform_flash_peripherals[] =
@@ -190,50 +226,13 @@ const platform_flash_t platform_flash_peripherals[] =
 platform_flash_driver_t platform_flash_drivers[MICO_FLASH_MAX];
 
 #if defined ( USE_MICO_SPI_FLASH )
-
-/* spi flash bus pins. Used by platform/drivers/spi_flash/spi_flash_platform.c */
-const platform_gpio_t spi_flash_spi_pins[] =
+const mico_spi_device_t mico_spi_flash =
 {
-  [FLASH_PIN_SPI_CS  ]          = { GPIOA, 15 },
-  [FLASH_PIN_SPI_CLK ]          = { GPIOB,  3 },
-  [FLASH_PIN_SPI_MOSI]          = { GPIOA,  7 },
-  [FLASH_PIN_SPI_MISO]          = { GPIOB,  4 },
-};
-
-const platform_spi_t spi_flash_spi =
-{
-  .port                         = SPI1,
-  .gpio_af                      = GPIO_AF_SPI1,
-  .peripheral_clock_reg         = RCC_APB2Periph_SPI1,
-  .peripheral_clock_func        = RCC_APB2PeriphClockCmd,
-  .pin_mosi                     = &spi_flash_spi_pins[FLASH_PIN_SPI_MOSI],
-  .pin_miso                     = &spi_flash_spi_pins[FLASH_PIN_SPI_MISO],
-  .pin_clock                    = &spi_flash_spi_pins[FLASH_PIN_SPI_CLK],
-  .tx_dma =
-  {
-    .controller                 = DMA2,
-    .stream                     = DMA2_Stream5,
-    .channel                    = DMA_Channel_3,
-    .irq_vector                 = DMA2_Stream5_IRQn,
-    .complete_flags             = DMA_HISR_TCIF5,
-    .error_flags                = ( DMA_HISR_TEIF5 | DMA_HISR_FEIF5 ),
-  },
-  .rx_dma =
-  {
-    .controller                 = DMA2,
-    .stream                     = DMA2_Stream0,
-    .channel                    = DMA_Channel_3,
-    .irq_vector                 = DMA2_Stream0_IRQn,
-    .complete_flags             = DMA_LISR_TCIF0,
-    .error_flags                = ( DMA_LISR_TEIF0 | DMA_LISR_FEIF0 | DMA_LISR_DMEIF0 ),
-  },
-};
-
-const spi_flash_device_t spi_flash_device =
-{
-    .speed       = 40000000,
-    .mode        = (SPI_CLOCK_RISING_EDGE | SPI_CLOCK_IDLE_HIGH | SPI_USE_DMA | SPI_MSB_FIRST ),
-    .bits        = 8
+  .port        = MICO_SPI_1,
+  .chip_select = FLASH_PIN_SPI_CS,
+  .speed       = 40000000,
+  .mode        = (SPI_CLOCK_RISING_EDGE | SPI_CLOCK_IDLE_HIGH | SPI_USE_DMA | SPI_MSB_FIRST ),
+  .bits        = 8
 };
 #endif
 

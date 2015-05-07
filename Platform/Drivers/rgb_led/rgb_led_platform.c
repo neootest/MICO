@@ -26,11 +26,23 @@
 #define rgb_led_log(M, ...)
 #define rgb_led_log_trace()
 
+#ifdef USE_RGB_LED_DRIVER_P9813
+
 #define P9813_CIN_Clr()        MicoGpioOutputLow(RGB_LED_P9813_CIN)  
 #define P9813_CIN_Set()        MicoGpioOutputHigh(RGB_LED_P9813_CIN)
 
 #define P9813_DIN_Clr()        MicoGpioOutputLow(RGB_LED_P9813_DIN) 
 #define P9813_DIN_Set()        MicoGpioOutputHigh(RGB_LED_P9813_DIN)
+
+#else
+
+#define P9813_CIN_Clr()        
+#define P9813_CIN_Set()       
+
+#define P9813_DIN_Clr()        
+#define P9813_DIN_Set()        
+
+#endif
 
 /* use gpio */
 static void P9813_write_frame(uint32_t data)

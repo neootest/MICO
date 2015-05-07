@@ -40,8 +40,10 @@
 #include "PlatformLogging.h"
 #include "spi_flash_platform_interface.h"
 #include "wlan_platform_common.h"
-#include "rgb_led.h"
 
+#ifdef USE_MiCOKit_EXT
+#include "rgb_led.h"
+#endif
 
 /******************************************************
 *                      Macros
@@ -157,6 +159,64 @@ const platform_uart_t platform_uart_peripherals[] =
       .error_flags                = ( DMA_HISR_TEIF5 | DMA_HISR_FEIF5 | DMA_HISR_DMEIF5 ),
     },
   },
+  [MICO_UART_2] =
+  {
+    .port                         = USART1,
+    .pin_tx                       = &platform_gpio_pins[Arduino_TXD],
+    .pin_rx                       = &platform_gpio_pins[Arduino_RXD],
+    .pin_cts                      = NULL,
+    .pin_rts                      = NULL,
+    .tx_dma_config =
+    {
+      .controller                 = DMA2,
+      .stream                     = DMA2_Stream7,
+      .channel                    = DMA_Channel_4,
+      .irq_vector                 = DMA2_Stream7_IRQn,
+      .complete_flags             = DMA_HISR_TCIF7,
+      .error_flags                = ( DMA_HISR_TEIF7 | DMA_HISR_FEIF7 ),
+    },
+    .rx_dma_config =
+    {
+      .controller                 = DMA2,
+      .stream                     = DMA2_Stream2,
+      .channel                    = DMA_Channel_4,
+      .irq_vector                 = DMA2_Stream2_IRQn,
+      .complete_flags             = DMA_LISR_TCIF2,
+      .error_flags                = ( DMA_LISR_TEIF2 | DMA_LISR_FEIF2 | DMA_LISR_DMEIF2 ),
+    },
+  },
+};
+
+const platform_spi_t platform_spi_peripherals[] =
+{
+  [MICO_SPI_1]  =
+  {
+    .port                         = SPI5,
+    .gpio_af                      = GPIO_AF6_SPI5,
+    .peripheral_clock_reg         = RCC_APB2Periph_SPI5,
+    .peripheral_clock_func        = RCC_APB2PeriphClockCmd,
+    .pin_mosi                     = &platform_gpio_pins[MICO_GPIO_28],
+    .pin_miso                     = &platform_gpio_pins[MICO_GPIO_27],
+    .pin_clock                    = &platform_gpio_pins[MICO_GPIO_25],
+    .tx_dma = 
+    {
+      .controller                 = DMA1,
+      .stream                     = DMA1_Stream4,
+      .channel                    = DMA_Channel_0,
+      .irq_vector                 = DMA1_Stream4_IRQn,
+      .complete_flags             = DMA_HISR_TCIF4,
+      .error_flags                = ( DMA_HISR_TEIF4 | DMA_HISR_FEIF4 ),
+    },
+    .rx_dma = 
+    {
+      .controller                 = DMA1,
+      .stream                     = DMA1_Stream3,
+      .channel                    = DMA_Channel_0,
+      .irq_vector                 = DMA1_Stream3_IRQn,
+      .complete_flags             = DMA_LISR_TCIF3,
+      .error_flags                = ( DMA_LISR_TEIF3 | DMA_LISR_FEIF3 | DMA_LISR_DMEIF3 ),
+    },
+  }
 };
 
 platform_uart_driver_t platform_uart_drivers[MICO_UART_MAX];
@@ -179,54 +239,18 @@ const platform_flash_t platform_flash_peripherals[] =
 
 platform_flash_driver_t platform_flash_drivers[MICO_FLASH_MAX];
 
+
+
 #if defined ( USE_MICO_SPI_FLASH )
-
-/* spi flash bus pins. Used by platform/drivers/spi_flash/spi_flash_platform.c */
-const platform_gpio_t spi_flash_spi_pins[] =
+const mico_spi_device_t mico_spi_flash =
 {
-  [FLASH_PIN_SPI_CS  ]          = { GPIOB,  1 },
-  [FLASH_PIN_SPI_CLK ]          = { GPIOB,  0 },
-  [FLASH_PIN_SPI_MOSI]          = { GPIOA, 10 },
-  [FLASH_PIN_SPI_MISO]          = { GPIOA, 12 },
-};
-
-const platform_spi_t spi_flash_spi =
-{
-  .port                         = SPI5,
-  .gpio_af                      = GPIO_AF6_SPI5,
-  .peripheral_clock_reg         = RCC_APB2Periph_SPI5,
-  .peripheral_clock_func        = RCC_APB2PeriphClockCmd,
-  .pin_mosi                     = &spi_flash_spi_pins[FLASH_PIN_SPI_MOSI],
-  .pin_miso                     = &spi_flash_spi_pins[FLASH_PIN_SPI_MISO],
-  .pin_clock                    = &spi_flash_spi_pins[FLASH_PIN_SPI_CLK],
-  .tx_dma = //Not used in current driver
-  {
-    .controller                 = DMA1,
-    .stream                     = DMA1_Stream4,
-    .channel                    = DMA_Channel_0,
-    .irq_vector                 = DMA1_Stream4_IRQn,
-    .complete_flags             = DMA_HISR_TCIF4,
-    .error_flags                = ( DMA_HISR_TEIF4 | DMA_HISR_FEIF4 ),
-  },
-  .rx_dma = //Not used in current driver
-  {
-    .controller                 = DMA1,
-    .stream                     = DMA1_Stream3,
-    .channel                    = DMA_Channel_0,
-    .irq_vector                 = DMA1_Stream3_IRQn,
-    .complete_flags             = DMA_LISR_TCIF3,
-    .error_flags                = ( DMA_LISR_TEIF3 | DMA_LISR_FEIF3 | DMA_LISR_DMEIF3 ),
-  },
-};
-
-const spi_flash_device_t spi_flash_device =
-{
+    .port        = MICO_SPI_1,
+    .chip_select = MICO_GPIO_26,
     .speed       = 40000000,
     .mode        = (SPI_CLOCK_RISING_EDGE | SPI_CLOCK_IDLE_HIGH | SPI_NO_DMA | SPI_MSB_FIRST),
     .bits        = 8
 };
 #endif
-
 
 /* Wi-Fi control pins. Used by platform/MCU/wlan_platform_common.c
 */

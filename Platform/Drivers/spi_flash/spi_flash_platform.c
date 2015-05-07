@@ -8,27 +8,15 @@
  * written permission of Broadcom Corporation.
  */
 #include "spi_flash_platform_interface.h"
-#include "platform.h"
-#include "platform_peripheral.h"
+#include "MicoPlatform.h"
 
 #if defined ( USE_MICO_SPI_FLASH )
-
-extern const spi_flash_device_t spi_flash_device;
-extern const platform_spi_t     spi_flash_spi;
-extern const platform_gpio_t    spi_flash_spi_pins[];
 
 int sflash_platform_init ( /*@shared@*/ void* peripheral_id, /*@out@*/ void** platform_peripheral_out )
 {
     UNUSED_PARAMETER( peripheral_id );  /* Unused due to single SPI Flash */
 
-    platform_spi_config_t config;
-
-    config.chip_select = &spi_flash_spi_pins[FLASH_PIN_SPI_CS];
-    config.speed       = spi_flash_device.speed;
-    config.mode        = spi_flash_device.mode;
-    config.bits        = spi_flash_device.bits;
-  
-    if ( kNoErr != platform_spi_init( &spi_flash_spi, &config ) )
+    if ( kNoErr != MicoSpiInitialize( &mico_spi_flash ) )
     {
         /*@-mustdefine@*/ /* Lint: failed - do not define platform peripheral */
         return -1;
@@ -36,7 +24,6 @@ int sflash_platform_init ( /*@shared@*/ void* peripheral_id, /*@out@*/ void** pl
     }
 
     *platform_peripheral_out = NULL;
-
     return 0;
 }
 
@@ -45,14 +32,7 @@ extern int sflash_platform_send_recv ( const void* platform_peripheral, /*@in@*/
 {
     UNUSED_PARAMETER( platform_peripheral );
 
-    platform_spi_config_t config;
-
-    config.chip_select = &spi_flash_spi_pins[FLASH_PIN_SPI_CS];
-    config.speed       = spi_flash_device.speed;
-    config.mode        = spi_flash_device.mode;
-    config.bits        = spi_flash_device.bits;
-
-    if ( kNoErr != platform_spi_transfer( &spi_flash_spi, &config, (platform_spi_message_segment_t*)segments, num_segments  ) )
+    if ( kNoErr != MicoSpiTransfer( &mico_spi_flash, (mico_spi_message_segment_t*) segments, (uint16_t) num_segments ) )
     {
         return -1;
     }
