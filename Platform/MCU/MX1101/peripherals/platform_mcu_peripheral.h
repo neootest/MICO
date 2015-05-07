@@ -142,6 +142,7 @@ typedef struct
 {
     platform_uart_t*           peripheral;
     ring_buffer_t*             rx_buffer;
+    volatile int               buart_fifo_head;
 #ifndef NO_MICO_RTOS
     mico_semaphore_t           rx_complete;
     mico_semaphore_t           tx_complete;
