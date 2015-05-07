@@ -62,24 +62,25 @@
 *               Function Definitions
 ******************************************************/
 
-OSStatus platform_spi_init( const platform_spi_t* spi, const platform_spi_config_t* config )
+OSStatus platform_spi_init( platform_spi_driver_t* driver, const platform_spi_t* peripheral, const platform_spi_config_t* config )
 {
-  UNUSED_PARAMETER(spi);
+  UNUSED_PARAMETER(driver);
+  UNUSED_PARAMETER(peripheral);
   UNUSED_PARAMETER(config);
   platform_log("unimplemented");
   return kUnsupportedErr;
 }
 
-OSStatus platform_spi_deinit( const platform_spi_t* spi )
+OSStatus platform_spi_deinit( platform_spi_driver_t* driver )
 {
-  UNUSED_PARAMETER( spi );
+  UNUSED_PARAMETER(driver);
   platform_log("unimplemented");
   return kUnsupportedErr;
 }
 
-OSStatus platform_spi_transfer( const platform_spi_t* spi, const platform_spi_config_t* config, const platform_spi_message_segment_t* segments, uint16_t number_of_segments )
+OSStatus platform_spi_transfer( platform_spi_driver_t* driver, const platform_spi_config_t* config, const platform_spi_message_segment_t* segments, uint16_t number_of_segments )
 {
-  UNUSED_PARAMETER(spi);
+  UNUSED_PARAMETER(driver);
   UNUSED_PARAMETER(config);
   UNUSED_PARAMETER(segments);
   UNUSED_PARAMETER(number_of_segments);

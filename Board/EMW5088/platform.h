@@ -67,7 +67,6 @@ typedef enum
 
 typedef enum
 {
-    MICO_SPI_1,
     MICO_SPI_MAX, /* Denotes the total number of SPI port aliases. Not a valid SPI alias */
     MICO_SPI_NONE,
 } mico_spi_t;

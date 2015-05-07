@@ -129,6 +129,8 @@ const platform_pwm_t *platform_pwm_peripherals = NULL;
 
 const platform_spi_t *platform_spi_peripherals = NULL;
 
+platform_spi_driver_t *platform_spi_drivers = NULL;
+
 const platform_spi_slave_driver_t *platform_spi_slave_drivers = NULL;
 
 const platform_uart_t platform_uart_peripherals[] =

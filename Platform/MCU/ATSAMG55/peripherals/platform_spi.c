@@ -75,6 +75,7 @@ static Flexcom  *flexcom_base[] =
 OSStatus platform_spi_init( platform_spi_driver_t* driver, const platform_spi_t* peripheral, const platform_spi_config_t* config )
 {
   pdc_packet_t  pdc_spi_packet;
+  Pdc*          spi_pdc;
   OSStatus      err;
 
   platform_mcu_powersave_disable( );
@@ -94,7 +95,7 @@ OSStatus platform_spi_init( platform_spi_driver_t* driver, const platform_spi_t*
 #endif
 
 
-  Pdc* spi_pdc = spi_get_pdc_base( peripheral->port );
+  spi_pdc = spi_get_pdc_base( peripheral->port );
 
   /* Setup chip select pin */
   platform_gpio_init( config->chip_select, OUTPUT_PUSH_PULL );
@@ -147,6 +148,8 @@ OSStatus platform_spi_deinit( platform_spi_driver_t* driver )
   mico_rtos_lock_mutex( &driver->spi_mutex );
 #endif
   /* Disable the RX and TX PDC transfer requests */
+  flexcom_disable( flexcom_base[ driver->peripheral->spi_id ] );
+  
   spi_disable( driver->peripheral->port );
   spi_reset( driver->peripheral->port );
 
