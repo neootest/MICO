@@ -86,6 +86,7 @@ OSStatus platform_watchdog_init( uint32_t timeout_ms )
 #ifndef MICO_DISABLE_WATCHDOG
   OSStatus err = kNoErr;
   uint32_t reloadTick;
+  timeout_ms += 1000;
   /* Get the LSI frequency:  TIM5 is used to measure the LSI frequency */
   LsiFreq = GetLSIFrequency();
   

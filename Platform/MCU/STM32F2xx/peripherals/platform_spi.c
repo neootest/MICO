@@ -307,6 +307,8 @@ OSStatus platform_spi_transfer( platform_spi_driver_t* driver, const platform_sp
   
   for ( i = 0; i < number_of_segments; i++ )
   {
+    if( count == 0)
+      continue;
     /* Check if we are using DMA */
     if ( config->mode & SPI_USE_DMA )
     {

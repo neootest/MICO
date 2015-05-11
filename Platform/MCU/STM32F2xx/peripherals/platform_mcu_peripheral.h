@@ -166,7 +166,9 @@ typedef struct
 typedef struct
 {
     platform_spi_t*           peripheral;
+#ifndef NO_MICO_RTOS
     mico_mutex_t              spi_mutex;
+#endif
 } platform_spi_driver_t;
 
 typedef struct
@@ -234,7 +236,7 @@ typedef struct
 typedef struct
 {
     platform_flash_t*          peripheral;
-    bool                       initialized;
+    volatile bool              initialized;
 #ifndef NO_MICO_RTOS
     mico_mutex_t               flash_mutex;
 #endif

@@ -263,6 +263,8 @@ OSStatus platform_spi_transfer( platform_spi_driver_t* driver, const platform_sp
 
   for ( i = 0; i < number_of_segments; i++ )
   {
+    if( segments[i].length == 0)
+      continue;
     result = samg5x_spi_transfer_internal( driver->peripheral, segments[i].tx_buffer, segments[i].rx_buffer, segments[i].length );
 
     if ( result != kNoErr )
