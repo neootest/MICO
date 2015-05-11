@@ -307,6 +307,7 @@ OSStatus platform_spi_transfer( platform_spi_driver_t* driver, const platform_sp
   
   for ( i = 0; i < number_of_segments; i++ )
   {
+    count = segments[i].length;
     if( count == 0)
       continue;
     /* Check if we are using DMA */
@@ -320,9 +321,7 @@ OSStatus platform_spi_transfer( platform_spi_driver_t* driver, const platform_sp
       }
     }
     else
-    {
-      count = segments[i].length;
-      
+    { 
       /* in interrupt-less mode */
       if ( config->bits == 8 )
       {
