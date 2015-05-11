@@ -114,7 +114,7 @@ extern "C"
 
 #define MICO_FLASH_FOR_UPDATE       MICO_SPI_FLASH  /* Optional */
 #define UPDATE_START_ADDRESS        (uint32_t)0x00050000 /* Optional */
-#define UPDATE_END_ADDRESS          (uint32_t)0x0009FFFF /* Optional */
+#define UPDATE_END_ADDRESS          (uint32_t)0x000C3FFF /* Optional */
 #define UPDATE_FLASH_SIZE           (UPDATE_END_ADDRESS - UPDATE_START_ADDRESS + 1) /* 320k bytes, optional*/
 
 #define MICO_FLASH_FOR_BOOT         MICO_INTERNAL_FLASH

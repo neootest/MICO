@@ -160,6 +160,17 @@ typedef enum
 #define MFG_TEST         MICO_UART_1
 #define CLI_UART         MICO_UART_1
 
+#define FUNC_USB_EN					   
+//#define FUNC_CARD_EN					
+
+#ifdef FUNC_USB_EN
+  #define UDISK_PORT_NUM		        2		// USB端口定义
+#endif
+
+#ifdef FUNC_CARD_EN
+  #define	SD_PORT_NUM                 1		// SD卡端口定义
+#endif
+
 #ifdef __cplusplus
 } /*extern "C" */
 #endif

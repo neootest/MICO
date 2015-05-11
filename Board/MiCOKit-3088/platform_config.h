@@ -42,6 +42,7 @@
 #define HARDWARE_REVISION   "MiCOKit_3088_1"
 #define DEFAULT_NAME        "MiCOKit 3088"
 #define MODEL               "MiCOKit-3088"
+#define Bootloader_REVISION "V 0.1"
 
 /* MICO RTOS tick rate in Hz */
 #define MICO_DEFAULT_TICK_RATE_HZ                   (1000) 

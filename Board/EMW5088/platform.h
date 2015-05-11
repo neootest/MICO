@@ -106,7 +106,7 @@ typedef enum
 } mico_flash_t;
 
 #ifdef BOOTLOADER
-#define STDIO_UART       MICO_UART_1
+#define STDIO_UART       MICO_UART_2
 #define STDIO_UART_BAUDRATE (115200) 
 #else
 #define STDIO_UART       MICO_UART_1
@@ -128,6 +128,17 @@ typedef enum
 #define MICO_I2C_CP         (MICO_I2C_NONE)
 
 #define MICO_RF_LED         (MICO_GPIO_NONE)
+
+#define FUNC_USB_EN					   
+//#define FUNC_CARD_EN					
+
+#ifdef FUNC_USB_EN
+  #define UDISK_PORT_NUM		        2		// USB端口定义
+#endif
+
+#ifdef FUNC_CARD_EN
+  #define	SD_PORT_NUM                 1		// SD卡端口定义
+#endif
 
 #ifdef __cplusplus
 } /*extern "C" */

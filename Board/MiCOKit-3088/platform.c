@@ -116,7 +116,8 @@ const platform_gpio_t platform_gpio_pins[] =
   [STDIO_UART_RX]                       = {GPIOB,  6},
   [STDIO_UART_TX]                       = {GPIOB,  7},
   [USB_DETECT]                          = {GPIOA,  22},
-
+  [MFG_SEL]                             = {GPIOB, 25}, 
+  [BOOT_SEL]                            = {GPIOB, 26},
 //  /* GPIOs for external use */
   [APP_UART_RX]                         = {GPIOB, 29},
   [APP_UART_TX]                         = {GPIOB, 28},  
@@ -270,16 +271,7 @@ void init_platform( void )
 #include "host_hcd.h"
 #include "dir.h"
 
-#define FUNC_USB_EN					   
-//#define FUNC_CARD_EN					
 
-#ifdef FUNC_USB_EN
-  #define UDISK_PORT_NUM		        2		// USB端口定义
-#endif
-
-#ifdef FUNC_CARD_EN
-  #define	SD_PORT_NUM                 1		// SD卡端口定义
-#endif
 
 static bool HardwareInit(DEV_ID DevId);
 static FOLDER	 RootFolder;
@@ -292,6 +284,7 @@ void init_platform_bootloader( void )
   uint32_t BootNvmInfo;
   OSStatus err;
   
+  MicoGpioInitialize( BOOT_SEL, INPUT_PULL_UP );
   /* Check USB-HOST is inserted */
   err = MicoGpioInitialize( (mico_gpio_t)USB_DETECT, INPUT_PULL_DOWN );
   require_noerr(err, exit);
@@ -299,7 +292,8 @@ void init_platform_bootloader( void )
   
   require_string( MicoGpioInputGet( (mico_gpio_t)USB_DETECT ) == true, exit, "USB device is not inserted" );
 
-  platform_log("USB device inserted");
+  printf("PASS");
+  //platform_log("USB device inserted");
   if( HardwareInit(DEV_ID_USB) ){
     FolderOpenByNum(&RootFolder, NULL, 1);
     FileBrowse(RootFolder.FsContext);
@@ -491,10 +485,12 @@ bool MicoShouldEnterMFGMode(void)
 
 bool MicoShouldEnterBootloader(void)
 {
-//  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==true)
-//    return true;
-//  else
+
+  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false)
     return true;
+  else {
+    return false;
+  }
 }
 
 

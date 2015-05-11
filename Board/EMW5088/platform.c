@@ -275,16 +275,6 @@ static FOLDER	 RootFolder;
 static void FileBrowse(FS_CONTEXT* FsContext);
 static bool UpgradeFileFound = false;
 
-#define FUNC_USB_EN					   
-//#define FUNC_CARD_EN					
-
-#ifdef FUNC_USB_EN
-  #define UDISK_PORT_NUM		        2		// USB端口定义
-#endif
-
-#ifdef FUNC_CARD_EN
-  #define	SD_PORT_NUM                 1		// SD卡端口定义
-#endif
 
 void init_platform_bootloader( void )
 {
@@ -293,7 +283,6 @@ void init_platform_bootloader( void )
   
   MicoGpioInitialize( BOOT_SEL, INPUT_PULL_UP );
   MicoGpioInitialize( MFG_SEL, INPUT_PULL_UP );
-  return;
   
   /* Check USB-HOST is inserted */
   err = MicoGpioInitialize( USB_DETECT, INPUT_PULL_DOWN );
@@ -335,6 +324,16 @@ void init_platform_bootloader( void )
   }
   else
   {
+    mico_uart_config_t uart_config;
+    
+    uart_config.baud_rate    = 115200;
+    uart_config.data_width   = DATA_WIDTH_8BIT;
+    uart_config.parity       = NO_PARITY;
+    uart_config.stop_bits    = STOP_BITS_1;
+    uart_config.flow_control = FLOW_CONTROL_DISABLED;
+    uart_config.flags = UART_WAKEUP_DISABLE;
+    MicoUartInitialize( MICO_UART_1, &uart_config, (ring_buffer_t *)NULL );
+
     if(BootNvmInfo == (uint32_t)UPGRADE_ERRNO_NOERR)
     {
       platform_log("[UPGRADE]:found upgrade ball, prepare to boot upgrade");
@@ -349,6 +348,7 @@ void init_platform_bootloader( void )
     {
       BootNvmInfo = (uint32_t)UPGRADE_ERRNO_NOERR;
       NvmWrite(UPGRADE_NVM_ADDR, (uint8_t*)&BootNvmInfo, 4);
+      MicoUartSend( MICO_UART_1, "PASS", 4 ); // report PASS to MFG
       platform_log("[UPGRADE]:found upgrade ball file for the last time, re-plugin/out, if you want to upgrade again");
     }
     else
@@ -358,14 +358,17 @@ void init_platform_bootloader( void )
         platform_log("[UPGRADE]:Same file, no need to update");
         goto exit;
       }
+      MicoUartSend( MICO_UART_1, "FAIL", 4 );
       BootNvmInfo = (uint32_t)UPGRADE_ERRNO_NOERR;
       NvmWrite(UPGRADE_NVM_ADDR, (uint8_t*)&BootNvmInfo, 4);
       BootNvmInfo = UPGRADE_REQT_MAGIC;
       NvmWrite(UPGRADE_NVM_ADDR, (uint8_t*)&BootNvmInfo, 4);
             //if you want PORRESET to reset GPIO only,uncomment it
             //GpioPorSysReset(GPIO_RSTSRC_PORREST);
+      mico_thread_msleep_no_os(10);
       NVIC_SystemReset();
     }
+    MicoUartFinalize(MICO_UART_1);
   }
 exit:
   return;
