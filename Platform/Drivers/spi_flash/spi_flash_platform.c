@@ -23,7 +23,9 @@ int sflash_platform_init ( /*@shared@*/ void* peripheral_id, /*@out@*/ void** pl
         /*@+mustdefine@*/
     }
 
-    *platform_peripheral_out = NULL;
+    if( platform_peripheral_out != NULL)
+      *platform_peripheral_out = NULL;
+    
     return 0;
 }
 

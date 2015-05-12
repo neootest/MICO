@@ -117,10 +117,7 @@ OSStatus platform_flash_init( platform_flash_driver_t *driver, const platform_fl
     err = kTypeErr;
     goto exit;
   }
-#ifndef NO_MICO_RTOS 
-  err = mico_rtos_init_mutex( &driver->flash_mutex );
-#endif
-  require_noerr(err, exit);
+
   driver->initialized = true;
 
 exit:
@@ -154,28 +151,22 @@ OSStatus platform_flash_erase( platform_flash_driver_t *driver, uint32_t StartAd
   require_action_quiet( driver->initialized != false, exit, err = kNotInitializedErr);
   require_action( StartAddress >= driver->peripheral->flash_start_addr 
                && EndAddress   <= driver->peripheral->flash_start_addr + driver->peripheral->flash_length - 1, exit, err = kParamErr);
-#ifndef NO_MICO_RTOS 
-  mico_rtos_lock_mutex( &driver->flash_mutex );
-#endif
+
   if( driver->peripheral->flash_type == FLASH_TYPE_INTERNAL ){
     err = internalFlashErase(StartAddress, EndAddress);    
-    require_noerr(err, exit_with_mutex);
+    require_noerr(err, exit);
   }
 #ifdef USE_MICO_SPI_FLASH
   else if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){
     err = spiFlashErase(StartAddress, EndAddress);
-    require_noerr(err, exit_with_mutex);
+    require_noerr(err, exit);
   }
 #endif
   else{
     err = kTypeErr;
-    goto exit_with_mutex;
+    goto exit;
   }
 
-exit_with_mutex: 
-#ifndef NO_MICO_RTOS 
-  mico_rtos_unlock_mutex( &driver->flash_mutex );
-#endif
 exit:
   return err;
 }
@@ -211,29 +202,22 @@ OSStatus platform_flash_write( platform_flash_driver_t *driver, volatile uint32_
   require_action_quiet( driver->initialized != false, exit, err = kNotInitializedErr);
   require_action( *FlashAddress >= driver->peripheral->flash_start_addr 
                && *FlashAddress + DataLength <= driver->peripheral->flash_start_addr + driver->peripheral->flash_length, exit, err = kParamErr);
-#ifndef NO_MICO_RTOS 
-  mico_rtos_lock_mutex( &driver->flash_mutex );
-#endif
+    
   if( driver->peripheral->flash_type == FLASH_TYPE_INTERNAL ){
     err = internalFlashWrite(FlashAddress, (uint32_t *)Data, DataLength); 
-    require_noerr(err, exit_with_mutex);
+    require_noerr(err, exit);
   }
 #ifdef USE_MICO_SPI_FLASH
   else if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){
     err = sflash_write( &sflash_handle, *FlashAddress, Data, DataLength );
-    require_noerr(err, exit_with_mutex);
+    require_noerr(err, exit);
     *FlashAddress += DataLength;
   }
 #endif
   else{
     err = kTypeErr;
-    goto exit_with_mutex;
+    goto exit;
   }
-
-exit_with_mutex: 
-#ifndef NO_MICO_RTOS 
-  mico_rtos_unlock_mutex( &driver->flash_mutex );
-#endif
 
 exit:
   return err;
@@ -271,9 +255,7 @@ OSStatus platform_flash_read( platform_flash_driver_t *driver, volatile uint32_t
   require_action_quiet( driver->initialized != false, exit, err = kNotInitializedErr);
   require_action( (*FlashAddress >= driver->peripheral->flash_start_addr) 
                && (*FlashAddress + DataLength) <= (driver->peripheral->flash_start_addr + driver->peripheral->flash_length), exit, err = kParamErr);
-#ifndef NO_MICO_RTOS 
-  mico_rtos_lock_mutex( &driver->flash_mutex );
-#endif
+
   if( driver->peripheral->flash_type == FLASH_TYPE_INTERNAL ){
     memcpy(Data, (void *)(*FlashAddress), DataLength);
     *FlashAddress += DataLength;
@@ -281,19 +263,15 @@ OSStatus platform_flash_read( platform_flash_driver_t *driver, volatile uint32_t
 #ifdef USE_MICO_SPI_FLASH
   else if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){
     err = sflash_read( &sflash_handle, *FlashAddress, Data, DataLength );
-    require_noerr(err, exit_with_mutex);
+    require_noerr(err, exit);
     *FlashAddress += DataLength;
   }
 #endif
   else{
     err = kTypeErr;
-    goto exit_with_mutex;
+    goto exit;
   }
 
-exit_with_mutex: 
-#ifndef NO_MICO_RTOS 
-  mico_rtos_unlock_mutex( &driver->flash_mutex );
-#endif
 exit:
   return err;
 }
@@ -320,9 +298,6 @@ OSStatus platform_flash_deinit( platform_flash_driver_t *driver)
   require_action_quiet( driver != NULL, exit, err = kParamErr);
 
   driver->initialized = false;
-#ifndef NO_MICO_RTOS 
-  mico_rtos_deinit_mutex( &driver->flash_mutex );
-#endif
 
   if( driver->peripheral->flash_type == FLASH_TYPE_INTERNAL){
     err = internalFlashFinalize();   
@@ -333,12 +308,12 @@ OSStatus platform_flash_deinit( platform_flash_driver_t *driver)
     sflash_handle.device_id = 0x0;
   }
 #endif
-  else
-    return kUnsupportedErr;
-
+  else{
+    err = kTypeErr;
+    goto exit;
+  }
   
 exit:
-  
   return err;
 }
 

@@ -322,29 +322,45 @@ OSStatus MicoRtcSetTime(mico_rtc_time_t* time)
 OSStatus MicoSpiInitialize( const mico_spi_device_t* spi )
 {
   platform_spi_config_t config;
+  OSStatus              err = kNoErr;
 
   if ( spi->port >= MICO_SPI_NONE )
     return kUnsupportedErr;
+
+  if( platform_spi_drivers[spi->port].spi_mutex == NULL)
+    mico_rtos_init_mutex( &platform_spi_drivers[spi->port].spi_mutex );
   
   config.chip_select = &platform_gpio_pins[spi->chip_select];
   config.speed       = spi->speed;
   config.mode        = spi->mode;
   config.bits        = spi->bits;
   
-  return (OSStatus) platform_spi_init( &platform_spi_drivers[spi->port], &platform_spi_peripherals[spi->port], &config );
+  mico_rtos_lock_mutex( &platform_spi_drivers[spi->port].spi_mutex );
+  err = platform_spi_init( &platform_spi_drivers[spi->port], &platform_spi_peripherals[spi->port], &config );
+  mico_rtos_unlock_mutex( &platform_spi_drivers[spi->port].spi_mutex );
+
+exit:
+  return err;
 }
 
 OSStatus MicoSpiFinalize( const mico_spi_device_t* spi )
 {
+  OSStatus err = kNoErr;
+
   if ( spi->port >= MICO_SPI_NONE )
     return kUnsupportedErr;
   
-  return (OSStatus) platform_spi_deinit( &platform_spi_drivers[spi->port] );
+  mico_rtos_lock_mutex( &platform_spi_drivers[spi->port].spi_mutex );
+  err = platform_spi_deinit( &platform_spi_drivers[spi->port] );
+  mico_rtos_unlock_mutex( &platform_spi_drivers[spi->port].spi_mutex );
+
+  return err;
 }
 
 OSStatus MicoSpiTransfer( const mico_spi_device_t* spi, const mico_spi_message_segment_t* segments, uint16_t number_of_segments )
 {
   platform_spi_config_t config;
+  OSStatus err = kNoErr;
 
   if ( spi->port >= MICO_SPI_NONE )
     return kUnsupportedErr;
@@ -354,7 +370,11 @@ OSStatus MicoSpiTransfer( const mico_spi_device_t* spi, const mico_spi_message_s
   config.mode        = spi->mode;
   config.bits        = spi->bits;
   
-  return (OSStatus) platform_spi_transfer( &platform_spi_drivers[spi->port], &config, segments, number_of_segments );
+  mico_rtos_lock_mutex( &platform_spi_drivers[spi->port].spi_mutex );
+  err = platform_spi_transfer( &platform_spi_drivers[spi->port], &config, segments, number_of_segments );
+  mico_rtos_unlock_mutex( &platform_spi_drivers[spi->port].spi_mutex );
+
+  return err;
 }
 
 OSStatus MicoSpiSlaveInitialize( mico_spi_t spi, const mico_spi_slave_config_t* config )
@@ -474,21 +494,36 @@ void MicoWdgReload( void )
 
 OSStatus MicoFlashInitialize( mico_flash_t flash )
 {
-  return (OSStatus) platform_flash_init( &platform_flash_drivers[flash], &platform_flash_peripherals[flash] );
+  OSStatus err = kNoErr;
+  if( platform_flash_drivers[flash].flash_mutex == NULL){
+    err = mico_rtos_init_mutex( &platform_flash_drivers[flash].flash_mutex );
+    require_noerr(err, exit);
+  }
+  mico_rtos_lock_mutex( &platform_flash_drivers[flash].flash_mutex );
+
+  err = platform_flash_init( &platform_flash_drivers[flash], &platform_flash_peripherals[flash] );
+
+  mico_rtos_unlock_mutex( &platform_flash_drivers[flash].flash_mutex );
+
+exit:
+  return err;
 }
 
 OSStatus MicoFlashErase( mico_flash_t flash, uint32_t StartAddress, uint32_t EndAddress )
 {
   OSStatus err = kNoErr;
-  
+
   if( platform_flash_drivers[flash].initialized == false )
   {
     err =  platform_flash_init( &platform_flash_drivers[flash], &platform_flash_peripherals[flash] );
     require_noerr( err, exit );
   }
+  mico_rtos_lock_mutex( &platform_flash_drivers[flash].flash_mutex );
   err = platform_flash_erase( &platform_flash_drivers[flash], StartAddress, EndAddress );
+  mico_rtos_unlock_mutex( &platform_flash_drivers[flash].flash_mutex );
 
 exit:
+  
   return err;
 }
 
@@ -501,7 +536,9 @@ OSStatus MicoFlashWrite(mico_flash_t flash, volatile uint32_t* FlashAddress, uin
     err =  platform_flash_init( &platform_flash_drivers[flash], &platform_flash_peripherals[flash] );
     require_noerr( err, exit );
   }
+  mico_rtos_lock_mutex( &platform_flash_drivers[flash].flash_mutex );
   err = platform_flash_write( &platform_flash_drivers[flash], FlashAddress, Data, DataLength );
+  mico_rtos_unlock_mutex( &platform_flash_drivers[flash].flash_mutex );
   
 exit:
   return err;
@@ -516,7 +553,9 @@ OSStatus MicoFlashRead(mico_flash_t flash, volatile uint32_t* FlashAddress, uint
     err =  platform_flash_init( &platform_flash_drivers[flash], &platform_flash_peripherals[flash] );
     require_noerr( err, exit );
   }
+  mico_rtos_lock_mutex( &platform_flash_drivers[flash].flash_mutex );
   err = platform_flash_read( &platform_flash_drivers[flash], FlashAddress, Data, DataLength );
+  mico_rtos_unlock_mutex( &platform_flash_drivers[flash].flash_mutex );
   
 exit:
   return err;
@@ -525,13 +564,15 @@ exit:
 OSStatus MicoFlashFinalize( mico_flash_t flash )
 {
   OSStatus err = kNoErr;
-  
   if( platform_flash_drivers[flash].initialized == false )
   {
     err =  platform_flash_init( &platform_flash_drivers[flash], &platform_flash_peripherals[flash] );
     require_noerr( err, exit );
   }
+
+  mico_rtos_lock_mutex( &platform_flash_drivers[flash].flash_mutex );
   err = platform_flash_deinit( &platform_flash_drivers[flash] );
+  mico_rtos_unlock_mutex( &platform_flash_drivers[flash].flash_mutex );
   
 exit:
   return err;
@@ -589,3 +630,33 @@ void mico_set_bootload_ver(void)
 }
 
 #endif
+
+
+#ifdef NO_MICO_RTOS
+
+OSStatus mico_rtos_init_mutex( mico_mutex_t* mutex )
+{
+  UNUSED_PARAMETER( mutex );
+  return kNoErr;
+}
+
+OSStatus mico_rtos_lock_mutex( mico_mutex_t* mutex )
+{
+  UNUSED_PARAMETER( mutex );
+  return kNoErr;
+}
+
+OSStatus mico_rtos_unlock_mutex( mico_mutex_t* mutex )
+{
+  UNUSED_PARAMETER( mutex );
+  return kNoErr;
+}
+
+OSStatus mico_rtos_deinit_mutex( mico_mutex_t* mutex )
+{
+  UNUSED_PARAMETER( mutex );
+  return kNoErr;
+}
+
+#endif
+

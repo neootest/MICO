@@ -82,18 +82,7 @@ OSStatus platform_spi_init( platform_spi_driver_t* driver, const platform_spi_t*
 
   require_action_quiet( ( driver != NULL ) && ( peripheral != NULL ) && ( config != NULL ), exit, err = kParamErr);
 
-#ifndef NO_MICO_RTOS
-  if( driver->spi_mutex == NULL)
-    mico_rtos_init_mutex( &driver->spi_mutex );
-#endif
-
   driver->peripheral = (platform_spi_t *)peripheral;
-
-  /* Operate hardware, request a lock */
-#ifndef NO_MICO_RTOS
-  mico_rtos_lock_mutex( &driver->spi_mutex );
-#endif
-
 
   spi_pdc = spi_get_pdc_base( peripheral->port );
 
@@ -133,10 +122,6 @@ OSStatus platform_spi_init( platform_spi_driver_t* driver, const platform_spi_t*
   spi_enable( peripheral->port );
   pdc_disable_transfer( spi_pdc, PERIPH_PTCR_RXTDIS | PERIPH_PTCR_TXTDIS );
 
-#ifndef NO_MICO_RTOS
-  mico_rtos_unlock_mutex( &driver->spi_mutex );
-#endif
-
 exit:
   platform_mcu_powersave_enable( );
   return kNoErr;
@@ -144,18 +129,12 @@ exit:
 
 OSStatus platform_spi_deinit( platform_spi_driver_t* driver )
 {
-#ifndef NO_MICO_RTOS
-  mico_rtos_lock_mutex( &driver->spi_mutex );
-#endif
   /* Disable the RX and TX PDC transfer requests */
   flexcom_disable( flexcom_base[ driver->peripheral->spi_id ] );
   
   spi_disable( driver->peripheral->port );
   spi_reset( driver->peripheral->port );
 
-#ifndef NO_MICO_RTOS
-  mico_rtos_unlock_mutex( &driver->spi_mutex );
-#endif
   return kNoErr;
 }
 
@@ -255,10 +234,6 @@ OSStatus platform_spi_transfer( platform_spi_driver_t* driver, const platform_sp
   OSStatus result;
   platform_mcu_powersave_disable( );
 
-#ifndef NO_MICO_RTOS
-  mico_rtos_lock_mutex( &driver->spi_mutex );
-#endif
-
   platform_gpio_output_low( config->chip_select );
 
   for ( i = 0; i < number_of_segments; i++ )
@@ -274,10 +249,6 @@ OSStatus platform_spi_transfer( platform_spi_driver_t* driver, const platform_sp
   }
 
   platform_gpio_output_high( config->chip_select );
-
-#ifndef NO_MICO_RTOS
-  mico_rtos_unlock_mutex( &driver->spi_mutex );
-#endif
 
   platform_mcu_powersave_enable( );
 

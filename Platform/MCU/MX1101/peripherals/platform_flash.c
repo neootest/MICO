@@ -423,10 +423,7 @@ OSStatus platform_flash_init( platform_flash_driver_t *driver, const platform_fl
     err = kTypeErr;
     goto exit;
   }
-#ifndef NO_MICO_RTOS 
-  err = mico_rtos_init_mutex( &driver->flash_mutex );
-  require_noerr(err, exit);
-#endif
+
   driver->initialized = true;
 
 exit:
@@ -442,21 +439,15 @@ OSStatus platform_flash_erase( platform_flash_driver_t *driver, uint32_t StartAd
   require_action( StartAddress >= driver->peripheral->flash_start_addr 
                && EndAddress   <= driver->peripheral->flash_start_addr + driver->peripheral->flash_length - 1, exit, err = kParamErr);
   
-#ifndef NO_MICO_RTOS 
-  mico_rtos_lock_mutex( &driver->flash_mutex );
-#endif
+
   if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){
     err = SpiFlashErase( StartAddress, EndAddress - StartAddress +1 );
-    require_noerr(err, exit_with_mutex);
+    require_noerr(err, exit);
   }else{
     err = kTypeErr;
-    goto exit_with_mutex;
+    goto exit;
   }
 
-exit_with_mutex: 
-#ifndef NO_MICO_RTOS 
-  mico_rtos_unlock_mutex( &driver->flash_mutex );
-#endif
 exit:
   return err;
 }
@@ -469,22 +460,15 @@ OSStatus platform_flash_write( platform_flash_driver_t *driver, volatile uint32_
   require_action_quiet( driver->initialized != false, exit, err = kNotInitializedErr);
   require_action( *FlashAddress >= driver->peripheral->flash_start_addr 
                && *FlashAddress + DataLength <= driver->peripheral->flash_start_addr + driver->peripheral->flash_length, exit, err = kParamErr);
-#ifndef NO_MICO_RTOS 
-  mico_rtos_lock_mutex( &driver->flash_mutex );
-#endif
+
   if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){
     err = SpiFlashWrite(*FlashAddress, Data, DataLength);
-    require_noerr(err, exit_with_mutex);
+    require_noerr(err, exit);
     *FlashAddress += DataLength;
   }else{
     err = kTypeErr;
-    goto exit_with_mutex;
+    goto exit;
   }
-
-exit_with_mutex: 
-#ifndef NO_MICO_RTOS 
-  mico_rtos_unlock_mutex( &driver->flash_mutex );
-#endif
 
 exit:
   return err;
@@ -500,23 +484,15 @@ OSStatus platform_flash_read( platform_flash_driver_t *driver, volatile uint32_t
   require_action( *FlashAddress >= driver->peripheral->flash_start_addr 
                && *FlashAddress + DataLength <= driver->peripheral->flash_start_addr + driver->peripheral->flash_length, exit, err = kParamErr);
   
-#ifndef NO_MICO_RTOS 
-  mico_rtos_lock_mutex( &driver->flash_mutex );
-#endif
-  
   if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){
     err = SpiFlashRead(*FlashAddress, Data, DataLength);
-    require_noerr(err, exit_with_mutex);
+    require_noerr(err, exit);
     *FlashAddress += DataLength;
   }else{
     err = kTypeErr;
-    goto exit_with_mutex;
+    goto exit;
   }
 
-exit_with_mutex: 
-#ifndef NO_MICO_RTOS 
-  mico_rtos_unlock_mutex( &driver->flash_mutex );
-#endif
 exit:
   return err;
 }
@@ -529,9 +505,6 @@ OSStatus platform_flash_deinit( platform_flash_driver_t *driver)
   require_action_quiet( driver != NULL, exit, err = kParamErr);
 
   driver->initialized = false;
-#ifndef NO_MICO_RTOS 
-  mico_rtos_deinit_mutex( &driver->flash_mutex );
-#endif
 
   if( driver->peripheral->flash_type == FLASH_TYPE_SPI ){
     /* To Do */

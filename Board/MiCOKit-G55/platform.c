@@ -240,10 +240,12 @@ MICO_RTOS_DEFINE_ISR( FLEXCOM6_Handler )
     platform_uart_irq( &platform_uart_drivers[MICO_UART_2] );
 }
 
+#ifndef BOOTLOADER
 MICO_RTOS_DEFINE_ISR( FLEXCOM5_Handler )
 {
     platform_wifi_spi_rx_dma_irq( );
 }
+#endif
 
 
 /******************************************************
